@@ -237,8 +237,8 @@ public class LocationProvider
 		}
 		else
 		{
-			if(Rule.isAnyRuleUsing(Trigger_Enum.pointOfInterest))
-				GeofenceIntentService.startService();
+//			if(Rule.isAnyRuleUsing(Trigger_Enum.pointOfInterest))
+//				GeofenceIntentService.startService();
 		}
 	}
 

@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.jens.automation2.location.CellLocationChangedReceiver;
 import com.jens.automation2.location.WifiBroadcastReceiver;
-import com.jens.automation2.receivers.ActivityDetectionReceiver;
 import com.jens.automation2.receivers.AlarmListener;
 import com.jens.automation2.receivers.AutomationListenerInterface;
 import com.jens.automation2.receivers.BatteryReceiver;

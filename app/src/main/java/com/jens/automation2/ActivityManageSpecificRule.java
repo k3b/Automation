@@ -34,11 +34,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+
 import com.jens.automation2.Action.Action_Enum;
 import com.jens.automation2.Trigger.Trigger_Enum;
-import com.jens.automation2.receivers.ActivityDetectionReceiver;
 import com.jens.automation2.receivers.NfcReceiver;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -489,7 +492,8 @@ public class ActivityManageSpecificRule extends Activity
 			    .setTitle(getResources().getString(R.string.selectTypeOfTrigger))
 			    .setAdapter(adapter, new DialogInterface.OnClickListener()
 			    {
-			        public void onClick(DialogInterface dialog, int which)
+			        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+					public void onClick(DialogInterface dialog, int which)
 			        {	
 			        	triggerType = Trigger_Enum.values()[which];
 
@@ -530,13 +534,25 @@ public class ActivityManageSpecificRule extends Activity
 							booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
 						else if(triggerType == Trigger_Enum.activityDetection)
 						{
-							if(ActivityDetectionReceiver.isPlayServiceAvailable())
+							try
 							{
-								newTrigger.setTriggerType(Trigger_Enum.activityDetection);
-								getTriggerActivityDetectionDialog().show();
+								Method m = Miscellaneous.getClassMethodReflective("ActivityDetectionReceiver", "isPlayServiceAvailable");
+								if(m != null)
+								{
+									boolean available = (Boolean)m.invoke(null);
+									if(available)
+									{
+										newTrigger.setTriggerType(Trigger_Enum.activityDetection);
+										getTriggerActivityDetectionDialog().show();
+									}
+									else
+										Toast.makeText(myContext, getResources().getString(R.string.triggerOnlyAvailableIfPlayServicesInstalled), Toast.LENGTH_LONG).show();
+								}
 							}
-							else
-								Toast.makeText(myContext, getResources().getString(R.string.triggerOnlyAvailableIfPlayServicesInstalled), Toast.LENGTH_LONG).show();
+							catch (IllegalAccessException | InvocationTargetException e)
+							{
+								e.printStackTrace();
+							}
 							return;
 						}
 						else if(triggerType == Trigger_Enum.nfcTag)
@@ -898,25 +914,52 @@ public class ActivityManageSpecificRule extends Activity
 		
 		return alertDialog;
 	}
+	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
 	private AlertDialog getTriggerActivityDetectionDialog()
 	{
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 
 		alertDialog.setTitle(Miscellaneous.getAnyContext().getResources().getString(R.string.selectTypeOfActivity));
-		String[] choices = ActivityDetectionReceiver.getAllDescriptions();
-		alertDialog.setItems(choices, new DialogInterface.OnClickListener()
-		{			
-			@Override
-			public void onClick(DialogInterface dialog, int which)
+
+		Method m = Miscellaneous.getClassMethodReflective("ActivityDetectionReceiver", "getAllDescriptions");
+		if(m != null)
+		{
+			String[] choices = new String[0];
+			try
 			{
-				newTrigger.setActivityDetectionType(ActivityDetectionReceiver.getAllTypes()[which]);
-				ruleToEdit.getTriggerSet().add(newTrigger);
-				refreshTriggerList();
+				choices = (String[])m.invoke(null);
+				alertDialog.setItems(choices, new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						Method m = Miscellaneous.getClassMethodReflective("ActivityDetectionReceiver", "getAllTypes");
+						if(m != null)
+						{
+							try
+							{
+								Integer[] choices = (Integer[])m.invoke(null);
+
+								newTrigger.setActivityDetectionType(choices[which]);
+								ruleToEdit.getTriggerSet().add(newTrigger);
+								refreshTriggerList();
+							}
+							catch (IllegalAccessException | InvocationTargetException e)
+							{
+								e.printStackTrace();
+							}
+						}
+					}
+				});
 			}
-		});
+			catch (IllegalAccessException | InvocationTargetException e)
+			{
+				e.printStackTrace();
+			}
+		}
 
 		return alertDialog.create();
-	}	
+	}
 	
 	private static class GenerateApplicationSelectionsDialogTask extends AsyncTask<ActivityManageSpecificRule, Void, String[]>
 	{

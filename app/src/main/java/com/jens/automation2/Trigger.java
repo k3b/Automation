@@ -2,10 +2,14 @@ package com.jens.automation2;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
+import android.os.Build;
 
-import com.jens.automation2.receivers.ActivityDetectionReceiver;
+import androidx.annotation.RequiresApi;
+
 import com.jens.automation2.receivers.BluetoothReceiver;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 
@@ -215,21 +219,12 @@ public class Trigger
 	}
 
 
+	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
 	@SuppressWarnings("unused")
 	@Override
 	public String toString()
 	{
 		StringBuilder returnString = new StringBuilder();
-		
-		/*
-		 *	public enum TriggerType_Enum { pointOfInterest, timeFrame, event };
-			public enum Event_Enum { charging_started, charging_stopped, usb_connected, usb_disconnected };
-			
-		    private TriggerType_Enum triggerType;
-		    private PointOfInterest pointOfInterest;
-		    private Event_Enum event;
-			private TimeFrame timeFrame;
-		*/
 		
 		switch(this.getTriggerType())
 		{
@@ -358,8 +353,27 @@ public class Trigger
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.closeTo) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.nfcTag) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.withLabel) + " " + this.getNfcTagId());
 				break;
 			case activityDetection:
-				// This type doesn't have an activate/deactivate equivalent, at least not yet.				
-				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.detectedActivity) + " " + ActivityDetectionReceiver.getDescription(getActivityDetectionType()));
+				if(ActivityPermissions.isPermissionDeclaratedInManifest(Miscellaneous.getAnyContext(), "com.google.android.gms.permission.ACTIVITY_RECOGNITION"))
+				{
+					// This type doesn't have an activate/deactivate equivalent, at least not yet.
+					try
+					{
+						Class activityDetection = Class.forName("com.jens.automation2.receivers.ActivityDetectionReceiver");
+						for(Method method : activityDetection.getMethods())
+						{
+							if(method.getName().equalsIgnoreCase("getDescription"))
+								returnString.append(method.invoke(getActivityDetectionType()));
+//							returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.detectedActivity) + " " + activityDetection.getDescription(getActivityDetectionType()));
+						}
+					}
+					catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException e)
+					{
+						e.printStackTrace();
+					}
+
+				}
+				else
+					returnString.append("Invalid trigger. This application version cannot handle ActivityDetection.");
 				break;
 			case bluetoothConnection:
 				String device = Miscellaneous.getAnyContext().getResources().getString(R.string.anyDevice);

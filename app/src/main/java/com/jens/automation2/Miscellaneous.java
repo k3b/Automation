@@ -48,6 +48,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.HttpURLConnection;
@@ -72,12 +73,9 @@ import javax.net.ssl.X509TrustManager;
 import static com.jens.automation2.AutomationService.NOTIFICATION_CHANNEL_ID;
 import static com.jens.automation2.AutomationService.channelName;
 
-//import android.R.string;
-//import android.util.Log;
-
 public class Miscellaneous extends Service
 {	
-	private static String writeableFolderStringCache = null;
+	protected static String writeableFolderStringCache = null;
 	public static final String lineSeparator = System.getProperty("line.separator");
 	
 	public static String downloadURL(String url, String username, String password)
@@ -883,5 +881,27 @@ public class Miscellaneous extends Service
 				cursor.close();
 			}
 		}
+	}
+
+	public static Method getClassMethodReflective(String className, String methodName)
+	{
+		Class atRecClass = null;
+		try
+		{
+			atRecClass = Class.forName("ActivityDetectionReceiver");
+			for(Method m : atRecClass.getMethods())
+			{
+				if(m.getName().equalsIgnoreCase("isPlayServiceAvailable"))
+				{
+					return m;
+				}
+			}
+		}
+		catch (ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 }
