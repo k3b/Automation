@@ -356,20 +356,20 @@ public class Trigger
 				if(ActivityPermissions.isPermissionDeclaratedInManifest(Miscellaneous.getAnyContext(), "com.google.android.gms.permission.ACTIVITY_RECOGNITION"))
 				{
 					// This type doesn't have an activate/deactivate equivalent, at least not yet.
-					try
-					{
-						Class activityDetection = Class.forName("com.jens.automation2.receivers.ActivityDetectionReceiver");
-						for(Method method : activityDetection.getMethods())
-						{
-							if(method.getName().equalsIgnoreCase("getDescription"))
-								returnString.append(method.invoke(getActivityDetectionType()));
-//							returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.detectedActivity) + " " + activityDetection.getDescription(getActivityDetectionType()));
-						}
-					}
-					catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException e)
-					{
-						e.printStackTrace();
-					}
+//					try
+//					{
+						returnString.append(Miscellaneous.runMethodReflective(ActivityManageSpecificRule.activityDetectionClassPath, "getDescription", new Object[] { getActivityDetectionType() } ));
+//						for(Method method : activityDetection.getMethods())
+//						{
+//							if(method.getName().equalsIgnoreCase("getDescription"))
+//								returnString.append(method.invoke());
+////							returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.detectedActivity) + " " + activityDetection.getDescription(getActivityDetectionType()));
+//						}
+//					}
+//					catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException e)
+//					{
+//						e.printStackTrace();
+//					}
 
 				}
 				else

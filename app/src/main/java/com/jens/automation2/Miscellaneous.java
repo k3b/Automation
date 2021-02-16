@@ -48,6 +48,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -885,13 +886,13 @@ public class Miscellaneous extends Service
 
 	public static Method getClassMethodReflective(String className, String methodName)
 	{
-		Class atRecClass = null;
+		Class foundClass = null;
 		try
 		{
-			atRecClass = Class.forName("ActivityDetectionReceiver");
-			for(Method m : atRecClass.getMethods())
+			foundClass = Class.forName(className);
+			for(Method m : foundClass.getDeclaredMethods())
 			{
-				if(m.getName().equalsIgnoreCase("isPlayServiceAvailable"))
+				if(m.getName().equalsIgnoreCase(methodName))
 				{
 					return m;
 				}
@@ -903,5 +904,28 @@ public class Miscellaneous extends Service
 		}
 
 		return null;
+	}
+
+	public static Object runMethodReflective(String className, String methodName, Object[] params)
+	{
+		Method m = getClassMethodReflective(className, methodName);
+		Object result = null;
+		try
+		{
+			if(params == null)
+				result = m.invoke((Object[]) null);
+			else
+				result = m.invoke(null, params);
+		}
+		catch (IllegalAccessException e)
+		{
+			e.printStackTrace();
+		}
+		catch (InvocationTargetException e)
+		{
+			e.printStackTrace();
+		}
+
+		return result;
 	}
 }

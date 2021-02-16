@@ -47,6 +47,8 @@ import java.util.Collections;
 
 public class ActivityManageSpecificRule extends Activity
 {
+	final static String activityDetectionClassPath = "com.jens.automation2.receivers.ActivityDetectionReceiver";
+
 	public Context context;
 	private Button cmdTriggerAdd, cmdActionAdd, cmdSaveRule;
 	private ListView triggerListView, actionListView;
@@ -536,7 +538,7 @@ public class ActivityManageSpecificRule extends Activity
 						{
 							try
 							{
-								Method m = Miscellaneous.getClassMethodReflective("ActivityDetectionReceiver", "isPlayServiceAvailable");
+								Method m = Miscellaneous.getClassMethodReflective(activityDetectionClassPath, "isPlayServiceAvailable");
 								if(m != null)
 								{
 									boolean available = (Boolean)m.invoke(null);
@@ -548,6 +550,8 @@ public class ActivityManageSpecificRule extends Activity
 									else
 										Toast.makeText(myContext, getResources().getString(R.string.triggerOnlyAvailableIfPlayServicesInstalled), Toast.LENGTH_LONG).show();
 								}
+								else
+									Miscellaneous.messageBox(getResources().getString(R.string.error), getResources().getString(R.string.featureNotInFdroidVersion), ActivityManageSpecificRule.this).show();
 							}
 							catch (IllegalAccessException | InvocationTargetException e)
 							{
@@ -921,7 +925,7 @@ public class ActivityManageSpecificRule extends Activity
 
 		alertDialog.setTitle(Miscellaneous.getAnyContext().getResources().getString(R.string.selectTypeOfActivity));
 
-		Method m = Miscellaneous.getClassMethodReflective("ActivityDetectionReceiver", "getAllDescriptions");
+		Method m = Miscellaneous.getClassMethodReflective(activityDetectionClassPath, "getAllDescriptions");
 		if(m != null)
 		{
 			String[] choices = new String[0];
@@ -933,12 +937,12 @@ public class ActivityManageSpecificRule extends Activity
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
-						Method m = Miscellaneous.getClassMethodReflective("ActivityDetectionReceiver", "getAllTypes");
+						Method m = Miscellaneous.getClassMethodReflective(activityDetectionClassPath, "getAllTypes");
 						if(m != null)
 						{
 							try
 							{
-								Integer[] choices = (Integer[])m.invoke(null);
+								int[] choices = (int[])m.invoke(null);
 
 								newTrigger.setActivityDetectionType(choices[which]);
 								ruleToEdit.getTriggerSet().add(newTrigger);

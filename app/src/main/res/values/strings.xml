@@ -597,4 +597,6 @@
     <string name="android.permission.ACCESS_BACKGROUND_LOCATION">Read location in background.</string>
     <string name="deviceDoesNotHaveBluetooth">This device does not seem to have bluetooth. You can still continue configuring this, but it will most likely not have an effect.</string>
     <string name="manageLocations">Create or edit locations</string>
+    <string name="error">Error</string>
+    <string name="featureNotInFdroidVersion">This feature is based on non-free software. Therefore is is not available in the F-Droid version.</string>
 </resources>

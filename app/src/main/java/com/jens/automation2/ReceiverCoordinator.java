@@ -1,5 +1,6 @@
 package com.jens.automation2;
 
+import android.os.Build;
 import android.util.Log;
 
 import com.jens.automation2.location.CellLocationChangedReceiver;
@@ -15,6 +16,13 @@ import com.jens.automation2.receivers.PhoneStatusListener;
 import com.jens.automation2.receivers.ProcessListener;
 import com.jens.automation2.receivers.TimeZoneListener;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import androidx.annotation.RequiresApi;
+
+import static com.jens.automation2.ActivityManageSpecificRule.activityDetectionClassPath;
+
 /**
  * Created by jens on 08.03.2017.
  */
@@ -28,28 +36,58 @@ public class ReceiverCoordinator
 	 * - Accelerometer
 	 */
 
-    public static final Class[] allImplementers = {
-            ActivityDetectionReceiver.class,
-            AlarmListener.class,
-            BatteryReceiver.class,
-            BluetoothReceiver.class,
-            ConnectivityReceiver.class,
-            HeadphoneJackListener.class,
-            //NfcReceiver.class,
-            NoiseListener.class,
-            PhoneStatusListener.class,
-            ProcessListener.class,
-            TimeZoneListener.class
-    };
+    public static Class[] allImplementers;
+
+    static void fillImplementers()
+    {
+        try
+        {
+            Class adClass = Class.forName("ActivityDetectionReceiver");
+            allImplementers = new Class[] {
+                    adClass,
+                    AlarmListener.class,
+                    BatteryReceiver.class,
+                    BluetoothReceiver.class,
+                    ConnectivityReceiver.class,
+                    HeadphoneJackListener.class,
+                    //NfcReceiver.class,
+                    NoiseListener.class,
+                    PhoneStatusListener.class,
+                    ProcessListener.class,
+                    TimeZoneListener.class
+             };
+        }
+        catch (ClassNotFoundException e)
+        {
+            e.printStackTrace();
+
+            allImplementers = new Class[] {
+                    AlarmListener.class,
+                    BatteryReceiver.class,
+                    BluetoothReceiver.class,
+                    ConnectivityReceiver.class,
+                    HeadphoneJackListener.class,
+                    //NfcReceiver.class,
+                    NoiseListener.class,
+                    PhoneStatusListener.class,
+                    ProcessListener.class,
+                    TimeZoneListener.class
+            };
+        }
+    }
 
     private static AutomationListenerInterface[] listeners = null;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static void startAllReceivers()
     {
 		/*
 		 * New procedure:
 		 * Save instances of Listeners in ArrayList and run them.
 		 */
+
+        fillImplementers();
+
         try
         {
             if(listeners == null)
@@ -130,7 +168,10 @@ public class ReceiverCoordinator
 
         //startActivityDetectionReceiver
         if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.activityDetection))
-            ActivityDetectionReceiver.startActivityDetectionReceiver();
+        {
+            Miscellaneous.runMethodReflective(activityDetectionClassPath, "startActivityDetectionReceiver", null);
+//            ActivityDetectionReceiver.startActivityDetectionReceiver();
+        }
 
         //startBluetoothReceiver
         if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.bluetoothConnection))
@@ -153,7 +194,8 @@ public class ReceiverCoordinator
             AlarmListener.stopAlarmListener(AutomationService.getInstance());
             NoiseListener.stopNoiseListener();
             ProcessListener.stopProcessListener(AutomationService.getInstance());
-            ActivityDetectionReceiver.stopActivityDetectionReceiver();
+            Miscellaneous.runMethodReflective("ActivityDetectionReceiver", "stopActivityDetectionReceiver", null);
+//            ActivityDetectionReceiver.stopActivityDetectionReceiver();
             BluetoothReceiver.stopBluetoothReceiver();
             HeadphoneJackListener.getInstance().stopListener(AutomationService.getInstance());
         }
@@ -213,25 +255,32 @@ public class ReceiverCoordinator
 
         if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.activityDetection))
         {
-            if(ActivityDetectionReceiver.isActivityDetectionReceiverRunning())
+            boolean isRunning = (Boolean)Miscellaneous.runMethodReflective("ActivityDetectionReceiver", "isActivityDetectionReceiverRunning", null);
+            if(isRunning)
             {
                 Miscellaneous.logEvent("i", "LocationProvider", "Restarting ActivityDetectionReceiver because used in a new/changed rule.", 4);
-                if(ActivityDetectionReceiver.haveAllPermission())
-                    ActivityDetectionReceiver.restartActivityDetectionReceiver();
+                boolean haveAllPerms = (Boolean)Miscellaneous.runMethodReflective("ActivityDetectionReceiver", "haveAllPermission", null);
+                if(haveAllPerms)
+                    Miscellaneous.runMethodReflective("ActivityDetectionReceiver", "restartActivityDetectionReceiver", null);
+//                    ActivityDetectionReceiver.restartActivityDetectionReceiver();
             }
             else
             {
                 Miscellaneous.logEvent("i", "LocationProvider", "Starting ActivityDetectionReceiver because used in a new/changed rule.", 4);
-                if(ActivityDetectionReceiver.haveAllPermission())
-                    ActivityDetectionReceiver.startActivityDetectionReceiver();
+                boolean haveAllPerms = (Boolean)Miscellaneous.runMethodReflective("ActivityDetectionReceiver", "haveAllPermission", null);
+                if(haveAllPerms)
+                    Miscellaneous.runMethodReflective("ActivityDetectionReceiver", "startActivityDetectionReceiver", null);
+//                    ActivityDetectionReceiver.startActivityDetectionReceiver();
             }
         }
         else
         {
-            if(ActivityDetectionReceiver.isActivityDetectionReceiverRunning())
+            boolean isRunning = (Boolean)Miscellaneous.runMethodReflective("ActivityDetectionReceiver", "isActivityDetectionReceiverRunning", null);
+            if(isRunning)
             {
                 Miscellaneous.logEvent("i", "LocationProvider", "Shutting down ActivityDetectionReceiver because not used in any rule.", 4);
-                ActivityDetectionReceiver.stopActivityDetectionReceiver();
+                Miscellaneous.runMethodReflective("ActivityDetectionReceiver", "stopActivityDetectionReceiver", null);
+//                ActivityDetectionReceiver.stopActivityDetectionReceiver();
             }
         }
 

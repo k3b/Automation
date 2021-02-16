@@ -9,7 +9,6 @@ import android.util.Log;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.ActivityRecognition;
 import com.google.android.gms.location.ActivityRecognitionApi;
 import com.google.android.gms.location.ActivityRecognitionResult;
@@ -199,6 +198,15 @@ public class ActivityDetectionReceiver extends IntentService implements Automati
 		{
 			Miscellaneous.logEvent("e", "ActivityDetectionReceiver", "Error stopping ActivityDetectionReceiver: " + Log.getStackTraceString(ex), 3);
 		}
+	}
+
+	public static boolean isPlayServiceAvailable()
+	{
+		if(GooglePlayServicesUtil.isGooglePlayServicesAvailable(Miscellaneous.getAnyContext()) == ConnectionResult.SUCCESS)
+			return true;
+		else
+			return false;
+	}
 
 
 	@Override
