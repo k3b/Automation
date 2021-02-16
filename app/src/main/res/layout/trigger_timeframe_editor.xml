@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:layout_weight="30" 
+    android:layout_margin="10dp" >
+	    
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
+	
+	    <TextView
+	        android:id="@+id/tvRuleTitle"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/start"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	    <TimePicker
+	        android:id="@+id/tpTimeFrameStart"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" />
+	
+	    <TextView
+	        android:id="@+id/tvTimeFrameHelpText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/end"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	    <TimePicker
+	        android:id="@+id/tpTimeFrameStop"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" />
+    
+	<ImageView
+	  android:layout_width="match_parent"
+	  android:layout_height="1dp"
+	  android:layout_margin="10dp"
+	  android:background="#aa000000" />
+
+	<TextView
+	    android:id="@+id/textView2"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="@string/insideOrOutsideTimeFrames"
+	    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+	    <RadioGroup
+	        android:layout_width="match_parent" 
+	        android:layout_height="wrap_content">
+
+		    <RadioButton
+		        android:id="@+id/radioTimeFrameEntering"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:checked="true"
+		        android:text="@string/entering" />
+	
+		    <RadioButton
+		        android:id="@+id/radioTimeFrameLeaving"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/leaving" />
+		</RadioGroup>
+    
+	<ImageView
+	  android:layout_width="match_parent"
+	  android:layout_height="1dp"
+	  android:layout_margin="10dp"
+	  android:background="#aa000000" />
+
+	<TextView
+	    android:id="@+id/tvCurrentNfcIdValue"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="@string/timeFrameWhichDays"
+	    android:textAppearance="?android:attr/textAppearanceLarge" />
+			
+	    <CheckBox
+	        android:id="@+id/checkMonday"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/monday" />
+	
+	    <CheckBox
+	        android:id="@+id/checkTuesday"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/tuesday" />
+	
+	    <CheckBox
+	        android:id="@+id/checkWednesday"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/wednesday" />
+	
+	    <CheckBox
+	        android:id="@+id/checkThursday"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/thursday" />
+	
+	    <CheckBox
+	        android:id="@+id/checkFriday"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/friday" />
+	
+	    <CheckBox
+	        android:id="@+id/checkSaturday"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/saturday" />
+	
+	    <CheckBox
+	        android:id="@+id/checkSunday"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/sunday" />
+	
+	    <Button
+	        android:id="@+id/bSaveTimeFrame"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/save" />
+	
+	</LinearLayout>
+
+</ScrollView>

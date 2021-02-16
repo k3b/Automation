@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	 android:layout_height="wrap_content"
+	 android:layout_width="match_parent"
+	 android:layout_margin="10dp" >
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical" >
+
+		<TextView
+			android:id="@+id/tvRuleTitle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/urlToTrigger" />
+
+		<EditText
+			android:id="@+id/etTriggerUrl"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:ems="10"
+			android:inputType="textUri">
+
+			<requestFocus
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content" />
+
+		</EditText>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:layout_margin="10dp" >
+
+			<CheckBox
+				android:id="@+id/chkTriggerUrlUseAuthentication"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/useAuthentication" />
+
+			<TableLayout
+				android:id="@+id/tlTriggerUrlAuthentication"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:visibility="gone">
+
+				<TableRow>
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/username" />
+
+					<EditText
+						android:id="@+id/etTriggerUrlUsername"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:ems="10"
+						android:enabled="false"
+						android:inputType="text" >
+
+					</EditText>
+				</TableRow>
+
+				<TableRow>
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/password" />
+
+					<EditText
+						android:id="@+id/etTriggerUrlPassword"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:ems="10"
+						android:enabled="false"
+						android:inputType="textPassword" >
+
+					</EditText>
+				</TableRow>
+			</TableLayout>
+
+		</LinearLayout>
+
+		<ListView
+			android:id="@+id/lvTriggerUrlPostParameters"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:visibility="gone">
+		</ListView>
+
+		<ScrollView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<TextView
+				android:id="@+id/tvLegend"
+				android:layout_width="match_parent"
+				android:layout_height="0dip"
+				android:text="@string/urlLegend" />
+
+		</ScrollView>
+
+		<Button
+			android:id="@+id/bSaveTriggerUrl"
+			android:layout_marginTop="15dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/save" />
+
+	</LinearLayout>
+
+</ScrollView>

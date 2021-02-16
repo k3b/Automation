@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
+			
+		<LinearLayout 
+		    android:layout_marginTop="10dp"
+		    android:orientation="horizontal"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:background="@color/barBackgroundColor" >
+		    
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/status"
+		        android:layout_marginLeft="10dp"
+		        android:textAppearance="?android:attr/textAppearanceLarge" />
+		    
+		</LinearLayout>
+
+		<TextView
+			android:id="@+id/tvMainScreenNote"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:layout_marginLeft="10dp"
+			android:layout_marginRight="10dp"
+			android:scrollHorizontally="false"
+			android:textColor="@color/importantMessage"
+			android:singleLine="false"
+			android:textAppearance="?android:attr/textAppearanceMedium" />
+		
+	    <TableLayout 
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	  		android:layout_margin="10dp" >
+			
+			<TableRow
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_gravity="top" >
+			    
+			    <TextView
+			        android:id="@+id/tvRuleHelpText"
+			        android:layout_width="0dip"
+			        android:layout_weight="5"
+			        android:layout_height="wrap_content"
+			        android:text="@string/service"
+			        android:scrollHorizontally="false"
+			        android:singleLine="false"
+			        android:textAppearance="?android:attr/textAppearanceLarge"
+			        android:gravity="right" />
+		
+			    <!--  Workaround: If the linear layout is removed the toggle button will be streched to the width of below's textviews -->
+			    <LinearLayout 
+			        android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_weight="5"
+					android:layout_width="0dip">
+			    	
+				    <ToggleButton
+				        android:id="@+id/tbArmMastListener"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:text="none" />
+				    
+			    </LinearLayout>
+			    
+			</TableRow>
+
+			    <TableRow
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_gravity="top"
+			        android:layout_marginTop="20dp" >
+			    
+			    <TextView
+			        android:id="@+id/tvCurrentNfcIdValue"
+			        android:layout_width="0dip"
+			        android:layout_height="wrap_content"
+			        android:gravity="right"
+			        android:text="@string/activePoi"
+			        android:layout_weight="5"
+			        android:scrollHorizontally="false"
+			        android:singleLine="false"
+			        android:textAppearance="?android:attr/textAppearanceLarge" />
+			
+			    <TextView
+			        android:id="@+id/tvActivePoi"
+			        android:layout_width="0dip"
+			        android:layout_weight="5"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="10dp"
+			        android:text="n./a."
+			        android:scrollHorizontally="false"
+			        android:singleLine="false"
+			        android:textSize="20dp" />
+			    
+			</TableRow>
+		
+			<TableRow
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_gravity="top"
+			    android:layout_marginTop="20dp" >
+			     	    
+			    <TextView
+			        android:id="@+id/textView2"
+			        android:layout_width="0dip"
+			        android:layout_height="wrap_content"
+			        android:gravity="right"
+			        android:text="@string/closestPoi"
+			        android:layout_weight="5"
+			        android:scrollHorizontally="false"
+			        android:singleLine="false"
+			        android:textAppearance="?android:attr/textAppearanceLarge" />
+			
+			    <TextView
+			        android:id="@+id/tvClosestPoi"
+			        android:layout_width="0dip"
+			        android:layout_weight="5"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="10dp"
+			        android:text="n./a."
+			        android:scrollHorizontally="false"
+			        android:singleLine="false"
+			        android:textSize="20sp" />
+			</TableRow>
+			
+			<TableRow
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_gravity="top"
+			    android:layout_marginTop="20dp" >
+			    
+			    <TextView
+			        android:layout_width="0dip"
+			        android:layout_weight="5"
+			        android:layout_height="wrap_content"
+			        android:gravity="right"
+			        android:text="@string/lastRule"
+			        android:scrollHorizontally="false"
+			        android:singleLine="false"
+			        android:textAppearance="?android:attr/textAppearanceLarge" />
+			
+			    <TextView
+			        android:id="@+id/tvTimeFrameHelpText"
+			        android:layout_width="0dip"
+			        android:layout_weight="5"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="10dp"
+			        android:text="n./a."
+			        android:scrollHorizontally="false"
+			        android:singleLine="false"
+			        android:textSize="20dp" />
+			</TableRow>
+			
+			<TableRow
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_gravity="top"
+			    android:layout_marginTop="20dp" >
+			    
+			    <TextView
+			        android:layout_width="0dip"
+			        android:layout_weight="5"
+			        android:layout_height="wrap_content"
+			        android:gravity="right"
+			        android:text="@string/ruleHistory"
+			        android:scrollHorizontally="false"
+			        android:singleLine="false"
+			        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+				<ListView
+				    android:id="@+id/lvRuleHistory"
+			        android:layout_width="0dip"
+			        android:layout_weight="5"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="10dp" >
+				</ListView>
+				
+			</TableRow>
+			
+			<TableRow
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_gravity="top"
+			    android:layout_marginTop="20dp" >
+			    
+			    <TextView
+			        android:layout_width="0dip"
+			        android:layout_weight="5"
+			        android:layout_height="wrap_content"
+			        android:gravity="right"
+			        android:text="@string/lockSoundChanges"
+			        android:scrollHorizontally="false"
+			        android:singleLine="false"
+			        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+				<LinearLayout
+					android:orientation="horizontal"
+					android:layout_gravity="center_vertical"
+					android:layout_weight="5"
+					android:layout_marginLeft="10dp"
+					android:layout_width="0dip"
+					android:gravity="top" >
+
+					<Button
+						android:layout_gravity="center_vertical"
+						android:id="@+id/bAddSoundLockTIme"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						/>
+
+					<ToggleButton
+						android:id="@+id/tbLockSound"
+						android:layout_gravity="center_vertical"
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content"
+						android:enabled="false"
+						android:layout_marginLeft="5dp">
+					</ToggleButton>
+
+				</LinearLayout>
+
+			</TableRow>
+
+			<TableRow
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="top"
+				android:layout_marginTop="20dp" >
+
+				<TextView
+					android:layout_width="0dip"
+					android:layout_weight="5"
+					android:layout_height="wrap_content"
+					android:gravity="right"
+					android:text=""
+					android:scrollHorizontally="false"
+					android:singleLine="false"
+					android:textAppearance="?android:attr/textAppearanceLarge" />
+
+				<TextView
+					android:id="@+id/tvlockSoundDuration"
+					android:layout_gravity="center_vertical"
+					android:layout_height="wrap_content"
+					android:layout_width="0dip"
+					android:layout_weight="5"
+					android:text=""
+					android:textAppearance="?android:attr/textAppearanceSmall" />
+
+			</TableRow>
+			
+		</TableLayout>
+			
+		<LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" 
+	  		android:layout_margin="10dp"
+	  		android:layout_marginTop="30dp"
+	  		android:gravity="top" >
+	
+		    <Button
+		        android:id="@+id/bShowHelp"
+		        android:layout_gravity="center_vertical"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:text="@string/showHelp" 
+		        android:layout_weight="1" />
+	
+		    <Button
+		        android:id="@+id/bVolumeTest"
+				android:layout_gravity="center_vertical"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:text="@string/volumeTest" 
+		        android:layout_weight="1" />
+	
+		    <Button
+		        android:id="@+id/bPrivacy"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+				android:layout_gravity="center_vertical"
+		        android:layout_weight="1"
+		        android:enabled="true"
+		        android:text="@string/privacy" />
+	    
+		</LinearLayout>
+		
+		<LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" 
+	  		android:layout_margin="10dp"
+	  		android:layout_marginTop="30dp"
+	  		android:gravity="center_horizontal" >
+		    
+		    <Button
+		        android:id="@+id/bSettings"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="top"
+		        android:layout_weight="1"
+		        android:text="@string/menu_settings" />
+		    	    
+			<!-- <Button
+			    android:id="@+id/bSettingsErase"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/eraseSettings" /> -->
+		    
+			<Button
+			    android:id="@+id/bSettingsSetToDefault"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="1"
+			    android:text="@string/defaultSettings" />
+			
+		</LinearLayout>
+		
+	</LinearLayout>
+
+</ScrollView>

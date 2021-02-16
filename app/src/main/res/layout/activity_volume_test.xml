@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="10dp" >
+
+    <TextView
+        android:id="@+id/tvVolumeTestExplanation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/volumeTesterExplanation"
+        android:layout_marginBottom="20dp" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        
+        <TableRow>
+		    <TextView
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:text="@string/currentVolume"
+			    android:layout_weight="5"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		    
+		    <TextView
+		        android:id="@+id/tvCurrentVolume"
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:text="0dB"
+			    android:layout_weight="5"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		</TableRow>
+		
+		<TableRow
+		    android:layout_marginTop="10dp" >
+		    <TextView
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:text="@string/referenceValueForNoiseLevelMeasurementsTitle"
+			    android:layout_weight="5"
+		        android:textAppearance="?android:attr/textAppearanceMedium"
+		        android:layout_gravity="fill" />
+		    
+		    <EditText
+		        android:id="@+id/etReferenceValue"
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+			    android:layout_weight="5"
+			    android:inputType="numberSigned"
+			    android:editable="false"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+	    </TableRow>
+	    
+	</TableLayout>
+
+    <SeekBar
+        android:layout_marginTop="20dp"
+        android:id="@+id/sbReferenceValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/android9RecordAudioNotice"
+		android:layout_marginTop="20dp"/>
+
+</LinearLayout>

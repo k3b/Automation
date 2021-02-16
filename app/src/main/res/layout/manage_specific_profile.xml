@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        
+        <LinearLayout 
+		    android:layout_marginTop="10dp"
+		    android:orientation="horizontal"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:background="@color/barBackgroundColor" >
+		
+		   <TextView
+		       android:layout_width="wrap_content"
+		       android:layout_height="wrap_content"
+		       android:text="@string/profile"
+	           android:layout_marginLeft="10dp"
+		       android:textAppearance="?android:attr/textAppearanceMedium" />
+		    
+		</LinearLayout>
+		
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical" 
+		    android:layout_margin="10dp" >
+
+			<TextView
+			    android:id="@+id/textView1"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/name" />
+
+			<EditText
+			    android:id="@+id/etName"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:ems="10" >
+
+			    <requestFocus />
+			</EditText>
+
+			<CheckBox
+			    android:id="@+id/checkBoxChangeSoundMode"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/change" />
+
+			<TextView
+			    android:id="@+id/tvSoundMode"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/soundMode"
+			    android:textAppearance="?android:attr/textAppearanceMedium" 
+			    android:layout_marginLeft="40dp" />
+			<Spinner
+			    android:id="@+id/spinnerSoundMode"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content" 
+			    android:layout_marginLeft="40dp" />
+
+			<TextView
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/volumes"
+			    android:textAppearance="?android:attr/textAppearanceMedium" 
+			    android:layout_marginLeft="40dp" />
+			
+			<CheckBox
+			    android:id="@+id/checkBoxChangeVolumeMusicVideoGameMedia"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/change" />			
+			<TextView
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/volumeMusicVideoGameMedia"
+			    android:textAppearance="?android:attr/textAppearanceSmall" 
+			    android:layout_marginLeft="40dp" />		
+			<SeekBar
+			    android:id="@+id/seekBarVolumeMusic"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content" 
+			    android:layout_marginLeft="40dp" />
+			
+			<CheckBox
+			    android:id="@+id/checkBoxChangeVolumeNotifications"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/change" />			
+			<TextView
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/volumeRingtoneNotifications"
+			    android:textAppearance="?android:attr/textAppearanceSmall" 
+			    android:layout_marginLeft="40dp" />
+			<SeekBar
+			    android:id="@+id/seekBarVolumeNotifications"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content" 
+			    android:layout_marginLeft="40dp" />
+			
+			<CheckBox
+			    android:id="@+id/checkBoxChangeVolumeAlarms"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/change" />			
+			<TextView
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/volumeAlarms"
+			    android:textAppearance="?android:attr/textAppearanceSmall" 
+			    android:layout_marginLeft="40dp" />
+			<SeekBar
+			    android:id="@+id/seekBarVolumeAlarms"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content" 
+			    android:layout_marginLeft="40dp" />
+			
+			<CheckBox
+			    android:id="@+id/checkBoxChangeIncomingCallsRingtone"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:enabled="true"
+			    android:text="@string/change" />
+
+			<TextView
+			    android:id="@+id/textView3"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/incomingCallsRingtone"
+			    android:textAppearance="?android:attr/textAppearanceMedium" 
+			    android:layout_marginLeft="40dp" />
+
+			<LinearLayout
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:orientation="horizontal"
+			    android:layout_marginLeft="40dp" >
+				<Button
+				    android:id="@+id/bChangeSoundIncomingCalls"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="@string/change" />
+				<TextView
+				    android:id="@+id/tvIncomingCallsRingtone"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="@string/incomingCallsRingtone"
+				    android:textAppearance="?android:attr/textAppearanceMedium" />
+			</LinearLayout>
+			
+			<CheckBox
+			    android:id="@+id/checkBoxChangeVibrateWhenRinging"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/change" />
+			<CheckBox
+			    android:id="@+id/checkBoxVibrateWhenRinging"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/vibrateWhenRinging" 
+			    android:layout_marginLeft="40dp" />
+			
+			<CheckBox
+			    android:id="@+id/checkBoxChangeNotificationRingtone"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:enabled="true"
+			    android:text="@string/change" />
+
+			<TextView
+			    android:id="@+id/textView4"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/notificationRingtone"
+			    android:textAppearance="?android:attr/textAppearanceMedium" 
+			    android:layout_marginLeft="40dp" />
+
+			<LinearLayout
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:orientation="horizontal"
+			    android:layout_marginLeft="40dp" >
+				<Button
+				    android:id="@+id/bChangeSoundNotifications"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="@string/change" />
+				<TextView
+				    android:id="@+id/tvNotificationsRingtone"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="@string/notificationRingtone"
+				    android:textAppearance="?android:attr/textAppearanceMedium" />
+			</LinearLayout>
+			
+			<CheckBox
+			    android:id="@+id/checkBoxChangeAudibleSelection"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/change" />
+			<CheckBox
+			    android:id="@+id/checkBoxAudibleSelection"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/audibleSelection" 
+			    android:layout_marginLeft="40dp" />
+			
+			<CheckBox
+			    android:id="@+id/checkBoxChangeScreenLockUnlockSound"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:enabled="true"
+			    android:text="@string/change" />
+
+			<CheckBox
+			    android:id="@+id/checkBoxScreenLockUnlockSound"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/screenLockUnlockSound" 
+			    android:layout_marginLeft="40dp" />
+			
+			<CheckBox
+			    android:id="@+id/checkBoxChangeHapticFeedback"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/change" />
+			<CheckBox
+			    android:id="@+id/checkBoxHapticFeedback"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/hapticFeedback" 
+			    android:layout_marginLeft="40dp" />
+
+			<Button
+			    android:id="@+id/bSaveProfile"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/save" />
+		    
+		</LinearLayout>
+		
+    </LinearLayout>
+    
+
+</ScrollView>

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="match_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_weight="30" >
+	    
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
+
+		<LinearLayout 
+		    android:layout_marginTop="10dp"
+		    android:orientation="horizontal"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:background="@color/barBackgroundColor" >
+		    
+		    <TextView
+			    android:id="@+id/tvSelectedActivity"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/general"
+		        android:layout_marginLeft="10dp"
+		        android:textAppearance="?android:attr/textAppearanceLarge" />
+		    
+		</LinearLayout>
+
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical" 
+		    android:layout_margin="10dp" >
+		    
+			<TextView
+			    android:id="@+id/textView2"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/generalText" />
+		</LinearLayout>
+    
+		<LinearLayout 
+		    android:layout_marginTop="10dp"
+		    android:orientation="horizontal"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:background="@color/barBackgroundColor" >
+		    
+		    <TextView
+	        	android:id="@+id/tvPoiTitle"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/pois"
+		        android:layout_marginLeft="10dp"
+		        android:textAppearance="?android:attr/textAppearanceLarge" />
+		    
+		</LinearLayout>
+	
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical" 
+		    android:layout_margin="10dp" >
+		    
+		    <TextView
+		        android:id="@+id/tvPoiHelpText"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/helpTextPoi" />
+		    
+    	</LinearLayout>
+    	
+    
+		<LinearLayout 
+		    android:layout_marginTop="10dp"
+		    android:orientation="horizontal"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:background="@color/barBackgroundColor" >
+		    
+		    <TextView
+		    	android:id="@+id/tvRuleTitle"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/rules"
+		        android:layout_marginLeft="10dp"
+		        android:textAppearance="?android:attr/textAppearanceLarge" />
+		    
+		</LinearLayout>
+	
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical" 
+		    android:layout_margin="10dp" >
+		    
+			<TextView
+			    android:id="@+id/tvRuleHelpText"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/helpTextRules" />
+		
+		</LinearLayout>
+		
+  
+		<LinearLayout 
+		    android:layout_marginTop="10dp"
+		    android:orientation="horizontal"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:background="@color/barBackgroundColor" >
+	    	<TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		    	android:layout_marginLeft="10dp"
+		        android:text="@string/toggableRules"
+		        android:textAppearance="?android:attr/textAppearanceLarge" />
+	    </LinearLayout>
+	
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical" 
+		    android:layout_margin="10dp" >
+		    <TextView
+		        android:id="@+id/tvToggableHelpText"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/helpTextToggable" />
+	    </LinearLayout>
+	    	
+  
+		<LinearLayout 
+		    android:layout_marginTop="10dp"
+		    android:orientation="horizontal"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:background="@color/barBackgroundColor" >
+	    	<TextView
+		        android:id="@+id/tvTimeFrameTitle"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		    	android:layout_marginLeft="10dp"
+		        android:text="@string/timeframes"
+		        android:textAppearance="?android:attr/textAppearanceLarge" />
+	    </LinearLayout>
+	
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical" 
+		    android:layout_margin="10dp" >
+		    <TextView
+		        android:id="@+id/tvTimeFrameHelpText"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/helpTextTimeFrame" />
+	    </LinearLayout>
+    
+
+		<LinearLayout 
+		    android:layout_marginTop="10dp"
+		    android:orientation="horizontal"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:background="@color/barBackgroundColor" >
+  
+	    	<TextView
+		        android:id="@+id/tvProcessMonitoringTitle"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		    	android:layout_marginLeft="10dp"
+		        android:text="@string/processMonitoring"
+		        android:textAppearance="?android:attr/textAppearanceLarge" />
+		</LinearLayout>
+	
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical" 
+		    android:layout_margin="10dp" >
+		    <TextView
+		        android:id="@+id/tvProcessMonitoringHelpText"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/helpTextProcessMonitoring" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_marginTop="10dp"
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@color/barBackgroundColor" >
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="10dp"
+				android:text="@string/soundSettings"
+				android:textAppearance="?android:attr/textAppearanceLarge" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:layout_margin="10dp" >
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/helpTextSound" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_marginTop="10dp"
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@color/barBackgroundColor" >
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="10dp"
+				android:text="@string/helpTitleEnergySaving"
+				android:textAppearance="?android:attr/textAppearanceLarge" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:layout_margin="10dp" >
+			<TextView
+				android:id="@+id/tvHelpTextEnergySaving"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/helpTextEnergySaving" />
+		</LinearLayout>
+
+	</LinearLayout>
+
+</ScrollView>

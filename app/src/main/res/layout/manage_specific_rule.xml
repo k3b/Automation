@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:fillViewport="true"
+    android:orientation="vertical" >
+    
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical" >
+		
+		<LinearLayout 
+		    android:layout_marginTop="10dp"
+		    android:orientation="horizontal"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:background="@color/barBackgroundColor" >
+		
+		   <TextView
+		       android:layout_width="wrap_content"
+		       android:layout_height="wrap_content"
+		       android:text="@string/general"
+	           android:layout_marginLeft="10dp"
+		       android:textAppearance="?android:attr/textAppearanceMedium" />
+		    
+		</LinearLayout>
+		
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical" 
+		    android:layout_margin="10dp" >
+		
+		    <TextView
+		        android:id="@+id/tvRuleTitle"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/ruleName" />
+		
+		    <EditText
+		        android:id="@+id/etRuleName"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:ems="10" >
+		
+		        <!--<requestFocus />-->
+		    </EditText>
+		
+			<LinearLayout
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:orientation="horizontal"  >
+			
+				<CheckBox
+					android:id="@+id/chkRuleActive"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:checked="true"
+					android:text="@string/ruleActive" />
+
+				<CheckBox
+					android:id="@+id/chkRuleToggle"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/toggleRule"
+					android:layout_marginLeft="20dp" />
+
+				<ImageView
+					android:id="@+id/imageHelpButton"
+					android:layout_gravity="center_vertical"
+					android:layout_marginLeft="5dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:src="@drawable/help" />
+
+			</LinearLayout>
+
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"  >
+
+				<Button
+					android:id="@+id/cmdTriggerAdd"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/addTrigger" />
+
+				<Button
+					android:id="@+id/cmdActionAdd"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/addAction" />
+
+				<Button
+					android:id="@+id/cmdSaveRule"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/saveRule" />
+
+			</LinearLayout>
+	    
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical"
+			android:weightSum="2">
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:orientation="vertical">
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="10dp"
+					android:background="@color/barBackgroundColor"
+					android:orientation="horizontal">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="10dp"
+						android:text="@string/triggers"
+						android:textAppearance="?android:attr/textAppearanceMedium" />
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="5dp"
+						android:text="@string/triggersComment"
+						android:textAppearance="?android:attr/textAppearanceSmall" />
+
+				</LinearLayout>
+
+				<ListView
+					android:id="@+id/lvTriggerListView"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_margin="10dp" />
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:orientation="vertical">
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="10dp"
+					android:background="@color/barBackgroundColor"
+					android:orientation="horizontal">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="10dp"
+						android:text="@string/actions"
+						android:textAppearance="?android:attr/textAppearanceMedium" />
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="5dp"
+						android:text="@string/actionsComment"
+						android:textAppearance="?android:attr/textAppearanceSmall" />
+
+				</LinearLayout>
+
+				<ListView
+					android:id="@+id/lvActionListView"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_margin="10dp" />
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+	</LinearLayout>
+	
+</ScrollView>

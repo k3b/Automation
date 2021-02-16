@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+	    <LinearLayout
+		    android:layout_marginTop="10dp"
+		    android:orientation="horizontal"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:background="@color/barBackgroundColor" >
+
+	        <TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/bluetoothConnection"
+	        	android:layout_marginLeft="10dp"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+		</LinearLayout>
+		
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:orientation="vertical"  
+			android:layout_margin="10dp" >
+	
+	        <RadioGroup
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content" >
+	
+		        <RadioButton
+		            android:id="@+id/radioAnyBluetoothDevice"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="@string/anyDevice" />
+		
+		        <RadioButton
+		            android:id="@+id/radioNoDevice"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="@string/noDevice" />
+		
+		        <RadioButton
+		            android:id="@+id/radioDeviceFromList"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="@string/selectDeviceFromList" />
+			</RadioGroup>
+
+            <Spinner
+                android:id="@+id/spinnerBluetoothDevices"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+	    
+	        <RadioGroup
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content" >
+	
+		        <RadioButton
+		            android:id="@+id/radioBluetoothConnected"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="@string/connectionToDevice" />
+		
+		        <RadioButton
+		            android:id="@+id/radioBluetoothDisconnected"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="@string/disconnectionFromDevice" />
+		
+		        <RadioButton
+		            android:id="@+id/radioBluetoothInRange"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="@string/deviceInRange" />
+		
+		        <RadioButton
+		            android:id="@+id/radioBluetoothOutRange"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:enabled="false"
+		            android:text="@string/deviceOutOfRange" />
+
+			</RadioGroup>
+	
+	        <Button
+	            android:id="@+id/bSaveBluetoothTrigger"
+	            android:layout_marginTop="10dp"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/save" />
+	        
+		</LinearLayout>
+	
+    </LinearLayout>
+    
+</ScrollView>

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+    
+    <PreferenceCategory
+        android:summary="@string/generalSettings"
+        android:title="@string/generalSettings">
+        
+        <CheckBoxPreference
+	     android:key="startServiceAtSystemBoot"
+	     android:summary="@string/onOff"
+	     android:title="@string/startAtSystemBoot" />
+        
+        <CheckBoxPreference
+	     android:key="startServiceAfterAppUpdate"
+	     android:summary="@string/startServiceAfterAppUpdate"
+	     android:title="@string/startServiceAfterAppUpdateShort" />
+        <!--
+        <CheckBoxPreference
+	     android:key="startNewThreadForRuleActivation"
+	     android:summary="@string/startNewThreadForRuleExecution"
+	     android:title="@string/newThreadRules" />
+        -->
+        <CheckBoxPreference
+	     android:key="showIconWhenServiceIsRunning"
+	     android:summary="@string/showIconWhenServiceIsRunning"
+	     android:title="@string/showIcon" />
+
+        <CheckBoxPreference
+	     android:key="writeLogFile"
+	     android:summary="@string/onOff"
+	     android:title="@string/writeLogFileToSd" />
+        
+        <EditTextPreference
+            android:key="logLevel"
+            android:summary="@string/logLevelSummary"
+            android:title="@string/logLevelTitle"
+            android:inputType="number"></EditTextPreference>
+
+		<EditTextPreference
+			android:key="logFileMaxSize"
+			android:summary="@string/logFileMaxSizeSummary"
+			android:title="@string/logFileMaxSizeTitle"
+			android:inputType="number"></EditTextPreference>
+
+		<ListPreference
+			android:key="startScreen"
+			android:title="@string/startScreen"
+			android:summary="@string/startScreenSummary"
+			android:entries="@array/startScreenOptions"
+			android:entryValues="@array/startScreenOptionsValues" />
+
+		<CheckBoxPreference
+			android:key="executeRulesAndProfilesWithSingleClick"
+			android:title="@string/executeRulesAndProfilesWithSingleClickTitle" />
+
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:summary="@string/soundSettings"
+        android:title="@string/soundSettings">
+        
+        <CheckBoxPreference
+	     android:key="useTextToSpeechOnNormal"
+	     android:summary="@string/useTextToSpeechOnNormalSummary"
+	     android:title="@string/useTextToSpeechOnNormalTitle" />
+        
+        <CheckBoxPreference
+	     android:key="useTextToSpeechOnVibrate"
+	     android:summary="@string/useTextToSpeechOnVibrateSummary"
+	     android:title="@string/useTextToSpeechOnVibrateTitle" />
+        
+        <CheckBoxPreference
+	     android:key="useTextToSpeechOnSilent"
+	     android:summary="@string/useTextToSpeechOnSilentSummary"
+	     android:title="@string/useTextToSpeechOnSilentTitle" />
+        
+        <CheckBoxPreference
+	     android:key="muteTextToSpeechDuringCalls"
+	     android:summary="@string/muteTextToSpeechDuringCallsSummary"
+	     android:title="@string/muteTextToSpeechDuringCallsTitle" />
+        
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:summary="@string/positioningSettings"
+        android:title="@string/positioningSettings">
+
+		<!--			android:id="@id/lstPositioningEngine"-->
+<!--
+		<ListPreference
+			android:title="@string/positioningEngine"
+			android:key="positioningEngine"
+			android:defaultValue="0"
+			android:entries="@array/positioningEngineOptions"
+			android:entryValues="@array/positioningEngineOptionsValues" />
+-->
+        <CheckBoxPreference
+	     android:key="useWifiForPositioning"
+	     android:summary="@string/listenToWifiState"
+	     android:title="@string/wifiState" />
+        
+        <CheckBoxPreference
+	     android:key="useAccelerometerForPositioning"
+	     android:summary="@string/listenToAccelerometerState"
+	     android:title="@string/accelerometer" />
+        
+        <EditTextPreference
+            android:key="useAccelerometerAfterIdleTime"
+            android:summary="@string/accelerometerTimer"
+            android:title="@string/cellMastIdleTime"
+            android:inputType="number"></EditTextPreference>
+        
+        <EditTextPreference
+            android:key="accelerometerMovementThreshold"
+            android:summary="@string/accelerometerThresholdDescription"
+            android:title="@string/accelerometerThreshold"
+            android:inputType="number"></EditTextPreference>
+        
+        <EditTextPreference
+            android:key="speedMaximumTimeBetweenLocations"
+            android:summary="@string/speedMaximumTimeBetweenLocations"
+            android:title="@string/speedMaximumTime"
+            android:inputType="number"></EditTextPreference>   
+        
+        <CheckBoxPreference
+	     android:key="rememberLastActivePoi"
+	     android:summary="@string/rememberLastActivePoiSummary"
+	     android:title="@string/rememberLastActivePoiTitle" />     
+        
+        <CheckBoxPreference
+	     android:key="privacyLocationing"
+	     android:summary="@string/privacyLocationingSummary"
+	     android:title="@string/privacyLocationingTitle" />                  
+    
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:summary="@string/positioningThresholds"
+        android:title="@string/positioningThresholds">
+        
+        <EditTextPreference
+            android:key="MINIMUM_DISTANCE_CHANGE_FOR_GPS_UPDATE"
+            android:summary="@string/minimumDistanceChangeForGpsLocationUpdates"
+            android:title="@string/distanceForGpsUpdate"
+            android:inputType="number"></EditTextPreference>
+                    
+        <EditTextPreference
+            android:key="MINIMUM_DISTANCE_CHANGE_FOR_NETWORK_UPDATE"
+            android:summary="@string/minimumDistanceChangeForNetworkLocationUpdates"
+            android:title="@string/distanceForNetworkUpdate"
+            android:inputType="number"></EditTextPreference>
+<!--    We won't need this setting anymore, at least it won't be available for the user.             
+   		<EditTextPreference
+            android:key="SATISFACTORY_ACCURACY_GPS"
+            android:summary="@string/satisfactoryAccuracyGps"
+            android:title="@string/gpsAccuracy"
+            android:inputType="number"></EditTextPreference>
+ -->            
+       	<EditTextPreference
+            android:key="SATISFACTORY_ACCURACY_NETWORK"
+            android:summary="@string/satisfactoryAccuracyNetwork"
+            android:title="@string/networkAccuracy"
+            android:inputType="number"></EditTextPreference>
+        
+        <EditTextPreference
+	        android:key="MINIMUM_TIME_BETWEEN_UPDATE"
+	        android:summary="@string/minimumTimeForLocationUpdates"
+	        android:title="@string/timeForUpdate"
+	        android:inputType="number"></EditTextPreference>
+        
+        <EditTextPreference
+	        android:key="gpsTimeout"
+	        android:summary="@string/timeoutForGpsComparisonsSummary"
+	        android:title="@string/timeoutForGpsComparisonsTitle"
+	        android:inputType="number"></EditTextPreference>
+        
+    </PreferenceCategory>
+                         
+    <PreferenceCategory
+        android:summary="@string/settingsCategoryNoiseLevelMeasurements"
+        android:title="@string/settingsCategoryNoiseLevelMeasurements">
+
+        <EditTextPreference
+	        android:key="timeBetweenNoiseLevelMeasurements"
+	        android:summary="@string/timeBetweenNoiseLevelMeasurementsSummary"
+	        android:title="@string/timeBetweenNoiseLevelMeasurementsTitle"
+	        android:inputType="number"></EditTextPreference>
+
+        <EditTextPreference
+	        android:key="lengthOfNoiseLevelMeasurements"
+	        android:summary="@string/lengthOfNoiseLevelMeasurementsSummary"
+	        android:title="@string/lengthOfNoiseLevelMeasurementsTitle"
+	        android:inputType="number"></EditTextPreference>
+
+        <EditTextPreference
+	        android:key="referenceValueForNoiseLevelMeasurements"
+	        android:summary="@string/referenceValueForNoiseLevelMeasurementsSummary"
+	        android:title="@string/referenceValueForNoiseLevelMeasurementsTitle"
+	        android:inputType="number"></EditTextPreference>
+        
+    </PreferenceCategory>
+                         
+    <PreferenceCategory
+        android:summary="@string/settingsCategoryHttp"
+        android:title="@string/settingsCategoryHttp">
+        
+        <CheckBoxPreference
+		     android:key="httpAcceptAllCertificates"
+		     android:summary="@string/httpAcceptAllCertificatesSummary"
+		     android:title="@string/httpAcceptAllCertificatesTitle" />
+        
+        <EditTextPreference
+	        android:key="httpAttempts"
+	        android:summary="@string/httpAttemptsSummary"
+	        android:title="@string/httpAttemptsTitle"
+	        android:inputType="number"></EditTextPreference>
+
+        <EditTextPreference
+	        android:key="httpAttemptsTimeout"
+	        android:summary="@string/httpAttemptsTimeoutSummary"
+	        android:title="@string/httpAttemptsTimeoutTitle"
+	        android:inputType="number"></EditTextPreference>
+
+        <EditTextPreference
+	        android:key="httpAttemptGap"
+	        android:summary="@string/httpAttemptGapSummary"
+	        android:title="@string/httpAttemptGapTitle"
+	        android:inputType="number"></EditTextPreference>
+        
+    </PreferenceCategory>
+                         
+    <PreferenceCategory
+        android:summary="@string/settingsCategoryProcessMonitoring"
+        android:title="@string/settingsCategoryProcessMonitoring">
+        
+        <EditTextPreference
+	        android:key="timeBetweenProcessMonitorings"
+	        android:summary="@string/timeBetweenProcessMonitoringsSummary"
+	        android:title="@string/timeBetweenProcessMonitoringsTitle"
+	        android:inputType="number"></EditTextPreference>
+        
+    </PreferenceCategory>
+                         
+    <PreferenceCategory
+        android:summary="@string/activityDetection"
+        android:title="@string/activityDetection">
+        
+        <EditTextPreference
+	        android:key="activityDetectionFrequency"
+	        android:summary="@string/activityDetectionFrequencySummary"
+	        android:title="@string/activityDetectionFrequencyTitle"
+	        android:inputType="number"></EditTextPreference>
+        
+        <EditTextPreference
+	        android:key="activityDetectionRequiredProbability"
+	        android:summary="@string/activityDetectionRequiredProbabilitySummary"
+	        android:title="@string/activityDetectionRequiredProbabilityTitle"
+	        android:inputType="number"></EditTextPreference>
+        
+    </PreferenceCategory>
+    
+    
+</PreferenceScreen>

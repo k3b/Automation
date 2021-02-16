@@ -1,0 +1,479 @@
+package com.jens.automation2;
+
+import android.bluetooth.BluetoothDevice;
+import android.content.Context;
+
+import com.jens.automation2.receivers.ActivityDetectionReceiver;
+import com.jens.automation2.receivers.BluetoothReceiver;
+
+import java.util.ArrayList;
+
+
+public class Trigger
+{
+	/*
+	 * Can be several things:
+	 * -PointOfInterest
+	 * -TimeFrame
+	 * -Event (like charging, cable plugged, etc.)
+	 */
+	
+	public enum Trigger_Enum { 
+								pointOfInterest, timeFrame, charging, batteryLevel, usb_host_connection, speed, noiseLevel, wifiConnection, process_started_stopped, airplaneMode, roaming, nfcTag, activityDetection, bluetoothConnection, headsetPlugged, phoneCall; //phoneCall always needs to be at the very end because of Google's shitty so called privacy
+								
+								public String getFullName(Context context)
+								{
+									switch(this)
+									{
+										case pointOfInterest:
+											return context.getResources().getString(R.string.triggerPointOfInterest);
+										case timeFrame:
+											return context.getResources().getString(R.string.triggerTimeFrame);
+										case charging:
+											return context.getResources().getString(R.string.triggerCharging);
+										case batteryLevel:
+											return context.getResources().getString(R.string.batteryLevel);
+										case usb_host_connection:
+											return context.getResources().getString(R.string.triggerUsb_host_connection);
+										case speed:
+											return context.getResources().getString(R.string.triggerSpeed);
+										case noiseLevel:
+											return context.getResources().getString(R.string.triggerNoiseLevel);
+										case wifiConnection:
+											return context.getResources().getString(R.string.wifiConnection);
+										case process_started_stopped:
+											return context.getResources().getString(R.string.anotherAppIsRunning);
+										case airplaneMode:
+											return context.getResources().getString(R.string.airplaneMode);
+										case roaming:
+											return context.getResources().getString(R.string.roaming);
+										case phoneCall:
+											return context.getResources().getString(R.string.phoneCall);
+										case nfcTag:
+											return context.getResources().getString(R.string.nfcTag);
+										case activityDetection:
+											return context.getResources().getString(R.string.activityDetection);
+										case bluetoothConnection:
+											return context.getResources().getString(R.string.bluetoothConnection);
+										case headsetPlugged:
+											return context.getResources().getString(R.string.triggerHeadsetPlugged);
+										default:
+											return "Unknown";
+									}
+								}
+		
+							};
+
+	private boolean triggerParameter; //if true->started event, if false->stopped
+	
+    private Trigger_Enum triggerType = null;
+    private PointOfInterest pointOfInterest = null;
+    private TimeFrame timeFrame;
+
+	private double speed; //km/h
+    private long noiseLevelDb;
+    private String wifiName = "";
+    private String processName = null;
+    private int batteryLevel;
+    private int phoneDirection = 0; // 0=any, 1=incoming, 2=outgoing
+    private String phoneNumber = null;
+    private String nfcTagId = null;
+    private String bluetoothEvent = null;
+	private String bluetoothDeviceAddress = null;
+    private int activityDetectionType = -1;
+    private int headphoneType = -1;
+    
+	public int getHeadphoneType()
+	{
+		return headphoneType;
+	}
+	public void setHeadphoneType(int headphoneType)
+	{
+		this.headphoneType = headphoneType;
+	}
+	public String getNfcTagId()
+	{
+		return nfcTagId;
+	}
+	public void setNfcTagId(String nfcTagId)
+	{
+		this.nfcTagId = nfcTagId;
+	}
+	
+	public int getActivityDetectionType()
+	{
+		return activityDetectionType;
+	}
+	public void setActivityDetectionType(int activityDetectionType)
+	{
+		this.activityDetectionType = activityDetectionType;
+	}
+	public String getBluetoothDeviceAddress()
+	{
+		return bluetoothDeviceAddress;
+	}
+	public void setBluetoothDeviceAddress(String bluetoothDeviceAddress)
+	{
+		this.bluetoothDeviceAddress = bluetoothDeviceAddress;
+	}
+	public void setPhoneNumber(String phoneNumber)
+	{
+		this.phoneNumber = phoneNumber;
+	}
+	public String getPhoneNumber()
+	{
+		return phoneNumber;
+	}
+
+	public void setPhoneDirection(int phoneDirection)
+	{
+		this.phoneDirection = phoneDirection;
+	}
+	public int getPhoneDirection()
+	{
+		return phoneDirection;
+	}
+
+	public int getBatteryLevel()
+	{
+		return batteryLevel;
+	}
+
+	public void setBatteryLevel(int batteryLevel)
+	{
+		this.batteryLevel = batteryLevel;
+	}
+
+	public String getProcessName()
+	{
+		return processName;
+	}
+
+	public void setProcessName(String processName)
+	{
+		this.processName = processName;
+	}
+
+	public PointOfInterest getPointOfInterest()
+	{
+		return pointOfInterest;
+	}
+
+	public void setPointOfInterest(PointOfInterest setPointOfInterest)
+	{
+		this.pointOfInterest = setPointOfInterest;
+	}
+	
+	public double getSpeed()
+	{
+		return speed;
+	}
+
+	public void setSpeed(double speed)
+	{
+		this.speed = speed;
+	}
+	
+	public long getNoiseLevelDb()
+	{
+		return noiseLevelDb;
+	}
+
+	public void setNoiseLevelDb(long noiseLevelDb)
+	{
+		this.noiseLevelDb = noiseLevelDb;
+	}
+
+	public Trigger_Enum getTriggerType()
+	{
+		return triggerType;
+	}
+
+	public void setTriggerType(Trigger_Enum settriggerType)
+	{
+		this.triggerType = settriggerType;
+	}
+
+	public boolean getTriggerParameter()
+	{
+		return triggerParameter;
+	}
+
+	public void setTriggerParameter(boolean triggerParameter)
+	{
+		this.triggerParameter = triggerParameter;
+	}
+
+	public TimeFrame getTimeFrame()
+	{
+		return timeFrame;
+	}
+
+	public void setTimeFrame(TimeFrame timeFrame)
+	{
+		this.timeFrame = timeFrame;
+	}
+
+
+	@SuppressWarnings("unused")
+	@Override
+	public String toString()
+	{
+		StringBuilder returnString = new StringBuilder();
+		
+		/*
+		 *	public enum TriggerType_Enum { pointOfInterest, timeFrame, event };
+			public enum Event_Enum { charging_started, charging_stopped, usb_connected, usb_disconnected };
+			
+		    private TriggerType_Enum triggerType;
+		    private PointOfInterest pointOfInterest;
+		    private Event_Enum event;
+			private TimeFrame timeFrame;
+		*/
+		
+		switch(this.getTriggerType())
+		{
+			case charging:
+				if(getTriggerParameter())
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.starting) + " ");
+				else
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.stopping) + " ");
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.triggerCharging));
+				break;
+			case batteryLevel:
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.batteryLevel));
+				if(getTriggerParameter())
+					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.exceeds) + " ");
+				else
+					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.dropsBelow) + " ");
+				returnString.append(String.valueOf(this.getBatteryLevel()) + " %");
+				break;
+			case usb_host_connection:
+				if(getTriggerParameter())
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.connecting) + " ");
+				else
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.disconnecting) + " ");
+
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.triggerUsb_host_connection));
+				break;
+			case pointOfInterest:
+				if(this.getPointOfInterest() != null)
+				{
+					if(getTriggerParameter())
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.entering) + " ");
+					else
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.leaving) + " ");
+
+					returnString.append(this.getPointOfInterest().getName().toString());
+				}
+				else
+				{
+					if(getTriggerParameter())
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.leaving) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.anyLocation));
+					else
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.entering) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.anyLocation));
+				}
+				break;
+			case timeFrame:
+				if(getTriggerParameter())
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.entering) + " ");
+				else
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.leaving) + " ");
+
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.triggerTimeFrame) + ": " + this.getTimeFrame().getTriggerTimeStart().toString() + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.until) + " " + this.getTimeFrame().getTriggerTimeStop().toString() + " on days " + this.getTimeFrame().getDayList().toString());
+				break;
+			case speed:
+				if(getTriggerParameter())
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.exceeding) + " ");
+				else
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.droppingBelow) + " ");
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.triggerSpeed) + ": " + String.valueOf(this.getSpeed()) + " km/h");
+				break;
+			case noiseLevel:
+				if(getTriggerParameter())
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.exceeding) + " ");
+				else
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.droppingBelow) + " ");
+
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.triggerNoiseLevel) + ": " + String.valueOf(this.getNoiseLevelDb()) + " dB");
+				break;
+			case wifiConnection:
+				String wifiDisplayName = "";				
+				if(this.getWifiName().length() == 0)
+					wifiDisplayName += Miscellaneous.getAnyContext().getResources().getString(R.string.anyWifi);
+				else
+					wifiDisplayName += this.getWifiName();
+				
+				if(getTriggerParameter())
+					returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.connectedToWifi), wifiDisplayName));
+				else
+					returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.disconnectedFromWifi), wifiDisplayName));
+				
+				break;
+			case process_started_stopped:
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.application) + " " + this.getProcessName() + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.is) + " ");
+				if(this.triggerParameter)
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.started));
+				else
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.stopped));
+				break;
+			case airplaneMode:
+				if(getTriggerParameter())
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.activated) + " ");
+				else
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.deactivated) + " ");
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.airplaneMode));
+				break;
+			case roaming:
+				if(getTriggerParameter())
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.activated) + " ");
+				else
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.deactivated) + " ");
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.roaming));
+				break;
+			case phoneCall:
+				if(getPhoneDirection() == 1)
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.incomingAdjective) + " ");
+				else if(getPhoneDirection() == 2)
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.outgoingAdjective) + " ");
+
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.phoneCall));
+				if(phoneNumber != null && !phoneNumber.equals("any"))
+					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.with) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.number) + " " + phoneNumber);
+				else
+					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.with) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.anyNumber));
+				
+				if(getTriggerParameter())
+					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.started));
+				else
+					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.stopped));
+				break;
+			case nfcTag:
+				// This type doesn't have an activate/deactivate equivalent
+//				if(getTriggerParameter())
+//					returnString += Miscellaneous.getAnyContext().getResources().getString(R.string.activated) + " ";
+//				else
+//					returnString += Miscellaneous.getAnyContext().getResources().getString(R.string.deactivated) + " ";
+
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.closeTo) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.nfcTag) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.withLabel) + " " + this.getNfcTagId());
+				break;
+			case activityDetection:
+				// This type doesn't have an activate/deactivate equivalent, at least not yet.				
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.detectedActivity) + " " + ActivityDetectionReceiver.getDescription(getActivityDetectionType()));
+				break;
+			case bluetoothConnection:
+				String device = Miscellaneous.getAnyContext().getResources().getString(R.string.anyDevice);
+//				if(this.bluetoothDeviceAddress != null)
+//				{
+					if(bluetoothDeviceAddress.equals("<any>"))
+					{
+						device = Miscellaneous.getAnyContext().getResources().getString(R.string.any);
+					}
+					else if(bluetoothDeviceAddress.equals("<none>"))
+					{
+						device = Miscellaneous.getAnyContext().getResources().getString(R.string.noDevice);
+					}
+					else
+					{
+						try
+						{
+							device = BluetoothReceiver.getDeviceByAddress(bluetoothDeviceAddress).getName() + " (" + this.bluetoothDeviceAddress + ")";
+						}
+						catch(NullPointerException e)
+						{
+							device = Miscellaneous.getAnyContext().getResources().getString(R.string.invalidDevice);
+							Miscellaneous.logEvent("w", "Trigger", Miscellaneous.getAnyContext().getResources().getString(R.string.invalidDevice), 3);
+						}
+					}
+					
+					if(bluetoothEvent.equals(BluetoothDevice.ACTION_ACL_CONNECTED) | bluetoothEvent.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED))
+						if(this.triggerParameter)
+							returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothConnectionTo), device));
+						else
+							returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothDisconnectFrom), device));
+					else if(bluetoothEvent.equals(BluetoothDevice.ACTION_FOUND))
+						if(this.triggerParameter)
+							returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothDeviceInRange), device));
+						else
+							returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothDeviceOutOfRange), device));
+//				}
+				break;
+			case headsetPlugged:
+				String type;
+				switch(headphoneType)
+				{
+					case 0:
+						type = Miscellaneous.getAnyContext().getResources().getString(R.string.headphoneSimple);
+						break;
+					case 1:
+						type = Miscellaneous.getAnyContext().getResources().getString(R.string.headphoneMicrophone);
+						break;
+					case 2:
+						type = Miscellaneous.getAnyContext().getResources().getString(R.string.headphoneAny);
+						break;
+					default:
+						type = "not set";
+						break;
+				}
+				if(getTriggerParameter())
+					returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.headsetConnected), type));
+				else
+					returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.headsetDisconnected), type));
+				break;
+			default:
+				returnString.append("error");
+				break;
+		}
+		
+		return returnString.toString();
+	}
+	
+
+	public static String[] getTriggerTypesAsArray()
+	{
+		ArrayList<String> triggerTypesList = new ArrayList<String>();
+		
+		/*for(int i=0; i<Trigger_Enum.values().length; i++)
+		{
+			triggerTypesList.add(Trigger_Enum.values()[i].toString());
+		}*/
+		for(Trigger_Enum triggerType : Trigger_Enum.values())
+			triggerTypesList.add(triggerType.name());
+		
+		return (String[])triggerTypesList.toArray(new String[triggerTypesList.size()]);
+	}
+	
+
+	public static String[] getTriggerTypesStringAsArray(Context context)
+	{
+		ArrayList<String> triggerTypesList = new ArrayList<String>();
+		
+		/*for(int i=0; i<Trigger_Enum.values().length; i++)
+		{
+			triggerTypesList.add(Trigger_Enum.values()[i].getFullName(context));
+		}*/
+		for(Trigger_Enum triggerType : Trigger_Enum.values())
+			triggerTypesList.add(triggerType.getFullName(context));
+		
+		return (String[])triggerTypesList.toArray(new String[triggerTypesList.size()]);
+	}
+
+	public String getWifiName()
+	{
+		return wifiName;
+	}
+
+	public void setWifiName(String wifiName)
+	{
+		this.wifiName = wifiName;
+	}
+	public void setBluetoothEvent(String string)
+	{
+		this.bluetoothEvent = string;
+	}
+	public Object getBluetoothEvent()
+	{
+		return this.bluetoothEvent;
+	}
+	
+}

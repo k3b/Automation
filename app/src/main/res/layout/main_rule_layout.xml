@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+		android:gravity="top"
+		android:layout_margin="10dp" >
+	
+	    <Button
+	        android:id="@+id/bAddRule"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/addRule" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/ruleLegend"
+			android:layout_marginLeft="10dp"
+			android:textAppearance="?android:attr/textAppearanceSmall" />
+	       
+	</LinearLayout>
+
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:gravity="top"
+		android:layout_margin="10dp" >
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:text="@string/clickAndHoldForOptions"
+			android:gravity="center"/>
+
+	</LinearLayout>
+
+	<LinearLayout 
+	    android:layout_marginTop="10dp"
+	    android:orientation="horizontal"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@color/barBackgroundColor" >
+	
+	    <TextView
+	        android:id="@+id/tvTimeFrameHelpText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/ruleList"
+	        android:layout_marginLeft="10dp"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	    
+	</LinearLayout>
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" 
+		android:layout_margin="10dp" >
+	       
+	       <ListView
+	           android:id="@+id/lvRuleList"
+	           android:layout_width="fill_parent"
+	           android:layout_height="fill_parent" >
+	       </ListView>        
+	       
+	</LinearLayout>
+	
+</LinearLayout>
