@@ -21,7 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-public class ActivityManageSpecificPoi extends Activity
+public class ActivityManagePoi extends Activity
 {
 	public LocationManager myLocationManager;
 	MyLocationListenerGps myLocationListenerGps = new MyLocationListenerGps();
@@ -211,7 +211,7 @@ public class ActivityManageSpecificPoi extends Activity
 //						break;
 //				}
 				
-				progressDialog = ProgressDialog.show(ActivityManageSpecificPoi.this, "", getResources().getString(R.string.gettingPosition), true, true);
+				progressDialog = ProgressDialog.show(ActivityManagePoi.this, "", getResources().getString(R.string.gettingPosition), true, true);
 				getLocation();
 			}
 		};

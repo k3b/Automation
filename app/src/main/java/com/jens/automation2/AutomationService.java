@@ -36,6 +36,7 @@ public class AutomationService extends Service implements OnInitListener
 {
 	protected TextToSpeech ttsEngine = null;
 	protected final static int notificationId = 1000;
+	protected final static int notificationIdRestrictions = 1005;
 
 	final static String NOTIFICATION_CHANNEL_ID = "com.jens.automation2";
 	final static String channelName = "Automation notifications";
@@ -373,18 +374,18 @@ public class AutomationService extends Service implements OnInitListener
 
 	protected void checkForRestrictedFeatures()
 	{
-		try
+		if(Rule.isAnyRuleUsing(Trigger_Enum.activityDetection))
 		{
-			Class testClass = Class.forName(ActivityManageSpecificRule.activityDetectionClassPath);
-		}
-		catch (ClassNotFoundException e)
-		{
-			if(Rule.isAnyRuleUsing(Trigger_Enum.activityDetection))
+			try
 			{
-				Intent intent = new Intent(AutomationService.this, ActivityMainScreen.class);
+				Class testClass = Class.forName(ActivityManageRule.activityDetectionClassPath);
+			}
+			catch (ClassNotFoundException e)
+			{
+				Intent intent = new Intent(AutomationService.this, ActivityMainTabLayout.class);
 				PendingIntent pi = PendingIntent.getActivity(AutomationService.this, 0, intent, 0);
 //				Miscellaneous.createDismissableNotification(getResources().getString(R.string.settingsReferringToRestrictedFeatures), ActivityPermissions.notificationIdPermissions, pi);
-				Miscellaneous.createDismissableNotification(getResources().getString(R.string.settingsReferringToRestrictedFeatures), 1, pi);
+				Miscellaneous.createDismissableNotification(getResources().getString(R.string.settingsReferringToRestrictedFeatures), notificationIdRestrictions, pi);
 			}
 		}
 	}

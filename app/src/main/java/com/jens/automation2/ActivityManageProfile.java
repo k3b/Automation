@@ -29,7 +29,7 @@ import androidx.annotation.RequiresApi;
 
 import java.io.File;
 
-public class ActivityManageSpecificProfile extends Activity
+public class ActivityManageProfile extends Activity
 {
 	private static ProgressDialog progressDialog;
 	final static int intentCodeRingtonePickerCallsFile = 9010;
@@ -195,7 +195,7 @@ public class ActivityManageSpecificProfile extends Activity
 				checkBoxScreenLockUnlockSound.setEnabled(isChecked);
 
 				if(isChecked && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-					Miscellaneous.messageBox("Info", getResources().getString(R.string.screenLockSoundNotice), ActivityManageSpecificProfile.this).show();
+					Miscellaneous.messageBox("Info", getResources().getString(R.string.screenLockSoundNotice), ActivityManageProfile.this).show();
 			}
 		});
 		checkBoxChangeHapticFeedback.setOnCheckedChangeListener(new OnCheckedChangeListener()
@@ -223,13 +223,13 @@ public class ActivityManageSpecificProfile extends Activity
 				try
 				{
 					if(ActivityMainProfiles.profileToEdit == null)
-						createProfile(ActivityManageSpecificProfile.this);
+						createProfile(ActivityManageProfile.this);
 					else
 						changeProfile();
 				}
 				catch(Exception ex)
 				{
-					Toast.makeText(ActivityManageSpecificProfile.this, getResources().getString(R.string.errorWritingFile) + " " + ex.getMessage(), Toast.LENGTH_LONG).show();
+					Toast.makeText(ActivityManageProfile.this, getResources().getString(R.string.errorWritingFile) + " " + ex.getMessage(), Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -440,14 +440,14 @@ public class ActivityManageSpecificProfile extends Activity
 					Uri uri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
 					if (uri != null)
 					{
-						String ringTonePath = CompensateCrappyAndroidPaths.getPath(ActivityManageSpecificProfile.this, uri);
+						String ringTonePath = CompensateCrappyAndroidPaths.getPath(ActivityManageProfile.this, uri);
 						setIncomingCallsRingtone(new File(ringTonePath));
 					}
 					break;
 				}
 				case intentCodeRingtonePickerCallsFile:
 				{
-					String ringTonePath = CompensateCrappyAndroidPaths.getPath(ActivityManageSpecificProfile.this, data.getData());
+					String ringTonePath = CompensateCrappyAndroidPaths.getPath(ActivityManageProfile.this, data.getData());
 					setIncomingCallsRingtone(new File(ringTonePath));
 					break;
 				}
@@ -456,14 +456,14 @@ public class ActivityManageSpecificProfile extends Activity
 					Uri uri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
 					if (uri != null)
 					{
-						String ringTonePath = CompensateCrappyAndroidPaths.getPath(ActivityManageSpecificProfile.this, data.getData());
+						String ringTonePath = CompensateCrappyAndroidPaths.getPath(ActivityManageProfile.this, data.getData());
 						setNotificationsRingtone(new File(ringTonePath));
 					}
 					break;
 				}
 				case intentCodeRingtonePickerNotificationsFile:
 				{
-					String ringTonePath = CompensateCrappyAndroidPaths.getPath(ActivityManageSpecificProfile.this, data.getData());
+					String ringTonePath = CompensateCrappyAndroidPaths.getPath(ActivityManageProfile.this, data.getData());
 					setNotificationsRingtone(new File(ringTonePath));
 					break;
 				}

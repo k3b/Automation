@@ -739,51 +739,7 @@ public class Miscellaneous extends Service
 		Notification dismissableNotification = dismissableNotificationBuilder.build();
 
 		mNotificationManager.notify(notificationId, dismissableNotification);
-
-		/*NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(this)
-				.setSmallIcon(R.drawable.ic_launcher) // notification icon
-				.setContentTitle("Notification!") // title for notification
-				.setContentText("Hello word") // message for notification
-				.setAutoCancel(true); // clear notification after click
-		Intent intent = new Intent(this, MainActivity.class);
-		PendingIntent pi = PendingIntent.getActivity(this,0,intent,Intent.FLAG_ACTIVITY_NEW_TASK);
-		mBuilder.setContentIntent(pi);
-		NotificationManager mNotificationManager =
-				(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		mNotificationManager.notify(0, dismissableNotification);*/
 	}
-
-	/*protected static Notification.Builder createDismissableNotificationBuilder()
-	{
-		Notification.Builder builder = new Notification.Builder(AutomationService.getInstance());
-		builder.setContentTitle("Automation");
-		builder.setSmallIcon(R.drawable.ic_launcher);
-		builder.setCategory(Notification.CATEGORY_EVENT);
-		builder.setWhen(System.currentTimeMillis());
-
-		//static PendingIntent myPendingIntent = PendingIntent.getActivity(this, 0, myIntent, 0);
-
-		//builder.setContentIntent(myPendingIntent);
-
-//		Notification defaultNotification = new Notification();
-*//*		Notification defaultNotification = builder.build();
-
-		defaultNotification.icon = R.drawable.ic_launcher;
-		defaultNotification.when = System.currentTimeMillis();
-
-//		defaultNotification.defaults |= Notification.DEFAULT_VIBRATE;
-//		defaultNotification.defaults |= Notification.DEFAULT_LIGHTS;
-
-		defaultNotification.flags |= Notification.FLAG_AUTO_CANCEL;
-//		defaultNotification.flags |= Notification.FLAG_SHOW_LIGHTS;
-		defaultNotification.flags |= Notification.FLAG_ONLY_ALERT_ONCE;
-
-//		defaultNotification.ledARGB = Color.YELLOW;
-//		defaultNotification.ledOnMS = 1500;
-//		defaultNotification.ledOffMS = 1500;
-*//*
-		return builder;
-	}*/
 
 	protected static NotificationCompat.Builder createDismissableNotificationBuilder(PendingIntent myPendingIntent)
 	{
@@ -927,5 +883,22 @@ public class Miscellaneous extends Service
 		}
 
 		return result;
+	}
+
+	public static boolean restrictedFeaturesConfigured()
+	{
+		if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.activityDetection))
+		{
+			try
+			{
+				Class testClass = Class.forName(ActivityManageRule.activityDetectionClassPath);
+			}
+			catch (ClassNotFoundException e)
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 }

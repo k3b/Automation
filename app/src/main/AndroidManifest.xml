@@ -94,7 +94,7 @@
             android:name=".ActivityMainScreen"
             android:label="@string/app_name"></activity>
         <activity
-            android:name=".ActivityManageSpecificPoi"
+            android:name=".ActivityManagePoi"
             android:label="@string/title_activity_main"></activity>
         <activity
             android:name=".ActivitySettings"
@@ -135,7 +135,7 @@
         <receiver android:name=".receivers.ConnectivityReceiver" />
         <receiver android:name=".receivers.TimeZoneListener" />
 
-        <activity android:name=".ActivityManageSpecificRule" />
+        <activity android:name=".ActivityManageRule" />
         <activity android:name=".ActivityEditTriggerUrl" />
         <activity android:name=".ActivityEditSendTextMessage" />
         <activity android:name=".ActivityManageTimeFrame" />
@@ -182,7 +182,7 @@
         <activity android:name=".ActivityEditSpeakText" />
         <activity android:name=".ActivityManageBluetoothTrigger" />
         <activity android:name=".ActivityMainProfiles" />
-        <activity android:name=".ActivityManageSpecificProfile" />
+        <activity android:name=".ActivityManageProfile" />
         <activity android:name=".ActivityVolumeTest" />
 
         <activity android:name=".ActivityPermissions"></activity>
