@@ -228,6 +228,8 @@ public class ActivityMainScreen extends ActivityGeneric
 		this.storeServiceReferenceInVariable();
 
 		guiChangeInProgress = false;
+
+//		MyGoogleApiClient.start();
 	}
 
 	private static AlertDialog getEraseSettingsDialog(final Context context)
@@ -490,14 +492,6 @@ public class ActivityMainScreen extends ActivityGeneric
 	}
 
 	@Override
-	protected void onStart()
-	{
-		toggleService.setChecked(AutomationService.isMyServiceRunning(this));
-		ActivityMainScreen.updateMainScreen();
-		super.onStart();
-	}
-
-	@Override
 	protected void onResume()
 	{
 		super.onResume();
@@ -528,7 +522,7 @@ public class ActivityMainScreen extends ActivityGeneric
 	
 	private void openPrivacyPolicy()
 	{
-		String privacyPolicyUrl = "http://server47.de/automation/privacy.html";
+		String privacyPolicyUrl = "https://server47.de/automation/privacy.html";
 		
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(privacyPolicyUrl));
         startActivity(browserIntent);
@@ -543,8 +537,7 @@ public class ActivityMainScreen extends ActivityGeneric
 				lvRuleHistory.setAdapter(ruleHistoryListViewAdapter);
 
 			ruleHistoryListViewAdapter.notifyDataSetChanged();
-		}
-		catch (NullPointerException e)
+		} catch (NullPointerException e)
 		{
 		}
 	}

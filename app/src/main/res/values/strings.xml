@@ -393,6 +393,7 @@
     <string name="poiCouldBeInRange">At least location %1$s could be in range, if not others in addition.</string>
     <string name="noPoiInRelevantRange">No location in relevant range.</string>
     <string name="activityDetection">Activity detection</string>
+    <string name="android.permission.ACTIVITY_RECOGNITION">Activity detection</string>
     <string name="detectedActivity">Detected activity:</string>
     <string name="detectedActivityInVehicle">In vehicle (car/bus)</string>
     <string name="detectedActivityOnBicycle">On bicycle</string>
@@ -599,4 +600,5 @@
     <string name="manageLocations">Create or edit locations</string>
     <string name="error">Error</string>
     <string name="featureNotInFdroidVersion">This feature is based on non-free software. Therefore is is not available in the F-Droid version.</string>
+    <string name="settingsReferringToRestrictedFeatures">Your settings and or rules are currently referencing non-free features that cannot be provided in the F-Droid version.</string>
 </resources>

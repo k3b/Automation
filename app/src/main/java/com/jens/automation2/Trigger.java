@@ -353,12 +353,15 @@ public class Trigger
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.closeTo) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.nfcTag) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.withLabel) + " " + this.getNfcTagId());
 				break;
 			case activityDetection:
-				if(ActivityPermissions.isPermissionDeclaratedInManifest(Miscellaneous.getAnyContext(), "com.google.android.gms.permission.ACTIVITY_RECOGNITION"))
+				try
 				{
-					// This type doesn't have an activate/deactivate equivalent, at least not yet.
+					Class testClass = Class.forName(ActivityManageSpecificRule.activityDetectionClassPath);
+					if (ActivityPermissions.isPermissionDeclaratedInManifest(Miscellaneous.getAnyContext(), "com.google.android.gms.permission.ACTIVITY_RECOGNITION"))
+					{
+						// This type doesn't have an activate/deactivate equivalent, at least not yet.
 //					try
 //					{
-						returnString.append(Miscellaneous.runMethodReflective(ActivityManageSpecificRule.activityDetectionClassPath, "getDescription", new Object[] { getActivityDetectionType() } ));
+						returnString.append(Miscellaneous.runMethodReflective(ActivityManageSpecificRule.activityDetectionClassPath, "getDescription", new Object[]{getActivityDetectionType()}));
 //						for(Method method : activityDetection.getMethods())
 //						{
 //							if(method.getName().equalsIgnoreCase("getDescription"))
@@ -371,9 +374,14 @@ public class Trigger
 //						e.printStackTrace();
 //					}
 
+					}
+					else
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.featureNotInFdroidVersion));
 				}
-				else
-					returnString.append("Invalid trigger. This application version cannot handle ActivityDetection.");
+				catch(ClassNotFoundException e)
+				{
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.featureNotInFdroidVersion));
+				}
 				break;
 			case bluetoothConnection:
 				String device = Miscellaneous.getAnyContext().getResources().getString(R.string.anyDevice);
@@ -438,7 +446,7 @@ public class Trigger
 				returnString.append("error");
 				break;
 		}
-		
+
 		return returnString.toString();
 	}
 	

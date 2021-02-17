@@ -316,6 +316,7 @@ public class AutomationService extends Service implements OnInitListener
 	{
 		checkForTtsEngine();
 		checkForPermissions();
+		checkForRestrictedFeatures();
 
 		Actions.context = this;
 		Actions.autoMationServerRef = this;
@@ -367,6 +368,24 @@ public class AutomationService extends Service implements OnInitListener
 			}
 //			else
 //				Toast.makeText(Miscellaneous.getAnyContext(), "Have all required permissions.", Toast.LENGTH_LONG).show();
+		}
+	}
+
+	protected void checkForRestrictedFeatures()
+	{
+		try
+		{
+			Class testClass = Class.forName(ActivityManageSpecificRule.activityDetectionClassPath);
+		}
+		catch (ClassNotFoundException e)
+		{
+			if(Rule.isAnyRuleUsing(Trigger_Enum.activityDetection))
+			{
+				Intent intent = new Intent(AutomationService.this, ActivityMainScreen.class);
+				PendingIntent pi = PendingIntent.getActivity(AutomationService.this, 0, intent, 0);
+//				Miscellaneous.createDismissableNotification(getResources().getString(R.string.settingsReferringToRestrictedFeatures), ActivityPermissions.notificationIdPermissions, pi);
+				Miscellaneous.createDismissableNotification(getResources().getString(R.string.settingsReferringToRestrictedFeatures), 1, pi);
+			}
 		}
 	}
 

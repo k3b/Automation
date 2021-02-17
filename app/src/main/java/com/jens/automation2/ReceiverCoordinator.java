@@ -16,9 +16,6 @@ import com.jens.automation2.receivers.PhoneStatusListener;
 import com.jens.automation2.receivers.ProcessListener;
 import com.jens.automation2.receivers.TimeZoneListener;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 import androidx.annotation.RequiresApi;
 
 import static com.jens.automation2.ActivityManageSpecificRule.activityDetectionClassPath;
@@ -166,11 +163,19 @@ public class ReceiverCoordinator
         if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.process_started_stopped))
             ProcessListener.startProcessListener(AutomationService.getInstance());
 
-        //startActivityDetectionReceiver
-        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.activityDetection))
+        try
         {
-            Miscellaneous.runMethodReflective(activityDetectionClassPath, "startActivityDetectionReceiver", null);
-//            ActivityDetectionReceiver.startActivityDetectionReceiver();
+            Class testClass = Class.forName(ActivityManageSpecificRule.activityDetectionClassPath);
+            //startActivityDetectionReceiver
+            if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.activityDetection))
+            {
+                Miscellaneous.runMethodReflective(activityDetectionClassPath, "startActivityDetectionReceiver", null);
+    //            ActivityDetectionReceiver.startActivityDetectionReceiver();
+        }
+        }
+        catch(ClassNotFoundException e)
+        {
+            // Nothing to do, just not starting this one.
         }
 
         //startBluetoothReceiver
@@ -194,8 +199,18 @@ public class ReceiverCoordinator
             AlarmListener.stopAlarmListener(AutomationService.getInstance());
             NoiseListener.stopNoiseListener();
             ProcessListener.stopProcessListener(AutomationService.getInstance());
-            Miscellaneous.runMethodReflective("ActivityDetectionReceiver", "stopActivityDetectionReceiver", null);
-//            ActivityDetectionReceiver.stopActivityDetectionReceiver();
+
+            try
+            {
+                Class testClass = Class.forName(ActivityManageSpecificRule.activityDetectionClassPath);
+                Miscellaneous.runMethodReflective("ActivityDetectionReceiver", "stopActivityDetectionReceiver", null);
+//              ActivityDetectionReceiver.stopActivityDetectionReceiver();
+            }
+            catch(ClassNotFoundException e)
+            {
+                // Nothing to do, just not stopping this one.
+            }
+
             BluetoothReceiver.stopBluetoothReceiver();
             HeadphoneJackListener.getInstance().stopListener(AutomationService.getInstance());
         }
