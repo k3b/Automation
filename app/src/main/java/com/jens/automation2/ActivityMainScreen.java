@@ -559,4 +559,9 @@ public class ActivityMainScreen extends ActivityGeneric
 		Miscellaneous.messageBox(title, text, ActivityMainScreen.getActivityMainScreenInstance());
 	}
 
+	void checkForNews()
+	{
+		String newsUrl = "https://server47.de/automation/appNews.php";
+		String newsContent = Miscellaneous.downloadURL(newsUrl, null, null);
+	}
 }
