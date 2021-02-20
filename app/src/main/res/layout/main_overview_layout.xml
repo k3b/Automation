@@ -37,6 +37,18 @@
 			android:textColor="@color/importantMessage"
 			android:singleLine="false"
 			android:textAppearance="?android:attr/textAppearanceMedium" />
+
+		<TextView
+			android:id="@+id/tvMainScreenNote2"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:layout_marginLeft="10dp"
+			android:layout_marginRight="10dp"
+			android:scrollHorizontally="false"
+			android:textColor="@color/importantMessage"
+			android:singleLine="false"
+			android:textAppearance="?android:attr/textAppearanceMedium" />
 		
 	    <TableLayout 
 	        android:layout_width="fill_parent"

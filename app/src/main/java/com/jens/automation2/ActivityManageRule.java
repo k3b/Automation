@@ -45,7 +45,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class ActivityManageSpecificRule extends Activity
+public class ActivityManageRule extends Activity
 {
 	final static String activityDetectionClassPath = "com.jens.automation2.receivers.ActivityDetectionReceiver";
 
@@ -54,7 +54,7 @@ public class ActivityManageSpecificRule extends Activity
 	private ListView triggerListView, actionListView;
 	private EditText etRuleName;
 	private CheckBox chkRuleActive, chkRuleToggle;
-	private static ActivityManageSpecificRule instance = null;
+	private static ActivityManageRule instance = null;
 	ImageView imageHelpButton;
 	
 	private static ProgressDialog progressDialog = null;
@@ -96,10 +96,10 @@ public class ActivityManageSpecificRule extends Activity
 	final static int requestCodeActionScreenBrightnessEdit = 402;
 	final static int requestCodeActionSendTextMessage = 7001;
 	
-	public static ActivityManageSpecificRule getInstance()
+	public static ActivityManageRule getInstance()
 	{
 		if(instance == null)
-			instance = new ActivityManageSpecificRule();
+			instance = new ActivityManageRule();
 		
 		return instance;
 	}
@@ -182,7 +182,7 @@ public class ActivityManageSpecificRule extends Activity
 						finish();
 					}
 					else
-						Toast.makeText(ActivityManageSpecificRule.this, getResources().getString(R.string.errorWritingConfig), Toast.LENGTH_LONG).show();
+						Toast.makeText(ActivityManageRule.this, getResources().getString(R.string.errorWritingConfig), Toast.LENGTH_LONG).show();
 				}
 				else
 				{
@@ -194,7 +194,7 @@ public class ActivityManageSpecificRule extends Activity
 						finish();
 					}
 					else
-						Toast.makeText(ActivityManageSpecificRule.this, getResources().getString(R.string.errorWritingConfig), Toast.LENGTH_LONG).show();
+						Toast.makeText(ActivityManageRule.this, getResources().getString(R.string.errorWritingConfig), Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -234,7 +234,7 @@ public class ActivityManageSpecificRule extends Activity
 //						break;
 					case timeFrame:
 						ActivityManageTimeFrame.editedTimeFrameTrigger = selectedTrigger;
-						Intent timeFrameEditor = new Intent(ActivityManageSpecificRule.this, ActivityManageTimeFrame.class);
+						Intent timeFrameEditor = new Intent(ActivityManageRule.this, ActivityManageTimeFrame.class);
 						startActivityForResult(timeFrameEditor, requestCodeTriggerTimeframeEdit);
 						break;
 //					case usb_host_connection:
@@ -243,7 +243,7 @@ public class ActivityManageSpecificRule extends Activity
 //						break;
 					case bluetoothConnection:
 						ActivityManageBluetoothTrigger.editedBluetoothTrigger = selectedTrigger;
-						Intent bluetoothEditor = new Intent(ActivityManageSpecificRule.this, ActivityManageBluetoothTrigger.class);
+						Intent bluetoothEditor = new Intent(ActivityManageRule.this, ActivityManageBluetoothTrigger.class);
 						startActivityForResult(bluetoothEditor, requestCodeTriggerBluetoothEdit);
 						break;
 					default:
@@ -288,13 +288,13 @@ public class ActivityManageSpecificRule extends Activity
 //					case setAirplaneMode:
 //						break;
 					case startOtherActivity:
-						Intent intent = new Intent(ActivityManageSpecificRule.this, ActivityManageStartActivity.class);
+						Intent intent = new Intent(ActivityManageRule.this, ActivityManageStartActivity.class);
 						ActivityManageStartActivity.resultingAction = a;
 						intent.putExtra("edit", true);
 						startActivityForResult(intent, requestCodeActionStartActivityEdit);
 						break;
 					case triggerUrl:
-						Intent activityEditTriggerUrlIntent = new Intent(ActivityManageSpecificRule.this, ActivityEditTriggerUrl.class);
+						Intent activityEditTriggerUrlIntent = new Intent(ActivityManageRule.this, ActivityEditTriggerUrl.class);
 //						activityEditTriggerUrlIntent.putExtra("urlToTrigger", a.getParameter2());
 						ActivityEditTriggerUrl.resultingAction = a;
 						activityEditTriggerUrlIntent.putExtra("edit", true);
@@ -321,19 +321,19 @@ public class ActivityManageSpecificRule extends Activity
 //					case wakeupDevice:
 //						break;
 					case speakText:
-						Intent activitySpeakTextIntent = new Intent(ActivityManageSpecificRule.this, ActivityEditSpeakText.class);
+						Intent activitySpeakTextIntent = new Intent(ActivityManageRule.this, ActivityEditSpeakText.class);
 						ActivityEditSpeakText.resultingAction = a;
 						activitySpeakTextIntent.putExtra("edit", true);
 						startActivityForResult(activitySpeakTextIntent, requestCodeActionSpeakTextEdit);
 						break;
 					case sendTextMessage:
-						Intent activitySendTextMessageIntent = new Intent(ActivityManageSpecificRule.this, ActivityEditSendTextMessage.class);
+						Intent activitySendTextMessageIntent = new Intent(ActivityManageRule.this, ActivityEditSendTextMessage.class);
 						ActivityEditSendTextMessage.resultingAction = a;
 						activitySendTextMessageIntent.putExtra("edit", true);
 						startActivityForResult(activitySendTextMessageIntent, requestCodeActionSendTextMessage);
 						break;
 					case setScreenBrightness:
-						Intent activityEditScreenBrightnessIntent = new Intent(ActivityManageSpecificRule.this, ActivityManageBrightnessSetting.class);
+						Intent activityEditScreenBrightnessIntent = new Intent(ActivityManageRule.this, ActivityManageBrightnessSetting.class);
 //						ActivityEditTriggerUrl.resultingAction = a;
 						activityEditScreenBrightnessIntent.putExtra("autoBrightness", a.getParameter1());
 						activityEditScreenBrightnessIntent.putExtra("brightnessValue", Integer.parseInt(a.getParameter2()));
@@ -368,7 +368,7 @@ public class ActivityManageSpecificRule extends Activity
 						guiEditing = true;
 						chkRuleToggle.setChecked(false);
 						guiEditing = false;
-						Toast.makeText(ActivityManageSpecificRule.this, getResources().getString(R.string.toggleNotAllowed), Toast.LENGTH_LONG).show();
+						Toast.makeText(ActivityManageRule.this, getResources().getString(R.string.toggleNotAllowed), Toast.LENGTH_LONG).show();
 					}						
 			}
 		});
@@ -379,7 +379,7 @@ public class ActivityManageSpecificRule extends Activity
 			public void onClick(View v)
 			{
 				// Open help popup
-				Miscellaneous.messageBox(getResources().getString(R.string.whatsThis), getResources().getString(R.string.helpTextToggable), ActivityManageSpecificRule.this).show();
+				Miscellaneous.messageBox(getResources().getString(R.string.whatsThis), getResources().getString(R.string.helpTextToggable), ActivityManageRule.this).show();
 			}
 		});
 	}
@@ -455,7 +455,7 @@ public class ActivityManageSpecificRule extends Activity
 			else if(types[i].toString().equals(Trigger_Enum.phoneCall.toString()))
             {
 //                if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageSpecificRule.this, "android.permission.SEND_SMS") && !Miscellaneous.isGooglePlayInstalled(ActivityManageSpecificRule.this))
-				if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageSpecificRule.this, "android.permission.SEND_SMS"))
+				if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageRule.this, "android.permission.SEND_SMS"))
                     items.add(new Item(typesLong[i].toString(), R.drawable.phone));
             }
 			else if(types[i].toString().equals(Trigger_Enum.nfcTag.toString()))
@@ -551,7 +551,7 @@ public class ActivityManageSpecificRule extends Activity
 										Toast.makeText(myContext, getResources().getString(R.string.triggerOnlyAvailableIfPlayServicesInstalled), Toast.LENGTH_LONG).show();
 								}
 								else
-									Miscellaneous.messageBox(getResources().getString(R.string.error), getResources().getString(R.string.featureNotInFdroidVersion), ActivityManageSpecificRule.this).show();
+									Miscellaneous.messageBox(getResources().getString(R.string.error), getResources().getString(R.string.featureNotInFdroidVersion), ActivityManageRule.this).show();
 							}
 							catch (IllegalAccessException | InvocationTargetException e)
 							{
@@ -561,7 +561,7 @@ public class ActivityManageSpecificRule extends Activity
 						}
 						else if(triggerType == Trigger_Enum.nfcTag)
 						{
-							if(NfcReceiver.checkNfcRequirements(ActivityManageSpecificRule.this, true))
+							if(NfcReceiver.checkNfcRequirements(ActivityManageRule.this, true))
 							{
 								newTrigger.setTriggerType(Trigger_Enum.nfcTag);
 								Intent nfcEditor = new Intent(myContext, ActivityManageNfc.class);
@@ -572,7 +572,7 @@ public class ActivityManageSpecificRule extends Activity
 						else if(triggerType == Trigger_Enum.bluetoothConnection)
 						{
 							if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
-								Miscellaneous.messageBox("Bluetooth", getResources().getString(R.string.deviceDoesNotHaveBluetooth), ActivityManageSpecificRule.this).show();;
+								Miscellaneous.messageBox("Bluetooth", getResources().getString(R.string.deviceDoesNotHaveBluetooth), ActivityManageRule.this).show();;
 
 							newTrigger.setTriggerType(Trigger_Enum.bluetoothConnection);
 							ActivityManageBluetoothTrigger.editedBluetoothTrigger = newTrigger;
@@ -585,7 +585,7 @@ public class ActivityManageSpecificRule extends Activity
 
 						if(triggerType == Trigger_Enum.nfcTag)
 						{
-							if (NfcReceiver.checkNfcRequirements(ActivityManageSpecificRule.this, true))
+							if (NfcReceiver.checkNfcRequirements(ActivityManageRule.this, true))
 								getTriggerParamterDialog(context, booleanChoices).show();
 						}
 						else
@@ -658,7 +658,7 @@ public class ActivityManageSpecificRule extends Activity
 				{
 					progressDialog = ProgressDialog.show(myContext, null, getResources().getString(R.string.gettingListOfInstalledApplications), true, false);
 					newTrigger.setTriggerType(Trigger_Enum.process_started_stopped);
-					new GenerateApplicationSelectionsDialogTask().execute(ActivityManageSpecificRule.this);
+					new GenerateApplicationSelectionsDialogTask().execute(ActivityManageRule.this);
 //					getTriggerRunningProcessDialog1(myContext).show();
 				}
 				else if(triggerType.equals(Trigger_Enum.phoneCall))
@@ -820,7 +820,7 @@ public class ActivityManageSpecificRule extends Activity
 			public void onClick(DialogInterface dialog, int which)
 			{
 				newTrigger.setPhoneDirection(which);
-				getTriggerPhoneNumberDialog(ActivityManageSpecificRule.this).show();
+				getTriggerPhoneNumberDialog(ActivityManageRule.this).show();
 			}
 		});
 
@@ -965,10 +965,10 @@ public class ActivityManageSpecificRule extends Activity
 		return alertDialog.create();
 	}
 	
-	private static class GenerateApplicationSelectionsDialogTask extends AsyncTask<ActivityManageSpecificRule, Void, String[]>
+	private static class GenerateApplicationSelectionsDialogTask extends AsyncTask<ActivityManageRule, Void, String[]>
 	{
 		@Override
-		protected String[] doInBackground(ActivityManageSpecificRule... params)
+		protected String[] doInBackground(ActivityManageRule... params)
 		{
 //			Looper.prepare();
 			final String[] applicationArray = ActivityManageStartActivity.getApplicationNameListString(params[0]);
@@ -984,13 +984,13 @@ public class ActivityManageSpecificRule extends Activity
 				progressDialog = null;
 			}
 			
-			ActivityManageSpecificRule.getInstance().showProcessDialog(result);
+			ActivityManageRule.getInstance().showProcessDialog(result);
 		}
 	}
 	
 	void showProcessDialog(String[] programStrings)
 	{
-		getTriggerRunningProcessDialog1(ActivityManageSpecificRule.this, programStrings).show();
+		getTriggerRunningProcessDialog1(ActivityManageRule.this, programStrings).show();
 	}
 	
 	private AlertDialog getTriggerRunningProcessDialog1(final Context myContext, final String[] applicationArray)
@@ -1026,7 +1026,7 @@ public class ActivityManageSpecificRule extends Activity
 			{
 				String packageName = packageArray[which];
 				getTriggerRunningProcessDialog3(myContext, packageName).show();
-				Miscellaneous.messageBox(getResources().getString(R.string.hint), getResources().getString(R.string.chooseActivityHint), ActivityManageSpecificRule.this).show();
+				Miscellaneous.messageBox(getResources().getString(R.string.hint), getResources().getString(R.string.chooseActivityHint), ActivityManageRule.this).show();
 			}
 		});
 		AlertDialog alertDialog = alertDialogBuilder.create();
@@ -1248,7 +1248,7 @@ public class ActivityManageSpecificRule extends Activity
 			else if(types[i].toString().equals(Action_Enum.sendTextMessage.toString()))
 			{
 //			    if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageSpecificRule.this, "android.permission.SEND_SMS") && !Miscellaneous.isGooglePlayInstalled(ActivityManageSpecificRule.this))
-				if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageSpecificRule.this, "android.permission.SEND_SMS"))
+				if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageRule.this, "android.permission.SEND_SMS"))
 					items.add(new Item(typesLong[i].toString(), R.drawable.message));
 			}
 			else
@@ -1303,31 +1303,31 @@ public class ActivityManageSpecificRule extends Activity
 							newAction.setAction(Action_Enum.setWifi);
 							if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
 								Toast.makeText(context, context.getResources().getString(R.string.android10WifiToggleNotice), Toast.LENGTH_LONG).show();
-							getActionParameter1Dialog(ActivityManageSpecificRule.this).show();
+							getActionParameter1Dialog(ActivityManageRule.this).show();
 						}
 						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setBluetooth.toString()))
 						{
 							if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
-								Miscellaneous.messageBox("Bluetooth", getResources().getString(R.string.deviceDoesNotHaveBluetooth), ActivityManageSpecificRule.this).show();;
+								Miscellaneous.messageBox("Bluetooth", getResources().getString(R.string.deviceDoesNotHaveBluetooth), ActivityManageRule.this).show();;
 							newAction.setAction(Action_Enum.setBluetooth);
-							getActionParameter1Dialog(ActivityManageSpecificRule.this).show();
+							getActionParameter1Dialog(ActivityManageRule.this).show();
 						}
 						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setUsbTethering.toString()))
 						{
 							newAction.setAction(Action_Enum.setUsbTethering);
 							if(Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1)
 								Toast.makeText(context, context.getResources().getString(R.string.usbTetheringFailForAboveGingerbread), Toast.LENGTH_LONG).show();
-							getActionParameter1Dialog(ActivityManageSpecificRule.this).show();
+							getActionParameter1Dialog(ActivityManageRule.this).show();
 						}
 						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setWifiTethering.toString()))
 						{
 							newAction.setAction(Action_Enum.setWifiTethering);
-							getActionParameter1Dialog(ActivityManageSpecificRule.this).show();
+							getActionParameter1Dialog(ActivityManageRule.this).show();
 						}
 						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setDisplayRotation.toString()))
 						{
 							newAction.setAction(Action_Enum.setDisplayRotation);
-							getActionParameter1Dialog(ActivityManageSpecificRule.this).show();
+							getActionParameter1Dialog(ActivityManageRule.this).show();
 						}
 						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.changeSoundProfile.toString()))
 						{
@@ -1342,34 +1342,34 @@ public class ActivityManageSpecificRule extends Activity
 						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.startOtherActivity.toString()))
 						{
 							newAction.setAction(Action_Enum.startOtherActivity);
-							Intent intent = new Intent(ActivityManageSpecificRule.this, ActivityManageStartActivity.class);
+							Intent intent = new Intent(ActivityManageRule.this, ActivityManageStartActivity.class);
 							startActivityForResult(intent, 3000);
 						}
 						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.waitBeforeNextAction.toString()))
 						{
 							newAction.setAction(Action_Enum.waitBeforeNextAction);
-							getActionWaitBeforeNextActionDialog(ActivityManageSpecificRule.this).show();
+							getActionWaitBeforeNextActionDialog(ActivityManageRule.this).show();
 						}
 						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.wakeupDevice.toString()))
 						{
 							newAction.setAction(Action_Enum.wakeupDevice);
-							getActionWakeupDeviceDialog(ActivityManageSpecificRule.this).show();
+							getActionWakeupDeviceDialog(ActivityManageRule.this).show();
 						}
 						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setAirplaneMode.toString()))
 						{
 							if(Build.VERSION.SDK_INT >= 17)
 							{
 								Toast.makeText(context, getResources().getString(R.string.airplaneModeSdk17Warning), Toast.LENGTH_LONG).show();
-								Miscellaneous.messageBox(getResources().getString(R.string.airplaneMode), getResources().getString(R.string.rootExplanation), ActivityManageSpecificRule.this).show();
+								Miscellaneous.messageBox(getResources().getString(R.string.airplaneMode), getResources().getString(R.string.rootExplanation), ActivityManageRule.this).show();
 							}
 							newAction.setAction(Action_Enum.setAirplaneMode);
-							getActionParameter1Dialog(ActivityManageSpecificRule.this).show();
+							getActionParameter1Dialog(ActivityManageRule.this).show();
 						}
 						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setDataConnection.toString()))
 						{
 							newAction.setAction(Action_Enum.setDataConnection);
-							getActionParameter1Dialog(ActivityManageSpecificRule.this).show();
-							Miscellaneous.messageBox(getResources().getString(R.string.actionDataConnection), getResources().getString(R.string.rootExplanation), ActivityManageSpecificRule.this).show();
+							getActionParameter1Dialog(ActivityManageRule.this).show();
+							Miscellaneous.messageBox(getResources().getString(R.string.actionDataConnection), getResources().getString(R.string.rootExplanation), ActivityManageRule.this).show();
 						}
 						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.speakText.toString()))
 						{
@@ -1382,7 +1382,7 @@ public class ActivityManageSpecificRule extends Activity
 						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.sendTextMessage.toString()))
 						{
 //                            if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageSpecificRule.this, "android.permission.SEND_SMS") && !Miscellaneous.isGooglePlayInstalled(ActivityManageSpecificRule.this))
-							if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageSpecificRule.this, "android.permission.SEND_SMS"))
+							if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageRule.this, "android.permission.SEND_SMS"))
                             {
                                 //launch other activity to enter parameters;
                                 newAction.setAction(Action_Enum.sendTextMessage);
@@ -1482,7 +1482,7 @@ public class ActivityManageSpecificRule extends Activity
 						else
 						{
 							// Is already at the top
-							Toast.makeText(ActivityManageSpecificRule.this, getResources().getString(R.string.cantMoveUp), Toast.LENGTH_LONG).show();
+							Toast.makeText(ActivityManageRule.this, getResources().getString(R.string.cantMoveUp), Toast.LENGTH_LONG).show();
 						}
 						break;
 					case 2:
@@ -1497,7 +1497,7 @@ public class ActivityManageSpecificRule extends Activity
 						else
 						{
 							// Is already at the bottom
-							Toast.makeText(ActivityManageSpecificRule.this, getResources().getString(R.string.cantMoveDown), Toast.LENGTH_LONG).show();
+							Toast.makeText(ActivityManageRule.this, getResources().getString(R.string.cantMoveDown), Toast.LENGTH_LONG).show();
 						}
 						break;
 				}
@@ -1583,8 +1583,8 @@ public class ActivityManageSpecificRule extends Activity
 			{
 				if(input.getText().toString().length() == 0| input.getText().toString().equals("0") | input.getText().toString().contains(",") | input.getText().toString().contains("."))
 				{
-					Toast.makeText(myContext, ActivityManageSpecificRule.this.getResources().getString(R.string.enterAPositiveValidNonDecimalNumber), Toast.LENGTH_LONG).show();
-					getActionWaitBeforeNextActionDialog(ActivityManageSpecificRule.this).show();
+					Toast.makeText(myContext, ActivityManageRule.this.getResources().getString(R.string.enterAPositiveValidNonDecimalNumber), Toast.LENGTH_LONG).show();
+					getActionWaitBeforeNextActionDialog(ActivityManageRule.this).show();
 				}
 				else
 				{
@@ -1625,8 +1625,8 @@ public class ActivityManageSpecificRule extends Activity
 			{
 				if(input.getText().toString().length() == 0| input.getText().toString().contains(",") | input.getText().toString().contains("."))
 				{
-					Toast.makeText(myContext, ActivityManageSpecificRule.this.getResources().getString(R.string.enterAPositiveValidNonDecimalNumber), Toast.LENGTH_LONG).show();
-					getActionWakeupDeviceDialog(ActivityManageSpecificRule.this).show();
+					Toast.makeText(myContext, ActivityManageRule.this.getResources().getString(R.string.enterAPositiveValidNonDecimalNumber), Toast.LENGTH_LONG).show();
+					getActionWakeupDeviceDialog(ActivityManageRule.this).show();
 				}
 				else
 				{

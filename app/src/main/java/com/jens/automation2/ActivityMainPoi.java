@@ -107,7 +107,7 @@ public class ActivityMainPoi extends ActivityGeneric
 	private void buttonAddPoi()
 	{
 		poiToEdit = null;
-		Intent manageSpecificPoiIntent = new Intent(ActivityMainPoi.this, ActivityManageSpecificPoi.class);
+		Intent manageSpecificPoiIntent = new Intent(ActivityMainPoi.this, ActivityManagePoi.class);
 		manageSpecificPoiIntent.putExtra("action", "create");
 		startActivityForResult(manageSpecificPoiIntent, 1000);
 	}
@@ -182,7 +182,7 @@ public class ActivityMainPoi extends ActivityGeneric
 						break;*/
 					case 0:
 						poiToEdit = pointOfInterest;
-						Intent manageSpecificPoiIntent = new Intent (ActivityMainPoi.this, ActivityManageSpecificPoi.class);
+						Intent manageSpecificPoiIntent = new Intent (ActivityMainPoi.this, ActivityManagePoi.class);
 						manageSpecificPoiIntent.putExtra("action", "change");
 						startActivityForResult(manageSpecificPoiIntent, 2000);
 						break;

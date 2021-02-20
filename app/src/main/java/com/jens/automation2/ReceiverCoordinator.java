@@ -18,7 +18,7 @@ import com.jens.automation2.receivers.TimeZoneListener;
 
 import androidx.annotation.RequiresApi;
 
-import static com.jens.automation2.ActivityManageSpecificRule.activityDetectionClassPath;
+import static com.jens.automation2.ActivityManageRule.activityDetectionClassPath;
 
 /**
  * Created by jens on 08.03.2017.
@@ -165,7 +165,7 @@ public class ReceiverCoordinator
 
         try
         {
-            Class testClass = Class.forName(ActivityManageSpecificRule.activityDetectionClassPath);
+            Class testClass = Class.forName(ActivityManageRule.activityDetectionClassPath);
             //startActivityDetectionReceiver
             if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.activityDetection))
             {
@@ -202,7 +202,7 @@ public class ReceiverCoordinator
 
             try
             {
-                Class testClass = Class.forName(ActivityManageSpecificRule.activityDetectionClassPath);
+                Class testClass = Class.forName(ActivityManageRule.activityDetectionClassPath);
                 Miscellaneous.runMethodReflective("ActivityDetectionReceiver", "stopActivityDetectionReceiver", null);
 //              ActivityDetectionReceiver.stopActivityDetectionReceiver();
             }

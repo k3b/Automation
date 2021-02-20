@@ -59,7 +59,7 @@ public class ActivityMainRules extends ActivityGeneric
 				}
 
 				ruleToEdit = null;
-				Intent startAddRuleIntent = new Intent(ActivityMainRules.this, ActivityManageSpecificRule.class);
+				Intent startAddRuleIntent = new Intent(ActivityMainRules.this, ActivityManageRule.class);
 				startActivityForResult(startAddRuleIntent, 3000);
 			}
 		});
@@ -211,7 +211,7 @@ public class ActivityMainRules extends ActivityGeneric
 						break;
 					case 1:
 						ruleToEdit = ruleThisIsAbout;
-						Intent manageSpecificRuleIntent = new Intent (ActivityMainRules.this, ActivityManageSpecificRule.class);
+						Intent manageSpecificRuleIntent = new Intent (ActivityMainRules.this, ActivityManageRule.class);
 						startActivityForResult(manageSpecificRuleIntent, 4000);
 						break;
 					case 2:

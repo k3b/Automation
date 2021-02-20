@@ -8,8 +8,6 @@ import androidx.annotation.RequiresApi;
 
 import com.jens.automation2.receivers.BluetoothReceiver;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 
@@ -355,13 +353,13 @@ public class Trigger
 			case activityDetection:
 				try
 				{
-					Class testClass = Class.forName(ActivityManageSpecificRule.activityDetectionClassPath);
+					Class testClass = Class.forName(ActivityManageRule.activityDetectionClassPath);
 					if (ActivityPermissions.isPermissionDeclaratedInManifest(Miscellaneous.getAnyContext(), "com.google.android.gms.permission.ACTIVITY_RECOGNITION"))
 					{
 						// This type doesn't have an activate/deactivate equivalent, at least not yet.
 //					try
 //					{
-						returnString.append(Miscellaneous.runMethodReflective(ActivityManageSpecificRule.activityDetectionClassPath, "getDescription", new Object[]{getActivityDetectionType()}));
+						returnString.append(Miscellaneous.runMethodReflective(ActivityManageRule.activityDetectionClassPath, "getDescription", new Object[]{getActivityDetectionType()}));
 //						for(Method method : activityDetection.getMethods())
 //						{
 //							if(method.getName().equalsIgnoreCase("getDescription"))

@@ -35,7 +35,7 @@ public class ActivityMainScreen extends ActivityGeneric
 	private static ActivityMainScreen activityMainScreenInstance = null;
 	private ToggleButton toggleService, tbLockSound;
 	private Button bShowHelp, bPrivacy, bSettingsErase, bSettingsSetToDefault, bVolumeTest, bAddSoundLockTIme;
-	private TextView tvActivePoi, tvClosestPoi, tvLastRule, tvMainScreenNote, tvlockSoundDuration;
+	private TextView tvActivePoi, tvClosestPoi, tvLastRule, tvMainScreenNote, tvMainScreenNote2, tvlockSoundDuration;
 
 	private ListView lvRuleHistory;
 	private ArrayAdapter<Rule> ruleHistoryListViewAdapter;
@@ -65,6 +65,7 @@ public class ActivityMainScreen extends ActivityGeneric
 		lvRuleHistory = (ListView) findViewById(R.id.lvRuleHistory);
 		tvLastRule = (TextView) findViewById(R.id.tvTimeFrameHelpText);
 		tvMainScreenNote = (TextView) findViewById(R.id.tvMainScreenNote);
+		tvMainScreenNote2 = (TextView) findViewById(R.id.tvMainScreenNote2);
 		tvlockSoundDuration = (TextView)findViewById(R.id.tvlockSoundDuration);
 		tbLockSound = (ToggleButton) findViewById(R.id.tbLockSound);
 		toggleService = (ToggleButton) findViewById(R.id.tbArmMastListener);
@@ -290,6 +291,17 @@ public class ActivityMainScreen extends ActivityGeneric
 			{
 				activityMainScreenInstance.tvMainScreenNote.setText("");
 				activityMainScreenInstance.tvMainScreenNote.setVisibility(View.GONE);
+			}
+
+			if(Miscellaneous.restrictedFeaturesConfigured())
+			{
+				activityMainScreenInstance.tvMainScreenNote2.setText(R.string.settingsReferringToRestrictedFeatures);
+				activityMainScreenInstance.tvMainScreenNote2.setVisibility(View.VISIBLE);
+			}
+			else
+			{
+				activityMainScreenInstance.tvMainScreenNote2.setText("");
+				activityMainScreenInstance.tvMainScreenNote2.setVisibility(View.GONE);
 			}
 
 			if (AutomationService.isMyServiceRunning(activityMainScreenInstance))
@@ -548,4 +560,9 @@ public class ActivityMainScreen extends ActivityGeneric
 		Miscellaneous.messageBox(title, text, ActivityMainScreen.getActivityMainScreenInstance());
 	}
 
+	void checkForNews()
+	{
+		String newsUrl = "https://server47.de/automation/appNews.php";
+		String newsContent = Miscellaneous.downloadURL(newsUrl, null, null);
+	}
 }

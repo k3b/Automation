@@ -57,7 +57,7 @@ public class ActivityMainProfiles extends ActivityGeneric
 				}
 
 				profileToEdit = null;
-				Intent manageSpecificProfileIntent = new Intent (ActivityMainProfiles.this, ActivityManageSpecificProfile.class);
+				Intent manageSpecificProfileIntent = new Intent (ActivityMainProfiles.this, ActivityManageProfile.class);
 				manageSpecificProfileIntent.putExtra("action", "create");
 				startActivityForResult(manageSpecificProfileIntent, 1000);
 			}
@@ -179,7 +179,7 @@ public class ActivityMainProfiles extends ActivityGeneric
 						break;
 					case 1:
 						profileToEdit = profile;
-						Intent manageSpecificProfileIntent = new Intent (ActivityMainProfiles.this, ActivityManageSpecificProfile.class);
+						Intent manageSpecificProfileIntent = new Intent (ActivityMainProfiles.this, ActivityManageProfile.class);
 						manageSpecificProfileIntent.putExtra("action", "change");
 						startActivityForResult(manageSpecificProfileIntent, 2000);
 						break;
