@@ -39,6 +39,10 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.util.EntityUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -47,6 +51,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -70,6 +75,9 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import static com.jens.automation2.AutomationService.NOTIFICATION_CHANNEL_ID;
 import static com.jens.automation2.AutomationService.channelName;
@@ -927,5 +935,41 @@ public class Miscellaneous extends Service
 		}
 
 		return result;
+	}
+
+	public static Element getXmlTree(String inputString) throws SAXException, IOException, ParserConfigurationException
+	{
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+
+//		Create a Document from a file or stream
+		/*
+		StringBuilder xmlStringBuilder = new StringBuilder();
+		xmlStringBuilder.append("<?xml version="1.0"?> <class> </class>");
+		ByteArrayInputStream input = new ByteArrayInputStream(xmlStringBuilder.toString().getBytes("UTF-8"));
+		*/
+//		Document doc = builder.parse(input);
+		Document doc = builder.parse(new InputSource(new StringReader(inputString)));
+
+		Element rootElement = doc.getDocumentElement();
+
+		return rootElement;
+	/*
+//		Examine attributes
+
+		//returns specific attribute
+		root.getAttribute("attributeName");
+
+		//returns a Map (table) of names/values
+		root.getAttributes();
+
+//		Examine sub-elements
+
+		//returns a list of subelements of specified name
+		root.getElementsByTagName("subelementName");
+
+		//returns a list of all child nodes
+		root.getChildNodes();
+	*/
 	}
 }

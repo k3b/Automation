@@ -537,7 +537,8 @@ public class ActivityMainScreen extends ActivityGeneric
 				lvRuleHistory.setAdapter(ruleHistoryListViewAdapter);
 
 			ruleHistoryListViewAdapter.notifyDataSetChanged();
-		} catch (NullPointerException e)
+		}
+		catch (NullPointerException e)
 		{
 		}
 	}
