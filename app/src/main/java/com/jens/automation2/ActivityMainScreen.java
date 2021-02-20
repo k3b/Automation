@@ -22,10 +22,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import androidx.core.text.HtmlCompat;
+
 import com.jens.automation2.AutomationService.serviceCommands;
 import com.jens.automation2.Trigger.Trigger_Enum;
 import com.jens.automation2.location.LocationProvider;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 @SuppressLint("NewApi")
@@ -36,7 +40,7 @@ public class ActivityMainScreen extends ActivityGeneric
 	private static ActivityMainScreen activityMainScreenInstance = null;
 	private ToggleButton toggleService, tbLockSound;
 	private Button bShowHelp, bPrivacy, bSettingsErase, bSettingsSetToDefault, bVolumeTest, bAddSoundLockTIme;
-	private TextView tvActivePoi, tvClosestPoi, tvLastRule, tvMainScreenNote, tvMainScreenNote2, tvlockSoundDuration;
+	private TextView tvActivePoi, tvClosestPoi, tvLastRule, tvMainScreenNote1, tvMainScreenNote2, tvMainScreenNote3, tvlockSoundDuration;
 
 	private ListView lvRuleHistory;
 	private ArrayAdapter<Rule> ruleHistoryListViewAdapter;
@@ -65,8 +69,9 @@ public class ActivityMainScreen extends ActivityGeneric
 		tvClosestPoi = (TextView) findViewById(R.id.tvClosestPoi);
 		lvRuleHistory = (ListView) findViewById(R.id.lvRuleHistory);
 		tvLastRule = (TextView) findViewById(R.id.tvTimeFrameHelpText);
-		tvMainScreenNote = (TextView) findViewById(R.id.tvMainScreenNote);
+		tvMainScreenNote1 = (TextView) findViewById(R.id.tvMainScreenNote1);
 		tvMainScreenNote2 = (TextView) findViewById(R.id.tvMainScreenNote2);
+		tvMainScreenNote3 = (TextView) findViewById(R.id.tvMainScreenNote3);
 		tvlockSoundDuration = (TextView)findViewById(R.id.tvlockSoundDuration);
 		tbLockSound = (ToggleButton) findViewById(R.id.tbLockSound);
 		toggleService = (ToggleButton) findViewById(R.id.tbArmMastListener);
@@ -89,7 +94,7 @@ public class ActivityMainScreen extends ActivityGeneric
 			}
 		});
 
-		tvMainScreenNote.setOnClickListener(new OnClickListener()
+		tvMainScreenNote1.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
@@ -285,13 +290,13 @@ public class ActivityMainScreen extends ActivityGeneric
 		{
 			if(ActivityPermissions.needMorePermissions(activityMainScreenInstance))
 			{
-				activityMainScreenInstance.tvMainScreenNote.setText(R.string.mainScreenPermissionNote);
-				activityMainScreenInstance.tvMainScreenNote.setVisibility(View.VISIBLE);
+				activityMainScreenInstance.tvMainScreenNote1.setText(R.string.mainScreenPermissionNote);
+				activityMainScreenInstance.tvMainScreenNote1.setVisibility(View.VISIBLE);
 			}
 			else
 			{
-				activityMainScreenInstance.tvMainScreenNote.setText("");
-				activityMainScreenInstance.tvMainScreenNote.setVisibility(View.GONE);
+				activityMainScreenInstance.tvMainScreenNote1.setText("");
+				activityMainScreenInstance.tvMainScreenNote1.setVisibility(View.GONE);
 			}
 
 			if(Miscellaneous.restrictedFeaturesConfigured())
@@ -411,7 +416,8 @@ public class ActivityMainScreen extends ActivityGeneric
 		else
 			Miscellaneous.logEvent("i", "ActivityMainScreen", "Activity not running. No need to update.", 5);
 
-//		activityMainScreenInstance.checkForNews();
+		if(activityMainScreenInstance != null)
+			activityMainScreenInstance.checkForNews();
 	}
 
 	@Override
@@ -563,11 +569,49 @@ public class ActivityMainScreen extends ActivityGeneric
 		Miscellaneous.messageBox(title, text, ActivityMainScreen.getActivityMainScreenInstance());
 	}
 
-	void checkForNews()
+	synchronized void checkForNews()
 	{
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		News.AsyncTaskDownloadNews dnTask = new News.AsyncTaskDownloadNews();
+		dnTask.execute(ActivityMainScreen.this);
 
-		StrictMode.setThreadPolicy(policy);
-		News.downloadNews();
+//		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//		StrictMode.setThreadPolicy(policy);
+
+//		Calendar now = Calendar.getInstance();
+
+//		if (true || Settings.lastNewsPolltime == -1 || now.getTimeInMillis() >= Settings.lastNewsPolltime + (long)(Settings.pollNewsEveryXDays * 24 * 60 * 60 * 1000))
+//		{
+//			ArrayList<News> newsToDisplay;
+//
+////			if(Settings.lastNewsPolltime == -1)
+//				newsToDisplay = News.downloadNews(ActivityMainScreen.this);
+////			else
+////				newsToDisplay = News.downloadNews(ActivityMainScreen.this, Miscellaneous.calendarFromLong(Settings.lastNewsPolltime));
+//
+//			if (newsToDisplay.size() > 0)
+//			{
+//				activityMainScreenInstance.tvMainScreenNote3.setText(newsToDisplay.get(0).toString());
+//				activityMainScreenInstance.tvMainScreenNote3.setVisibility(View.VISIBLE);
+//			}
+//			else
+//			{
+//				activityMainScreenInstance.tvMainScreenNote3.setText("");
+//				activityMainScreenInstance.tvMainScreenNote3.setVisibility(View.GONE);
+//			}
+//		}
+	}
+
+	public void processNewsResult(ArrayList<News> newsToDisplay)
+	{
+		if (newsToDisplay.size() > 0)
+		{
+			activityMainScreenInstance.tvMainScreenNote3.setText(HtmlCompat.fromHtml(newsToDisplay.get(0).toStringHtml(), 0));
+			activityMainScreenInstance.tvMainScreenNote3.setVisibility(View.VISIBLE);
+		}
+		else
+		{
+			activityMainScreenInstance.tvMainScreenNote3.setText("");
+			activityMainScreenInstance.tvMainScreenNote3.setVisibility(View.GONE);
+		}
 	}
 }

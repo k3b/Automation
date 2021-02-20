@@ -11,6 +11,8 @@ import java.util.Set;
 public class Settings implements SharedPreferences
 {
 	public static final int rulesThatHaveBeenRanHistorySize = 10;
+	public final static int lockSoundChangesInterval = 15;
+	public static final int pollNewsEveryXDays = 7;
 	public static final String folderName = "Automation";
 
 	public static long minimumDistanceChangeForGpsUpdate;
@@ -56,6 +58,7 @@ public class Settings implements SharedPreferences
 	public static boolean lockSoundChanges;
 	public static boolean noticeAndroid9MicrophoneShown;
 	public static boolean noticeAndroid10WifiShown;
+	public static long lastNewsPolltime;
 
 	/*
 		Generic settings valid for all installations and not changable
@@ -103,7 +106,7 @@ public class Settings implements SharedPreferences
 	protected static final int default_startScreen = 0;
 	protected static final boolean default_executeRulesAndProfilesWithSingleClick = false;
 	protected static final boolean default_lockSoundChanges = false;
-    public final static int lockSoundChangesInterval = 15;
+	protected static final long default_lastNewsPolltime = -1;
 
     @Override
 	public boolean contains(String arg0)
@@ -241,6 +244,8 @@ public class Settings implements SharedPreferences
 			lockSoundChanges = prefs.getBoolean("lockSoundChanges", default_lockSoundChanges);
 			noticeAndroid9MicrophoneShown = prefs.getBoolean("noticeAndroid9MicrophoneShown", false);
 			noticeAndroid10WifiShown = prefs.getBoolean("noticeAndroid10WifiShown", false);
+
+			lastNewsPolltime = prefs.getLong("lastNewsPolltime", default_lastNewsPolltime);
 		}
 		catch(Exception e)
 		{
@@ -395,6 +400,9 @@ public class Settings implements SharedPreferences
 
 			if(!prefs.contains("noticeAndroid9MicrophoneShown") | force)
 				editor.putBoolean("noticeAndroid9MicrophoneShown", false);
+
+			if(!prefs.contains("lastNewsPolltime") | force)
+				editor.putLong("lastNewsPolltime", default_lastNewsPolltime);
 			
 			editor.commit();
 			
@@ -461,6 +469,8 @@ public class Settings implements SharedPreferences
 				editor.putBoolean("lockSoundChanges", lockSoundChanges);
 				editor.putBoolean("noticeAndroid9MicrophoneShown", noticeAndroid9MicrophoneShown);
 				editor.putBoolean("noticeAndroid10WifiShown", noticeAndroid10WifiShown);
+
+				editor.putLong("lastNewsPolltime", lastNewsPolltime);
 
 				if(lastActivePoi == null)
 					editor.putString("lastActivePoi", "null");

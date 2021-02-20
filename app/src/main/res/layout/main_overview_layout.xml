@@ -27,7 +27,7 @@
 		</LinearLayout>
 
 		<TextView
-			android:id="@+id/tvMainScreenNote"
+			android:id="@+id/tvMainScreenNote1"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:gravity="center"
@@ -36,6 +36,7 @@
 			android:scrollHorizontally="false"
 			android:textColor="@color/importantMessage"
 			android:singleLine="false"
+			android:visibility="gone"
 			android:textAppearance="?android:attr/textAppearanceMedium" />
 
 		<TextView
@@ -48,6 +49,21 @@
 			android:scrollHorizontally="false"
 			android:textColor="@color/importantMessage"
 			android:singleLine="false"
+			android:visibility="gone"
+			android:textAppearance="?android:attr/textAppearanceMedium" />
+
+		<TextView
+			android:id="@+id/tvMainScreenNote3"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:layout_marginLeft="10dp"
+			android:layout_marginRight="10dp"
+
+			android:scrollHorizontally="false"
+			android:textColor="@color/newsMessage"
+			android:singleLine="false"
+			android:visibility="gone"
 			android:textAppearance="?android:attr/textAppearanceMedium" />
 		
 	    <TableLayout 

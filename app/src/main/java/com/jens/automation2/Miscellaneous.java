@@ -47,6 +47,7 @@ import org.xml.sax.SAXException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -68,6 +69,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Scanner;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -988,5 +990,51 @@ public class Miscellaneous extends Service
 		//returns a list of all child nodes
 		root.getChildNodes();
 	*/
+	}
+
+	public static Calendar calendarFromLong(long input)
+	{
+		Calendar returnValue = Calendar.getInstance();
+		returnValue.setTimeInMillis(input);
+		return returnValue;
+	}
+
+	public static boolean writeStringToFile(String filename, String input)
+	{
+		try
+		{
+			FileWriter myWriter = new FileWriter(filename);
+			myWriter.write(input);
+			myWriter.close();
+			return true;
+		}
+		catch (IOException e)
+		{
+			Miscellaneous.logEvent("e", "Error writing to file", Log.getStackTraceString(e), 3);
+			return false;
+		}
+	}
+
+	public static String readFileToString(String fileName)
+	{
+		try
+		{
+			StringBuilder result = new StringBuilder();
+			File myObj = new File(fileName);
+			Scanner myReader = new Scanner(myObj);
+			while (myReader.hasNextLine())
+			{
+				String data = myReader.nextLine();
+				result.append(data);
+			}
+			myReader.close();
+
+			return result.toString();
+		}
+		catch (FileNotFoundException e)
+		{
+			Miscellaneous.logEvent("e", "Error reading file " + fileName, Log.getStackTraceString(e), 3);
+			return null;
+		}
 	}
 }
