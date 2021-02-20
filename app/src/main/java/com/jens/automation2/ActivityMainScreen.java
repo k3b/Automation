@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -409,6 +410,8 @@ public class ActivityMainScreen extends ActivityGeneric
 		}
 		else
 			Miscellaneous.logEvent("i", "ActivityMainScreen", "Activity not running. No need to update.", 5);
+
+		activityMainScreenInstance.checkForNews();
 	}
 
 	@Override
@@ -562,7 +565,9 @@ public class ActivityMainScreen extends ActivityGeneric
 
 	void checkForNews()
 	{
-		String newsUrl = "https://server47.de/automation/appNews.php";
-		String newsContent = Miscellaneous.downloadURL(newsUrl, null, null);
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+		StrictMode.setThreadPolicy(policy);
+		News.downloadNews();
 	}
 }

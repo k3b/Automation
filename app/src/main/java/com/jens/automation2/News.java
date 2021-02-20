@@ -13,43 +13,89 @@ public class News
     String headline;
     String text;
     Calendar publishDate;
+    String applicablePlattform;
 
-    public static ArrayList<News> extractNewsFromString()
+    public static ArrayList<News> downloadNews()
     {
-        String result =
-        Miscellaneous.messageBox(title, text, ActivityMainScreen.getActivityMainScreenInstance());
+        String newsUrl = "https://server47.de/automation/appNews.php";
+        String newsContent = Miscellaneous.downloadURL(newsUrl, null, null);
 
-        Element homeControlRootElement = Miscellaneous.getXmlTree(inventoryString);
-        if(homeControlRootElement.getAttribute("protocolVersion").equals(String.valueOf(requiredProtocolVersion)))
+        ArrayList<News> returnList = new ArrayList<>();
+
+        try
         {
-            FullDataModel.getInstance().houseList = new ArrayList<HouseTemplate>();
-//                FullDataModel.getInstance().roomList = new ArrayList<RoomTemplate>();
-            FullDataModel.getInstance().nodeList = new ArrayList<NodeTemplate>();
-//                FullDataModel.getInstance().deviceList = new ArrayList<DeviceTemplate>();
-            FullDataModel.getInstance().commandsList = new ArrayList<CommandTemplate>();
-            FullDataModel.getInstance().deviceGroupList = new ArrayList<DeviceGroupTemplate>();
-//                FullDataModel.getInstance().sensorList = new ArrayList<SensorTemplate>();
-            FullDataModel.getInstance().ruleList = new ArrayList<RuleTemplate>();
-            FullDataModel.getInstance().userList = new ArrayList<UserTemplate>();
-            FullDataModel.getInstance().userDeviceList = new ArrayList<UserDeviceTemplate>();
+            Element automationRootElement = Miscellaneous.getXmlTree(newsContent);
 
-            NodeList responseElements = homeControlRootElement.getElementsByTagName("response");
-            Node responseElement = responseElements.item(0);
+            NodeList newsEntriesElements = automationRootElement.getElementsByTagName("newsEntries");
 
-            NodeList nodeElementsHouses = homeControlRootElement.getElementsByTagName("houses");
-            for(int i = 0; i < nodeElementsHouses.getLength(); i++)
+            NodeList newsEntryElements = ((Element)newsEntriesElements.item(0)).getElementsByTagName("newsEntry");
+
+            for (int i = 0; i < newsEntryElements.getLength(); i++)
             {
-                if(nodeElementsHouses.item(i).getNodeType() == Node.ELEMENT_NODE && (nodeElementsHouses.item(i).getParentNode().isSameNode(homeControlRootElement) | nodeElementsHouses.item(i).getParentNode().isSameNode(responseElement)))
+                if (newsEntryElements.item(i).getNodeType() == Node.ELEMENT_NODE && (newsEntryElements.item(i).getParentNode().isSameNode(((Element)newsEntriesElements.item(0)))))
                 {
-                    NodeList nodeElementsHousesInd = nodeElementsHouses.item(i).getChildNodes();
-                    for(int j = 0; j < nodeElementsHousesInd.getLength(); j++)
-                    {
-                        Element houseElement = (Element) nodeElementsHousesInd.item(j);
-                        HouseTemplate house = HouseTemplate.fromXmlStringStatic(Diverse.xmlToString(houseElement, true, false));
-                        FullDataModel.getInstance().houseList.add(house);
-                    }
+                    News newsEntry = new News();
+
+                    Element neEl = (Element)newsEntryElements.item(i);
+                    newsEntry.setHeadline(neEl.getElementsByTagName("headline").item(0).getTextContent());
+                    newsEntry.setText(neEl.getElementsByTagName("text").item(0).getTextContent());
+
+                    String publishDateString = neEl.getElementsByTagName("publishDate").item(0).getTextContent();
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTimeInMillis(Long.parseLong(publishDateString));
+                    newsEntry.setPublishDate(cal);
+
+                    newsEntry.setText(neEl.getElementsByTagName("applicablePlattforms").item(0).getTextContent());
+
+                    returnList.add(newsEntry);
                 }
             }
-
         }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return returnList;
+    }
+
+    public String getHeadline()
+    {
+        return headline;
+    }
+
+    public void setHeadline(String headline)
+    {
+        this.headline = headline;
+    }
+
+    public String getText()
+    {
+        return text;
+    }
+
+    public void setText(String text)
+    {
+        this.text = text;
+    }
+
+    public Calendar getPublishDate()
+    {
+        return publishDate;
+    }
+
+    public void setPublishDate(Calendar publishDate)
+    {
+        this.publishDate = publishDate;
+    }
+
+    public String getApplicablePlattform()
+    {
+        return applicablePlattform;
+    }
+
+    public void setApplicablePlattform(String applicablePlattform)
+    {
+        this.applicablePlattform = applicablePlattform;
+    }
 }

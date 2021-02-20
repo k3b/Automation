@@ -937,6 +937,23 @@ public class Miscellaneous extends Service
 		return result;
 	}
 
+	public static boolean restrictedFeaturesConfigured()
+	{
+		if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.activityDetection))
+		{
+			try
+			{
+				Class testClass = Class.forName(ActivityManageRule.activityDetectionClassPath);
+			}
+			catch (ClassNotFoundException e)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public static Element getXmlTree(String inputString) throws SAXException, IOException, ParserConfigurationException
 	{
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
