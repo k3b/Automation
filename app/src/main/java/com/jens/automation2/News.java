@@ -45,7 +45,7 @@ public class News
                     cal.setTimeInMillis(Long.parseLong(publishDateString));
                     newsEntry.setPublishDate(cal);
 
-                    newsEntry.setText(neEl.getElementsByTagName("applicablePlattforms").item(0).getTextContent());
+                    newsEntry.setApplicablePlattform(neEl.getElementsByTagName("applicablePlattforms").item(0).getTextContent());
 
                     returnList.add(newsEntry);
                 }

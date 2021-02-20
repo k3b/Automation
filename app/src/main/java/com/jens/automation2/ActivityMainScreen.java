@@ -411,7 +411,7 @@ public class ActivityMainScreen extends ActivityGeneric
 		else
 			Miscellaneous.logEvent("i", "ActivityMainScreen", "Activity not running. No need to update.", 5);
 
-		activityMainScreenInstance.checkForNews();
+//		activityMainScreenInstance.checkForNews();
 	}
 
 	@Override
