@@ -187,6 +187,9 @@
 
         <activity android:name=".ActivityPermissions"></activity>
 
+<!--        https://developer.android.com/about/versions/pie/android-9.0-changes-28#apache-p-->
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+
     </application>
 
 </manifest>

@@ -10,6 +10,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import java.io.File;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,13 +29,15 @@ public class News
         Calendar now = Calendar.getInstance();
         String newsContent;
 
-        if (Settings.lastNewsPolltime == -1 || now.getTimeInMillis() >= Settings.lastNewsPolltime + (long)(Settings.pollNewsEveryXDays * 24 * 60 * 60 * 1000))
+        String filePath = context.getFilesDir() + "/appNews.xml";
+
+        if (!(new File(filePath)).exists() || Settings.lastNewsPolltime == -1 || now.getTimeInMillis() >= Settings.lastNewsPolltime + (long)(Settings.pollNewsEveryXDays * 24 * 60 * 60 * 1000))
         {
             String newsUrl = "https://server47.de/automation/appNews.php";
             newsContent = Miscellaneous.downloadURL(newsUrl, null, null);
 
             // Cache content to local storage
-            if(Miscellaneous.writeStringToFile(context.getFilesDir() + "/appNews.xml", newsContent))
+            if(Miscellaneous.writeStringToFile(filePath, newsContent))
             {
                 Settings.lastNewsPolltime = now.getTimeInMillis();
                 Settings.writeSettings(context);
@@ -43,7 +46,7 @@ public class News
         else
         {
             // Just read local cache file
-            newsContent = Miscellaneous.readFileToString(context.getFilesDir() + "/appNews.xml");
+            newsContent = Miscellaneous.readFileToString(filePath);
         }
 
         ArrayList<News> returnList = new ArrayList<>();
@@ -164,7 +167,9 @@ public class News
         @Override
         protected ArrayList doInBackground(Context... contexts)
         {
-            return downloadNews(contexts[0]);
+            Calendar limit = Calendar.getInstance();
+            limit.add(Calendar.DAY_OF_MONTH, -Settings.pollNewsEveryXDays);
+            return downloadNews(contexts[0], limit);
         }
 
         @Override
