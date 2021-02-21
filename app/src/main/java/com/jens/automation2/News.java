@@ -2,10 +2,12 @@ package com.jens.automation2;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -16,13 +18,52 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class News
 {
-    String headline;
-    String text;
     Calendar publishDate;
     String applicablePlattform;
+    Map<String,NewsTranslation> translations = new HashMap<>();
+
+    public static class NewsTranslation
+    {
+        String language;
+        String headline;
+        String text;
+
+        public String getLanguage()
+        {
+            return language;
+        }
+
+        public void setLanguage(String language)
+        {
+            this.language = language;
+        }
+
+        public String getHeadline()
+        {
+            return headline;
+        }
+
+        public void setHeadline(String headline)
+        {
+            this.headline = headline;
+        }
+
+        public String getText()
+        {
+            return text;
+        }
+
+        public void setText(String text)
+        {
+            this.text = text;
+        }
+    }
 
     public static ArrayList<News> downloadNews(Context context)
     {
@@ -41,12 +82,14 @@ public class News
             {
                 Settings.lastNewsPolltime = now.getTimeInMillis();
                 Settings.writeSettings(context);
+                Miscellaneous.logEvent("i", "appNews.xml", "File stored to " + filePath, 5);
             }
         }
         else
         {
             // Just read local cache file
             newsContent = Miscellaneous.readFileToString(filePath);
+            Miscellaneous.logEvent("i", "appNews.xml", "Using cache to retrieve news: " + filePath, 5);
         }
 
         ArrayList<News> returnList = new ArrayList<>();
@@ -66,8 +109,40 @@ public class News
                     News newsEntry = new News();
 
                     Element neEl = (Element)newsEntryElements.item(i);
-                    newsEntry.setHeadline(neEl.getElementsByTagName("headline").item(0).getTextContent());
-                    newsEntry.setText(neEl.getElementsByTagName("text").item(0).getTextContent());
+
+                    NodeList headLineNodes = neEl.getElementsByTagName("headline");
+                    for(int h = 0; h <  headLineNodes.getLength(); h++)
+                    {
+                        NamedNodeMap attrMap = headLineNodes.item(h).getAttributes();
+                        for(int n = 0; n < attrMap.getLength(); n++)
+                        {
+                            if(attrMap.item(n).getNodeName().equalsIgnoreCase("language"))
+                            {
+                                String language = attrMap.item(n).getTextContent();
+                                if(!newsEntry.getTranslations().containsKey(language))
+                                    newsEntry.getTranslations().put(language, new NewsTranslation());
+
+                                newsEntry.getTranslations().get(language).setHeadline(headLineNodes.item(h).getTextContent());
+                            }
+                        }
+                    }
+
+                    NodeList textNodes = neEl.getElementsByTagName("text");
+                    for(int t = 0; t <  textNodes.getLength(); t++)
+                    {
+                        NamedNodeMap attrMap = textNodes.item(t).getAttributes();
+                        for(int n = 0; n < attrMap.getLength(); n++)
+                        {
+                            if(attrMap.item(n).getNodeName().equalsIgnoreCase("language"))
+                            {
+                                String language = attrMap.item(n).getTextContent();
+                                if(!newsEntry.getTranslations().containsKey(language))
+                                    newsEntry.getTranslations().put(language, new NewsTranslation());
+
+                                newsEntry.getTranslations().get(language).setText(textNodes.item(t).getTextContent());
+                            }
+                        }
+                    }
 
                     String publishDateString = neEl.getElementsByTagName("publishDate").item(0).getTextContent();
                     newsEntry.setPublishDate(Miscellaneous.calendarFromLong(Long.parseLong(publishDateString) * 1000));
@@ -100,24 +175,14 @@ public class News
         return returnList;
     }
 
-    public String getHeadline()
+    public Map<String, NewsTranslation> getTranslations()
     {
-        return headline;
+        return translations;
     }
 
-    public void setHeadline(String headline)
+    public void setTranslations(Map<String, NewsTranslation> translations)
     {
-        this.headline = headline;
-    }
-
-    public String getText()
-    {
-        return text;
-    }
-
-    public void setText(String text)
-    {
-        this.text = text;
+        this.translations = translations;
     }
 
     public Calendar getPublishDate()
@@ -149,7 +214,12 @@ public class News
         Date now = this.getPublishDate().getTime();
         String timestamp = sdf.format(now);
 
-        return this.getHeadline() + " published on " + timestamp + Miscellaneous.lineSeparator + this.getText();
+        String langToChoose = "en";
+        String systemLanguage = Locale.getDefault().getLanguage();
+        if(this.getTranslations().containsKey(systemLanguage))
+            langToChoose = systemLanguage;
+
+        return this.getTranslations().get(langToChoose).getHeadline() + " " + Miscellaneous.getAnyContext().getString(R.string.publishedOn) + " " + timestamp + Miscellaneous.lineSeparator + this.getTranslations().get(langToChoose).getText();
     }
 
     public String toStringHtml()
@@ -159,7 +229,12 @@ public class News
         Date now = this.getPublishDate().getTime();
         String timestamp = sdf.format(now);
 
-        return "<b><u><i>" + this.getHeadline() + "</i></u></b>" + " published on " + timestamp + "<br>" + this.getText();
+        String langToChoose = "en";
+        String systemLanguage = Locale.getDefault().getLanguage();
+        if(this.getTranslations().containsKey(systemLanguage))
+            langToChoose = systemLanguage;
+
+        return "<b><u><i>" + this.getTranslations().get(langToChoose).getHeadline() + "</i></u></b>" + " " + Miscellaneous.getAnyContext().getString(R.string.publishedOn) + " " + timestamp + "<br>" + this.getTranslations().get(langToChoose).getText();
     }
 
     public static class AsyncTaskDownloadNews extends AsyncTask<Context, Void, ArrayList>
@@ -167,9 +242,17 @@ public class News
         @Override
         protected ArrayList doInBackground(Context... contexts)
         {
-            Calendar limit = Calendar.getInstance();
-            limit.add(Calendar.DAY_OF_MONTH, -Settings.pollNewsEveryXDays);
-            return downloadNews(contexts[0], limit);
+            try
+            {
+                Calendar limit = Calendar.getInstance();
+                limit.add(Calendar.DAY_OF_MONTH, -Settings.pollNewsEveryXDays);
+                return downloadNews(contexts[0], limit);
+            }
+            catch(Exception e)
+            {
+                Miscellaneous.logEvent("e", "Error displaying news", Log.getStackTraceString(e), 3);
+                return new ArrayList();
+            }
         }
 
         @Override

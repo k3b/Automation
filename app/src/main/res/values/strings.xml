@@ -601,4 +601,5 @@
     <string name="error">Error</string>
     <string name="featureNotInFdroidVersion">This feature is based on non-free software. Therefore is is not available in the F-Droid version.</string>
     <string name="settingsReferringToRestrictedFeatures">Your settings and or rules are currently referencing non-free features that cannot be provided in the F-Droid version.</string>
+    <string name="publishedOn">published on</string>
 </resources>
