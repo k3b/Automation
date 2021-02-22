@@ -55,6 +55,7 @@ public class Settings implements SharedPreferences
 	public static boolean privacyLocationing;
 	public static int startScreen;
 	public static boolean executeRulesAndProfilesWithSingleClick;
+	public static boolean displayNewsOnMainScreen;
 	public static boolean lockSoundChanges;
 	public static boolean noticeAndroid9MicrophoneShown;
 	public static boolean noticeAndroid10WifiShown;
@@ -105,6 +106,7 @@ public class Settings implements SharedPreferences
 	protected static final boolean default_privacyLocationing = false;
 	protected static final int default_startScreen = 0;
 	protected static final boolean default_executeRulesAndProfilesWithSingleClick = false;
+	protected static final boolean default_displayNewsOnMainScreen = true;
 	protected static final boolean default_lockSoundChanges = false;
 	protected static final long default_lastNewsPolltime = -1;
 
@@ -240,6 +242,7 @@ public class Settings implements SharedPreferences
 			startScreen = Integer.parseInt(prefs.getString("startScreen", String.valueOf(default_startScreen)));
 
 			executeRulesAndProfilesWithSingleClick = prefs.getBoolean("executeRulesAndProfilesWithSingleClick", default_executeRulesAndProfilesWithSingleClick);
+			displayNewsOnMainScreen = prefs.getBoolean("displayNewsOnMainScreen", default_displayNewsOnMainScreen);
 
 			lockSoundChanges = prefs.getBoolean("lockSoundChanges", default_lockSoundChanges);
 			noticeAndroid9MicrophoneShown = prefs.getBoolean("noticeAndroid9MicrophoneShown", false);
@@ -395,6 +398,9 @@ public class Settings implements SharedPreferences
 			if(!prefs.contains("executeRulesAndProfilesWithSingleClick") | force)
 				editor.putBoolean("executeRulesAndProfilesWithSingleClick", default_executeRulesAndProfilesWithSingleClick);
 
+			if(!prefs.contains("displayNewsOnMainScreen") | force)
+				editor.putBoolean("displayNewsOnMainScreen", default_displayNewsOnMainScreen);
+
 			if(!prefs.contains("lockSoundChanges") | force)
 				editor.putBoolean("lockSoundChanges", default_lockSoundChanges);
 
@@ -465,6 +471,7 @@ public class Settings implements SharedPreferences
 				editor.putBoolean("privacyLocationing", privacyLocationing);
 				editor.putString("startScreen", String.valueOf(startScreen));
 				editor.putBoolean("executeRulesAndProfilesWithSingleClick", executeRulesAndProfilesWithSingleClick);
+				editor.putBoolean("displayNewsOnMainScreen", displayNewsOnMainScreen);
 
 				editor.putBoolean("lockSoundChanges", lockSoundChanges);
 				editor.putBoolean("noticeAndroid9MicrophoneShown", noticeAndroid9MicrophoneShown);

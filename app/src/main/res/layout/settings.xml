@@ -56,6 +56,11 @@
 			android:key="executeRulesAndProfilesWithSingleClick"
 			android:title="@string/executeRulesAndProfilesWithSingleClickTitle" />
 
+		<CheckBoxPreference
+			android:key="displayNewsOnMainScreen"
+			android:title="@string/displayNewsOnMainScreen"
+			android:summary="@string/displayNewsOnMainScreenDescription" />
+
     </PreferenceCategory>
     
     <PreferenceCategory

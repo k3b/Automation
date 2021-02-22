@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -603,15 +604,25 @@ public class ActivityMainScreen extends ActivityGeneric
 
 	public void processNewsResult(ArrayList<News> newsToDisplay)
 	{
-		if (newsToDisplay.size() > 0)
+		if(Settings.displayNewsOnMainScreen)
 		{
-			activityMainScreenInstance.tvMainScreenNote3.setText(HtmlCompat.fromHtml(newsToDisplay.get(0).toStringHtml(), 0));
-			activityMainScreenInstance.tvMainScreenNote3.setVisibility(View.VISIBLE);
-		}
-		else
-		{
-			activityMainScreenInstance.tvMainScreenNote3.setText("");
-			activityMainScreenInstance.tvMainScreenNote3.setVisibility(View.GONE);
+			try
+			{
+				if (newsToDisplay.size() > 0)
+				{
+					activityMainScreenInstance.tvMainScreenNote3.setText(HtmlCompat.fromHtml(newsToDisplay.get(0).toStringHtml(), 0));
+					activityMainScreenInstance.tvMainScreenNote3.setVisibility(View.VISIBLE);
+				}
+				else
+				{
+					activityMainScreenInstance.tvMainScreenNote3.setText("");
+					activityMainScreenInstance.tvMainScreenNote3.setVisibility(View.GONE);
+				}
+			}
+			catch(Exception e)
+			{
+				Miscellaneous.logEvent("e", "Error displaying news", Log.getStackTraceString(e), 3);
+			}
 		}
 	}
 }
