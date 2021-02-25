@@ -33,6 +33,7 @@ public class ActivityPermissions extends Activity
     public static final int requestCodeForPermissions = 12042;
     private static final int requestCodeForPermissionsWriteSettings = 12043;
     private static final int requestCodeForPermissionsNotificationPolicy = 12044;
+    private static final int requestCodeForPermissionsBackgroundLocation = 12045;
     protected String[] specificPermissionsToRequest = null;
 
     public static String intentExtraName = "permissionsToBeRequested";

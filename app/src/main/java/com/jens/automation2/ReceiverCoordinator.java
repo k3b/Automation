@@ -56,7 +56,7 @@ public class ReceiverCoordinator
         }
         catch (ClassNotFoundException e)
         {
-            e.printStackTrace();
+//            e.printStackTrace();
 
             allImplementers = new Class[] {
                     AlarmListener.class,
