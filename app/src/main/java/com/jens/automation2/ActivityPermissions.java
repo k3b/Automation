@@ -769,6 +769,16 @@ public class ActivityPermissions extends Activity
                 }
             }
 
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+            {
+                if (requestCode == requestCodeForPermissionsBackgroundLocation)
+                {
+                    NotificationManager mNotificationManager = (NotificationManager) ActivityPermissions.this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+                    if (mNotificationManager.isNotificationPolicyAccessGranted())
+                        requestPermissions(cachedPermissionsToRequest, true);
+                }
+            }
         }
     }
 
@@ -826,6 +836,15 @@ public class ActivityPermissions extends Activity
                         Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
 //                        intent.setData(Uri.parse("package:" + getPackageName()));
                         startActivityForResult(intent, requestCodeForPermissionsNotificationPolicy);
+                        return;
+                    }
+                    else if (s.equalsIgnoreCase(permissionNameLocationBackground) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+                    {
+                        requiredPermissions.remove(s);
+                        cachedPermissionsToRequest = requiredPermissions;
+                        Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        intent.setData(Uri.parse("package:" + getPackageName()));
+                        startActivityForResult(intent, requestCodeForPermissionsBackgroundLocation);
                         return;
                     }
                 }
