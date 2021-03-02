@@ -12,7 +12,8 @@ public class Settings implements SharedPreferences
 {
 	public static final int rulesThatHaveBeenRanHistorySize = 10;
 	public final static int lockSoundChangesInterval = 15;
-	public static final int pollNewsEveryXDays = 7;
+	public static final int newsPollEveryXDays = 3;
+	public static final int newsDisplayForXDays = 3;
 	public static final String folderName = "Automation";
 
 	public static long minimumDistanceChangeForGpsUpdate;

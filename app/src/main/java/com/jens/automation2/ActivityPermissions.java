@@ -838,15 +838,15 @@ public class ActivityPermissions extends Activity
                         startActivityForResult(intent, requestCodeForPermissionsNotificationPolicy);
                         return;
                     }
-                    else if (s.equalsIgnoreCase(permissionNameLocationBackground) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-                    {
-                        requiredPermissions.remove(s);
-                        cachedPermissionsToRequest = requiredPermissions;
-                        Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                        intent.setData(Uri.parse("package:" + getPackageName()));
-                        startActivityForResult(intent, requestCodeForPermissionsBackgroundLocation);
-                        return;
-                    }
+//                    else if (s.equalsIgnoreCase(permissionNameLocationBackground) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+//                    {
+//                        requiredPermissions.remove(s);
+//                        cachedPermissionsToRequest = requiredPermissions;
+//                        Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+//                        intent.setData(Uri.parse("package:" + getPackageName()));
+//                        startActivityForResult(intent, requestCodeForPermissionsBackgroundLocation);
+//                        return;
+//                    }
                 }
             }
 

@@ -10,10 +10,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import java.io.File;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -72,7 +70,7 @@ public class News
 
         String filePath = context.getFilesDir() + "/appNews.xml";
 
-        if (!(new File(filePath)).exists() || Settings.lastNewsPolltime == -1 || now.getTimeInMillis() >= Settings.lastNewsPolltime + (long)(Settings.pollNewsEveryXDays * 24 * 60 * 60 * 1000))
+        if (!(new File(filePath)).exists() || Settings.lastNewsPolltime == -1 || now.getTimeInMillis() >= Settings.lastNewsPolltime + (long)(Settings.newsDisplayForXDays * 24 * 60 * 60 * 1000))
         {
             String newsUrl = "https://server47.de/automation/appNews.php";
             newsContent = Miscellaneous.downloadURL(newsUrl, null, null);
@@ -245,7 +243,7 @@ public class News
             try
             {
                 Calendar limit = Calendar.getInstance();
-                limit.add(Calendar.DAY_OF_MONTH, -Settings.pollNewsEveryXDays);
+                limit.add(Calendar.DAY_OF_MONTH, -Settings.newsPollEveryXDays);
                 return downloadNews(contexts[0], limit);
             }
             catch(Exception e)

@@ -11,8 +11,8 @@ android {
         compileSdkVersion 29
         buildToolsVersion '29.0.2'
         useLibrary  'org.apache.http.legacy'
-        versionCode 96
-        versionName "1.6.21"
+        versionCode 97
+        versionName "1.6.22"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -42,7 +42,7 @@ android {
                             dimension "version"
 //                            applicationIdSuffix ".googlePlay"
                             versionNameSuffix "-googlePlay"
-                            targetSdkVersion 29
+                            targetSdkVersion 30
                         }
 
                 fdroidFlavor
