@@ -1,0 +1,38 @@
+Create rules that are made of triggers and actions. A prominent example would be something like "Mute phone at work".
+
+Here's a list of supported triggers and actions:
+
+Supported triggers:
+* Location
+* Day/Time
+* Charging state
+* Battery level
+* USB connection to computer established
+* Your current speed
+* Background noise (only until Android 7)
+* Wifi connection
+* Other applications running
+* Airplane mode
+* Roaming status
+* NFC tags
+* Bluetooth connection
+* Headset connected
+* Phone call running
+
+Supported actions:
+* Change wifi state
+* Change bluetooth state
+* Toggle USB tethering
+* Toggle wifi tethering
+* Toggle automatic screen rotation
+* Make an HTTP request
+* Change ringtone/sound setting
+* Start another application
+* Wait (in between other actions)
+* Wakeup device's screen
+* Toggle airplane mode
+* Toggle mobile data connection
+* Speak text
+* Open music player
+* Change screen brightness
+* Send text message
