@@ -594,7 +594,8 @@
     <string name="startScreen">Start screen</string>
     <string name="startScreenSummary">Select the screen the applications opens withs at start.</string>
     <string name="executeRulesAndProfilesWithSingleClickTitle">Run rules/profiles with single click.</string>
-    <string name="googleLocationChicanery">This app collects location data to determine if you\'re currently at one of the locations you created. Furthermore it is used to determine your current speed if you are using that trigger in rules. That is done even when the app is closed or not in use (but only when the service is activated).</string>
+    <string name="googleLocationChicanery">This app collects location data to enable location based rules and speed detection even when the app is closed or not in use.</string>
+    <string name="googleLocationChicaneryOld">This app collects location data to determine if you\'re currently at one of the locations you created. Furthermore it is used to determine your current speed if you are using that trigger in rules. That is done even when the app is closed or not in use (but only when the service is activated).</string>
     <string name="android.permission.ACCESS_BACKGROUND_LOCATION">Read location in background.</string>
     <string name="deviceDoesNotHaveBluetooth">This device does not seem to have bluetooth. You can still continue configuring this, but it will most likely not have an effect.</string>
     <string name="manageLocations">Create or edit locations</string>
