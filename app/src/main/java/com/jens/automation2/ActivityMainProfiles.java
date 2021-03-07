@@ -50,11 +50,11 @@ public class ActivityMainProfiles extends ActivityGeneric
 			@Override
 			public void onClick(View v)
 			{
-				if(!ActivityPermissions.havePermission(ActivityPermissions.writeExternalStoragePermissionName, ActivityMainProfiles.this))
-				{
-					Toast.makeText(ActivityMainProfiles.this, getResources().getString(R.string.appRequiresPermissiontoAccessExternalStorage), Toast.LENGTH_LONG).show();
-					return;
-				}
+//				if(!ActivityPermissions.havePermission(ActivityPermissions.writeExternalStoragePermissionName, ActivityMainProfiles.this))
+//				{
+//					Toast.makeText(ActivityMainProfiles.this, getResources().getString(R.string.appRequiresPermissiontoAccessExternalStorage), Toast.LENGTH_LONG).show();
+//					return;
+//				}
 
 				profileToEdit = null;
 				Intent manageSpecificProfileIntent = new Intent (ActivityMainProfiles.this, ActivityManageProfile.class);

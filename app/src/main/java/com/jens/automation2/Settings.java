@@ -107,7 +107,7 @@ public class Settings implements SharedPreferences
 	protected static final boolean default_privacyLocationing = false;
 	protected static final int default_startScreen = 0;
 	protected static final boolean default_executeRulesAndProfilesWithSingleClick = false;
-	protected static final boolean default_displayNewsOnMainScreen = true;
+	protected static final boolean default_displayNewsOnMainScreen = false;
 	protected static final boolean default_lockSoundChanges = false;
 	protected static final long default_lastNewsPolltime = -1;
 

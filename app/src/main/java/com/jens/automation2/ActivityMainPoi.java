@@ -53,11 +53,11 @@ public class ActivityMainPoi extends ActivityGeneric
 			@Override
 			public void onClick(View v)
 			{
-				if(!ActivityPermissions.havePermission(ActivityPermissions.writeExternalStoragePermissionName, ActivityMainPoi.this))
-				{
-					Toast.makeText(ActivityMainPoi.this, getResources().getString(R.string.appRequiresPermissiontoAccessExternalStorage), Toast.LENGTH_LONG).show();
-					return;
-				}
+//				if(!ActivityPermissions.havePermission(ActivityPermissions.writeExternalStoragePermissionName, ActivityMainPoi.this))
+//				{
+//					Toast.makeText(ActivityMainPoi.this, getResources().getString(R.string.appRequiresPermissiontoAccessExternalStorage), Toast.LENGTH_LONG).show();
+//					return;
+//				}
 
 				if(!ActivityPermissions.havePermission(ActivityPermissions.permissionNameLocationCoarse, ActivityMainPoi.this) || !ActivityPermissions.havePermission(ActivityPermissions.permissionNameLocationFine, ActivityMainPoi.this))
 				{

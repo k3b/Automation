@@ -106,17 +106,17 @@ public class AutomationService extends Service implements OnInitListener
 
 	public boolean checkStartupRequirements(Context context, boolean startAtBoot)
 	{
-		if (!ActivityPermissions.havePermission(ActivityPermissions.writeExternalStoragePermissionName, AutomationService.this))
-		{
-			/*
-				Don't have permission to access external storage. This is a show stopper as
-				the configuration file is stored on external storage.
-			 */
-			Miscellaneous.logEvent("e", "Permission", "Don't have permission to access external storage. Will request it now.", 4);
-//			Toast.makeText(AutomationService.this, getResources().getString(R.string.appRequiresPermissiontoAccessExternalStorage), Toast.LENGTH_LONG).show();
-			ActivityPermissions.requestSpecificPermission(ActivityPermissions.writeExternalStoragePermissionName);
-			return false;
-		}
+//		if (!ActivityPermissions.havePermission(ActivityPermissions.writeExternalStoragePermissionName, AutomationService.this))
+//		{
+//			/*
+//				Don't have permission to access external storage. This is a show stopper as
+//				the configuration file is stored on external storage.
+//			 */
+//			Miscellaneous.logEvent("e", "Permission", "Don't have permission to access external storage. Will request it now.", 4);
+////			Toast.makeText(AutomationService.this, getResources().getString(R.string.appRequiresPermissiontoAccessExternalStorage), Toast.LENGTH_LONG).show();
+//			ActivityPermissions.requestSpecificPermission(ActivityPermissions.writeExternalStoragePermissionName);
+//			return false;
+//		}
 
 		if(Build.VERSION.SDK_INT >= 28)
 		{

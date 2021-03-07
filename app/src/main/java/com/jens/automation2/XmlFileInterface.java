@@ -344,17 +344,22 @@ public class XmlFileInterface
 
     public static void readFile() throws FileNotFoundException
     {
-		if(!ActivityPermissions.havePermission(ActivityPermissions.writeExternalStoragePermissionName, Miscellaneous.getAnyContext()))
-		{
-			/*
-				Don't have permission to access external storage. This is a show stopper as
-				the configuration file is stored on external storage.
-			 */
-			Miscellaneous.logEvent("e", "Permission", "Don't have permission to access external storage. Will request it now.", 4);
-			Toast.makeText(Miscellaneous.getAnyContext(), Miscellaneous.getAnyContext().getResources().getString(R.string.appRequiresPermissiontoAccessExternalStorage), Toast.LENGTH_LONG).show();
-			ActivityPermissions.requestSpecificPermission(ActivityPermissions.writeExternalStoragePermissionName);
-			return;
-		}
+    	/*
+    		Storage location has been moved to app-specific folder in Android/data
+    		Hence this permission is not requested any more. If it is already granted we assume the files are on /sdcard or similar.
+    		Migration to app-specific folder has yet to be implemented.
+    	 */
+//		if(!ActivityPermissions.havePermission(ActivityPermissions.writeExternalStoragePermissionName, Miscellaneous.getAnyContext()))
+//		{
+//			/*
+//				Don't have permission to access external storage. This is a show stopper as
+//				the configuration file is stored on external storage.
+//			 */
+//			Miscellaneous.logEvent("e", "Permission", "Don't have permission to access external storage. Will request it now.", 4);
+//			Toast.makeText(Miscellaneous.getAnyContext(), Miscellaneous.getAnyContext().getResources().getString(R.string.appRequiresPermissiontoAccessExternalStorage), Toast.LENGTH_LONG).show();
+//			ActivityPermissions.requestSpecificPermission(ActivityPermissions.writeExternalStoragePermissionName);
+//			return;
+//		}
 
 		/*
 			If we are here it may be that we just got permission to read storage. We need to check for the

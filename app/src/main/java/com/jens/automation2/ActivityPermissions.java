@@ -281,8 +281,8 @@ public class ActivityPermissions extends Activity
             addToArrayListUnique("android.permission.RECEIVE_BOOT_COMPLETED", requiredPermissions);
         */
 
-            if (!havePermission("android.permission.WRITE_EXTERNAL_STORAGE", workingContext))
-                addToArrayListUnique("android.permission.WRITE_EXTERNAL_STORAGE", requiredPermissions);
+//            if (!havePermission(ActivityPermissions.writeExternalStoragePermissionName, workingContext))
+//                addToArrayListUnique(ActivityPermissions.writeExternalStoragePermissionName, requiredPermissions);
 
             for(Profile profile : Profile.getProfileCollection())
             {

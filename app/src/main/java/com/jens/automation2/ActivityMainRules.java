@@ -52,11 +52,11 @@ public class ActivityMainRules extends ActivityGeneric
 			@Override
 			public void onClick(View v)
 			{
-				if(!ActivityPermissions.havePermission(ActivityPermissions.writeExternalStoragePermissionName, ActivityMainRules.this))
-				{
-					Toast.makeText(ActivityMainRules.this, getResources().getString(R.string.appRequiresPermissiontoAccessExternalStorage), Toast.LENGTH_LONG).show();
-					return;
-				}
+//				if(!ActivityPermissions.havePermission(ActivityPermissions.writeExternalStoragePermissionName, ActivityMainRules.this))
+//				{
+//					Toast.makeText(ActivityMainRules.this, getResources().getString(R.string.appRequiresPermissiontoAccessExternalStorage), Toast.LENGTH_LONG).show();
+//					return;
+//				}
 
 				ruleToEdit = null;
 				Intent startAddRuleIntent = new Intent(ActivityMainRules.this, ActivityManageRule.class);
