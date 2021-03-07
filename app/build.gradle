@@ -49,7 +49,7 @@ android {
                         {
                             dimension "version"
 //                            applicationIdSuffix ".fdroid"
-                            versionNameSuffix "-fdroid"
+//                            versionNameSuffix "-fdroid"
                             targetSdkVersion 28
                         }
 
