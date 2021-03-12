@@ -1,0 +1,2 @@
+Place to storage config files has been moved to regular location (program specific directory in Android/data).
+If you had previously used to app your existing files are moved to this new location. If that was successful the permission android.permission.WRITE_EXTERNAL_STORAGE is no longer required.
