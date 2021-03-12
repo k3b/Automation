@@ -21,9 +21,6 @@ import android.provider.MediaStore;
 import android.provider.Settings.Secure;
 import android.util.Base64;
 import android.util.Log;
-import android.widget.Toast;
-
-import androidx.core.app.NotificationCompat;
 
 import com.jens.automation2.location.LocationProvider;
 import com.jens.automation2.receivers.PhoneStatusListener;
@@ -47,11 +44,14 @@ import org.xml.sax.SAXException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.StringReader;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.lang.reflect.InvocationTargetException;
@@ -80,6 +80,8 @@ import javax.net.ssl.X509TrustManager;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
+import androidx.core.app.NotificationCompat;
 
 import static com.jens.automation2.AutomationService.NOTIFICATION_CHANNEL_ID;
 import static com.jens.automation2.AutomationService.channelName;
@@ -340,8 +342,8 @@ public class Miscellaneous extends Service
 
 						for (String f : foldersToTestArray)
 						{
-							if (testFolder(f))
-							{
+//							if (testFolder(f))
+//							{
 								String pathToUse = f + "/" + Settings.folderName;
 
 //						Toast.makeText(getAnyContext(), "Using " + pathToUse + " to store settings and log.", Toast.LENGTH_LONG).show();
@@ -353,14 +355,24 @@ public class Miscellaneous extends Service
 								{
 									Miscellaneous.logEvent("i", "Path", "Found old path " + pathToUse + " for settings and logs. Migrating old files to new directory.", 2);
 
-									for (File moveFile : oldDirectory.listFiles())
-										moveFile.renameTo(newDirectory);
+									for (File fileToBeMoved : oldDirectory.listFiles())
+									{
+										File dstFile = new File(writeableFolderStringCache + "/" + fileToBeMoved.getName());
+
+										/*
+											For some stupid reason Android's file.moveTo can't move files between
+											mount points. That's why we have to copy it and delete the src if successful.
+										 */
+
+										if(copyFileUsingStream(fileToBeMoved, dstFile))
+											fileToBeMoved.delete();
+									}
 
 									String message = String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.filesHaveBeenMovedTo), newDirectory.getAbsolutePath());
-									Miscellaneous.writeStringToFile(oldDirectory.getAbsolutePath() + "readme.txt", message);
+									Miscellaneous.writeStringToFile(oldDirectory.getAbsolutePath() + "/readme.txt", message);
 									break migration;
 								}
-							}
+//							}
 						}
 					} catch (Exception e)
 					{
@@ -1055,5 +1067,33 @@ public class Miscellaneous extends Service
 			Miscellaneous.logEvent("e", "Error reading file " + fileName, Log.getStackTraceString(e), 3);
 			return null;
 		}
+	}
+
+	public static boolean copyFileUsingStream(File source, File dest) throws IOException
+	{
+		boolean returnValue = false;
+
+		InputStream is = null;
+		OutputStream os = null;
+		try
+		{
+			is = new FileInputStream(source);
+			os = new FileOutputStream(dest);
+			byte[] buffer = new byte[1024];
+			int length;
+			while ((length = is.read(buffer)) > 0)
+			{
+				os.write(buffer, 0, length);
+			}
+
+			returnValue = true;
+		}
+		finally
+		{
+			is.close();
+			os.close();
+		}
+
+		return returnValue;
 	}
 }

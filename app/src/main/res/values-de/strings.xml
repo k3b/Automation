@@ -594,4 +594,5 @@
     <string name="deviceDoesNotHaveBluetooth">Dieses Gerät scheint kein Bluetooth zu haben. Sie können mit der Konfiguration fortfahren, aber es wird vermutlich keinen Effekt haben.</string>
     <string name="manageLocations">Orte anlegen oder ändern</string>
     <string name="publishedOn">veröffentlicht am</string>
+    <string name="filesHaveBeenMovedTo">Automation benutzt jetzt ein anderes Verzeichnis, um Ihre Daten zu speichern. Alle Ihre Automation-Dateien wurden hierhin verschoben: \"%s\". Die Berechtigung für den externen Speicher wird nun nicht mehr benötigt; Sie können Sie entfernen. In einer künftigen Version wird sie entfernt werden.</string>
 </resources>
