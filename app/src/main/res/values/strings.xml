@@ -605,4 +605,5 @@
     <string name="publishedOn">published on</string>
     <string name="displayNewsOnMainScreen">Display application news on main screen</string>
     <string name="displayNewsOnMainScreenDescription">Announcements about this app only, we\'re probably talking about 1-2 per year, not more.</string>
+    <string name="filesHaveBeenMovedTo">Automation now uses another path to store your files. The existing ones have been moved. You can find them here: %s.</string>
 </resources>

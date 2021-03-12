@@ -313,55 +313,64 @@ public class Miscellaneous extends Service
 	{
 		if(writeableFolderStringCache == null)
 		{
-			if(!ActivityPermissions.havePermission(ActivityPermissions.writeExternalStoragePermissionName, Miscellaneous.getAnyContext()))
-			{
-				// Use the app-specific folder as new default.
+			// Use the app-specific folder as new default.
+			writeableFolderStringCache = Miscellaneous.getAnyContext().getFilesDir().getAbsolutePath();
 
-				writeableFolderStringCache = Miscellaneous.getAnyContext().getFilesDir().getAbsolutePath();
-				return writeableFolderStringCache;
-			}
-			else
-			{
-				//TODO: We have the storage permission, probably because it's an old installation. Files should be migrated to app-specific folder.
-				String testPath = null;
-				File folder = null;
+			File newConfigFile = new File(writeableFolderStringCache + "/" + XmlFileInterface.settingsFileName);
 
-				try
+			migration:
+			if (!newConfigFile.exists())
+			{
+				if (ActivityPermissions.havePermission(ActivityPermissions.writeExternalStoragePermissionName, Miscellaneous.getAnyContext()))
 				{
-					String[] foldersToTestArray = new String[]
-							{
-									Environment.getExternalStorageDirectory().getAbsolutePath(),
-									"/storage/emulated/0",
-									"/HWUserData",
-									"/mnt/sdcard"
-							};
+					// We have the storage permission, probably because it's an old installation. Files should be migrated to app-specific folder.
 
-					for (String f : foldersToTestArray)
+					String testPath = null;
+					File folder = null;
+
+					try
 					{
-						if (testFolder(f))
+						String[] foldersToTestArray = new String[]
+								{
+										Environment.getExternalStorageDirectory().getAbsolutePath(),
+										"/storage/emulated/0",
+										"/HWUserData",
+										"/mnt/sdcard"
+								};
+
+						for (String f : foldersToTestArray)
 						{
-							String pathToUse = f + "/" + Settings.folderName;
-							Miscellaneous.logEvent("i", "Path", "Using " + pathToUse + " to store settings and log.", 2);
+							if (testFolder(f))
+							{
+								String pathToUse = f + "/" + Settings.folderName;
+
 //						Toast.makeText(getAnyContext(), "Using " + pathToUse + " to store settings and log.", Toast.LENGTH_LONG).show();
-							return pathToUse;
+								// Migrate existing files
+								File oldDirectory = new File(pathToUse);
+								File newDirectory = new File(writeableFolderStringCache);
+								File oldConfigFilePath = new File(pathToUse + "/" + XmlFileInterface.settingsFileName);
+								if (oldConfigFilePath.exists() && oldConfigFilePath.canWrite())
+								{
+									Miscellaneous.logEvent("i", "Path", "Found old path " + pathToUse + " for settings and logs. Migrating old files to new directory.", 2);
+
+									for (File moveFile : oldDirectory.listFiles())
+										moveFile.renameTo(newDirectory);
+
+									String message = String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.filesHaveBeenMovedTo), newDirectory.getAbsolutePath());
+									Miscellaneous.writeStringToFile(oldDirectory.getAbsolutePath() + "readme.txt", message);
+									break migration;
+								}
+							}
 						}
-						else
-							Miscellaneous.logEvent("e", "getWritableFolder", folder.getAbsolutePath() + " does not exist and could not be created.", 3);
+					} catch (Exception e)
+					{
+						Log.w("getWritableFolder", folder + " not writable.");
 					}
-				} catch (Exception e)
-				{
-					Log.w("getWritableFolder", folder + " not writable.");
 				}
-
-				// do not change to logEvent() - we can't write
-				Toast.makeText(getAnyContext(), "No writable folder could be found.", Toast.LENGTH_LONG).show();
-				Log.e("getWritableFolder", "No writable folder could be found.");
-
-				return null;
 			}
 		}
-		else
-			return writeableFolderStringCache;
+
+		return writeableFolderStringCache;
 	}
 
 	protected final static String logFileName = "Automation_logfile.txt";

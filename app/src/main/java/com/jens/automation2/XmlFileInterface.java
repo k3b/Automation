@@ -25,7 +25,8 @@ import java.util.Collections;
 
 public class XmlFileInterface
 {
-    public static File settingsFile = new File(Miscellaneous.getWriteableFolder() + "/Automation_settings.xml");
+	public static String settingsFileName = "Automation_settings.xml";
+    public static File settingsFile = new File(Miscellaneous.getWriteableFolder() + "/" + settingsFileName);
     public static Context context;
     
     protected static final String encryptionKey = "Y1vsP12L2S3NkTJbDOR4bQ6i02hsoo";
