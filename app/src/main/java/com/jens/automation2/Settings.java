@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
@@ -15,6 +16,8 @@ public class Settings implements SharedPreferences
 	public static final int newsPollEveryXDays = 3;
 	public static final int newsDisplayForXDays = 3;
 	public static final String folderName = "Automation";
+
+	public static final String constNewsOptInDone ="newsOptInDone";
 
 	public static long minimumDistanceChangeForGpsUpdate;
 	public static long minimumDistanceChangeForNetworkUpdate;
@@ -61,6 +64,8 @@ public class Settings implements SharedPreferences
 	public static boolean noticeAndroid9MicrophoneShown;
 	public static boolean noticeAndroid10WifiShown;
 	public static long lastNewsPolltime;
+
+	public static ArrayList<String> whatHasBeenDone;
 
 	/*
 		Generic settings valid for all installations and not changable
@@ -250,6 +255,16 @@ public class Settings implements SharedPreferences
 			noticeAndroid10WifiShown = prefs.getBoolean("noticeAndroid10WifiShown", false);
 
 			lastNewsPolltime = prefs.getLong("lastNewsPolltime", default_lastNewsPolltime);
+
+			String whbdString = prefs.getString("whatHasBeenDone", "");
+			if(whbdString != null && whbdString.length() > 0)
+			{
+				whatHasBeenDone = new ArrayList<>();
+				for(String s : whbdString.split(";"))
+				{
+					whatHasBeenDone.add(s);
+				}
+			}
 		}
 		catch(Exception e)
 		{
@@ -260,6 +275,26 @@ public class Settings implements SharedPreferences
 		{
 			initializeSettings(context, false);
 		}
+	}
+
+	public static void considerDone(String key)
+	{
+		if(whatHasBeenDone == null)
+			whatHasBeenDone = new ArrayList<>();
+
+		if(!whatHasBeenDone.contains(key))
+			whatHasBeenDone.add(key);
+	}
+
+	public static boolean hasBeenDone(String key)
+	{
+		if(whatHasBeenDone != null)
+		{
+			if(whatHasBeenDone.contains(key))
+				return true;
+		}
+
+		return false;
 	}
 	
 	/**Makes sure a settings has a valid setting. If not it will assign a reasonable default setting to it.
@@ -410,6 +445,9 @@ public class Settings implements SharedPreferences
 
 			if(!prefs.contains("lastNewsPolltime") | force)
 				editor.putLong("lastNewsPolltime", default_lastNewsPolltime);
+
+			if(!prefs.contains("whatHasBeenDone") | force)
+				editor.putString("whatHasBeenDone", "");
 			
 			editor.commit();
 			
@@ -479,6 +517,8 @@ public class Settings implements SharedPreferences
 				editor.putBoolean("noticeAndroid10WifiShown", noticeAndroid10WifiShown);
 
 				editor.putLong("lastNewsPolltime", lastNewsPolltime);
+
+				editor.putString("whatHasBeenDone", Miscellaneous.explode(";", whatHasBeenDone));
 
 				if(lastActivePoi == null)
 					editor.putString("lastActivePoi", "null");

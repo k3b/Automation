@@ -977,7 +977,7 @@ public class ActivityPermissions extends Activity
                     and simply disable features while keeping the notification alive. The user may dismiss it anyway.
                  */
 
-                Miscellaneous.logEvent("w", "Denied permissions", getResources().getString(R.string.theFollowingPermissionsHaveBeenDenied) + Miscellaneous.explode(deniedPermissions), 3);
+                Miscellaneous.logEvent("w", "Denied permissions", getResources().getString(R.string.theFollowingPermissionsHaveBeenDenied) + Miscellaneous.explode(", ", deniedPermissions), 3);
 //                this.finish();
             }
             else

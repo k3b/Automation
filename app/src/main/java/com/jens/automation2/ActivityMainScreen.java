@@ -418,7 +418,34 @@ public class ActivityMainScreen extends ActivityGeneric
 			Miscellaneous.logEvent("i", "ActivityMainScreen", "Activity not running. No need to update.", 5);
 
 		if(activityMainScreenInstance != null)
-			activityMainScreenInstance.checkForNews();
+		{
+			if(!Settings.hasBeenDone(Settings.constNewsOptInDone))
+				newsOptIn();
+			else
+				activityMainScreenInstance.checkForNews();
+
+			Settings.considerDone(Settings.constNewsOptInDone);
+			Settings.writeSettings(Miscellaneous.getAnyContext());
+		}
+	}
+
+	static void newsOptIn()
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(Miscellaneous.getAnyContext());
+		builder.setMessage(Miscellaneous.getAnyContext().getResources().getString(R.string.newsOptIn));
+		builder.setPositiveButton(Miscellaneous.getAnyContext().getResources().getString(R.string.yes), new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				Settings.displayNewsOnMainScreen = true;
+				Settings.writeSettings(Miscellaneous.getAnyContext());
+				activityMainScreenInstance.checkForNews();
+			}
+		});
+		builder.setNegativeButton(Miscellaneous.getAnyContext().getResources().getString(R.string.no), null);
+
+		builder.create().show();
 	}
 
 	@Override
@@ -572,57 +599,31 @@ public class ActivityMainScreen extends ActivityGeneric
 
 	synchronized void checkForNews()
 	{
-		News.AsyncTaskDownloadNews dnTask = new News.AsyncTaskDownloadNews();
-		dnTask.execute(ActivityMainScreen.this);
-
-//		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-//		StrictMode.setThreadPolicy(policy);
-
-//		Calendar now = Calendar.getInstance();
-
-//		if (true || Settings.lastNewsPolltime == -1 || now.getTimeInMillis() >= Settings.lastNewsPolltime + (long)(Settings.pollNewsEveryXDays * 24 * 60 * 60 * 1000))
-//		{
-//			ArrayList<News> newsToDisplay;
-//
-////			if(Settings.lastNewsPolltime == -1)
-//				newsToDisplay = News.downloadNews(ActivityMainScreen.this);
-////			else
-////				newsToDisplay = News.downloadNews(ActivityMainScreen.this, Miscellaneous.calendarFromLong(Settings.lastNewsPolltime));
-//
-//			if (newsToDisplay.size() > 0)
-//			{
-//				activityMainScreenInstance.tvMainScreenNote3.setText(newsToDisplay.get(0).toString());
-//				activityMainScreenInstance.tvMainScreenNote3.setVisibility(View.VISIBLE);
-//			}
-//			else
-//			{
-//				activityMainScreenInstance.tvMainScreenNote3.setText("");
-//				activityMainScreenInstance.tvMainScreenNote3.setVisibility(View.GONE);
-//			}
-//		}
+		if(Settings.displayNewsOnMainScreen)
+		{
+			News.AsyncTaskDownloadNews dnTask = new News.AsyncTaskDownloadNews();
+			dnTask.execute(ActivityMainScreen.this);
+		}
 	}
 
 	public void processNewsResult(ArrayList<News> newsToDisplay)
 	{
-		if(Settings.displayNewsOnMainScreen)
+		try
 		{
-			try
+			if (newsToDisplay.size() > 0)
 			{
-				if (newsToDisplay.size() > 0)
-				{
-					activityMainScreenInstance.tvMainScreenNote3.setText(HtmlCompat.fromHtml(newsToDisplay.get(0).toStringHtml(), 0));
-					activityMainScreenInstance.tvMainScreenNote3.setVisibility(View.VISIBLE);
-				}
-				else
-				{
-					activityMainScreenInstance.tvMainScreenNote3.setText("");
-					activityMainScreenInstance.tvMainScreenNote3.setVisibility(View.GONE);
-				}
+				activityMainScreenInstance.tvMainScreenNote3.setText(HtmlCompat.fromHtml(newsToDisplay.get(0).toStringHtml(), 0));
+				activityMainScreenInstance.tvMainScreenNote3.setVisibility(View.VISIBLE);
 			}
-			catch(Exception e)
+			else
 			{
-				Miscellaneous.logEvent("e", "Error displaying news", Log.getStackTraceString(e), 3);
+				activityMainScreenInstance.tvMainScreenNote3.setText("");
+				activityMainScreenInstance.tvMainScreenNote3.setVisibility(View.GONE);
 			}
+		}
+		catch(Exception e)
+		{
+			Miscellaneous.logEvent("e", "Error displaying news", Log.getStackTraceString(e), 3);
 		}
 	}
 }

@@ -864,13 +864,21 @@ public class Miscellaneous extends Service
 		return builder;
 	}
 
-	public static String explode(ArrayList<String> arrayList)
+	public static String explode(String glue, ArrayList<String> arrayList)
 	{
-		StringBuilder builder = new StringBuilder();
-		for(String s : arrayList)
-			builder.append(s);
+		if(arrayList != null)
+		{
+			StringBuilder builder = new StringBuilder();
+			for (String s : arrayList)
+				builder.append(s + glue);
 
-		return builder.toString();
+			if (builder.length() > 0)
+				builder.delete(builder.length() - glue.length(), builder.length());
+
+			return builder.toString();
+		}
+		else
+			return "";
 	}
 
 	public static boolean isGooglePlayInstalled(Context context)

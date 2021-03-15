@@ -606,4 +606,5 @@
     <string name="displayNewsOnMainScreen">Display application news on main screen</string>
     <string name="displayNewsOnMainScreenDescription">Announcements about this app only, we\'re probably talking about 1-2 per year, not more.</string>
     <string name="filesHaveBeenMovedTo">Automation now uses another path to store your files. All your Automation-files have been moved here: \"%s\". The external storage permission is not required anymore; you can revoke it. It will be removed in a future version.</string>
+    <string name="newsOptIn">Would you like to receive (only important) news about this app on the main screen? Those are downloaded from the developer\'s website. There will be no intrusive notification, just a text on the main screen when you open the app.</string>
 </resources>
