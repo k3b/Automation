@@ -154,7 +154,8 @@ public class AutomationService extends Service implements OnInitListener
 							{
 								Miscellaneous.logEvent("w", "AutoStart", "Service is started via boot. Settingsfile not available because storage is not mounted, yet. Waiting for 3 seconds.", 4);
 								Thread.sleep(3000);
-							} catch (InterruptedException e)
+							}
+							catch (InterruptedException e)
 							{
 								e.printStackTrace();
 							}
@@ -169,15 +170,13 @@ public class AutomationService extends Service implements OnInitListener
 		}
 
 		//if still no POIs...
-		if (//PointOfInterest.getPointOfInterestCollection() == null | PointOfInterest.getPointOfInterestCollection().size() == 0
-			//		&&
-				Rule.getRuleCollection() == null | Rule.getRuleCollection().size() == 0
-				)
+		if (Rule.getRuleCollection() == null | Rule.getRuleCollection().size() == 0)
 		{
 			Miscellaneous.logEvent("w", "AutomationService", context.getResources().getString(R.string.serviceWontStart), 1);
 			Toast.makeText(context, context.getResources().getString(R.string.serviceWontStart), Toast.LENGTH_LONG).show();
 			return false;
-		} else
+		}
+		else
 		{
 			return true;
 		}
@@ -318,6 +317,7 @@ public class AutomationService extends Service implements OnInitListener
 		checkForTtsEngine();
 		checkForPermissions();
 		checkForRestrictedFeatures();
+		checkForMissingBackgroundLocationPermission();
 
 		Actions.context = this;
 		Actions.autoMationServerRef = this;
@@ -388,6 +388,23 @@ public class AutomationService extends Service implements OnInitListener
 				Miscellaneous.createDismissableNotification(getResources().getString(R.string.settingsReferringToRestrictedFeatures), notificationIdRestrictions, pi);
 			}
 		}
+	}
+
+	protected void checkForMissingBackgroundLocationPermission()
+	{
+//		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+//		{
+			if (BuildConfig.FLAVOR.equalsIgnoreCase("googlePlayFlavor"))
+			{
+				if (Rule.isAnyRuleUsing(Trigger_Enum.pointOfInterest))
+				{
+					Intent intent = new Intent(AutomationService.this, ActivityDisplayLongMessage.class);
+					intent.putExtra("longMessage", getResources().getString(R.string.locationEngineDisabledLong));
+					PendingIntent pi = PendingIntent.getActivity(AutomationService.this, 0, intent, 0);
+					Miscellaneous.createDismissableNotification(getResources().getString(R.string.locationEngineDisabledShort), notificationIdRestrictions, pi);
+				}
+			}
+//		}
 	}
 
 	public static void startAutomationService(Context context, boolean startAtBoot)
