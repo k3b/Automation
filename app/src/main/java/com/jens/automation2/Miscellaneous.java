@@ -856,10 +856,10 @@ public class Miscellaneous extends Service
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
 		{
-			NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "Functionality warnings", NotificationManager.IMPORTANCE_DEFAULT);
+			NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "Functionality warnings", NotificationManager.IMPORTANCE_HIGH);
 //			chan.setLightColor(Color.BLUE);
 			chan.enableVibration(false);
-			chan.setSound(null, null);
+//			chan.setSound(null, null);
 			chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
 			mNotificationManager.createNotificationChannel(chan);
 
@@ -916,7 +916,7 @@ public class Miscellaneous extends Service
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
 		{
-			NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_LOW);
+			NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_HIGH);
 //			chan.setLightColor(Color.BLUE);
 //			chan.enableVibration(false);
 //			chan.setSound(null, null);

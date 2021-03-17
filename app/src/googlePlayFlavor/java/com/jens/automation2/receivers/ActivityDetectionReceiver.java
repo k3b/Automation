@@ -3,6 +3,7 @@ package com.jens.automation2.receivers;
 import android.app.IntentService;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -13,6 +14,7 @@ import com.google.android.gms.location.ActivityRecognition;
 import com.google.android.gms.location.ActivityRecognitionApi;
 import com.google.android.gms.location.ActivityRecognitionResult;
 import com.google.android.gms.location.DetectedActivity;
+import com.jens.automation2.ActivityDisplayLongMessage;
 import com.jens.automation2.ActivityPermissions;
 import com.jens.automation2.AutomationService;
 import com.jens.automation2.Miscellaneous;
@@ -110,6 +112,14 @@ public class ActivityDetectionReceiver extends IntentService implements Automati
 	}
 	public static void startActivityDetectionReceiver()
 	{
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+		{
+			if(!ActivityPermissions.havePermission("android.permission.ACTIVITY_RECOGNITION", Miscellaneous.getAnyContext()))
+			{
+				Miscellaneous.logEvent("w", "Activity Detection", "Don't have android.permission.ACTIVITY_RECOGNITION. Aborting receiver start..", 2);
+				return;
+			}
+		}
 		try
 		{
 			Miscellaneous.logEvent("i", "ActivityDetectionReceiver", "Starting ActivityDetectionReceiver", 3);
