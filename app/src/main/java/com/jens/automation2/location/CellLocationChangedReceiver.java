@@ -114,7 +114,14 @@ public class CellLocationChangedReceiver extends PhoneStateListener
 			
 			myLocationManager = (LocationManager) AutomationService.getInstance().getSystemService(Context.LOCATION_SERVICE);
 			currentLocation = getLocation("coarse");
-			AutomationService.getInstance().getLocationProvider().setCurrentLocation(currentLocation, false);
+			try
+			{
+				AutomationService.getInstance().getLocationProvider().setCurrentLocation(currentLocation, false);
+			}
+			catch(NullPointerException e)
+			{
+				Miscellaneous.logEvent("e", "LocationProvider", "Location provider is null: " + Log.getStackTraceString(e), 1);
+			}
 		}
 		else
 		{
@@ -122,7 +129,6 @@ public class CellLocationChangedReceiver extends PhoneStateListener
 			followUpdate = true; //for next run
 		}
 	}
-
 
 	public Location getLocation(String accuracy)
 	{

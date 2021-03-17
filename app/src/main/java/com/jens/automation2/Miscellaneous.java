@@ -14,6 +14,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.os.IBinder;
@@ -768,8 +769,61 @@ public class Miscellaneous extends Service
 
 	@SuppressLint("NewApi")
 	@SuppressWarnings("deprecation")
+	public static void createDismissableNotificationWithDelay(long delay, String textToDisplay, int notificationId, PendingIntent pendingIntent)
+	{
+		/*
+			Now what's this about?
+			From SDK 27 onwards you can only fire 1 notification per second:
+			https://developer.android.com/about/versions/oreo/android-8.1?hl=bn#notify
+
+			There are some situations where the service is just being started - resulting in a notification. But we have
+			additional need to inform the user about something and want to create another notification. That's why we have
+			to delay it for a moment, but don't want to hold off the main threat.
+		 */
+
+		class AsyncTaskCreateNotification extends AsyncTask<Void, Void, Void>
+		{
+			@Override
+			protected Void doInBackground(Void... voids)
+			{
+				setDefaultBehaviour(this);
+
+				try
+				{
+					Thread.sleep(delay);
+				}
+				catch(Exception e)
+				{}
+
+				createDismissableNotification(textToDisplay, notificationId, pendingIntent);
+
+				return null;
+			}
+		}
+
+		AsyncTaskCreateNotification astCn = new AsyncTaskCreateNotification();
+		astCn.execute(null, null);
+	}
+
+	private static void setDefaultBehaviour(AsyncTask asyncTask)
+	{
+		// without this line debugger will - for some reason - skip all breakpoints in this class
+		if(android.os.Debug.isDebuggerConnected())
+			android.os.Debug.waitForDebugger();
+
+//		Thread.setDefaultUncaughtExceptionHandler(Miscellaneous.getUncaughtExceptionHandler(activityMainRef, true));
+	}
+
+	@SuppressLint("NewApi")
+	@SuppressWarnings("deprecation")
 	public static void createDismissableNotification(String textToDisplay, int notificationId, PendingIntent pendingIntent)
 	{
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+		{
+			createDismissableNotificationSdk26(textToDisplay, notificationId, pendingIntent);
+			return;
+		}
+
 		NotificationManager mNotificationManager = (NotificationManager) Miscellaneous.getAnyContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
 		NotificationCompat.Builder dismissableNotificationBuilder = createDismissableNotificationBuilder(pendingIntent);
@@ -781,50 +835,78 @@ public class Miscellaneous extends Service
 
 		mNotificationManager.notify(notificationId, dismissableNotification);
 
-		/*NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(this)
-				.setSmallIcon(R.drawable.ic_launcher) // notification icon
-				.setContentTitle("Notification!") // title for notification
-				.setContentText("Hello word") // message for notification
-				.setAutoCancel(true); // clear notification after click
-		Intent intent = new Intent(this, MainActivity.class);
-		PendingIntent pi = PendingIntent.getActivity(this,0,intent,Intent.FLAG_ACTIVITY_NEW_TASK);
-		mBuilder.setContentIntent(pi);
-		NotificationManager mNotificationManager =
-				(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		mNotificationManager.notify(0, dismissableNotification);*/
+				/*NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(this)
+						.setSmallIcon(R.drawable.ic_launcher) // notification icon
+						.setContentTitle("Notification!") // title for notification
+						.setContentText("Hello word") // message for notification
+						.setAutoCancel(true); // clear notification after click
+				Intent intent = new Intent(this, MainActivity.class);
+				PendingIntent pi = PendingIntent.getActivity(this,0,intent,Intent.FLAG_ACTIVITY_NEW_TASK);
+				mBuilder.setContentIntent(pi);
+				NotificationManager mNotificationManager =
+						(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+				mNotificationManager.notify(0, dismissableNotification);*/
 	}
 
-	/*protected static Notification.Builder createDismissableNotificationBuilder()
+	public static void createDismissableNotificationSdk26(String textToDisplay, int notificationId, PendingIntent pendingIntent)
 	{
-		Notification.Builder builder = new Notification.Builder(AutomationService.getInstance());
-		builder.setContentTitle("Automation");
-		builder.setSmallIcon(R.drawable.ic_launcher);
-		builder.setCategory(Notification.CATEGORY_EVENT);
+		NotificationManager mNotificationManager = (NotificationManager) AutomationService.getInstance().getSystemService(Context.NOTIFICATION_SERVICE);
+
+		NotificationCompat.Builder builder;
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+		{
+			NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "Functionality warnings", NotificationManager.IMPORTANCE_DEFAULT);
+//			chan.setLightColor(Color.BLUE);
+			chan.enableVibration(false);
+			chan.setSound(null, null);
+			chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+			mNotificationManager.createNotificationChannel(chan);
+
+			builder = new NotificationCompat.Builder(AutomationService.getInstance(), NOTIFICATION_CHANNEL_ID);
+		}
+		else
+			builder = new NotificationCompat.Builder(AutomationService.getInstance());
+
+//		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+//			builder.setCategory(Notification.CATEGORY_SERVICE);
+
 		builder.setWhen(System.currentTimeMillis());
+		builder.setContentIntent(pendingIntent);
 
-		//static PendingIntent myPendingIntent = PendingIntent.getActivity(this, 0, myIntent, 0);
+		builder.setContentTitle(AutomationService.getInstance().getResources().getString(R.string.app_name));
+		builder.setOnlyAlertOnce(true);
 
-		//builder.setContentIntent(myPendingIntent);
+		if(Settings.showIconWhenServiceIsRunning)
+			builder.setSmallIcon(R.drawable.ic_launcher);
 
-//		Notification defaultNotification = new Notification();
-*//*		Notification defaultNotification = builder.build();
+		builder.setContentText(textToDisplay);
+		builder.setStyle(new NotificationCompat.BigTextStyle().bigText(textToDisplay));
 
-		defaultNotification.icon = R.drawable.ic_launcher;
-		defaultNotification.when = System.currentTimeMillis();
+		NotificationManager notificationManager = (NotificationManager) Miscellaneous.getAnyContext().getSystemService(Context.NOTIFICATION_SERVICE);
+		notificationManager.notify(1, builder.build());
 
-//		defaultNotification.defaults |= Notification.DEFAULT_VIBRATE;
-//		defaultNotification.defaults |= Notification.DEFAULT_LIGHTS;
 
-		defaultNotification.flags |= Notification.FLAG_AUTO_CANCEL;
-//		defaultNotification.flags |= Notification.FLAG_SHOW_LIGHTS;
-		defaultNotification.flags |= Notification.FLAG_ONLY_ALERT_ONCE;
-
-//		defaultNotification.ledARGB = Color.YELLOW;
-//		defaultNotification.ledOnMS = 1500;
-//		defaultNotification.ledOffMS = 1500;
-*//*
-		return builder;
-	}*/
+//		Intent notifyIntent = new Intent(context, notification.class);
+//		notifyIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//
+//		pendingIntent.getIntentSender().g
+//
+//		PendingIntent pendingIntent = PendingIntent.getActivities(context, 0,
+//				new Intent[]{notifyIntent}, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//		Notification notification = new Notification.Builder(Miscellaneous.getAnyContext())
+//				.setSmallIcon(android.R.drawable.ic_dialog_info)
+//				.setContentTitle("Automation")
+//				.setContentText(textToDisplay)
+//				.setAutoCancel(true)
+//				.setContentIntent(pendingIntent)
+//				.build();
+//		notification.defaults |= Notification.DEFAULT_SOUND;
+//		NotificationManager notificationManager =
+//				(NotificationManager) Miscellaneous.getAnyContext().getSystemService(Context.NOTIFICATION_SERVICE);
+//		notificationManager.notify(1, notification);
+	}
 
 	protected static NotificationCompat.Builder createDismissableNotificationBuilder(PendingIntent myPendingIntent)
 	{
