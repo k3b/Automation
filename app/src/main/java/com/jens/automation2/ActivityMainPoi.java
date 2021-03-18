@@ -53,23 +53,25 @@ public class ActivityMainPoi extends ActivityGeneric
 			@Override
 			public void onClick(View v)
 			{
-//				if(!ActivityPermissions.havePermission(ActivityPermissions.writeExternalStoragePermissionName, ActivityMainPoi.this))
-//				{
-//					Toast.makeText(ActivityMainPoi.this, getResources().getString(R.string.appRequiresPermissiontoAccessExternalStorage), Toast.LENGTH_LONG).show();
-//					return;
-//				}
-
-				if(!ActivityPermissions.havePermission(ActivityPermissions.permissionNameLocationCoarse, ActivityMainPoi.this) || !ActivityPermissions.havePermission(ActivityPermissions.permissionNameLocationFine, ActivityMainPoi.this))
+				if(Miscellaneous.googleToBlameForLocation())
 				{
-					Intent permissionIntent = new Intent(ActivityMainPoi.this, ActivityPermissions.class);
-
-					permissionIntent.putExtra(ActivityPermissions.intentExtraName, new String[] { ActivityPermissions.permissionNameLocationCoarse, ActivityPermissions.permissionNameLocationFine });
-
-					startActivityForResult(permissionIntent, requestCodeForPermission);
+					ActivityMainScreen.openGoogleBlamingWindow();
+					return;
 				}
 				else
 				{
-					buttonAddPoi();
+					if (!ActivityPermissions.havePermission(ActivityPermissions.permissionNameLocationCoarse, ActivityMainPoi.this) || !ActivityPermissions.havePermission(ActivityPermissions.permissionNameLocationFine, ActivityMainPoi.this))
+					{
+						Intent permissionIntent = new Intent(ActivityMainPoi.this, ActivityPermissions.class);
+
+						permissionIntent.putExtra(ActivityPermissions.intentExtraName, new String[]{ActivityPermissions.permissionNameLocationCoarse, ActivityPermissions.permissionNameLocationFine});
+
+						startActivityForResult(permissionIntent, requestCodeForPermission);
+					}
+					else
+					{
+						buttonAddPoi();
+					}
 				}
 			}
 		});

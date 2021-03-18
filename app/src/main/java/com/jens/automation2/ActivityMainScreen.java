@@ -328,9 +328,7 @@ public class ActivityMainScreen extends ActivityGeneric
 					@Override
 					public void onClick(View v)
 					{
-						Intent intent = new Intent(Miscellaneous.getAnyContext(), ActivityDisplayLongMessage.class);
-						intent.putExtra("longMessage", Miscellaneous.getAnyContext().getResources().getString(R.string.locationEngineDisabledLong));
-						Miscellaneous.getAnyContext().startActivity(intent);
+						openGoogleBlamingWindow();
 					}
 				});
 			}
@@ -457,6 +455,16 @@ public class ActivityMainScreen extends ActivityGeneric
 			Settings.considerDone(Settings.constNewsOptInDone);
 			Settings.writeSettings(Miscellaneous.getAnyContext());
 		}
+	}
+
+	public static void openGoogleBlamingWindow()
+	{
+		Intent intent = new Intent(Miscellaneous.getAnyContext(), ActivityDisplayLongMessage.class);
+		String message = Miscellaneous.getAnyContext().getResources().getText(R.string.locationEngineDisabledLong).toString();
+		intent.putExtra("messageTitle", Miscellaneous.getAnyContext().getResources().getString(R.string.locationDisabled));
+		intent.putExtra("longMessage", message);
+		intent.putExtra("messageLink", "https://f-droid.org/en/packages/com.jens.automation2/");
+		Miscellaneous.getAnyContext().startActivity(intent);
 	}
 
 	static void newsOptIn()

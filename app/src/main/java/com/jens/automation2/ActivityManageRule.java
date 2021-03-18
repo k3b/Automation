@@ -165,7 +165,7 @@ public class ActivityManageRule extends Activity
 				hideKeyboard();
 				getActionTypeDialog().show();
 			}
-		});		
+		});
 		
 		cmdSaveRule.setOnClickListener(new OnClickListener()
 		{			
@@ -502,12 +502,20 @@ public class ActivityManageRule extends Activity
 						String[] booleanChoices = null;
 						if(triggerType == Trigger_Enum.pointOfInterest)
 						{
-							if(PointOfInterest.getPointOfInterestCollection() != null && PointOfInterest.getPointOfInterestCollection().size() > 0)
-								booleanChoices = new String[]{getResources().getString(R.string.entering), getResources().getString(R.string.leaving)};
+							if(Miscellaneous.googleToBlameForLocation())
+							{
+								ActivityMainScreen.openGoogleBlamingWindow();
+								return;
+							}
 							else
 							{
-								Toast.makeText(myContext, getResources().getString(R.string.noPoisSpecified), Toast.LENGTH_LONG).show();
-								return;
+								if (PointOfInterest.getPointOfInterestCollection() != null && PointOfInterest.getPointOfInterestCollection().size() > 0)
+									booleanChoices = new String[]{getResources().getString(R.string.entering), getResources().getString(R.string.leaving)};
+								else
+								{
+									Toast.makeText(myContext, getResources().getString(R.string.noPoisSpecified), Toast.LENGTH_LONG).show();
+									return;
+								}
 							}
 						}
 						else if(triggerType == Trigger_Enum.timeFrame)
