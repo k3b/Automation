@@ -523,7 +523,7 @@
     <string name="continueText">continue</string>
     <string name="rule">Rule</string>
     <string name="storeSettings">Read and store settings</string>
-    <string name="appRunningInLimitedMode">The app is running in limited mode because of lacking permissions.</string>
+    <string name="featuresDisabled">: Features are disabled, Automation is running in limited mode. Click here for more information.</string>
     <string name="ruleLegend">Green = enabled, red = disabled, yellow = not enough permissions</string>
     <string name="systemSettingsNote1">The permission to change some OS settings is required (even simple stuff like turn on bluetooth or wifi). After clicking "continue" a window will popup where you need to enable this for Automation. Then hit your "back" key.</string>
     <string name="systemSettingsNote2">Further permissions will be requested in a second dialog afterwards.</string>

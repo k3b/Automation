@@ -2,13 +2,13 @@ package com.jens.automation2;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,7 +29,6 @@ import com.jens.automation2.AutomationService.serviceCommands;
 import com.jens.automation2.Trigger.Trigger_Enum;
 import com.jens.automation2.location.LocationProvider;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -41,7 +40,7 @@ public class ActivityMainScreen extends ActivityGeneric
 	private static ActivityMainScreen activityMainScreenInstance = null;
 	private ToggleButton toggleService, tbLockSound;
 	private Button bShowHelp, bPrivacy, bSettingsErase, bSettingsSetToDefault, bVolumeTest, bAddSoundLockTIme;
-	private TextView tvActivePoi, tvClosestPoi, tvLastRule, tvMainScreenNote1, tvMainScreenNote2, tvMainScreenNote3, tvlockSoundDuration;
+	private TextView tvActivePoi, tvClosestPoi, tvLastRule, tvMainScreenNotePermissions, tvMainScreenNoteFeaturesFromOtherFlavor, tvMainScreenNoteLocationImpossibleBlameGoogle, tvMainScreenNoteNews, tvlockSoundDuration;
 
 	private ListView lvRuleHistory;
 	private ArrayAdapter<Rule> ruleHistoryListViewAdapter;
@@ -70,9 +69,10 @@ public class ActivityMainScreen extends ActivityGeneric
 		tvClosestPoi = (TextView) findViewById(R.id.tvClosestPoi);
 		lvRuleHistory = (ListView) findViewById(R.id.lvRuleHistory);
 		tvLastRule = (TextView) findViewById(R.id.tvTimeFrameHelpText);
-		tvMainScreenNote1 = (TextView) findViewById(R.id.tvMainScreenNote1);
-		tvMainScreenNote2 = (TextView) findViewById(R.id.tvMainScreenNote2);
-		tvMainScreenNote3 = (TextView) findViewById(R.id.tvMainScreenNote3);
+		tvMainScreenNotePermissions = (TextView) findViewById(R.id.tvMainScreenNotePermissions);
+		tvMainScreenNoteFeaturesFromOtherFlavor = (TextView) findViewById(R.id.tvMainScreenNoteFeaturesFromOtherFlavor);
+		tvMainScreenNoteLocationImpossibleBlameGoogle = (TextView) findViewById(R.id.tvMainScreenNoteLocationImpossibleBlameGoogle);
+		tvMainScreenNoteNews = (TextView) findViewById(R.id.tvMainScreenNoteNews);
 		tvlockSoundDuration = (TextView)findViewById(R.id.tvlockSoundDuration);
 		tbLockSound = (ToggleButton) findViewById(R.id.tbLockSound);
 		toggleService = (ToggleButton) findViewById(R.id.tbArmMastListener);
@@ -95,7 +95,7 @@ public class ActivityMainScreen extends ActivityGeneric
 			}
 		});
 
-		tvMainScreenNote1.setOnClickListener(new OnClickListener()
+		tvMainScreenNotePermissions.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
@@ -291,24 +291,54 @@ public class ActivityMainScreen extends ActivityGeneric
 		{
 			if(ActivityPermissions.needMorePermissions(activityMainScreenInstance))
 			{
-				activityMainScreenInstance.tvMainScreenNote1.setText(R.string.mainScreenPermissionNote);
-				activityMainScreenInstance.tvMainScreenNote1.setVisibility(View.VISIBLE);
+				activityMainScreenInstance.tvMainScreenNotePermissions.setText(R.string.mainScreenPermissionNote);
+				activityMainScreenInstance.tvMainScreenNotePermissions.setVisibility(View.VISIBLE);
 			}
 			else
 			{
-				activityMainScreenInstance.tvMainScreenNote1.setText("");
-				activityMainScreenInstance.tvMainScreenNote1.setVisibility(View.GONE);
+				activityMainScreenInstance.tvMainScreenNotePermissions.setText("");
+				activityMainScreenInstance.tvMainScreenNotePermissions.setVisibility(View.GONE);
 			}
 
 			if(Miscellaneous.restrictedFeaturesConfigured())
 			{
-				activityMainScreenInstance.tvMainScreenNote2.setText(R.string.settingsReferringToRestrictedFeatures);
-				activityMainScreenInstance.tvMainScreenNote2.setVisibility(View.VISIBLE);
+				activityMainScreenInstance.tvMainScreenNoteFeaturesFromOtherFlavor.setText(R.string.settingsReferringToRestrictedFeatures);
+				activityMainScreenInstance.tvMainScreenNoteFeaturesFromOtherFlavor.setVisibility(View.VISIBLE);
 			}
 			else
 			{
-				activityMainScreenInstance.tvMainScreenNote2.setText("");
-				activityMainScreenInstance.tvMainScreenNote2.setVisibility(View.GONE);
+				activityMainScreenInstance.tvMainScreenNoteFeaturesFromOtherFlavor.setText("");
+				activityMainScreenInstance.tvMainScreenNoteFeaturesFromOtherFlavor.setVisibility(View.GONE);
+			}
+
+			if(Miscellaneous.googleToBlameForLocation())
+			{
+//				Intent intent = new Intent(AutomationService.this, ActivityDisplayLongMessage.class);
+//				intent.putExtra("longMessage", getResources().getString(R.string.locationEngineDisabledLong));
+//				PendingIntent pi = PendingIntent.getActivity(AutomationService.this, 0, intent, 0);
+//				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
+//					Miscellaneous.createDismissableNotificationWithDelay(2200, getResources().getString(R.string.featuresDisabled), notificationIdLocationRestriction, pi);
+//				else
+//					Miscellaneous.createDismissableNotification(getResources().getString(R.string.featuresDisabled), notificationIdLocationRestriction, pi);
+
+				activityMainScreenInstance.tvMainScreenNoteLocationImpossibleBlameGoogle.setText(R.string.locationEngineDisabledShort);
+				activityMainScreenInstance.tvMainScreenNoteLocationImpossibleBlameGoogle.setVisibility(View.VISIBLE);
+				activityMainScreenInstance.tvMainScreenNoteLocationImpossibleBlameGoogle.setOnClickListener(new OnClickListener()
+				{
+					@Override
+					public void onClick(View v)
+					{
+						Intent intent = new Intent(Miscellaneous.getAnyContext(), ActivityDisplayLongMessage.class);
+						intent.putExtra("longMessage", Miscellaneous.getAnyContext().getResources().getString(R.string.locationEngineDisabledLong));
+						Miscellaneous.getAnyContext().startActivity(intent);
+					}
+				});
+			}
+			else
+			{
+				activityMainScreenInstance.tvMainScreenNoteLocationImpossibleBlameGoogle.setText("");
+				activityMainScreenInstance.tvMainScreenNoteLocationImpossibleBlameGoogle.setVisibility(View.GONE);
+				activityMainScreenInstance.tvMainScreenNoteLocationImpossibleBlameGoogle.setOnClickListener(null);
 			}
 
 			if (AutomationService.isMyServiceRunning(activityMainScreenInstance))
@@ -612,13 +642,13 @@ public class ActivityMainScreen extends ActivityGeneric
 		{
 			if (newsToDisplay.size() > 0)
 			{
-				activityMainScreenInstance.tvMainScreenNote3.setText(HtmlCompat.fromHtml(newsToDisplay.get(0).toStringHtml(), 0));
-				activityMainScreenInstance.tvMainScreenNote3.setVisibility(View.VISIBLE);
+				activityMainScreenInstance.tvMainScreenNoteNews.setText(HtmlCompat.fromHtml(newsToDisplay.get(0).toStringHtml(), 0));
+				activityMainScreenInstance.tvMainScreenNoteNews.setVisibility(View.VISIBLE);
 			}
 			else
 			{
-				activityMainScreenInstance.tvMainScreenNote3.setText("");
-				activityMainScreenInstance.tvMainScreenNote3.setVisibility(View.GONE);
+				activityMainScreenInstance.tvMainScreenNoteNews.setText("");
+				activityMainScreenInstance.tvMainScreenNoteNews.setVisibility(View.GONE);
 			}
 		}
 		catch(Exception e)

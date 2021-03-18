@@ -82,7 +82,7 @@
     <string name="anyNumber">qualsiasi numero</string>
     <string name="anyWifi">qualsiasi wifi</string>
     <string name="appRequiresPermissiontoAccessExternalStorage">Automation richiede l’autorizzazione per  archiviare e leggere le impostazioni e le regole.</string>
-    <string name="appRunningInLimitedMode">L\'applicazione è in esecuzione in modalità limitata a causa di autorizzazioni mancanti.</string>
+    <string name="featuresDisabled">L\'applicazione è in esecuzione in modalità limitata a causa di autorizzazioni mancanti.</string>
     <string name="appStarted">App avviata.</string>
     <string name="appStopped">App terminata.</string>
     <string name="app_name">Automation</string>

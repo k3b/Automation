@@ -367,9 +367,9 @@ public class AutomationService extends Service implements OnInitListener
 				Intent intent = new Intent(AutomationService.this, ActivityPermissions.class);
 				PendingIntent pi = PendingIntent.getActivity(AutomationService.this, 0, intent, 0);
 				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
-					Miscellaneous.createDismissableNotificationWithDelay(1010, getResources().getString(R.string.appRunningInLimitedMode), ActivityPermissions.notificationIdPermissions, pi);
+					Miscellaneous.createDismissableNotificationWithDelay(1010, getResources().getString(R.string.featuresDisabled), ActivityPermissions.notificationIdPermissions, pi);
 				else
-					Miscellaneous.createDismissableNotification(getResources().getString(R.string.appRunningInLimitedMode), ActivityPermissions.notificationIdPermissions, pi);
+					Miscellaneous.createDismissableNotification(getResources().getString(R.string.featuresDisabled), ActivityPermissions.notificationIdPermissions, pi);
 			}
 //			else
 //				Toast.makeText(Miscellaneous.getAnyContext(), "Have all required permissions.", Toast.LENGTH_LONG).show();
@@ -390,28 +390,28 @@ public class AutomationService extends Service implements OnInitListener
 				PendingIntent pi = PendingIntent.getActivity(AutomationService.this, 0, intent, 0);
 //				Miscellaneous.createDismissableNotification(getResources().getString(R.string.settingsReferringToRestrictedFeatures), ActivityPermissions.notificationIdPermissions, pi);
 				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
-					Miscellaneous.createDismissableNotificationWithDelay(3300, getResources().getString(R.string.settingsReferringToRestrictedFeatures), notificationIdRestrictions, pi);
+					Miscellaneous.createDismissableNotificationWithDelay(3300, getResources().getString(R.string.featuresDisabled), notificationIdRestrictions, pi);
 				else
-					Miscellaneous.createDismissableNotification(getResources().getString(R.string.settingsReferringToRestrictedFeatures), notificationIdRestrictions, pi);
+					Miscellaneous.createDismissableNotification(getResources().getString(R.string.featuresDisabled), notificationIdRestrictions, pi);
 			}
 		}
 	}
 
 	protected void checkForMissingBackgroundLocationPermission()
 	{
+		if(Miscellaneous.googleToBlameForLocation())
 		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
 		{
 			if (BuildConfig.FLAVOR.equalsIgnoreCase("googlePlayFlavor"))
 			{
 				if (Rule.isAnyRuleUsing(Trigger_Enum.pointOfInterest))
 				{
-					Intent intent = new Intent(AutomationService.this, ActivityDisplayLongMessage.class);
-					intent.putExtra("longMessage", getResources().getString(R.string.locationEngineDisabledLong));
+					Intent intent = new Intent(AutomationService.this, ActivityMainTabLayout.class);
 					PendingIntent pi = PendingIntent.getActivity(AutomationService.this, 0, intent, 0);
 					if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
-						Miscellaneous.createDismissableNotificationWithDelay(2200, getResources().getString(R.string.locationEngineDisabledShort), notificationIdLocationRestriction, pi);
+						Miscellaneous.createDismissableNotificationWithDelay(2200, getResources().getString(R.string.featuresDisabled), notificationIdLocationRestriction, pi);
 					else
-						Miscellaneous.createDismissableNotification(getResources().getString(R.string.locationEngineDisabledShort), notificationIdLocationRestriction, pi);
+						Miscellaneous.createDismissableNotification(getResources().getString(R.string.featuresDisabled), notificationIdLocationRestriction, pi);
 				}
 			}
 		}

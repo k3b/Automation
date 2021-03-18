@@ -526,7 +526,7 @@
     <string name="continueText">Fortfahren</string>
     <string name="rule">Regel</string>
     <string name="storeSettings">Einstellungen lesen und speichern</string>
-    <string name="appRunningInLimitedMode">Die Anwendung läuft in einem eingeschränkten Modus, weil nicht alle benötigen Rechte genehmigt wurden.</string>
+    <string name="featuresDisabled">WARNING: Funktionen wurden deaktiviert, Automation läuft in einem eingeschränkten Modus. Klicken Sie hier für mehr Informationen.</string>
     <string name="ruleLegend">Grün = aktiviert, rot = deaktiviert, gelb = nicht genügend Rechte</string>
     <string name="systemSettingsNote1">Die Berechtigung Betriebssystemeinstellungen ändern zu können, wird benötigt (auch für einfache Dinge wie Bluetooth oder WLAN einschalten). Nach dem Klick auf "Fortfahren" öffnet sich ein Fenster, in dem Sie das für Automation aktivieren müssen. Drücken Sie dann auf Ihren "Zurück" Knopf.</string>
     <string name="systemSettingsNote2">Anschließend werden in einem zweiten Dialog weitere Berechtigungen angefragt.</string>

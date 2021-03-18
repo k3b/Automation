@@ -1186,4 +1186,20 @@ public class Miscellaneous extends Service
 
 		return returnValue;
 	}
+
+	public static boolean googleToBlameForLocation()
+	{
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+		{
+			if (BuildConfig.FLAVOR.equalsIgnoreCase("googlePlayFlavor"))
+			{
+				if (Rule.isAnyRuleUsing(Trigger.Trigger_Enum.pointOfInterest))
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
 }

@@ -27,7 +27,7 @@
 		</LinearLayout>
 
 		<TextView
-			android:id="@+id/tvMainScreenNote1"
+			android:id="@+id/tvMainScreenNotePermissions"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:gravity="center"
@@ -40,7 +40,7 @@
 			android:textAppearance="?android:attr/textAppearanceMedium" />
 
 		<TextView
-			android:id="@+id/tvMainScreenNote2"
+			android:id="@+id/tvMainScreenNoteFeaturesFromOtherFlavor"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:gravity="center"
@@ -53,7 +53,20 @@
 			android:textAppearance="?android:attr/textAppearanceMedium" />
 
 		<TextView
-			android:id="@+id/tvMainScreenNote3"
+			android:id="@+id/tvMainScreenNoteLocationImpossibleBlameGoogle"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:layout_marginLeft="10dp"
+			android:layout_marginRight="10dp"
+			android:scrollHorizontally="false"
+			android:textColor="@color/importantMessage"
+			android:singleLine="false"
+			android:visibility="gone"
+			android:textAppearance="?android:attr/textAppearanceMedium" />
+
+		<TextView
+			android:id="@+id/tvMainScreenNoteNews"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:gravity="center"
