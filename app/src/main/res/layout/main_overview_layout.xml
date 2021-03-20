@@ -368,6 +368,14 @@
 			    android:text="@string/defaultSettings" />
 			
 		</LinearLayout>
+
+		<TextView
+			android:id="@+id/tvFileStoreLocation"
+			android:layout_marginVertical="@dimen/default_margin"
+			android:layout_gravity="center_horizontal"
+			android:gravity="center_horizontal"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
 		
 	</LinearLayout>
 

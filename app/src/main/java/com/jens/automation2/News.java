@@ -256,7 +256,18 @@ public class News
         @Override
         protected void onPostExecute(ArrayList arrayList)
         {
-            ActivityMainScreen.getActivityMainScreenInstance().processNewsResult(arrayList);
+            try
+            {
+                ActivityMainScreen.getActivityMainScreenInstance().processNewsResult(arrayList);
+            }
+            catch(NullPointerException e)
+            {
+                Miscellaneous.logEvent("e", "NewsDownload", "There was a problem displaying the already downloded news, probably ActivityMainScreen isn't currently shown: " + Log.getStackTraceString(e), 2);
+            }
+            catch(Exception e)
+            {
+                Miscellaneous.logEvent("e", "NewsDownload", "There was a problem displaying the already downloded news: " + Log.getStackTraceString(e), 2);
+            }
         }
     }
 }

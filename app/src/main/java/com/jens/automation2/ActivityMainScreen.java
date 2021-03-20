@@ -40,7 +40,7 @@ public class ActivityMainScreen extends ActivityGeneric
 	private static ActivityMainScreen activityMainScreenInstance = null;
 	private ToggleButton toggleService, tbLockSound;
 	private Button bShowHelp, bPrivacy, bSettingsErase, bSettingsSetToDefault, bVolumeTest, bAddSoundLockTIme;
-	private TextView tvActivePoi, tvClosestPoi, tvLastRule, tvMainScreenNotePermissions, tvMainScreenNoteFeaturesFromOtherFlavor, tvMainScreenNoteLocationImpossibleBlameGoogle, tvMainScreenNoteNews, tvlockSoundDuration;
+	private TextView tvActivePoi, tvClosestPoi, tvLastRule, tvMainScreenNotePermissions, tvMainScreenNoteFeaturesFromOtherFlavor, tvMainScreenNoteLocationImpossibleBlameGoogle, tvMainScreenNoteNews, tvlockSoundDuration, tvFileStoreLocation;
 
 	private ListView lvRuleHistory;
 	private ArrayAdapter<Rule> ruleHistoryListViewAdapter;
@@ -74,6 +74,7 @@ public class ActivityMainScreen extends ActivityGeneric
 		tvMainScreenNoteLocationImpossibleBlameGoogle = (TextView) findViewById(R.id.tvMainScreenNoteLocationImpossibleBlameGoogle);
 		tvMainScreenNoteNews = (TextView) findViewById(R.id.tvMainScreenNoteNews);
 		tvlockSoundDuration = (TextView)findViewById(R.id.tvlockSoundDuration);
+		tvFileStoreLocation = (TextView)findViewById(R.id.tvFileStoreLocation);
 		tbLockSound = (ToggleButton) findViewById(R.id.tbLockSound);
 		toggleService = (ToggleButton) findViewById(R.id.tbArmMastListener);
 		toggleService.setChecked(AutomationService.isMyServiceRunning(this));
@@ -454,6 +455,10 @@ public class ActivityMainScreen extends ActivityGeneric
 
 			Settings.considerDone(Settings.constNewsOptInDone);
 			Settings.writeSettings(Miscellaneous.getAnyContext());
+
+			String folder = Miscellaneous.getWriteableFolder();
+			if(folder != null && folder.length() > 0)
+				activityMainScreenInstance.tvFileStoreLocation.setText(String.format(activityMainScreenInstance.getResources().getString(R.string.filesStoredAt), folder));
 		}
 	}
 
@@ -478,7 +483,15 @@ public class ActivityMainScreen extends ActivityGeneric
 			{
 				Settings.displayNewsOnMainScreen = true;
 				Settings.writeSettings(Miscellaneous.getAnyContext());
-				activityMainScreenInstance.checkForNews();
+
+				try
+				{
+					activityMainScreenInstance.checkForNews();
+				}
+				catch(Exception e)
+				{
+					Miscellaneous.logEvent("e", "NewsOptIn", "There was a problem showing the news opt-in: " + Log.getStackTraceString(e), 2);
+				}
 			}
 		});
 		builder.setNegativeButton(Miscellaneous.getAnyContext().getResources().getString(R.string.no), null);
