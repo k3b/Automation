@@ -502,7 +502,7 @@ public class ActivityManageRule extends Activity
 						String[] booleanChoices = null;
 						if(triggerType == Trigger_Enum.pointOfInterest)
 						{
-							if(Miscellaneous.googleToBlameForLocation())
+							if(Miscellaneous.googleToBlameForLocation(false))
 							{
 								ActivityMainScreen.openGoogleBlamingWindow();
 								return;

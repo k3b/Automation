@@ -399,7 +399,18 @@ public class AutomationService extends Service implements OnInitListener
 
 	protected void checkForMissingBackgroundLocationPermission()
 	{
-		if(Miscellaneous.googleToBlameForLocation())
+		if(Miscellaneous.googleToBlameForLocation(true))
+		{
+			Intent intent = new Intent(AutomationService.this, ActivityMainTabLayout.class);
+			PendingIntent pi = PendingIntent.getActivity(AutomationService.this, 0, intent, 0);
+
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
+				Miscellaneous.createDismissableNotificationWithDelay(2200, getResources().getString(R.string.featuresDisabled), notificationIdLocationRestriction, pi);
+			else
+				Miscellaneous.createDismissableNotification(getResources().getString(R.string.featuresDisabled), notificationIdLocationRestriction, pi);
+		}
+
+		/*
 		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
 		{
 			if (BuildConfig.FLAVOR.equalsIgnoreCase("googlePlayFlavor"))
@@ -414,7 +425,7 @@ public class AutomationService extends Service implements OnInitListener
 						Miscellaneous.createDismissableNotification(getResources().getString(R.string.featuresDisabled), notificationIdLocationRestriction, pi);
 				}
 			}
-		}
+		}*/
 	}
 
 	public static void startAutomationService(Context context, boolean startAtBoot)

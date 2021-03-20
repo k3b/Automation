@@ -231,8 +231,9 @@ public class ActivityPermissions extends Activity
         {
             for (String s : getRequiredPermissions(false))
             {
-                if (!havePermission(s, context))
-                    return true;
+                if(!s.equalsIgnoreCase(permissionNameLocationBackground) && !s.equalsIgnoreCase(permissionNameLocationFine) && !s.equalsIgnoreCase(permissionNameLocationCoarse) && Miscellaneous.googleToBlameForLocation(true))
+                    if (!havePermission(s, context))
+                        return true;
             }
         }
 
@@ -298,7 +299,10 @@ public class ActivityPermissions extends Activity
                 {
                     for (String singlePermission : getPermissionsForRule(rule))
                         if (!havePermission(singlePermission, workingContext))
-                            addToArrayListUnique(singlePermission, requiredPermissions);
+                        {
+                            if(!singlePermission.equalsIgnoreCase(permissionNameLocationBackground) && !singlePermission.equalsIgnoreCase(permissionNameLocationFine) && !singlePermission.equalsIgnoreCase(permissionNameLocationCoarse) && Miscellaneous.googleToBlameForLocation(true))
+                                addToArrayListUnique(singlePermission, requiredPermissions);
+                        }
                 }
             }
 

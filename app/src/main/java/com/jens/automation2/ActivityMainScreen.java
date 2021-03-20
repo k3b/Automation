@@ -311,7 +311,7 @@ public class ActivityMainScreen extends ActivityGeneric
 				activityMainScreenInstance.tvMainScreenNoteFeaturesFromOtherFlavor.setVisibility(View.GONE);
 			}
 
-			if(Miscellaneous.googleToBlameForLocation())
+			if(Miscellaneous.googleToBlameForLocation(true))
 			{
 //				Intent intent = new Intent(AutomationService.this, ActivityDisplayLongMessage.class);
 //				intent.putExtra("longMessage", getResources().getString(R.string.locationEngineDisabledLong));
@@ -463,8 +463,8 @@ public class ActivityMainScreen extends ActivityGeneric
 		String message = Miscellaneous.getAnyContext().getResources().getText(R.string.locationEngineDisabledLong).toString();
 		intent.putExtra("messageTitle", Miscellaneous.getAnyContext().getResources().getString(R.string.locationDisabled));
 		intent.putExtra("longMessage", message);
-		intent.putExtra("messageLink", "https://f-droid.org/en/packages/com.jens.automation2/");
-		Miscellaneous.getAnyContext().startActivity(intent);
+		intent.putExtra("messageLink", "https://server47.de/automation/fdroidMigration.html");
+		ActivityMainScreen.getActivityMainScreenInstance().startActivity(intent);
 	}
 
 	static void newsOptIn()

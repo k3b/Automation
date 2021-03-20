@@ -53,7 +53,7 @@ public class ActivityMainPoi extends ActivityGeneric
 			@Override
 			public void onClick(View v)
 			{
-				if(Miscellaneous.googleToBlameForLocation())
+				if(Miscellaneous.googleToBlameForLocation(false))
 				{
 					ActivityMainScreen.openGoogleBlamingWindow();
 					return;

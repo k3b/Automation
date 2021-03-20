@@ -145,7 +145,10 @@ public class ReceiverCoordinator
 
         // startCellLocationChangedReceiver
         if(!ConnectivityReceiver.isAirplaneMode(AutomationService.getInstance()) && WifiBroadcastReceiver.mayCellLocationReceiverBeActivated() && (Rule.isAnyRuleUsing(Trigger.Trigger_Enum.pointOfInterest) | Rule.isAnyRuleUsing(Trigger.Trigger_Enum.speed)))
-            CellLocationChangedReceiver.startCellLocationChangedReceiver();
+        {
+            if(!Miscellaneous.googleToBlameForLocation(true))
+                CellLocationChangedReceiver.startCellLocationChangedReceiver();
+        }
 
         // startBatteryReceiver
         if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.charging) | Rule.isAnyRuleUsing(Trigger.Trigger_Enum.usb_host_connection) | Rule.isAnyRuleUsing(Trigger.Trigger_Enum.batteryLevel))
