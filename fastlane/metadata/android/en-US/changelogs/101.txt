@@ -1,0 +1,1 @@
+Fixed bug that crashed the app when saving rules while the service was running.
