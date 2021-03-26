@@ -23,7 +23,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,45 +36,19 @@ import java.util.List;
 
 public class ActivityManageNotificationTrigger extends Activity
 {
-	ListView lvIntentPairs;
-	EditText etParameterName, etParameterValue;
-	Button bSelectApp, bAddIntentPair, bSaveActionStartOtherActivity;
-	Spinner spinnerParameterType;
+	EditText etNotificationTitle, etNotificationText;
+	Button bSelectApp, bSaveTriggerNotification;
+	Spinner spinnerTitleDirection, spinnerTextDirection;
 	TextView tvSelectedActivity;
 	boolean edit = false;
 	ProgressDialog progressDialog = null;
 	
-	private class CustomPackageInfo extends PackageInfo implements Comparable<CustomPackageInfo>
-	{
-		@Override
-		public int compareTo(CustomPackageInfo another)
-		{		
-			String name1 = "";
-			String name2 = "";
-			
-			ApplicationInfo aInfo1 = this.applicationInfo;
-			if (aInfo1 != null)
-			{
-				name1 = (String) ActivityManageNotificationTrigger.this.getPackageManager().getApplicationLabel(aInfo1);
-			}
-			ApplicationInfo aInfo2 = another.applicationInfo;
-			if (aInfo2 != null)
-			{
-				name2 = (String) ActivityManageNotificationTrigger.this.getPackageManager().getApplicationLabel(aInfo2);
-			}
-					
-			return name1.compareTo(name2);
-		}
-		
-	}
-	
 	private static List<PackageInfo> pInfos = null;
 	public static Action resultingAction;
 
-	private static final String[] supportedIntentTypes = { "boolean", "byte", "char", "double", "float", "int", "long", "short", "String" };
-	private ArrayList<String> intentPairList = new ArrayList<String>();
+	private static String[] directions;
 
-	ArrayAdapter<String> intentTypeSpinnerAdapter, intentPairAdapter;
+	ArrayAdapter<String> directionSpinnerAdapter;
 	
 	public static void getActivityList(final Context context)
 	{
@@ -88,7 +61,7 @@ public class ActivityManageNotificationTrigger extends Activity
 			    {
 			    	String name1 = "";
 					String name2 = "";
-					
+
 					ApplicationInfo aInfo1 = obj1.applicationInfo;
 					if (aInfo1 != null)
 					{
@@ -99,7 +72,7 @@ public class ActivityManageNotificationTrigger extends Activity
 					{
 						name2 = (String) context.getPackageManager().getApplicationLabel(aInfo2);
 					}
-							
+
 					return name1.compareTo(name2);
 			    }
 			});
@@ -120,7 +93,7 @@ public class ActivityManageNotificationTrigger extends Activity
 			{
 				String aLabel;
 	
-				aLabel = (String) myContext.getPackageManager().getApplicationLabel(aInfo); 
+				aLabel = (String) myContext.getPackageManager().getApplicationLabel(aInfo);
 
 				ActivityInfo[] aInfos = pInfo.activities;
 				if (aInfos != null && aInfos.length > 0)		// Only put Applications into the list that have packages.
@@ -248,9 +221,9 @@ public class ActivityManageNotificationTrigger extends Activity
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
-				getActionStartActivityDialog3(packageArray[which]).show();
-				Miscellaneous.messageBox(getResources().getString(R.string.hint), getResources().getString(R.string.chooseActivityHint), ActivityManageNotificationTrigger.this).show();
-
+				//getActionStartActivityDialog3(packageArray[which]).show();
+				//Miscellaneous.messageBox(getResources().getString(R.string.hint), getResources().getString(R.string.chooseActivityHint), ActivityManageNotificationTrigger.this).show();
+				tvSelectedActivity.setText(packageArray[which]);
 			}
 		});
 		AlertDialog alertDialog = alertDialogBuilder.create();
@@ -280,22 +253,28 @@ public class ActivityManageNotificationTrigger extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.action_start_activity);
-		
-		lvIntentPairs = (ListView)findViewById(R.id.lvIntentPairs);
-		etParameterName = (EditText)findViewById(R.id.etParameterName);
-		etParameterValue = (EditText)findViewById(R.id.etParameterValue);
+		setContentView(R.layout.trigger_notification);
+
+		etNotificationTitle = (EditText)findViewById(R.id.etNotificationTitle);
+		etNotificationText = (EditText)findViewById(R.id.etNotificationText);
 		bSelectApp = (Button)findViewById(R.id.bSelectApp);
-		bAddIntentPair = (Button)findViewById(R.id.bAddIntentPair);
-		bSaveActionStartOtherActivity = (Button)findViewById(R.id.bSaveActionStartOtherActivity);
-		spinnerParameterType = (Spinner)findViewById(R.id.spinnerParameterType);
+		bSaveTriggerNotification = (Button)findViewById(R.id.bSaveTriggerNotification);
+		spinnerTitleDirection = (Spinner)findViewById(R.id.spinnerTitleDirection);
+		spinnerTextDirection = (Spinner)findViewById(R.id.spinnerTextDirection);
 		tvSelectedActivity = (TextView)findViewById(R.id.tvSelectedActivity);
-		
-		intentTypeSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, ActivityManageNotificationTrigger.supportedIntentTypes);
-		spinnerParameterType.setAdapter(intentTypeSpinnerAdapter);
-		intentTypeSpinnerAdapter.notifyDataSetChanged();
-		
-		intentPairAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_smalltextsize, intentPairList);
+
+		directions = new String[] {
+									getResources().getString(R.string.directionStringEquals),
+									getResources().getString(R.string.directionStringContains),
+									getResources().getString(R.string.directionStringStartsWidth),
+									getResources().getString(R.string.directionStringEndsWith),
+									getResources().getString(R.string.directionStringNotEquals)
+								};
+
+		directionSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, ActivityManageNotificationTrigger.directions);
+		spinnerTitleDirection.setAdapter(directionSpinnerAdapter);
+		spinnerTextDirection.setAdapter(directionSpinnerAdapter);
+		directionSpinnerAdapter.notifyDataSetChanged();
 		
 		bSelectApp.setOnClickListener(new OnClickListener()
 		{
@@ -308,93 +287,24 @@ public class ActivityManageNotificationTrigger extends Activity
 			}
 		});
 		
-		bAddIntentPair.setOnClickListener(new OnClickListener()
-		{			
-			@Override
-			public void onClick(View v)
-			{
-				// type;name;value
-				if(spinnerParameterType.getSelectedItem().toString().length() == 0)
-				{
-					Toast.makeText(ActivityManageNotificationTrigger.this, getResources().getString(R.string.selectTypeOfIntentPair), Toast.LENGTH_LONG).show();
-					return;
-				}
-					
-				if(etParameterName.getText().toString().length() == 0)
-				{
-					Toast.makeText(ActivityManageNotificationTrigger.this, getResources().getString(R.string.enterNameForIntentPair), Toast.LENGTH_LONG).show();
-					return;
-				}
-				
-				if(etParameterValue.getText().toString().length() == 0)
-				{
-					Toast.makeText(ActivityManageNotificationTrigger.this, getResources().getString(R.string.enterValueForIntentPair), Toast.LENGTH_LONG).show();
-					return;
-				}
-				
-				String param = supportedIntentTypes[spinnerParameterType.getSelectedItemPosition()] + "/" + etParameterName.getText().toString() + "/" + etParameterValue.getText().toString();
-				intentPairList.add(param);
-				
-				spinnerParameterType.setSelection(0);
-				etParameterName.setText("");
-				etParameterValue.setText("");
-				
-				updateIntentPairList();
-			}
-		});
-		
-		lvIntentPairs.setOnItemLongClickListener(new OnItemLongClickListener()
-		{
-			@Override
-			public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
-			{
-				getIntentPairDialog(arg2).show();
-				return false;
-			}
-		});
-		
-		bSaveActionStartOtherActivity.setOnClickListener(new OnClickListener()
+		bSaveTriggerNotification.setOnClickListener(new OnClickListener()
 		{		
 			@Override
 			public void onClick(View v)
 			{
 				if(saveAction())
 				{
+					String app = tvSelectedActivity.getText().toString();
+					String titleDir = spinnerTitleDirection.getSelectedItem().toString();
+					String title = etNotificationTitle.getText().toString();
+					String textDir = spinnerTextDirection.getSelectedItem().toString();
+					String text = etNotificationText.getText().toString();
 					ActivityManageNotificationTrigger.this.setResult(RESULT_OK);
 					finish();
 				}
 			}
 		});
 
-		lvIntentPairs.setOnTouchListener(new OnTouchListener()
-		{			
-			@Override
-			public boolean onTouch(View v, MotionEvent event)
-			{
-				v.getParent().requestDisallowInterceptTouchEvent(true);
-				return false;
-			}
-		});
-		
-		spinnerParameterType.setOnItemSelectedListener(new OnItemSelectedListener()
-		{
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3)
-			{
-				if(supportedIntentTypes[arg2].equals("double") | supportedIntentTypes[arg2].equals("float") | supportedIntentTypes[arg2].equals("int") | supportedIntentTypes[arg2].equals("long") | supportedIntentTypes[arg2].equals("short"))
-					ActivityManageNotificationTrigger.this.etParameterValue.setInputType(InputType.TYPE_CLASS_NUMBER);
-				else
-					ActivityManageNotificationTrigger.this.etParameterValue.setInputType(InputType.TYPE_CLASS_TEXT);
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0)
-			{
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		
 		Intent i = getIntent();
 		if(i.getBooleanExtra("edit", false) == true)
 		{
@@ -405,31 +315,23 @@ public class ActivityManageNotificationTrigger extends Activity
 	
 	private void loadValuesIntoGui()
 	{
-		String[] params = resultingAction.getParameter2().split(";");
-		if(params.length >= 2)
-		{
-			tvSelectedActivity.setText(params[0] + ";" + params[1]);
-			
-			if(params.length > 2)
-			{
-				intentPairList.clear();
-			
-				for(int i=2; i<params.length; i++)
-				{
-					intentPairList.add(params[i]);
-				}
-				
-				updateIntentPairList();
-			}
-		}
-	}
-
-	private void updateIntentPairList()
-	{		
-		if(lvIntentPairs.getAdapter() == null)
-			lvIntentPairs.setAdapter(intentPairAdapter);
-		
-		intentPairAdapter.notifyDataSetChanged();
+//		String[] params = resultingAction.getParameter2().split(";");
+//		if(params.length >= 2)
+//		{
+//			tvSelectedActivity.setText(params[0] + ";" + params[1]);
+//
+//			if(params.length > 2)
+//			{
+//				intentPairList.clear();
+//
+//				for(int i=2; i<params.length; i++)
+//				{
+//					intentPairList.add(params[i]);
+//				}
+//
+//				updateIntentPairList();
+//			}
+//		}
 	}
 	
 	private boolean saveAction()
@@ -452,31 +354,10 @@ public class ActivityManageNotificationTrigger extends Activity
 		resultingAction.setAction(Action_Enum.startOtherActivity);
 		
 		String parameter2 = tvSelectedActivity.getText().toString();
-		for(String s : intentPairList)
-			parameter2 += ";" + s;
 		
 		resultingAction.setParameter2(parameter2);
 		
 		return true;
-	}
-	
-	private AlertDialog getIntentPairDialog(final int itemPosition)
-	{
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ActivityManageNotificationTrigger.this);
-		alertDialogBuilder.setTitle(getResources().getString(R.string.whatToDoWithIntentPair));
-		alertDialogBuilder.setItems(new String[]{getResources().getString(R.string.delete)}, new DialogInterface.OnClickListener()
-		{			
-			@Override
-			public void onClick(DialogInterface dialog, int which)
-			{
-				// Only 1 choice at the moment, no need to check
-				ActivityManageNotificationTrigger.this.intentPairList.remove(itemPosition);
-				updateIntentPairList();
-			}
-		});
-		AlertDialog alertDialog = alertDialogBuilder.create();
-		
-		return alertDialog;
 	}
 	
 	private class GetActivityListTask extends AsyncTask<Void, Void, Void>

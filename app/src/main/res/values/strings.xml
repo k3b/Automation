@@ -91,8 +91,8 @@
     <string name="selectPoi">Select location</string>
     <string name="selectTypeOfAction">Select type of action</string>
     <string name="selectSoundProfile">Select sound profile</string>
-    <string name="whatToDoWithTrigger">What to do with it trigger?</string>
-    <string name="whatToDoWithAction">What to do with it action?</string>
+    <string name="whatToDoWithTrigger">What to do with trigger?</string>
+    <string name="whatToDoWithAction">What to do with action?</string>
     <string name="radiusHasToBePositive">Radius has to be a positive number.</string>
     <string name="poiStillReferenced">There are still rules that reference this location (%1$s). I can\'t delete it, yet.</string>
     <string name="generalSettings">General settings</string>
@@ -612,4 +612,12 @@
     <string name="locationEngineDisabledLong">Unfortunately your location cannot be determined anymore. A debt of gratitude is owed to Google for its infinite wisdom and amiableness.\\n\\nLet me explain this further. Starting with Android 10 a new permission was introduced that is needed to determine your location in the background (which of course is required for an app like this). Whilst I consider that a good idea in general the chicanery it involves for developers are not.\\n\\nWhen developing an app you can try to qualify for this permission by abiding to a catalog of requirements. Unfortunately new versions of my app have been rejected over a period of three months. I fulfilled all these requirements, Google\'s shitty development support claimed I would not. After giving them proof that I did after all - I got a response like \"I cannot help you anymore\". Eventually I gave up. \\n\\nAs a consequence the Google Play version can NOT use your location as a trigger anymore. My only alternative option would have been to have this application removed from the store entirely.\\n\\nI\'m very sorry about that, but I\'ve tried my best arguing with a \"support\" that repeatedly failed to pass the Turing test.\\n\\nThe good news: You can still have it all!\\n\\nAutomation is now open source and can be found in F-Droid. That is an app store that really cares about your privacy - rather than just acting like that. Simply backup your config file, uninstall this app, install it again from F-Droid, restore your config file - done.\\n\\nClick here to find out more:</string>
     <string name="filesStoredAt">Config and log files are stored in folder %1$s</string>
     <string name="notification">Notification</string>
+    <string name="title">Title</string>
+    <string name="text">Text</string>
+    <string name="directionStringEquals">equals</string>
+    <string name="directionStringContains">contains</string>
+    <string name="directionStringStartsWidth">starts with</string>
+    <string name="directionStringEndsWith">ends with</string>
+    <string name="directionStringNotEquals">not equals</string>
+    <string name="anyApp">Any app</string>
 </resources>
