@@ -175,6 +175,18 @@
         <activity android:name=".ActivityMainProfiles" />
         <activity android:name=".ActivityManageProfile" />
         <activity android:name=".ActivityVolumeTest" />
+        <activity android:name=".ActivityPermissions"></activity>
+        <activity android:name=".ActivityManageNotificationTrigger"></activity>
+
+        <service
+            android:name=".receivers.NotificationListener"
+            android:label="NotificationListener"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" >
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+
+        </service>
 
         <service
             android:name=".receivers.ActivityDetectionReceiver"

@@ -95,6 +95,8 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeActionScreenBrightnessAdd = 401;
 	final static int requestCodeActionScreenBrightnessEdit = 402;
 	final static int requestCodeActionSendTextMessage = 7001;
+	final static int requestCodeTriggerNotificationAdd = 8000;
+	final static int requestCodeTriggerNfcNotificationEdit = 8001;
 	
 	public static ActivityManageRule getInstance()
 	{
@@ -466,6 +468,8 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.bluetooth));
 			else if(types[i].toString().equals(Trigger_Enum.headsetPlugged.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.headphone));
+			else if(types[i].toString().equals(Trigger_Enum.notification.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.notification));
 			else
 				items.add(new Item(typesLong[i].toString(), R.drawable.placeholder));
 		}
@@ -536,6 +540,13 @@ public class ActivityManageRule extends Activity
 							booleanChoices = new String[]{getResources().getString(R.string.connected), getResources().getString(R.string.disconnected)};
 						else if(triggerType == Trigger_Enum.process_started_stopped)
 							booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
+						else if(triggerType == Trigger_Enum.notification)
+						{
+							newTrigger.setTriggerType(Trigger_Enum.notification);
+							Intent nfcEditor = new Intent(myContext, ActivityManageNotificationTrigger.class);
+							startActivityForResult(nfcEditor, requestCodeTriggerNotificationAdd);
+							return;
+						}
 						else if(triggerType == Trigger_Enum.airplaneMode)
 							booleanChoices = new String[]{getResources().getString(R.string.activated), getResources().getString(R.string.deactivated)};
 						else if(triggerType == Trigger_Enum.roaming)
@@ -1133,6 +1144,18 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK && ActivityManageNfc.generatedId != null)
 			{
 				newTrigger.setNfcTagId(ActivityManageNfc.generatedId);
+				ruleToEdit.getTriggerSet().add(newTrigger);
+				this.refreshTriggerList();
+			}
+			else
+				Miscellaneous.logEvent("w", "ActivityManageNfc", "No nfc id returned. Assuming abort.", 5);
+		}
+		else if(requestCode == requestCodeTriggerNotificationAdd)
+		{
+			//add notification
+			if(resultCode == RESULT_OK)
+			{
+				//newTrigger.setNfcTagId(ActivityManageNfc.generatedId);
 				ruleToEdit.getTriggerSet().add(newTrigger);
 				this.refreshTriggerList();
 			}

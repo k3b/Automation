@@ -21,7 +21,7 @@ public class Trigger
 	 */
 	
 	public enum Trigger_Enum { 
-								pointOfInterest, timeFrame, charging, batteryLevel, usb_host_connection, speed, noiseLevel, wifiConnection, process_started_stopped, airplaneMode, roaming, nfcTag, activityDetection, bluetoothConnection, headsetPlugged, phoneCall; //phoneCall always needs to be at the very end because of Google's shitty so called privacy
+								pointOfInterest, timeFrame, charging, batteryLevel, usb_host_connection, speed, noiseLevel, wifiConnection, process_started_stopped, airplaneMode, roaming, nfcTag, activityDetection, bluetoothConnection, headsetPlugged, notification, phoneCall; //phoneCall always needs to be at the very end because of Google's shitty so called privacy
 								
 								public String getFullName(Context context)
 								{
@@ -59,6 +59,8 @@ public class Trigger
 											return context.getResources().getString(R.string.bluetoothConnection);
 										case headsetPlugged:
 											return context.getResources().getString(R.string.triggerHeadsetPlugged);
+										case notification:
+											return context.getResources().getString(R.string.notification);
 										default:
 											return "Unknown";
 									}

@@ -848,7 +848,7 @@ public class Miscellaneous extends Service
 				mNotificationManager.notify(0, dismissableNotification);*/
 	}
 
-	public static void createDismissableNotificationSdk26(String textToDisplay, int notificationId, PendingIntent pendingIntent)
+	static void createDismissableNotificationSdk26(String textToDisplay, int notificationId, PendingIntent pendingIntent)
 	{
 		NotificationManager mNotificationManager = (NotificationManager) AutomationService.getInstance().getSystemService(Context.NOTIFICATION_SERVICE);
 
