@@ -231,7 +231,6 @@ public class Trigger
 		this.timeFrame = timeFrame;
 	}
 
-
 	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
 	@SuppressWarnings("unused")
 	@Override
@@ -456,34 +455,44 @@ public class Trigger
 					returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.headsetDisconnected), type));
 				break;
 			case notification:
-				String[] params = getTriggerParameter2().split(triggerParameter2Split);
-				String app = params[0];
-				String titleDir = params[1];
-				String title = params[2];
-				String textDir = params[3];
-				String text;
-				if(params.length >=5)
-					text = params[4];
+				if(this.getTriggerParameter2().contains(triggerParameter2Split))
+				{
+					String[] params = getTriggerParameter2().split(triggerParameter2Split);
+
+					String app = params[0];
+					String titleDir = params[1];
+					String title = params[2];
+					String textDir = params[3];
+					String text;
+					if (params.length >= 5)
+						text = params[4];
+					else
+						text = "";
+					StringBuilder triggerBuilder = new StringBuilder();
+
+					String appString;
+					if (app.equalsIgnoreCase("-1"))
+						appString = Miscellaneous.getAnyContext().getResources().getString(R.string.anyApp);
+					else
+						appString = "app " + app;
+
+					if(triggerParameter)
+						triggerBuilder.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.postsNotification), appString));
+					else
+						triggerBuilder.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.removedNotification), appString));
+
+					if (title.length() > 0)
+						triggerBuilder.append(", " + Miscellaneous.getAnyContext().getString(R.string.title) + " " + Trigger.getMatchString(titleDir) + " " + title);
+
+					if (text.length() > 0)
+						triggerBuilder.append(", " + Miscellaneous.getAnyContext().getString(R.string.text) + " " + Trigger.getMatchString(textDir) + " " + text);
+
+					returnString.append(triggerBuilder.toString());
+				}
 				else
-					text = "";
-				StringBuilder triggerBuilder = new StringBuilder();
-
-				String appString;
-				if(app.equalsIgnoreCase("-1"))
-					appString = Miscellaneous.getAnyContext().getResources().getString(R.string.anyApp);
-				else
-					appString = "app " + app;
-
-				triggerBuilder.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.postsNotification), appString));
-
-				if(title.length() > 0)
-					triggerBuilder.append(", " + Miscellaneous.getAnyContext().getString(R.string.title) + " " + Trigger.getMatchString(titleDir) + " " + title);
-
-				if(text.length() > 0)
-					triggerBuilder.append(", " + Miscellaneous.getAnyContext().getString(R.string.text) + " " + Trigger.getMatchString(textDir) + " " + text);
-
-				returnString.append(triggerBuilder.toString());
-
+				{
+					setTriggerParameter2("-1" + triggerParameter2Split + directionEquals + triggerParameter2Split + triggerParameter2Split + directionEquals + triggerParameter2Split + triggerParameter2Split);
+				}
 				break;
 			default:
 				returnString.append("error");

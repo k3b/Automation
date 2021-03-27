@@ -10,6 +10,10 @@ import android.service.notification.StatusBarNotification;
 import androidx.annotation.RequiresApi;
 
 import com.jens.automation2.AutomationService;
+import com.jens.automation2.Rule;
+import com.jens.automation2.Trigger;
+
+import java.util.ArrayList;
 
 // See here for reference: http://gmariotti.blogspot.com/2013/11/notificationlistenerservice-and-kitkat.html
 
@@ -47,17 +51,35 @@ public class NotificationListener extends NotificationListenerService
             String title = sbn.getNotification().extras.getString(EXTRA_TITLE);
             String text = sbn.getNotification().extras.getString(EXTRA_TEXT);
 
-
+            checkNotification(true, app, title, text);
         }
     }
 
-//    @Override
-//    public void onNotificationPosted(StatusBarNotification sbn, RankingMap rankingMap)
-//    {
-//        super.onNotificationPosted(sbn, rankingMap);
-//        sbn.getNotification().extras.getString(EXTRA_TITLE);
-//        sbn.getNotification().extras.getString(EXTRA_TEXT;
-//    }
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public void onNotificationRemoved(StatusBarNotification sbn)
+    {
+        super.onNotificationRemoved(sbn);
+
+        if(AutomationService.isMyServiceRunning(NotificationListener.this))
+        {
+            String app = sbn.getPackageName();
+            String title = sbn.getNotification().extras.getString(EXTRA_TITLE);
+            String text = sbn.getNotification().extras.getString(EXTRA_TEXT);
+
+            checkNotification(true, app, title, text);
+        }
+    }
+
+    void checkNotification(boolean created, String appName, String title, String text)
+    {
+        ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.notification);
+        for(int i=0; i<ruleCandidates.size(); i++)
+        {
+            if(ruleCandidates.get(i).applies(NotificationListener.this))
+                ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
+        }
+    }
 
     @Override
     public void onListenerConnected()

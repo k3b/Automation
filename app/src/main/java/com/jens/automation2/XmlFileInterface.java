@@ -271,6 +271,8 @@ public class XmlFileInterface
 		    	            			}
 		    	            			else if(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerType() == Trigger_Enum.headsetPlugged)
 		    	            				serializer.text(String.valueOf(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getHeadphoneType()));
+										else if(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerType() == Trigger_Enum.notification)
+											serializer.text(String.valueOf(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerParameter2()));
 		    	            		serializer.endTag(null, "TriggerParameter2");
 		    	            	serializer.endTag(null, "Trigger");
 		    	            }

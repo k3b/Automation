@@ -1248,6 +1248,26 @@ public class Rule implements Comparable<Rule>
 		
 		return ruleCandidates;
 	}
+
+	public static ArrayList<Rule> findRuleCandidates(Trigger.Trigger_Enum triggerType)
+	{
+		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
+
+		for(Rule oneRule : ruleCollection)
+		{
+			innerloop:
+			for(Trigger oneTrigger : oneRule.getTriggerSet())
+			{
+				if(oneTrigger.getTriggerType() == triggerType)
+				{
+					ruleCandidates.add(oneRule);
+					break innerloop; //we don't need to search the other triggers in the same rule
+				}
+			}
+		}
+
+		return ruleCandidates;
+	}
 	
 	public static ArrayList<Rule> findRuleCandidatesByActivityDetection()
 	{
