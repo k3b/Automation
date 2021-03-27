@@ -20,7 +20,25 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
 
-			<TableRow>
+			<TableRow
+				android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/direction"/>
+
+				<CheckBox
+					android:id="@+id/chkNotificationDirection"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/notificationAppears"
+					android:checked="true"/>
+
+			</TableRow>
+
+			<TableRow
+				android:layout_marginBottom="@dimen/activity_vertical_margin">
 
 				<TextView
 					android:layout_gravity="center_vertical"
@@ -34,7 +52,7 @@
 					android:layout_height="wrap_content">
 
 					<TextView
-						android:id="@+id/tvSelectedActivity"
+						android:id="@+id/tvSelectedApplication"
 						android:layout_marginHorizontal="@dimen/default_margin"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
@@ -51,7 +69,8 @@
 
 			</TableRow>
 
-			<TableRow>
+			<TableRow
+				android:layout_marginBottom="@dimen/activity_vertical_margin">
 
 				<TextView
 					android:layout_width="wrap_content"
@@ -79,7 +98,8 @@
 
 			</TableRow>
 	    
-			<TableRow>
+			<TableRow
+				android:layout_marginBottom="@dimen/activity_vertical_margin">
 
 				<TextView
 					android:layout_width="wrap_content"

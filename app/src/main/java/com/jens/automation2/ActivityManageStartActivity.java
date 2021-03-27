@@ -289,7 +289,7 @@ public class ActivityManageStartActivity extends Activity
 		bAddIntentPair = (Button)findViewById(R.id.bAddIntentPair);
 		bSaveActionStartOtherActivity = (Button)findViewById(R.id.bSaveActionStartOtherActivity);
 		spinnerParameterType = (Spinner)findViewById(R.id.spinnerParameterType);
-		tvSelectedActivity = (TextView)findViewById(R.id.tvSelectedActivity);
+		tvSelectedActivity = (TextView)findViewById(R.id.tvSelectedApplication);
 		
 		intentTypeSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, ActivityManageStartActivity.supportedIntentTypes);
 		spinnerParameterType.setAdapter(intentTypeSpinnerAdapter);

@@ -16,10 +16,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jens.automation2.Action.Action_Enum;
 
@@ -33,12 +34,13 @@ public class ActivityManageTriggerNotification extends Activity
 	EditText etNotificationTitle, etNotificationText;
 	Button bSelectApp, bSaveTriggerNotification;
 	Spinner spinnerTitleDirection, spinnerTextDirection;
-	TextView tvSelectedActivity;
+	TextView tvSelectedApplication;
+	CheckBox chkNotificationDirection;
 	boolean edit = false;
 	ProgressDialog progressDialog = null;
 	
 	private static List<PackageInfo> pInfos = null;
-	public static Action resultingAction;
+	public static Trigger resultingTrigger;
 
 	private static String[] directions;
 
@@ -217,7 +219,7 @@ public class ActivityManageTriggerNotification extends Activity
 			{
 				//getActionStartActivityDialog3(packageArray[which]).show();
 				//Miscellaneous.messageBox(getResources().getString(R.string.hint), getResources().getString(R.string.chooseActivityHint), ActivityManageNotificationTrigger.this).show();
-				tvSelectedActivity.setText(packageArray[which]);
+				tvSelectedApplication.setText(packageArray[which]);
 			}
 		});
 		AlertDialog alertDialog = alertDialogBuilder.create();
@@ -235,7 +237,7 @@ public class ActivityManageTriggerNotification extends Activity
 			public void onClick(DialogInterface dialog, int which)
 			{
 				ActivityInfo ai = ActivityManageTriggerNotification.getActivityInfoForPackageNameAndActivityName(packageName, activityArray[which]);
-				tvSelectedActivity.setText(ai.packageName + ";" + ai.name);
+				tvSelectedApplication.setText(ai.packageName + ";" + ai.name);
 			}
 		});
 		AlertDialog alertDialog = alertDialogBuilder.create();
@@ -255,7 +257,8 @@ public class ActivityManageTriggerNotification extends Activity
 		bSaveTriggerNotification = (Button)findViewById(R.id.bSaveTriggerNotification);
 		spinnerTitleDirection = (Spinner)findViewById(R.id.spinnerTitleDirection);
 		spinnerTextDirection = (Spinner)findViewById(R.id.spinnerTextDirection);
-		tvSelectedActivity = (TextView)findViewById(R.id.tvSelectedActivity);
+		tvSelectedApplication = (TextView)findViewById(R.id.tvSelectedApplication);
+		chkNotificationDirection = (CheckBox)findViewById(R.id.chkNotificationDirection);
 
 		directions = new String[] {
 									getResources().getString(R.string.directionStringEquals),
@@ -280,35 +283,45 @@ public class ActivityManageTriggerNotification extends Activity
 				progressDialog = ProgressDialog.show(ActivityManageTriggerNotification.this, "", ActivityManageTriggerNotification.this.getResources().getString(R.string.gettingListOfInstalledApplications));
 			}
 		});
+
+		chkNotificationDirection.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+			{
+				if(isChecked)
+					chkNotificationDirection.setText(getResources().getString(R.string.notificationAppears));
+				else
+					chkNotificationDirection.setText(getResources().getString(R.string.notificationDisappears));
+			}
+		});
 		
 		bSaveTriggerNotification.setOnClickListener(new OnClickListener()
 		{		
 			@Override
 			public void onClick(View v)
 			{
-				if(saveAction())
-				{
-					String app;
-					if(tvSelectedActivity.getText().toString().equalsIgnoreCase(getResources().getString(R.string.anyApp)))
-						app = "-1";
-					else
-						app = tvSelectedActivity.getText().toString();
+				String app;
+				if(tvSelectedApplication.getText().toString().equalsIgnoreCase(getResources().getString(R.string.anyApp)))
+					app = "-1";
+				else
+					app = tvSelectedApplication.getText().toString();
 
-					String titleDir = Trigger.getMatchCode(spinnerTitleDirection.getSelectedItem().toString());
-					String title = etNotificationTitle.getText().toString();
-					String textDir = Trigger.getMatchCode(spinnerTextDirection.getSelectedItem().toString());
-					String text = etNotificationText.getText().toString();
+				String titleDir = Trigger.getMatchCode(spinnerTitleDirection.getSelectedItem().toString());
+				String title = etNotificationTitle.getText().toString();
+				String textDir = Trigger.getMatchCode(spinnerTextDirection.getSelectedItem().toString());
+				String text = etNotificationText.getText().toString();
 
-					Intent data = new Intent();
-					data.putExtra("app", app);
-					data.putExtra("titleDir", titleDir);
-					data.putExtra("title", title);
-					data.putExtra("textDir", textDir);
-					data.putExtra("text", text);
+				Intent data = new Intent();
+				data.putExtra("direction", chkNotificationDirection.isChecked());
+				data.putExtra("app", app);
+				data.putExtra("titleDir", titleDir);
+				data.putExtra("title", title);
+				data.putExtra("textDir", textDir);
+				data.putExtra("text", text);
 
-					ActivityManageTriggerNotification.this.setResult(RESULT_OK, data);
-					finish();
-				}
+				ActivityManageTriggerNotification.this.setResult(RESULT_OK, data);
+				finish();
 			}
 		});
 
@@ -339,32 +352,6 @@ public class ActivityManageTriggerNotification extends Activity
 //				updateIntentPairList();
 //			}
 //		}
-	}
-	
-	private boolean saveAction()
-	{
-		if(tvSelectedActivity.getText().toString().length() == 0)
-		{
-			Toast.makeText(ActivityManageTriggerNotification.this, getResources().getString(R.string.selectApplication), Toast.LENGTH_LONG).show();
-			return false;
-		}
-
-		if(tvSelectedActivity.getText().toString().equals(getResources().getString(R.string.selectApplication)))
-		{
-			Toast.makeText(this, getResources().getString(R.string.selectApplication), Toast.LENGTH_LONG).show();
-			return false;
-		}
-		
-		if(resultingAction == null)
-			resultingAction = new Action();
-		
-		resultingAction.setAction(Action_Enum.startOtherActivity);
-		
-		String parameter2 = tvSelectedActivity.getText().toString();
-		
-		resultingAction.setParameter2(parameter2);
-		
-		return true;
 	}
 	
 	private class GetActivityListTask extends AsyncTask<Void, Void, Void>

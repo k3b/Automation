@@ -461,7 +461,11 @@ public class Trigger
 				String titleDir = params[1];
 				String title = params[2];
 				String textDir = params[3];
-				String text = params[4];
+				String text;
+				if(params.length >=5)
+					text = params[4];
+				else
+					text = "";
 				StringBuilder triggerBuilder = new StringBuilder();
 
 				String appString;
