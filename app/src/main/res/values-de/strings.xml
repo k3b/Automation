@@ -600,7 +600,7 @@
     <string name="filesStoredAt">Konfigurations- und Logdateien werden hier gespeichert: %1$s</string>
     <string name="directionStringEquals">ist gleich</string>
     <string name="directionStringContains">enthält</string>
-    <string name="directionStringStartsWidth">beginnt mit</string>
+    <string name="directionStringStartsWith">beginnt mit</string>
     <string name="directionStringEndsWith">endet mit</string>
     <string name="directionStringNotEquals">ist nicht gleich</string>
 </resources>

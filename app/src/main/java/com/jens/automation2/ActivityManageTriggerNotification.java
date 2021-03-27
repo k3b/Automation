@@ -12,14 +12,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.InputType;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,7 +28,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class ActivityManageNotificationTrigger extends Activity
+public class ActivityManageTriggerNotification extends Activity
 {
 	EditText etNotificationTitle, etNotificationText;
 	Button bSelectApp, bSaveTriggerNotification;
@@ -197,7 +191,7 @@ public class ActivityManageNotificationTrigger extends Activity
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		alertDialogBuilder.setTitle(getResources().getString(R.string.selectApplication));
-		final String[] applicationArray = ActivityManageNotificationTrigger.getApplicationNameListString(this);
+		final String[] applicationArray = ActivityManageTriggerNotification.getApplicationNameListString(this);
 		alertDialogBuilder.setItems(applicationArray, new DialogInterface.OnClickListener()
 		{			
 			@Override
@@ -215,7 +209,7 @@ public class ActivityManageNotificationTrigger extends Activity
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		alertDialogBuilder.setTitle(getResources().getString(R.string.selectPackageOfApplication));
-		final String[] packageArray = ActivityManageNotificationTrigger.getPackageListString(this, applicationName);
+		final String[] packageArray = ActivityManageTriggerNotification.getPackageListString(this, applicationName);
 		alertDialogBuilder.setItems(packageArray, new DialogInterface.OnClickListener()
 		{			
 			@Override
@@ -234,13 +228,13 @@ public class ActivityManageNotificationTrigger extends Activity
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		alertDialogBuilder.setTitle(getResources().getString(R.string.selectActivityToBeStarted));
-		final String activityArray[] = ActivityManageNotificationTrigger.getActivityListForPackageName(packageName);
+		final String activityArray[] = ActivityManageTriggerNotification.getActivityListForPackageName(packageName);
 		alertDialogBuilder.setItems(activityArray, new DialogInterface.OnClickListener()
 		{			
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
-				ActivityInfo ai = ActivityManageNotificationTrigger.getActivityInfoForPackageNameAndActivityName(packageName, activityArray[which]);
+				ActivityInfo ai = ActivityManageTriggerNotification.getActivityInfoForPackageNameAndActivityName(packageName, activityArray[which]);
 				tvSelectedActivity.setText(ai.packageName + ";" + ai.name);
 			}
 		});
@@ -253,7 +247,7 @@ public class ActivityManageNotificationTrigger extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.trigger_notification);
+		setContentView(R.layout.manage_trigger_notification);
 
 		etNotificationTitle = (EditText)findViewById(R.id.etNotificationTitle);
 		etNotificationText = (EditText)findViewById(R.id.etNotificationText);
@@ -266,12 +260,12 @@ public class ActivityManageNotificationTrigger extends Activity
 		directions = new String[] {
 									getResources().getString(R.string.directionStringEquals),
 									getResources().getString(R.string.directionStringContains),
-									getResources().getString(R.string.directionStringStartsWidth),
+									getResources().getString(R.string.directionStringStartsWith),
 									getResources().getString(R.string.directionStringEndsWith),
 									getResources().getString(R.string.directionStringNotEquals)
 								};
 
-		directionSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, ActivityManageNotificationTrigger.directions);
+		directionSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, ActivityManageTriggerNotification.directions);
 		spinnerTitleDirection.setAdapter(directionSpinnerAdapter);
 		spinnerTextDirection.setAdapter(directionSpinnerAdapter);
 		directionSpinnerAdapter.notifyDataSetChanged();
@@ -283,7 +277,7 @@ public class ActivityManageNotificationTrigger extends Activity
 			{
 				GetActivityListTask getActivityListTask = new GetActivityListTask();
 				getActivityListTask.execute();
-				progressDialog = ProgressDialog.show(ActivityManageNotificationTrigger.this, "", ActivityManageNotificationTrigger.this.getResources().getString(R.string.gettingListOfInstalledApplications));
+				progressDialog = ProgressDialog.show(ActivityManageTriggerNotification.this, "", ActivityManageTriggerNotification.this.getResources().getString(R.string.gettingListOfInstalledApplications));
 			}
 		});
 		
@@ -294,12 +288,25 @@ public class ActivityManageNotificationTrigger extends Activity
 			{
 				if(saveAction())
 				{
-					String app = tvSelectedActivity.getText().toString();
-					String titleDir = spinnerTitleDirection.getSelectedItem().toString();
+					String app;
+					if(tvSelectedActivity.getText().toString().equalsIgnoreCase(getResources().getString(R.string.anyApp)))
+						app = "-1";
+					else
+						app = tvSelectedActivity.getText().toString();
+
+					String titleDir = Trigger.getMatchCode(spinnerTitleDirection.getSelectedItem().toString());
 					String title = etNotificationTitle.getText().toString();
-					String textDir = spinnerTextDirection.getSelectedItem().toString();
+					String textDir = Trigger.getMatchCode(spinnerTextDirection.getSelectedItem().toString());
 					String text = etNotificationText.getText().toString();
-					ActivityManageNotificationTrigger.this.setResult(RESULT_OK);
+
+					Intent data = new Intent();
+					data.putExtra("app", app);
+					data.putExtra("titleDir", titleDir);
+					data.putExtra("title", title);
+					data.putExtra("textDir", textDir);
+					data.putExtra("text", text);
+
+					ActivityManageTriggerNotification.this.setResult(RESULT_OK, data);
 					finish();
 				}
 			}
@@ -338,7 +345,7 @@ public class ActivityManageNotificationTrigger extends Activity
 	{
 		if(tvSelectedActivity.getText().toString().length() == 0)
 		{
-			Toast.makeText(ActivityManageNotificationTrigger.this, getResources().getString(R.string.selectApplication), Toast.LENGTH_LONG).show();
+			Toast.makeText(ActivityManageTriggerNotification.this, getResources().getString(R.string.selectApplication), Toast.LENGTH_LONG).show();
 			return false;
 		}
 
@@ -365,7 +372,7 @@ public class ActivityManageNotificationTrigger extends Activity
 		@Override
 		protected Void doInBackground(Void... params)
 		{
-			getActivityList(ActivityManageNotificationTrigger.this);
+			getActivityList(ActivityManageTriggerNotification.this);
 			return null;
 		}
 

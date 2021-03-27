@@ -27,7 +27,7 @@ public class ActivityManageTimeFrame extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.trigger_timeframe_editor);
+		setContentView(R.layout.manage_trigger_timeframe);
 		
 		startPicker = (TimePicker)findViewById(R.id.tpTimeFrameStart);
 		stopPicker = (TimePicker)findViewById(R.id.tpTimeFrameStop);

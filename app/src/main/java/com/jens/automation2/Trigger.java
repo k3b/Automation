@@ -69,6 +69,9 @@ public class Trigger
 							};
 
 	private boolean triggerParameter; //if true->started event, if false->stopped
+	private String triggerParameter2;
+
+	public static final String triggerParameter2Split = "tp2split";
 	
     private Trigger_Enum triggerType = null;
     private PointOfInterest pointOfInterest = null;
@@ -206,6 +209,16 @@ public class Trigger
 	public void setTriggerParameter(boolean triggerParameter)
 	{
 		this.triggerParameter = triggerParameter;
+	}
+
+	public String getTriggerParameter2()
+	{
+		return triggerParameter2;
+	}
+
+	public void setTriggerParameter2(String triggerParameter2)
+	{
+		this.triggerParameter2 = triggerParameter2;
 	}
 
 	public TimeFrame getTimeFrame()
@@ -442,6 +455,32 @@ public class Trigger
 				else
 					returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.headsetDisconnected), type));
 				break;
+			case notification:
+				String[] params = getTriggerParameter2().split(triggerParameter2Split);
+				String app = params[0];
+				String titleDir = params[1];
+				String title = params[2];
+				String textDir = params[3];
+				String text = params[4];
+				StringBuilder triggerBuilder = new StringBuilder();
+
+				String appString;
+				if(app.equalsIgnoreCase("-1"))
+					appString = Miscellaneous.getAnyContext().getResources().getString(R.string.anyApp);
+				else
+					appString = "app " + app;
+
+				triggerBuilder.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.postsNotification), appString));
+
+				if(title.length() > 0)
+					triggerBuilder.append(", " + Miscellaneous.getAnyContext().getString(R.string.title) + " " + Trigger.getMatchString(titleDir) + " " + title);
+
+				if(text.length() > 0)
+					triggerBuilder.append(", " + Miscellaneous.getAnyContext().getString(R.string.text) + " " + Trigger.getMatchString(textDir) + " " + text);
+
+				returnString.append(triggerBuilder.toString());
+
+				break;
 			default:
 				returnString.append("error");
 				break;
@@ -449,7 +488,47 @@ public class Trigger
 
 		return returnString.toString();
 	}
-	
+
+	public static final String directionEquals = "eq";
+	public static final String directionContains = "ct";
+	public static final String directionStartsWith = "sw";
+	public static final String directionEndsWith = "ew";
+	public static final String directionNotEquals = "ne";
+
+	public static String getMatchString(String direction)
+	{
+		switch(direction)
+		{
+			case directionEquals:
+				return Miscellaneous.getAnyContext().getString(R.string.directionStringEquals);
+			case directionContains:
+				return Miscellaneous.getAnyContext().getString(R.string.directionStringContains);
+			case directionStartsWith:
+				return Miscellaneous.getAnyContext().getString(R.string.directionStringStartsWith);
+			case directionEndsWith:
+				return Miscellaneous.getAnyContext().getString(R.string.directionStringEndsWith);
+			case directionNotEquals:
+				return Miscellaneous.getAnyContext().getString(R.string.directionStringNotEquals);
+			default:
+				return Miscellaneous.getAnyContext().getString(R.string.error);
+		}
+	}
+
+	public static String getMatchCode(String direction)
+	{
+		if(direction.equalsIgnoreCase(Miscellaneous.getAnyContext().getString(R.string.directionStringEquals)))
+			return directionEquals;
+		else if(direction.equalsIgnoreCase(Miscellaneous.getAnyContext().getString(R.string.directionStringContains)))
+			return directionContains;
+		else if(direction.equalsIgnoreCase(Miscellaneous.getAnyContext().getString(R.string.directionStringStartsWith)))
+			return directionStartsWith;
+		else if(direction.equalsIgnoreCase(Miscellaneous.getAnyContext().getString(R.string.directionStringEndsWith)))
+			return directionEndsWith;
+		else if(direction.equalsIgnoreCase(Miscellaneous.getAnyContext().getString(R.string.directionStringNotEquals)))
+			return directionNotEquals;
+		else
+			return Miscellaneous.getAnyContext().getString(R.string.error);
+	}
 
 	public static String[] getTriggerTypesAsArray()
 	{

@@ -202,10 +202,10 @@
 <!--        https://developer.android.com/about/versions/pie/android-9.0-changes-28#apache-p-->
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
 
-        <!--<service android:name=".location.GeofenceIntentService"/>-->
+        <service android:name=".location.GeofenceIntentService"/>
 
 
-        <activity android:name=".ActivityManageNotificationTrigger"></activity>
+        <activity android:name=".ActivityManageTriggerNotification"></activity>
 
         <service
             android:name=".receivers.NotificationListener"

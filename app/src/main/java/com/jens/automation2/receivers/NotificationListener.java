@@ -9,6 +9,8 @@ import android.service.notification.StatusBarNotification;
 
 import androidx.annotation.RequiresApi;
 
+import com.jens.automation2.AutomationService;
+
 // See here for reference: http://gmariotti.blogspot.com/2013/11/notificationlistenerservice-and-kitkat.html
 
 @SuppressLint("OverrideAbstract")
@@ -38,9 +40,15 @@ public class NotificationListener extends NotificationListenerService
     public void onNotificationPosted(StatusBarNotification sbn)
     {
         super.onNotificationPosted(sbn);
-        String app = sbn.getPackageName();
-        String title = sbn.getNotification().extras.getString(EXTRA_TITLE);
-        String text = sbn.getNotification().extras.getString(EXTRA_TEXT);
+
+        if(AutomationService.isMyServiceRunning(NotificationListener.this))
+        {
+            String app = sbn.getPackageName();
+            String title = sbn.getNotification().extras.getString(EXTRA_TITLE);
+            String text = sbn.getNotification().extras.getString(EXTRA_TEXT);
+
+
+        }
     }
 
 //    @Override

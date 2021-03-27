@@ -889,6 +889,8 @@ public class XmlFileInterface
             		newTrigger.setTriggerType(Trigger_Enum.phoneCall);
             	else if(triggerEventString.equals("nfcTag"))
             		newTrigger.setTriggerType(Trigger_Enum.nfcTag);
+				else if(triggerEventString.equals("notification"))
+					newTrigger.setTriggerType(Trigger_Enum.notification);
             	else if(triggerEventString.equals("activityDetection"))
             		newTrigger.setTriggerType(Trigger_Enum.activityDetection);
             	else if(triggerEventString.equals("bluetoothConnection"))
@@ -985,6 +987,8 @@ public class XmlFileInterface
 	        			newTrigger.setHeadphoneType(-1);
 	        		}
 	        	}
+
+				newTrigger.setTriggerParameter2(triggerParameter2);
             }
             else
             {

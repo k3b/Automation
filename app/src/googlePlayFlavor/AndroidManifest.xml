@@ -176,7 +176,7 @@
         <activity android:name=".ActivityManageProfile" />
         <activity android:name=".ActivityVolumeTest" />
         <activity android:name=".ActivityPermissions"></activity>
-        <activity android:name=".ActivityManageNotificationTrigger"></activity>
+        <activity android:name=".ActivityManageTriggerNotification"></activity>
 
         <service
             android:name=".receivers.NotificationListener"

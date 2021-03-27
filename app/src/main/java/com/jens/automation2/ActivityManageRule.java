@@ -543,7 +543,7 @@ public class ActivityManageRule extends Activity
 						else if(triggerType == Trigger_Enum.notification)
 						{
 							newTrigger.setTriggerType(Trigger_Enum.notification);
-							Intent nfcEditor = new Intent(myContext, ActivityManageNotificationTrigger.class);
+							Intent nfcEditor = new Intent(myContext, ActivityManageTriggerNotification.class);
 							startActivityForResult(nfcEditor, requestCodeTriggerNotificationAdd);
 							return;
 						}
@@ -1157,6 +1157,14 @@ public class ActivityManageRule extends Activity
 			{
 				//newTrigger.setNfcTagId(ActivityManageNfc.generatedId);
 				ruleToEdit.getTriggerSet().add(newTrigger);
+
+				newTrigger.setTriggerParameter2(
+													data.getStringExtra("app") + Trigger.triggerParameter2Split +
+													data.getStringExtra("titleDir") + Trigger.triggerParameter2Split +
+													data.getStringExtra("title") + Trigger.triggerParameter2Split +
+													data.getStringExtra("textDir") + Trigger.triggerParameter2Split +
+													data.getStringExtra("text")
+												);
 				this.refreshTriggerList();
 			}
 			else

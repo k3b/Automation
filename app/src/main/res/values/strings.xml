@@ -616,8 +616,10 @@
     <string name="text">Text</string>
     <string name="directionStringEquals">equals</string>
     <string name="directionStringContains">contains</string>
-    <string name="directionStringStartsWidth">starts with</string>
+    <string name="directionStringStartsWith">starts with</string>
     <string name="directionStringEndsWith">ends with</string>
     <string name="directionStringNotEquals">not equals</string>
     <string name="anyApp">Any app</string>
+    <string name="notificationTriggerExplanation">This trigger will respond to other applications opening notifications in the notification area. You can specify another application from which the notification has to come from. If you don\'t the notifications from any other application will count.\nYou can also specify strings that must be or must not be in the notification title or notification body.</string>
+    <string name="postsNotification">%1$s posts notification</string>
 </resources>
