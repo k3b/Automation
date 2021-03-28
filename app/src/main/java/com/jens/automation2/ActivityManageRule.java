@@ -1255,6 +1255,29 @@ public class ActivityManageRule extends Activity
 				this.refreshActionList();
 			}
 		}
+		else if(requestCode == requestCodeActionPlaySoundAdd)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				newAction.setParameter1(data.getBooleanExtra("actionParameter1", false));
+				newAction.setParameter2(String.valueOf(data.getIntExtra("actionParameter2", 0)));
+				ruleToEdit.getActionSet().add(newAction);
+				this.refreshActionList();
+			}
+		}
+		else if(requestCode == requestCodeActionPlaySoundEdit)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				if(data.hasExtra("actionParameter1"))
+					ruleToEdit.getActionSet().get(editIndex).setParameter1(data.getBooleanExtra("actionParameter1", false));
+
+				if(data.hasExtra("actionParameter2"))
+					ruleToEdit.getActionSet().get(editIndex).setParameter2(String.valueOf(data.getIntExtra("actionParameter2", 0)));
+
+				this.refreshActionList();
+			}
+		}
 
 		//TODO: Check with has data been changed or something like that.
 		/*try

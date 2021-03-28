@@ -899,6 +899,8 @@ public class XmlFileInterface
             		newTrigger.setTriggerType(Trigger_Enum.bluetoothConnection);
             	else if(triggerEventString.equals("headsetPlugged"))
             		newTrigger.setTriggerType(Trigger_Enum.headsetPlugged);
+				else if(triggerEventString.equals("notification"))
+					newTrigger.setTriggerType(Trigger_Enum.notification);
             }
             else if (name.equals("TriggerParameter1"))
             {

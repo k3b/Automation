@@ -215,9 +215,9 @@ public class Action
 		{
 			returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.wakeupDevice));
 		}
-		else if(this.getAction().equals(Action_Enum.playMusic))
+		else if(this.getAction().equals(Action_Enum.playSound))
 		{
-			returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.playSound) + " " + getParameter2());
+			returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.playSound) + ": " + getParameter2());
 		}
 		else
 			returnString.append(action.toString());

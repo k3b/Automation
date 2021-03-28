@@ -1444,14 +1444,21 @@ public class ActivityPermissions extends Activity
 
     public static Boolean verifyNotificationPermission()
     {
-        String theList = android.provider.Settings.Secure.getString(Miscellaneous.getAnyContext().getContentResolver(), "enabled_notification_listeners");
-        String[] theListList = theList.split(":");
-        String me = (new ComponentName(Miscellaneous.getAnyContext(), NotificationListener.class)).flattenToString();
-        for ( String next : theListList )
+        try
         {
-            if ( me.equals(next) )
-                return true;
+            String theList = android.provider.Settings.Secure.getString(Miscellaneous.getAnyContext().getContentResolver(), "enabled_notification_listeners");
+            String[] theListList = theList.split(":");
+            String me = (new ComponentName(Miscellaneous.getAnyContext(), NotificationListener.class)).flattenToString();
+            for (String next : theListList)
+            {
+                if (me.equals(next))
+                    return true;
+            }
+            return false;
         }
-        return false;
+        catch(Exception e)
+        {
+            return false;
+        }
     }
 }
