@@ -1,13 +1,17 @@
 package com.jens.automation2;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Looper;
+import android.service.notification.StatusBarNotification;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.location.DetectedActivity;
+import com.jens.automation2.location.LocationProvider;
 import com.jens.automation2.location.WifiBroadcastReceiver;
 import com.jens.automation2.receivers.ActivityDetectionReceiver;
 import com.jens.automation2.receivers.BatteryReceiver;
@@ -16,6 +20,7 @@ import com.jens.automation2.receivers.ConnectivityReceiver;
 import com.jens.automation2.receivers.HeadphoneJackListener;
 import com.jens.automation2.receivers.NfcReceiver;
 import com.jens.automation2.receivers.NoiseListener;
+import com.jens.automation2.receivers.NotificationListener;
 import com.jens.automation2.receivers.PhoneStatusListener;
 import com.jens.automation2.receivers.ProcessListener;
 
@@ -23,6 +28,10 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import static com.jens.automation2.Trigger.triggerParameter2Split;
+import static com.jens.automation2.receivers.NotificationListener.EXTRA_TEXT;
+import static com.jens.automation2.receivers.NotificationListener.EXTRA_TITLE;
 
 
 public class Rule implements Comparable<Rule>
@@ -114,6 +123,7 @@ public class Rule implements Comparable<Rule>
 	{
 		return this.getName();
 	}
+	@SuppressLint("NewApi")
 	public String toStringLong()
 	{
 		String returnString = "";
@@ -488,7 +498,7 @@ public class Rule implements Comparable<Rule>
 				{
 					if(oneTrigger.getTriggerParameter())
 					{
-						if(com.jens.automation2.location.LocationProvider.getSpeed() < oneTrigger.getSpeed())
+						if(LocationProvider.getSpeed() < oneTrigger.getSpeed())
 						{
 							Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), context.getResources().getString(R.string.ruleDoesntApplyWeAreSlowerThan) + " " + String.valueOf(oneTrigger.getSpeed()), 3);
 							return false;
@@ -496,7 +506,7 @@ public class Rule implements Comparable<Rule>
 					}
 					else
 					{
-						if(com.jens.automation2.location.LocationProvider.getSpeed() > oneTrigger.getSpeed())
+						if(LocationProvider.getSpeed() > oneTrigger.getSpeed())
 						{
 							Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), context.getResources().getString(R.string.ruleDoesntApplyWeAreFasterThan) + " " + String.valueOf(oneTrigger.getSpeed()), 3);
 							return false;
@@ -725,14 +735,90 @@ public class Rule implements Comparable<Rule>
 				}
 				else if(oneTrigger.getTriggerType().equals(Trigger.Trigger_Enum.notification))
 				{
-					k
-					if(HeadphoneJackListener.isHeadsetConnected() != oneTrigger.getTriggerParameter())
-						return false;
-					else
-					if(oneTrigger.getHeadphoneType() != 2 && oneTrigger.getHeadphoneType() != HeadphoneJackListener.getHeadphoneType())
+					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
 					{
-						Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), context.getResources().getString(R.string.ruleDoesntApplyWrongHeadphoneType), 3);
-						return false;
+						String[] params = oneTrigger.getTriggerParameter2().split(triggerParameter2Split);
+
+						String myApp = params[0];
+						String myTitleDir = params[1];
+						String myTitle = params[2];
+						String myTextDir = params[3];
+						String myText;
+						if (params.length >= 5)
+							myText = params[4];
+						else
+							myText = "";
+
+						if(oneTrigger.getTriggerParameter())
+						{
+							// Check an active notification that is still there
+
+							boolean foundMatch = false;
+
+							for (StatusBarNotification sbn : NotificationListener.getInstance().getActiveNotifications())
+							{
+								String app = sbn.getPackageName();
+								String title = sbn.getNotification().extras.getString(EXTRA_TITLE);
+								String text = sbn.getNotification().extras.getString(EXTRA_TEXT);
+
+								if (!myApp.equals("-1"))
+								{
+									if (!app.equalsIgnoreCase(myApp))
+										continue;
+								}
+
+								if (myTitle.length() > 0)
+								{
+									if (!Miscellaneous.compare(myTitleDir, title, myTitle))
+										continue;
+								}
+
+								if (myText.length() > 0)
+								{
+									if (!Miscellaneous.compare(myTextDir, text, myText))
+										continue;
+								}
+
+								foundMatch = true;
+							}
+
+							if(!foundMatch)
+								return false;
+						}
+						else
+						{
+							// check a notification that is gone
+
+							if(NotificationListener.getLastNotification() != null)
+							{
+								if(!NotificationListener.getLastNotification().isCreated())
+								{
+									String app = NotificationListener.getLastNotification().getApp();
+									String title = NotificationListener.getLastNotification().getTitle();
+									String text = NotificationListener.getLastNotification().getText();
+
+									if (!myApp.equals("-1"))
+									{
+										if (!app.equalsIgnoreCase(myApp))
+											return false;
+									}
+
+									if (myTitle.length() > 0)
+									{
+										if (!Miscellaneous.compare(myTitleDir, title, myTitle))
+											return false;
+									}
+
+									if (myText.length() > 0)
+									{
+										if (!Miscellaneous.compare(myTextDir, text, myText))
+											return false;
+									}
+								}
+								else
+									return false;
+							}
+						}
 					}
 				}
 			}

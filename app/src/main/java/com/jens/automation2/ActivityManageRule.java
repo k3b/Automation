@@ -97,6 +97,8 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeActionSendTextMessage = 7001;
 	final static int requestCodeTriggerNotificationAdd = 8000;
 	final static int requestCodeTriggerNfcNotificationEdit = 8001;
+	final static int requestCodeActionPlaySoundAdd = 501;
+	final static int requestCodeActionPlaySoundEdit = 502;
 	
 	public static ActivityManageRule getInstance()
 	{
@@ -248,6 +250,12 @@ public class ActivityManageRule extends Activity
 						Intent bluetoothEditor = new Intent(ActivityManageRule.this, ActivityManageBluetoothTrigger.class);
 						startActivityForResult(bluetoothEditor, requestCodeTriggerBluetoothEdit);
 						break;
+					case notification:
+						ActivityManageTriggerNotification.editedNotificationTrigger = selectedTrigger;
+						Intent notificationEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerNotification.class);
+						notificationEditor.putExtra("edit", true);
+						startActivityForResult(notificationEditor, requestCodeTriggerNfcNotificationEdit);
+						break;
 					default:
 						break;				
 				}
@@ -340,6 +348,13 @@ public class ActivityManageRule extends Activity
 						activityEditScreenBrightnessIntent.putExtra("autoBrightness", a.getParameter1());
 						activityEditScreenBrightnessIntent.putExtra("brightnessValue", Integer.parseInt(a.getParameter2()));
 						startActivityForResult(activityEditScreenBrightnessIntent, requestCodeActionScreenBrightnessEdit);
+						break;
+					case playSound:
+						Intent actionPlaySoundIntent = new Intent(context, ActivityManageActionPlaySound.class);
+						actionPlaySoundIntent.putExtra("edit", true);
+						actionPlaySoundIntent.putExtra("actionParameter1", a.getParameter1());
+						actionPlaySoundIntent.putExtra("actionParameter2", a.getParameter2());
+						startActivityForResult(actionPlaySoundIntent, requestCodeActionPlaySoundEdit);
 						break;
 					default:
 						Miscellaneous.logEvent("w", "Edit action", "Editing of action type " + a.getAction().toString() + " not implemented, yet.", 4);
@@ -1170,6 +1185,14 @@ public class ActivityManageRule extends Activity
 			else
 				Miscellaneous.logEvent("w", "ActivityManageNfc", "No nfc id returned. Assuming abort.", 5);
 		}
+		else if(requestCode == requestCodeTriggerNfcNotificationEdit)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				newTrigger = ActivityManageTriggerNotification.resultingTrigger;
+				this.refreshTriggerList();
+			}
+		}
 		else if(requestCode == requestCodeActionSpeakTextAdd)
 		{
 			if(resultCode == RESULT_OK)
@@ -1284,6 +1307,8 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.tune));
 			else if(types[i].toString().equals(Action_Enum.setScreenBrightness.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.brightness));
+			else if(types[i].toString().equals(Action_Enum.playSound.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.sound));
 			else if(types[i].toString().equals(Action_Enum.sendTextMessage.toString()))
 			{
 //			    if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageSpecificRule.this, "android.permission.SEND_SMS") && !Miscellaneous.isGooglePlayInstalled(ActivityManageSpecificRule.this))
@@ -1293,159 +1318,158 @@ public class ActivityManageRule extends Activity
 			else
 				items.add(new Item(typesLong[i].toString(), R.drawable.placeholder));
 		}
-			
-//			= 	{
-//								    new Item("Bluetooth", R.drawable.bluetooth),
-//								    new Item("Wifi", R.drawable.wifi),
-//								    new Item("...", 0), //no icon for this one
-//								};
 
-//			ListAdapter adapter = new ArrayAdapter<Item>(this, android.R.layout.select_dialog_item, android.R.id.text1, items)
-			ListAdapter adapter = new ArrayAdapter<Item>(this, android.R.layout.select_dialog_item, android.R.id.text1, items)
-		    {
-		        public View getView(int position, View convertView, ViewGroup parent)
-		        {
-		            //User super class to create the View
-		        	View v = super.getView(position, convertView, parent);
-		        	
-		        	TextView tv = (TextView)v.findViewById(android.R.id.text1);		            
+		ListAdapter adapter = new ArrayAdapter<Item>(this, android.R.layout.select_dialog_item, android.R.id.text1, items)
+		{
+			public View getView(int position, View convertView, ViewGroup parent)
+			{
+				//User super class to create the View
+				View v = super.getView(position, convertView, parent);
 
-		            //Put the image on the TextView
-		            tv.setCompoundDrawablesWithIntrinsicBounds(items.get(position).icon, 0, 0, 0);
+				TextView tv = (TextView)v.findViewById(android.R.id.text1);
 
-		            //Add margin between image and text (support various screen densities)
-		            int dp5 = (int) (5 * getResources().getDisplayMetrics().density + 0.5f);
-		            tv.setCompoundDrawablePadding(dp5);
+				//Put the image on the TextView
+				tv.setCompoundDrawablesWithIntrinsicBounds(items.get(position).icon, 0, 0, 0);
 
-		            return v;
-		        }
-		    };
+				//Add margin between image and text (support various screen densities)
+				int dp5 = (int) (5 * getResources().getDisplayMetrics().density + 0.5f);
+				tv.setCompoundDrawablePadding(dp5);
 
-			AlertDialog.Builder builder = new AlertDialog.Builder(this)
-			    .setTitle(getResources().getString(R.string.selectTypeOfAction))
-			    .setAdapter(adapter, new DialogInterface.OnClickListener()
-			    {
-			        public void onClick(DialogInterface dialog, int which)
-			        {	
-						newAction = new Action();
-						
-						if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.triggerUrl.toString()))
+				return v;
+			}
+		};
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(this)
+			.setTitle(getResources().getString(R.string.selectTypeOfAction))
+			.setAdapter(adapter, new DialogInterface.OnClickListener()
+			{
+				public void onClick(DialogInterface dialog, int which)
+				{
+					newAction = new Action();
+
+					if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.triggerUrl.toString()))
+					{
+						//launch other activity to enter a url and parameters;
+						newAction.setAction(Action_Enum.triggerUrl);
+						ActivityEditTriggerUrl.resultingAction = null;
+						Intent editTriggerIntent = new Intent(context, ActivityEditTriggerUrl.class);
+						startActivityForResult(editTriggerIntent, 1000);
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setWifi.toString()))
+					{
+						newAction.setAction(Action_Enum.setWifi);
+						if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+							Toast.makeText(context, context.getResources().getString(R.string.android10WifiToggleNotice), Toast.LENGTH_LONG).show();
+						getActionParameter1Dialog(ActivityManageRule.this).show();
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setBluetooth.toString()))
+					{
+						if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
+							Miscellaneous.messageBox("Bluetooth", getResources().getString(R.string.deviceDoesNotHaveBluetooth), ActivityManageRule.this).show();;
+						newAction.setAction(Action_Enum.setBluetooth);
+						getActionParameter1Dialog(ActivityManageRule.this).show();
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setUsbTethering.toString()))
+					{
+						newAction.setAction(Action_Enum.setUsbTethering);
+						if(Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1)
+							Toast.makeText(context, context.getResources().getString(R.string.usbTetheringFailForAboveGingerbread), Toast.LENGTH_LONG).show();
+						getActionParameter1Dialog(ActivityManageRule.this).show();
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setWifiTethering.toString()))
+					{
+						newAction.setAction(Action_Enum.setWifiTethering);
+						getActionParameter1Dialog(ActivityManageRule.this).show();
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setDisplayRotation.toString()))
+					{
+						newAction.setAction(Action_Enum.setDisplayRotation);
+						getActionParameter1Dialog(ActivityManageRule.this).show();
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.changeSoundProfile.toString()))
+					{
+						if(Profile.getProfileCollection().size() > 0)
 						{
-							//launch other activity to enter a url and parameters;
-							newAction.setAction(Action_Enum.triggerUrl);
-							ActivityEditTriggerUrl.resultingAction = null;
-							Intent editTriggerIntent = new Intent(context, ActivityEditTriggerUrl.class);
-							startActivityForResult(editTriggerIntent, 1000);
+							newAction.setAction(Action_Enum.changeSoundProfile);
+							getActionSoundProfileDialog(context).show();
 						}
-						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setWifi.toString()))
+						else
+							Toast.makeText(context, getResources().getString(R.string.noProfilesCreateOneFirst), Toast.LENGTH_LONG).show();
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.startOtherActivity.toString()))
+					{
+						newAction.setAction(Action_Enum.startOtherActivity);
+						Intent intent = new Intent(ActivityManageRule.this, ActivityManageStartActivity.class);
+						startActivityForResult(intent, 3000);
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.waitBeforeNextAction.toString()))
+					{
+						newAction.setAction(Action_Enum.waitBeforeNextAction);
+						getActionWaitBeforeNextActionDialog(ActivityManageRule.this).show();
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.wakeupDevice.toString()))
+					{
+						newAction.setAction(Action_Enum.wakeupDevice);
+						getActionWakeupDeviceDialog(ActivityManageRule.this).show();
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setAirplaneMode.toString()))
+					{
+						if(Build.VERSION.SDK_INT >= 17)
 						{
-							newAction.setAction(Action_Enum.setWifi);
-							if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-								Toast.makeText(context, context.getResources().getString(R.string.android10WifiToggleNotice), Toast.LENGTH_LONG).show();
-							getActionParameter1Dialog(ActivityManageRule.this).show();
+							Toast.makeText(context, getResources().getString(R.string.airplaneModeSdk17Warning), Toast.LENGTH_LONG).show();
+							Miscellaneous.messageBox(getResources().getString(R.string.airplaneMode), getResources().getString(R.string.rootExplanation), ActivityManageRule.this).show();
 						}
-						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setBluetooth.toString()))
-						{
-							if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
-								Miscellaneous.messageBox("Bluetooth", getResources().getString(R.string.deviceDoesNotHaveBluetooth), ActivityManageRule.this).show();;
-							newAction.setAction(Action_Enum.setBluetooth);
-							getActionParameter1Dialog(ActivityManageRule.this).show();
-						}
-						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setUsbTethering.toString()))
-						{
-							newAction.setAction(Action_Enum.setUsbTethering);
-							if(Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1)
-								Toast.makeText(context, context.getResources().getString(R.string.usbTetheringFailForAboveGingerbread), Toast.LENGTH_LONG).show();
-							getActionParameter1Dialog(ActivityManageRule.this).show();
-						}
-						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setWifiTethering.toString()))
-						{
-							newAction.setAction(Action_Enum.setWifiTethering);
-							getActionParameter1Dialog(ActivityManageRule.this).show();
-						}
-						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setDisplayRotation.toString()))
-						{
-							newAction.setAction(Action_Enum.setDisplayRotation);
-							getActionParameter1Dialog(ActivityManageRule.this).show();
-						}
-						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.changeSoundProfile.toString()))
-						{
-							if(Profile.getProfileCollection().size() > 0)
-							{
-								newAction.setAction(Action_Enum.changeSoundProfile);
-								getActionSoundProfileDialog(context).show();
-							}
-							else
-								Toast.makeText(context, getResources().getString(R.string.noProfilesCreateOneFirst), Toast.LENGTH_LONG).show();
-						}
-						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.startOtherActivity.toString()))
-						{
-							newAction.setAction(Action_Enum.startOtherActivity);
-							Intent intent = new Intent(ActivityManageRule.this, ActivityManageStartActivity.class);
-							startActivityForResult(intent, 3000);
-						}
-						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.waitBeforeNextAction.toString()))
-						{
-							newAction.setAction(Action_Enum.waitBeforeNextAction);
-							getActionWaitBeforeNextActionDialog(ActivityManageRule.this).show();
-						}
-						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.wakeupDevice.toString()))
-						{
-							newAction.setAction(Action_Enum.wakeupDevice);
-							getActionWakeupDeviceDialog(ActivityManageRule.this).show();
-						}
-						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setAirplaneMode.toString()))
-						{
-							if(Build.VERSION.SDK_INT >= 17)
-							{
-								Toast.makeText(context, getResources().getString(R.string.airplaneModeSdk17Warning), Toast.LENGTH_LONG).show();
-								Miscellaneous.messageBox(getResources().getString(R.string.airplaneMode), getResources().getString(R.string.rootExplanation), ActivityManageRule.this).show();
-							}
-							newAction.setAction(Action_Enum.setAirplaneMode);
-							getActionParameter1Dialog(ActivityManageRule.this).show();
-						}
-						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setDataConnection.toString()))
-						{
-							newAction.setAction(Action_Enum.setDataConnection);
-							getActionParameter1Dialog(ActivityManageRule.this).show();
-							Miscellaneous.messageBox(getResources().getString(R.string.actionDataConnection), getResources().getString(R.string.rootExplanation), ActivityManageRule.this).show();
-						}
-						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.speakText.toString()))
-						{
-							//launch other activity to enter a url and parameters;
-							newAction.setAction(Action_Enum.speakText);
-							ActivityEditSpeakText.resultingAction = null;
-							Intent editTriggerIntent = new Intent(context, ActivityEditSpeakText.class);
-							startActivityForResult(editTriggerIntent, 5000);
-						}
-						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.sendTextMessage.toString()))
-						{
+						newAction.setAction(Action_Enum.setAirplaneMode);
+						getActionParameter1Dialog(ActivityManageRule.this).show();
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setDataConnection.toString()))
+					{
+						newAction.setAction(Action_Enum.setDataConnection);
+						getActionParameter1Dialog(ActivityManageRule.this).show();
+						Miscellaneous.messageBox(getResources().getString(R.string.actionDataConnection), getResources().getString(R.string.rootExplanation), ActivityManageRule.this).show();
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.speakText.toString()))
+					{
+						//launch other activity to enter a url and parameters;
+						newAction.setAction(Action_Enum.speakText);
+						ActivityEditSpeakText.resultingAction = null;
+						Intent editTriggerIntent = new Intent(context, ActivityEditSpeakText.class);
+						startActivityForResult(editTriggerIntent, 5000);
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.sendTextMessage.toString()))
+					{
 //                            if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageSpecificRule.this, "android.permission.SEND_SMS") && !Miscellaneous.isGooglePlayInstalled(ActivityManageSpecificRule.this))
-							if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageRule.this, "android.permission.SEND_SMS"))
-                            {
-                                //launch other activity to enter parameters;
-                                newAction.setAction(Action_Enum.sendTextMessage);
-                                ActivityEditSendTextMessage.resultingAction = null;
-                                Intent editTriggerIntent = new Intent(context, ActivityEditSendTextMessage.class);
-                                startActivityForResult(editTriggerIntent, 5001);
-                            }
-						}
-						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.playMusic.toString()))
+						if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageRule.this, "android.permission.SEND_SMS"))
 						{
-							newAction.setAction(Action_Enum.playMusic);
-							ruleToEdit.getActionSet().add(newAction);
-							refreshActionList();
+							//launch other activity to enter parameters;
+							newAction.setAction(Action_Enum.sendTextMessage);
+							ActivityEditSendTextMessage.resultingAction = null;
+							Intent editTriggerIntent = new Intent(context, ActivityEditSendTextMessage.class);
+							startActivityForResult(editTriggerIntent, 5001);
 						}
-						else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setScreenBrightness.toString()))
-						{
-							newAction.setAction(Action_Enum.setScreenBrightness);
-							Intent actionScreenBrightnessIntent = new Intent(context, ActivityManageBrightnessSetting.class);
-							startActivityForResult(actionScreenBrightnessIntent, requestCodeActionScreenBrightnessAdd);
-						}
-			        }
-			    });
-			
-			return builder.create();
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.playMusic.toString()))
+					{
+						newAction.setAction(Action_Enum.playMusic);
+						ruleToEdit.getActionSet().add(newAction);
+						refreshActionList();
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setScreenBrightness.toString()))
+					{
+						newAction.setAction(Action_Enum.setScreenBrightness);
+						Intent actionScreenBrightnessIntent = new Intent(context, ActivityManageBrightnessSetting.class);
+						startActivityForResult(actionScreenBrightnessIntent, requestCodeActionScreenBrightnessAdd);
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.playSound.toString()))
+					{
+						newAction.setAction(Action_Enum.playSound);
+						Intent actionPlaySoundIntent = new Intent(context, ActivityManageActionPlaySound.class);
+						startActivityForResult(actionPlaySoundIntent, requestCodeActionPlaySoundAdd);
+					}
+				}
+			});
+
+		return builder.create();
 	}
 	private AlertDialog getActionSoundProfileDialog(final Context myContext)
 	{

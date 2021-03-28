@@ -440,6 +440,25 @@ public class Miscellaneous extends Service
 //	    Miscellaneous.logEvent("i", TAG, "isEmulator=" + isEmulator);
 	    return isEmulator;
 	}
+
+	public static boolean compare(String direction, String needle, String haystack)
+	{
+		switch(direction)
+		{
+			case Trigger.directionEquals:
+				return haystack.equalsIgnoreCase(needle);
+			case Trigger.directionNotEquals:
+				return !haystack.equalsIgnoreCase(needle);
+			case Trigger.directionContains:
+				return haystack.toLowerCase().contains(needle.toLowerCase());
+			case Trigger.directionStartsWith:
+				return haystack.toLowerCase().startsWith(needle.toLowerCase());
+			case Trigger.directionEndsWith:
+				return haystack.toLowerCase().endsWith(needle.toLowerCase());
+			default:
+				return false;
+		}
+	}
 	
 	public static int compareTimes(Time time1, Time time2)
 	{

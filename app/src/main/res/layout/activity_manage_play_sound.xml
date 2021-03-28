@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/default_margin">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40dp"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:text="@string/playSound" />
+
+    <CheckBox
+        android:id="@+id/chkPlaySoundAlwaysPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/alwaysPlay" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/alwaysPlayExplanation" />
+
+    <TextView
+        android:id="@+id/tvSelectedSoundFile"
+        android:layout_marginVertical="@dimen/default_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/bSelectSoundFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/selectSoundFile" />
+
+    <Button
+        android:id="@+id/bSavePlaySound"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save" />
+
+</LinearLayout>

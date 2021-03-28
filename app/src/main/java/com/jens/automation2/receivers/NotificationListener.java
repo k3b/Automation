@@ -1,8 +1,6 @@
 package com.jens.automation2.receivers;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
@@ -21,6 +19,9 @@ import java.util.ArrayList;
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class NotificationListener extends NotificationListenerService
 {
+    static NotificationListener instance;
+    static SimpleNotification lastNotification = null;
+
     //  the title of the notification,
     public static final String EXTRA_TITLE = "android.title";
 
@@ -33,10 +34,21 @@ public class NotificationListener extends NotificationListenerService
     //  a bitmap to be used instead of the small icon when showing the notification payload
     public static final String EXTRA_LARGE_ICON = "android.largeIcon";
 
+    public static SimpleNotification getLastNotification()
+    {
+        return lastNotification;
+    }
+
     @Override
     public void onCreate()
     {
         super.onCreate();
+        instance = this;
+    }
+
+    public static NotificationListener getInstance()
+    {
+        return instance;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -46,13 +58,7 @@ public class NotificationListener extends NotificationListenerService
         super.onNotificationPosted(sbn);
 
         if(AutomationService.isMyServiceRunning(NotificationListener.this))
-        {
-            String app = sbn.getPackageName();
-            String title = sbn.getNotification().extras.getString(EXTRA_TITLE);
-            String text = sbn.getNotification().extras.getString(EXTRA_TEXT);
-
-            checkNotification(true, app, title, text);
-        }
+            checkNotification(true, sbn);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -62,22 +68,77 @@ public class NotificationListener extends NotificationListenerService
         super.onNotificationRemoved(sbn);
 
         if(AutomationService.isMyServiceRunning(NotificationListener.this))
+            checkNotification(false, sbn);
+    }
+
+    boolean checkNotification(boolean created, StatusBarNotification sbn)
+    {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT)
         {
             String app = sbn.getPackageName();
             String title = sbn.getNotification().extras.getString(EXTRA_TITLE);
             String text = sbn.getNotification().extras.getString(EXTRA_TEXT);
 
-            checkNotification(true, app, title, text);
+            lastNotification = new SimpleNotification();
+            lastNotification.created = created;
+            lastNotification.app = app;
+            lastNotification.title = title;
+            lastNotification.text = text;
+
+            ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.notification);
+            for(int i=0; i<ruleCandidates.size(); i++)
+            {
+                if(ruleCandidates.get(i).applies(NotificationListener.this))
+                    ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
+            }
         }
+
+        return false;
     }
 
-    void checkNotification(boolean created, String appName, String title, String text)
+    public static class SimpleNotification
     {
-        ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.notification);
-        for(int i=0; i<ruleCandidates.size(); i++)
+        boolean created;
+        String app, title, text;
+
+        public boolean isCreated()
         {
-            if(ruleCandidates.get(i).applies(NotificationListener.this))
-                ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
+            return created;
+        }
+
+        public void setCreated(boolean created)
+        {
+            this.created = created;
+        }
+
+        public String getApp()
+        {
+            return app;
+        }
+
+        public void setApp(String app)
+        {
+            this.app = app;
+        }
+
+        public String getTitle()
+        {
+            return title;
+        }
+
+        public void setTitle(String title)
+        {
+            this.title = title;
+        }
+
+        public String getText()
+        {
+            return text;
+        }
+
+        public void setText(String text)
+        {
+            this.text = text;
         }
     }
 
@@ -91,11 +152,5 @@ public class NotificationListener extends NotificationListenerService
     public void onListenerDisconnected()
     {
         super.onListenerDisconnected();
-    }
-
-    public static void openNotificationAccessWindow(Context context)
-    {
-        Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
-        context.startActivity(intent);
     }
 }

@@ -129,6 +129,7 @@
         <activity android:name=".ActivityEditTriggerUrl" />
         <activity android:name=".ActivityDisplayLongMessage" />
         <activity android:name=".ActivityEditSendTextMessage" />
+        <activity android:name=".ActivityManageActionPlaySound" />
         <activity android:name=".ActivityManageTimeFrame" />
         <activity android:name=".ActivityManageBrightnessSetting" />
         <activity android:name=".ActivityHelp" />

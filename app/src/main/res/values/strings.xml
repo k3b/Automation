@@ -626,4 +626,9 @@
     <string name="notificationAppears">Notification appears</string>
     <string name="notificationDisappears">Notification disappears</string>
     <string name="direction">Direction</string>
+    <string name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">Read system notifications</string>
+    <string name="playSound">Play sound</string>
+    <string name="alwaysPlay">always play</string>
+    <string name="alwaysPlayExplanation">If this settings is active the sound will always be played. If it is deactivated it will only play if your phone is neither on mute nor vibrate.\nHowever if active it will not have an effect on the volume. So if your phone is on ring mode it will not increase the media volume for example.</string>
+    <string name="selectSoundFile">Select sound file</string>
 </resources>

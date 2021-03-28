@@ -8,6 +8,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -463,6 +464,26 @@ public class Actions
 	        // for now eat exceptions
 	    }
 	    return "";
+	}
+
+	public static void playSound(boolean alwaysPlay, String soundFileLocation)
+	{
+		if(alwaysPlay || ((AudioManager) Miscellaneous.getAnyContext().getSystemService(Context.AUDIO_SERVICE)).getRingerMode() == AudioManager.RINGER_MODE_NORMAL)
+		{
+			MediaPlayer mp = new MediaPlayer();
+			try
+			{
+				mp.setDataSource(soundFileLocation);
+				mp.prepare();
+				mp.start();
+			}
+			catch (Exception e)
+			{
+				Miscellaneous.logEvent("e", "Play sound file", "Error playing sound: " + Log.getStackTraceString(e), 2);
+			}
+		}
+		else
+			Miscellaneous.logEvent("i", "Play sound file", "Not playing sound file because phone is on some kind of mute state.", 2);
 	}
 
 	public void useDownloadedWebpage(String result)

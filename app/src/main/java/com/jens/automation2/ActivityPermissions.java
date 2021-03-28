@@ -2,6 +2,7 @@ package com.jens.automation2;
 
 import android.app.Activity;
 import android.app.NotificationManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -14,6 +15,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.jens.automation2.receivers.NotificationListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,12 +37,13 @@ public class ActivityPermissions extends Activity
     private static final int requestCodeForPermissionsWriteSettings = 12043;
     private static final int requestCodeForPermissionsNotificationPolicy = 12044;
     private static final int requestCodeForPermissionsBackgroundLocation = 12045;
+    private static final int requestCodeForPermissionsNotifications = 12046;
     protected String[] specificPermissionsToRequest = null;
 
     public static String intentExtraName = "permissionsToBeRequested";
 
     Button bCancelPermissions, bRequestPermissions;
-    TextView tvPermissionsExplanation, tvPermissionosExplanationSystemSettings, tvPermissionsExplanationLong;
+    TextView tvPermissionsExplanation, tvPermissionsExplanationSystemSettings, tvPermissionsExplanationLong;
     static ActivityPermissions instance = null;
 
     public static final String writeSystemSettingsPermissionName = "android.permission.WRITE_SETTINGS";
@@ -50,6 +54,7 @@ public class ActivityPermissions extends Activity
     public static final String permissionNameLocationBackground = "android.permission.ACCESS_BACKGROUND_LOCATION";
     public static final String permissionNameCall = "android.permission.PROCESS_OUTGOING_CALLS";
     public static final String permissionNameStartService = "android.permission.FOREGROUND_SERVICE";
+    public static final String permissionNameReadNotifications = "android.permission.BIND_NOTIFICATION_LISTENER_SERVICE";
     
     public static ActivityPermissions getInstance()
     {
@@ -72,7 +77,7 @@ public class ActivityPermissions extends Activity
             bCancelPermissions = (Button)findViewById(R.id.bCancelPermissions);
             bRequestPermissions = (Button)findViewById(R.id.bRequestPermissions);
             tvPermissionsExplanation = (TextView)findViewById(R.id.tvPermissionsExplanation);
-            tvPermissionosExplanationSystemSettings = (TextView)findViewById(R.id.tvPermissionsExplanationSystemSettings);
+            tvPermissionsExplanationSystemSettings = (TextView)findViewById(R.id.tvPermissionsExplanationSystemSettings);
             tvPermissionsExplanationLong = (TextView)findViewById(R.id.tvPermissionsExplanationLong);
 
             bCancelPermissions.setOnClickListener(new View.OnClickListener()
@@ -168,8 +173,6 @@ public class ActivityPermissions extends Activity
                     explanation.append(
 
                             "<br />" +
-
-
                                     "<u>" +
                                         getResources().getString(R.string.readLocation)
                                     + "</u>"
@@ -188,8 +191,6 @@ public class ActivityPermissions extends Activity
                 explanation.append(
 
                         "<br />" +
-
-
                                 "<u>" +
                                 getResources().getString(getResources().getIdentifier(s, "string", getPackageName()))
                                 + "</u>"
@@ -208,9 +209,9 @@ public class ActivityPermissions extends Activity
             if (s.equalsIgnoreCase(writeSystemSettingsPermissionName))
             {
                 if (requiredPerms.length == 1)
-                    tvPermissionosExplanationSystemSettings.setText(getResources().getString(R.string.systemSettingsNote1));
+                    tvPermissionsExplanationSystemSettings.setText(getResources().getString(R.string.systemSettingsNote1));
                 else if (requiredPerms.length > 1)
-                    tvPermissionosExplanationSystemSettings.setText(getResources().getString(R.string.systemSettingsNote1) + getResources().getString(R.string.systemSettingsNote2));
+                    tvPermissionsExplanationSystemSettings.setText(getResources().getString(R.string.systemSettingsNote1) + getResources().getString(R.string.systemSettingsNote2));
 
                 break;
             }
@@ -231,7 +232,19 @@ public class ActivityPermissions extends Activity
         {
             for (String s : getRequiredPermissions(false))
             {
-                if(!s.equalsIgnoreCase(permissionNameLocationBackground) && !s.equalsIgnoreCase(permissionNameLocationFine) && !s.equalsIgnoreCase(permissionNameLocationCoarse) && Miscellaneous.googleToBlameForLocation(true))
+                if(
+                        s.equalsIgnoreCase(permissionNameLocationBackground)
+                            ||
+                        s.equalsIgnoreCase(permissionNameLocationFine)
+                            ||
+                        s.equalsIgnoreCase(permissionNameLocationCoarse)
+                )
+                {
+                    if (!Miscellaneous.googleToBlameForLocation(true))
+                        if (!havePermission(s, context))
+                            return true;
+                }
+                else
                     if (!havePermission(s, context))
                         return true;
             }
@@ -255,6 +268,10 @@ public class ActivityPermissions extends Activity
                 }
                 else
                     return true;
+            }
+            else if (s.equals(permissionNameReadNotifications))
+            {
+                return verifyNotificationPermission();
             }
             else
             {
@@ -300,7 +317,19 @@ public class ActivityPermissions extends Activity
                     for (String singlePermission : getPermissionsForRule(rule))
                         if (!havePermission(singlePermission, workingContext))
                         {
-                            if(!singlePermission.equalsIgnoreCase(permissionNameLocationBackground) && !singlePermission.equalsIgnoreCase(permissionNameLocationFine) && !singlePermission.equalsIgnoreCase(permissionNameLocationCoarse) && Miscellaneous.googleToBlameForLocation(true))
+                            if(
+
+                                        singlePermission.equalsIgnoreCase(permissionNameLocationBackground)
+                                                ||
+                                        singlePermission.equalsIgnoreCase(permissionNameLocationFine)
+                                                ||
+                                        singlePermission.equalsIgnoreCase(permissionNameLocationCoarse)
+                            )
+                            {
+                                if (!Miscellaneous.googleToBlameForLocation(true))
+                                    addToArrayListUnique(singlePermission, requiredPermissions);
+                            }
+                            else
                                 addToArrayListUnique(singlePermission, requiredPermissions);
                         }
                 }
@@ -424,6 +453,9 @@ public class ActivityPermissions extends Activity
                     case wifiConnection:
                         addToArrayListUnique("android.permission.ACCESS_NETWORK_STATE", requiredPermissions);
                         addToArrayListUnique("android.permission.ACCESS_WIFI_STATE", requiredPermissions);
+                        break;
+                    case notification:
+                        addToArrayListUnique(permissionNameReadNotifications, requiredPermissions);
                         break;
                     default:
                         break;
@@ -600,6 +632,11 @@ public class ActivityPermissions extends Activity
                 break;
             case "android.permission.WRITE_EXTERNAL_STORAGE":
                 usingElements.add(getResources().getString(R.string.storeSettings));
+                break;
+            case permissionNameReadNotifications:
+                for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.notification))
+                    usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
+
                 break;
             case "com.google.android.gms.permission.ACTIVITY_RECOGNITION":
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.activityDetection))
@@ -783,6 +820,10 @@ public class ActivityPermissions extends Activity
                         requestPermissions(cachedPermissionsToRequest, true);
                 }
             }
+
+            if (requestCode == requestCodeForPermissionsNotifications)
+                if(havePermission(permissionNameReadNotifications, ActivityPermissions.this))
+                    requestPermissions(cachedPermissionsToRequest, true);
         }
     }
 
@@ -840,6 +881,14 @@ public class ActivityPermissions extends Activity
                         Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
 //                        intent.setData(Uri.parse("package:" + getPackageName()));
                         startActivityForResult(intent, requestCodeForPermissionsNotificationPolicy);
+                        return;
+                    }
+                    else if (s.equalsIgnoreCase(permissionNameReadNotifications))
+                    {
+                        requiredPermissions.remove(s);
+                        cachedPermissionsToRequest = requiredPermissions;
+                        Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                        startActivityForResult(intent, requestCodeForPermissionsNotifications);
                         return;
                     }
 //                    else if (s.equalsIgnoreCase(permissionNameLocationBackground) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
@@ -1390,6 +1439,19 @@ public class ActivityPermissions extends Activity
             e.printStackTrace();
         }
 
+        return false;
+    }
+
+    public static Boolean verifyNotificationPermission()
+    {
+        String theList = android.provider.Settings.Secure.getString(Miscellaneous.getAnyContext().getContentResolver(), "enabled_notification_listeners");
+        String[] theListList = theList.split(":");
+        String me = (new ComponentName(Miscellaneous.getAnyContext(), NotificationListener.class)).flattenToString();
+        for ( String next : theListList )
+        {
+            if ( me.equals(next) )
+                return true;
+        }
         return false;
     }
 }

@@ -176,6 +176,7 @@
         <activity android:name=".ActivityManageStartActivity" />
         <activity android:name=".ActivityManageNfc" />
         <activity android:name=".ActivityEditSpeakText" />
+        <activity android:name=".ActivityManageActionPlaySound" />
         <activity android:name=".ActivityManageBluetoothTrigger" />
         <activity android:name=".ActivityMainProfiles" />
         <activity android:name=".ActivityManageProfile" />

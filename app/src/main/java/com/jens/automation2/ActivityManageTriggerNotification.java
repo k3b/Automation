@@ -29,8 +29,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import static com.jens.automation2.Trigger.triggerParameter2Split;
+
 public class ActivityManageTriggerNotification extends Activity
 {
+	public static Trigger editedNotificationTrigger;
 	EditText etNotificationTitle, etNotificationText;
 	Button bSelectApp, bSaveTriggerNotification;
 	Spinner spinnerTitleDirection, spinnerTextDirection;
@@ -312,15 +315,24 @@ public class ActivityManageTriggerNotification extends Activity
 				String textDir = Trigger.getMatchCode(spinnerTextDirection.getSelectedItem().toString());
 				String text = etNotificationText.getText().toString();
 
-				Intent data = new Intent();
-				data.putExtra("direction", chkNotificationDirection.isChecked());
-				data.putExtra("app", app);
-				data.putExtra("titleDir", titleDir);
-				data.putExtra("title", title);
-				data.putExtra("textDir", textDir);
-				data.putExtra("text", text);
+				if(edit)
+				{
+					editedNotificationTrigger.setTriggerParameter(chkNotificationDirection.isChecked());
+					editedNotificationTrigger.setTriggerParameter2(app + triggerParameter2Split + titleDir + triggerParameter2Split + title + triggerParameter2Split + textDir + triggerParameter2Split + text);
+					ActivityManageTriggerNotification.this.setResult(RESULT_OK);
+				}
+				else
+				{
+					Intent data = new Intent();
+					data.putExtra("direction", chkNotificationDirection.isChecked());
+					data.putExtra("app", app);
+					data.putExtra("titleDir", titleDir);
+					data.putExtra("title", title);
+					data.putExtra("textDir", textDir);
+					data.putExtra("text", text);
+					ActivityManageTriggerNotification.this.setResult(RESULT_OK, data);
+				}
 
-				ActivityManageTriggerNotification.this.setResult(RESULT_OK, data);
 				finish();
 			}
 		});
@@ -335,23 +347,37 @@ public class ActivityManageTriggerNotification extends Activity
 	
 	private void loadValuesIntoGui()
 	{
-//		String[] params = resultingAction.getParameter2().split(";");
-//		if(params.length >= 2)
-//		{
-//			tvSelectedActivity.setText(params[0] + ";" + params[1]);
-//
-//			if(params.length > 2)
-//			{
-//				intentPairList.clear();
-//
-//				for(int i=2; i<params.length; i++)
-//				{
-//					intentPairList.add(params[i]);
-//				}
-//
-//				updateIntentPairList();
-//			}
-//		}
+		chkNotificationDirection.setChecked(editedNotificationTrigger.getTriggerParameter());
+
+		String[] params = editedNotificationTrigger.getTriggerParameter2().split(triggerParameter2Split);
+
+		String app = params[0];
+		String titleDir = params[1];
+		String title = params[2];
+		String textDir = params[3];
+		String text;
+		if (params.length >= 5)
+			text = params[4];
+		else
+			text = "";
+
+		if(!app.equals("-1"))
+			tvSelectedApplication.setText(app);
+
+		for(int i = 0; i < directions.length; i++)
+		{
+			if(Trigger.getMatchCode(directions[i]).equalsIgnoreCase(titleDir))
+				spinnerTitleDirection.setSelection(i);
+
+			if(Trigger.getMatchCode(directions[i]).equalsIgnoreCase(textDir))
+				spinnerTextDirection.setSelection(i);
+		}
+
+		if(title.length() > 0)
+			etNotificationTitle.setText(title);
+
+		if(text.length() > 0)
+			etNotificationText.setText(text);
 	}
 	
 	private class GetActivityListTask extends AsyncTask<Void, Void, Void>

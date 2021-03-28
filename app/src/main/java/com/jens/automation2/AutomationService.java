@@ -287,8 +287,6 @@ public class AutomationService extends Service implements OnInitListener
 			myLocationProvider.applySettingsAndRules();
 
 		ReceiverCoordinator.applySettingsAndRules();
-
-		Miscellaneous.createDismissableNotification("test", 4711, null);
 	}
 
 	@Override

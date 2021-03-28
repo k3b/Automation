@@ -732,6 +732,94 @@ public class Rule implements Comparable<Rule>
 							return false;
 						}
 				}
+				else if(oneTrigger.getTriggerType().equals(Trigger.Trigger_Enum.notification))
+				{
+					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+					{
+						String[] params = oneTrigger.getTriggerParameter2().split(triggerParameter2Split);
+
+						String myApp = params[0];
+						String myTitleDir = params[1];
+						String myTitle = params[2];
+						String myTextDir = params[3];
+						String myText;
+						if (params.length >= 5)
+							myText = params[4];
+						else
+							myText = "";
+
+						if(oneTrigger.getTriggerParameter())
+						{
+							// Check an active notification that is still there
+
+							boolean foundMatch = false;
+
+							for (StatusBarNotification sbn : NotificationListener.getInstance().getActiveNotifications())
+							{
+								String app = sbn.getPackageName();
+								String title = sbn.getNotification().extras.getString(EXTRA_TITLE);
+								String text = sbn.getNotification().extras.getString(EXTRA_TEXT);
+
+								if (!myApp.equals("-1"))
+								{
+									if (!app.equalsIgnoreCase(myApp))
+										continue;
+								}
+
+								if (myTitle.length() > 0)
+								{
+									if (!Miscellaneous.compare(myTitleDir, title, myTitle))
+										continue;
+								}
+
+								if (myText.length() > 0)
+								{
+									if (!Miscellaneous.compare(myTextDir, text, myText))
+										continue;
+								}
+
+								foundMatch = true;
+							}
+
+							if(!foundMatch)
+								return false;
+						}
+						else
+						{
+							// check a notification that is gone
+
+							if(NotificationListener.getLastNotification() != null)
+							{
+								if(!NotificationListener.getLastNotification().isCreated())
+								{
+									String app = NotificationListener.getLastNotification().getApp();
+									String title = NotificationListener.getLastNotification().getTitle();
+									String text = NotificationListener.getLastNotification().getText();
+
+									if (!myApp.equals("-1"))
+									{
+										if (!app.equalsIgnoreCase(myApp))
+											return false;
+									}
+
+									if (myTitle.length() > 0)
+									{
+										if (!Miscellaneous.compare(myTitleDir, title, myTitle))
+											return false;
+									}
+
+									if (myText.length() > 0)
+									{
+										if (!Miscellaneous.compare(myTextDir, text, myText))
+											return false;
+									}
+								}
+								else
+									return false;
+							}
+						}
+					}
+				}
 			}
 			
 			return true;

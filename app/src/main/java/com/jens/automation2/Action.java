@@ -12,6 +12,8 @@ import java.util.Locale;
 
 public class Action
 {
+	public static final String actionParameter2Split = "ap2split";
+
 	public enum Action_Enum {	
 								setWifi,
 								setBluetooth,
@@ -33,6 +35,7 @@ public class Action
 								speakText,
 								playMusic,
 								setScreenBrightness,
+								playSound,
 								sendTextMessage;
 								
 								public String getFullName(Context context)
@@ -87,6 +90,8 @@ public class Action
 											return context.getResources().getString(R.string.actionSpeakText);
 										case playMusic:
 											return context.getResources().getString(R.string.actionPlayMusic);
+										case playSound:
+											return context.getResources().getString(R.string.playSound);
 										case sendTextMessage:
 											return context.getResources().getString(R.string.sendTextMessage);
 										case setScreenBrightness:
@@ -209,6 +214,10 @@ public class Action
 		else if(this.getAction().equals(Action_Enum.wakeupDevice))
 		{
 			returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.wakeupDevice));
+		}
+		else if(this.getAction().equals(Action_Enum.playMusic))
+		{
+			returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.playSound) + " " + getParameter2());
 		}
 		else
 			returnString.append(action.toString());
@@ -394,6 +403,9 @@ public class Action
 				break;
 			case setScreenBrightness:
 				Actions.setScreenBrightness(getParameter1(), Integer.parseInt(getParameter2()));
+				break;
+			case playSound:
+				Actions.playSound(getParameter1(), getParameter2());
 				break;
 			default:
 				Miscellaneous.logEvent("w", "Action", context.getResources().getString(R.string.unknownActionSpecified), 3);
