@@ -3,7 +3,9 @@ package com.jens.automation2;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Looper;
+import android.service.notification.StatusBarNotification;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -16,6 +18,7 @@ import com.jens.automation2.receivers.ConnectivityReceiver;
 import com.jens.automation2.receivers.HeadphoneJackListener;
 import com.jens.automation2.receivers.NfcReceiver;
 import com.jens.automation2.receivers.NoiseListener;
+import com.jens.automation2.receivers.NotificationListener;
 import com.jens.automation2.receivers.PhoneStatusListener;
 import com.jens.automation2.receivers.ProcessListener;
 
@@ -24,6 +27,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import static com.jens.automation2.Trigger.triggerParameter2Split;
+import static com.jens.automation2.receivers.NotificationListener.EXTRA_TEXT;
+import static com.jens.automation2.receivers.NotificationListener.EXTRA_TITLE;
 
 public class Rule implements Comparable<Rule>
 {

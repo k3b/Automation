@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.jens.automation2.receivers.BluetoothReceiver;
 
-public class ActivityManageBluetoothTrigger extends Activity
+public class ActivityManageTriggerBluetooth extends Activity
 {
 	protected static Trigger editedBluetoothTrigger;
 	RadioButton radioAnyBluetoothDevice, radioNoDevice, radioDeviceFromList, radioBluetoothConnected, radioBluetoothDisconnected, radioBluetoothInRange, radioBluetoothOutRange;
@@ -109,7 +109,7 @@ public class ActivityManageBluetoothTrigger extends Activity
 			}
 			else
 			{
-				Toast.makeText(ActivityManageBluetoothTrigger.this, getResources().getString(R.string.selectDeviceOption), Toast.LENGTH_LONG).show();
+				Toast.makeText(ActivityManageTriggerBluetooth.this, getResources().getString(R.string.selectDeviceOption), Toast.LENGTH_LONG).show();
 				return false;
 			}
 			
@@ -138,7 +138,7 @@ public class ActivityManageBluetoothTrigger extends Activity
 			}
 			else
 			{
-				Toast.makeText(ActivityManageBluetoothTrigger.this, getResources().getString(R.string.selectConnectionOption), Toast.LENGTH_LONG).show();
+				Toast.makeText(ActivityManageTriggerBluetooth.this, getResources().getString(R.string.selectConnectionOption), Toast.LENGTH_LONG).show();
 				return false;
 			}
 			

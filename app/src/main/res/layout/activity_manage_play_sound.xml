@@ -24,8 +24,8 @@
         android:layout_height="wrap_content"
         android:text="@string/alwaysPlayExplanation" />
 
-    <TextView
-        android:id="@+id/tvSelectedSoundFile"
+    <EditText
+        android:id="@+id/etSelectedSoundFile"
         android:layout_marginVertical="@dimen/default_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

@@ -20,7 +20,7 @@ import com.jens.automation2.Action.Action_Enum;
 
 import java.util.Map;
 
-public class ActivityEditTriggerUrl extends Activity
+public class ActivityManageActionTriggerUrl extends Activity
 {
 	Button bSaveTriggerUrl;
 	EditText etTriggerUrl, etTriggerUrlUsername, etTriggerUrlPassword;
@@ -70,7 +70,7 @@ public class ActivityEditTriggerUrl extends Activity
 						if(password == null)
 							password = "";
 						
-						ActivityEditTriggerUrl.resultingAction.setParameter2(
+						ActivityManageActionTriggerUrl.resultingAction.setParameter2(
 																				username + ";" +
 																				password + ";" +
 																				etTriggerUrl.getText().toString().trim()
@@ -110,16 +110,16 @@ public class ActivityEditTriggerUrl extends Activity
 		updateListView();
 
 		
-		ActivityEditTriggerUrl.edit = getIntent().getBooleanExtra("edit", false);
+		ActivityManageActionTriggerUrl.edit = getIntent().getBooleanExtra("edit", false);
 		if(edit)
 		{
 			// username,password,URL
-			String[] components = ActivityEditTriggerUrl.resultingAction.getParameter2().split(";");
+			String[] components = ActivityManageActionTriggerUrl.resultingAction.getParameter2().split(";");
 			
 			if(components.length >= 3)
 			{
 				etTriggerUrl.setText(components[2]);				
-				chkTriggerUrlUseAuthentication.setChecked(ActivityEditTriggerUrl.resultingAction.getParameter1());
+				chkTriggerUrlUseAuthentication.setChecked(ActivityManageActionTriggerUrl.resultingAction.getParameter1());
 				etTriggerUrlUsername.setText(components[0]);
 				etTriggerUrlPassword.setText(components[1]);
 			}
@@ -141,9 +141,9 @@ public class ActivityEditTriggerUrl extends Activity
 			if(password == null)
 				password = "";
 			
-			ActivityEditTriggerUrl.resultingAction.setParameter1(chkTriggerUrlUseAuthentication.isChecked());
+			ActivityManageActionTriggerUrl.resultingAction.setParameter1(chkTriggerUrlUseAuthentication.isChecked());
 			
-			ActivityEditTriggerUrl.resultingAction.setParameter2(
+			ActivityManageActionTriggerUrl.resultingAction.setParameter2(
 																	username + ";" +
 																	password + ";" +
 																	etTriggerUrl.getText().toString()

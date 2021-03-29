@@ -14,7 +14,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class ActivityManageTimeFrame extends Activity
+public class ActivityManageTriggerTimeFrame extends Activity
 {
 	Button bSaveTimeFrame;
 	TimePicker startPicker, stopPicker;

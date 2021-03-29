@@ -19,7 +19,7 @@ import androidx.annotation.NonNull;
 import com.jens.automation2.Action.Action_Enum;
 
 
-public class ActivityEditSendTextMessage extends Activity
+public class ActivityManageActionSendTextMessage extends Activity
 {
 	Button bSaveSendTextMessage, bImportNumberFromContacts;
 	EditText etPhoneNumber, etSendTextMessage;
@@ -67,7 +67,7 @@ public class ActivityEditSendTextMessage extends Activity
 			@Override
 			public void onClick(View view)
 			{
-				if(!ActivityPermissions.havePermission("android.permission.READ_CONTACTS", ActivityEditSendTextMessage.this))
+				if(!ActivityPermissions.havePermission("android.permission.READ_CONTACTS", ActivityManageActionSendTextMessage.this))
 				{
                     requestPermissions("android.permission.READ_CONTACTS");
 				}
@@ -76,10 +76,10 @@ public class ActivityEditSendTextMessage extends Activity
 			}
 		});
 
-		ActivityEditSendTextMessage.edit = getIntent().getBooleanExtra("edit", false);
+		ActivityManageActionSendTextMessage.edit = getIntent().getBooleanExtra("edit", false);
 		if(edit)
 		{
-			String[] parameters = ActivityEditSendTextMessage.resultingAction.getParameter2().split(Actions.smsSeparator);
+			String[] parameters = ActivityManageActionSendTextMessage.resultingAction.getParameter2().split(Actions.smsSeparator);
 			etPhoneNumber.setText(parameters[0]);
 			etSendTextMessage.setText(parameters[1]);
 		}
@@ -99,7 +99,7 @@ public class ActivityEditSendTextMessage extends Activity
 		
 		if(edit && resultingAction != null)
 		{
-			ActivityEditSendTextMessage.resultingAction.setParameter2(etPhoneNumber.getText().toString() + Actions.smsSeparator + etSendTextMessage.getText().toString());
+			ActivityManageActionSendTextMessage.resultingAction.setParameter2(etPhoneNumber.getText().toString() + Actions.smsSeparator + etSendTextMessage.getText().toString());
 		}
 		
 		setResult(RESULT_OK);
@@ -162,7 +162,7 @@ public class ActivityEditSendTextMessage extends Activity
                 String name = null;
 
                 Uri uri = data.getData();
-                Cursor cursor = ActivityEditSendTextMessage.this.getContentResolver().query(uri, null, null, null, null);
+                Cursor cursor = ActivityManageActionSendTextMessage.this.getContentResolver().query(uri, null, null, null, null);
 
                 if (cursor.moveToFirst())
                 {

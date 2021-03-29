@@ -98,7 +98,7 @@
     <string name="generalSettings">General settings</string>
     <string name="startAtSystemBoot">Start at system boot</string>
     <string name="onOff">On/Off</string>
-    <string name="writeLogFileToSd">Write log file to SD card</string>
+    <string name="writeLogFile">Write log file</string>
     <string name="useTextToSpeechOnNormalSummary">Use TextToSpeech on normal</string>
     <string name="useTextToSpeechOnVibrateSummary">Use TextToSpeech on vibrate</string>
     <string name="useTextToSpeechOnSilentSummary">Use TextToSpeech on silent</string>

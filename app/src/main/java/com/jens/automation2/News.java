@@ -68,7 +68,13 @@ public class News
         Calendar now = Calendar.getInstance();
         String newsContent;
 
-        String filePath = context.getFilesDir() + "/appNews.xml";
+        String newsFileName = "appNews.xml";
+
+        String filePath = context.getCacheDir() + "/" + newsFileName;
+
+        File oldFilePath = new File(context.getFilesDir() + "/" + newsFileName);
+        if(oldFilePath.exists())
+            oldFilePath.delete();
 
         if (!(new File(filePath)).exists() || Settings.lastNewsPolltime == -1 || now.getTimeInMillis() >= Settings.lastNewsPolltime + (long)(Settings.newsDisplayForXDays * 24 * 60 * 60 * 1000))
         {
@@ -80,14 +86,14 @@ public class News
             {
                 Settings.lastNewsPolltime = now.getTimeInMillis();
                 Settings.writeSettings(context);
-                Miscellaneous.logEvent("i", "appNews.xml", "File stored to " + filePath, 5);
+                Miscellaneous.logEvent("i", newsFileName, "File stored to " + filePath, 5);
             }
         }
         else
         {
             // Just read local cache file
             newsContent = Miscellaneous.readFileToString(filePath);
-            Miscellaneous.logEvent("i", "appNews.xml", "Using cache to retrieve news: " + filePath, 5);
+            Miscellaneous.logEvent("i", newsFileName, "Using cache to retrieve news: " + filePath, 5);
         }
 
         ArrayList<News> returnList = new ArrayList<>();

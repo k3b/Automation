@@ -35,7 +35,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class ActivityManageStartActivity extends Activity
+public class ActivityManageActionStartActivity extends Activity
 {
 	ListView lvIntentPairs;
 	EditText etParameterName, etParameterValue;
@@ -56,12 +56,12 @@ public class ActivityManageStartActivity extends Activity
 			ApplicationInfo aInfo1 = this.applicationInfo;
 			if (aInfo1 != null)
 			{
-				name1 = (String) ActivityManageStartActivity.this.getPackageManager().getApplicationLabel(aInfo1);
+				name1 = (String) ActivityManageActionStartActivity.this.getPackageManager().getApplicationLabel(aInfo1);
 			}
 			ApplicationInfo aInfo2 = another.applicationInfo;
 			if (aInfo2 != null)
 			{
-				name2 = (String) ActivityManageStartActivity.this.getPackageManager().getApplicationLabel(aInfo2);
+				name2 = (String) ActivityManageActionStartActivity.this.getPackageManager().getApplicationLabel(aInfo2);
 			}
 					
 			return name1.compareTo(name2);
@@ -224,7 +224,7 @@ public class ActivityManageStartActivity extends Activity
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		alertDialogBuilder.setTitle(getResources().getString(R.string.selectApplication));
-		final String[] applicationArray = ActivityManageStartActivity.getApplicationNameListString(this);
+		final String[] applicationArray = ActivityManageActionStartActivity.getApplicationNameListString(this);
 		alertDialogBuilder.setItems(applicationArray, new DialogInterface.OnClickListener()
 		{			
 			@Override
@@ -242,14 +242,14 @@ public class ActivityManageStartActivity extends Activity
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		alertDialogBuilder.setTitle(getResources().getString(R.string.selectPackageOfApplication));
-		final String[] packageArray = ActivityManageStartActivity.getPackageListString(this, applicationName);
+		final String[] packageArray = ActivityManageActionStartActivity.getPackageListString(this, applicationName);
 		alertDialogBuilder.setItems(packageArray, new DialogInterface.OnClickListener()
 		{			
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
 				getActionStartActivityDialog3(packageArray[which]).show();
-				Miscellaneous.messageBox(getResources().getString(R.string.hint), getResources().getString(R.string.chooseActivityHint), ActivityManageStartActivity.this).show();
+				Miscellaneous.messageBox(getResources().getString(R.string.hint), getResources().getString(R.string.chooseActivityHint), ActivityManageActionStartActivity.this).show();
 
 			}
 		});
@@ -261,13 +261,13 @@ public class ActivityManageStartActivity extends Activity
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		alertDialogBuilder.setTitle(getResources().getString(R.string.selectActivityToBeStarted));
-		final String activityArray[] = ActivityManageStartActivity.getActivityListForPackageName(packageName);
+		final String activityArray[] = ActivityManageActionStartActivity.getActivityListForPackageName(packageName);
 		alertDialogBuilder.setItems(activityArray, new DialogInterface.OnClickListener()
 		{			
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
-				ActivityInfo ai = ActivityManageStartActivity.getActivityInfoForPackageNameAndActivityName(packageName, activityArray[which]);
+				ActivityInfo ai = ActivityManageActionStartActivity.getActivityInfoForPackageNameAndActivityName(packageName, activityArray[which]);
 				tvSelectedActivity.setText(ai.packageName + ";" + ai.name);
 			}
 		});
@@ -291,7 +291,7 @@ public class ActivityManageStartActivity extends Activity
 		spinnerParameterType = (Spinner)findViewById(R.id.spinnerParameterType);
 		tvSelectedActivity = (TextView)findViewById(R.id.tvSelectedApplication);
 		
-		intentTypeSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, ActivityManageStartActivity.supportedIntentTypes);
+		intentTypeSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, ActivityManageActionStartActivity.supportedIntentTypes);
 		spinnerParameterType.setAdapter(intentTypeSpinnerAdapter);
 		intentTypeSpinnerAdapter.notifyDataSetChanged();
 		
@@ -304,7 +304,7 @@ public class ActivityManageStartActivity extends Activity
 			{
 				GetActivityListTask getActivityListTask = new GetActivityListTask();
 				getActivityListTask.execute();
-				progressDialog = ProgressDialog.show(ActivityManageStartActivity.this, "", ActivityManageStartActivity.this.getResources().getString(R.string.gettingListOfInstalledApplications));
+				progressDialog = ProgressDialog.show(ActivityManageActionStartActivity.this, "", ActivityManageActionStartActivity.this.getResources().getString(R.string.gettingListOfInstalledApplications));
 			}
 		});
 		
@@ -316,19 +316,19 @@ public class ActivityManageStartActivity extends Activity
 				// type;name;value
 				if(spinnerParameterType.getSelectedItem().toString().length() == 0)
 				{
-					Toast.makeText(ActivityManageStartActivity.this, getResources().getString(R.string.selectTypeOfIntentPair), Toast.LENGTH_LONG).show();
+					Toast.makeText(ActivityManageActionStartActivity.this, getResources().getString(R.string.selectTypeOfIntentPair), Toast.LENGTH_LONG).show();
 					return;
 				}
 					
 				if(etParameterName.getText().toString().length() == 0)
 				{
-					Toast.makeText(ActivityManageStartActivity.this, getResources().getString(R.string.enterNameForIntentPair), Toast.LENGTH_LONG).show();
+					Toast.makeText(ActivityManageActionStartActivity.this, getResources().getString(R.string.enterNameForIntentPair), Toast.LENGTH_LONG).show();
 					return;
 				}
 				
 				if(etParameterValue.getText().toString().length() == 0)
 				{
-					Toast.makeText(ActivityManageStartActivity.this, getResources().getString(R.string.enterValueForIntentPair), Toast.LENGTH_LONG).show();
+					Toast.makeText(ActivityManageActionStartActivity.this, getResources().getString(R.string.enterValueForIntentPair), Toast.LENGTH_LONG).show();
 					return;
 				}
 				
@@ -360,7 +360,7 @@ public class ActivityManageStartActivity extends Activity
 			{
 				if(saveAction())
 				{
-					ActivityManageStartActivity.this.setResult(RESULT_OK);
+					ActivityManageActionStartActivity.this.setResult(RESULT_OK);
 					finish();
 				}
 			}
@@ -382,9 +382,9 @@ public class ActivityManageStartActivity extends Activity
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3)
 			{
 				if(supportedIntentTypes[arg2].equals("double") | supportedIntentTypes[arg2].equals("float") | supportedIntentTypes[arg2].equals("int") | supportedIntentTypes[arg2].equals("long") | supportedIntentTypes[arg2].equals("short"))
-					ActivityManageStartActivity.this.etParameterValue.setInputType(InputType.TYPE_CLASS_NUMBER);
+					ActivityManageActionStartActivity.this.etParameterValue.setInputType(InputType.TYPE_CLASS_NUMBER);
 				else
-					ActivityManageStartActivity.this.etParameterValue.setInputType(InputType.TYPE_CLASS_TEXT);
+					ActivityManageActionStartActivity.this.etParameterValue.setInputType(InputType.TYPE_CLASS_TEXT);
 			}
 
 			@Override
@@ -436,7 +436,7 @@ public class ActivityManageStartActivity extends Activity
 	{
 		if(tvSelectedActivity.getText().toString().length() == 0)
 		{
-			Toast.makeText(ActivityManageStartActivity.this, getResources().getString(R.string.selectApplication), Toast.LENGTH_LONG).show();
+			Toast.makeText(ActivityManageActionStartActivity.this, getResources().getString(R.string.selectApplication), Toast.LENGTH_LONG).show();
 			return false;
 		}
 
@@ -462,7 +462,7 @@ public class ActivityManageStartActivity extends Activity
 	
 	private AlertDialog getIntentPairDialog(final int itemPosition)
 	{
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ActivityManageStartActivity.this);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ActivityManageActionStartActivity.this);
 		alertDialogBuilder.setTitle(getResources().getString(R.string.whatToDoWithIntentPair));
 		alertDialogBuilder.setItems(new String[]{getResources().getString(R.string.delete)}, new DialogInterface.OnClickListener()
 		{			
@@ -470,7 +470,7 @@ public class ActivityManageStartActivity extends Activity
 			public void onClick(DialogInterface dialog, int which)
 			{
 				// Only 1 choice at the moment, no need to check
-				ActivityManageStartActivity.this.intentPairList.remove(itemPosition);
+				ActivityManageActionStartActivity.this.intentPairList.remove(itemPosition);
 				updateIntentPairList();
 			}
 		});
@@ -484,7 +484,7 @@ public class ActivityManageStartActivity extends Activity
 		@Override
 		protected Void doInBackground(Void... params)
 		{
-			getActivityList(ActivityManageStartActivity.this);
+			getActivityList(ActivityManageActionStartActivity.this);
 			return null;
 		}
 

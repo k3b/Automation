@@ -137,12 +137,12 @@
         <receiver android:name=".receivers.TimeZoneListener" />
 
         <activity android:name=".ActivityManageRule" />
-        <activity android:name=".ActivityEditTriggerUrl" />
+        <activity android:name=".ActivityManageActionTriggerUrl" />
         <activity android:name=".ActivityDisplayLongMessage" />
-        <activity android:name=".ActivityEditSendTextMessage" />
+        <activity android:name=".ActivityManageActionSendTextMessage" />
         <activity android:name=".ActivityManageActionPlaySound" />
-        <activity android:name=".ActivityManageTimeFrame" />
-        <activity android:name=".ActivityManageBrightnessSetting" />
+        <activity android:name=".ActivityManageTriggerTimeFrame" />
+        <activity android:name=".ActivityManageActionBrightnessSetting" />
         <activity android:name=".ActivityHelp" />
         <activity
             android:name=".ActivityMainTabLayout"
@@ -180,10 +180,10 @@
         <activity android:name=".ActivityMainPoi" />
         <activity android:name=".ActivityMainRules" />
         <activity android:name=".ActivityGeneric" />
-        <activity android:name=".ActivityManageStartActivity" />
-        <activity android:name=".ActivityManageNfc" />
-        <activity android:name=".ActivityEditSpeakText" />
-        <activity android:name=".ActivityManageBluetoothTrigger" />
+        <activity android:name=".ActivityManageActionStartActivity" />
+        <activity android:name=".ActivityManageTriggerNfc" />
+        <activity android:name=".ActivityManageActionSpeakText" />
+        <activity android:name=".ActivityManageTriggerBluetooth" />
         <activity android:name=".ActivityMainProfiles" />
         <activity android:name=".ActivityManageProfile" />
         <activity android:name=".ActivityVolumeTest" />
@@ -217,6 +217,12 @@
             </intent-filter>
 
         </service>
+
+        <provider
+            android:name=".FileShareProvider"
+            android:authorities="com.jens.automation2"
+            android:exported="true"
+            />
 
     </application>
 

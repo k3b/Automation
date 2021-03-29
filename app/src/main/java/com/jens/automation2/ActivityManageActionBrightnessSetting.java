@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-public class ActivityManageBrightnessSetting extends Activity
+public class ActivityManageActionBrightnessSetting extends Activity
 {
     CheckBox chkAutoBrightness;
     SeekBar sbBrightness;

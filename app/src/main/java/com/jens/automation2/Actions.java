@@ -7,9 +7,12 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.PowerManager;
@@ -473,7 +476,17 @@ public class Actions
 			MediaPlayer mp = new MediaPlayer();
 			try
 			{
-				mp.setDataSource(soundFileLocation);
+				Uri fileUri = Uri.parse(soundFileLocation);
+				mp.setLooping(false);
+				mp.setDataSource(Miscellaneous.getAnyContext(), fileUri);
+				mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
+				{
+					@Override
+					public void onCompletion(MediaPlayer mp)
+					{
+						mp.release();
+					}
+				});
 				mp.prepare();
 				mp.start();
 			}

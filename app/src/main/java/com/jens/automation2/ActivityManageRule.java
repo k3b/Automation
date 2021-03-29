@@ -237,8 +237,8 @@ public class ActivityManageRule extends Activity
 //					case speed:
 //						break;
 					case timeFrame:
-						ActivityManageTimeFrame.editedTimeFrameTrigger = selectedTrigger;
-						Intent timeFrameEditor = new Intent(ActivityManageRule.this, ActivityManageTimeFrame.class);
+						ActivityManageTriggerTimeFrame.editedTimeFrameTrigger = selectedTrigger;
+						Intent timeFrameEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerTimeFrame.class);
 						startActivityForResult(timeFrameEditor, requestCodeTriggerTimeframeEdit);
 						break;
 //					case usb_host_connection:
@@ -246,8 +246,8 @@ public class ActivityManageRule extends Activity
 //					case wifiConnection:
 //						break;
 					case bluetoothConnection:
-						ActivityManageBluetoothTrigger.editedBluetoothTrigger = selectedTrigger;
-						Intent bluetoothEditor = new Intent(ActivityManageRule.this, ActivityManageBluetoothTrigger.class);
+						ActivityManageTriggerBluetooth.editedBluetoothTrigger = selectedTrigger;
+						Intent bluetoothEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerBluetooth.class);
 						startActivityForResult(bluetoothEditor, requestCodeTriggerBluetoothEdit);
 						break;
 					case notification:
@@ -298,15 +298,15 @@ public class ActivityManageRule extends Activity
 //					case setAirplaneMode:
 //						break;
 					case startOtherActivity:
-						Intent intent = new Intent(ActivityManageRule.this, ActivityManageStartActivity.class);
-						ActivityManageStartActivity.resultingAction = a;
+						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionStartActivity.class);
+						ActivityManageActionStartActivity.resultingAction = a;
 						intent.putExtra("edit", true);
 						startActivityForResult(intent, requestCodeActionStartActivityEdit);
 						break;
 					case triggerUrl:
-						Intent activityEditTriggerUrlIntent = new Intent(ActivityManageRule.this, ActivityEditTriggerUrl.class);
+						Intent activityEditTriggerUrlIntent = new Intent(ActivityManageRule.this, ActivityManageActionTriggerUrl.class);
 //						activityEditTriggerUrlIntent.putExtra("urlToTrigger", a.getParameter2());
-						ActivityEditTriggerUrl.resultingAction = a;
+						ActivityManageActionTriggerUrl.resultingAction = a;
 						activityEditTriggerUrlIntent.putExtra("edit", true);
 						startActivityForResult(activityEditTriggerUrlIntent, requestCodeActionTriggerUrlEdit);
 						break;
@@ -331,19 +331,19 @@ public class ActivityManageRule extends Activity
 //					case wakeupDevice:
 //						break;
 					case speakText:
-						Intent activitySpeakTextIntent = new Intent(ActivityManageRule.this, ActivityEditSpeakText.class);
-						ActivityEditSpeakText.resultingAction = a;
+						Intent activitySpeakTextIntent = new Intent(ActivityManageRule.this, ActivityManageActionSpeakText.class);
+						ActivityManageActionSpeakText.resultingAction = a;
 						activitySpeakTextIntent.putExtra("edit", true);
 						startActivityForResult(activitySpeakTextIntent, requestCodeActionSpeakTextEdit);
 						break;
 					case sendTextMessage:
-						Intent activitySendTextMessageIntent = new Intent(ActivityManageRule.this, ActivityEditSendTextMessage.class);
-						ActivityEditSendTextMessage.resultingAction = a;
+						Intent activitySendTextMessageIntent = new Intent(ActivityManageRule.this, ActivityManageActionSendTextMessage.class);
+						ActivityManageActionSendTextMessage.resultingAction = a;
 						activitySendTextMessageIntent.putExtra("edit", true);
 						startActivityForResult(activitySendTextMessageIntent, requestCodeActionSendTextMessage);
 						break;
 					case setScreenBrightness:
-						Intent activityEditScreenBrightnessIntent = new Intent(ActivityManageRule.this, ActivityManageBrightnessSetting.class);
+						Intent activityEditScreenBrightnessIntent = new Intent(ActivityManageRule.this, ActivityManageActionBrightnessSetting.class);
 //						ActivityEditTriggerUrl.resultingAction = a;
 						activityEditScreenBrightnessIntent.putExtra("autoBrightness", a.getParameter1());
 						activityEditScreenBrightnessIntent.putExtra("brightnessValue", Integer.parseInt(a.getParameter2()));
@@ -540,8 +540,8 @@ public class ActivityManageRule extends Activity
 						else if(triggerType == Trigger_Enum.timeFrame)
 						{
 							newTrigger.setTriggerType(Trigger_Enum.timeFrame);
-							ActivityManageTimeFrame.editedTimeFrameTrigger = newTrigger;
-							Intent timeFrameEditor = new Intent(myContext, ActivityManageTimeFrame.class);
+							ActivityManageTriggerTimeFrame.editedTimeFrameTrigger = newTrigger;
+							Intent timeFrameEditor = new Intent(myContext, ActivityManageTriggerTimeFrame.class);
 							startActivityForResult(timeFrameEditor, requestCodeTriggerTimeframeAdd);
 							return;
 						}
@@ -598,7 +598,7 @@ public class ActivityManageRule extends Activity
 							if(NfcReceiver.checkNfcRequirements(ActivityManageRule.this, true))
 							{
 								newTrigger.setTriggerType(Trigger_Enum.nfcTag);
-								Intent nfcEditor = new Intent(myContext, ActivityManageNfc.class);
+								Intent nfcEditor = new Intent(myContext, ActivityManageTriggerNfc.class);
 								startActivityForResult(nfcEditor, requestCodeTriggerNfcTagAdd);
 								return;
 							}
@@ -609,8 +609,8 @@ public class ActivityManageRule extends Activity
 								Miscellaneous.messageBox("Bluetooth", getResources().getString(R.string.deviceDoesNotHaveBluetooth), ActivityManageRule.this).show();;
 
 							newTrigger.setTriggerType(Trigger_Enum.bluetoothConnection);
-							ActivityManageBluetoothTrigger.editedBluetoothTrigger = newTrigger;
-							Intent bluetoothEditor = new Intent(myContext, ActivityManageBluetoothTrigger.class);
+							ActivityManageTriggerBluetooth.editedBluetoothTrigger = newTrigger;
+							Intent bluetoothEditor = new Intent(myContext, ActivityManageTriggerBluetooth.class);
 							startActivityForResult(bluetoothEditor, requestCodeTriggerBluetoothAdd);
 							return;
 						}
@@ -1005,7 +1005,7 @@ public class ActivityManageRule extends Activity
 		protected String[] doInBackground(ActivityManageRule... params)
 		{
 //			Looper.prepare();
-			final String[] applicationArray = ActivityManageStartActivity.getApplicationNameListString(params[0]);
+			final String[] applicationArray = ActivityManageActionStartActivity.getApplicationNameListString(params[0]);
 			return applicationArray;
 		}
 
@@ -1052,7 +1052,7 @@ public class ActivityManageRule extends Activity
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(myContext);
 		alertDialogBuilder.setTitle(myContext.getResources().getString(R.string.selectPackageOfApplication));
-		final String[] packageArray = ActivityManageStartActivity.getPackageListString(myContext, applicationName);
+		final String[] packageArray = ActivityManageActionStartActivity.getPackageListString(myContext, applicationName);
 		alertDialogBuilder.setItems(packageArray, new DialogInterface.OnClickListener()
 		{			
 			@Override
@@ -1072,7 +1072,7 @@ public class ActivityManageRule extends Activity
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(myContext);
 		alertDialogBuilder.setTitle(myContext.getResources().getString(R.string.selectActivityToBeStarted));
-		final String activityArray[] = ActivityManageStartActivity.getActivityListForPackageName(packageName);
+		final String activityArray[] = ActivityManageActionStartActivity.getActivityListForPackageName(packageName);
 		alertDialogBuilder.setItems(activityArray, new DialogInterface.OnClickListener()
 		{			
 			@Override
@@ -1100,7 +1100,7 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK)
 			{
 				//add TriggerUrl
-				ruleToEdit.getActionSet().add(ActivityEditTriggerUrl.resultingAction);
+				ruleToEdit.getActionSet().add(ActivityManageActionTriggerUrl.resultingAction);
 				this.refreshActionList();
 			}
 		}
@@ -1115,7 +1115,7 @@ public class ActivityManageRule extends Activity
 		else if(requestCode == requestCodeTriggerTimeframeAdd)
 		{
 			//add TimeFrame
-			if(resultCode == RESULT_OK && ActivityManageTimeFrame.editedTimeFrameTrigger != null)
+			if(resultCode == RESULT_OK && ActivityManageTriggerTimeFrame.editedTimeFrameTrigger != null)
 			{
 				ruleToEdit.getTriggerSet().add(newTrigger);
 				this.refreshTriggerList();
@@ -1126,7 +1126,7 @@ public class ActivityManageRule extends Activity
 		else if(requestCode == requestCodeTriggerTimeframeEdit)
 		{
 			//edit TimeFrame
-			if(resultCode == RESULT_OK && ActivityManageTimeFrame.editedTimeFrameTrigger != null)
+			if(resultCode == RESULT_OK && ActivityManageTriggerTimeFrame.editedTimeFrameTrigger != null)
 			{
 				this.refreshTriggerList();
 			}
@@ -1138,7 +1138,7 @@ public class ActivityManageRule extends Activity
 			// manage start of other activity
 			if(resultCode == RESULT_OK)
 			{
-				newAction = ActivityManageStartActivity.resultingAction;
+				newAction = ActivityManageActionStartActivity.resultingAction;
 				ruleToEdit.getActionSet().add(newAction);
 				this.refreshActionList();
 			}
@@ -1148,7 +1148,7 @@ public class ActivityManageRule extends Activity
 			// manage start of other activity
 			if(resultCode == RESULT_OK)
 			{
-				newAction = ActivityManageStartActivity.resultingAction;
+				newAction = ActivityManageActionStartActivity.resultingAction;
 //				ruleToEdit.getActionSet().add(newAction);
 				this.refreshActionList();
 			}
@@ -1156,9 +1156,9 @@ public class ActivityManageRule extends Activity
 		else if(requestCode == requestCodeTriggerNfcTagAdd)
 		{
 			//add TimeFrame
-			if(resultCode == RESULT_OK && ActivityManageNfc.generatedId != null)
+			if(resultCode == RESULT_OK && ActivityManageTriggerNfc.generatedId != null)
 			{
-				newTrigger.setNfcTagId(ActivityManageNfc.generatedId);
+				newTrigger.setNfcTagId(ActivityManageTriggerNfc.generatedId);
 				ruleToEdit.getTriggerSet().add(newTrigger);
 				this.refreshTriggerList();
 			}
@@ -1198,7 +1198,7 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK)
 			{
 				//add SpeakText
-				ruleToEdit.getActionSet().add(ActivityEditSpeakText.resultingAction);
+				ruleToEdit.getActionSet().add(ActivityManageActionSpeakText.resultingAction);
 				this.refreshActionList();
 			}
 		}
@@ -1207,14 +1207,14 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK)
 			{
 				//add SpeakText
-				ruleToEdit.getActionSet().add(ActivityEditSendTextMessage.resultingAction);
+				ruleToEdit.getActionSet().add(ActivityManageActionSendTextMessage.resultingAction);
 				this.refreshActionList();
 			}
 		}
 		else if(requestCode == requestCodeTriggerBluetoothAdd)
 		{
 			//add bluetooth trigger
-			if(resultCode == RESULT_OK && ActivityManageBluetoothTrigger.editedBluetoothTrigger != null)
+			if(resultCode == RESULT_OK && ActivityManageTriggerBluetooth.editedBluetoothTrigger != null)
 			{
 				ruleToEdit.getTriggerSet().add(newTrigger);
 				this.refreshTriggerList();
@@ -1225,7 +1225,7 @@ public class ActivityManageRule extends Activity
 		else if(requestCode == requestCodeTriggerBluetoothEdit)
 		{
 			//edit bluetooth trigger
-			if(resultCode == RESULT_OK && ActivityManageBluetoothTrigger.editedBluetoothTrigger != null)
+			if(resultCode == RESULT_OK && ActivityManageTriggerBluetooth.editedBluetoothTrigger != null)
 			{
 				this.refreshTriggerList();
 			}
@@ -1260,7 +1260,7 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK)
 			{
 				newAction.setParameter1(data.getBooleanExtra("actionParameter1", false));
-				newAction.setParameter2(String.valueOf(data.getIntExtra("actionParameter2", 0)));
+				newAction.setParameter2(data.getStringExtra("actionParameter2"));
 				ruleToEdit.getActionSet().add(newAction);
 				this.refreshActionList();
 			}
@@ -1273,7 +1273,7 @@ public class ActivityManageRule extends Activity
 					ruleToEdit.getActionSet().get(editIndex).setParameter1(data.getBooleanExtra("actionParameter1", false));
 
 				if(data.hasExtra("actionParameter2"))
-					ruleToEdit.getActionSet().get(editIndex).setParameter2(String.valueOf(data.getIntExtra("actionParameter2", 0)));
+					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra("actionParameter2"));
 
 				this.refreshActionList();
 			}
@@ -1374,8 +1374,8 @@ public class ActivityManageRule extends Activity
 					{
 						//launch other activity to enter a url and parameters;
 						newAction.setAction(Action_Enum.triggerUrl);
-						ActivityEditTriggerUrl.resultingAction = null;
-						Intent editTriggerIntent = new Intent(context, ActivityEditTriggerUrl.class);
+						ActivityManageActionTriggerUrl.resultingAction = null;
+						Intent editTriggerIntent = new Intent(context, ActivityManageActionTriggerUrl.class);
 						startActivityForResult(editTriggerIntent, 1000);
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setWifi.toString()))
@@ -1422,7 +1422,7 @@ public class ActivityManageRule extends Activity
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.startOtherActivity.toString()))
 					{
 						newAction.setAction(Action_Enum.startOtherActivity);
-						Intent intent = new Intent(ActivityManageRule.this, ActivityManageStartActivity.class);
+						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionStartActivity.class);
 						startActivityForResult(intent, 3000);
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.waitBeforeNextAction.toString()))
@@ -1455,8 +1455,8 @@ public class ActivityManageRule extends Activity
 					{
 						//launch other activity to enter a url and parameters;
 						newAction.setAction(Action_Enum.speakText);
-						ActivityEditSpeakText.resultingAction = null;
-						Intent editTriggerIntent = new Intent(context, ActivityEditSpeakText.class);
+						ActivityManageActionSpeakText.resultingAction = null;
+						Intent editTriggerIntent = new Intent(context, ActivityManageActionSpeakText.class);
 						startActivityForResult(editTriggerIntent, 5000);
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.sendTextMessage.toString()))
@@ -1466,8 +1466,8 @@ public class ActivityManageRule extends Activity
 						{
 							//launch other activity to enter parameters;
 							newAction.setAction(Action_Enum.sendTextMessage);
-							ActivityEditSendTextMessage.resultingAction = null;
-							Intent editTriggerIntent = new Intent(context, ActivityEditSendTextMessage.class);
+							ActivityManageActionSendTextMessage.resultingAction = null;
+							Intent editTriggerIntent = new Intent(context, ActivityManageActionSendTextMessage.class);
 							startActivityForResult(editTriggerIntent, 5001);
 						}
 					}
@@ -1480,7 +1480,7 @@ public class ActivityManageRule extends Activity
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setScreenBrightness.toString()))
 					{
 						newAction.setAction(Action_Enum.setScreenBrightness);
-						Intent actionScreenBrightnessIntent = new Intent(context, ActivityManageBrightnessSetting.class);
+						Intent actionScreenBrightnessIntent = new Intent(context, ActivityManageActionBrightnessSetting.class);
 						startActivityForResult(actionScreenBrightnessIntent, requestCodeActionScreenBrightnessAdd);
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.playSound.toString()))

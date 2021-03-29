@@ -33,7 +33,8 @@ public class CompensateCrappyAndroidPaths
      * @param uri     The Uri to query.
      */
     @SuppressLint("NewApi")
-    public static String getPath(final Context context, final Uri uri) {
+    public static String getPath(final Context context, final Uri uri)
+    {
         // check here to KITKAT or new version
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
         String selection = null;

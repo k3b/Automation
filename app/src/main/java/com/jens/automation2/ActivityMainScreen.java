@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Xml;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,6 +30,8 @@ import com.jens.automation2.AutomationService.serviceCommands;
 import com.jens.automation2.Trigger.Trigger_Enum;
 import com.jens.automation2.location.LocationProvider;
 
+import java.io.File;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -39,7 +42,7 @@ public class ActivityMainScreen extends ActivityGeneric
 
 	private static ActivityMainScreen activityMainScreenInstance = null;
 	private ToggleButton toggleService, tbLockSound;
-	private Button bShowHelp, bPrivacy, bSettingsErase, bSettingsSetToDefault, bVolumeTest, bAddSoundLockTIme;
+	private Button bShowHelp, bPrivacy, bSettingsErase, bSettingsSetToDefault, bVolumeTest, bAddSoundLockTIme, bShareConfigAndLog;
 	private TextView tvActivePoi, tvClosestPoi, tvLastRule, tvMainScreenNotePermissions, tvMainScreenNoteFeaturesFromOtherFlavor, tvMainScreenNoteLocationImpossibleBlameGoogle, tvMainScreenNoteNews, tvlockSoundDuration, tvFileStoreLocation;
 
 	private ListView lvRuleHistory;
@@ -76,6 +79,9 @@ public class ActivityMainScreen extends ActivityGeneric
 		tvlockSoundDuration = (TextView)findViewById(R.id.tvlockSoundDuration);
 		tvFileStoreLocation = (TextView)findViewById(R.id.tvFileStoreLocation);
 		tbLockSound = (ToggleButton) findViewById(R.id.tbLockSound);
+		bVolumeTest = (Button) findViewById(R.id.bVolumeTest);
+		bSettingsSetToDefault = (Button) findViewById(R.id.bSettingsSetToDefault);
+		bShareConfigAndLog = (Button) findViewById(R.id.bShareConfigAndLog);
 		toggleService = (ToggleButton) findViewById(R.id.tbArmMastListener);
 		toggleService.setChecked(AutomationService.isMyServiceRunning(this));
 		toggleService.setOnCheckedChangeListener(new OnCheckedChangeListener()
@@ -135,7 +141,6 @@ public class ActivityMainScreen extends ActivityGeneric
 			}
 		});
 
-		Button bVolumeTest = (Button) findViewById(R.id.bVolumeTest);
 		bVolumeTest.setOnClickListener(new OnClickListener()
 		{
 			@Override
@@ -179,22 +184,21 @@ public class ActivityMainScreen extends ActivityGeneric
 			}
 		});
 		
-		/*bSettingsErase = (Button)findViewById(R.id.bSettingsErase);
-		bSettingsErase.setOnClickListener(new OnClickListener()
-		{			
-			@Override
-			public void onClick(View v)
-			{
-				getEraseSettingsDialog(ActivityMainScreen.this).show();
-			}
-		});*/
-		bSettingsSetToDefault = (Button) findViewById(R.id.bSettingsSetToDefault);
 		bSettingsSetToDefault.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
 				getDefaultSettingsDialog(ActivityMainScreen.this).show();
+			}
+		});
+
+		bShareConfigAndLog.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				getShareConfigAndLogDialogue(ActivityMainScreen.this).show();
 			}
 		});
 
@@ -271,6 +275,58 @@ public class ActivityMainScreen extends ActivityGeneric
 			{
 				if (Settings.initializeSettings(context, true))
 					Toast.makeText(context, context.getResources().getString(R.string.settingsSetToDefault), Toast.LENGTH_LONG).show();
+			}
+		});
+		alertDialogBuilder.setNegativeButton(context.getResources().getString(R.string.no), null);
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		return alertDialog;
+	}
+
+	AlertDialog getShareConfigAndLogDialogue(final Context context)
+	{
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+		alertDialogBuilder.setTitle(context.getResources().getString(R.string.shareConfigAndLogFilesWithDev));
+		alertDialogBuilder.setMessage(context.getResources().getString(R.string.shareConfigAndLogExplanation));
+		alertDialogBuilder.setPositiveButton(context.getResources().getString(R.string.yes), new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				File dstZipFile = new File(Miscellaneous.getAnyContext().getCacheDir() + "/" + Settings.zipFileName);
+
+				ArrayList<String> srcFilesList = new ArrayList<>();
+				srcFilesList.add(Miscellaneous.getWriteableFolder() + "/" + XmlFileInterface.settingsFileName);
+
+				String logFilePath = Miscellaneous.getWriteableFolder() + "/" + Miscellaneous.logFileName;
+				if((new File(logFilePath)).exists())
+					srcFilesList.add(logFilePath);
+
+				String[] srcFiles = srcFilesList.toArray(new String[srcFilesList.size()]);
+
+				if(dstZipFile.exists())
+					dstZipFile.delete();
+
+				Miscellaneous.zip(srcFiles, dstZipFile.getAbsolutePath());
+
+				/*
+					Without root the zip file in the cache directory is not directly accessible.
+					But have to route it through this content provider crap.
+				 */
+
+				String subject = "Automation logs";
+
+				StringBuilder emailBody = new StringBuilder();
+				emailBody.append("Device details" + Miscellaneous.lineSeparator);
+				emailBody.append("OS version: " + System.getProperty("os.version") + Miscellaneous.lineSeparator);
+				emailBody.append("API Level: " + android.os.Build.VERSION.SDK + Miscellaneous.lineSeparator);
+				emailBody.append("Device: " + android.os.Build.DEVICE + Miscellaneous.lineSeparator);
+				emailBody.append("Model: " + android.os.Build.MODEL + Miscellaneous.lineSeparator);
+				emailBody.append("Product: " + android.os.Build.PRODUCT);
+
+				Uri uri = Uri.parse("content://com.jens.automation2/" + Settings.zipFileName);
+
+				Miscellaneous.sendEmail(ActivityMainScreen.this, "android-development@gmx.de", "Automation logs", emailBody.toString(), uri);
 			}
 		});
 		alertDialogBuilder.setNegativeButton(context.getResources().getString(R.string.no), null);
@@ -458,7 +514,31 @@ public class ActivityMainScreen extends ActivityGeneric
 
 			String folder = Miscellaneous.getWriteableFolder();
 			if(folder != null && folder.length() > 0)
+			{
 				activityMainScreenInstance.tvFileStoreLocation.setText(String.format(activityMainScreenInstance.getResources().getString(R.string.filesStoredAt), folder));
+				activityMainScreenInstance.tvFileStoreLocation.setOnClickListener(new OnClickListener()
+				{
+					@Override
+					public void onClick(View v)
+					{
+						Uri selectedUri = Uri.parse(folder);
+						Intent intent = new Intent(Intent.ACTION_VIEW);
+						intent.setDataAndType(selectedUri, "resource/folder");
+
+						if (intent.resolveActivityInfo(activityMainScreenInstance.getPackageManager(), 0) != null)
+						{
+							activityMainScreenInstance.startActivity(intent);
+						}
+						else
+						{
+							// if you reach this place, it means there is no any file
+							// explorer app installed on your device
+							Toast.makeText(activityMainScreenInstance, activityMainScreenInstance.getResources().getString(R.string.noFileManageInstalled), Toast.LENGTH_LONG).show();
+						}
+
+					}
+				});
+			}
 		}
 	}
 

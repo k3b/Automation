@@ -217,11 +217,11 @@ public class Action
 		}
 		else if(this.getAction().equals(Action_Enum.playSound))
 		{
-			returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.playSound) + ": " + getParameter2());
+			returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.playSound));
 		}
 		else
 			returnString.append(action.toString());
-		
+
 		if(this.getAction().equals(Action_Enum.triggerUrl))
 		{
 			String[] components = parameter2.split(";");

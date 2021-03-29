@@ -562,7 +562,7 @@ Selezionare su “Continua” quando si è pronti a procedere.</string>
     <string name="wifiState">Stato Wifi</string>
     <string name="with">con</string>
     <string name="withLabel">con etichetta</string>
-    <string name="writeLogFileToSd">Memorizza un file di log su SD card</string>
+    <string name="writeLogFile">Memorizza un file di log</string>
     <string name="writingSettingsToPersistentMemory">Scrivo le impostazioni nella memoria di massa.</string>
     <string name="yes">Si</string>
     <string name="edit">Elaborare</string>

@@ -11,6 +11,13 @@
 	    android:orientation="vertical" >
 
 		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/notification"
+			android:textSize="25dp"
+			android:layout_marginBottom="@dimen/default_margin" />
+
+		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="@dimen/default_margin"
@@ -79,7 +86,7 @@
 					android:text="@string/title" />
 
 				<LinearLayout
-					android:orientation="horizontal"
+					android:orientation="vertical"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content">
 
@@ -108,7 +115,7 @@
 					android:text="@string/text" />
 
 				<LinearLayout
-					android:orientation="horizontal"
+					android:orientation="vertical"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content">
 

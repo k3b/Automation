@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.jens.automation2.receivers.NfcReceiver;
 
 @SuppressLint("NewApi")
-public class ActivityManageNfc extends Activity
+public class ActivityManageTriggerNfc extends Activity
 {
 	public static String generatedId = null;
 	private static Tag discoveredTag = null;
@@ -39,7 +39,7 @@ public class ActivityManageNfc extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.manage_nfc);
+		setContentView(R.layout.activity_manage_trigger_nfc);
 		
 		etNewNfcIdValue = (EditText)findViewById(R.id.etNewNfcIdValue);
 		bReadNfcTag = (Button)findViewById(R.id.bReadNfcTag);
@@ -59,7 +59,7 @@ public class ActivityManageNfc extends Activity
 				}
 				else
 				{
-					progressDialog = ProgressDialog.show(ActivityManageNfc.this, null, getResources().getString(R.string.nfcBringTagIntoRange), false, true, new OnCancelListener()
+					progressDialog = ProgressDialog.show(ActivityManageTriggerNfc.this, null, getResources().getString(R.string.nfcBringTagIntoRange), false, true, new OnCancelListener()
 					{							
 						@Override
 						public void onCancel(DialogInterface dialog)
@@ -88,7 +88,7 @@ public class ActivityManageNfc extends Activity
 				}
 				else
 				{
-					progressDialog = ProgressDialog.show(ActivityManageNfc.this, null, getResources().getString(R.string.nfcBringTagIntoRange), false, true, new OnCancelListener()
+					progressDialog = ProgressDialog.show(ActivityManageTriggerNfc.this, null, getResources().getString(R.string.nfcBringTagIntoRange), false, true, new OnCancelListener()
 					{							
 						@Override
 						public void onCancel(DialogInterface dialog)
@@ -118,7 +118,7 @@ public class ActivityManageNfc extends Activity
 					}
 					else
 					{
-						progressDialog = ProgressDialog.show(ActivityManageNfc.this, null, getResources().getString(R.string.nfcBringTagIntoRange), false, true, new OnCancelListener()
+						progressDialog = ProgressDialog.show(ActivityManageTriggerNfc.this, null, getResources().getString(R.string.nfcBringTagIntoRange), false, true, new OnCancelListener()
 						{							
 							@Override
 							public void onCancel(DialogInterface dialog)
@@ -255,7 +255,7 @@ public class ActivityManageNfc extends Activity
 		if(generatedId.length() == 0)
 		{
 			generatedId = null;
-			Toast.makeText(ActivityManageNfc.this, getResources().getString(R.string.nfcEnterValidIdentifier), Toast.LENGTH_LONG).show();
+			Toast.makeText(ActivityManageTriggerNfc.this, getResources().getString(R.string.nfcEnterValidIdentifier), Toast.LENGTH_LONG).show();
 			return false;
 		}
 		else
@@ -267,14 +267,14 @@ public class ActivityManageNfc extends Activity
 		if(NfcReceiver.writeTag(generatedId, discoveredTag))
 		{
 			currentStatus = 0;
-			Toast.makeText(ActivityManageNfc.this, getResources().getString(R.string.nfcTagWrittenSuccessfully), Toast.LENGTH_LONG).show();
+			Toast.makeText(ActivityManageTriggerNfc.this, getResources().getString(R.string.nfcTagWrittenSuccessfully), Toast.LENGTH_LONG).show();
 			setResult(RESULT_OK);
 			finish();
 		}
 		else
 		{
 			currentStatus = 0;
-			Toast.makeText(ActivityManageNfc.this, getResources().getString(R.string.nfcTagWriteError), Toast.LENGTH_LONG).show();
+			Toast.makeText(ActivityManageTriggerNfc.this, getResources().getString(R.string.nfcTagWriteError), Toast.LENGTH_LONG).show();
 			Miscellaneous.logEvent("e", "NFC", getResources().getString(R.string.nfcTagWriteError), 2);
 		}		
 	}
@@ -285,14 +285,14 @@ public class ActivityManageNfc extends Activity
 		if(checkEnteredText(false))
 		{
 			currentStatus = 0;
-			Toast.makeText(ActivityManageNfc.this, getResources().getString(R.string.nfcTagReadSuccessfully), Toast.LENGTH_LONG).show();
+			Toast.makeText(ActivityManageTriggerNfc.this, getResources().getString(R.string.nfcTagReadSuccessfully), Toast.LENGTH_LONG).show();
 			setResult(RESULT_OK);
 			finish();
 		}
 		else
 		{
 			currentStatus = 0;
-			Toast.makeText(ActivityManageNfc.this, getResources().getString(R.string.nfcValueNotSuitable), Toast.LENGTH_LONG).show();
+			Toast.makeText(ActivityManageTriggerNfc.this, getResources().getString(R.string.nfcValueNotSuitable), Toast.LENGTH_LONG).show();
 			generatedId = null;
 		}
 	}

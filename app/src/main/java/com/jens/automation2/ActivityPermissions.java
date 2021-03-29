@@ -244,6 +244,12 @@ public class ActivityPermissions extends Activity
                         if (!havePermission(s, context))
                             return true;
                 }
+                else if(s.equalsIgnoreCase("android.permission.ACTIVITY_RECOGNITION") || s.equalsIgnoreCase("com.google.android.gms.permission.ACTIVITY_RECOGNITION"))
+                {
+                    if(!BuildConfig.FLAVOR.equalsIgnoreCase("fdroidFlavor"))
+                        if (!havePermission(s, context))
+                            return true;
+                }
                 else
                     if (!havePermission(s, context))
                         return true;
@@ -302,12 +308,15 @@ public class ActivityPermissions extends Activity
 //            if (!havePermission(ActivityPermissions.writeExternalStoragePermissionName, workingContext))
 //                addToArrayListUnique(ActivityPermissions.writeExternalStoragePermissionName, requiredPermissions);
 
-            for(Profile profile : Profile.getProfileCollection())
+            if(!havePermission(writeSystemSettingsPermissionName, workingContext))
             {
-               if(profile.changeIncomingCallsRingtone)
-               {
-                   addToArrayListUnique("android.permission.WRITE_SETTINGS", requiredPermissions);
-               }
+                for (Profile profile : Profile.getProfileCollection())
+                {
+                    if (profile.changeIncomingCallsRingtone)
+                    {
+                        addToArrayListUnique(writeSystemSettingsPermissionName, requiredPermissions);
+                    }
+                }
             }
 
             if (!onlyGeneral)
@@ -327,6 +336,11 @@ public class ActivityPermissions extends Activity
                             )
                             {
                                 if (!Miscellaneous.googleToBlameForLocation(true))
+                                    addToArrayListUnique(singlePermission, requiredPermissions);
+                            }
+                            else if(singlePermission.equalsIgnoreCase("android.permission.ACTIVITY_RECOGNITION") || singlePermission.equalsIgnoreCase("com.google.android.gms.permission.ACTIVITY_RECOGNITION"))
+                            {
+                                if(!BuildConfig.FLAVOR.equalsIgnoreCase("fdroidFlavor"))
                                     addToArrayListUnique(singlePermission, requiredPermissions);
                             }
                             else

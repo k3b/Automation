@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.jens.automation2.Action.Action_Enum;
 
-public class ActivityEditSpeakText extends Activity
+public class ActivityManageActionSpeakText extends Activity
 {
 	private Button bSaveSpeakText;
 	private EditText etSpeakText;
@@ -48,9 +48,9 @@ public class ActivityEditSpeakText extends Activity
 			}
 		});
 		
-		ActivityEditSpeakText.edit = getIntent().getBooleanExtra("edit", false);
+		ActivityManageActionSpeakText.edit = getIntent().getBooleanExtra("edit", false);
 		if(edit)
-			etSpeakText.setText(ActivityEditSpeakText.resultingAction.getParameter2());
+			etSpeakText.setText(ActivityManageActionSpeakText.resultingAction.getParameter2());
 		
 
 //		String url = getIntent().getStringExtra("urlToTrigger");
@@ -66,7 +66,7 @@ public class ActivityEditSpeakText extends Activity
 //		setResult(RESULT_OK, returnIntent);
 		
 		if(edit && resultingAction != null)
-			ActivityEditSpeakText.resultingAction.setParameter2(etSpeakText.getText().toString());
+			ActivityManageActionSpeakText.resultingAction.setParameter2(etSpeakText.getText().toString());
 		
 		setResult(RESULT_OK);
 		

@@ -16,6 +16,7 @@ public class Settings implements SharedPreferences
 	public static final int newsPollEveryXDays = 3;
 	public static final int newsDisplayForXDays = 3;
 	public static final String folderName = "Automation";
+	public static final String zipFileName = "automation.zip";
 
 	public static final String constNewsOptInDone ="newsOptInDone";
 

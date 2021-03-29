@@ -3,7 +3,9 @@ package com.jens.automation2;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Looper;
+import android.service.notification.StatusBarNotification;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,6 +16,7 @@ import com.jens.automation2.receivers.ConnectivityReceiver;
 import com.jens.automation2.receivers.HeadphoneJackListener;
 import com.jens.automation2.receivers.NfcReceiver;
 import com.jens.automation2.receivers.NoiseListener;
+import com.jens.automation2.receivers.NotificationListener;
 import com.jens.automation2.receivers.PhoneStatusListener;
 import com.jens.automation2.receivers.ProcessListener;
 
@@ -22,6 +25,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import static com.jens.automation2.Trigger.triggerParameter2Split;
+import static com.jens.automation2.receivers.NotificationListener.EXTRA_TEXT;
+import static com.jens.automation2.receivers.NotificationListener.EXTRA_TITLE;
 
 public class Rule implements Comparable<Rule>
 {
@@ -831,6 +837,8 @@ public class Rule implements Comparable<Rule>
 	
 	private class ActivateRuleTask extends AsyncTask<Object, String, Void>
 	{
+		boolean wasActivated = false;
+
 		@Override
 		protected Void doInBackground(Object... params)
 		{
@@ -863,16 +871,23 @@ public class Rule implements Comparable<Rule>
 		@Override
 		protected void onPostExecute(Void result)
 		{
-			AutomationService.updateNotification();
-			ActivityMainScreen.updateMainScreen();
-			super.onPostExecute(result);
+			/*
+			 	Only update if the rules was actually executed. Became necessary for the notification trigger. If a user created a rule
+			 	with a notification trigger and this app creates a notification itself this will otherwise end in an infinite loop.
+			 */
+			if(wasActivated)
+			{
+				AutomationService.updateNotification();
+				ActivityMainScreen.updateMainScreen();
+				super.onPostExecute(result);
+			}
 		}	
 		
 		/**
 		 * Will activate the rule. Should be called by a separate execution thread
 		 * @param automationService
 		 */
-		protected void activateInternally(AutomationService automationService, boolean force)
+		protected boolean activateInternally(AutomationService automationService, boolean force)
 		{
 			boolean isActuallyToggable = isActuallyToggable();
 			
@@ -919,8 +934,11 @@ public class Rule implements Comparable<Rule>
 			else
 			{
 				Miscellaneous.logEvent("i", "Rule", "Request to activate rule " + Rule.this.getName() + ", but it is the last one that was activated. Won't do it again.", 3);
+				return false;
 			}
-		}	
+
+			return true;
+		}
 	}	
 	
 	public void activate(AutomationService automationService, boolean force)

@@ -7,17 +7,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+
+import java.io.File;
 
 public class ActivityManageActionPlaySound extends Activity
 {
     final static int PICKFILE_RESULT_CODE = 4711;
 
     CheckBox chkPlaySoundAlwaysPlay;
-    TextView tvSelectedSoundFile;
+    EditText etSelectedSoundFile;
     Button bSelectSoundFile, bSavePlaySound;
 
     @Override
@@ -27,7 +30,7 @@ public class ActivityManageActionPlaySound extends Activity
         setContentView(R.layout.activity_manage_play_sound);
 
         chkPlaySoundAlwaysPlay = (CheckBox)findViewById(R.id.chkPlaySoundAlwaysPlay);
-        tvSelectedSoundFile = (TextView)findViewById(R.id.tvSelectedSoundFile);
+        etSelectedSoundFile = (EditText)findViewById(R.id.etSelectedSoundFile);
         bSelectSoundFile = (Button)findViewById(R.id.bSelectSoundFile);
         bSavePlaySound = (Button)findViewById(R.id.bSavePlaySound);
 
@@ -38,7 +41,7 @@ public class ActivityManageActionPlaySound extends Activity
             boolean param1 = getIntent().getBooleanExtra("actionParameter1", false);
             String param2 = getIntent().getStringExtra("actionParameter2");
             chkPlaySoundAlwaysPlay.setChecked(param1);
-            tvSelectedSoundFile.setText(param2);
+            etSelectedSoundFile.setText(param2);
         }
 
         bSelectSoundFile.setOnClickListener(new View.OnClickListener()
@@ -66,15 +69,24 @@ public class ActivityManageActionPlaySound extends Activity
 
     void savePlaySoundSettings()
     {
-        if(tvSelectedSoundFile.getText().toString() == null || tvSelectedSoundFile.getText().toString().length() == 0)
+        if(etSelectedSoundFile.getText().toString() == null || etSelectedSoundFile.getText().toString().length() == 0)
         {
             Toast.makeText(ActivityManageActionPlaySound.this, getResources().getString(R.string.selectSoundFile), Toast.LENGTH_LONG).show();
             return;
         }
+        else
+        {
+            File soundFile = new File(etSelectedSoundFile.getText().toString());
+            if(!soundFile.exists())
+            {
+                Toast.makeText(ActivityManageActionPlaySound.this, getResources().getString(R.string.fileDoesNotExist), Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
 
         Intent returnData = new Intent();
         returnData.putExtra("actionParameter1", chkPlaySoundAlwaysPlay.isChecked());
-        returnData.putExtra("actionParameter2", tvSelectedSoundFile.getText().toString());
+        returnData.putExtra("actionParameter2", etSelectedSoundFile.getText().toString());
 
         setResult(RESULT_OK, returnData);
         finish();
@@ -90,8 +102,8 @@ public class ActivityManageActionPlaySound extends Activity
             if(requestCode == PICKFILE_RESULT_CODE)
             {
                 Uri fileUri = data.getData();
-                String filePath = fileUri.getPath();
-                tvSelectedSoundFile.setText(filePath);
+                String filePath = CompensateCrappyAndroidPaths.getPath(ActivityManageActionPlaySound.this, fileUri);
+                etSelectedSoundFile.setText(filePath);
             }
         }
     }

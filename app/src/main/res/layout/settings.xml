@@ -31,7 +31,7 @@
         <CheckBoxPreference
 	     android:key="writeLogFile"
 	     android:summary="@string/onOff"
-	     android:title="@string/writeLogFileToSd" />
+	     android:title="@string/writeLogFile" />
         
         <EditTextPreference
             android:key="logLevel"

@@ -22,6 +22,7 @@ import android.provider.MediaStore;
 import android.provider.Settings.Secure;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.jens.automation2.location.LocationProvider;
 import com.jens.automation2.receivers.PhoneStatusListener;
@@ -42,6 +43,8 @@ import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -71,6 +74,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -84,11 +90,12 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import androidx.core.app.NotificationCompat;
 
+import static android.provider.CalendarContract.CalendarCache.URI;
 import static com.jens.automation2.AutomationService.NOTIFICATION_CHANNEL_ID;
 import static com.jens.automation2.AutomationService.channelName;
 
 public class Miscellaneous extends Service
-{	
+{
 	protected static String writeableFolderStringCache = null;
 	public static final String lineSeparator = System.getProperty("line.separator");
 	
@@ -1225,5 +1232,99 @@ public class Miscellaneous extends Service
 		}
 
 		return false;
+	}
+
+	public static void zip(String[] _files, String zipFileName)
+	{
+		int BUFFER = 2048;
+		try
+		{
+			BufferedInputStream origin = null;
+			FileOutputStream dest = new FileOutputStream(zipFileName);
+			ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(
+					dest));
+			byte data[] = new byte[BUFFER];
+
+			for (int i = 0; i < _files.length; i++)
+			{
+				Log.v("Compress", "Adding: " + _files[i]);
+				FileInputStream fi = new FileInputStream(_files[i]);
+				origin = new BufferedInputStream(fi, BUFFER);
+
+				ZipEntry entry = new ZipEntry(_files[i].substring(_files[i].lastIndexOf("/") + 1));
+				out.putNextEntry(entry);
+				int count;
+
+				while ((count = origin.read(data, 0, BUFFER)) != -1)
+				{
+					out.write(data, 0, count);
+				}
+				origin.close();
+			}
+
+			out.close();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public static void unzip(String _zipFile, String _targetLocation)
+	{
+		int BUFFER = 2048;
+
+		try
+		{
+			FileInputStream fin = new FileInputStream(_zipFile);
+			ZipInputStream zin = new ZipInputStream(fin);
+			ZipEntry ze = null;
+			while ((ze = zin.getNextEntry()) != null)
+			{
+				//create dir if required while unzipping
+				if (ze.isDirectory())
+				{
+			//		dirChecker(ze.getName());
+				}
+				else
+				{
+					FileOutputStream fout = new FileOutputStream(_targetLocation + ze.getName());
+					for (int c = zin.read(); c != -1; c = zin.read())
+					{
+						fout.write(c);
+					}
+
+					zin.closeEntry();
+					fout.close();
+				}
+
+			}
+			zin.close();
+		}
+		catch (Exception e)
+		{
+			System.out.println(e);
+		}
+	}
+
+	public static void sendEmail(Context context, String targetAddress, String subject, String message, Uri fileAttachment)
+	{
+		try
+		{
+			final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+			emailIntent.setType("plain/text");
+			emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{targetAddress});
+			emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
+			if (fileAttachment != null)
+			{
+				emailIntent.putExtra(Intent.EXTRA_STREAM, fileAttachment);
+			}
+			emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, message);
+			context.startActivity(Intent.createChooser(emailIntent, "Sending email..."));
+		}
+		catch (Throwable t)
+		{
+			Toast.makeText(context, "Request failed try again: "+ t.toString(), Toast.LENGTH_LONG).show();
+		}
 	}
 }
