@@ -48,8 +48,19 @@ public class Rule implements Comparable<Rule>
 	private String name;
 	private boolean ruleActive = true;		// rules can be deactivated, so they won't fire if you don't want them temporarily
 	private boolean ruleToggle = false;		// rule will run again and do the opposite of its actions if applicable
+	private Calendar lastExecution;
 	
 	private static Date lastActivatedRuleActivationTime;
+
+	public Calendar getLastExecution()
+	{
+		return lastExecution;
+	}
+
+	public void setLastExecution(Calendar lastExecution)
+	{
+		this.lastExecution = lastExecution;
+	}
 	
 	public boolean isRuleToggle()
 	{
@@ -793,29 +804,43 @@ public class Rule implements Comparable<Rule>
 
 							for (StatusBarNotification sbn : NotificationListener.getInstance().getActiveNotifications())
 							{
-								String app = sbn.getPackageName();
-								String title = sbn.getNotification().extras.getString(EXTRA_TITLE);
-								String text = sbn.getNotification().extras.getString(EXTRA_TEXT);
-
-								if (!myApp.equals("-1"))
+								if(getLastExecution() == null || sbn.getPostTime() > this.lastExecution.getTimeInMillis())
 								{
-									if (!app.equalsIgnoreCase(myApp))
-										continue;
-								}
+									String app = sbn.getPackageName();
+									String title = sbn.getNotification().extras.getString(EXTRA_TITLE);
+									String text = sbn.getNotification().extras.getString(EXTRA_TEXT);
 
-								if (myTitle.length() > 0)
-								{
-									if (!Miscellaneous.compare(myTitleDir, title, myTitle))
-										continue;
-								}
+									Miscellaneous.logEvent("i", "NotificationCheck", "Checking if this notification matches our rule " + this.getName() + ". App: " + app + ", title: " + title + ", text: " + text, 5);
 
-								if (myText.length() > 0)
-								{
-									if (!Miscellaneous.compare(myTextDir, text, myText))
-										continue;
-								}
+									if (!myApp.equals("-1"))
+									{
+										if (!app.equalsIgnoreCase(myApp))
+										{
+											Miscellaneous.logEvent("i", "NotificationCheck", "Notification app name does not match rule.", 5);
+											continue;
+										}
+									}
 
-								foundMatch = true;
+									if (myTitle.length() > 0)
+									{
+										if (!Miscellaneous.compare(myTitleDir, myTitle, title))
+										{
+											Miscellaneous.logEvent("i", "NotificationCheck", "Notification title does not match rule.", 5);
+											continue;
+										}
+									}
+
+									if (myText.length() > 0)
+									{
+										if (!Miscellaneous.compare(myTextDir, myText, text))
+										{
+											Miscellaneous.logEvent("i", "NotificationCheck", "Notification text does not match rule.", 5);
+											continue;
+										}
+									}
+
+									foundMatch = true;
+								}
 							}
 
 							if(!foundMatch)
@@ -883,8 +908,8 @@ public class Rule implements Comparable<Rule>
 			
 	        if (Looper.myLooper() == null)
 	        	Looper.prepare();
-	        
-			activateInternally((AutomationService)params[0], (Boolean)params[1]);
+
+			wasActivated = activateInternally((AutomationService)params[0], (Boolean)params[1]);
 
 			return null;
 		}
@@ -908,6 +933,7 @@ public class Rule implements Comparable<Rule>
 			 */
 			if(wasActivated)
 			{
+				setLastExecution(Calendar.getInstance());
 				AutomationService.updateNotification();
 				ActivityMainScreen.updateMainScreen();
 				super.onPostExecute(result);

@@ -74,7 +74,7 @@ public class NotificationListener extends NotificationListenerService
             checkNotification(false, sbn);
     }
 
-    boolean checkNotification(boolean created, StatusBarNotification sbn)
+    synchronized boolean checkNotification(boolean created, StatusBarNotification sbn)
     {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT)
         {
@@ -89,9 +89,9 @@ public class NotificationListener extends NotificationListenerService
             lastNotification.title = title;
             lastNotification.text = text;
 
-            if(lastResponseToNotification == null || lastResponseToNotification.getTimeInMillis() < lastNotification.publishTime.getTimeInMillis())
-            {
-                lastResponseToNotification = Calendar.getInstance();
+//            if(lastResponseToNotification == null || lastResponseToNotification.getTimeInMillis() < lastNotification.publishTime.getTimeInMillis())
+//            {
+//                lastResponseToNotification = Calendar.getInstance();
 
                 ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.notification);
                 for (int i = 0; i < ruleCandidates.size(); i++)
@@ -99,9 +99,9 @@ public class NotificationListener extends NotificationListenerService
                     if (ruleCandidates.get(i).applies(NotificationListener.this))
                         ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
                 }
-            }
-            else
-                Miscellaneous.logEvent("e", "NotificationCheck", "Ignoring notification as it is old.", 5);
+//            }
+//            else
+//                Miscellaneous.logEvent("e", "NotificationCheck", "Ignoring notification as it is old.", 5);
         }
 
         return false;
