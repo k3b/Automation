@@ -939,7 +939,7 @@ public class Rule implements Comparable<Rule>
 
 			return true;
 		}
-	}	
+	}
 	
 	public void activate(AutomationService automationService, boolean force)
 	{

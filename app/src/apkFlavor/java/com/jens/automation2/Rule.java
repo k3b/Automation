@@ -761,22 +761,33 @@ public class Rule implements Comparable<Rule>
 								String title = sbn.getNotification().extras.getString(EXTRA_TITLE);
 								String text = sbn.getNotification().extras.getString(EXTRA_TEXT);
 
+								Miscellaneous.logEvent("i", "NotificationCheck", "Checking if this notification matches our rule " + this.getName() + ". App: " + app + ", title: " + title + ", text: " + text, 5);
+
 								if (!myApp.equals("-1"))
 								{
 									if (!app.equalsIgnoreCase(myApp))
+									{
+										Miscellaneous.logEvent("i", "NotificationCheck", "Notification app name does not match rule.", 5);
 										continue;
+									}
 								}
 
 								if (myTitle.length() > 0)
 								{
-									if (!Miscellaneous.compare(myTitleDir, title, myTitle))
+									if (!Miscellaneous.compare(myTitleDir, myTitle, title))
+									{
+										Miscellaneous.logEvent("i", "NotificationCheck", "Notification title does not match rule.", 5);
 										continue;
+									}
 								}
 
 								if (myText.length() > 0)
 								{
-									if (!Miscellaneous.compare(myTextDir, text, myText))
+									if (!Miscellaneous.compare(myTextDir, myText, text))
+									{
+										Miscellaneous.logEvent("i", "NotificationCheck", "Notification text does not match rule.", 5);
 										continue;
+									}
 								}
 
 								foundMatch = true;
@@ -832,6 +843,8 @@ public class Rule implements Comparable<Rule>
 	
 	private class ActivateRuleTask extends AsyncTask<Object, String, Void>
 	{
+		boolean wasActivated = false;
+
 		@Override
 		protected Void doInBackground(Object... params)
 		{
@@ -864,27 +877,34 @@ public class Rule implements Comparable<Rule>
 		@Override
 		protected void onPostExecute(Void result)
 		{
-			AutomationService.updateNotification();
-			ActivityMainScreen.updateMainScreen();
-			super.onPostExecute(result);
-		}	
-		
+			/*
+			 	Only update if the rules was actually executed. Became necessary for the notification trigger. If a user created a rule
+			 	with a notification trigger and this app creates a notification itself this will otherwise end in an infinite loop.
+			 */
+			if(wasActivated)
+			{
+				AutomationService.updateNotification();
+				ActivityMainScreen.updateMainScreen();
+				super.onPostExecute(result);
+			}
+		}
+
 		/**
 		 * Will activate the rule. Should be called by a separate execution thread
 		 * @param automationService
 		 */
-		protected void activateInternally(AutomationService automationService, boolean force)
+		protected boolean activateInternally(AutomationService automationService, boolean force)
 		{
 			boolean isActuallyToggable = isActuallyToggable();
-			
+
 			boolean notLastActive = getLastActivatedRule() == null || !getLastActivatedRule().equals(Rule.this);
 			boolean doToggle = ruleToggle && isActuallyToggable;
-			
+
 			if(notLastActive | force | doToggle)
 			{
 				String message;
 				if(!doToggle)
-					 message = String.format(automationService.getResources().getString(R.string.ruleActivate), Rule.this.getName());
+					message = String.format(automationService.getResources().getString(R.string.ruleActivate), Rule.this.getName());
 				else
 					message = String.format(automationService.getResources().getString(R.string.ruleActivateToggle), Rule.this.getName());
 				Miscellaneous.logEvent("i", "Rule", message, 2);
@@ -892,10 +912,10 @@ public class Rule implements Comparable<Rule>
 //				Toast.makeText(automationService, message, Toast.LENGTH_LONG).show();
 				if(Settings.startNewThreadForRuleActivation)
 					publishProgress(message);
-				
+
 				for(int i = 0; i< Rule.this.getActionSet().size(); i++)
 					Rule.this.getActionSet().get(i).run(automationService, doToggle);
-				
+
 				// Keep log of last x rule activations (Settings)
 				try
 				{
@@ -920,9 +940,12 @@ public class Rule implements Comparable<Rule>
 			else
 			{
 				Miscellaneous.logEvent("i", "Rule", "Request to activate rule " + Rule.this.getName() + ", but it is the last one that was activated. Won't do it again.", 3);
+				return false;
 			}
-		}	
-	}	
+
+			return true;
+		}
+	}
 	
 	public void activate(AutomationService automationService, boolean force)
 	{

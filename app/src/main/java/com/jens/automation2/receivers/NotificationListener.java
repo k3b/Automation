@@ -8,10 +8,12 @@ import android.service.notification.StatusBarNotification;
 import androidx.annotation.RequiresApi;
 
 import com.jens.automation2.AutomationService;
+import com.jens.automation2.Miscellaneous;
 import com.jens.automation2.Rule;
 import com.jens.automation2.Trigger;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 // See here for reference: http://gmariotti.blogspot.com/2013/11/notificationlistenerservice-and-kitkat.html
 
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class NotificationListener extends NotificationListenerService
 {
+    static Calendar lastResponseToNotification = null;
     static NotificationListener instance;
     static SimpleNotification lastNotification = null;
 
@@ -80,17 +83,25 @@ public class NotificationListener extends NotificationListenerService
             String text = sbn.getNotification().extras.getString(EXTRA_TEXT);
 
             lastNotification = new SimpleNotification();
+            lastNotification.publishTime = Miscellaneous.calendarFromLong(sbn.getPostTime());
             lastNotification.created = created;
             lastNotification.app = app;
             lastNotification.title = title;
             lastNotification.text = text;
 
-            ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.notification);
-            for(int i=0; i<ruleCandidates.size(); i++)
+            if(lastResponseToNotification == null || lastResponseToNotification.getTimeInMillis() < lastNotification.publishTime.getTimeInMillis())
             {
-                if(ruleCandidates.get(i).applies(NotificationListener.this))
-                    ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
+                lastResponseToNotification = Calendar.getInstance();
+
+                ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.notification);
+                for (int i = 0; i < ruleCandidates.size(); i++)
+                {
+                    if (ruleCandidates.get(i).applies(NotificationListener.this))
+                        ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
+                }
             }
+            else
+                Miscellaneous.logEvent("e", "NotificationCheck", "Ignoring notification as it is old.", 5);
         }
 
         return false;
@@ -99,7 +110,18 @@ public class NotificationListener extends NotificationListenerService
     public static class SimpleNotification
     {
         boolean created;
+        Calendar publishTime;
         String app, title, text;
+
+        public Calendar getPublishTime()
+        {
+            return publishTime;
+        }
+
+        public void setPublishTime(Calendar publishTime)
+        {
+            this.publishTime = publishTime;
+        }
 
         public boolean isCreated()
         {

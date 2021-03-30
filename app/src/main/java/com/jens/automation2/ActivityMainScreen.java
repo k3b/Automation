@@ -302,6 +302,10 @@ public class ActivityMainScreen extends ActivityGeneric
 				if((new File(logFilePath)).exists())
 					srcFilesList.add(logFilePath);
 
+				String logFilePathArchive = Miscellaneous.getWriteableFolder() + "/" + Miscellaneous.logFileName + "-old";
+				if((new File(logFilePathArchive)).exists())
+					srcFilesList.add(logFilePathArchive);
+
 				String[] srcFiles = srcFilesList.toArray(new String[srcFilesList.size()]);
 
 				if(dstZipFile.exists())
@@ -426,9 +430,9 @@ public class ActivityMainScreen extends ActivityGeneric
 						if(
 								Rule.isAnyRuleUsing(Trigger_Enum.pointOfInterest)
 										&&
-								ActivityPermissions.havePermission(ActivityPermissions.permissionNameLocationCoarse, AutomationService.getInstance())
+								ActivityPermissions.havePermission(ActivityPermissions.permissionNameLocationCoarse, Miscellaneous.getAnyContext())
 										&&
-								ActivityPermissions.havePermission(ActivityPermissions.permissionNameLocationFine, AutomationService.getInstance())
+								ActivityPermissions.havePermission(ActivityPermissions.permissionNameLocationFine, Miscellaneous.getAnyContext())
 						  )
 							activityMainScreenInstance.tvActivePoi.setText(activityMainScreenInstance.getResources().getString(R.string.stillGettingPosition));
 						else
