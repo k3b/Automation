@@ -22,8 +22,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.jens.automation2.Action.Action_Enum;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -260,7 +258,7 @@ public class ActivityManageTriggerNotification extends Activity
 		bSaveTriggerNotification = (Button)findViewById(R.id.bSaveTriggerNotification);
 		spinnerTitleDirection = (Spinner)findViewById(R.id.spinnerTitleDirection);
 		spinnerTextDirection = (Spinner)findViewById(R.id.spinnerTextDirection);
-		tvSelectedApplication = (TextView)findViewById(R.id.tvSelectedApplication);
+		tvSelectedApplication = (TextView)findViewById(R.id.etSelectedApplication);
 		chkNotificationDirection = (CheckBox)findViewById(R.id.chkNotificationDirection);
 
 		directions = new String[] {

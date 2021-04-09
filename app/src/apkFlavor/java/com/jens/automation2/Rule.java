@@ -930,7 +930,16 @@ public class Rule implements Comparable<Rule>
 					publishProgress(message);
 
 				for(int i = 0; i< Rule.this.getActionSet().size(); i++)
-					Rule.this.getActionSet().get(i).run(automationService, doToggle);
+				{
+					try
+					{
+						Rule.this.getActionSet().get(i).run(automationService, doToggle);
+					}
+					catch(Exception e)
+					{
+						Miscellaneous.logEvent("e", "RuleExecution", "Error running action of rule " + Rule.this.getName() + ": " + Log.getStackTraceString(e), 1);
+					}
+				}
 
 				// Keep log of last x rule activations (Settings)
 				try

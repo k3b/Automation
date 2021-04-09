@@ -36,6 +36,7 @@ import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.conn.util.InetAddressUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
@@ -476,19 +477,28 @@ public class Actions
 			MediaPlayer mp = new MediaPlayer();
 			try
 			{
-				Uri fileUri = Uri.parse(soundFileLocation);
-				mp.setLooping(false);
-				mp.setDataSource(Miscellaneous.getAnyContext(), fileUri);
-				mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
+				File file = new File(soundFileLocation);
+				if(file.exists())
 				{
-					@Override
-					public void onCompletion(MediaPlayer mp)
+					Uri fileUri = Uri.parse(soundFileLocation);
+					mp.setLooping(false);
+					mp.setDataSource(Miscellaneous.getAnyContext(), fileUri);
+					mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
 					{
-						mp.release();
-					}
-				});
-				mp.prepare();
-				mp.start();
+						@Override
+						public void onCompletion(MediaPlayer mp)
+						{
+							mp.release();
+						}
+					});
+					mp.prepare();
+					mp.start();
+				}
+				else
+				{
+					Miscellaneous.logEvent("w", "Play sound file", "Sound file " + soundFileLocation + " does not exist. Can't play it.", 2);
+					Toast.makeText(context, String.format(context.getResources().getString(R.string.cantFindSoundFile), soundFileLocation), Toast.LENGTH_SHORT).show();
+				}
 			}
 			catch (Exception e)
 			{
@@ -561,7 +571,9 @@ public class Actions
 		Miscellaneous.logEvent("i", "StartOtherActivity", "Starting other Activity...", 4);
 
 		String packageName, className;
+
 		String params[] = param.split(";");
+
 		packageName = params[0];
 		className = params[1];
 
@@ -571,7 +583,11 @@ public class Actions
 			Intent externalActivityIntent = new Intent(Intent.ACTION_MAIN);
 			externalActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 	    	externalActivityIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-	    	externalActivityIntent.setClassName(packageName, className);
+
+	    	if(packageName.equals("dummyPkg"))
+				externalActivityIntent.setAction(className);
+	    	else
+				externalActivityIntent.setClassName(packageName, className);
 
     		// has intent values to deliver
     		for(int i=2; i<params.length; i++)

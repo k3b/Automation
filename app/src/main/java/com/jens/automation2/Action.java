@@ -2,7 +2,9 @@ package com.jens.automation2;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.text.style.TabStopSpan;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.apache.http.client.methods.HttpGet;
 
@@ -329,14 +331,16 @@ public class Action
 	}
 	
 	public void run(Context context, boolean toggleActionIfPossible)
-	{		
-		switch(this.getAction())
+	{
+		try
 		{
-			case changeSoundProfile:
-				/*
-				 * Old version. Those checks should not be necessary anymore. Also they didn't work
-				 * because profiles were created with names like silent, vibrate  and normal.
-				 */			 
+			switch(this.getAction())
+			{
+				case changeSoundProfile:
+					/*
+					 * Old version. Those checks should not be necessary anymore. Also they didn't work
+					 * because profiles were created with names like silent, vibrate  and normal.
+					 */
 //				if(this.getParameter2().equals("silent"))
 //					Actions.setSound(context, AudioManager.RINGER_MODE_SILENT);
 //				else if(this.getParameter2().equals("vibrate"))
@@ -346,70 +350,76 @@ public class Action
 //				else
 //				{
 					Profile p = Profile.getByName(this.getParameter2());
-					if(p != null)
+					if (p != null)
 						p.activate(context);
 //				}
-				break;
-			case triggerUrl:
-				triggerUrl(context);
-				break;
-			case setBluetooth:
-				Actions.setBluetooth(context, getParameter1(), toggleActionIfPossible);
-				break;
-			case setUsbTethering:
-				Actions.setUsbTethering(context, getParameter1(), toggleActionIfPossible);
-				break;
-			case setWifi:
-				Actions.setWifi(context, getParameter1(), toggleActionIfPossible);
-				break;
-			case setWifiTethering:
-				Actions.setWifiTethering(context, getParameter1(), toggleActionIfPossible);
-				break;
-			case setDisplayRotation:
-				Actions.setDisplayRotation(context, getParameter1(), toggleActionIfPossible);
-				break;
-			case startOtherActivity:
-				Actions.startOtherActivity(getParameter2());
-				break;
-			case waitBeforeNextAction:
-				Actions.waitBeforeNextAction(Long.parseLong(this.getParameter2()));
-				break;
-			case wakeupDevice:
-				Actions.wakeupDevice(Long.parseLong(this.getParameter2()));
-				// wakeupDevice() will create a seperate thread. That'll take some time, we wait 100ms.
-				try
-				{
-					Thread.sleep(100);
-				}
-				catch (InterruptedException e)
-				{
-					e.printStackTrace();
-				}
-				break;
-			case setAirplaneMode:
-				Actions.setAirplaneMode(this.getParameter1(), toggleActionIfPossible);
-				break;
-			case setDataConnection:
-				Actions.MobileDataStuff.setDataConnection(this.getParameter1(), toggleActionIfPossible);
-				break;
-			case speakText:
-				Actions.speakText(this.getParameter2());
-				break;
-			case playMusic:
-				Actions.playMusic(this.getParameter1(), toggleActionIfPossible);
-				break;
-			case sendTextMessage:
-				Actions.sendTextMessage(context, this.getParameter2().split(Actions.smsSeparator));
-				break;
-			case setScreenBrightness:
-				Actions.setScreenBrightness(getParameter1(), Integer.parseInt(getParameter2()));
-				break;
-			case playSound:
-				Actions.playSound(getParameter1(), getParameter2());
-				break;
-			default:
-				Miscellaneous.logEvent("w", "Action", context.getResources().getString(R.string.unknownActionSpecified), 3);
-				break;
+					break;
+				case triggerUrl:
+					triggerUrl(context);
+					break;
+				case setBluetooth:
+					Actions.setBluetooth(context, getParameter1(), toggleActionIfPossible);
+					break;
+				case setUsbTethering:
+					Actions.setUsbTethering(context, getParameter1(), toggleActionIfPossible);
+					break;
+				case setWifi:
+					Actions.setWifi(context, getParameter1(), toggleActionIfPossible);
+					break;
+				case setWifiTethering:
+					Actions.setWifiTethering(context, getParameter1(), toggleActionIfPossible);
+					break;
+				case setDisplayRotation:
+					Actions.setDisplayRotation(context, getParameter1(), toggleActionIfPossible);
+					break;
+				case startOtherActivity:
+					Actions.startOtherActivity(getParameter2());
+					break;
+				case waitBeforeNextAction:
+					Actions.waitBeforeNextAction(Long.parseLong(this.getParameter2()));
+					break;
+				case wakeupDevice:
+					Actions.wakeupDevice(Long.parseLong(this.getParameter2()));
+					// wakeupDevice() will create a seperate thread. That'll take some time, we wait 100ms.
+					try
+					{
+						Thread.sleep(100);
+					}
+					catch (InterruptedException e)
+					{
+						e.printStackTrace();
+					}
+					break;
+				case setAirplaneMode:
+					Actions.setAirplaneMode(this.getParameter1(), toggleActionIfPossible);
+					break;
+				case setDataConnection:
+					Actions.MobileDataStuff.setDataConnection(this.getParameter1(), toggleActionIfPossible);
+					break;
+				case speakText:
+					Actions.speakText(this.getParameter2());
+					break;
+				case playMusic:
+					Actions.playMusic(this.getParameter1(), toggleActionIfPossible);
+					break;
+				case sendTextMessage:
+					Actions.sendTextMessage(context, this.getParameter2().split(Actions.smsSeparator));
+					break;
+				case setScreenBrightness:
+					Actions.setScreenBrightness(getParameter1(), Integer.parseInt(getParameter2()));
+					break;
+				case playSound:
+					Actions.playSound(getParameter1(), getParameter2());
+					break;
+				default:
+					Miscellaneous.logEvent("w", "Action", context.getResources().getString(R.string.unknownActionSpecified), 3);
+					break;
+			}
+		}
+		catch(Exception e)
+		{
+			Miscellaneous.logEvent("e", "ActionExecution", Log.getStackTraceString(e), 1);
+			Toast.makeText(context, context.getResources().getString(R.string.errorRunningRule), Toast.LENGTH_LONG).show();
 		}
 	}
 	

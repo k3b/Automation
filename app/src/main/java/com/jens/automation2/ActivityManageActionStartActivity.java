@@ -38,10 +38,9 @@ import java.util.List;
 public class ActivityManageActionStartActivity extends Activity
 {
 	ListView lvIntentPairs;
-	EditText etParameterName, etParameterValue;
+	EditText etParameterName, etParameterValue, etSelectedActivity;
 	Button bSelectApp, bAddIntentPair, bSaveActionStartOtherActivity;
 	Spinner spinnerParameterType;
-	TextView tvSelectedActivity;
 	boolean edit = false;
 	ProgressDialog progressDialog = null;
 	
@@ -268,7 +267,7 @@ public class ActivityManageActionStartActivity extends Activity
 			public void onClick(DialogInterface dialog, int which)
 			{
 				ActivityInfo ai = ActivityManageActionStartActivity.getActivityInfoForPackageNameAndActivityName(packageName, activityArray[which]);
-				tvSelectedActivity.setText(ai.packageName + ";" + ai.name);
+				etSelectedActivity.setText(ai.packageName + ";" + ai.name);
 			}
 		});
 		AlertDialog alertDialog = alertDialogBuilder.create();
@@ -289,13 +288,13 @@ public class ActivityManageActionStartActivity extends Activity
 		bAddIntentPair = (Button)findViewById(R.id.bAddIntentPair);
 		bSaveActionStartOtherActivity = (Button)findViewById(R.id.bSaveActionStartOtherActivity);
 		spinnerParameterType = (Spinner)findViewById(R.id.spinnerParameterType);
-		tvSelectedActivity = (TextView)findViewById(R.id.tvSelectedApplication);
+		etSelectedActivity = (EditText) findViewById(R.id.etSelectedApplication);
 		
 		intentTypeSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, ActivityManageActionStartActivity.supportedIntentTypes);
 		spinnerParameterType.setAdapter(intentTypeSpinnerAdapter);
 		intentTypeSpinnerAdapter.notifyDataSetChanged();
 		
-		intentPairAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_smalltextsize, intentPairList);
+		intentPairAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, intentPairList);
 		
 		bSelectApp.setOnClickListener(new OnClickListener()
 		{
@@ -408,7 +407,7 @@ public class ActivityManageActionStartActivity extends Activity
 		String[] params = resultingAction.getParameter2().split(";");
 		if(params.length >= 2)
 		{
-			tvSelectedActivity.setText(params[0] + ";" + params[1]);
+			etSelectedActivity.setText(params[0] + ";" + params[1]);
 			
 			if(params.length > 2)
 			{
@@ -434,13 +433,23 @@ public class ActivityManageActionStartActivity extends Activity
 	
 	private boolean saveAction()
 	{
-		if(tvSelectedActivity.getText().toString().length() == 0)
+		if(etSelectedActivity.getText().toString().length() == 0)
 		{
 			Toast.makeText(ActivityManageActionStartActivity.this, getResources().getString(R.string.selectApplication), Toast.LENGTH_LONG).show();
 			return false;
 		}
+//		else
+//		{
+//			Intent testIntent = new Intent(ActivityManageActionStartActivity.this, etSelectedActivity);
+//			Intent externalActivityIntent = new Intent(Intent.ACTION_MAIN);
+//			externalActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//			externalActivityIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+//			externalActivityIntent.setClassName(packageName, className);
+//
+//			boolean activityExists = externalActivityIntent.resolveActivityInfo(getPackageManager(), 0) != null;
+//		}
 
-		if(tvSelectedActivity.getText().toString().equals(getResources().getString(R.string.selectApplication)))
+		if(etSelectedActivity.getText().toString().equals(getResources().getString(R.string.selectApplication)))
 		{
 			Toast.makeText(this, getResources().getString(R.string.selectApplication), Toast.LENGTH_LONG).show();
 			return false;
@@ -451,7 +460,13 @@ public class ActivityManageActionStartActivity extends Activity
 		
 		resultingAction.setAction(Action_Enum.startOtherActivity);
 		
-		String parameter2 = tvSelectedActivity.getText().toString();
+		String parameter2;
+
+		if(etSelectedActivity.getText().toString().contains(";"))
+			parameter2 = etSelectedActivity.getText().toString();
+		else
+			parameter2 = "dummyPkg;" + etSelectedActivity.getText().toString();
+
 		for(String s : intentPairList)
 			parameter2 += ";" + s;
 		

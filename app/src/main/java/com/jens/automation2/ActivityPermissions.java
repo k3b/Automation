@@ -403,7 +403,7 @@ public class ActivityPermissions extends Activity
                         addToArrayListUnique("android.permission.ACCESS_NETWORK_STATE", requiredPermissions);
                         break;
                     case batteryLevel:
-                        addToArrayListUnique("android.permission.READ_PHONE_STATE", requiredPermissions);
+//                        addToArrayListUnique("android.permission.READ_PHONE_STATE", requiredPermissions);
 //                        addToArrayListUnique("android.permission.BATTERY_STATS", requiredPermissions);
                         break;
                     case bluetoothConnection:
