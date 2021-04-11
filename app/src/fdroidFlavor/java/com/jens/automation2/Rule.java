@@ -484,7 +484,7 @@ public class Rule implements Comparable<Rule>
 				{
 					if(oneTrigger.getTriggerParameter())
 					{
-						if(BatteryReceiver.getBatteryLevel() < oneTrigger.getBatteryLevel())
+						if(BatteryReceiver.getBatteryLevel() <= oneTrigger.getBatteryLevel())
 						{
 							Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), context.getResources().getString(R.string.ruleDoesntApplyBatteryLowerThan) + " " + String.valueOf(oneTrigger.getBatteryLevel()), 3);
 							return false;
@@ -492,7 +492,7 @@ public class Rule implements Comparable<Rule>
 					}
 					else
 					{
-						if(BatteryReceiver.getBatteryLevel() > oneTrigger.getBatteryLevel())
+						if(oneTrigger.getBatteryLevel() >= oneTrigger.getBatteryLevel())
 						{
 							Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), context.getResources().getString(R.string.ruleDoesntApplyBatteryHigherThan) + " " + String.valueOf(oneTrigger.getBatteryLevel()), 3);
 							return false;
