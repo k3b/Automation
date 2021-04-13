@@ -7,6 +7,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ContentProvider;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -1326,5 +1327,10 @@ public class Miscellaneous extends Service
 		{
 			Toast.makeText(context, "Request failed try again: "+ t.toString(), Toast.LENGTH_LONG).show();
 		}
+	}
+
+	public static boolean doesActivityExist(Intent intent, Context context)
+	{
+		return intent.resolveActivityInfo(context.getPackageManager(), 0) != null;
 	}
 }
