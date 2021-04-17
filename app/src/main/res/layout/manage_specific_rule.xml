@@ -84,18 +84,21 @@
 
 				<Button
 					android:id="@+id/cmdTriggerAdd"
+					android:layout_weight="1"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="@string/addTrigger" />
 
 				<Button
 					android:id="@+id/cmdActionAdd"
+					android:layout_weight="1"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="@string/addAction" />
 
 				<Button
 					android:id="@+id/cmdSaveRule"
+					android:layout_weight="1"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="@string/saveRule" />
