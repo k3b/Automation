@@ -10,5 +10,9 @@
     <color name="teal_200">#008080</color>
     <color name="teal_700">#008080</color>
     <color name="black">#000000</color>
+    <color name="brightScreenBackgroundColor">#F3F3F3</color>
+    <color name="brightScreenTextColor">#FFFFFF</color>
+    <color name="darkScreenBackgroundColor">#FFFFFF</color>
+    <color name="darkScreenTextColor">#F3F3F3</color>
 
 </resources>
