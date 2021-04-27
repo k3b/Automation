@@ -1,5 +1,6 @@
 package com.jens.automation2;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.location.DetectedActivity;
+import com.jens.automation2.location.LocationProvider;
 import com.jens.automation2.location.WifiBroadcastReceiver;
 import com.jens.automation2.receivers.ActivityDetectionReceiver;
 import com.jens.automation2.receivers.BatteryReceiver;
@@ -131,6 +133,7 @@ public class Rule implements Comparable<Rule>
 	{
 		return this.getName();
 	}
+	@SuppressLint("NewApi")
 	public String toStringLong()
 	{
 		String returnString = "";
@@ -505,7 +508,7 @@ public class Rule implements Comparable<Rule>
 				{
 					if(oneTrigger.getTriggerParameter())
 					{
-						if(com.jens.automation2.location.LocationProvider.getSpeed() < oneTrigger.getSpeed())
+						if(LocationProvider.getSpeed() < oneTrigger.getSpeed())
 						{
 							Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), context.getResources().getString(R.string.ruleDoesntApplyWeAreSlowerThan) + " " + String.valueOf(oneTrigger.getSpeed()), 3);
 							return false;
@@ -513,7 +516,7 @@ public class Rule implements Comparable<Rule>
 					}
 					else
 					{
-						if(com.jens.automation2.location.LocationProvider.getSpeed() > oneTrigger.getSpeed())
+						if(LocationProvider.getSpeed() > oneTrigger.getSpeed())
 						{
 							Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), context.getResources().getString(R.string.ruleDoesntApplyWeAreFasterThan) + " " + String.valueOf(oneTrigger.getSpeed()), 3);
 							return false;
@@ -665,108 +668,68 @@ public class Rule implements Comparable<Rule>
 				else if(oneTrigger.getTriggerType().equals(Trigger.Trigger_Enum.bluetoothConnection))
 				{
 					Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), "Checking for bluetooth...", 4);
-					
-//					if(	// connected / disconnected
-//							(oneTrigger.getTriggerParameter() && (BluetoothReceiver.getLastAction().equals(android.bluetooth.BluetoothDevice.ACTION_ACL_CONNECTED) | BluetoothReceiver.getLastAction().equals("android.bluetooth.device.action.ACL_CONNECTED")))
-//								|
-//							(!oneTrigger.getTriggerParameter() && (BluetoothReceiver.getLastAction().equals(android.bluetooth.BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED) | BluetoothReceiver.getLastAction().equals(android.bluetooth.BluetoothDevice.ACTION_ACL_DISCONNECTED) | BluetoothReceiver.getLastAction().equals("android.bluetooth.device.action.ACTION_ACL_DISCONNECT_REQUESTED") | BluetoothReceiver.getLastAction().equals("android.bluetooth.device.action.ACTION_ACL_DISCONNECTED")))
-//						)
-//					{
-//						if(oneTrigger.getBluetoothDeviceAddress() != null)
-//						{
-//							if(oneTrigger.getBluetoothDeviceAddress().equals("<any>"))
-//							{								
-//								Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), "No bluetooth address specified, any will do.", 4);
-//							}
-//							else if(oneTrigger.getBluetoothDeviceAddress().equals("<none>"))
-//							{
-//								// ???
-//							}
-//							else
-//							{
-//								Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), "Bluetooth address specified, checking that.", 4);
-//								if(!BluetoothReceiver.getLastAffectedDevice().getAddress().equals(oneTrigger.getBluetoothDeviceAddress()))
-//								{
-//									Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), context.getResources().getString(R.string.ruleDoesntApplyNotTheCorrectDeviceAddress), 3);
-//									return false;								
-//								}
-//								else
-//									Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), "Bluetooth address matches. Rule will apply.", 4);
-//							}
-//						}
-//					}
-//					else if(BluetoothReceiver.getLastAction().equals(android.bluetooth.BluetoothDevice.ACTION_FOUND) | BluetoothReceiver.getLastAction().equals(android.bluetooth.BluetoothDevice.ACTION_FOUND))
-//					{
-//						if(!oneTrigger.getTriggerParameter())
-//						{
-//							Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), context.getResources().getString(R.string.ruleDoesntApplyDeviceInRangeButShouldNotBe), 3);
-//							return false;
-//						}
-//					}
-//					else		// above only checks for last action, this checks for things in the past
+
+					if(oneTrigger.getBluetoothDeviceAddress().equals("<any>"))
 					{
-						if(oneTrigger.getBluetoothDeviceAddress().equals("<any>"))
-						{	
-							if(oneTrigger.getBluetoothEvent().equals(BluetoothDevice.ACTION_ACL_CONNECTED))
-							{
-								if(BluetoothReceiver.isAnyDeviceConnected() != oneTrigger.getTriggerParameter())
-									return false;
-							}
-							else if((oneTrigger.getBluetoothEvent().equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)))
-							{
-								if(BluetoothReceiver.isAnyDeviceConnected() != oneTrigger.getTriggerParameter())
-									return false;
-							}
-							else
-							{
-								// range
-								if(BluetoothReceiver.isAnyDeviceInRange() != oneTrigger.getTriggerParameter())
-									return false;
-							}
-						}
-						else if(oneTrigger.getBluetoothDeviceAddress().equals("<none>"))
+						if(oneTrigger.getBluetoothEvent().equals(BluetoothDevice.ACTION_ACL_CONNECTED))
 						{
-							if(oneTrigger.getBluetoothEvent().equals(BluetoothDevice.ACTION_ACL_CONNECTED))
-							{
-								if(BluetoothReceiver.isAnyDeviceConnected() == oneTrigger.getTriggerParameter())
-									return false;
-							}
-							else if((oneTrigger.getBluetoothEvent().equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)))
-							{
-								if(BluetoothReceiver.isAnyDeviceConnected() == oneTrigger.getTriggerParameter())
-									return false;
-							}
-							else
-							{
-								// range
-								if(BluetoothReceiver.isAnyDeviceInRange() == oneTrigger.getTriggerParameter())
-									return false;
-							}
+							if(BluetoothReceiver.isAnyDeviceConnected() != oneTrigger.getTriggerParameter())
+								return false;
 						}
-						else if(oneTrigger.getBluetoothDeviceAddress().length() > 0)
+						else if((oneTrigger.getBluetoothEvent().equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)))
 						{
-							if(oneTrigger.getBluetoothEvent().equals(BluetoothDevice.ACTION_ACL_CONNECTED))
-							{
-								if(BluetoothReceiver.isDeviceCurrentlyConnected(BluetoothReceiver.getDeviceByAddress(oneTrigger.getBluetoothDeviceAddress())) != oneTrigger.getTriggerParameter())
-									return false;
-							}
-							else if((oneTrigger.getBluetoothEvent().equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)))
-							{
-								if(BluetoothReceiver.isDeviceCurrentlyConnected(BluetoothReceiver.getDeviceByAddress(oneTrigger.getBluetoothDeviceAddress())) != oneTrigger.getTriggerParameter())
-									return false;
-							}
-							else
-							{
-								// range
-								if(BluetoothReceiver.isDeviceInRange(BluetoothReceiver.getDeviceByAddress(oneTrigger.getBluetoothDeviceAddress())) != oneTrigger.getTriggerParameter())
-									return false;
-							}
+							if(BluetoothReceiver.isAnyDeviceConnected() != oneTrigger.getTriggerParameter())
+								return false;
 						}
 						else
 						{
-							Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), context.getResources().getString(R.string.ruleDoesntApplyStateNotCorrect), 3);
-							return false;
+							// range
+							if(BluetoothReceiver.isAnyDeviceInRange() != oneTrigger.getTriggerParameter())
+								return false;
 						}
+					}
+					else if(oneTrigger.getBluetoothDeviceAddress().equals("<none>"))
+					{
+						if(oneTrigger.getBluetoothEvent().equals(BluetoothDevice.ACTION_ACL_CONNECTED))
+						{
+							if(BluetoothReceiver.isAnyDeviceConnected() == oneTrigger.getTriggerParameter())
+								return false;
+						}
+						else if((oneTrigger.getBluetoothEvent().equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)))
+						{
+							if(BluetoothReceiver.isAnyDeviceConnected() == oneTrigger.getTriggerParameter())
+								return false;
+						}
+						else
+						{
+							// range
+							if(BluetoothReceiver.isAnyDeviceInRange() == oneTrigger.getTriggerParameter())
+								return false;
+						}
+					}
+					else if(oneTrigger.getBluetoothDeviceAddress().length() > 0)
+					{
+						if(oneTrigger.getBluetoothEvent().equals(BluetoothDevice.ACTION_ACL_CONNECTED))
+						{
+							if(BluetoothReceiver.isDeviceCurrentlyConnected(BluetoothReceiver.getDeviceByAddress(oneTrigger.getBluetoothDeviceAddress())) != oneTrigger.getTriggerParameter())
+								return false;
+						}
+						else if((oneTrigger.getBluetoothEvent().equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)))
+						{
+							if(BluetoothReceiver.isDeviceCurrentlyConnected(BluetoothReceiver.getDeviceByAddress(oneTrigger.getBluetoothDeviceAddress())) != oneTrigger.getTriggerParameter())
+								return false;
+						}
+						else
+						{
+							// range
+							if(BluetoothReceiver.isDeviceInRange(BluetoothReceiver.getDeviceByAddress(oneTrigger.getBluetoothDeviceAddress())) != oneTrigger.getTriggerParameter())
+								return false;
+						}
+					}
+					else
+					{
+						Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), context.getResources().getString(R.string.ruleDoesntApplyStateNotCorrect), 3);
+						return false;
 					}
 				}
 				else if(oneTrigger.getTriggerType().equals(Trigger.Trigger_Enum.headsetPlugged))
@@ -840,6 +803,7 @@ public class Rule implements Comparable<Rule>
 									}
 
 									foundMatch = true;
+									break;
 								}
 							}
 
@@ -965,7 +929,16 @@ public class Rule implements Comparable<Rule>
 					publishProgress(message);
 
 				for(int i = 0; i< Rule.this.getActionSet().size(); i++)
-					Rule.this.getActionSet().get(i).run(automationService, doToggle);
+				{
+					try
+					{
+						Rule.this.getActionSet().get(i).run(automationService, doToggle);
+					}
+					catch(Exception e)
+					{
+						Miscellaneous.logEvent("e", "RuleExecution", "Error running action of rule " + Rule.this.getName() + ": " + Log.getStackTraceString(e), 1);
+					}
+				}
 
 				// Keep log of last x rule activations (Settings)
 				try

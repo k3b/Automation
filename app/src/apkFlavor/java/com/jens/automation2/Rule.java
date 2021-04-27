@@ -768,7 +768,7 @@ public class Rule implements Comparable<Rule>
 
 							for (StatusBarNotification sbn : NotificationListener.getInstance().getActiveNotifications())
 							{
-								if(lastExecution == null || sbn.getPostTime() > this.lastExecution.getTimeInMillis())
+								if(getLastExecution() == null || sbn.getPostTime() > this.lastExecution.getTimeInMillis())
 								{
 									String app = sbn.getPackageName();
 									String title = sbn.getNotification().extras.getString(EXTRA_TITLE);
