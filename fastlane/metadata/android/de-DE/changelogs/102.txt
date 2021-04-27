@@ -1,0 +1,3 @@
+Neuer Auslöser: Benachrichtigungen anderer Anwendungen auswerten.
+Neue Aktion: Sounddatei abspielen.
+Die üblichen Aufräumarbeiten und Fehlerbehebungen.

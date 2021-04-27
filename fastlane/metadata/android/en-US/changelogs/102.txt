@@ -1,0 +1,3 @@
+New trigger: You can now use notifications of other apps.
+New action: Play a sound file.
+The usual cleanups and bugfixes.

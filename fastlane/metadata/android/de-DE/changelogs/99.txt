@@ -1,0 +1,2 @@
+Ort verschoben, an dem die Konfigurationsdatei gespeichert wird (nun ein Programm-spezifisches Verzeichnis unterhalb von Android/data).
+Wenn Sie das Programm bisher schon verwendet haben, d.h. Ihre Dateien am alten Ort angelegt wurden, werden sie beim ersten Start verschoben. Wenn das erfolgreich war, ist die Berechtigung android.permission.WRITE_EXTERNAL_STORAGE nicht länger notwendig.

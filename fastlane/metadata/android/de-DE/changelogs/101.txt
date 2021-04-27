@@ -1,0 +1,1 @@
+Fehler behoben, bei dem die App abgestürzt ist, wenn eine Regel gespeichert wurde während der Dienst lief.
