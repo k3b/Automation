@@ -1,0 +1,89 @@
+Erstellen Sie Regeln, die aus Auslösern und Aktionen bestehen. Ein typisches Beispiel wäre etwas wie "Telefon auf stumm stellen, wenn ich auf der Arbeit bin."
+
+Hier ist eine Liste der möglichen Auslöser und Aktionen:
+
+Mögliche Auslöser:
+* Ort
+* Tag/Uhrzeit
+* Ladezustand (lädt/lädt nicht)
+* Akkustand
+* USB Verbindung zu einem Computer besteht
+* Die gegenwärtige Geschwindigkeit (km/h)
+* Hintergrundlautstärke (nur bis Android 7)
+* WLAN Verbindung
+* Anwendere Anwendung wurde gestartet
+* Flugzeugmodus
+* Roaming aktiv oder nicht
+* NFC tags
+* Bluetooth Gerät verbunden
+* Headset verbunden
+* Telefongespräch im Gange
+* Benachrichtigungen anderer Anwendungen
+
+Mögliche Aktionen:
+* WLAN ein-/ausschalten
+* Bluetooth ein-/ausschalten
+* USB Router ein-/ausschalten
+* WLAN Router ein-/ausschalten
+* Bildschirmdrehung ein-/ausschalten
+* HTTP Request im Hintergrund auslösen
+* Klingelton und Toneinstellungen ändern
+* Eine andere Anwendung starten
+* Warten (zwischen anderen Aktionen)
+* Den Bildschirm des Geräts einschalten
+* Flugzeugmodus ein-/ausschalten
+* Datenverbindung ein-/ausschalten
+* Text sprechen (TTS)
+* Musikplayer öffnen
+* Bildschirmhelligkeit ändern
+* SMS verschicken
+* Sounddatei abspielen.
+
+Es ist ziemlich schwierig diese Anwendung über die vielen verschiedenen Geräte sowie die vielen Änderungen an Android Versionen am Funktionen zu halten. Ich kann vieles im Emulator testen, aber eben nicht alles.
+Wenn also eine bestimmte Funktion nicht so tut wie sie sollte - lassen Sie es mich wissen. Über die Jahre habe ich noch alle Fehler behoben, die mir gemeldet wurden. Aber dafür bin ich auf Ihre Mithilfe angewiesen.
+
+Ein Wort zu den vielen Berechtigungen....
+
+Es liegt in der Natur einer Anwendung wie dieser, daß sie ziemlich viele Berechtigungen benötigt. Allerdings sind praktisch alle davon optional, und werden nur angefragt, wenn Sie eine Regel erstellen, die das erfordert.
+
+Gehen wir sie mal schnell durch:
+ACCESS_NETWORK_STATE, CHANGE_NETWORK_STATE: Dinge wie Flugmodus oder Roaming prüfen.
+
+ACCESS_WIFI_STATE, CHANGE_WIFI_STATE: WLAN ein-/ausschalten
+
+INTERNET
+Das wird aus drei Gründen benötigt:
+- Sie verwenden eine Ortungsmethode, die Mobilfunktürme verwenden (Standardeinstellung)
+- Sie verwenden URL aufrufen als Aktion
+- Sie aktivieren den Newsdownload in den Einstellungen
+
+BLUETOOTH, BLUETOOTH_ADMIN: Bluetooth Verbindungen prüfen oder Bluetooth ein-/ausschalten
+
+NFC: NFC Tags als Auslöser verwenden
+
+Location (ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION, ACCESS_BACKGROUND_LOCATION): Das sollte selbsterklärend sein - verwenden Sie Orte oder Geschwindigkeit als Auslöser?
+
+PROCESS_OUTGOING_CALLS: Sie können ausgehende Anrufen als Auslöser verwenden. Z.B. "wenn die Frau anruft, dann..."
+
+SEND_SMS: Sie können SMS verschicken lassen. Hier kann eine Zielnummer direkt eingegeben werden oder optional eine aus den Kontakten ausgewählt werden, was uns zu READ_CONTACTS bringt
+
+READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE: Wenn Sie die Anwendung vor März 2021 installiert haben, war das nötig, um die Konfigurationsdatei zu speichern (unter sdcard). Seitdem ist sie nicht mehr notwendig. Die Berechtigung ist noch da, um bei Benutzern, die noch nicht geupdatet haben, ein Migrieren der Dateien zu ermöglichen. Weiterhin ist das Lesen jetzt notwendig, um eine Sounddatei abzuspielen.
+
+GET_TASKS: Für den Auslöser, der prüft, ob eine andere Anwendung läuft.
+
+BATTERY_STATS: Akkustand lesen.
+
+MODIFY_AUDIO_SETTINGS, ACCESS_NOTIFICATION_POLICY:
+Für höhere Android Versionen ist das nötig, um Toneinstellungen wie Klingeltöne zu ändern.
+https://stackoverflow.com/questions/43123650/android-request-access-notification-policy-and-mute-phone/43127589#43127589
+ACCESS_NOTIFICATION_POLICY wird auch verwendet, um für den entsprechenden Auslöser Benachrichtigungen anderer Anwendungen lesen zu können.
+
+RECORD_AUDIO: Für den Auslöser "Hintergrundlautstärke" notwendig. Nebenbei - meine persönliche Anwendung dafür ist: Mein Telefon stellt sich morgens auf laut. Während der Woche ist das recht fr�h. Was ist aber, wenn ich einen Tag frei habe? Hierzu wird als zusätzliche Bedingung die Hintergrundlautstärke ausgewertet, um festzustellen, ob ich wirklich schon wach bin. Leider hat Google diese Funktion mit Android 8 deaktiviert.
+
+READ_PHONE_STATE: https://developer.android.com/reference/android/Manifest.permission#READ_PHONE_STATE
+
+RECEIVE_BOOT_COMPLETED, FOREGROUND_SERVICE, WAKE_LOCK: Den Dienst automatisch beim Systemstart starten.
+
+WRITE_SETTINGS: Systemeinstellungen ändern.
+
+ACCESS_SUPERUSER: root ist komplett optional.  In der (weiter zurückliegenden) Vergangenheit war es möglich Dinge wie das Ein-/Ausschalten des USB Routers mit normalen Funktionen zu steuern. Leider ist das schon lange nur noch mit Root-Rechten möglich. D.h. root ist nur für wenige Funktionen notwendig.
