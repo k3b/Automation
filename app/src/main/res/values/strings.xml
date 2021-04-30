@@ -635,7 +635,8 @@
     <string name="noFileManageInstalled">No file manager installed.</string>
     <string name="shareConfigAndLogFilesWithDev">Share config and log files with developer (via email).</string>
     <string name="shareConfigAndLogExplanation">This will start a new email with your config and log files attached as zip file. It will not be sent automatically, you still need to hit \"send\". You can also change the recipient to yourself for example.</string>
-    <string name="startAppChoiceNote">You can enter an activity path manually, but it\'s recommended to use the \"Select\" button.\nIf you choose to enter something manually keep in mind no variables will be resolved. If you want to start the camera for example \"MediaStore.ACTION_IMAGE_CAPTURE\" will not work. You have to look at the Android documentation and use its value instead which would be \"android.media.action.IMAGE_CAPTURE\".</string>
+    <string name="startAppChoiceNote">You can enter an activity path manually, but it\'s recommended to use the \"Select\" button. If you choose to enter something manually keep in mind no variables will be resolved. If you want to start the camera for example \"MediaStore.ACTION_IMAGE_CAPTURE\" will not work. You have to look at the Android documentation and use its value instead which would be \"android.media.action.IMAGE_CAPTURE\".</string>
     <string name="errorRunningRule">There was an error running a rule.</string>
     <string name="cantFindSoundFile">Cannot find sound file %1$s and therefore not play it.</string>
+    <string name="addParameters">Add parameters</string>
 </resources>

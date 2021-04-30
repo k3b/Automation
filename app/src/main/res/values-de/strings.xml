@@ -634,4 +634,8 @@
     <string name="shareConfigAndLogExplanation">Dies wird eine neue Email öffnen mit Konfigurations- und Logdateien als Zip-Anhang. Sie wird nicht automatisch versendet. D.h. Sie können so z.B. auch den Adressaten zu sich selbst ändern.</string>
     <string name="notificationTriggerExplanation">Dieser Auslöser reagiert auf Benachrichtigungen anderer Anwendung im Benachrichtigungsbereich von Android (oder wenn diese geschlossen werden). Sie können eine bestimmte Anwendung festlegen, von die Nachricht stammen muß. Wenn nicht, zählt jede Benachrichtigung. Sie können auch Zeichenketten für Titel oder Nachrichteninhalt festlegen, die enthalten sein müssen. Die Groß-/Kleinschreibung wird hierbei nicht berücksichtigt.</string>
     <string name="ruleActivationComplete">Regel \"%1$s\" wurde fertig ausgeführt.</string>
+    <string name="addParameters">Parameter hinzufügen</string>
+    <string name="errorRunningRule">Fehler beim Ausführen einer Regel.</string>
+    <string name="startAppChoiceNote">Sie können den Pfad einer Aktivität manuell eingeben, aber es wird stark empfohlen den \"Auswählen\" Knopf zu verwenden. Wenn Sie etwas manuell eingeben, behalten Sie bitte im Hinterkopf, daß keine Variablen aufgelöst werden. D.h., wenn Sie z.B. die Kamera starten wollen, indem Sie \"MediaStore.ACTION_IMAGE_CAPTURE\" verwenden, wird das nicht verwenden. Wenn Sie in der Android Dokumentation schauen, werden Sie sehen, daß sich dahinter eigentlich der Wert \"android.media.action.IMAGE_CAPTURE\" verbirgt, der hier direkt eingegeben werden müßte.</string>
+    <string name="cantFindSoundFile">Kann die Audiodatei %1$s nicht finden und daher auch nicht abspielen.</string>
 </resources>

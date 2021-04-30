@@ -339,6 +339,9 @@ public class ActivityManageActionStartActivity extends Activity
 				etParameterValue.setText("");
 				
 				updateIntentPairList();
+
+				if(lvIntentPairs.getVisibility() != View.VISIBLE)
+					lvIntentPairs.setVisibility(View.VISIBLE);
 			}
 		});
 		
@@ -415,6 +418,9 @@ public class ActivityManageActionStartActivity extends Activity
 			
 				for(int i=2; i<params.length; i++)
 				{
+					if(lvIntentPairs.getVisibility() != View.VISIBLE)
+						lvIntentPairs.setVisibility(View.VISIBLE);
+
 					intentPairList.add(params[i]);
 				}
 				
