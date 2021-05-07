@@ -639,4 +639,5 @@
     <string name="errorRunningRule">There was an error running a rule.</string>
     <string name="cantFindSoundFile">Cannot find sound file %1$s and therefore not play it.</string>
     <string name="addParameters">Add parameters</string>
+    <string name="com.wireguard.android.permission.CONTROL_TUNNELS">Control tunnels of the wireguard app</string>
 </resources>
