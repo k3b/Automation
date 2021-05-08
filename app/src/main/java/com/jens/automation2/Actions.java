@@ -611,6 +611,9 @@ public class Actions
 				paramsStartIndex = 1;
 				externalActivityIntent = new Intent(param);
 				externalActivityIntent.addCategory(Intent.CATEGORY_DEFAULT);
+//				Context c = autoMationServerRef.getApplicationContext();
+//				c.getApplicationContext()
+//				externalActivityIntent.setPackage("com.wireguard.android");//this did the trick actually
 //				if(externalActivityIntent.resolveActivity(autoMationServerRef.getPackageManager()) == null)
 //					Toast.makeText(context, "bad", Toast.LENGTH_LONG).show();
 			}
