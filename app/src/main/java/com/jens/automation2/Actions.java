@@ -568,36 +568,57 @@ public class Actions
 	    }
 	}
 
-	public static void startOtherActivity(String param)
+	public static void startOtherActivity(boolean byActivity, String param)
 	{
 		Miscellaneous.logEvent("i", "StartOtherActivity", "Starting other Activity...", 4);
 
-		String packageName, className;
-
 		String params[] = param.split(";");
-
-		packageName = params[0];
-		className = params[1];
 
 		try
 		{
-	    	Miscellaneous.logEvent("i", "StartOtherApp", "Starting " + packageName + " " + className, 3);
-			Intent externalActivityIntent = new Intent(Intent.ACTION_MAIN);
-			externalActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-	    	externalActivityIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+			Intent externalActivityIntent;
 
-	    	if(packageName.equals("dummyPkg"))
-				externalActivityIntent.setAction(className);
-	    	else
-				externalActivityIntent.setClassName(packageName, className);
+			int paramsStartIndex;
 
-	    	if(Miscellaneous.doesActivityExist(externalActivityIntent, Miscellaneous.getAnyContext()))
+			if(byActivity)
 			{
-				// has intent values to deliver
-				for (int i = 2; i < params.length; i++)
-				{
-					String[] singleParam = params[i].split("/");
-    			
+				// selected by activity
+
+				String packageName, className;
+
+				packageName = params[0];
+				className = params[1];
+
+				Miscellaneous.logEvent("i", "StartOtherApp", "Starting app by activity: " + packageName + " " + className, 3);
+
+				paramsStartIndex = 2;
+
+				externalActivityIntent = new Intent(Intent.ACTION_MAIN);
+				externalActivityIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+
+//				if(packageName.equals("dummyPkg"))
+//					externalActivityIntent.setAction(className);
+//				else
+					externalActivityIntent.setClassName(packageName, className);
+
+				if(!Miscellaneous.doesActivityExist(externalActivityIntent, Miscellaneous.getAnyContext()))
+					Miscellaneous.logEvent("w", "StartOtherApp", "Activity not found: " + className, 2);
+			}
+			else
+			{
+				// selected by action
+				Miscellaneous.logEvent("i", "StartOtherApp", "Starting app by action: " + param, 3);
+				paramsStartIndex = 1;
+				externalActivityIntent = new Intent(param);
+			}
+
+			externalActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+			// Pack intents
+			for (int i = paramsStartIndex = 2; i < params.length; i++)
+			{
+				String[] singleParam = params[i].split("/");
+
     			/*Class c = Class.forName(singleParam[0]);
 				for(Method m : c.getMethods())
 				{
@@ -608,68 +629,64 @@ public class Actions
 					}
 				}*/
 
-					if (singleParam[0].equals("boolean"))
-					{
-						Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-						externalActivityIntent.putExtra(singleParam[1], Boolean.parseBoolean(singleParam[2]));
-					}
-					else if (singleParam[0].equals("byte"))
-					{
-						Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-						externalActivityIntent.putExtra(singleParam[1], Byte.parseByte(singleParam[2]));
-					}
-					else if (singleParam[0].equals("char"))
-					{
-						Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-						externalActivityIntent.putExtra(singleParam[1], singleParam[2].charAt(0));
-					}
-					else if (singleParam[0].equals("CharSequence"))
-					{
-						Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-						externalActivityIntent.putExtra(singleParam[1], (CharSequence) singleParam[2]);
-					}
-					else if (singleParam[0].equals("double"))
-					{
-						Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-						externalActivityIntent.putExtra(singleParam[1], Double.parseDouble(singleParam[2]));
-					}
-					else if (singleParam[0].equals("float"))
-					{
-						Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-						externalActivityIntent.putExtra(singleParam[1], Float.parseFloat(singleParam[2]));
-					}
-					else if (singleParam[0].equals("int"))
-					{
-						Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-						externalActivityIntent.putExtra(singleParam[1], Integer.parseInt(singleParam[2]));
-					}
-					else if (singleParam[0].equals("long"))
-					{
-						Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-						externalActivityIntent.putExtra(singleParam[1], Long.parseLong(singleParam[2]));
-					}
-					else if (singleParam[0].equals("short"))
-					{
-						Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-						externalActivityIntent.putExtra(singleParam[1], Short.parseShort(singleParam[2]));
-					}
-					else if (singleParam[0].equals("String"))
-					{
-						Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-						externalActivityIntent.putExtra(singleParam[1], singleParam[2]);
-					}
-					else
-						Miscellaneous.logEvent("w", "StartOtherApp", "Unknown type of parameter " + singleParam[0] + " found.  Name " + singleParam[1] + " and value " + singleParam[2], 3);
+				if (singleParam[0].equals("boolean"))
+				{
+					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+					externalActivityIntent.putExtra(singleParam[1], Boolean.parseBoolean(singleParam[2]));
 				}
+				else if (singleParam[0].equals("byte"))
+				{
+					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+					externalActivityIntent.putExtra(singleParam[1], Byte.parseByte(singleParam[2]));
+				}
+				else if (singleParam[0].equals("char"))
+				{
+					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+					externalActivityIntent.putExtra(singleParam[1], singleParam[2].charAt(0));
+				}
+				else if (singleParam[0].equals("CharSequence"))
+				{
+					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+					externalActivityIntent.putExtra(singleParam[1], (CharSequence) singleParam[2]);
+				}
+				else if (singleParam[0].equals("double"))
+				{
+					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+					externalActivityIntent.putExtra(singleParam[1], Double.parseDouble(singleParam[2]));
+				}
+				else if (singleParam[0].equals("float"))
+				{
+					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+					externalActivityIntent.putExtra(singleParam[1], Float.parseFloat(singleParam[2]));
+				}
+				else if (singleParam[0].equals("int"))
+				{
+					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+					externalActivityIntent.putExtra(singleParam[1], Integer.parseInt(singleParam[2]));
+				}
+				else if (singleParam[0].equals("long"))
+				{
+					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+					externalActivityIntent.putExtra(singleParam[1], Long.parseLong(singleParam[2]));
+				}
+				else if (singleParam[0].equals("short"))
+				{
+					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+					externalActivityIntent.putExtra(singleParam[1], Short.parseShort(singleParam[2]));
+				}
+				else if (singleParam[0].equals("String"))
+				{
+					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+					externalActivityIntent.putExtra(singleParam[1], singleParam[2]);
+				}
+				else
+					Miscellaneous.logEvent("w", "StartOtherApp", "Unknown type of parameter " + singleParam[0] + " found.  Name " + singleParam[1] + " and value " + singleParam[2], 3);
+			}
 
-				autoMationServerRef.startActivity(externalActivityIntent);
-			}
-	    	else
-			{
-				Miscellaneous.logEvent("w", "StartOtherApp", "Activity not found: " + className, 2);
-			}
+//			autoMationServerRef.sendBroadcast(externalActivityIntent);
+			autoMationServerRef.startActivity(externalActivityIntent);
 		}
-		catch(ActivityNotFoundException | SecurityException e)
+		catch(Exception e)
 		{
 			Miscellaneous.logEvent("e", "StartOtherApp", autoMationServerRef.getResources().getString(R.string.errorStartingOtherActivity) + ": " + Log.getStackTraceString(e), 2);
 			Toast.makeText(autoMationServerRef, autoMationServerRef.getResources().getString(R.string.errorStartingOtherActivity) + ": " + e.getMessage(), Toast.LENGTH_LONG).show();

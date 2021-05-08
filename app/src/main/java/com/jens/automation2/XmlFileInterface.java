@@ -1225,6 +1225,22 @@ public class XmlFileInterface
 	            		}
             		}
             	}
+            	else if(newAction.getAction().equals(Action_Enum.startOtherActivity))	// read old entries where parameter1 was not in use, yet to distinguish between call by activity and call by action
+				{
+					String[] contents = tag.split(";");
+
+					if(contents.length == 1)
+						newAction.setParameter1(false);
+					else if(contents.length == 2)
+					{
+						if(contents[1].contains("/"))
+							newAction.setParameter1(false);
+						else
+							newAction.setParameter1(true);
+					}
+
+					newAction.setParameter2(tag);
+				}
             	else
             		newAction.setParameter2(tag);
             }

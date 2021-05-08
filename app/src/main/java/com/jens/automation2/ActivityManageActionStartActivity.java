@@ -24,6 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +44,7 @@ public class ActivityManageActionStartActivity extends Activity
 	Spinner spinnerParameterType;
 	boolean edit = false;
 	ProgressDialog progressDialog = null;
+	RadioButton rbStartAppSelectByActivity, rbStartAppSelectByAction;
 	
 	private class CustomPackageInfo extends PackageInfo implements Comparable<CustomPackageInfo>
 	{
@@ -289,6 +291,8 @@ public class ActivityManageActionStartActivity extends Activity
 		bSaveActionStartOtherActivity = (Button)findViewById(R.id.bSaveActionStartOtherActivity);
 		spinnerParameterType = (Spinner)findViewById(R.id.spinnerParameterType);
 		etSelectedActivity = (EditText) findViewById(R.id.etSelectedApplication);
+		rbStartAppSelectByActivity = (RadioButton)findViewById(R.id.rbStartAppSelectByActivity);
+		rbStartAppSelectByAction = (RadioButton)findViewById(R.id.rbStartAppSelectByAction);
 		
 		intentTypeSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, ActivityManageActionStartActivity.supportedIntentTypes);
 		spinnerParameterType.setAdapter(intentTypeSpinnerAdapter);
@@ -407,25 +411,37 @@ public class ActivityManageActionStartActivity extends Activity
 	
 	private void loadValuesIntoGui()
 	{
-		String[] params = resultingAction.getParameter2().split(";");
-		if(params.length >= 2)
-		{
-			etSelectedActivity.setText(params[0] + ";" + params[1]);
-			
-			if(params.length > 2)
-			{
-				intentPairList.clear();
-			
-				for(int i=2; i<params.length; i++)
-				{
-					if(lvIntentPairs.getVisibility() != View.VISIBLE)
-						lvIntentPairs.setVisibility(View.VISIBLE);
+		boolean selectionByActivity = resultingAction.getParameter1();
+		rbStartAppSelectByActivity.setChecked(selectionByActivity);
+		rbStartAppSelectByAction.setChecked(!selectionByActivity);
 
-					intentPairList.add(params[i]);
-				}
-				
-				updateIntentPairList();
+		String[] params = resultingAction.getParameter2().split(";");
+
+		if(selectionByActivity)
+			etSelectedActivity.setText(params[0] + ";" + params[1]);
+		else
+			etSelectedActivity.setText(params[0]);
+
+		int startIndex = -1;
+
+		if(selectionByActivity && params.length >= 2)
+			startIndex = 2;
+		else if(!selectionByActivity && params.length >= 1)
+			startIndex = 1;
+
+		if(startIndex > -1 && params.length > startIndex)
+		{
+			intentPairList.clear();
+
+			for(int i=startIndex; i<params.length; i++)
+			{
+				if(lvIntentPairs.getVisibility() != View.VISIBLE)
+					lvIntentPairs.setVisibility(View.VISIBLE);
+
+				intentPairList.add(params[i]);
 			}
+
+			updateIntentPairList();
 		}
 	}
 
@@ -463,15 +479,17 @@ public class ActivityManageActionStartActivity extends Activity
 		
 		if(resultingAction == null)
 			resultingAction = new Action();
+
+		resultingAction.setParameter1(rbStartAppSelectByActivity.isChecked());
 		
 		resultingAction.setAction(Action_Enum.startOtherActivity);
 		
 		String parameter2;
 
-		if(etSelectedActivity.getText().toString().contains(";"))
+//		if(etSelectedActivity.getText().toString().contains(";"))
 			parameter2 = etSelectedActivity.getText().toString();
-		else
-			parameter2 = "dummyPkg;" + etSelectedActivity.getText().toString();
+//		else
+//			parameter2 = "dummyPkg;" + etSelectedActivity.getText().toString();
 
 		for(String s : intentPairList)
 			parameter2 += ";" + s;

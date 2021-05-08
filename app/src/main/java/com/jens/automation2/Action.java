@@ -373,7 +373,7 @@ public class Action
 					Actions.setDisplayRotation(context, getParameter1(), toggleActionIfPossible);
 					break;
 				case startOtherActivity:
-					Actions.startOtherActivity(getParameter2());
+					Actions.startOtherActivity(getParameter1(), getParameter2());
 					break;
 				case waitBeforeNextAction:
 					Actions.waitBeforeNextAction(Long.parseLong(this.getParameter2()));
