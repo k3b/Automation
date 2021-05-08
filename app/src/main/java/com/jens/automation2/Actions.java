@@ -610,6 +610,9 @@ public class Actions
 				Miscellaneous.logEvent("i", "StartOtherApp", "Starting app by action: " + param, 3);
 				paramsStartIndex = 1;
 				externalActivityIntent = new Intent(param);
+				externalActivityIntent.addCategory(Intent.CATEGORY_DEFAULT);
+//				if(externalActivityIntent.resolveActivity(autoMationServerRef.getPackageManager()) == null)
+//					Toast.makeText(context, "bad", Toast.LENGTH_LONG).show();
 			}
 
 			externalActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
