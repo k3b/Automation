@@ -58,6 +58,10 @@ public class Actions
     private static List<String> suResult = null;
 	final static String smsSeparator = "&sms&";
 
+	public static final String wireguard_tunnel_up = "com.wireguard.android.action.SET_TUNNEL_UP";
+	public static final String wireguard_tunnel_down = "com.wireguard.android.action.SET_TUNNEL_DOWN";
+	public static final String wireguard_tunnel_refresh = "com.wireguard.android.action.REFRESH_TUNNEL_STATES";
+
 	public static Boolean setWifi(Context context, Boolean desiredState, boolean toggleActionIfPossible)
 	{
 		Miscellaneous.logEvent("i", "Wifi", "Changing Wifi to " + String.valueOf(desiredState), 4);

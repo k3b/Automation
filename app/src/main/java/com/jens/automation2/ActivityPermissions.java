@@ -55,6 +55,7 @@ public class ActivityPermissions extends Activity
     public static final String permissionNameCall = "android.permission.PROCESS_OUTGOING_CALLS";
     public static final String permissionNameStartService = "android.permission.FOREGROUND_SERVICE";
     public static final String permissionNameReadNotifications = "android.permission.BIND_NOTIFICATION_LISTENER_SERVICE";
+    public static final String permissionNameWireguard = "com.wireguard.android.permission.CONTROL_TUNNELS";
     
     public static ActivityPermissions getInstance()
     {
@@ -534,6 +535,14 @@ public class ActivityPermissions extends Activity
                     case speakText:
                         break;
                     case startOtherActivity:
+                        if(
+                                action.getParameter2().contains(Actions.wireguard_tunnel_up)
+                                    ||
+                                action.getParameter2().contains(Actions.wireguard_tunnel_down)
+                                    ||
+                                action.getParameter2().contains(Actions.wireguard_tunnel_refresh)
+                                )
+                            addToArrayListUnique(ActivityPermissions.permissionNameWireguard, requiredPermissions);
                         break;
                     case triggerUrl:
                         addToArrayListUnique("android.permission.INTERNET", requiredPermissions);
