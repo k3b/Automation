@@ -861,45 +861,11 @@ public class XmlFileInterface
             if (name.equals("TriggerEvent"))
             {
             	String triggerEventString = readTag(parser, "TriggerEvent");
-//            	if(triggerEventString.equals("pointOfInterest"))
-//            		newTrigger.setTriggerType(Trigger_Enum.pointOfInterest);
-//            	else if(triggerEventString.equals("timeFrame"))
-//            		newTrigger.setTriggerType(Trigger_Enum.timeFrame);
-//            	else if(triggerEventString.equals("charging"))
-//            		newTrigger.setTriggerType(Trigger_Enum.charging);
-//            	else if(triggerEventString.equals("usb_host_connection"))
-//            		newTrigger.setTriggerType(Trigger_Enum.usb_host_connection);
-//            	else if(triggerEventString.equals("batteryLevel"))
-//            		newTrigger.setTriggerType(Trigger_Enum.batteryLevel);
-//            	else if(triggerEventString.equals("speed"))
-//            		newTrigger.setTriggerType(Trigger_Enum.speed);
-//            	else if(triggerEventString.equals("noiseLevel"))
-//            		newTrigger.setTriggerType(Trigger_Enum.noiseLevel);
-//            	else if(triggerEventString.equals("wifiConnection"))
-//            		newTrigger.setTriggerType(Trigger_Enum.wifiConnection);
-//            	else
-            		if(triggerEventString.equals("process_started_stopped") | triggerEventString.equals("process_running"))
+
+				if(triggerEventString.equals("process_started_stopped") | triggerEventString.equals("process_running"))
             		newTrigger.setTriggerType(Trigger_Enum.process_started_stopped);
-//            	else if(triggerEventString.equals("airplaneMode"))
-//            		newTrigger.setTriggerType(Trigger_Enum.airplaneMode);
-//            	else if(triggerEventString.equals("roaming"))
-//            		newTrigger.setTriggerType(Trigger_Enum.roaming);
-//            	else if(triggerEventString.equals("phoneCall"))
-//            		newTrigger.setTriggerType(Trigger_Enum.phoneCall);
-//            	else if(triggerEventString.equals("nfcTag"))
-//            		newTrigger.setTriggerType(Trigger_Enum.nfcTag);
-//				else if(triggerEventString.equals("notification"))
-//					newTrigger.setTriggerType(Trigger_Enum.notification);
-//            	else if(triggerEventString.equals("activityDetection"))
-//            		newTrigger.setTriggerType(Trigger_Enum.activityDetection);
-//            	else if(triggerEventString.equals("bluetoothConnection"))
-//            		newTrigger.setTriggerType(Trigger_Enum.bluetoothConnection);
-//            	else if(triggerEventString.equals("headsetPlugged"))
-//            		newTrigger.setTriggerType(Trigger_Enum.headsetPlugged);
-//				else if(triggerEventString.equals("notification"))
-//					newTrigger.setTriggerType(Trigger_Enum.notification);
 				else
-				newTrigger.setTriggerType(Trigger_Enum.valueOf(triggerEventString));
+					newTrigger.setTriggerType(Trigger_Enum.valueOf(triggerEventString));
             }
             else if (name.equals("TriggerParameter1"))
             {
@@ -1079,17 +1045,6 @@ public class XmlFileInterface
             {				
             	String actionNameString = readTag(parser, "ActionName");
             	
-//            	if(actionNameString.equals("setWifi"))
-//            		newAction.setAction(Action_Enum.setWifi);
-//            	else if(actionNameString.equals("setBluetooth"))
-//            		newAction.setAction(Action_Enum.setBluetooth);
-//            	else if(actionNameString.equals("setUsbTethering"))
-//            		newAction.setAction(Action_Enum.setUsbTethering);
-//            	else if(actionNameString.equals("setWifiTethering"))
-//            		newAction.setAction(Action_Enum.setWifiTethering);
-//            	else if(actionNameString.equals("setDisplayRotation"))
-//            		newAction.setAction(Action_Enum.setDisplayRotation);
-            	
             // *** deprecated
             	//else
             		if(actionNameString.equals("turnWifiOn"))
@@ -1113,29 +1068,7 @@ public class XmlFileInterface
 	        	else if(actionNameString.equals("disableScreenRotation"))
 	        		newAction.setAction(Action_Enum.disableScreenRotation);
             // *** deprecated
-            	
-//            	else if(actionNameString.equals("triggerUrl"))
-//            		newAction.setAction(Action_Enum.triggerUrl);
-//            	else if(actionNameString.equals("changeSoundProfile"))
-//            		newAction.setAction(Action_Enum.changeSoundProfile);
-//	        	else if(actionNameString.equals("startOtherActivity"))
-//	        		newAction.setAction(Action_Enum.startOtherActivity);
-//	        	else if(actionNameString.equals("waitBeforeNextAction"))
-//	        		newAction.setAction(Action_Enum.waitBeforeNextAction);
-//	        	else if(actionNameString.equals("wakeupDevice"))
-//	        		newAction.setAction(Action_Enum.wakeupDevice);
-//	        	else if(actionNameString.equals("setAirplaneMode"))
-//	        		newAction.setAction(Action_Enum.setAirplaneMode);
-//	        	else if(actionNameString.equals("setDataConnection"))
-//	        		newAction.setAction(Action_Enum.setDataConnection);
-//	        	else if(actionNameString.equals("speakText"))
-//	        		newAction.setAction(Action_Enum.speakText);
-//	        	else if(actionNameString.equals("sendTextMessage"))
-//	        		newAction.setAction(Action_Enum.sendTextMessage);
-//	        	else if(actionNameString.equals("playMusic"))
-//	        		newAction.setAction(Action_Enum.playMusic);
-//				else if(actionNameString.equals("setScreenBrightness"))
-//					newAction.setAction(Action_Enum.setScreenBrightness);
+
 				else
 					newAction.setAction(Action_Enum.valueOf(actionNameString));
             }
@@ -1225,22 +1158,6 @@ public class XmlFileInterface
 	            		}
             		}
             	}
-            	else if(newAction.getAction().equals(Action_Enum.startOtherActivity))	// read old entries where parameter1 was not in use, yet to distinguish between call by activity and call by action
-				{
-					String[] contents = tag.split(";");
-
-					if(contents.length == 1)
-						newAction.setParameter1(false);
-					else if(contents.length == 2)
-					{
-						if(contents[1].contains("/"))
-							newAction.setParameter1(false);
-						else
-							newAction.setParameter1(true);
-					}
-
-					newAction.setParameter2(tag);
-				}
             	else
             		newAction.setParameter2(tag);
             }
