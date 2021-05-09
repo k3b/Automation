@@ -608,20 +608,26 @@ public class Actions
 			{
 				// selected by action
 				Miscellaneous.logEvent("i", "StartOtherApp", "Starting app by action: " + param, 3);
-				paramsStartIndex = 1;
-				externalActivityIntent = new Intent(param);
-				externalActivityIntent.addCategory(Intent.CATEGORY_DEFAULT);
-//				Context c = autoMationServerRef.getApplicationContext();
-//				c.getApplicationContext()
-//				externalActivityIntent.setPackage("com.wireguard.android");//this did the trick actually
-//				if(externalActivityIntent.resolveActivity(autoMationServerRef.getPackageManager()) == null)
-//					Toast.makeText(context, "bad", Toast.LENGTH_LONG).show();
+
+				externalActivityIntent = new Intent();
+
+				if(params.length > 1 && !params[1].contains("/"))
+				{
+					externalActivityIntent.setPackage(params[0]);
+					externalActivityIntent.setAction(params[1]);
+					paramsStartIndex = 2;
+				}
+				else
+				{
+					externalActivityIntent.setAction(params[0]);
+					paramsStartIndex = 1;
+				}
 			}
 
 			externalActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 			// Pack intents
-			for (int i = paramsStartIndex = 2; i < params.length; i++)
+			for (int i = paramsStartIndex; i < params.length; i++)
 			{
 				String[] singleParam = params[i].split("/");
 

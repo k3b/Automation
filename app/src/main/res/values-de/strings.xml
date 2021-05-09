@@ -257,7 +257,7 @@
     <string name="anotherPoiByThatName">Es gibt bereits einen Ort mit diesem Namen.</string>
     <string name="anotherRuleByThatName">Es gibt bereits eine Regel mit diesem Namen.</string>
     <string name="startOtherActivity">Programm starten</string>
-    <string name="selectApplication">Wählen Sie eine Anwendung</string>
+    <string name="selectApplication">Wählen Sie\neine Anwendung</string>
     <string name="selectPackageOfApplication">Wählen Sie ein Paket der Anwendung</string>
     <string name="selectActivityToBeStarted">Wählen Sie die Activity des Pakets</string>
     <string name="errorStartingOtherActivity">Fehler beim Starten einer anderen Anwendung</string>
@@ -636,6 +636,10 @@
     <string name="ruleActivationComplete">Regel \"%1$s\" wurde fertig ausgeführt.</string>
     <string name="addParameters">Parameter hinzufügen</string>
     <string name="errorRunningRule">Fehler beim Ausführen einer Regel.</string>
-    <string name="startAppChoiceNote">Sie können den Pfad einer Aktivität manuell eingeben, aber es wird stark empfohlen den \"Auswählen\" Knopf zu verwenden. Wenn Sie etwas manuell eingeben, behalten Sie bitte im Hinterkopf, daß keine Variablen aufgelöst werden. D.h., wenn Sie z.B. die Kamera starten wollen, indem Sie \"MediaStore.ACTION_IMAGE_CAPTURE\" verwenden, wird das nicht verwenden. Wenn Sie in der Android Dokumentation schauen, werden Sie sehen, daß sich dahinter eigentlich der Wert \"android.media.action.IMAGE_CAPTURE\" verbirgt, der hier direkt eingegeben werden müßte.</string>
+    <string name="startAppChoiceNote">Hier haben Sie 2 grundsätzliche Optionen:\n\n1. Sie können ein Programm starten, indem Sie eine Activity auswählen.\nStellen Sie sich das so vor, daß Sie ein bestimmtes Fenster einer Anwendung vorauswählen, in das man direkt springt. Behalten Sie im Kopf, daß das nicht immer funktionieren wird. Das liegt daran, daß die Fenster einer Anwendung miteinander interagieren können, sich u.U. Parameter übergeben. Wenn man jetzt ganz kalt in ein bestimmtes Fenster springt, könnte dieses zum Start z.B. bestimmte Parameter erwarten - die fehlen. So könnte es passieren, daß das Fenster zwar versucht zu öffnen, das aber nicht klappt und es somit nie wirlich sichtbar wird. Versuchen Sie\'s trotzdem!\nSie können den Pfad manuell eingeben, sollten aber den Auswählen-Knopf benutzen. Wenn Sie es dennoch manuell eingeben, geben Sie den PackageName ins obere Feld ein und den vollen Pfad der Activity ins untere.\n\n2. Auswahl per Action\nIm Gegensatz zur Auswahl eines bestimmten Fensters, können Sie ein Programm auch über eine Action starten lassen. Stellen Sie sich das so vor als würden Sie in den Wald rufen \"Ich hätte gerne XYZ\" und falls eine Anwendung installiert ist, die das liefern kann, wird sie gestartet. Ein gutes Beispiel wäre zum Beispiel "Browser starten" - es könnten sogar mehrere installiert sein, die das können (aber normalerweise gibts eine, die als Standard eingestellt ist).\nDiese Action müssen Sie manuell eingeben. Der PackageName ist hier optional. Behalten Sie dabei im Auge, daß mögliche Variablen nicht aufgelöst werden. Beispielsweise werden Sie häufig im Internet finden, daß man die Kamera über die Action \"MediaStore.ACTION_IMAGE_CAPTURE\" starten kann. Das ist grundsätzlich nicht richtig, wird aber nicht direkt funktionieren, denn das ist nur eine Variable. Sie müssen dann einen Blick in die Android Dokumentation werfen, wo Sie sehen werden, daß sich hinter dieser Variable eigentlich der Wert \"android.media.action.IMAGE_CAPTURE\" verbirgt. Gibt man diesen in das Feld ein, wird\'s funktionieren.</string>
     <string name="cantFindSoundFile">Kann die Audiodatei %1$s nicht finden und daher auch nicht abspielen.</string>
+    <string name="startAppByActivity">per Activity</string>
+    <string name="startAppByAction">per Action</string>
+    <string name="startAppSelectionType">Auswahlmethode</string>
+    <string name="com.wireguard.android.permission.CONTROL_TUNNELS">Tunnelverbindungen der Wireguard Anwendung steuern</string>
 </resources>

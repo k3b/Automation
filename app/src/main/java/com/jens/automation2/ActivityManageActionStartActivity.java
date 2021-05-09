@@ -22,11 +22,11 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jens.automation2.Action.Action_Enum;
@@ -39,7 +39,7 @@ import java.util.List;
 public class ActivityManageActionStartActivity extends Activity
 {
 	ListView lvIntentPairs;
-	EditText etParameterName, etParameterValue, etSelectedActivity;
+	EditText etParameterName, etParameterValue, etPackageName, etActivityOrActionPath;
 	Button bSelectApp, bAddIntentPair, bSaveActionStartOtherActivity;
 	Spinner spinnerParameterType;
 	boolean edit = false;
@@ -269,7 +269,7 @@ public class ActivityManageActionStartActivity extends Activity
 			public void onClick(DialogInterface dialog, int which)
 			{
 				ActivityInfo ai = ActivityManageActionStartActivity.getActivityInfoForPackageNameAndActivityName(packageName, activityArray[which]);
-				etSelectedActivity.setText(ai.packageName + ";" + ai.name);
+				etActivityOrActionPath.setText(ai.packageName + ";" + ai.name);
 			}
 		});
 		AlertDialog alertDialog = alertDialogBuilder.create();
@@ -290,7 +290,8 @@ public class ActivityManageActionStartActivity extends Activity
 		bAddIntentPair = (Button)findViewById(R.id.bAddIntentPair);
 		bSaveActionStartOtherActivity = (Button)findViewById(R.id.bSaveActionStartOtherActivity);
 		spinnerParameterType = (Spinner)findViewById(R.id.spinnerParameterType);
-		etSelectedActivity = (EditText) findViewById(R.id.etSelectedApplication);
+		etPackageName = (EditText) findViewById(R.id.etPackageName);
+		etActivityOrActionPath = (EditText) findViewById(R.id.etActivityOrActionPath);
 		rbStartAppSelectByActivity = (RadioButton)findViewById(R.id.rbStartAppSelectByActivity);
 		rbStartAppSelectByAction = (RadioButton)findViewById(R.id.rbStartAppSelectByAction);
 		
@@ -400,6 +401,26 @@ public class ActivityManageActionStartActivity extends Activity
 				
 			}
 		});
+
+		rbStartAppSelectByActivity.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+			{
+				if(isChecked)
+					bSelectApp.setEnabled(isChecked);
+			}
+		});
+
+		rbStartAppSelectByAction.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+			{
+				if(isChecked)
+					bSelectApp.setEnabled(!isChecked);
+			}
+		});
 		
 		Intent i = getIntent();
 		if(i.getBooleanExtra("edit", false) == true)
@@ -417,17 +438,30 @@ public class ActivityManageActionStartActivity extends Activity
 
 		String[] params = resultingAction.getParameter2().split(";");
 
-		if(selectionByActivity)
-			etSelectedActivity.setText(params[0] + ";" + params[1]);
-		else
-			etSelectedActivity.setText(params[0]);
-
 		int startIndex = -1;
 
-		if(selectionByActivity && params.length >= 2)
-			startIndex = 2;
-		else if(!selectionByActivity && params.length >= 1)
-			startIndex = 1;
+		if(selectionByActivity)
+		{
+			etPackageName.setText(params[0]);
+			etActivityOrActionPath.setText(params[1]);
+
+			if(params.length >= 2)
+				startIndex = 2;
+		}
+		else
+		{
+			if(params[1].contains("/"))
+			{
+				etActivityOrActionPath.setText(params[0]);
+				startIndex = 1;
+			}
+			else
+			{
+				etPackageName.setText(params[0]);
+				etActivityOrActionPath.setText(params[1]);
+				startIndex = 2;
+			}
+		}
 
 		if(startIndex > -1 && params.length > startIndex)
 		{
@@ -455,26 +489,26 @@ public class ActivityManageActionStartActivity extends Activity
 	
 	private boolean saveAction()
 	{
-		if(etSelectedActivity.getText().toString().length() == 0)
+		if(rbStartAppSelectByActivity.isChecked())
 		{
-			Toast.makeText(ActivityManageActionStartActivity.this, getResources().getString(R.string.selectApplication), Toast.LENGTH_LONG).show();
-			return false;
+			if (etPackageName.getText().toString().length() == 0)
+			{
+				Toast.makeText(ActivityManageActionStartActivity.this, getResources().getString(R.string.enterPackageName), Toast.LENGTH_LONG).show();
+				return false;
+			}
+			else if (etActivityOrActionPath.getText().toString().length() == 0)
+			{
+				Toast.makeText(ActivityManageActionStartActivity.this, getResources().getString(R.string.selectApplication), Toast.LENGTH_LONG).show();
+				return false;
+			}
 		}
-//		else
-//		{
-//			Intent testIntent = new Intent(ActivityManageActionStartActivity.this, etSelectedActivity);
-//			Intent externalActivityIntent = new Intent(Intent.ACTION_MAIN);
-//			externalActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//			externalActivityIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-//			externalActivityIntent.setClassName(packageName, className);
-//
-//			boolean activityExists = externalActivityIntent.resolveActivityInfo(getPackageManager(), 0) != null;
-//		}
-
-		if(etSelectedActivity.getText().toString().equals(getResources().getString(R.string.selectApplication)))
+		else
 		{
-			Toast.makeText(this, getResources().getString(R.string.selectApplication), Toast.LENGTH_LONG).show();
-			return false;
+			if(etActivityOrActionPath.getText().toString().contains(";"))
+			{
+				Toast.makeText(this, getResources().getString(R.string.enterValidAction), Toast.LENGTH_LONG).show();
+				return false;
+			}
 		}
 		
 		if(resultingAction == null)
@@ -486,10 +520,15 @@ public class ActivityManageActionStartActivity extends Activity
 		
 		String parameter2;
 
-//		if(etSelectedActivity.getText().toString().contains(";"))
-			parameter2 = etSelectedActivity.getText().toString();
-//		else
-//			parameter2 = "dummyPkg;" + etSelectedActivity.getText().toString();
+		if(rbStartAppSelectByActivity.isChecked())
+			parameter2 = etPackageName.getText().toString() + ";" + etActivityOrActionPath.getText().toString();
+		else
+		{
+			if(etPackageName.getText().toString() != null && etPackageName.getText().toString().length() > 0)
+				parameter2 = etPackageName.getText().toString() + ";" + etActivityOrActionPath.getText().toString();
+			else
+				parameter2 = etActivityOrActionPath.getText().toString();
+		}
 
 		for(String s : intentPairList)
 			parameter2 += ";" + s;

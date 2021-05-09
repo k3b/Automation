@@ -258,7 +258,7 @@ public class ActivityManageTriggerNotification extends Activity
 		bSaveTriggerNotification = (Button)findViewById(R.id.bSaveTriggerNotification);
 		spinnerTitleDirection = (Spinner)findViewById(R.id.spinnerTitleDirection);
 		spinnerTextDirection = (Spinner)findViewById(R.id.spinnerTextDirection);
-		tvSelectedApplication = (TextView)findViewById(R.id.etSelectedApplication);
+		tvSelectedApplication = (TextView)findViewById(R.id.etActivityOrActionPath);
 		chkNotificationDirection = (CheckBox)findViewById(R.id.chkNotificationDirection);
 
 		directions = new String[] {
