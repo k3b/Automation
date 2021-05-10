@@ -119,21 +119,62 @@ public class ActivityMaintenance extends Activity
                 if(resultCode == RESULT_OK)
                 {
                     Uri uriTree = data.getData();
-                    DocumentFile directory = DocumentFile.fromTreeUri(this, uriTree);
-                    for(DocumentFile file : directory.listFiles())
-                    {
-                        if(file.canRead() && file.getName().equals(XmlFileInterface.settingsFileName))
-                        {
-                            // import rules, locations, etc.
-                            Miscellaneous.copyFileUsingStream(file, Miscellaneous.getWriteableFolder() + "/" + XmlFileInterface.settingsFileName);
-                        }
-                        else if(false && file.canRead() && file.getName().equals(XmlFileInterface.settingsFileName))
-                        {
-                            // import rules, locations, etc.
-                        }
-                    }
+                    importFiles(uriTree);
                 }
                 break;
+            case requestCodeExport:
+                if(resultCode == RESULT_OK)
+                {
+                    Uri uriTree = data.getData();
+                    exportFiles(uriTree);
+                }
+                break;
+        }
+    }
+
+    void importFiles(Uri uriTree)
+    {
+//        https://stackoverflow.com/questions/46237558/android-strange-behavior-of-documentfile-inputstream
+
+        DocumentFile directory = DocumentFile.fromTreeUri(this, uriTree);
+        for(DocumentFile file : directory.listFiles())
+        {
+            if(file.canRead() && file.getName().equals(XmlFileInterface.settingsFileName))
+            {
+                // import rules, locations, etc.
+                if(Miscellaneous.copyDocumentFileToFile(file, new File(Miscellaneous.getWriteableFolder() + "/" + XmlFileInterface.settingsFileName + "2")))
+                {
+                    // reload file
+                    Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.rulesImportedSuccessfully), Toast.LENGTH_LONG).show();
+                }
+                else
+                    Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.rulesImportError), Toast.LENGTH_LONG).show();
+            }
+            else if(false && file.canRead() && file.getName().equals(XmlFileInterface.settingsFileName))
+            {
+                // import rules, locations, etc.
+            }
+        }
+    }
+
+    void exportFiles(Uri uriTree)
+    {
+        DocumentFile directory = DocumentFile.fromTreeUri(this, uriTree);
+
+        File src = new File(Miscellaneous.getWriteableFolder() + "/" + XmlFileInterface.settingsFileName);
+
+        DocumentFile dst = directory.createFile("text/xml", XmlFileInterface.settingsFileName);
+
+        if(dst.canWrite())
+        {
+            // import rules, locations, etc.
+            if(Miscellaneous.copyFileToDocumentFile(src, dst))
+            {
+                // reload file
+                Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.rulesExportedSuccessfully), Toast.LENGTH_LONG).show();
+            }
+            else
+                Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.rulesExportError), Toast.LENGTH_LONG).show();
         }
     }
 

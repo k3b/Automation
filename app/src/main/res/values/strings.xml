@@ -650,4 +650,8 @@
     <string name="importConfiguration">Import configuration</string>
     <string name="exportConfiguration">Export configuration</string>
     <string name="moreSettings">More settings</string>
+    <string name="rulesImportedSuccessfully">Rules and locations have been imported successfully.</string>
+    <string name="rulesImportError">There was an error importing rules and locations.</string>
+    <string name="rulesExportedSuccessfully">Rules and locations exported successfully.</string>
+    <string name="rulesExportError">Error exporting rules and locations.</string>
 </resources>

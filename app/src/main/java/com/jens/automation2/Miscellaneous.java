@@ -1215,7 +1215,85 @@ public class Miscellaneous extends Service
 		return returnValue;
 	}
 
-	public static String copyDocumentFile(String inputPath, String inputFile, Uri treeUri)
+	public static boolean copyDocumentFileToFile(DocumentFile src, File dst)
+	{
+		InputStream in = null;
+		OutputStream out = null;
+		String error = null;
+
+		try
+		{
+			in = Miscellaneous.getAnyContext().getContentResolver().openInputStream(src.getUri());
+			out = new FileOutputStream(dst);
+
+			byte[] buffer = new byte[1024];
+			int read;
+
+			while ((read = in.read(buffer)) != -1)
+			{
+				out.write(buffer, 0, read);
+			}
+
+			in.close();
+			// write the output file (You have now copied the file)
+			out.flush();
+			out.close();
+
+			return true;
+		}
+		catch (FileNotFoundException fnfe1)
+		{
+			error = fnfe1.getMessage();
+		}
+		catch (Exception e)
+		{
+			error = e.getMessage();
+		}
+
+		return false;
+//		return error;
+	}
+
+	public static boolean copyFileToDocumentFile(File src, DocumentFile dst)
+	{
+		InputStream in = null;
+		OutputStream out = null;
+		String error = null;
+
+		try
+		{
+			in = new FileInputStream(src);
+			out = Miscellaneous.getAnyContext().getContentResolver().openOutputStream(dst.getUri());
+
+			byte[] buffer = new byte[1024];
+			int read;
+
+			while ((read = in.read(buffer)) != -1)
+			{
+				out.write(buffer, 0, read);
+			}
+
+			in.close();
+			// write the output file (You have now copied the file)
+			out.flush();
+			out.close();
+
+			return true;
+		}
+		catch (FileNotFoundException fnfe1)
+		{
+			error = fnfe1.getMessage();
+		}
+		catch (Exception e)
+		{
+			error = e.getMessage();
+		}
+
+		return false;
+//		return error;
+	}
+
+	/*public static String copyDocumentFile(String inputPath, String inputFile, Uri treeUri)
 	{
 		InputStream in = null;
 		OutputStream out = null;
@@ -1223,14 +1301,16 @@ public class Miscellaneous extends Service
 		DocumentFile pickedDir = DocumentFile.fromTreeUri(getActivity(), treeUri);
 		String extension = inputFile.substring(inputFile.lastIndexOf(".")+1,inputFile.length());
 
-		try {
+		try
+		{
 			DocumentFile newFile = pickedDir.createFile("audio/"+extension, inputFile);
 			out = getActivity().getContentResolver().openOutputStream(newFile.getUri());
 			in = new FileInputStream(inputPath + inputFile);
 
 			byte[] buffer = new byte[1024];
 			int read;
-			while ((read = in.read(buffer)) != -1) {
+			while ((read = in.read(buffer)) != -1)
+			{
 				out.write(buffer, 0, read);
 			}
 			in.close();
@@ -1238,13 +1318,18 @@ public class Miscellaneous extends Service
 			out.flush();
 			out.close();
 
-		} catch (FileNotFoundException fnfe1) {
+		}
+		catch (FileNotFoundException fnfe1)
+		{
 			error = fnfe1.getMessage();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			error = e.getMessage();
 		}
+
 		return error;
-	}
+	}*/
 
 	public static boolean googleToBlameForLocation(boolean checkExistingRules)
 	{
