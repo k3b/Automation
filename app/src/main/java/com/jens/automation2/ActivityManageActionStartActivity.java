@@ -432,34 +432,45 @@ public class ActivityManageActionStartActivity extends Activity
 	
 	private void loadValuesIntoGui()
 	{
-		boolean selectionByActivity = resultingAction.getParameter1();
-		rbStartAppSelectByActivity.setChecked(selectionByActivity);
-		rbStartAppSelectByAction.setChecked(!selectionByActivity);
+		boolean selectionByAction = resultingAction.getParameter1();
+		rbStartAppSelectByActivity.setChecked(!selectionByAction);
+		rbStartAppSelectByAction.setChecked(selectionByAction);
 
 		String[] params = resultingAction.getParameter2().split(";");
 
 		int startIndex = -1;
 
-		if(selectionByActivity)
+		if(!selectionByAction)
 		{
 			etPackageName.setText(params[0]);
-			etActivityOrActionPath.setText(params[1]);
+			if(params.length > 1)	// should not occur, have fault tollerance
+			{
+				etActivityOrActionPath.setText(params[1]);
 
-			if(params.length >= 2)
-				startIndex = 2;
+				if (params.length >= 2)
+					startIndex = 2;
+			}
 		}
 		else
 		{
-			if(params[1].contains("/"))
+			if(params.length > 1)	// should not occur, have fault tollerance
 			{
-				etActivityOrActionPath.setText(params[0]);
-				startIndex = 1;
+				if(params[1].contains("/"))
+				{
+						etActivityOrActionPath.setText(params[0]);
+						startIndex = 1;
+				}
+				else
+				{
+					etPackageName.setText(params[0]);
+					etActivityOrActionPath.setText(params[1]);
+					startIndex = 2;
+				}
 			}
 			else
 			{
-				etPackageName.setText(params[0]);
-				etActivityOrActionPath.setText(params[1]);
-				startIndex = 2;
+				etActivityOrActionPath.setText(params[0]);
+				startIndex = 1;
 			}
 		}
 
@@ -514,7 +525,7 @@ public class ActivityManageActionStartActivity extends Activity
 		if(resultingAction == null)
 			resultingAction = new Action();
 
-		resultingAction.setParameter1(rbStartAppSelectByActivity.isChecked());
+		resultingAction.setParameter1(rbStartAppSelectByAction.isChecked());
 		
 		resultingAction.setAction(Action_Enum.startOtherActivity);
 		

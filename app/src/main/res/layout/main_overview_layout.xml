@@ -302,87 +302,38 @@
 			</TableRow>
 			
 		</TableLayout>
-			
-		<LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal" 
-	  		android:layout_margin="10dp"
-	  		android:layout_marginTop="30dp"
-	  		android:gravity="top" >
-	
-		    <Button
-		        android:id="@+id/bShowHelp"
-		        android:layout_gravity="center_vertical"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:text="@string/showHelp" 
-		        android:layout_weight="1" />
-	
-		    <Button
-		        android:id="@+id/bVolumeTest"
-				android:layout_gravity="center_vertical"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:text="@string/volumeTest" 
-		        android:layout_weight="1" />
-	
-		    <Button
-		        android:id="@+id/bPrivacy"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-				android:layout_gravity="center_vertical"
-		        android:layout_weight="1"
-		        android:enabled="true"
-		        android:text="@string/privacy" />
-	    
-		</LinearLayout>
 		
 		<LinearLayout
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:orientation="horizontal" 
+	        android:orientation="vertical"
 	  		android:layout_margin="10dp"
 	  		android:layout_marginTop="30dp"
 	  		android:gravity="center_horizontal" >
-		    
+
+			<Button
+				android:id="@+id/bShowHelp"
+				android:layout_gravity="center_vertical"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/showHelp" />
+
+			<Button
+				android:id="@+id/bPrivacy"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_vertical"
+				android:enabled="true"
+				android:text="@string/privacy" />
+
 		    <Button
 		        android:id="@+id/bSettings"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
 		        android:layout_gravity="top"
-		        android:layout_weight="1"
 		        android:text="@string/menu_settings" />
-		    	    
-			<!-- <Button
-			    android:id="@+id/bSettingsErase"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:text="@string/eraseSettings" /> -->
-		    
-			<Button
-			    android:id="@+id/bSettingsSetToDefault"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:layout_weight="1"
-			    android:text="@string/defaultSettings" />
 			
 		</LinearLayout>
-
-		<TextView
-			android:id="@+id/tvFileStoreLocation"
-			android:layout_marginVertical="@dimen/default_margin"
-			android:layout_gravity="center_horizontal"
-			android:gravity="center_horizontal"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content" />
-
-		<Button
-			android:id="@+id/bShareConfigAndLog"
-			android:layout_gravity="center_horizontal"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/shareConfigAndLogFilesWithDev" />
 		
 	</LinearLayout>
 

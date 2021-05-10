@@ -90,6 +90,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import androidx.core.app.NotificationCompat;
+import androidx.documentfile.provider.DocumentFile;
 
 import static android.provider.CalendarContract.CalendarCache.URI;
 import static com.jens.automation2.AutomationService.NOTIFICATION_CHANNEL_ID;
@@ -1212,6 +1213,37 @@ public class Miscellaneous extends Service
 		}
 
 		return returnValue;
+	}
+
+	public static String copyDocumentFile(String inputPath, String inputFile, Uri treeUri)
+	{
+		InputStream in = null;
+		OutputStream out = null;
+		String error = null;
+		DocumentFile pickedDir = DocumentFile.fromTreeUri(getActivity(), treeUri);
+		String extension = inputFile.substring(inputFile.lastIndexOf(".")+1,inputFile.length());
+
+		try {
+			DocumentFile newFile = pickedDir.createFile("audio/"+extension, inputFile);
+			out = getActivity().getContentResolver().openOutputStream(newFile.getUri());
+			in = new FileInputStream(inputPath + inputFile);
+
+			byte[] buffer = new byte[1024];
+			int read;
+			while ((read = in.read(buffer)) != -1) {
+				out.write(buffer, 0, read);
+			}
+			in.close();
+			// write the output file (You have now copied the file)
+			out.flush();
+			out.close();
+
+		} catch (FileNotFoundException fnfe1) {
+			error = fnfe1.getMessage();
+		} catch (Exception e) {
+			error = e.getMessage();
+		}
+		return error;
 	}
 
 	public static boolean googleToBlameForLocation(boolean checkExistingRules)

@@ -42,8 +42,8 @@ public class ActivityMainScreen extends ActivityGeneric
 
 	private static ActivityMainScreen activityMainScreenInstance = null;
 	private ToggleButton toggleService, tbLockSound;
-	private Button bShowHelp, bPrivacy, bSettingsErase, bSettingsSetToDefault, bVolumeTest, bAddSoundLockTIme, bShareConfigAndLog;
-	private TextView tvActivePoi, tvClosestPoi, tvLastRule, tvMainScreenNotePermissions, tvMainScreenNoteFeaturesFromOtherFlavor, tvMainScreenNoteLocationImpossibleBlameGoogle, tvMainScreenNoteNews, tvlockSoundDuration, tvFileStoreLocation;
+	private Button bShowHelp, bPrivacy, bSettingsErase, bAddSoundLockTIme;
+	private TextView tvActivePoi, tvClosestPoi, tvLastRule, tvMainScreenNotePermissions, tvMainScreenNoteFeaturesFromOtherFlavor, tvMainScreenNoteLocationImpossibleBlameGoogle, tvMainScreenNoteNews, tvlockSoundDuration;
 
 	private ListView lvRuleHistory;
 	private ArrayAdapter<Rule> ruleHistoryListViewAdapter;
@@ -77,11 +77,7 @@ public class ActivityMainScreen extends ActivityGeneric
 		tvMainScreenNoteLocationImpossibleBlameGoogle = (TextView) findViewById(R.id.tvMainScreenNoteLocationImpossibleBlameGoogle);
 		tvMainScreenNoteNews = (TextView) findViewById(R.id.tvMainScreenNoteNews);
 		tvlockSoundDuration = (TextView)findViewById(R.id.tvlockSoundDuration);
-		tvFileStoreLocation = (TextView)findViewById(R.id.tvFileStoreLocation);
 		tbLockSound = (ToggleButton) findViewById(R.id.tbLockSound);
-		bVolumeTest = (Button) findViewById(R.id.bVolumeTest);
-		bSettingsSetToDefault = (Button) findViewById(R.id.bSettingsSetToDefault);
-		bShareConfigAndLog = (Button) findViewById(R.id.bShareConfigAndLog);
 		toggleService = (ToggleButton) findViewById(R.id.tbArmMastListener);
 		toggleService.setChecked(AutomationService.isMyServiceRunning(this));
 		toggleService.setOnCheckedChangeListener(new OnCheckedChangeListener()
@@ -136,18 +132,8 @@ public class ActivityMainScreen extends ActivityGeneric
 			@Override
 			public void onClick(View v)
 			{
-				Intent myIntent = new Intent(ActivityMainScreen.this, ActivitySettings.class);
-				startActivityForResult(myIntent, 6000);
-			}
-		});
-
-		bVolumeTest.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				Intent intent = new Intent(ActivityMainScreen.this, ActivityVolumeTest.class);
-				startActivity(intent);
+				Intent myIntent = new Intent(ActivityMainScreen.this, ActivityMaintenance.class);
+				startActivity(myIntent);
 			}
 		});
 
@@ -181,24 +167,6 @@ public class ActivityMainScreen extends ActivityGeneric
 				});
 				builder.setNegativeButton(getResources().getString(R.string.no), null);
 				builder.create().show();
-			}
-		});
-		
-		bSettingsSetToDefault.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				getDefaultSettingsDialog(ActivityMainScreen.this).show();
-			}
-		});
-
-		bShareConfigAndLog.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				getShareConfigAndLogDialogue(ActivityMainScreen.this).show();
 			}
 		});
 
@@ -256,81 +224,6 @@ public class ActivityMainScreen extends ActivityGeneric
 			{
 				if (Settings.eraseSettings(context))
 					Toast.makeText(context, context.getResources().getString(R.string.settingsErased), Toast.LENGTH_LONG).show();
-			}
-		});
-		alertDialogBuilder.setNegativeButton(context.getResources().getString(R.string.no), null);
-		AlertDialog alertDialog = alertDialogBuilder.create();
-
-		return alertDialog;
-	}
-
-	private static AlertDialog getDefaultSettingsDialog(final Context context)
-	{
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-		alertDialogBuilder.setTitle(context.getResources().getString(R.string.areYouSure));
-		alertDialogBuilder.setPositiveButton(context.getResources().getString(R.string.yes), new DialogInterface.OnClickListener()
-		{
-			@Override
-			public void onClick(DialogInterface dialog, int which)
-			{
-				if (Settings.initializeSettings(context, true))
-					Toast.makeText(context, context.getResources().getString(R.string.settingsSetToDefault), Toast.LENGTH_LONG).show();
-			}
-		});
-		alertDialogBuilder.setNegativeButton(context.getResources().getString(R.string.no), null);
-		AlertDialog alertDialog = alertDialogBuilder.create();
-
-		return alertDialog;
-	}
-
-	AlertDialog getShareConfigAndLogDialogue(final Context context)
-	{
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-		alertDialogBuilder.setTitle(context.getResources().getString(R.string.shareConfigAndLogFilesWithDev));
-		alertDialogBuilder.setMessage(context.getResources().getString(R.string.shareConfigAndLogExplanation));
-		alertDialogBuilder.setPositiveButton(context.getResources().getString(R.string.yes), new DialogInterface.OnClickListener()
-		{
-			@Override
-			public void onClick(DialogInterface dialog, int which)
-			{
-				File dstZipFile = new File(Miscellaneous.getAnyContext().getCacheDir() + "/" + Settings.zipFileName);
-
-				ArrayList<String> srcFilesList = new ArrayList<>();
-				srcFilesList.add(Miscellaneous.getWriteableFolder() + "/" + XmlFileInterface.settingsFileName);
-
-				String logFilePath = Miscellaneous.getWriteableFolder() + "/" + Miscellaneous.logFileName;
-				if((new File(logFilePath)).exists())
-					srcFilesList.add(logFilePath);
-
-				String logFilePathArchive = Miscellaneous.getWriteableFolder() + "/" + Miscellaneous.logFileName + "-old";
-				if((new File(logFilePathArchive)).exists())
-					srcFilesList.add(logFilePathArchive);
-
-				String[] srcFiles = srcFilesList.toArray(new String[srcFilesList.size()]);
-
-				if(dstZipFile.exists())
-					dstZipFile.delete();
-
-				Miscellaneous.zip(srcFiles, dstZipFile.getAbsolutePath());
-
-				/*
-					Without root the zip file in the cache directory is not directly accessible.
-					But have to route it through this content provider crap.
-				 */
-
-				String subject = "Automation logs";
-
-				StringBuilder emailBody = new StringBuilder();
-				emailBody.append("Device details" + Miscellaneous.lineSeparator);
-				emailBody.append("OS version: " + System.getProperty("os.version") + Miscellaneous.lineSeparator);
-				emailBody.append("API Level: " + android.os.Build.VERSION.SDK + Miscellaneous.lineSeparator);
-				emailBody.append("Device: " + android.os.Build.DEVICE + Miscellaneous.lineSeparator);
-				emailBody.append("Model: " + android.os.Build.MODEL + Miscellaneous.lineSeparator);
-				emailBody.append("Product: " + android.os.Build.PRODUCT);
-
-				Uri uri = Uri.parse("content://com.jens.automation2/" + Settings.zipFileName);
-
-				Miscellaneous.sendEmail(ActivityMainScreen.this, "android-development@gmx.de", "Automation logs", emailBody.toString(), uri);
 			}
 		});
 		alertDialogBuilder.setNegativeButton(context.getResources().getString(R.string.no), null);
@@ -515,34 +408,6 @@ public class ActivityMainScreen extends ActivityGeneric
 
 			Settings.considerDone(Settings.constNewsOptInDone);
 			Settings.writeSettings(Miscellaneous.getAnyContext());
-
-			String folder = Miscellaneous.getWriteableFolder();
-			if(folder != null && folder.length() > 0)
-			{
-				activityMainScreenInstance.tvFileStoreLocation.setText(String.format(activityMainScreenInstance.getResources().getString(R.string.filesStoredAt), folder));
-				activityMainScreenInstance.tvFileStoreLocation.setOnClickListener(new OnClickListener()
-				{
-					@Override
-					public void onClick(View v)
-					{
-						Uri selectedUri = Uri.parse(folder);
-						Intent intent = new Intent(Intent.ACTION_VIEW);
-						intent.setDataAndType(selectedUri, "resource/folder");
-
-						if (intent.resolveActivityInfo(activityMainScreenInstance.getPackageManager(), 0) != null)
-						{
-							activityMainScreenInstance.startActivity(intent);
-						}
-						else
-						{
-							// if you reach this place, it means there is no any file
-							// explorer app installed on your device
-							Toast.makeText(activityMainScreenInstance, activityMainScreenInstance.getResources().getString(R.string.noFileManageInstalled), Toast.LENGTH_LONG).show();
-						}
-
-					}
-				});
-			}
 		}
 	}
 
@@ -597,16 +462,6 @@ public class ActivityMainScreen extends ActivityGeneric
 		{
 			case ActivityPermissions.requestCodeForPermissions:
 				updateMainScreen();
-				break;
-			case 6000: //settings
-				Settings.readFromPersistentStorage(this);
-
-				if (boundToService && AutomationService.isMyServiceRunning(this))
-					myAutomationService.serviceInterface(serviceCommands.reloadSettings);
-
-				if(AutomationService.isMyServiceRunning(ActivityMainScreen.this))
-					Toast.makeText(this, getResources().getString(R.string.settingsWillTakeTime), Toast.LENGTH_LONG).show();
-
 				break;
 		}
 

@@ -568,7 +568,7 @@ public class Actions
 	    }
 	}
 
-	public static void startOtherActivity(boolean byActivity, String param)
+	public static void startOtherActivity(boolean startByAction, String param)
 	{
 		Miscellaneous.logEvent("i", "StartOtherActivity", "Starting other Activity...", 4);
 
@@ -580,7 +580,7 @@ public class Actions
 
 			int paramsStartIndex;
 
-			if(byActivity)
+			if(!startByAction)
 			{
 				// selected by activity
 
@@ -1097,7 +1097,7 @@ public class Actions
             	if(enable)
             		desiredState = 1;
 
-				if(MobileDataStuff.setMobileNetworkfromLollipop(desiredState, autoMationServerRef))
+				if(MobileDataStuff.setMobileNetworkFromLollipop(desiredState, autoMationServerRef))
 				{
 					Miscellaneous.logEvent("i", "setDataConnectionWithRoot()", Miscellaneous.getAnyContext().getResources().getString(R.string.dataConWithRootSuccess), 2);
 					return true;
@@ -1122,7 +1122,7 @@ public class Actions
 	    }
 
 		@SuppressLint("NewApi")
-		public static boolean setMobileNetworkfromLollipop(int desiredState, Context context) throws Exception
+		public static boolean setMobileNetworkFromLollipop(int desiredState, Context context) throws Exception
 		{
 		    String command = null;
 		    int state = 0;

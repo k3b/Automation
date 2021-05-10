@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_margin="@dimen/default_margin">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:text="@string/settings" />
+
+    <Button
+        android:id="@+id/bImportConfiguration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/importConfiguration" />
+
+    <Button
+        android:id="@+id/bExportConfiguration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/exportConfiguration" />
+
+    <Button
+        android:id="@+id/bVolumeTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/volumeTest" />
+
+    <Button
+        android:id="@+id/bMoreSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/moreSettings" />
+
+    <Button
+        android:id="@+id/bSettingsSetToDefault"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/defaultSettings" />
+
+    <TextView
+        android:id="@+id/tvFileStoreLocation"
+        android:layout_marginVertical="@dimen/default_margin"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/bShareConfigAndLog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/shareConfigAndLogFilesWithDev" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

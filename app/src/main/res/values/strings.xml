@@ -645,4 +645,9 @@
     <string name="startAppByAction">by action</string>
     <string name="enterValidAction">Enter a valid action</string>
     <string name="enterPackageName">Enter a valid package name.</string>
+    <string name="state">State</string>
+    <string name="phoneNumberExplanation">You can enter a specific phone number, but you don\'t have to. If you want to specify one you can either pick one from your address book or enter it manually. Also regular expressions are supported if you want the rule to apply to an entire number block for example.</string>
+    <string name="importConfiguration">Import configuration</string>
+    <string name="exportConfiguration">Export configuration</string>
+    <string name="moreSettings">More settings</string>
 </resources>
