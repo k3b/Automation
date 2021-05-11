@@ -133,6 +133,8 @@
         <activity android:name=".ActivityManageActionSendTextMessage" />
         <activity android:name=".ActivityManageActionPlaySound" />
         <activity android:name=".ActivityManageTriggerTimeFrame" />
+        <activity android:name=".ActivityMaintenance" />
+        <activity android:name=".ActivityTriggerPhoneCall" />
         <activity android:name=".ActivityManageActionBrightnessSetting" />
         <activity android:name=".ActivityHelp" />
         <activity
@@ -174,6 +176,7 @@
         <activity android:name=".ActivityManageActionStartActivity" />
         <activity android:name=".ActivityManageTriggerNfc" />
         <activity android:name=".ActivityManageActionSpeakText" />
+        <activity android:name=".ActivityManageActionPlaySound" />
         <activity android:name=".ActivityManageTriggerBluetooth" />
         <activity android:name=".ActivityMainProfiles" />
         <activity android:name=".ActivityManageProfile" />
@@ -202,9 +205,12 @@
 
         <activity android:name=".ActivityPermissions"></activity>
 
+
+<!--        https://developer.android.com/about/versions/pie/android-9.0-changes-28#apache-p-->
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+
         <service android:name=".location.GeofenceIntentService"/>
 
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
 
         <provider
             android:name=".FileShareProvider"

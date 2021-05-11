@@ -137,7 +137,10 @@
         <activity android:name=".ActivityManageActionTriggerUrl" />
         <activity android:name=".ActivityDisplayLongMessage" />
         <activity android:name=".ActivityManageActionSendTextMessage" />
+        <activity android:name=".ActivityManageActionPlaySound" />
         <activity android:name=".ActivityManageTriggerTimeFrame" />
+        <activity android:name=".ActivityMaintenance" />
+        <activity android:name=".ActivityTriggerPhoneCall" />
         <activity android:name=".ActivityManageActionBrightnessSetting" />
         <activity android:name=".ActivityHelp" />
         <activity
@@ -184,6 +187,14 @@
         <activity android:name=".ActivityManageProfile" />
         <activity android:name=".ActivityVolumeTest" />
         <activity android:name=".ActivityPermissions"></activity>
+
+
+<!--        https://developer.android.com/about/versions/pie/android-9.0-changes-28#apache-p-->
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+
+        <service android:name=".location.GeofenceIntentService"/>
+
+
         <activity android:name=".ActivityManageTriggerNotification" />
 
         <service
@@ -195,8 +206,6 @@
             </intent-filter>
 
         </service>
-
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
 
         <provider
             android:name=".FileShareProvider"

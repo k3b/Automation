@@ -65,8 +65,6 @@
     <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"/>
     <uses-permission android:name="com.wireguard.android.permission.CONTROL_TUNNELS"/>
 
-    <!-- Commented out because of Google Play policy -->
-
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
@@ -186,10 +184,23 @@
         <activity android:name=".ActivityManageActionStartActivity" />
         <activity android:name=".ActivityManageTriggerNfc" />
         <activity android:name=".ActivityManageActionSpeakText" />
+        <activity android:name=".ActivityManageActionPlaySound" />
         <activity android:name=".ActivityManageTriggerBluetooth" />
         <activity android:name=".ActivityMainProfiles" />
         <activity android:name=".ActivityManageProfile" />
         <activity android:name=".ActivityVolumeTest" />
+        <activity android:name=".ActivityPermissions"></activity>
+        <activity android:name=".ActivityManageTriggerNotification"></activity>
+
+        <service
+            android:name=".receivers.NotificationListener"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" >
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+
+        </service>
 
         <service
             android:name=".receivers.ActivityDetectionReceiver"
@@ -208,18 +219,6 @@
 
         <service android:name=".location.GeofenceIntentService"/>
 
-
-        <activity android:name=".ActivityManageTriggerNotification"></activity>
-
-        <service
-            android:name=".receivers.NotificationListener"
-            android:label="@string/app_name"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" >
-            <intent-filter>
-                <action android:name="android.service.notification.NotificationListenerService" />
-            </intent-filter>
-
-        </service>
 
         <provider
             android:name=".FileShareProvider"
