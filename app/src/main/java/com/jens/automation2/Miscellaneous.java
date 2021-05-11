@@ -26,6 +26,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.jens.automation2.location.LocationProvider;
+import com.jens.automation2.receivers.NotificationListener;
 import com.jens.automation2.receivers.PhoneStatusListener;
 
 import org.apache.http.HttpEntity;
@@ -595,6 +596,26 @@ public class Miscellaneous extends Service
 			source = source.replace("[i]", String.valueOf(cal.get(Calendar.MINUTE)));
 			source = source.replace("[s]", String.valueOf(cal.get(Calendar.SECOND)));
 			source = source.replace("[ms]", String.valueOf(cal.get(Calendar.MILLISECOND)));
+		}
+
+		if(source.contains("[notificationTitle]"))
+		{
+			String notificationTitle = NotificationListener.getLastNotification().getTitle();
+
+			if(notificationTitle != null && notificationTitle.length() > 0)
+				source = source.replace("[notificationTitle]", notificationTitle);
+			else
+				Miscellaneous.logEvent("w", "Variable replacement", "notificationTitle was empty.", 3);
+		}
+
+		if(source.contains("[notificationText]"))
+		{
+			String notificationText = NotificationListener.getLastNotification().getText();
+
+			if(notificationText != null && notificationText.length() > 0)
+				source = source.replace("[notificationText]", notificationText);
+			else
+				Miscellaneous.logEvent("w", "Variable replacement", "notificationText was empty.", 3);
 		}
 		
 //		Miscellaneous.logEvent("i", "URL after replace", source);

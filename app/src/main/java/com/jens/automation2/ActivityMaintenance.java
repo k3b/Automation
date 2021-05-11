@@ -274,6 +274,7 @@ public class ActivityMaintenance extends Activity
 
                 ArrayList<String> srcFilesList = new ArrayList<>();
                 srcFilesList.add(Miscellaneous.getWriteableFolder() + "/" + XmlFileInterface.settingsFileName);
+                srcFilesList.add(Miscellaneous.getWriteableFolder() + "/../shared_prefs/" + prefsFileName);
 
                 String logFilePath = Miscellaneous.getWriteableFolder() + "/" + Miscellaneous.logFileName;
                 if((new File(logFilePath)).exists())

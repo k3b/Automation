@@ -39,8 +39,12 @@ Mögliche Aktionen:
 * SMS verschicken
 * Sounddatei abspielen.
 
-Es ist ziemlich schwierig diese Anwendung über die vielen verschiedenen Geräte sowie die vielen Änderungen an Android Versionen am Funktionen zu halten. Ich kann vieles im Emulator testen, aber eben nicht alles.
-Wenn also eine bestimmte Funktion nicht so tut wie sie sollte - lassen Sie es mich wissen. Über die Jahre habe ich noch alle Fehler behoben, die mir gemeldet wurden. Aber dafür bin ich auf Ihre Mithilfe angewiesen.
+Es ist ziemlich schwierig diese Anwendung über die vielen verschiedenen Geräte sowie die vielen Änderungen an Android Versionen am Laufen zu halten. Ich kann vieles im Emulator testen, aber eben nicht alles.
+Wenn also eine bestimmte Funktion nicht so tut wie sie sollte - lassen Sie es mich wissen. Über die Jahre habe ich noch alle Fehler behoben, die mir vernünftig gemeldet wurden. Aber dafür bin ich auf Ihre Mithilfe angewiesen.
+
+Spenden sind nicht die einzige Möglichkeit mich zu motivieren :-)
+* Wer mir etwas Gutes tun will, kann die Anwendung auch im Play Store bewerten.
+* Außerdem ist Hilfe bei der Übersetzung willkommen. Englisch, Spanisch und Deutsch kann ich selbst. Aber sonst ist alles gern gesehen.
 
 Ein Wort zu den vielen Berechtigungen....
 

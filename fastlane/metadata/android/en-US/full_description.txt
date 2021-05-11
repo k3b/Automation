@@ -40,7 +40,11 @@ Supported actions:
 * Play sound file
 
 It's quite hard to keep this app working across the many different hardwares as well as the many changes Android undergoes over the versions. I can test it in the emulator, but that cannot show all bugs.
-So if a certain feature is not working on your device - let me know. Over the years I have fixed almost all bugs that have been reported to me. But for that I'm dependend on your input.
+So if a certain feature is not working on your device - let me know. Over the years I have fixed almost all bugs that have been reasonably reported to me. But for that I'm dependend on your input.
+
+Donations are not the only way to motivate me :-)
+* If you want to suport me, can also review the app on Google Play.
+* Furthermore I can always use help in translating the app. English, German and some Spanish are among my own skills. But everything else is more than welcome.
 
 A word about the many permissions....
 
