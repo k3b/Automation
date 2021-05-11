@@ -73,7 +73,7 @@ public class ActivityManageActionStartActivity extends Activity
 	private static List<PackageInfo> pInfos = null;
 	public static Action resultingAction;
 
-	private static final String[] supportedIntentTypes = { "boolean", "byte", "char", "double", "float", "int", "long", "short", "String" };
+	private static final String[] supportedIntentTypes = { "boolean", "byte", "char", "double", "float", "int", "long", "short", "String", "Uri" };
 	private ArrayList<String> intentPairList = new ArrayList<String>();
 
 	ArrayAdapter<String> intentTypeSpinnerAdapter, intentPairAdapter;
@@ -281,7 +281,7 @@ public class ActivityManageActionStartActivity extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.action_start_activity);
+		setContentView(R.layout.activity_manage_action_start_activity);
 		
 		lvIntentPairs = (ListView)findViewById(R.id.lvIntentPairs);
 		etParameterName = (EditText)findViewById(R.id.etParameterName);
@@ -329,14 +329,34 @@ public class ActivityManageActionStartActivity extends Activity
 					Toast.makeText(ActivityManageActionStartActivity.this, getResources().getString(R.string.enterNameForIntentPair), Toast.LENGTH_LONG).show();
 					return;
 				}
+				else if(etParameterName.getText().toString().contains(Action.intentPairSeperator))
+				{
+					Toast.makeText(ActivityManageActionStartActivity.this, String.format(getResources().getString(R.string.stringNotAllowed), Action.intentPairSeperator), Toast.LENGTH_LONG).show();
+					return;
+				}
+				else if(etParameterName.getText().toString().contains(";"))
+				{
+					Toast.makeText(ActivityManageActionStartActivity.this, String.format(getResources().getString(R.string.stringNotAllowed), ";"), Toast.LENGTH_LONG).show();
+					return;
+				}
 				
 				if(etParameterValue.getText().toString().length() == 0)
 				{
 					Toast.makeText(ActivityManageActionStartActivity.this, getResources().getString(R.string.enterValueForIntentPair), Toast.LENGTH_LONG).show();
 					return;
 				}
+				else if(etParameterValue.getText().toString().contains(Action.intentPairSeperator))
+				{
+					Toast.makeText(ActivityManageActionStartActivity.this, String.format(getResources().getString(R.string.stringNotAllowed), Action.intentPairSeperator), Toast.LENGTH_LONG).show();
+					return;
+				}
+				else if(etParameterValue.getText().toString().contains(";"))
+				{
+					Toast.makeText(ActivityManageActionStartActivity.this, String.format(getResources().getString(R.string.stringNotAllowed), ";"), Toast.LENGTH_LONG).show();
+					return;
+				}
 				
-				String param = supportedIntentTypes[spinnerParameterType.getSelectedItemPosition()] + "/" + etParameterName.getText().toString() + "/" + etParameterValue.getText().toString();
+				String param = supportedIntentTypes[spinnerParameterType.getSelectedItemPosition()] + Action.intentPairSeperator + etParameterName.getText().toString() + Action.intentPairSeperator + etParameterValue.getText().toString();
 				intentPairList.add(param);
 				
 				spinnerParameterType.setSelection(0);
@@ -455,7 +475,7 @@ public class ActivityManageActionStartActivity extends Activity
 		{
 			if(params.length > 1)	// should not occur, have fault tollerance
 			{
-				if(params[1].contains("/"))
+				if(params[1].contains(Action.intentPairSeperator))
 				{
 						etActivityOrActionPath.setText(params[0]);
 						startIndex = 1;

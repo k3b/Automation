@@ -611,7 +611,7 @@ public class Actions
 
 				externalActivityIntent = new Intent();
 
-				if(params.length > 1 && !params[1].contains("/"))
+				if(params.length > 1 && !params[1].contains(Action.intentPairSeperator))
 				{
 					externalActivityIntent.setPackage(params[0]);
 					externalActivityIntent.setAction(params[1]);
@@ -629,7 +629,7 @@ public class Actions
 			// Pack intents
 			for (int i = paramsStartIndex; i < params.length; i++)
 			{
-				String[] singleParam = params[i].split("/");
+				String[] singleParam = params[i].split(Action.intentPairSeperator);
 
     			/*Class c = Class.forName(singleParam[0]);
 				for(Method m : c.getMethods())
@@ -685,6 +685,19 @@ public class Actions
 				{
 					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
 					externalActivityIntent.putExtra(singleParam[1], Short.parseShort(singleParam[2]));
+				}
+				else if (singleParam[0].equals("Uri"))
+				{
+					if(singleParam[1].equalsIgnoreCase("IntentData"))
+					{
+						Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with value " + singleParam[2] + " as standard data parameter.", 3);
+						externalActivityIntent.setData(Uri.parse(singleParam[2]));
+					}
+					else
+					{
+						Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+						externalActivityIntent.putExtra(singleParam[1], Uri.parse(singleParam[2]));
+					}
 				}
 				else if (singleParam[0].equals("String"))
 				{

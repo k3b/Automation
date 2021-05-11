@@ -139,6 +139,17 @@
 
 			</TableRow>
 
+			<TableRow>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:layout_span="2"
+					android:layout_marginBottom="@dimen/default_margin"
+					android:text="@string/intentDataComment" />
+
+			</TableRow>
+
 			<TableRow
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content">
@@ -168,7 +179,7 @@
 
 				<EditText
 					android:id="@+id/etParameterName"
-					android:layout_width="wrap_content"
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content" />
 
 			</TableRow>

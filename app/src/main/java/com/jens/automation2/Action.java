@@ -15,6 +15,7 @@ import java.util.Locale;
 public class Action
 {
 	public static final String actionParameter2Split = "ap2split";
+	public static final String intentPairSeperator = "intPairSplit";
 
 	public enum Action_Enum {	
 								setWifi,
@@ -236,6 +237,10 @@ public class Action
 			}
 			else
 				returnString.append(": " + components[0]);
+		}
+		else if(this.getAction().equals(Action_Enum.startOtherActivity))
+		{
+			returnString.append(": " + parameter2.replace(Action.intentPairSeperator, "/"));
 		}
 		else if(this.getAction().equals(Action_Enum.sendTextMessage))
 		{

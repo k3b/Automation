@@ -1158,6 +1158,13 @@ public class XmlFileInterface
 	            		}
             		}
             	}
+				else if(newAction.getAction().equals(Action_Enum.startOtherActivity))	// separator has been changed, convert in old files
+				{
+					if(tag.contains(Action.intentPairSeperator))	// already has new format
+						newAction.setParameter2(tag);
+					else
+						newAction.setParameter2(tag.replace("/", Action.intentPairSeperator));
+				}
             	else
             		newAction.setParameter2(tag);
             }

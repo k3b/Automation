@@ -659,4 +659,7 @@
     <string name="noApplicableFilesFoundInDirectory">No applicable files could be found in that directory.</string>
     <string name="noFilesImported">No file could be imported.</string>
     <string name="notAllFilesImported">Not all applicable files could be imported.</string>
+    <string name="importExportExplanation">When clicking import or export you select the directory from which files are imported or exported to. When exporting existing files might get overwritten.</string>
+    <string name="intentDataComment">If your parameter is of type Uri AND you specify \"IntentData\" as name (lower/upper case is not important), the parameter will not be added as a normal parameter with putExtra(), but will instead be added to the intent with setData().</string>
+    <string name="stringNotAllowed">String %1$s is not allowed.</string>
 </resources>
