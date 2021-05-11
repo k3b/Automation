@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,6 +24,8 @@ public class ActivityMaintenance extends Activity
     final static int requestCodeImport = 1001;
     final static int requestCodeExport = 1002;
     final static int requestCodeMoreSettings = 6000;
+
+    final static String prefsFileName = "com.jens.automation2_preferences.xml";
 
     TextView tvFileStoreLocation;
     Button bVolumeTest, bMoreSettings, bSettingsSetToDefault, bShareConfigAndLog, bImportConfiguration, bExportConfiguration;
@@ -136,46 +139,106 @@ public class ActivityMaintenance extends Activity
     {
 //        https://stackoverflow.com/questions/46237558/android-strange-behavior-of-documentfile-inputstream
 
+        File dstRules = new File(Miscellaneous.getWriteableFolder() + "/" + XmlFileInterface.settingsFileName);
+        File dstPrefs = new File(Miscellaneous.getWriteableFolder() + "/../shared_prefs/" + prefsFileName);
+
         DocumentFile directory = DocumentFile.fromTreeUri(this, uriTree);
-        for(DocumentFile file : directory.listFiles())
+
+        int applicableFilesFound = 0;
+        int filesImported = 0;
+
+        if(directory.listFiles().length > 0)
         {
-            if(file.canRead() && file.getName().equals(XmlFileInterface.settingsFileName))
+            for (DocumentFile file : directory.listFiles())
             {
-                // import rules, locations, etc.
-                if(Miscellaneous.copyDocumentFileToFile(file, new File(Miscellaneous.getWriteableFolder() + "/" + XmlFileInterface.settingsFileName + "2")))
+                if (file.getName().equals(XmlFileInterface.settingsFileName))
                 {
-                    // reload file
-                    Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.rulesImportedSuccessfully), Toast.LENGTH_LONG).show();
+                    applicableFilesFound++;
+
+                    if(file.canRead())
+                    {
+                        // import rules, locations, etc.
+                        if (Miscellaneous.copyDocumentFileToFile(file, dstRules))
+                            filesImported++;
+                        else
+                            Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.rulesImportError), Toast.LENGTH_LONG).show();
+                    }
+                }
+                else if (file.getName().equals(prefsFileName))
+                {
+                    applicableFilesFound++;
+
+                    if(file.canRead())
+                    {
+                        // import rules, locations, etc.
+                        if (Miscellaneous.copyDocumentFileToFile(file, dstPrefs))
+                            filesImported++;
+                        else
+                            Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.prefsImportError), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            if(applicableFilesFound > 0)
+            {
+                if(filesImported == 0)
+                    Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.noFilesImported), Toast.LENGTH_LONG).show();
+                else if(filesImported < applicableFilesFound)
+                    Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.notAllFilesImported), Toast.LENGTH_LONG).show();
+                else if (filesImported == applicableFilesFound)
+                {
+                    Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.configurationImportedSuccessfully), Toast.LENGTH_LONG).show();
+
+                    try
+                    {
+                        XmlFileInterface.readFile();
+                    }
+                    catch (Exception e)
+                    {
+                        Miscellaneous.logEvent("e", "Reading import", "Rules re-read failed: " + Log.getStackTraceString(e), 1);
+                        Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.errorReadingPoisAndRulesFromFile), Toast.LENGTH_LONG).show();
+                    }
+
+                    Settings.readFromPersistentStorage(ActivityMaintenance.this);
                 }
                 else
-                    Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.rulesImportError), Toast.LENGTH_LONG).show();
+                    Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.noFilesImported), Toast.LENGTH_LONG).show();
             }
-            else if(false && file.canRead() && file.getName().equals(XmlFileInterface.settingsFileName))
-            {
-                // import rules, locations, etc.
-            }
+            else
+                Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.noApplicableFilesFoundInDirectory), Toast.LENGTH_LONG).show();
         }
+        else
+            Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.noApplicableFilesFoundInDirectory), Toast.LENGTH_LONG).show();
     }
 
     void exportFiles(Uri uriTree)
     {
         DocumentFile directory = DocumentFile.fromTreeUri(this, uriTree);
 
-        File src = new File(Miscellaneous.getWriteableFolder() + "/" + XmlFileInterface.settingsFileName);
+        File srcRules = new File(Miscellaneous.getWriteableFolder() + "/" + XmlFileInterface.settingsFileName);
+        File srcPrefs = new File(Miscellaneous.getWriteableFolder() + "/../shared_prefs/" + prefsFileName);
 
-        DocumentFile dst = directory.createFile("text/xml", XmlFileInterface.settingsFileName);
-
-        if(dst.canWrite())
+        // Clean up
+        for(DocumentFile file : directory.listFiles())
         {
-            // import rules, locations, etc.
-            if(Miscellaneous.copyFileToDocumentFile(src, dst))
-            {
-                // reload file
-                Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.rulesExportedSuccessfully), Toast.LENGTH_LONG).show();
-            }
-            else
-                Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.rulesExportError), Toast.LENGTH_LONG).show();
+            if(file.getName().equals(XmlFileInterface.settingsFileName) && file.canWrite())
+                file.delete();
+            else if(file.getName().equals(prefsFileName) && file.canWrite())
+                file.delete();
         }
+
+        DocumentFile dstRules = directory.createFile("text/xml", XmlFileInterface.settingsFileName);
+        DocumentFile dstPrefs = directory.createFile("text/xml", prefsFileName);
+
+        if(dstRules.canWrite() && dstPrefs.canWrite())
+        {
+            if(Miscellaneous.copyFileToDocumentFile(srcRules, dstRules) && Miscellaneous.copyFileToDocumentFile(srcPrefs, dstPrefs))
+                Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.configurationExportedSuccessfully), Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.ConfigurationExportError), Toast.LENGTH_LONG).show();
+        }
+        else
+            Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.ConfigurationExportError), Toast.LENGTH_LONG).show();
     }
 
     private static AlertDialog getDefaultSettingsDialog(final Context context)

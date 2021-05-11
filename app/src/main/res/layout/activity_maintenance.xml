@@ -42,6 +42,12 @@
         android:layout_height="wrap_content"
         android:text="@string/defaultSettings" />
 
+    <Button
+        android:id="@+id/bShareConfigAndLog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/shareConfigAndLogFilesWithDev" />
+
     <TextView
         android:id="@+id/tvFileStoreLocation"
         android:layout_marginVertical="@dimen/default_margin"
@@ -49,11 +55,5 @@
         android:gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/bShareConfigAndLog"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/shareConfigAndLogFilesWithDev" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

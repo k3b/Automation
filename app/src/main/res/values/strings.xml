@@ -610,7 +610,7 @@
     <string name="locationDisabled">Location disabled</string>
     <string name="locationEngineDisabledShort">Location cannot be determined anymore. Click here to find out why.</string>
     <string name="locationEngineDisabledLong">Unfortunately your location cannot be determined anymore. A debt of gratitude is owed to Google for its infinite wisdom and amiableness.\\n\\nLet me explain this further. Starting with Android 10 a new permission was introduced that is needed to determine your location in the background (which of course is required for an app like this). Whilst I consider that a good idea in general the chicanery it involves for developers is not.\\n\\nWhen developing an app you can try to qualify for this permission by abiding to a catalog of requirements. Unfortunately new versions of my app have been rejected over a period of three months. I fulfilled all those requirements, Google\'s shitty development support claimed I would not. After giving them proof that I did after all - I got a response like \"I cannot help you anymore\". Eventually I gave up. \\n\\nAs a consequence the Google Play version can NOT use your location as a trigger anymore. My only alternative option would have been to have this application removed from the store entirely.\\n\\nI\'m very sorry about that, but I\'ve tried my best arguing with a \"support\" that repeatedly failed to pass the Turing test.\\n\\nThe good news: You can still have it all!\\n\\nAutomation is now open source and can be found in F-Droid. That is an app store that really cares about your privacy - rather than just acting like that. Simply backup your config file, uninstall this app, install it again from F-Droid, restore your config file - done.\\n\\nClick here to find out more:</string>
-    <string name="filesStoredAt">Config and log files are stored in folder %1$s. Click on this text to open a file explorer. Unfortunately this will only work with a rooted device or a debug version. If you want to send me or yourself the config- and logfiles you can use the below button.</string>
+    <string name="filesStoredAt">Config and log files are stored in folder %1$s. Click on this text to open a file explorer. Unfortunately this will only work on a rooted device.\n\nFOR ALL OTHER DEVICES: Simply use the export button to make a backup.</string>
     <string name="notification">Notification</string>
     <string name="title">Title</string>
     <string name="text">Text</string>
@@ -650,8 +650,13 @@
     <string name="importConfiguration">Import configuration</string>
     <string name="exportConfiguration">Export configuration</string>
     <string name="moreSettings">More settings</string>
+    <string name="configurationExportedSuccessfully">Configuration exported successfully.</string>
+    <string name="ConfigurationExportError">There was an error while exporting the configuration.</string>
     <string name="rulesImportedSuccessfully">Rules and locations have been imported successfully.</string>
     <string name="rulesImportError">There was an error importing rules and locations.</string>
-    <string name="rulesExportedSuccessfully">Rules and locations exported successfully.</string>
-    <string name="rulesExportError">Error exporting rules and locations.</string>
+    <string name="configurationImportedSuccessfully">Configuration imported successfully.</string>
+    <string name="prefsImportError">There was an error importing the preferences.</string>
+    <string name="noApplicableFilesFoundInDirectory">No applicable files could be found in that directory.</string>
+    <string name="noFilesImported">No file could be imported.</string>
+    <string name="notAllFilesImported">Not all applicable files could be imported.</string>
 </resources>
