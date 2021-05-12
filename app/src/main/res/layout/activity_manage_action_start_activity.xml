@@ -46,6 +46,18 @@
 
 			<TableRow
 				android:layout_width="match_parent"
+				android:layout_height="match_parent" >
+
+				<Button
+					android:id="@+id/showStartProgramExamples"
+					android:layout_marginTop="@dimen/default_margin"
+					android:layout_span="2"
+					android:text="@string/openExamplesPage" />
+
+			</TableRow>
+
+			<TableRow
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content">
 
 				<TextView
@@ -73,6 +85,64 @@
 							android:text="@string/startAppByAction" />
 
 					</RadioGroup>
+
+			</TableRow>
+
+			<TableRow
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+				<ImageView
+					android:layout_width="match_parent"
+					android:layout_span="2"
+					android:layout_height="1dp"
+					android:layout_margin="10dp"
+					android:background="#aa000000" />
+
+			</TableRow>
+
+			<TableRow
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_gravity="center_vertical"
+					android:gravity="center_vertical"
+					android:text="@string/startAppStartType" />
+
+				<RadioGroup
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+
+					<RadioButton
+						android:id="@+id/rbStartAppByActivity"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:checked="true"
+						android:text="@string/startAppByStartActivity" />
+
+					<RadioButton
+						android:id="@+id/rbStartAppByBroadcast"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:text="@string/startAppBySendBroadcast" />
+
+				</RadioGroup>
+
+			</TableRow>
+
+			<TableRow
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+				<ImageView
+					android:layout_width="match_parent"
+					android:layout_span="2"
+					android:layout_height="1dp"
+					android:layout_margin="10dp"
+					android:background="#aa000000" />
 
 			</TableRow>
 

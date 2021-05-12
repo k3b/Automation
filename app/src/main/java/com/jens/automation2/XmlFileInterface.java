@@ -1160,10 +1160,30 @@ public class XmlFileInterface
             	}
 				else if(newAction.getAction().equals(Action_Enum.startOtherActivity))	// separator has been changed, convert in old files
 				{
+					String newTag;
+
 					if(tag.contains(Action.intentPairSeperator))	// already has new format
-						newAction.setParameter2(tag);
+						newTag = tag;
 					else
-						newAction.setParameter2(tag.replace("/", Action.intentPairSeperator));
+						newTag = tag.replace("/", Action.intentPairSeperator);
+
+					String[] newTagPieces = newTag.split(";");
+
+					if(newTagPieces.length < 2 || (!newTagPieces[0].contains(Actions.dummyPackageString) && newTagPieces[1].contains(Action.intentPairSeperator)))
+					{
+						newTag = Actions.dummyPackageString + ";" + newTag;
+						newTagPieces = newTag.split(";");
+					}
+
+					if(newTagPieces.length < 3)
+						newTag += ";" + ActivityManageActionStartActivity.startByActivityString;
+					else if(newTagPieces.length >= 3)
+					{
+						if(newTagPieces[2].contains(Action.intentPairSeperator))
+							newTag = newTagPieces[0] + ";" + newTagPieces[1] + ";" + ActivityManageActionStartActivity.startByActivityString + ";" + newTagPieces[2];
+					}
+
+					newAction.setParameter2(newTag);
 				}
             	else
             		newAction.setParameter2(tag);

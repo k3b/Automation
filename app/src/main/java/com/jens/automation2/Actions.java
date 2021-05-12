@@ -56,7 +56,8 @@ public class Actions
 	private static String suVersion = null;
     private static String suVersionInternal = null;
     private static List<String> suResult = null;
-	final static String smsSeparator = "&sms&";
+	public final static String smsSeparator = "&sms&";
+	public final static String dummyPackageString = "dummyPkg239asd";
 
 	public static final String wireguard_tunnel_up = "com.wireguard.android.action.SET_TUNNEL_UP";
 	public static final String wireguard_tunnel_down = "com.wireguard.android.action.SET_TUNNEL_DOWN";
@@ -611,23 +612,16 @@ public class Actions
 
 				externalActivityIntent = new Intent();
 
-				if(params.length > 1 && !params[1].contains(Action.intentPairSeperator))
-				{
+				if(!params[0].equals(dummyPackageString))
 					externalActivityIntent.setPackage(params[0]);
-					externalActivityIntent.setAction(params[1]);
-					paramsStartIndex = 2;
-				}
-				else
-				{
-					externalActivityIntent.setAction(params[0]);
-					paramsStartIndex = 1;
-				}
+
+				externalActivityIntent.setAction(params[1]);
 			}
 
 			externalActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 			// Pack intents
-			for (int i = paramsStartIndex; i < params.length; i++)
+			for (int i = 3; i < params.length; i++)
 			{
 				String[] singleParam = params[i].split(Action.intentPairSeperator);
 
@@ -708,8 +702,10 @@ public class Actions
 					Miscellaneous.logEvent("w", "StartOtherApp", "Unknown type of parameter " + singleParam[0] + " found.  Name " + singleParam[1] + " and value " + singleParam[2], 3);
 			}
 
-//			autoMationServerRef.sendBroadcast(externalActivityIntent);
-			autoMationServerRef.startActivity(externalActivityIntent);
+			if(params[2].equals(ActivityManageActionStartActivity.startByActivityString))
+				autoMationServerRef.startActivity(externalActivityIntent);
+			else
+				autoMationServerRef.sendBroadcast(externalActivityIntent);
 		}
 		catch(Exception e)
 		{

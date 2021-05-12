@@ -1,93 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
+
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:layout_margin="@dimen/default_margin">
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/default_margin" >
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:text="@string/settings"
-        android:layout_marginBottom="@dimen/default_margin"/>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
 
-    <Button
-        android:id="@+id/bMoreSettings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/moreSettings" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:text="@string/settings"
+            android:layout_marginBottom="@dimen/default_margin"/>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_span="2"
-        android:layout_height="1dp"
-        android:layout_margin="@dimen/default_margin"
-        android:background="#aa000000" />
+        <Button
+            android:id="@+id/bMoreSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/moreSettings" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/importExportExplanation" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_span="2"
+            android:layout_height="1dp"
+            android:layout_margin="@dimen/default_margin"
+            android:background="#aa000000" />
 
-    <Button
-        android:id="@+id/bImportConfiguration"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/importConfiguration" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:text="@string/importExportExplanation" />
 
-    <Button
-        android:id="@+id/bExportConfiguration"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/exportConfiguration" />
+        <Button
+            android:id="@+id/bImportConfiguration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/importConfiguration" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_span="2"
-        android:layout_height="1dp"
-        android:layout_margin="@dimen/default_margin"
-        android:background="#aa000000" />
+        <Button
+            android:id="@+id/bExportConfiguration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/exportConfiguration" />
 
-    <Button
-        android:id="@+id/bVolumeTest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/volumeTest" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_span="2"
+            android:layout_height="1dp"
+            android:layout_margin="@dimen/default_margin"
+            android:background="#aa000000" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_span="2"
-        android:layout_height="1dp"
-        android:layout_margin="@dimen/default_margin"
-        android:background="#aa000000" />
+        <Button
+            android:id="@+id/bVolumeTest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/volumeTest" />
 
-    <Button
-        android:id="@+id/bSettingsSetToDefault"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/defaultSettings" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_span="2"
+            android:layout_height="1dp"
+            android:layout_margin="@dimen/default_margin"
+            android:background="#aa000000" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_span="2"
-        android:layout_height="1dp"
-        android:layout_margin="@dimen/default_margin"
-        android:background="#aa000000" />
+        <Button
+            android:id="@+id/bSettingsSetToDefault"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/defaultSettings" />
 
-    <Button
-        android:id="@+id/bShareConfigAndLog"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/shareConfigAndLogFilesWithDev" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_span="2"
+            android:layout_height="1dp"
+            android:layout_margin="@dimen/default_margin"
+            android:background="#aa000000" />
 
-    <TextView
-        android:id="@+id/tvFileStoreLocation"
-        android:layout_marginVertical="@dimen/default_margin"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/bShareConfigAndLog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/shareConfigAndLogFilesWithDev" />
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+        <TextView
+            android:id="@+id/tvFileStoreLocation"
+            android:layout_marginVertical="@dimen/default_margin"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</ScrollView>

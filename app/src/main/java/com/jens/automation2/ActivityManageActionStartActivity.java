@@ -10,6 +10,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
@@ -38,13 +39,21 @@ import java.util.List;
 
 public class ActivityManageActionStartActivity extends Activity
 {
+	/*
+		This page might qualify as a help page: https://stackoverflow.com/questions/55323947/open-url-in-firefox-for-android-using-intent
+	 */
+
 	ListView lvIntentPairs;
 	EditText etParameterName, etParameterValue, etPackageName, etActivityOrActionPath;
-	Button bSelectApp, bAddIntentPair, bSaveActionStartOtherActivity;
+	Button bSelectApp, bAddIntentPair, bSaveActionStartOtherActivity, showStartProgramExamples;
 	Spinner spinnerParameterType;
 	boolean edit = false;
 	ProgressDialog progressDialog = null;
-	RadioButton rbStartAppSelectByActivity, rbStartAppSelectByAction;
+	RadioButton rbStartAppSelectByActivity, rbStartAppSelectByAction, rbStartAppByActivity, rbStartAppByBroadcast;
+
+	final String urlShowExamples = "https://server47.de/automation/examples_startProgram.html";
+	final static String startByActivityString = "0";
+	final static String startByBroadcastString = "1";
 	
 	private class CustomPackageInfo extends PackageInfo implements Comparable<CustomPackageInfo>
 	{
@@ -269,7 +278,8 @@ public class ActivityManageActionStartActivity extends Activity
 			public void onClick(DialogInterface dialog, int which)
 			{
 				ActivityInfo ai = ActivityManageActionStartActivity.getActivityInfoForPackageNameAndActivityName(packageName, activityArray[which]);
-				etActivityOrActionPath.setText(ai.packageName + ";" + ai.name);
+				etPackageName.setText(ai.packageName);
+				etActivityOrActionPath.setText(ai.name);
 			}
 		});
 		AlertDialog alertDialog = alertDialogBuilder.create();
@@ -294,6 +304,10 @@ public class ActivityManageActionStartActivity extends Activity
 		etActivityOrActionPath = (EditText) findViewById(R.id.etActivityOrActionPath);
 		rbStartAppSelectByActivity = (RadioButton)findViewById(R.id.rbStartAppSelectByActivity);
 		rbStartAppSelectByAction = (RadioButton)findViewById(R.id.rbStartAppSelectByAction);
+		showStartProgramExamples = (Button)findViewById(R.id.showStartProgramExamples);
+
+		rbStartAppByActivity = (RadioButton)findViewById(R.id.rbStartAppByActivity);
+		rbStartAppByBroadcast = (RadioButton)findViewById(R.id.rbStartAppByBroadcast);
 		
 		intentTypeSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, ActivityManageActionStartActivity.supportedIntentTypes);
 		spinnerParameterType.setAdapter(intentTypeSpinnerAdapter);
@@ -367,6 +381,16 @@ public class ActivityManageActionStartActivity extends Activity
 
 				if(lvIntentPairs.getVisibility() != View.VISIBLE)
 					lvIntentPairs.setVisibility(View.VISIBLE);
+			}
+		});
+
+		showStartProgramExamples.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlShowExamples));
+				startActivity(browserIntent);
 			}
 		});
 		
@@ -458,41 +482,26 @@ public class ActivityManageActionStartActivity extends Activity
 
 		String[] params = resultingAction.getParameter2().split(";");
 
+		rbStartAppByActivity.setChecked(params[2].equals(startByActivityString));
+		rbStartAppByBroadcast.setChecked(params[2].equals(startByBroadcastString));
+
 		int startIndex = -1;
 
 		if(!selectionByAction)
 		{
 			etPackageName.setText(params[0]);
-			if(params.length > 1)	// should not occur, have fault tollerance
-			{
-				etActivityOrActionPath.setText(params[1]);
-
-				if (params.length >= 2)
-					startIndex = 2;
-			}
+			etActivityOrActionPath.setText(params[1]);
 		}
 		else
 		{
-			if(params.length > 1)	// should not occur, have fault tollerance
-			{
-				if(params[1].contains(Action.intentPairSeperator))
-				{
-						etActivityOrActionPath.setText(params[0]);
-						startIndex = 1;
-				}
-				else
-				{
-					etPackageName.setText(params[0]);
-					etActivityOrActionPath.setText(params[1]);
-					startIndex = 2;
-				}
-			}
-			else
-			{
-				etActivityOrActionPath.setText(params[0]);
-				startIndex = 1;
-			}
+			if(!params[0].contains(Actions.dummyPackageString))
+				etPackageName.setText(params[0]);
+
+			etActivityOrActionPath.setText(params[1]);
 		}
+
+		if (params.length >= 3)
+			startIndex = 3;
 
 		if(startIndex > -1 && params.length > startIndex)
 		{
@@ -549,17 +558,22 @@ public class ActivityManageActionStartActivity extends Activity
 		
 		resultingAction.setAction(Action_Enum.startOtherActivity);
 		
-		String parameter2;
+		String parameter2 = "";
 
 		if(rbStartAppSelectByActivity.isChecked())
-			parameter2 = etPackageName.getText().toString() + ";" + etActivityOrActionPath.getText().toString();
+			parameter2 += etPackageName.getText().toString() + ";" + etActivityOrActionPath.getText().toString();
 		else
 		{
 			if(etPackageName.getText().toString() != null && etPackageName.getText().toString().length() > 0)
-				parameter2 = etPackageName.getText().toString() + ";" + etActivityOrActionPath.getText().toString();
+				parameter2 += etPackageName.getText().toString() + ";" + etActivityOrActionPath.getText().toString();
 			else
-				parameter2 = etActivityOrActionPath.getText().toString();
+				parameter2 += Actions.dummyPackageString + ";" + etActivityOrActionPath.getText().toString();
 		}
+
+		if(rbStartAppByActivity.isChecked())
+			parameter2 += ";" + startByActivityString;
+		else
+			parameter2 += ";" + startByBroadcastString;
 
 		for(String s : intentPairList)
 			parameter2 += ";" + s;
