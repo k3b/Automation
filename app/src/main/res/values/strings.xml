@@ -666,4 +666,5 @@
     <string name="startAppByStartActivity">by startActivity()</string>
     <string name="startAppBySendBroadcast">by sendBroadcast()</string>
     <string name="openExamplesPage">Open webpage with examples</string>
+<!--    <string name="net.kollnig.missioncontrol.permission.ADMIN">Control the app Tracker Control</string>-->
 </resources>

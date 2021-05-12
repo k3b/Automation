@@ -219,6 +219,7 @@ public class ActivityPermissions extends Activity
         }
 
         ActivityMainScreen.updateMainScreen();
+        ActivityMainRules.getInstance().updateListView();
     }
 
     protected static void addToArrayListUnique(String value, ArrayList<String> list)
@@ -543,6 +544,12 @@ public class ActivityPermissions extends Activity
                                 action.getParameter2().contains(Actions.wireguard_tunnel_refresh)
                                 )
                             addToArrayListUnique(ActivityPermissions.permissionNameWireguard, requiredPermissions);
+//                        if(
+//                                action.getParameter2().contains("eu.faircode.netguard.START_PORT_FORWARD")
+//                                    ||
+//                                action.getParameter2().contains("eu.faircode.netguard.STOP_PORT_FORWARD")
+//                        )
+//                            addToArrayListUnique("net.kollnig.missioncontrol.permission.ADMIN", requiredPermissions);
                         break;
                     case triggerUrl:
                         addToArrayListUnique("android.permission.INTERNET", requiredPermissions);
@@ -1075,6 +1082,7 @@ public class ActivityPermissions extends Activity
         NotificationManager mNotificationManager = (NotificationManager) Miscellaneous.getAnyContext().getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.cancel(notificationIdPermissions);
         ActivityMainScreen.updateMainScreen();
+        ActivityMainRules.getInstance().updateListView();
         this.finish();
     }
 
