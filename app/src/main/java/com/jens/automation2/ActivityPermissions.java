@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -189,14 +190,19 @@ public class ActivityPermissions extends Activity
             }
             else
             {
-                explanation.append(
+                explanation.append("<br /><u>");
 
-                        "<br />" +
-                                "<u>" +
-                                getResources().getString(getResources().getIdentifier(s, "string", getPackageName()))
-                                + "</u>"
+                try
+                {
+                    explanation.append(getResources().getString(getResources().getIdentifier(s, "string", getPackageName())));
+                }
+                catch(Resources.NotFoundException e)
+                {
+                    Miscellaneous.logEvent("w", "ActivityPermissions", "Could not find translation for " + s, 4);
+                    explanation.append(s);
+                }
 
-                                + "<br />");
+                explanation.append("</u><br />");
 
                 for (String reason : getReasonForPermission(s))
                     explanation.append(reason + "<br />");
