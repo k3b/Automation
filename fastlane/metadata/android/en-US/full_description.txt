@@ -46,48 +46,4 @@ Donations are not the only way to motivate me :-)
 * If you want to suport me, can also review the app on Google Play.
 * Furthermore I can always use help in translating the app. English, German and some Spanish are among my own skills. But everything else is more than welcome.
 
-A word about the many permissions....
-
-It lies in the nature of this type of application that it requires a lot of permissions. However most of them are entirely optional and are not requested unless one of the rules you created needs it.
-
-Let's go through them quickly:
-ACCESS_NETWORK_STATE, CHANGE_NETWORK_STATE: Check or change things like airplane mode, roaming.
-
-ACCESS_WIFI_STATE, CHANGE_WIFI_STATE: Turn wifi on or off
-
-INTERNET
-That's required for any of these 3 reasons:
-- You are using a locationing method that utilizes CellTowers (default setting)
-- You are using triggerUrl as action
-- You activate downloading news in settings
-
-BLUETOOTH, BLUETOOTH_ADMIN: Check bluetooth connections or toggle BT on or off.
-
-NFC: Use NFC tags if you created a rule that uses that.
-
-Location (ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION, ACCESS_BACKGROUND_LOCATION): This should be self-explanatory - are you using a rule with locations or speed as trigger?
-
-PROCESS_OUTGOING_CALLS: You can use current calls as trigger. E.g. if wife calls....
-
-SEND_SMS: You can have SMS sent as action. If you choose to do so you can enter the destination number manually or optionally pick one of your contacts which brings us to READ_CONTACTS
-
-READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE: If you initially installed the app after March 2021 this is not required. In the past the app used to store its config file on the regular storage like "sdcard". The permission is still in there to ensure the app is also still working for legacy users. There the app will migrate the files to the new location. Reading is also required if you want to play sound files.
-
-GET_TASKS: For trigger "check if another app is running"
-
-BATTERY_STATS: Check battery level as trigger
-
-MODIFY_AUDIO_SETTINGS, ACCESS_NOTIFICATION_POLICY:
-From higher versions on this is required to be able to change, e.g. the ringtone or generally the sound settings.
-https://stackoverflow.com/questions/43123650/android-request-access-notification-policy-and-mute-phone/43127589#43127589
-ACCESS_NOTIFICATION_POLICY is also included for the trigger that reads other apps' notifications.
-
-RECORD_AUDIO: For trigger "check background noise". Btw - my use case for this is: My phone will turn on sounds in the morning. During the week that is quite early. But what if I have a day off? Then it will monitor the background noise as an additional condition. If there's noise it's fairly certain I'm actually awake. Unfortunately Google deactivated this feature with Android 8.
-
-READ_PHONE_STATE: https://developer.android.com/reference/android/Manifest.permission#READ_PHONE_STATE
-
-RECEIVE_BOOT_COMPLETED, FOREGROUND_SERVICE, WAKE_LOCK: Start the service automatically and keep it running
-
-WRITE_SETTINGS: Change system settings
-
-ACCESS_SUPERUSER: root is entirely optional. In the (far) past it used be possible to activate/deactivate USB tethering with regular API calls. But a long time ago this started to be possible using root only. So long story short: It's only necessary for some specific features.
+Explanation of the many permissions can be found here: https://server47.de/automation/permissions_en.html

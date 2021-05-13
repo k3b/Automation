@@ -253,7 +253,6 @@ Quindi, se si crea una regola che imposta il profilo su vibrazione nell\'interva
     <string name="logLevelTitle">Dettaglio del file di log</string>
     <string name="longitude">Longitudine</string>
     <string name="mainScreenPermissionNote">Automation richiede ulteriori autorizzazioni. Clicca su questo testo per saperne di più e concederle.</string>
-    <string name="menu_settings">Impostazioni</string>
     <string name="messageReceivedStatingProcessMonitoringIsComplete">Il messaggio ricevuto attesta che il monitoraggio del processo è completato.</string>
     <string name="minimumDistanceChangeForGpsLocationUpdates">Minimo intervallo (im metri) per l\'aggiornamento GPS </string>
     <string name="minimumDistanceChangeForNetworkLocationUpdates">Minima distanza percorsa per aggiornare la posizione della rete.</string>
@@ -359,7 +358,6 @@ Selezionare su “Continua” quando si è pronti a procedere.</string>
     <string name="processes">Processi</string>
     <string name="profile">Profilo</string>
     <string name="profileActivate">Attivazione del profilo %1$s</string>
-    <string name="profileList">Lista alfabetica dei profili</string>
     <string name="profiles">Profili</string>
     <string name="radiusHasToBePositive">Il raggio deve avere valore positivo.</string>
     <string name="radiusSuggestion">metri. Il raggio minimo è +1 ma puoi aumentare.</string>
@@ -498,7 +496,6 @@ Selezionare su “Continua” quando si è pronti a procedere.</string>
     <string name="timeframes">Intervalli</string>
     <string name="timeoutForGpsComparisonsSummary">Massimo tempo in secondi per cercare di individuare la posizione GPS per confront. Allo scadere sarà assunta valida l\'ultima localizzazione rilevata.</string>
     <string name="timeoutForGpsComparisonsTitle">GPS timeout [sec]</string>
-    <string name="title_activity_main">Automation</string>
     <string name="toggableRules">Regole “Reversibili”</string>
     <string name="toggle">toggle</string>
     <string name="toggleNotAllowed">La reversibilità al momento è disponibile solo per le regole che hanno come evento un tag NFC. Consulta l\'help per i dettagli.</string>

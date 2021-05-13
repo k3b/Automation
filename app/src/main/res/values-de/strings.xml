@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="menu_settings">Einstellungen</string>
     <string name="app_name">Automation</string>
-    <string name="title_activity_main">Automation</string>
     <string name="ruleActivate">Aktiviere Regel %1$s</string>
     <string name="profileActivate">Aktiviere Profil %1$s</string>
     <string name="ruleActivateToggle">Aktiviere Regel %1$s im Umschaltmodus</string>
@@ -464,8 +462,7 @@
 	<string name="noMapsApplicationFound">Auf Ihrem Gerät konnte keine Kartenanwendung gefunden werden.</string>
 	<string name="locationEngineNotActive">Positionsbestimmung nicht aktiv.</string>
 	<string name="addProfile">Profil erstellen</string>
-	<string name="profileList">Profile</string>
-	<string name="profile">Profil</string>
+    <string name="profile">Profil</string>
 	<string name="soundMode">Tonmodus</string>
 	<string name="volumes">Lautstärken</string>
 	<string name="incomingCallsRingtone">Ton für eingehende Anrufe</string>
@@ -642,4 +639,28 @@
     <string name="startAppByAction">per Action</string>
     <string name="startAppSelectionType">Auswahlmethode</string>
     <string name="com.wireguard.android.permission.CONTROL_TUNNELS">Tunnelverbindungen der Wireguard Anwendung steuern</string>
+    <string name="enterPackageName">Geben Sie einen gültigen Paketnamen ein.</string>
+    <string name="configurationExportedSuccessfully">Konfiguration erfolgreich exportiert.</string>
+    <string name="ConfigurationExportError">Beim Exportieren der Konfiguration ist ein Fehler aufgetreten.</string>
+    <string name="configurationImportedSuccessfully">Konfiguration erfolgreich importiert.</string>
+    <string name="enterValidAction">Geben Sie eine gültige Action ein.</string>
+    <string name="exportConfiguration">Konfiguration exportieren</string>
+    <string name="importConfiguration">Konfiguration importieren</string>
+    <string name="moreSettings">Mehr Einstellungen</string>
+    <string name="importExportExplanation">Wenn Sie auf im- oder exportieren klicken, müssen Sie im nächsten Schritt das Verzeichnis auswählen, in das Dateien exportiert oder von dem Dateien importiert werden. Im Falle des Exports können vorhandene Dateien in diesem Ordner überschrieben werden.</string>
+    <string name="intentDataComment">Wenn Ihr Parameter vom Typ \"Uri\" ist und Sie \"IntentName\" als Name angeben (Groß-/Kleinschreibung ist irrelevant), wird der Parameter nicht als normaler Parameter mit putExtra() angehängt, sondern wird stattdessen mit setData() angehängt.</string>
+    <string name="noApplicableFilesFoundInDirectory">Keine passenden Dateien im Ordner gefunden.</string>
+    <string name="noFilesImported">Keine Dateien konnten importiert werden.</string>
+    <string name="notAllFilesImported">Nicht alle passenden Dateien konnten importiert werden.</string>
+    <string name="openExamplesPage">Webseite mit Beispielen öffnen</string>
+    <string name="phoneNumberExplanation">Sie können eine bestimmte Nummer eingeben, aber müssen nicht. Wenn Sie eine angeben wollen, können Sie auch eine aus dem Adressbuch auswählen.</string>
+    <string name="prefsImportError">Fehler beim Importieren der Einstellungen.</string>
+    <string name="rulesImportedSuccessfully">Regeln und Orte wurden erfolgreich importiert.</string>
+    <string name="rulesImportError">Fehler beim Importieren der Regeln.</string>
+    <string name="startAppBySendBroadcast">per sendBroadcast()</string>
+    <string name="startAppByStartActivity">per startActivity()</string>
+    <string name="startAppStartType">Start-Typ wählen</string>
+    <string name="state">Status</string>
+    <string name="stringNotAllowed">Zeichenkette %1$s is nicht erlaubt.</string>
+    <string name="android.permission.ACTIVITY_RECOGNITION">Aktivitätserkennung</string>
 </resources>

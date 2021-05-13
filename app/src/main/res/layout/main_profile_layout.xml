@@ -40,7 +40,7 @@
 		        android:id="@+id/tvRuleTitle"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="@string/profileList"
+		        android:text="@string/profiles"
 		        android:layout_marginLeft="10dp"
 		        android:textAppearance="?android:attr/textAppearanceLarge" />
 		    

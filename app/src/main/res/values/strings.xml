@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="menu_settings">Settings</string>
     <string name="app_name">Automation</string>
-    <string name="title_activity_main">Automation</string>
     <string name="ruleActivate">Activating rule %1$s</string>
     <string name="profileActivate">Activating profile %1$s</string>
     <string name="ruleActivateToggle">Activating rule %1$s in Togglemode</string>
@@ -465,7 +463,6 @@
     <string name="noMapsApplicationFound">No maps application found on your device.</string>
     <string name="locationEngineNotActive">Location engine not active.</string>
     <string name="addProfile">Add profile</string>
-    <string name="profileList">Profiles</string>
     <string name="profile">Profile</string>
     <string name="soundMode">Sound mode</string>
     <string name="volumes">Volumes</string>
@@ -646,7 +643,7 @@
     <string name="enterValidAction">Enter a valid action</string>
     <string name="enterPackageName">Enter a valid package name.</string>
     <string name="state">State</string>
-    <string name="phoneNumberExplanation">You can enter a specific phone number, but you don\'t have to. If you want to specify one you can either pick one from your address book or enter it manually. Also regular expressions are supported if you want the rule to apply to an entire number block for example.</string>
+    <string name="phoneNumberExplanation">You can enter a specific phone number, but you don\'t have to. If you want to specify one you can either pick one from your address book or enter it manually.</string>
     <string name="importConfiguration">Import configuration</string>
     <string name="exportConfiguration">Export configuration</string>
     <string name="moreSettings">More settings</string>
