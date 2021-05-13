@@ -77,6 +77,15 @@ public class Trigger
     private PointOfInterest pointOfInterest = null;
     private TimeFrame timeFrame;
 
+    public static String triggerPhoneCallStateRinging = "ringing";
+	public static String triggerPhoneCallStateStarted = "started";
+	public static String triggerPhoneCallStateStopped = "stopped";
+	public static String triggerPhoneCallStateAny = "any";
+	public static String triggerPhoneCallDirectionImcoming = "incoming";
+	public static String triggerPhoneCallDirectionOutgoing = "outgoing";
+	public static String triggerPhoneCallDirectionAny = "any";
+	public static String triggerPhoneCallNumberAny = "any";
+
 	private double speed; //km/h
     private long noiseLevelDb;
     private String wifiName = "";

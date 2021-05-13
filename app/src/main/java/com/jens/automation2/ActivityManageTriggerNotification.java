@@ -32,13 +32,14 @@ import static com.jens.automation2.Trigger.triggerParameter2Split;
 public class ActivityManageTriggerNotification extends Activity
 {
 	public static Trigger editedNotificationTrigger;
+	boolean edit = false;
+	ProgressDialog progressDialog = null;
+
 	EditText etNotificationTitle, etNotificationText;
 	Button bSelectApp, bSaveTriggerNotification;
 	Spinner spinnerTitleDirection, spinnerTextDirection;
 	TextView tvSelectedApplication;
 	CheckBox chkNotificationDirection;
-	boolean edit = false;
-	ProgressDialog progressDialog = null;
 	
 	private static List<PackageInfo> pInfos = null;
 	public static Trigger resultingTrigger;
@@ -393,7 +394,5 @@ public class ActivityManageTriggerNotification extends Activity
 			progressDialog.dismiss();
 			getActionStartActivityDialog1().show();
 		}
-		
-		
 	}
 }

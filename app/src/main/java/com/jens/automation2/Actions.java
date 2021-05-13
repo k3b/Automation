@@ -51,6 +51,7 @@ public class Actions
 {
 	public static AutomationService autoMationServerRef;
 	public static Context context;
+	public static Context rootetcontext;
 	private static Intent playMusicIntent;
 	private static boolean suAvailable = false;
 	private static String suVersion = null;

@@ -653,7 +653,7 @@
     <string name="noFilesImported">Keine Dateien konnten importiert werden.</string>
     <string name="notAllFilesImported">Nicht alle passenden Dateien konnten importiert werden.</string>
     <string name="openExamplesPage">Webseite mit Beispielen öffnen</string>
-    <string name="phoneNumberExplanation">Sie können eine bestimmte Nummer eingeben, aber müssen nicht. Wenn Sie eine angeben wollen, können Sie auch eine aus dem Adressbuch auswählen.</string>
+    <string name="phoneNumberExplanation">Sie können eine bestimmte Nummer eingeben, aber müssen nicht. Wenn Sie eine angeben wollen, können Sie auch eine aus dem Adressbuch auswählen. Außerdem können Sie reguläre Audrücke verwenden.</string>
     <string name="prefsImportError">Fehler beim Importieren der Einstellungen.</string>
     <string name="rulesImportedSuccessfully">Regeln und Orte wurden erfolgreich importiert.</string>
     <string name="rulesImportError">Fehler beim Importieren der Regeln.</string>

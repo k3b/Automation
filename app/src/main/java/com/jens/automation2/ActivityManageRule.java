@@ -99,6 +99,8 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeTriggerNfcNotificationEdit = 8001;
 	final static int requestCodeActionPlaySoundAdd = 501;
 	final static int requestCodeActionPlaySoundEdit = 502;
+	final static int requestCodeTriggerPhoneCallAdd = 601;
+	final static int requestCodeTriggerPhoneCallEdit = 602;
 	
 	public static ActivityManageRule getInstance()
 	{
@@ -567,7 +569,13 @@ public class ActivityManageRule extends Activity
 						else if(triggerType == Trigger_Enum.roaming)
 							booleanChoices = new String[]{getResources().getString(R.string.activated), getResources().getString(R.string.deactivated)};
 						else if(triggerType == Trigger_Enum.phoneCall)
-							booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
+						{
+							newTrigger.setTriggerType(Trigger_Enum.phoneCall);
+							Intent phoneTriggerEditor = new Intent(myContext, ActivityManageTriggerPhoneCall.class);
+							startActivityForResult(phoneTriggerEditor, requestCodeTriggerPhoneCallAdd);
+							return;
+//							booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
+						}
 						else if(triggerType == Trigger_Enum.activityDetection)
 						{
 							try
@@ -1170,7 +1178,6 @@ public class ActivityManageRule extends Activity
 			//add notification
 			if(resultCode == RESULT_OK)
 			{
-				//newTrigger.setNfcTagId(ActivityManageNfc.generatedId);
 				ruleToEdit.getTriggerSet().add(newTrigger);
 
 				newTrigger.setTriggerParameter2(
@@ -1182,14 +1189,29 @@ public class ActivityManageRule extends Activity
 												);
 				this.refreshTriggerList();
 			}
-			else
-				Miscellaneous.logEvent("w", "ActivityManageNfc", "No nfc id returned. Assuming abort.", 5);
 		}
 		else if(requestCode == requestCodeTriggerNfcNotificationEdit)
 		{
 			if(resultCode == RESULT_OK)
 			{
 				newTrigger = ActivityManageTriggerNotification.resultingTrigger;
+				this.refreshTriggerList();
+			}
+		}
+		else if(requestCode == requestCodeTriggerPhoneCallAdd)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				ruleToEdit.getTriggerSet().add(newTrigger);
+				newTrigger.setTriggerParameter2(data.getStringExtra("triggerParameter2"));
+				this.refreshTriggerList();
+			}
+		}
+		else if(requestCode == requestCodeTriggerPhoneCallEdit)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				newTrigger = ActivityManageTriggerPhoneCall.resultingTrigger;
 				this.refreshTriggerList();
 			}
 		}

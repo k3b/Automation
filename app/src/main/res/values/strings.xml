@@ -644,7 +644,7 @@
     <string name="enterValidAction">Enter a valid action</string>
     <string name="enterPackageName">Enter a valid package name.</string>
     <string name="state">State</string>
-    <string name="phoneNumberExplanation">You can enter a specific phone number, but you don\'t have to. If you want to specify one you can either pick one from your address book or enter it manually.</string>
+    <string name="phoneNumberExplanation">You can enter a specific phone number, but you don\'t have to. If you want to specify one you can either pick one from your address book or enter it manually. In addition you may use regular expressions.</string>
     <string name="importConfiguration">Import configuration</string>
     <string name="exportConfiguration">Export configuration</string>
     <string name="moreSettings">More settings</string>
@@ -667,5 +667,6 @@
     <string name="packageName">Package name</string>
     <string name="activityOrActionName">Activity/action name</string>
     <string name="warning">Warning</string>
+    <string name="ringing">ringing</string>
     <!--    <string name="net.kollnig.missioncontrol.permission.ADMIN">Control the app Tracker Control</string>-->
 </resources>

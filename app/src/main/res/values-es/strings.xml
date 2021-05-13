@@ -51,10 +51,10 @@
     <string name="continueText">continuar</string>
     <string name="rule">Regla</string>
     <string name="android.permission.SEND_SMS">Enviar mensajes SMS</string>
-    <string name="android.permission.READ_CONTACTS">Read contact data</string>
-    <string name="ruleXrequiresThis">Regla \"%1$s\" requires this.</string>
+    <string name="android.permission.READ_CONTACTS">Leer directorio</string>
+    <string name="ruleXrequiresThis">Regla \"%1$s\" lo necesita.</string>
     <string name="sendTextMessage">Enviar mensaje SMS</string>
-    <string name="importNumberFromContacts">Import number from contacts</string>
+    <string name="importNumberFromContacts">Importar numero del directorio</string>
     <string name="edit">Edit</string>
     <string name="textToSend">Texto de enviar</string>
     <string name="password">Contraseña</string>
@@ -312,4 +312,5 @@
     <string name="parameterValue">Valor del parámetro</string>
     <string name="addIntentValue">Añadir pareja intento</string>
     <string name="parameterType">Tipo del parámetro</string>
+    <string name="phoneNumberExplanation">Puedes entrar un numero, pero es opciónal. Si quieres usar un puedes elegir un de su directorio o entrar un manualmente. Adiciónalmente puedes usar expresiónes regulares.</string>
 </resources>

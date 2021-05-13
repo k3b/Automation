@@ -134,7 +134,7 @@
         <activity android:name=".ActivityManageActionPlaySound" />
         <activity android:name=".ActivityManageTriggerTimeFrame" />
         <activity android:name=".ActivityMaintenance" />
-        <activity android:name=".ActivityTriggerPhoneCall" />
+        <activity android:name=".ActivityManageTriggerPhoneCall" />
         <activity android:name=".ActivityManageActionBrightnessSetting" />
         <activity android:name=".ActivityHelp" />
         <activity
