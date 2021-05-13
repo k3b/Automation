@@ -225,7 +225,15 @@ public class ActivityPermissions extends Activity
         }
 
         ActivityMainScreen.updateMainScreen();
-        ActivityMainRules.getInstance().updateListView();
+
+        try
+        {
+            ActivityMainRules.getInstance().updateListView();
+        }
+        catch (IllegalStateException e)
+        {
+            // Activity may not have been loaded, yet.
+        }
     }
 
     protected static void addToArrayListUnique(String value, ArrayList<String> list)
@@ -538,6 +546,13 @@ public class ActivityPermissions extends Activity
                         addToArrayListUnique(writeSystemSettingsPermissionName, requiredPermissions);
                         addToArrayListUnique("android.permission.CHANGE_NETWORK_STATE", requiredPermissions);
                         addToArrayListUnique("android.permission.ACCESS_NETWORK_STATE", requiredPermissions);
+
+                    /*
+                       https://stackoverflow.com/questions/46284914/how-to-enable-android-o-wifi-hotspot-programmatically
+                       Unfortunately when requesting this permission it will be rejected automatically.
+                     */
+//                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+//                            addToArrayListUnique("android.permission.TETHER_PRIVILEGED", requiredPermissions);
                         break;
                     case speakText:
                         break;
@@ -1088,7 +1103,16 @@ public class ActivityPermissions extends Activity
         NotificationManager mNotificationManager = (NotificationManager) Miscellaneous.getAnyContext().getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.cancel(notificationIdPermissions);
         ActivityMainScreen.updateMainScreen();
-        ActivityMainRules.getInstance().updateListView();
+
+        try
+        {
+            ActivityMainRules.getInstance().updateListView();
+        }
+        catch (IllegalStateException e)
+        {
+            // Activity may not have been loaded, yet.
+        }
+
         this.finish();
     }
 

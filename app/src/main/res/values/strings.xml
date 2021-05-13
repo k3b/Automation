@@ -489,7 +489,8 @@
     <string name="errorWritingFile">Error writing settings file.</string>
     <string name="unknownError">Unknown error.</string>
     <string name="noWritableFolderFound">No writable folder found to store config file.</string>
-    <string name="usbTetheringFailForAboveGingerbread">This will most likely not work as you\'re above Android 2.3. However you could use wifi tethering instead.</string>
+    <string name="usbTetheringFailForAboveGingerbread">This will most likely not work as you\'re above Android 2.3. If you\'re below Android 7 you could use wifi tethering instead instead.</string>
+    <string name="wifiTetheringFailForAboveNougat">This will not work anymore as you\'re above Android 7.</string>
     <string name="usingNewThreadForRuleExecution">Using new thread for rule activation.</string>
     <string name="startNewThreadForRuleExecution">Start new thread for rule activation.</string>
     <string name="newThreadRules">New thread</string>
@@ -665,5 +666,6 @@
     <string name="openExamplesPage">Open webpage with examples</string>
     <string name="packageName">Package name</string>
     <string name="activityOrActionName">Activity/action name</string>
+    <string name="warning">Warning</string>
     <!--    <string name="net.kollnig.missioncontrol.permission.ADMIN">Control the app Tracker Control</string>-->
 </resources>

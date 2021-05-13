@@ -47,7 +47,7 @@ public class ActivityManagePoi extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.manage_specific_poi);
+		this.setContentView(R.layout.activity_manage_specific_poi);
 		
 		myLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		bGetPosition = (Button)findViewById(R.id.bGetPosition);

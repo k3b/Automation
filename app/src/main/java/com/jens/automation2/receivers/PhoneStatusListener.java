@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.telecom.Call;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -128,8 +129,8 @@ public class PhoneStatusListener implements AutomationListenerInterface
 //				return false;
 //			case 0:
 //				return false;
-//			case 1:
-//				return true;
+			case 1:
+				return true;
 			case 2:
 				return true;
 //			case 3:
@@ -166,10 +167,10 @@ public class PhoneStatusListener implements AutomationListenerInterface
 		
 		return false;
 	}
-	
+
 	private static void setCurrentStateIncoming(int state)
 	{
-//		Miscellaneous.logEvent("i", "Call state", "New incoming call state: " + String.valueOf(state), 4);
+		Miscellaneous.logEvent("i", "Call state", "New incoming call state: " + String.valueOf(state), 4);
 		if(currentStateIncoming != state)
 		{			
 			if(lastPhoneDirection != 1)
@@ -177,8 +178,10 @@ public class PhoneStatusListener implements AutomationListenerInterface
 
 			if(
 					(state == 0 && currentStateIncoming == 2)
-									|
+									||
 					(state == 2 && (currentStateIncoming == 0 | currentStateIncoming == 1))
+									||
+								state == 1	// this will enable incoming calls that have not been answered, yet, so when they are still only ringing
 				)
 			{
 				currentStateIncoming = state;

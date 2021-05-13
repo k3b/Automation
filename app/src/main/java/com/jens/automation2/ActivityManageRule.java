@@ -1396,13 +1396,16 @@ public class ActivityManageRule extends Activity
 					{
 						newAction.setAction(Action_Enum.setUsbTethering);
 						if(Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1)
-							Toast.makeText(context, context.getResources().getString(R.string.usbTetheringFailForAboveGingerbread), Toast.LENGTH_LONG).show();
+							Miscellaneous.messageBox(context.getResources().getString(R.string.warning), context.getResources().getString(R.string.usbTetheringFailForAboveGingerbread), context).show();
 						getActionParameter1Dialog(ActivityManageRule.this).show();
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setWifiTethering.toString()))
 					{
 						newAction.setAction(Action_Enum.setWifiTethering);
-						getActionParameter1Dialog(ActivityManageRule.this).show();
+						if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1)
+							Miscellaneous.messageBox(context.getResources().getString(R.string.warning), context.getResources().getString(R.string.wifiTetheringFailForAboveNougat), context).show();
+						else
+							getActionParameter1Dialog(ActivityManageRule.this).show();
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setDisplayRotation.toString()))
 					{

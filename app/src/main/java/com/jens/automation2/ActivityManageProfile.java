@@ -82,7 +82,7 @@ public class ActivityManageProfile extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.manage_specific_profile);
+		this.setContentView(R.layout.activity_manage_specific_profile);
 		
 		checkBoxChangeSoundMode = (CheckBox)findViewById(R.id.checkBoxChangeSoundMode);
 		checkBoxChangeVolumeMusicVideoGameMedia = (CheckBox)findViewById(R.id.checkBoxChangeVolumeMusicVideoGameMedia);

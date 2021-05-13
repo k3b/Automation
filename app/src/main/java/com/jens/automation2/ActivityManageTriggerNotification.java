@@ -250,7 +250,7 @@ public class ActivityManageTriggerNotification extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.manage_trigger_notification);
+		setContentView(R.layout.activity_manage_trigger_notification);
 
 		etNotificationTitle = (EditText)findViewById(R.id.etNotificationTitle);
 		etNotificationText = (EditText)findViewById(R.id.etNotificationText);

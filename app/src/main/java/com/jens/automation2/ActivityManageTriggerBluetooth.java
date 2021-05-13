@@ -29,7 +29,7 @@ public class ActivityManageTriggerBluetooth extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_bluetooth_trigger);
+		setContentView(R.layout.activity_manage_trigger_bluetooth);
 		
 		radioAnyBluetoothDevice = (RadioButton)findViewById(R.id.radioAnyBluetoothDevice);
 		radioNoDevice = (RadioButton)findViewById(R.id.radioNoDevice);

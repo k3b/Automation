@@ -39,7 +39,7 @@ public class ActivityManageActionTriggerUrl extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.trigger_url_editor);
+		this.setContentView(R.layout.activity_manage_action_url_editor);
 		
 		etTriggerUrl = (EditText)findViewById(R.id.etTriggerUrl);
 		etTriggerUrlUsername = (EditText)findViewById(R.id.etTriggerUrlUsername);

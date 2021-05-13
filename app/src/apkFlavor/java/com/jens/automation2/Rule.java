@@ -220,7 +220,7 @@ public class Rule implements Comparable<Rule>
 	
 	private boolean checkBeforeSaving(Context context, boolean changeExistingRule)
 	{
-		if(this.getName() == null | this.getName().length()==0)
+		if(this.getName() == null || this.getName().length()==0)
 		{
 			Toast.makeText(context, context.getResources().getString(R.string.pleaseEnterValidName), Toast.LENGTH_LONG).show();
 			return false;
@@ -415,13 +415,13 @@ public class Rule implements Comparable<Rule>
 													&&
 										Miscellaneous.compareTimes(nowTime, oneTrigger.getTimeFrame().getTriggerTimeStop()) > 0
 								)
-									|
+									||
 									// Other case, start time higher than end time, timeframe goes over midnight
 								(
 										Miscellaneous.compareTimes(oneTrigger.getTimeFrame().getTriggerTimeStart(), oneTrigger.getTimeFrame().getTriggerTimeStop()) < 0
 											&&
 										(Miscellaneous.compareTimes(oneTrigger.getTimeFrame().getTriggerTimeStart(), nowTime) >= 0
-											|
+											||
 										Miscellaneous.compareTimes(nowTime, oneTrigger.getTimeFrame().getTriggerTimeStop()) > 0)
 								)
 							
@@ -601,11 +601,11 @@ public class Rule implements Comparable<Rule>
 				}
 				else if(oneTrigger.getTriggerType().equals(Trigger.Trigger_Enum.phoneCall))
 				{
-					if(oneTrigger.getPhoneNumber().equals("any") | oneTrigger.getPhoneNumber().equals(PhoneStatusListener.getLastPhoneNumber()))
+					if(oneTrigger.getPhoneNumber().equals("any") || PhoneStatusListener.getLastPhoneNumber().matches(oneTrigger.getPhoneNumber()))
 					{
 						if(PhoneStatusListener.isInACall() == oneTrigger.getTriggerParameter())
 						{
-							if(oneTrigger.getPhoneDirection() == 0 | (oneTrigger.getPhoneDirection() == PhoneStatusListener.getLastPhoneDirection()))
+							if(oneTrigger.getPhoneDirection() == 0 || (oneTrigger.getPhoneDirection() == PhoneStatusListener.getLastPhoneDirection()))
 							{
 								// Everything's allright
 							}
@@ -622,7 +622,10 @@ public class Rule implements Comparable<Rule>
 						}
 					}
 					else
+					{
 						Miscellaneous.logEvent("i", "Rule", "Rule doesn't apply. Wrong phone number. Demanded: " + oneTrigger.getPhoneNumber() + ", got: " + PhoneStatusListener.getLastPhoneNumber(), 4);
+						return false;
+					}
 				}
 				else if(oneTrigger.getTriggerType().equals(Trigger.Trigger_Enum.nfcTag))
 				{
@@ -916,7 +919,7 @@ public class Rule implements Comparable<Rule>
 			boolean notLastActive = getLastActivatedRule() == null || !getLastActivatedRule().equals(Rule.this);
 			boolean doToggle = ruleToggle && isActuallyToggable;
 
-			if(notLastActive | force | doToggle)
+			if(notLastActive || force || doToggle)
 			{
 				String message;
 				if(!doToggle)
@@ -1069,7 +1072,7 @@ public class Rule implements Comparable<Rule>
 					if(oneTrigger.getTimeFrame().getTriggerTimeStart().getTime() > oneTrigger.getTimeFrame().getTriggerTimeStop().getTime())
 					{
 						Miscellaneous.logEvent("i", "Timeframe search", "Rule goes over midnight.", 5);
-						if(oneTrigger.getTimeFrame().getTriggerTimeStart().getTime() <= searchTime.getTime() | searchTime.getTime() <= oneTrigger.getTimeFrame().getTriggerTimeStop().getTime()+20000) //add 20 seconds because of delay
+						if(oneTrigger.getTimeFrame().getTriggerTimeStart().getTime() <= searchTime.getTime() || searchTime.getTime() <= oneTrigger.getTimeFrame().getTriggerTimeStop().getTime()+20000) //add 20 seconds because of delay
 						{
 							ruleCandidates.add(oneRule);
 							break innerloop; //if the poi is found we don't need to search the other triggers in the same rule
