@@ -663,4 +663,6 @@
     <string name="state">Status</string>
     <string name="stringNotAllowed">Zeichenkette %1$s is nicht erlaubt.</string>
     <string name="android.permission.ACTIVITY_RECOGNITION">Aktivitätserkennung</string>
+    <string name="packageName">Paketname</string>
+    <string name="activityOrActionName">Acitivity/Action name</string>
 </resources>

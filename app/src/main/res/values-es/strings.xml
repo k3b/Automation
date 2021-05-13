@@ -162,7 +162,6 @@
     <string name="selectPackageOfApplication">Elega el paquete de la app</string>
     <string name="selectActivityToBeStarted">Elega la actividad de la app</string>
     <string name="errorStartingOtherActivity">Error encendiendo otra app</string>
-    <string name="openExamplesPage">Abrir pagina con ejemplos</string>
     <string name="startAppBySendBroadcast">con sendBroadcast()</string>
     <string name="startAppByStartActivity">con startActivity()</string>
     <string name="stringNotAllowed">String %1$s not esta permitido.</string>
@@ -170,7 +169,6 @@
     <string name="noApplicableFilesFoundInDirectory">No pudo encontrar archivos.</string>
     <string name="prefsImportError">Hubo un error en importar la configuracion.</string>
     <string name="configurationImportedSuccessfully">Importe la configuracion con éxito.</string>
-    <string name="moreSettings">Mas configuraciones</string>
     <string name="importConfiguration">Importar configuracion</string>
     <string name="exportConfiguration">Exportar configuracion</string>
     <string name="startAppSelectionType">Método de elegir applicación</string>
@@ -308,4 +306,10 @@
     <string name="android.permission.BLUETOOTH_ADMIN">Cambiar ajusted Bluetooth</string>
     <string name="moreSettings">Mas ajustes</string>
     <string name="openExamplesPage">Abrir pagina con ejemplos</string>
+    <string name="activityOrActionName">Nombre del la\nactivitdad or la action</string>
+    <string name="packageName">Nombre del paquete</string>
+    <string name="parameterName">Nombre del parámetro</string>
+    <string name="parameterValue">Valor del parámetro</string>
+    <string name="addIntentValue">Añadir pareja intento</string>
+    <string name="parameterType">Tipo del parámetro</string>
 </resources>
