@@ -1,0 +1,5 @@
+* Konfiguration kann jetzt ex- und importiert werden
+* Komponenten vom Hauptbildschirm auf seperaten Bildschirm ausgelagert
+* Titel und Text von Benachrichtigungen können jetzt als Variable benutzt werden
+* Änderungen in der Programm starten Aktion
+* Fortschritte in der Spanisch Übersetzung

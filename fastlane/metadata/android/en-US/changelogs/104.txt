@@ -1,0 +1,5 @@
+* Configuration can now be exported and imported
+* Moved some things from main screen to separate screen
+* Notification title and text can be used as variable
+* Changes in start other app action
+* Progressed in Spanish translation
