@@ -81,7 +81,7 @@ public class Trigger
 	public static String triggerPhoneCallStateStarted = "started";
 	public static String triggerPhoneCallStateStopped = "stopped";
 	public static String triggerPhoneCallStateAny = "any";
-	public static String triggerPhoneCallDirectionImcoming = "incoming";
+	public static String triggerPhoneCallDirectionIncoming = "incoming";
 	public static String triggerPhoneCallDirectionOutgoing = "outgoing";
 	public static String triggerPhoneCallDirectionAny = "any";
 	public static String triggerPhoneCallNumberAny = "any";
@@ -348,21 +348,47 @@ public class Trigger
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.roaming));
 				break;
 			case phoneCall:
-				if(getPhoneDirection() == 1)
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.incomingAdjective) + " ");
-				else if(getPhoneDirection() == 2)
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.outgoingAdjective) + " ");
+				String[] elements = triggerParameter2.split(triggerParameter2Split);
 
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.phoneCall));
-				if(phoneNumber != null && !phoneNumber.equals("any"))
-					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.with) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.number) + " " + phoneNumber);
+
+				returnString.append(" ");
+
+				if(elements[1].equals(triggerPhoneCallDirectionAny))
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.with));
+				else if(elements[1].equals(triggerPhoneCallDirectionIncoming))
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.from));
+				else if(elements[1].equals(triggerPhoneCallDirectionOutgoing))
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.to));
+
+				returnString.append(" ");
+
+				if(elements[2].equals(Trigger.triggerPhoneCallNumberAny))
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.any) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.number));
 				else
-					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.with) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.anyNumber));
-				
-				if(getTriggerParameter())
-					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.started));
-				else
-					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.stopped));
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.number) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.matching) + " " + elements[2]);
+
+				returnString.append(" ");
+
+				if(elements[0].equals(Trigger.triggerPhoneCallStateAny))
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.any) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.state));
+				else if(elements[0].equals(Trigger.triggerPhoneCallStateRinging))
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.ringing));
+				else if(elements[0].equals(Trigger.triggerPhoneCallStateStarted))
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.started));
+				else if(elements[0].equals(Trigger.triggerPhoneCallStateStopped))
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.stopped));
+
+//				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.phoneCall));
+//				if(phoneNumber != null && !phoneNumber.equals("any"))
+//					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.with) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.number) + " " + phoneNumber);
+//				else
+//					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.with) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.anyNumber));
+//
+//				if(getTriggerParameter())
+//					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.started));
+//				else
+//					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.stopped));
 				break;
 			case nfcTag:
 				// This type doesn't have an activate/deactivate equivalent

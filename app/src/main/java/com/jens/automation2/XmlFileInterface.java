@@ -23,6 +23,8 @@ import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static com.jens.automation2.Trigger.triggerParameter2Split;
+
 public class XmlFileInterface
 {
 	public static String settingsFileName = "Automation_settings.xml";
@@ -888,42 +890,90 @@ public class XmlFileInterface
 						Miscellaneous.logEvent("e", "XmlFileInterface", Log.getStackTraceString(e), 2);
 						Toast.makeText(context, "Error while writing file: " + Log.getStackTraceString(e), Toast.LENGTH_LONG).show();
 					}
+					newTrigger.setTriggerParameter2(triggerParameter2);
             	}
             	else if(newTrigger.getTriggerType() == Trigger_Enum.timeFrame)
             	{
             		newTrigger.setTimeFrame(new TimeFrame(triggerParameter2));
+					newTrigger.setTriggerParameter2(triggerParameter2);
             	}
             	else if(newTrigger.getTriggerType() == Trigger_Enum.batteryLevel)
             	{
             		newTrigger.setBatteryLevel(Integer.parseInt(triggerParameter2));
+					newTrigger.setTriggerParameter2(triggerParameter2);
             	}
             	else if(newTrigger.getTriggerType() == Trigger_Enum.speed)
             	{
             		newTrigger.setSpeed(Double.parseDouble(triggerParameter2));
+					newTrigger.setTriggerParameter2(triggerParameter2);
             	}
             	else if(newTrigger.getTriggerType() == Trigger_Enum.noiseLevel)
             	{
             		newTrigger.setNoiseLevelDb(Long.parseLong(triggerParameter2));
+					newTrigger.setTriggerParameter2(triggerParameter2);
             	}
             	else if(newTrigger.getTriggerType() == Trigger_Enum.wifiConnection)
             	{
             		newTrigger.setWifiName(triggerParameter2);
+					newTrigger.setTriggerParameter2(triggerParameter2);
             	}
             	else if(newTrigger.getTriggerType() == Trigger_Enum.process_started_stopped)
             	{
             		newTrigger.setProcessName(triggerParameter2);
+					newTrigger.setTriggerParameter2(triggerParameter2);
             	}
             	else if(newTrigger.getTriggerType() == Trigger_Enum.phoneCall)
             	{
-            		// 0/1/2,number
-            		int direction = Integer.parseInt(triggerParameter2.substring(0, 1));
-            		String number = triggerParameter2.substring(2);
-            		newTrigger.setPhoneDirection(direction);
-            		newTrigger.setPhoneNumber(number);
+            		String[] elements = triggerParameter2.split(",");
+            		if(elements.length < 3)	//old format
+					{
+						// 0/1/2,number
+						int direction = Integer.parseInt(triggerParameter2.substring(0, 1));
+						String number = triggerParameter2.substring(2);
+						newTrigger.setPhoneDirection(direction);
+						newTrigger.setPhoneNumber(number);
+
+						String tp2String = "";
+
+						if(newTrigger.getTriggerParameter())
+							tp2String+= Trigger.triggerPhoneCallStateStarted;
+						else
+							tp2String+= Trigger.triggerPhoneCallStateStopped;
+
+						tp2String += triggerParameter2Split;
+
+						switch(direction)
+						{
+							case 0:
+								tp2String += Trigger.triggerPhoneCallDirectionAny;
+								break;
+							case 1:
+								tp2String += Trigger.triggerPhoneCallDirectionIncoming;
+								break;
+							case 2:
+								tp2String += Trigger.triggerPhoneCallDirectionOutgoing;
+								break;
+						}
+
+						tp2String += triggerParameter2Split;
+
+						tp2String += number;
+
+						newTrigger.setTriggerParameter2(tp2String);
+					}
+            		/*else		// new format
+					{
+						//tp1 is now irrelevant
+						elements = triggerParameter2.split(Trigger.triggerParameter2Split);
+						// state/direction/number
+					}*/
+					else
+						newTrigger.setTriggerParameter2(triggerParameter2);
             	}
 	        	else if(newTrigger.getTriggerType() == Trigger_Enum.nfcTag)
 	        	{
 	        		newTrigger.setNfcTagId(triggerParameter2);
+					newTrigger.setTriggerParameter2(triggerParameter2);
 	        	}
 	        	else if(newTrigger.getTriggerType() == Trigger_Enum.activityDetection)
 	        	{
@@ -935,6 +985,7 @@ public class XmlFileInterface
 	        		{
 	        			newTrigger.setActivityDetectionType(0);
 	        		}
+					newTrigger.setTriggerParameter2(triggerParameter2);
 	        	}
             	else if(newTrigger.getTriggerType() == Trigger_Enum.bluetoothConnection)
             	{
@@ -944,6 +995,7 @@ public class XmlFileInterface
             			newTrigger.setBluetoothEvent(substrings[0]);
             			newTrigger.setBluetoothDeviceAddress(substrings[1]);
             		}
+					newTrigger.setTriggerParameter2(triggerParameter2);
             	}
 	        	else if(newTrigger.getTriggerType() == Trigger_Enum.headsetPlugged)
 	        	{
@@ -955,9 +1007,10 @@ public class XmlFileInterface
 	        		{
 	        			newTrigger.setHeadphoneType(-1);
 	        		}
+					newTrigger.setTriggerParameter2(triggerParameter2);
 	        	}
-
-				newTrigger.setTriggerParameter2(triggerParameter2);
+				else
+					newTrigger.setTriggerParameter2(triggerParameter2);
             }
             else
             {

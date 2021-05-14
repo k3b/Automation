@@ -258,6 +258,12 @@ public class ActivityManageRule extends Activity
 						notificationEditor.putExtra("edit", true);
 						startActivityForResult(notificationEditor, requestCodeTriggerNfcNotificationEdit);
 						break;
+					case phoneCall:
+						ActivityManageTriggerPhoneCall.editedPhoneCallTrigger = selectedTrigger;
+						Intent phoneCallEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerPhoneCall.class);
+						phoneCallEditor.putExtra("edit", true);
+						startActivityForResult(phoneCallEditor, requestCodeTriggerPhoneCallEdit);
+						break;
 					default:
 						break;				
 				}

@@ -1,33 +1,13 @@
 package com.jens.automation2;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.Spinner;
-import android.widget.TextView;
-
-import androidx.annotation.Nullable;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 import static com.jens.automation2.Trigger.triggerParameter2Split;
 
@@ -46,7 +26,7 @@ public class ActivityManageTriggerPhoneCall extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_trigger_notification);
+        setContentView(R.layout.activity_manage_trigger_phone_call);
 
         etTriggerPhoneCallPhoneNumber = (EditText)findViewById(R.id.etTriggerPhoneCallPhoneNumber);
         rbTriggerPhoneCallStateAny = (RadioButton)findViewById(R.id.rbTriggerPhoneCallStateAny);
@@ -80,7 +60,7 @@ public class ActivityManageTriggerPhoneCall extends Activity
                 if(rbTriggerPhoneCallDirectionAny.isChecked())
                     tp2Result += Trigger.triggerPhoneCallDirectionAny;
                 else if(rbTriggerPhoneCallDirectionIncoming.isChecked())
-                    tp2Result += Trigger.triggerPhoneCallDirectionImcoming;
+                    tp2Result += Trigger.triggerPhoneCallDirectionIncoming;
                 else if(rbTriggerPhoneCallDirectionOutgoing.isChecked())
                     tp2Result += Trigger.triggerPhoneCallDirectionOutgoing;
 
@@ -132,9 +112,9 @@ public class ActivityManageTriggerPhoneCall extends Activity
 
         if(parts[1].equals(Trigger.triggerPhoneCallDirectionAny))
             rbTriggerPhoneCallDirectionAny.setChecked(true);
-        else if(parts[0].equals(Trigger.triggerPhoneCallDirectionImcoming))
+        else if(parts[1].equals(Trigger.triggerPhoneCallDirectionIncoming))
             rbTriggerPhoneCallDirectionIncoming.setChecked(true);
-        else if(parts[0].equals(Trigger.triggerPhoneCallDirectionOutgoing))
+        else if(parts[1].equals(Trigger.triggerPhoneCallDirectionOutgoing))
             rbTriggerPhoneCallDirectionOutgoing.setChecked(true);
 
         if(!parts[2].equals(Trigger.triggerPhoneCallNumberAny))

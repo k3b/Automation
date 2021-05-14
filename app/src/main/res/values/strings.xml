@@ -668,5 +668,8 @@
     <string name="activityOrActionName">Activity/action name</string>
     <string name="warning">Warning</string>
     <string name="ringing">ringing</string>
+    <string name="from">from</string>
+    <string name="to">to</string>
+    <string name="matching">matching</string>
     <!--    <string name="net.kollnig.missioncontrol.permission.ADMIN">Control the app Tracker Control</string>-->
 </resources>
