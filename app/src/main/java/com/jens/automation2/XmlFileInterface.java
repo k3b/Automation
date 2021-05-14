@@ -928,8 +928,9 @@ public class XmlFileInterface
             		if(elements.length < 3)	//old format
 					{
 						// 0/1/2,number
-						int direction = Integer.parseInt(triggerParameter2.substring(0, 1));
-						String number = triggerParameter2.substring(2);
+						int direction = Integer.parseInt(elements[0]);
+
+						String number = elements[1];
 						newTrigger.setPhoneDirection(direction);
 						newTrigger.setPhoneNumber(number);
 

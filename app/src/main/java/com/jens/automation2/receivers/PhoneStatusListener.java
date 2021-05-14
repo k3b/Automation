@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.provider.Telephony;
 import android.telecom.Call;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
@@ -24,6 +25,7 @@ public class PhoneStatusListener implements AutomationListenerInterface
 	protected static int currentStateOutgoing = -1;
 	protected static String lastPhoneNumber="";
 	protected static int lastPhoneDirection = -1; //0=incoming, 1=outgoing
+	protected static int lastState = -1;
 	
 	protected static boolean incomingCallsReceiverActive = false;
 	protected static boolean outgoingCallsReceiverActive = false;
@@ -59,13 +61,20 @@ public class PhoneStatusListener implements AutomationListenerInterface
 	{
 		return lastPhoneNumber;
 	}
-	
+
+	public static int getLastState()
+	{
+		return lastState;
+	}
+
 	public static class IncomingCallsReceiver extends PhoneStateListener
 	{
 		@Override
 		public void onCallStateChanged(int state, String incomingNumber)
 		{
 //			Miscellaneous.logEvent("i", "Call state", "New call state: " + String.valueOf(state), 4);
+
+			lastState = state;
 
 			if(incomingNumber != null && incomingNumber.length() > 0)		// check for null in case call comes in with suppressed number.
 				setLastPhoneNumber(incomingNumber);
@@ -106,7 +115,9 @@ public class PhoneStatusListener implements AutomationListenerInterface
 		@Override
 		public void onReceive(Context context, Intent intent)
 		{
-			setCurrentStateOutgoing(2);
+			lastState = TelephonyManager.CALL_STATE_RINGING;
+			lastPhoneDirection = 2;
+			setCurrentStateOutgoing(2);	// das kommt hier auch bei nur klingeln
 			setLastPhoneNumber(intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER));
 			Miscellaneous.logEvent("i", "Call state", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.outgoingCallFrom), getLastPhoneNumber()), 4);
         }		
@@ -236,7 +247,9 @@ public class PhoneStatusListener implements AutomationListenerInterface
 		return currentStateOutgoing;
 	}
 	
-
+/*
+Apps that redirect outgoing calls should use the android.telecom.CallRedirectionService API. Apps that perform call screening should use the android.telecom.CallScreeningService API.
+ */
 	
 	public static void startPhoneStatusListener(AutomationService automationService)
 	{

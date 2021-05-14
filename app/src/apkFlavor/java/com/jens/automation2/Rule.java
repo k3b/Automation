@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Looper;
 import android.service.notification.StatusBarNotification;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -601,13 +602,31 @@ public class Rule implements Comparable<Rule>
 				}
 				else if(oneTrigger.getTriggerType().equals(Trigger.Trigger_Enum.phoneCall))
 				{
-					if(oneTrigger.getPhoneNumber().equals("any") || PhoneStatusListener.getLastPhoneNumber().matches(oneTrigger.getPhoneNumber()))
+					String[] elements = oneTrigger.getTriggerParameter2().split(triggerParameter2Split);
+					// state dir number
+
+					if(elements[2].equals(Trigger.triggerPhoneCallNumberAny) || PhoneStatusListener.getLastPhoneNumber().matches(elements[2]))
 					{
-						if(PhoneStatusListener.isInACall() == oneTrigger.getTriggerParameter())
+						//if(PhoneStatusListener.isInACall() == oneTrigger.getTriggerParameter())
+						if(
+								elements[0].equals(Trigger.triggerPhoneCallStateAny)
+									||
+								(elements[0].equals(Trigger.triggerPhoneCallStateRinging) && PhoneStatusListener.getLastState() == TelephonyManager.CALL_STATE_RINGING)
+										||
+								(elements[0].equals(Trigger.triggerPhoneCallStateStarted) && PhoneStatusListener.getLastState() == TelephonyManager.CALL_STATE_OFFHOOK)
+										||
+								(elements[0].equals(Trigger.triggerPhoneCallStateStopped) && PhoneStatusListener.getLastState() == TelephonyManager.CALL_STATE_IDLE)
+						)
 						{
-							if(oneTrigger.getPhoneDirection() == 0 || (oneTrigger.getPhoneDirection() == PhoneStatusListener.getLastPhoneDirection()))
+							if(
+									elements[1].equals(Trigger.triggerPhoneCallDirectionAny)
+											||
+									(elements[1].equals(Trigger.triggerPhoneCallDirectionIncoming) && PhoneStatusListener.getLastPhoneDirection() == 1)
+											||
+									(elements[1].equals(Trigger.triggerPhoneCallDirectionOutgoing) && PhoneStatusListener.getLastPhoneDirection() == 2)
+							)
 							{
-								// Everything's allright
+								// Trigger conditions are met
 							}
 							else
 							{
