@@ -609,13 +609,11 @@ public class Rule implements Comparable<Rule>
 					{
 						//if(PhoneStatusListener.isInACall() == oneTrigger.getTriggerParameter())
 						if(
-								elements[0].equals(Trigger.triggerPhoneCallStateAny)
-									||
-								(elements[0].equals(Trigger.triggerPhoneCallStateRinging) && PhoneStatusListener.getLastState() == TelephonyManager.CALL_STATE_RINGING)
+								(elements[0].equals(Trigger.triggerPhoneCallStateRinging) && PhoneStatusListener.getCurrentState() == TelephonyManager.CALL_STATE_RINGING)
 										||
-								(elements[0].equals(Trigger.triggerPhoneCallStateStarted) && PhoneStatusListener.getLastState() == TelephonyManager.CALL_STATE_OFFHOOK)
+								(elements[0].equals(Trigger.triggerPhoneCallStateStarted) && PhoneStatusListener.getCurrentState() == TelephonyManager.CALL_STATE_OFFHOOK)
 										||
-								(elements[0].equals(Trigger.triggerPhoneCallStateStopped) && PhoneStatusListener.getLastState() == TelephonyManager.CALL_STATE_IDLE)
+								(elements[0].equals(Trigger.triggerPhoneCallStateStopped) && PhoneStatusListener.getCurrentState() == TelephonyManager.CALL_STATE_IDLE)
 						)
 						{
 							if(
@@ -1362,28 +1360,28 @@ public class Rule implements Comparable<Rule>
 		return ruleCandidates;
 	}
 	
-	public static ArrayList<Rule> findRuleCandidatesByPhoneCall(boolean triggerParameter)
-	{
-		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
-		
-		for(Rule oneRule : ruleCollection)
-		{
-			innerloop:
-			for(Trigger oneTrigger : oneRule.getTriggerSet())
-			{
-				if(oneTrigger.getTriggerType() == Trigger.Trigger_Enum.phoneCall)
-				{
-					if(oneTrigger.getTriggerParameter() == triggerParameter)
-					{
-						ruleCandidates.add(oneRule);
-						break innerloop; //we don't need to search the other triggers in the same rule
-					}
-				}
-			}
-		}
-		
-		return ruleCandidates;
-	}
+//	public static ArrayList<Rule> findRuleCandidatesByPhoneCall()
+//	{
+//		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
+//
+//		for(Rule oneRule : ruleCollection)
+//		{
+//			innerloop:
+//			for(Trigger oneTrigger : oneRule.getTriggerSet())
+//			{
+//				if(oneTrigger.getTriggerType() == Trigger.Trigger_Enum.phoneCall)
+//				{
+//					if(oneTrigger.getTriggerParameter() == triggerParameter)
+//					{
+//						ruleCandidates.add(oneRule);
+//						break innerloop; //we don't need to search the other triggers in the same rule
+//					}
+//				}
+//			}
+//		}
+//
+//		return ruleCandidates;
+//	}
 	
 	public static ArrayList<Rule> findRuleCandidatesByNfc()
 	{

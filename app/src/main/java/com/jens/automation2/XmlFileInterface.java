@@ -260,8 +260,8 @@ public class XmlFileInterface
 		    	            				serializer.text(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getProcessName());
 		    	            			else if(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerType() == Trigger_Enum.batteryLevel)
 		    	            				serializer.text(String.valueOf(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getBatteryLevel()));
-		    	            			else if(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerType() == Trigger_Enum.phoneCall)
-		    	            				serializer.text(String.valueOf(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getPhoneDirection()) + "," + String.valueOf(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getPhoneNumber()));
+//		    	            			else if(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerType() == Trigger_Enum.phoneCall)
+//		    	            				serializer.text(String.valueOf(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getPhoneDirection()) + "," + String.valueOf(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getPhoneNumber()));
 		    	            			else if(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerType() == Trigger_Enum.nfcTag)
 		    	            				serializer.text(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getNfcTagId());
 		    	            			else if(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerType() == Trigger_Enum.activityDetection)
@@ -274,6 +274,8 @@ public class XmlFileInterface
 		    	            			else if(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerType() == Trigger_Enum.headsetPlugged)
 		    	            				serializer.text(String.valueOf(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getHeadphoneType()));
 										else if(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerType() == Trigger_Enum.notification)
+											serializer.text(String.valueOf(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerParameter2()));
+										else
 											serializer.text(String.valueOf(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerParameter2()));
 		    	            		serializer.endTag(null, "TriggerParameter2");
 		    	            	serializer.endTag(null, "Trigger");
@@ -925,7 +927,7 @@ public class XmlFileInterface
             	else if(newTrigger.getTriggerType() == Trigger_Enum.phoneCall)
             	{
             		String[] elements = triggerParameter2.split(",");
-            		if(elements.length < 3)	//old format
+            		if(elements.length > 3 && elements.length < 3)	//old format
 					{
 						// 0/1/2,number
 						int direction = Integer.parseInt(elements[0]);

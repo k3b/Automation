@@ -37,16 +37,10 @@
                     android:layout_height="wrap_content" >
 
                     <RadioButton
-                        android:id="@+id/rbTriggerPhoneCallStateAny"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="@string/any" />
-
-                    <RadioButton
                         android:id="@+id/rbTriggerPhoneCallStateRinging"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:checked="true"
                         android:text="@string/ringing" />
 
                     <RadioButton

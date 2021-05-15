@@ -80,7 +80,6 @@ public class Trigger
     public static String triggerPhoneCallStateRinging = "ringing";
 	public static String triggerPhoneCallStateStarted = "started";
 	public static String triggerPhoneCallStateStopped = "stopped";
-	public static String triggerPhoneCallStateAny = "any";
 	public static String triggerPhoneCallDirectionIncoming = "incoming";
 	public static String triggerPhoneCallDirectionOutgoing = "outgoing";
 	public static String triggerPhoneCallDirectionAny = "any";
@@ -370,9 +369,7 @@ public class Trigger
 
 				returnString.append(" ");
 
-				if(elements[0].equals(Trigger.triggerPhoneCallStateAny))
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.any) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.state));
-				else if(elements[0].equals(Trigger.triggerPhoneCallStateRinging))
+				if(elements[0].equals(Trigger.triggerPhoneCallStateRinging))
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.ringing));
 				else if(elements[0].equals(Trigger.triggerPhoneCallStateStarted))
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.started));

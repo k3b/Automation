@@ -1,11 +1,10 @@
 package com.jens.automation2.receivers;
 
+import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.provider.Telephony;
-import android.telecom.Call;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -21,11 +20,11 @@ import java.util.ArrayList;
 
 public class PhoneStatusListener implements AutomationListenerInterface
 {
-	protected static int currentStateIncoming = -1;
-	protected static int currentStateOutgoing = -1;
+//	protected static int currentStateIncoming = -1;
+//	protected static int currentStateOutgoing = -1;
 	protected static String lastPhoneNumber="";
 	protected static int lastPhoneDirection = -1; //0=incoming, 1=outgoing
-	protected static int lastState = -1;
+	protected static int currentState = -1;
 	
 	protected static boolean incomingCallsReceiverActive = false;
 	protected static boolean outgoingCallsReceiverActive = false;
@@ -62,9 +61,14 @@ public class PhoneStatusListener implements AutomationListenerInterface
 		return lastPhoneNumber;
 	}
 
-	public static int getLastState()
+	public static void setCurrentState(int currentState)
 	{
-		return lastState;
+		PhoneStatusListener.currentState = currentState;
+	}
+
+	public static int getCurrentState()
+	{
+		return currentState;
 	}
 
 	public static class IncomingCallsReceiver extends PhoneStateListener
@@ -74,38 +78,44 @@ public class PhoneStatusListener implements AutomationListenerInterface
 		{
 //			Miscellaneous.logEvent("i", "Call state", "New call state: " + String.valueOf(state), 4);
 
-			lastState = state;
+			setCurrentState(state);
 
 			if(incomingNumber != null && incomingNumber.length() > 0)		// check for null in case call comes in with suppressed number.
 				setLastPhoneNumber(incomingNumber);
+
+			lastPhoneDirection = 1;
 			
 			switch(state)
 			{
 				case TelephonyManager.CALL_STATE_IDLE:
 					Miscellaneous.logEvent("i", "Call state", "New call state: CALL_STATE_IDLE", 4);
-					if(currentStateIncoming == TelephonyManager.CALL_STATE_OFFHOOK)
-						setCurrentStateIncoming(state);
-					else if(currentStateOutgoing == TelephonyManager.CALL_STATE_OFFHOOK)
-						setCurrentStateOutgoing(state);
-					else
-						currentStateIncoming = state;
-						currentStateOutgoing = state;
+//					if(currentStateIncoming == TelephonyManager.CALL_STATE_OFFHOOK)
+//						setCurrentStateIncoming(state);
+//					else if(currentStateOutgoing == TelephonyManager.CALL_STATE_OFFHOOK)
+//						setCurrentStateOutgoing(state);
+//					else
+//						currentStateIncoming = state;
+//						currentStateOutgoing = state;
 					break;
 				case TelephonyManager.CALL_STATE_OFFHOOK:
 					Miscellaneous.logEvent("i", "Call state", "New call state: CALL_STATE_OFFHOOK", 4);
-					if(currentStateIncoming == TelephonyManager.CALL_STATE_RINGING)
-						setCurrentStateIncoming(state);
-					else if(currentStateOutgoing == TelephonyManager.CALL_STATE_RINGING)
-						setCurrentStateOutgoing(state);
+//					if(currentStateIncoming == TelephonyManager.CALL_STATE_RINGING)
+//						setCurrentStateIncoming(state);
+//					else if(currentStateOutgoing == TelephonyManager.CALL_STATE_RINGING)
+//						setCurrentStateOutgoing(state);
 					break;
 				case TelephonyManager.CALL_STATE_RINGING:
-					String number = "unknown";
-					if(incomingNumber != null && incomingNumber.length() > 0)
-						number = incomingNumber;
-					Miscellaneous.logEvent("i", "Call state", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.incomingCallFrom), number), 4);
-					
-					setCurrentStateIncoming(state);
+					Miscellaneous.logEvent("i", "Call state", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.incomingCallFrom), incomingNumber), 4);
 					break;
+			}
+
+			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.phoneCall);
+			AutomationService asInstance = AutomationService.getInstance();
+			for(int i=0; i<ruleCandidates.size(); i++)
+			{
+				if(asInstance != null)
+					if(ruleCandidates.get(i).applies(asInstance))
+						ruleCandidates.get(i).activate(asInstance, false);
 			}
 		}
 	}
@@ -115,23 +125,36 @@ public class PhoneStatusListener implements AutomationListenerInterface
 		@Override
 		public void onReceive(Context context, Intent intent)
 		{
-			lastState = TelephonyManager.CALL_STATE_RINGING;
 			lastPhoneDirection = 2;
-			setCurrentStateOutgoing(2);	// das kommt hier auch bei nur klingeln
+//			setCurrentStateOutgoing(2);	// das kommt hier auch bei nur klingeln
+
+			TelephonyManager tm = (TelephonyManager)context.getSystemService(Service.TELEPHONY_SERVICE);
+			setCurrentState(tm.getCallState());
+
 			setLastPhoneNumber(intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER));
 			Miscellaneous.logEvent("i", "Call state", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.outgoingCallFrom), getLastPhoneNumber()), 4);
+
+			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.phoneCall);
+			for(int i=0; i<ruleCandidates.size(); i++)
+			{
+				AutomationService asInstance = AutomationService.getInstance();
+				if(asInstance != null)
+					if(ruleCandidates.get(i).applies(asInstance))
+						ruleCandidates.get(i).activate(asInstance, false);
+			}
         }		
 	}
 	
 	public static boolean isInACall()
 	{
-		if(isInIncomingCall() | isInOutgoingCall())
-			return true;
-		
-		return false;
+		return getCurrentState() != TelephonyManager.CALL_STATE_IDLE;
+//		if(isInIncomingCall() | isInOutgoingCall())
+//			return true;
+//
+//		return false;
 	}
 	
-	public static boolean isInIncomingCall()
+/*	public static boolean isInIncomingCall()
 	{
 //		Miscellaneous.logEvent("i", "Incoming call state", String.valueOf(currentStateIncoming), 5);
 		switch(currentStateIncoming)
@@ -245,7 +268,7 @@ public class PhoneStatusListener implements AutomationListenerInterface
 	public static int getCurrentStateOutgoing()
 	{
 		return currentStateOutgoing;
-	}
+	}*/
 	
 /*
 Apps that redirect outgoing calls should use the android.telecom.CallRedirectionService API. Apps that perform call screening should use the android.telecom.CallScreeningService API.

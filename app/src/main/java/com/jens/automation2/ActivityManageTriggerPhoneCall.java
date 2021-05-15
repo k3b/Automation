@@ -19,7 +19,7 @@ public class ActivityManageTriggerPhoneCall extends Activity
     ProgressDialog progressDialog = null;
 
     EditText etTriggerPhoneCallPhoneNumber;
-    RadioButton rbTriggerPhoneCallStateAny, rbTriggerPhoneCallStateRinging, rbTriggerPhoneCallStateStarted, rbTriggerPhoneCallStateStopped, rbTriggerPhoneCallDirectionAny, rbTriggerPhoneCallDirectionIncoming, rbTriggerPhoneCallDirectionOutgoing;
+    RadioButton rbTriggerPhoneCallStateRinging, rbTriggerPhoneCallStateStarted, rbTriggerPhoneCallStateStopped, rbTriggerPhoneCallDirectionAny, rbTriggerPhoneCallDirectionIncoming, rbTriggerPhoneCallDirectionOutgoing;
     Button bSaveTriggerPhoneCall, bTriggerPhoneCallImportFromContacts;
 
     @Override
@@ -29,7 +29,6 @@ public class ActivityManageTriggerPhoneCall extends Activity
         setContentView(R.layout.activity_manage_trigger_phone_call);
 
         etTriggerPhoneCallPhoneNumber = (EditText)findViewById(R.id.etTriggerPhoneCallPhoneNumber);
-        rbTriggerPhoneCallStateAny = (RadioButton)findViewById(R.id.rbTriggerPhoneCallStateAny);
         rbTriggerPhoneCallStateRinging = (RadioButton)findViewById(R.id.rbTriggerPhoneCallStateRinging);
         rbTriggerPhoneCallStateStarted = (RadioButton)findViewById(R.id.rbTriggerPhoneCallStateStarted);
         rbTriggerPhoneCallStateStopped = (RadioButton)findViewById(R.id.rbTriggerPhoneCallStateStopped);
@@ -46,9 +45,7 @@ public class ActivityManageTriggerPhoneCall extends Activity
             {
                 String tp2Result = "";
 
-                if(rbTriggerPhoneCallStateAny.isChecked())
-                    tp2Result += Trigger.triggerPhoneCallStateAny;
-                else if(rbTriggerPhoneCallStateRinging.isChecked())
+                if(rbTriggerPhoneCallStateRinging.isChecked())
                     tp2Result += Trigger.triggerPhoneCallStateRinging;
                 else if(rbTriggerPhoneCallStateStarted.isChecked())
                     tp2Result += Trigger.triggerPhoneCallStateStarted;
@@ -101,9 +98,7 @@ public class ActivityManageTriggerPhoneCall extends Activity
     {
         String[] parts = editedPhoneCallTrigger.getTriggerParameter2().split(triggerParameter2Split);
 
-        if(parts[0].equals(Trigger.triggerPhoneCallStateAny))
-            rbTriggerPhoneCallStateAny.setChecked(true);
-        else if(parts[0].equals(Trigger.triggerPhoneCallStateRinging))
+        if(parts[0].equals(Trigger.triggerPhoneCallStateRinging))
             rbTriggerPhoneCallStateRinging.setChecked(true);
         else if(parts[0].equals(Trigger.triggerPhoneCallStateStarted))
             rbTriggerPhoneCallStateStarted.setChecked(true);
