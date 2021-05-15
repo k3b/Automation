@@ -14,6 +14,7 @@ import com.jens.automation2.AutomationService;
 import com.jens.automation2.Miscellaneous;
 import com.jens.automation2.R;
 import com.jens.automation2.Rule;
+import com.jens.automation2.Trigger;
 import com.jens.automation2.Trigger.Trigger_Enum;
 
 import java.util.ArrayList;
@@ -32,7 +33,6 @@ public class PhoneStatusListener implements AutomationListenerInterface
 	protected static IntentFilter outgoingCallsIntentFilter;
 	protected static IncomingCallsReceiver incomingCallsReceiverInstance;
 	protected static BroadcastReceiver outgoingCallsReceiverInstance;
-	
 	
 	public static boolean isIncomingCallsReceiverActive()
 	{
@@ -78,46 +78,83 @@ public class PhoneStatusListener implements AutomationListenerInterface
 		{
 //			Miscellaneous.logEvent("i", "Call state", "New call state: " + String.valueOf(state), 4);
 
-			setCurrentState(state);
+			/*
+				Unfortunately receivers for incoming and outgoing calls behave pretty differently:
 
-			if(incomingNumber != null && incomingNumber.length() > 0)		// check for null in case call comes in with suppressed number.
-				setLastPhoneNumber(incomingNumber);
+				The Outgoing-Receiver is called when starting a call (ringing)
+				It is not called when that outgoing call ends however, only the incoming receiver.
 
-			lastPhoneDirection = 1;
-			
-			switch(state)
+				If the last call was outgoing the state has not changed to idle this is kind of a fake alert.
+			 */
+
+			if(lastPhoneDirection == 2 && currentState != TelephonyManager.CALL_STATE_IDLE)
 			{
-				case TelephonyManager.CALL_STATE_IDLE:
-					Miscellaneous.logEvent("i", "Call state", "New call state: CALL_STATE_IDLE", 4);
-//					if(currentStateIncoming == TelephonyManager.CALL_STATE_OFFHOOK)
-//						setCurrentStateIncoming(state);
-//					else if(currentStateOutgoing == TelephonyManager.CALL_STATE_OFFHOOK)
-//						setCurrentStateOutgoing(state);
-//					else
-//						currentStateIncoming = state;
-//						currentStateOutgoing = state;
-					break;
-				case TelephonyManager.CALL_STATE_OFFHOOK:
-					Miscellaneous.logEvent("i", "Call state", "New call state: CALL_STATE_OFFHOOK", 4);
-//					if(currentStateIncoming == TelephonyManager.CALL_STATE_RINGING)
-//						setCurrentStateIncoming(state);
-//					else if(currentStateOutgoing == TelephonyManager.CALL_STATE_RINGING)
-//						setCurrentStateOutgoing(state);
-					break;
-				case TelephonyManager.CALL_STATE_RINGING:
-					Miscellaneous.logEvent("i", "Call state", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.incomingCallFrom), incomingNumber), 4);
-					break;
+				// This status update is actually for an outgoing call
+				setCurrentState(state);
+
+				if(incomingNumber != null && incomingNumber.length() > 0)		// check for null in case call comes in with suppressed number.
+					setLastPhoneNumber(incomingNumber);
+
+				switch(state)
+				{
+					case TelephonyManager.CALL_STATE_IDLE:
+						Miscellaneous.logEvent("i", "Call state", "New call state: CALL_STATE_IDLE", 4);
+						break;
+					case TelephonyManager.CALL_STATE_OFFHOOK:
+						Miscellaneous.logEvent("i", "Call state", "New call state: CALL_STATE_OFFHOOK", 4);
+						break;
+					case TelephonyManager.CALL_STATE_RINGING:
+						Miscellaneous.logEvent("i", "Call state", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.outgoingCallTo), incomingNumber), 4);
+						break;
+				}
+
+				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByPhoneCall(Trigger.triggerPhoneCallDirectionOutgoing);
+				for(int i=0; i<ruleCandidates.size(); i++)
+				{
+					AutomationService asInstance = AutomationService.getInstance();
+					if(asInstance != null)
+						if(ruleCandidates.get(i).applies(asInstance))
+							ruleCandidates.get(i).activate(asInstance, false);
+				}
 			}
-
-			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.phoneCall);
-			AutomationService asInstance = AutomationService.getInstance();
-			for(int i=0; i<ruleCandidates.size(); i++)
+			else
 			{
-				if(asInstance != null)
-					if(ruleCandidates.get(i).applies(asInstance))
-						ruleCandidates.get(i).activate(asInstance, false);
+//				state != TelephonyManager.CALL_STATE_IDLE &&
+
+				setCurrentState(state);
+				setLastPhoneDirection(1);
+
+				if (incomingNumber != null && incomingNumber.length() > 0)        // check for null in case call comes in with suppressed number.
+					setLastPhoneNumber(incomingNumber);
+
+				switch (state)
+				{
+					case TelephonyManager.CALL_STATE_IDLE:
+						Miscellaneous.logEvent("i", "Call state", "New call state: CALL_STATE_IDLE", 4);
+						break;
+					case TelephonyManager.CALL_STATE_OFFHOOK:
+						Miscellaneous.logEvent("i", "Call state", "New call state: CALL_STATE_OFFHOOK", 4);
+						break;
+					case TelephonyManager.CALL_STATE_RINGING:
+						Miscellaneous.logEvent("i", "Call state", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.incomingCallFrom), incomingNumber), 4);
+						break;
+				}
+
+				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByPhoneCall(Trigger.triggerPhoneCallDirectionIncoming);
+				for (int i = 0; i < ruleCandidates.size(); i++)
+				{
+					AutomationService asInstance = AutomationService.getInstance();
+					if (asInstance != null)
+						if (ruleCandidates.get(i).applies(asInstance))
+							ruleCandidates.get(i).activate(asInstance, false);
+				}
 			}
 		}
+	}
+
+	static void setLastPhoneDirection(int i)
+	{
+		lastPhoneDirection = i;
 	}
 	
 	public static class OutgoingCallsReceiver extends BroadcastReceiver
@@ -125,16 +162,22 @@ public class PhoneStatusListener implements AutomationListenerInterface
 		@Override
 		public void onReceive(Context context, Intent intent)
 		{
-			lastPhoneDirection = 2;
-//			setCurrentStateOutgoing(2);	// das kommt hier auch bei nur klingeln
+			/*
+				This receiver is ONLY triggered when outgoing calls ring, not when that call is established or ends.
+			 */
+			setLastPhoneDirection(2);
 
-			TelephonyManager tm = (TelephonyManager)context.getSystemService(Service.TELEPHONY_SERVICE);
-			setCurrentState(tm.getCallState());
+//			TelephonyManager tm = (TelephonyManager)context.getSystemService(Service.TELEPHONY_SERVICE);
+//			int newState = tm.getCallState();
+//			setCurrentState(newState);
 
-			setLastPhoneNumber(intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER));
-			Miscellaneous.logEvent("i", "Call state", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.outgoingCallFrom), getLastPhoneNumber()), 4);
+			setCurrentState(TelephonyManager.CALL_STATE_RINGING);
 
-			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.phoneCall);
+			String phoneNumber = intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER);
+			setLastPhoneNumber(phoneNumber);
+			Miscellaneous.logEvent("i", "Call state", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.outgoingCallTo), getLastPhoneNumber()), 4);
+
+			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByPhoneCall(Trigger.triggerPhoneCallDirectionOutgoing);
 			for(int i=0; i<ruleCandidates.size(); i++)
 			{
 				AutomationService asInstance = AutomationService.getInstance();

@@ -411,7 +411,7 @@
     <string name="activityDetectionRequiredProbabilityTitle">Activity detection probability</string>
     <string name="activityDetectionRequiredProbabilitySummary">Certainty from which activities are accepted as fact.</string>
     <string name="incomingCallFrom">Incoming telephone call from %1$s.</string>
-    <string name="outgoingCallFrom">Outgoing telephone call to %1$s.</string>
+    <string name="outgoingCallTo">Outgoing telephone call to %1$s.</string>
     <string name="actionSpeakText">Speak text</string>
     <string name="textToSpeak">Text to speak</string>
     <string name="toggleNotAllowed">Toggling is currently only allowed for rules that have NFC tags as trigger. See help for further information.</string>

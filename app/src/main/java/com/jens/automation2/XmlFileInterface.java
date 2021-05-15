@@ -927,7 +927,7 @@ public class XmlFileInterface
             	else if(newTrigger.getTriggerType() == Trigger_Enum.phoneCall)
             	{
             		String[] elements = triggerParameter2.split(",");
-            		if(elements.length > 3 && elements.length < 3)	//old format
+            		if(elements.length == 2)	//old format
 					{
 						// 0/1/2,number
 						int direction = Integer.parseInt(elements[0]);

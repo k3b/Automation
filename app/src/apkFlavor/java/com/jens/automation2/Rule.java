@@ -1360,28 +1360,29 @@ public class Rule implements Comparable<Rule>
 		return ruleCandidates;
 	}
 	
-//	public static ArrayList<Rule> findRuleCandidatesByPhoneCall()
-//	{
-//		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
-//
-//		for(Rule oneRule : ruleCollection)
-//		{
-//			innerloop:
-//			for(Trigger oneTrigger : oneRule.getTriggerSet())
-//			{
-//				if(oneTrigger.getTriggerType() == Trigger.Trigger_Enum.phoneCall)
-//				{
-//					if(oneTrigger.getTriggerParameter() == triggerParameter)
-//					{
-//						ruleCandidates.add(oneRule);
-//						break innerloop; //we don't need to search the other triggers in the same rule
-//					}
-//				}
-//			}
-//		}
-//
-//		return ruleCandidates;
-//	}
+	public static ArrayList<Rule> findRuleCandidatesByPhoneCall(String direction)
+	{
+		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
+
+		for(Rule oneRule : ruleCollection)
+		{
+			innerloop:
+			for(Trigger oneTrigger : oneRule.getTriggerSet())
+			{
+				if(oneTrigger.getTriggerType() == Trigger.Trigger_Enum.phoneCall)
+				{
+					String[] elements = oneTrigger.getTriggerParameter2().split(triggerParameter2Split);
+					if(elements[1].equals(Trigger.triggerPhoneCallDirectionAny) || elements[1].equals(direction))
+					{
+						ruleCandidates.add(oneRule);
+						break innerloop; //we don't need to search the other triggers in the same rule
+					}
+				}
+			}
+		}
+
+		return ruleCandidates;
+	}
 	
 	public static ArrayList<Rule> findRuleCandidatesByNfc()
 	{

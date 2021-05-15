@@ -312,7 +312,7 @@ Quindi, se si crea una regola che imposta il profilo su vibrazione nell\'interva
     <string name="onOff">On/Off</string>
     <string name="outgoing">effettuata</string>
     <string name="outgoingAdjective">effettuata</string>
-    <string name="outgoingCallFrom">Ultima chiamata effettuata %1$s fa.</string>
+    <string name="outgoingCallTo">Ultima chiamata effettuata %1$s fa.</string>
     <string name="overlapBetweenPois">Rilevata sovrapposizione della posizione %1$s. Ridurre il raggio almeno di %2$s metri.</string>
     <string name="overview">Panoramica</string>
     <string name="parameterName">Nome parametro</string>

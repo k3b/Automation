@@ -445,7 +445,8 @@ public class AutomationService extends Service implements OnInitListener
 	
 	private void stopRoutine()
 	{
-		Log.i("STOP", "Stopping");
+		Miscellaneous.logEvent("i", "Service", "Stopping service...", 3);
+//		Log.i("STOP", "Stopping");
 		try
 		{
 			myLocationProvider.stopLocationService();

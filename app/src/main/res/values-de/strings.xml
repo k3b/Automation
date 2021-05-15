@@ -410,7 +410,7 @@
 	<string name="activityDetectionRequiredProbabilityTitle">Wahrscheinlichkeit für Aktivitätserkennungen</string>
 	<string name="activityDetectionRequiredProbabilitySummary">Wahrscheinlichkeit, ab der eine Aktivität als gegeben gilt.</string>
 	<string name="incomingCallFrom">Eingehender Telefonanruf von %1$s.</string>
-	<string name="outgoingCallFrom">Ausgehender Telefonanruf von %1$s.</string>
+	<string name="outgoingCallTo">Ausgehender Telefonanruf von %1$s.</string>
 	<string name="actionSpeakText">Text sprechen</string>
 	<string name="textToSpeak">Zu sprechender Text</string>
 	<string name="toggleNotAllowed">Die Umschaltfunktion ist momentan nur für Regeln erlaubt, die NFC Tags als Auslöser haben. Für weitere Informationen lesen Sie die Hilfe.</string>
