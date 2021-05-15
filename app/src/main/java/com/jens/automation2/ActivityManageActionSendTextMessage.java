@@ -25,6 +25,7 @@ public class ActivityManageActionSendTextMessage extends Activity
 	EditText etPhoneNumber, etSendTextMessage;
 
 	protected final static int requestCodeForContactsPermissions = 9876;
+	protected final static int requestCodeGetContact = 3235;
 	
 //	private String existingUrl = "";
 	
@@ -145,16 +146,14 @@ public class ActivityManageActionSendTextMessage extends Activity
 
 	private void openContactsDialogue()
 	{
-//		Toast.makeText(ActivityEditSendTextMessage.this, "Opening contacts dialogue", Toast.LENGTH_LONG).show();
-
-        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-        startActivityForResult(intent, 1000);
+		Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+        startActivityForResult(intent, requestCodeGetContact);
 	}
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        if(requestCode == 1000)
+        if(requestCode == requestCodeGetContact)
         {
             if(resultCode == Activity.RESULT_OK)
             {

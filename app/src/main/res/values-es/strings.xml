@@ -312,5 +312,5 @@
     <string name="parameterValue">Valor del parámetro</string>
     <string name="addIntentValue">Añadir pareja intento</string>
     <string name="parameterType">Tipo del parámetro</string>
-    <string name="phoneNumberExplanation">Puedes entrar un numero, pero es opciónal. Si quieres usar un puedes elegir un de su directorio o entrar un manualmente. Adiciónalmente puedes usar expresiónes regulares.</string>
+    <string name="phoneNumberExplanation">Puedes entrar un numero, pero es opciónal. Si quieres usar un puedes elegir un de su directorio o entrar un manualmente. Adiciónalmente puedes usar expresiónes regulares. Para testar esos me gusta la pagina:</string>
 </resources>

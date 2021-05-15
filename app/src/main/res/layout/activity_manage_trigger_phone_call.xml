@@ -157,6 +157,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_span="2"
+                    android:text="@string/urlRegex" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
                 <Button
                     android:id="@+id/bTriggerPhoneCallImportFromContacts"
                     android:layout_marginVertical="@dimen/default_margin"

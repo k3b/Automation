@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Looper;
 import android.service.notification.StatusBarNotification;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -603,7 +604,7 @@ public class Rule implements Comparable<Rule>
 					String[] elements = oneTrigger.getTriggerParameter2().split(triggerParameter2Split);
 					// state dir number
 
-					if(elements[2].equals(Trigger.triggerPhoneCallNumberAny) || PhoneStatusListener.getLastPhoneNumber().matches(elements[2]))
+					if(elements[2].equals(Trigger.triggerPhoneCallNumberAny) || Miscellaneous.comparePhoneNumbers(PhoneStatusListener.getLastPhoneNumber(), elements[2]) || (Miscellaneous.isRegularExpression(elements[2]) && PhoneStatusListener.getLastPhoneNumber().matches(elements[2])))
 					{
 						//if(PhoneStatusListener.isInACall() == oneTrigger.getTriggerParameter())
 						if(

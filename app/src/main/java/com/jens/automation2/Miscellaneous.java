@@ -21,6 +21,8 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.provider.MediaStore;
 import android.provider.Settings.Secure;
+import android.telephony.PhoneNumberUtils;
+import android.telephony.TelephonyManager;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
@@ -1470,5 +1472,32 @@ public class Miscellaneous extends Service
 	public static boolean doesActivityExist(Intent intent, Context context)
 	{
 		return intent.resolveActivityInfo(context.getPackageManager(), 0) != null;
+	}
+
+	public static boolean isRegularExpression(String regex)
+	{
+		try
+		{
+			"compareString".matches(regex);	//will cause expection if no valid regex
+			return true;
+		}
+		catch(java.util.regex.PatternSyntaxException e)
+		{
+
+		}
+
+		return false;
+	}
+
+	public static boolean comparePhoneNumbers(String number1, String number2)
+	{
+		/* To be activated when Android S SDK comes out
+		if(Build.VERSION.SDK_INT > Build.VERSION_CODES.Q)
+		{
+			TelephonyManager tm = (TelephonyManager)Miscellaneous.getAnyContext().getSystemService(Context.TELEPHONY_SERVICE);
+			return PhoneNumberUtils.areSamePhoneNumber(number1, number2, tm.getNetworkCountryIso());
+		}
+		else*/
+			return PhoneNumberUtils.compare(number1, number2);
 	}
 }

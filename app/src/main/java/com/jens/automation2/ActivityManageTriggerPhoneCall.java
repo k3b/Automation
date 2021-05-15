@@ -3,11 +3,18 @@ package com.jens.automation2;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+
+import androidx.annotation.NonNull;
 
 import static com.jens.automation2.Trigger.triggerParameter2Split;
 
@@ -17,6 +24,8 @@ public class ActivityManageTriggerPhoneCall extends Activity
     boolean edit = false;
     public static Trigger resultingTrigger;
     ProgressDialog progressDialog = null;
+    protected final static int requestCodeForContactsPermissions = 2345;
+    protected final static int requestCodeGetContact = 3235;
 
     EditText etTriggerPhoneCallPhoneNumber;
     RadioButton rbTriggerPhoneCallStateRinging, rbTriggerPhoneCallStateStarted, rbTriggerPhoneCallStateStopped, rbTriggerPhoneCallDirectionAny, rbTriggerPhoneCallDirectionIncoming, rbTriggerPhoneCallDirectionOutgoing;
@@ -86,12 +95,51 @@ public class ActivityManageTriggerPhoneCall extends Activity
             }
         });
 
+        bTriggerPhoneCallImportFromContacts.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !ActivityPermissions.havePermission("android.permission.READ_CONTACTS", ActivityManageTriggerPhoneCall.this))
+                {
+                    requestPermissions("android.permission.READ_CONTACTS");
+                }
+                else
+                    openContactsDialogue();
+            }
+        });
+
         Intent i = getIntent();
         if(i.getBooleanExtra("edit", false) == true)
         {
             edit = true;
             loadValuesIntoGui();
         }
+    }
+
+    protected void requestPermissions(String... requiredPermissions)
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        {
+            if(requiredPermissions.length > 0)
+            {
+                StringBuilder permissions = new StringBuilder();
+                for (String perm : requiredPermissions)
+                    permissions.append(perm + "; ");
+                if (permissions.length() > 0)
+                    permissions.delete(permissions.length() - 2, permissions.length());
+
+                Miscellaneous.logEvent("i", "Permissions", "Requesting permissions: " + permissions, 2);
+
+                requestPermissions(requiredPermissions, requestCodeForContactsPermissions);
+            }
+        }
+    }
+
+    private void openContactsDialogue()
+    {
+        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+        startActivityForResult(intent, requestCodeGetContact);
     }
 
     private void loadValuesIntoGui()
@@ -114,5 +162,51 @@ public class ActivityManageTriggerPhoneCall extends Activity
 
         if(!parts[2].equals(Trigger.triggerPhoneCallNumberAny))
             etTriggerPhoneCallPhoneNumber.setText(parts[2]);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if(requestCode == requestCodeGetContact)
+        {
+            if(resultCode == Activity.RESULT_OK)
+            {
+                String phoneNo = null;
+                String name = null;
+
+                Uri uri = data.getData();
+                Cursor cursor = ActivityManageTriggerPhoneCall.this.getContentResolver().query(uri, null, null, null, null);
+
+                if (cursor.moveToFirst())
+                {
+                    int phoneIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+                    int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+
+                    phoneNo = cursor.getString(phoneIndex);
+                    name = cursor.getString(nameIndex);
+
+                    etTriggerPhoneCallPhoneNumber.setText(phoneNo);
+                }
+            }
+        }
+        //super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        if(requestCode == requestCodeForContactsPermissions)
+        {
+            for(int i=0; i<permissions.length; i++)
+            {
+                if(permissions[i].equals("android.permission.READ_CONTACTS"))
+                {
+                    if(grantResults[i] == PackageManager.PERMISSION_GRANTED)
+                    {
+                        openContactsDialogue();
+                    }
+                }
+            }
+        }
     }
 }
