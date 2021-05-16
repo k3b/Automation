@@ -188,6 +188,7 @@
         <activity android:name=".ActivityManageTriggerBluetooth" />
         <activity android:name=".ActivityMainProfiles" />
         <activity android:name=".ActivityManageProfile" />
+        <activity android:name=".ActivityManageTriggerWifi" />
         <activity android:name=".ActivityVolumeTest" />
         <activity android:name=".ActivityPermissions"></activity>
         <activity android:name=".ActivityManageTriggerNotification"></activity>

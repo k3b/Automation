@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/default_margin">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/wifiConnection"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:layout_marginBottom="@dimen/default_margin" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:shrinkColumns="1"
+        android:stretchColumns="1" >
+
+        <TableRow>
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:paddingRight="@dimen/default_margin"
+                android:text="@string/state"/>
+
+            <RadioGroup
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+                <RadioButton
+                    android:id="@+id/rbTriggerWifiConnected"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/connected" />
+
+                <RadioButton
+                    android:id="@+id/rbTriggerWifiDisconnected"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/disconnected" />
+
+            </RadioGroup>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:paddingRight="@dimen/default_margin"
+                android:text="@string/name"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/etTriggerWifiName"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent" />
+
+                <Spinner
+                    android:id="@+id/spinnerWifiList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/btriggerWifiSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
