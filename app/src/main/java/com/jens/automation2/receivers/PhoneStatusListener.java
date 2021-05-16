@@ -1,5 +1,6 @@
 package com.jens.automation2.receivers;
 
+import android.Manifest;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -191,131 +192,13 @@ public class PhoneStatusListener implements AutomationListenerInterface
 	public static boolean isInACall()
 	{
 		return getCurrentState() != TelephonyManager.CALL_STATE_IDLE;
-//		if(isInIncomingCall() | isInOutgoingCall())
-//			return true;
-//
-//		return false;
-	}
-	
-/*	public static boolean isInIncomingCall()
-	{
-//		Miscellaneous.logEvent("i", "Incoming call state", String.valueOf(currentStateIncoming), 5);
-		switch(currentStateIncoming)
-		{
-//			case -1:
-//				return false;
-//			case 0:
-//				return false;
-			case 1:
-				return true;
-			case 2:
-				return true;
-//			case 3:
-//				return true;
-//			case 4:
-//				return true;
-//			default:
-//				return false;
-		}
-		
-		return false;
-	}
-	
-	public static boolean isInOutgoingCall()
-	{
-//		Miscellaneous.logEvent("i", "Outgoing call state", String.valueOf(currentStateOutgoing), 5);
-		switch(currentStateOutgoing)
-		{
-//			case -1:
-//				return false;
-//			case 0:
-//				return false;
-//			case 1:
-//				return true;
-			case 2:
-				return true;
-//			case 3:
-//				return true;
-//			case 4:
-//				return true;
-//			default:
-//				return false;
-		}
-		
-		return false;
 	}
 
-	private static void setCurrentStateIncoming(int state)
-	{
-		Miscellaneous.logEvent("i", "Call state", "New incoming call state: " + String.valueOf(state), 4);
-		if(currentStateIncoming != state)
-		{			
-			if(lastPhoneDirection != 1)
-				lastPhoneDirection = 1;
-
-			if(
-					(state == 0 && currentStateIncoming == 2)
-									||
-					(state == 2 && (currentStateIncoming == 0 | currentStateIncoming == 1))
-									||
-								state == 1	// this will enable incoming calls that have not been answered, yet, so when they are still only ringing
-				)
-			{
-				currentStateIncoming = state;
-				
-				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByPhoneCall(isInIncomingCall());
-				for(int i=0; i<ruleCandidates.size(); i++)
-				{
-					AutomationService asInstance = AutomationService.getInstance();
-					if(asInstance != null)
-						if(ruleCandidates.get(i).applies(asInstance))
-							ruleCandidates.get(i).activate(asInstance, false);
-				}
-			}
-			else
-				currentStateIncoming = state;
-		}
-	}
-	public static int getCurrentStateIncoming()
-	{
-		return currentStateIncoming;
-	}
-
-	public static void setCurrentStateOutgoing(int state)
-	{
-		if(currentStateOutgoing != state)
-		{
-			if(lastPhoneDirection != 2)
-				lastPhoneDirection = 2;
-			
-			if(
-					(state == 0 && currentStateOutgoing == 2)
-									|
-					(state == 2 && (currentStateOutgoing == 0 | currentStateOutgoing == 1)))
-			{
-				PhoneStatusListener.currentStateOutgoing = state;
-		
-				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByPhoneCall(isInOutgoingCall());
-				for(int i=0; i<ruleCandidates.size(); i++)
-				{
-					AutomationService asInstance = AutomationService.getInstance();
-					if(asInstance != null)
-						if(ruleCandidates.get(i).applies(asInstance))
-							ruleCandidates.get(i).activate(asInstance, false);
-				}
-			}
-			else
-				PhoneStatusListener.currentStateOutgoing = state;
-		}
-	}
-	public static int getCurrentStateOutgoing()
-	{
-		return currentStateOutgoing;
-	}*/
-	
-/*
-Apps that redirect outgoing calls should use the android.telecom.CallRedirectionService API. Apps that perform call screening should use the android.telecom.CallScreeningService API.
- */
+	/*
+		Future remark:
+		Apps that redirect outgoing calls should use the android.telecom.CallRedirectionService API.
+		Apps that perform call screening should use the android.telecom.CallScreeningService API.
+	 */
 	
 	public static void startPhoneStatusListener(AutomationService automationService)
 	{
@@ -394,9 +277,9 @@ Apps that redirect outgoing calls should use the android.telecom.CallRedirection
 	public static boolean haveAllPermission()
 	{
 		return
-			ActivityPermissions.havePermission("android.permission.READ_PHONE_STATE", Miscellaneous.getAnyContext())
+			ActivityPermissions.havePermission(Manifest.permission.READ_PHONE_STATE, Miscellaneous.getAnyContext())
 						&&
-			ActivityPermissions.havePermission(ActivityPermissions.permissionNameCall, Miscellaneous.getAnyContext());
+			ActivityPermissions.havePermission(Manifest.permission.PROCESS_OUTGOING_CALLS, Miscellaneous.getAnyContext());
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.jens.automation2;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
@@ -121,14 +122,14 @@ public class AutomationService extends Service implements OnInitListener
 
 		if(Build.VERSION.SDK_INT >= 28)
 		{
-			if (!ActivityPermissions.havePermission(ActivityPermissions.permissionNameStartService, AutomationService.this))
+			if (!ActivityPermissions.havePermission(Manifest.permission.FOREGROUND_SERVICE, AutomationService.this))
 			{
 			/*
 				Don't have permission to start service. This is a show stopper.
 			 */
 				Miscellaneous.logEvent("e", "Permission", "Don't have permission to start foreground service. Will request it now.", 4);
 //			Toast.makeText(AutomationService.this, getResources().getString(R.string.appRequiresPermissiontoAccessExternalStorage), Toast.LENGTH_LONG).show();
-				ActivityPermissions.requestSpecificPermission(ActivityPermissions.permissionNameStartService);
+				ActivityPermissions.requestSpecificPermission(Manifest.permission.FOREGROUND_SERVICE);
 				return false;
 			}
 		}
@@ -594,9 +595,9 @@ public class AutomationService extends Service implements OnInitListener
 						if(
 								Rule.isAnyRuleUsing(Trigger_Enum.pointOfInterest)
 										&&
-								ActivityPermissions.havePermission(ActivityPermissions.permissionNameLocationCoarse, AutomationService.getInstance())
+								ActivityPermissions.havePermission(Manifest.permission.ACCESS_COARSE_LOCATION, AutomationService.getInstance())
 										&&
-								ActivityPermissions.havePermission(ActivityPermissions.permissionNameLocationFine, AutomationService.getInstance())
+								ActivityPermissions.havePermission(Manifest.permission.ACCESS_FINE_LOCATION, AutomationService.getInstance())
 						  )
 							bodyText = instance.getResources().getString(R.string.stillGettingPosition);
 						else

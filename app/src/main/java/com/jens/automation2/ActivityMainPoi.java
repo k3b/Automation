@@ -1,5 +1,6 @@
 package com.jens.automation2;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -60,11 +61,11 @@ public class ActivityMainPoi extends ActivityGeneric
 				}
 				else
 				{
-					if (!ActivityPermissions.havePermission(ActivityPermissions.permissionNameLocationCoarse, ActivityMainPoi.this) || !ActivityPermissions.havePermission(ActivityPermissions.permissionNameLocationFine, ActivityMainPoi.this))
+					if (!ActivityPermissions.havePermission(Manifest.permission.ACCESS_COARSE_LOCATION, ActivityMainPoi.this) || !ActivityPermissions.havePermission(Manifest.permission.ACCESS_FINE_LOCATION, ActivityMainPoi.this))
 					{
 						Intent permissionIntent = new Intent(ActivityMainPoi.this, ActivityPermissions.class);
 
-						permissionIntent.putExtra(ActivityPermissions.intentExtraName, new String[]{ActivityPermissions.permissionNameLocationCoarse, ActivityPermissions.permissionNameLocationFine});
+						permissionIntent.putExtra(ActivityPermissions.intentExtraName, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION});
 
 						startActivityForResult(permissionIntent, requestCodeForPermission);
 					}

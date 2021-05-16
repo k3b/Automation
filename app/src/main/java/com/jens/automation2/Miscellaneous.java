@@ -1,5 +1,6 @@
 package com.jens.automation2;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Notification;
@@ -336,7 +337,7 @@ public class Miscellaneous extends Service
 			migration:
 			if (!newConfigFile.exists())
 			{
-				if (ActivityPermissions.havePermission(ActivityPermissions.writeExternalStoragePermissionName, Miscellaneous.getAnyContext()))
+				if (ActivityPermissions.havePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, Miscellaneous.getAnyContext()))
 				{
 					// We have the storage permission, probably because it's an old installation. Files should be migrated to app-specific folder.
 

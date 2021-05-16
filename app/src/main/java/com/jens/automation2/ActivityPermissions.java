@@ -1,5 +1,6 @@
 package com.jens.automation2;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.ComponentName;
@@ -47,17 +48,10 @@ public class ActivityPermissions extends Activity
     TextView tvPermissionsExplanation, tvPermissionsExplanationSystemSettings, tvPermissionsExplanationLong;
     static ActivityPermissions instance = null;
 
-    public static final String writeSystemSettingsPermissionName = "android.permission.WRITE_SETTINGS";
-    public static final String writeExternalStoragePermissionName = "android.permission.WRITE_EXTERNAL_STORAGE";
-    public static final String accessNotificationPolicyPermissionName = "android.permission.ACCESS_NOTIFICATION_POLICY";
-    public static final String permissionNameLocationFine = "android.permission.ACCESS_FINE_LOCATION";
-    public static final String permissionNameLocationCoarse = "android.permission.ACCESS_COARSE_LOCATION";
-    public static final String permissionNameLocationBackground = "android.permission.ACCESS_BACKGROUND_LOCATION";
-    public static final String permissionNameCall = "android.permission.PROCESS_OUTGOING_CALLS";
-    public static final String permissionNameStartService = "android.permission.FOREGROUND_SERVICE";
-    public static final String permissionNameReadNotifications = "android.permission.BIND_NOTIFICATION_LISTENER_SERVICE";
-    public static final String permissionNameWireguard = "com.wireguard.android.permission.CONTROL_TUNNELS";
-    
+    public final static String permissionNameWireguard = "com.wireguard.android.permission.CONTROL_TUNNELS";
+    public final static String permissionNameGoogleActivityDetection = "com.google.android.gms.permission.ACTIVITY_RECOGNITION";
+    public final static String permissionNameSuperuser = "android.permission.ACCESS_SUPERUSER";
+
     public static ActivityPermissions getInstance()
     {
         if(instance == null)
@@ -168,7 +162,7 @@ public class ActivityPermissions extends Activity
             /*
                 Filter location permission and only name it once
              */
-            if(s.equals(permissionNameLocationCoarse) | s.equals(permissionNameLocationFine))
+            if(s.equals(Manifest.permission.ACCESS_COARSE_LOCATION) | s.equals(Manifest.permission.ACCESS_FINE_LOCATION))
             {
                 if(!locationPermissionExplained)
                 {
@@ -176,11 +170,11 @@ public class ActivityPermissions extends Activity
 
                             "<br />" +
                                     "<u>" +
-                                        getResources().getString(R.string.readLocation)
+                                    getResources().getString(R.string.readLocation)
                                     + "</u>"
 
                                     + "<br />"
-                                );
+                    );
 
                     for (String reason : getReasonForPermission(s))
                         explanation.append(reason + "<br />");
@@ -213,7 +207,7 @@ public class ActivityPermissions extends Activity
 
         for(String s : requiredPerms)
         {
-            if (s.equalsIgnoreCase(writeSystemSettingsPermissionName))
+            if (s.equalsIgnoreCase(Manifest.permission.WRITE_SETTINGS))
             {
                 if (requiredPerms.length == 1)
                     tvPermissionsExplanationSystemSettings.setText(getResources().getString(R.string.systemSettingsNote1));
@@ -249,26 +243,26 @@ public class ActivityPermissions extends Activity
             for (String s : getRequiredPermissions(false))
             {
                 if(
-                        s.equalsIgnoreCase(permissionNameLocationBackground)
-                            ||
-                        s.equalsIgnoreCase(permissionNameLocationFine)
-                            ||
-                        s.equalsIgnoreCase(permissionNameLocationCoarse)
+                        s.equalsIgnoreCase(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+                                ||
+                                s.equalsIgnoreCase(Manifest.permission.ACCESS_FINE_LOCATION)
+                                ||
+                                s.equalsIgnoreCase(Manifest.permission.ACCESS_COARSE_LOCATION)
                 )
                 {
                     if (!Miscellaneous.googleToBlameForLocation(true))
                         if (!havePermission(s, context))
                             return true;
                 }
-                else if(s.equalsIgnoreCase("android.permission.ACTIVITY_RECOGNITION") || s.equalsIgnoreCase("com.google.android.gms.permission.ACTIVITY_RECOGNITION"))
+                else if(s.equalsIgnoreCase(Manifest.permission.ACTIVITY_RECOGNITION) || s.equalsIgnoreCase(permissionNameGoogleActivityDetection))
                 {
                     if(!BuildConfig.FLAVOR.equalsIgnoreCase("fdroidFlavor"))
                         if (!havePermission(s, context))
                             return true;
                 }
                 else
-                    if (!havePermission(s, context))
-                        return true;
+                if (!havePermission(s, context))
+                    return true;
             }
         }
 
@@ -279,9 +273,9 @@ public class ActivityPermissions extends Activity
     {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
-            if(s.equals(writeSystemSettingsPermissionName))
+            if(s.equals(Manifest.permission.WRITE_SETTINGS))
                 return android.provider.Settings.System.canWrite(context);
-            else if (s.equals(accessNotificationPolicyPermissionName))
+            else if (s.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY))
             {
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                 {
@@ -291,7 +285,7 @@ public class ActivityPermissions extends Activity
                 else
                     return true;
             }
-            else if (s.equals(permissionNameReadNotifications))
+            else if (s.equals(Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE))
             {
                 return verifyNotificationPermission();
             }
@@ -324,13 +318,13 @@ public class ActivityPermissions extends Activity
 //            if (!havePermission(ActivityPermissions.writeExternalStoragePermissionName, workingContext))
 //                addToArrayListUnique(ActivityPermissions.writeExternalStoragePermissionName, requiredPermissions);
 
-            if(!havePermission(writeSystemSettingsPermissionName, workingContext))
+            if(!havePermission(Manifest.permission.WRITE_SETTINGS, workingContext))
             {
                 for (Profile profile : Profile.getProfileCollection())
                 {
                     if (profile.changeIncomingCallsRingtone)
                     {
-                        addToArrayListUnique(writeSystemSettingsPermissionName, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
                     }
                 }
             }
@@ -344,17 +338,17 @@ public class ActivityPermissions extends Activity
                         {
                             if(
 
-                                        singlePermission.equalsIgnoreCase(permissionNameLocationBackground)
-                                                ||
-                                        singlePermission.equalsIgnoreCase(permissionNameLocationFine)
-                                                ||
-                                        singlePermission.equalsIgnoreCase(permissionNameLocationCoarse)
+                                    singlePermission.equalsIgnoreCase(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+                                            ||
+                                            singlePermission.equalsIgnoreCase(Manifest.permission.ACCESS_FINE_LOCATION)
+                                            ||
+                                            singlePermission.equalsIgnoreCase(Manifest.permission.ACCESS_COARSE_LOCATION)
                             )
                             {
                                 if (!Miscellaneous.googleToBlameForLocation(true))
                                     addToArrayListUnique(singlePermission, requiredPermissions);
                             }
-                            else if(singlePermission.equalsIgnoreCase("android.permission.ACTIVITY_RECOGNITION") || singlePermission.equalsIgnoreCase("com.google.android.gms.permission.ACTIVITY_RECOGNITION"))
+                            else if(singlePermission.equalsIgnoreCase(Manifest.permission.ACTIVITY_RECOGNITION) || singlePermission.equalsIgnoreCase(permissionNameGoogleActivityDetection))
                             {
                                 if(!BuildConfig.FLAVOR.equalsIgnoreCase("fdroidFlavor"))
                                     addToArrayListUnique(singlePermission, requiredPermissions);
@@ -412,80 +406,80 @@ public class ActivityPermissions extends Activity
                 switch (trigger.getTriggerType())
                 {
                     case activityDetection:
-                        addToArrayListUnique("com.google.android.gms.permission.ACTIVITY_RECOGNITION", requiredPermissions);
-                        addToArrayListUnique("android.permission.ACTIVITY_RECOGNITION", requiredPermissions);
+                        addToArrayListUnique(permissionNameGoogleActivityDetection, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.ACTIVITY_RECOGNITION, requiredPermissions);
                         break;
                     case airplaneMode:
-                        addToArrayListUnique("android.permission.ACCESS_NETWORK_STATE", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
                         break;
                     case batteryLevel:
-//                        addToArrayListUnique("android.permission.READ_PHONE_STATE", requiredPermissions);
-//                        addToArrayListUnique("android.permission.BATTERY_STATS", requiredPermissions);
+//                        addToArrayListUnique(Manifest.permission.READ_PHONE_STATE, requiredPermissions);
+//                        addToArrayListUnique(Manifest.permission.BATTERY_STATS, requiredPermissions);
                         break;
                     case bluetoothConnection:
-                        addToArrayListUnique("android.permission.BLUETOOTH_ADMIN", requiredPermissions);
-                        addToArrayListUnique("android.permission.BLUETOOTH", requiredPermissions);
-                        addToArrayListUnique("android.permission.ACCESS_NETWORK_STATE", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.BLUETOOTH_ADMIN, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.BLUETOOTH, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
                         break;
                     case charging:
-                        addToArrayListUnique("android.permission.READ_PHONE_STATE", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.READ_PHONE_STATE, requiredPermissions);
 //                        addToArrayListUnique("android.permission.BATTERY_STATS", requiredPermissions);
                         break;
                     case headsetPlugged:
-                        addToArrayListUnique("android.permission.READ_PHONE_STATE", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.READ_PHONE_STATE, requiredPermissions);
                         break;
                     case nfcTag:
-                        addToArrayListUnique("android.permission.NFC", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.NFC, requiredPermissions);
                         break;
                     case noiseLevel:
-                        addToArrayListUnique("android.permission.RECORD_AUDIO", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.RECORD_AUDIO, requiredPermissions);
                         break;
                     case phoneCall:
-                        addToArrayListUnique("android.permission.READ_PHONE_STATE", requiredPermissions);
-                        addToArrayListUnique(permissionNameCall, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.READ_PHONE_STATE, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.PROCESS_OUTGOING_CALLS, requiredPermissions);
                         break;
                     case pointOfInterest:
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
                         {
-                            addToArrayListUnique(permissionNameLocationBackground, requiredPermissions);
-                            addToArrayListUnique(permissionNameLocationFine, requiredPermissions);
-                            addToArrayListUnique(permissionNameLocationCoarse, requiredPermissions);
+                            addToArrayListUnique(Manifest.permission.ACCESS_BACKGROUND_LOCATION, requiredPermissions);
+                            addToArrayListUnique(Manifest.permission.ACCESS_FINE_LOCATION, requiredPermissions);
+                            addToArrayListUnique(Manifest.permission.ACCESS_COARSE_LOCATION, requiredPermissions);
                         }
                         else
                         {
-                            addToArrayListUnique(permissionNameLocationFine, requiredPermissions);
-                            addToArrayListUnique(permissionNameLocationCoarse, requiredPermissions);
+                            addToArrayListUnique(Manifest.permission.ACCESS_FINE_LOCATION, requiredPermissions);
+                            addToArrayListUnique(Manifest.permission.ACCESS_COARSE_LOCATION, requiredPermissions);
                         }
-                        addToArrayListUnique("android.permission.ACCESS_NETWORK_STATE", requiredPermissions);
-                        addToArrayListUnique("android.permission.INTERNET", requiredPermissions);
-                        addToArrayListUnique("android.permission.ACCESS_WIFI_STATE", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.INTERNET, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.ACCESS_WIFI_STATE, requiredPermissions);
                         break;
                     case process_started_stopped:
-                        addToArrayListUnique("android.permission.GET_TASKS", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.GET_TASKS, requiredPermissions);
                         break;
                     case roaming:
-                        addToArrayListUnique("android.permission.ACCESS_NETWORK_STATE", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
                         break;
                     case speed:
-                        addToArrayListUnique(permissionNameLocationFine, requiredPermissions);
-                        addToArrayListUnique(permissionNameLocationCoarse, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.ACCESS_FINE_LOCATION, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.ACCESS_COARSE_LOCATION, requiredPermissions);
                         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-                            addToArrayListUnique(permissionNameLocationBackground, requiredPermissions);
-                        addToArrayListUnique("android.permission.ACCESS_NETWORK_STATE", requiredPermissions);
-                        addToArrayListUnique("android.permission.INTERNET", requiredPermissions);
+                            addToArrayListUnique(Manifest.permission.ACCESS_BACKGROUND_LOCATION, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.INTERNET, requiredPermissions);
                         break;
                     case timeFrame:
                         break;
                     case usb_host_connection:
-                        addToArrayListUnique("android.permission.READ_PHONE_STATE", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.READ_PHONE_STATE, requiredPermissions);
 //                        addToArrayListUnique("android.permission.BATTERY_STATS", requiredPermissions);
                         break;
                     case wifiConnection:
-                        addToArrayListUnique("android.permission.ACCESS_NETWORK_STATE", requiredPermissions);
-                        addToArrayListUnique("android.permission.ACCESS_WIFI_STATE", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.ACCESS_WIFI_STATE, requiredPermissions);
                         break;
                     case notification:
-                        addToArrayListUnique(permissionNameReadNotifications, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE, requiredPermissions);
                         break;
                     default:
                         break;
@@ -497,56 +491,56 @@ public class ActivityPermissions extends Activity
                 switch (action.getAction())
                 {
                     case changeSoundProfile:
-                        addToArrayListUnique("android.permission.MODIFY_AUDIO_SETTINGS", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.MODIFY_AUDIO_SETTINGS, requiredPermissions);
                         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                            addToArrayListUnique(accessNotificationPolicyPermissionName, requiredPermissions);
+                            addToArrayListUnique(Manifest.permission.ACCESS_NOTIFICATION_POLICY, requiredPermissions);
                         break;
                     case disableScreenRotation:
-                        addToArrayListUnique(writeSystemSettingsPermissionName, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
                         break;
                     case enableScreenRotation:
-                        addToArrayListUnique(writeSystemSettingsPermissionName, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
                         break;
                     case playMusic:
                         break;
                     case sendTextMessage:
-                        addToArrayListUnique("android.permission.SEND_SMS", requiredPermissions);
-                        checkPermissionsInVariableUse(action.getParameter2(), requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.SEND_SMS, requiredPermissions);
+                                checkPermissionsInVariableUse(action.getParameter2(), requiredPermissions);
                         break;
                     case setAirplaneMode:
-                        addToArrayListUnique(writeSystemSettingsPermissionName, requiredPermissions);
-                        addToArrayListUnique("android.permission.ACCESS_NETWORK_STATE", requiredPermissions);
-                        addToArrayListUnique("android.permission.ACCESS_SUPERUSER", requiredPermissions);
-                        addToArrayListUnique("android.permission.CHANGE_NETWORK_STATE", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
+                        addToArrayListUnique(permissionNameSuperuser, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
                         break;
                     case setBluetooth:
-                        addToArrayListUnique("android.permission.BLUETOOTH_ADMIN", requiredPermissions);
-                        addToArrayListUnique("android.permission.BLUETOOTH", requiredPermissions);
-                        addToArrayListUnique("android.permission.ACCESS_NETWORK_STATE", requiredPermissions);
-                        addToArrayListUnique(writeSystemSettingsPermissionName, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.BLUETOOTH_ADMIN, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.BLUETOOTH, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
                         break;
                     case setDataConnection:
-                        addToArrayListUnique(writeSystemSettingsPermissionName, requiredPermissions);
-                        addToArrayListUnique("android.permission.ACCESS_NETWORK_STATE", requiredPermissions);
-                        addToArrayListUnique("android.permission.ACCESS_SUPERUSER", requiredPermissions);
-                        addToArrayListUnique("android.permission.CHANGE_NETWORK_STATE", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
+                        addToArrayListUnique(permissionNameSuperuser, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
                         break;
                     case setDisplayRotation:
-                        addToArrayListUnique(writeSystemSettingsPermissionName, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
                         break;
                     case setUsbTethering:
-                        addToArrayListUnique(writeSystemSettingsPermissionName, requiredPermissions);
-                        addToArrayListUnique("android.permission.CHANGE_NETWORK_STATE", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
                         break;
                     case setWifi:
-                        addToArrayListUnique(writeSystemSettingsPermissionName, requiredPermissions);
-                        addToArrayListUnique("android.permission.CHANGE_NETWORK_STATE", requiredPermissions);
-                        addToArrayListUnique("android.permission.ACCESS_NETWORK_STATE", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
                         break;
                     case setWifiTethering:
-                        addToArrayListUnique(writeSystemSettingsPermissionName, requiredPermissions);
-                        addToArrayListUnique("android.permission.CHANGE_NETWORK_STATE", requiredPermissions);
-                        addToArrayListUnique("android.permission.ACCESS_NETWORK_STATE", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
 
                     /*
                        https://stackoverflow.com/questions/46284914/how-to-enable-android-o-wifi-hotspot-programmatically
@@ -561,11 +555,11 @@ public class ActivityPermissions extends Activity
                     case startOtherActivity:
                         if(
                                 action.getParameter2().contains(Actions.wireguard_tunnel_up)
-                                    ||
-                                action.getParameter2().contains(Actions.wireguard_tunnel_down)
-                                    ||
-                                action.getParameter2().contains(Actions.wireguard_tunnel_refresh)
-                                )
+                                        ||
+                                        action.getParameter2().contains(Actions.wireguard_tunnel_down)
+                                        ||
+                                        action.getParameter2().contains(Actions.wireguard_tunnel_refresh)
+                        )
                             addToArrayListUnique(ActivityPermissions.permissionNameWireguard, requiredPermissions);
 //                        if(
 //                                action.getParameter2().contains("eu.faircode.netguard.START_PORT_FORWARD")
@@ -575,53 +569,53 @@ public class ActivityPermissions extends Activity
 //                            addToArrayListUnique("net.kollnig.missioncontrol.permission.ADMIN", requiredPermissions);
                         break;
                     case triggerUrl:
-                        addToArrayListUnique("android.permission.INTERNET", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.INTERNET, requiredPermissions);
                         checkPermissionsInVariableUse(action.getParameter2(), requiredPermissions);
                         break;
                     case turnBluetoothOff:
-                        addToArrayListUnique("android.permission.BLUETOOTH_ADMIN", requiredPermissions);
-                        addToArrayListUnique(writeSystemSettingsPermissionName, requiredPermissions);
-                        addToArrayListUnique("android.permission.BLUETOOTH", requiredPermissions);
-                        addToArrayListUnique("android.permission.ACCESS_NETWORK_STATE", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.BLUETOOTH_ADMIN, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.BLUETOOTH, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
                         break;
                     case turnBluetoothOn:
-                        addToArrayListUnique("android.permission.BLUETOOTH_ADMIN", requiredPermissions);
-                        addToArrayListUnique(writeSystemSettingsPermissionName, requiredPermissions);
-                        addToArrayListUnique("android.permission.BLUETOOTH", requiredPermissions);
-                        addToArrayListUnique("android.permission.ACCESS_NETWORK_STATE", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.BLUETOOTH_ADMIN, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.BLUETOOTH, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
                         break;
                     case turnUsbTetheringOff:
-                        addToArrayListUnique(writeSystemSettingsPermissionName, requiredPermissions);
-                        addToArrayListUnique("android.permission.CHANGE_NETWORK_STATE", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
                         break;
                     case turnUsbTetheringOn:
-                        addToArrayListUnique(writeSystemSettingsPermissionName, requiredPermissions);
-                        addToArrayListUnique("android.permission.CHANGE_NETWORK_STATE", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
                         break;
                     case turnWifiOff:
-                        addToArrayListUnique(writeSystemSettingsPermissionName, requiredPermissions);
-                        addToArrayListUnique("android.permission.CHANGE_NETWORK_STATE", requiredPermissions);
-                        addToArrayListUnique("android.permission.ACCESS_NETWORK_STATE", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
                         break;
                     case turnWifiOn:
-                        addToArrayListUnique(writeSystemSettingsPermissionName, requiredPermissions);
-                        addToArrayListUnique("android.permission.CHANGE_NETWORK_STATE", requiredPermissions);
-                        addToArrayListUnique("android.permission.ACCESS_NETWORK_STATE", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
                         break;
                     case turnWifiTetheringOff:
-                        addToArrayListUnique(writeSystemSettingsPermissionName, requiredPermissions);
-                        addToArrayListUnique("android.permission.CHANGE_NETWORK_STATE", requiredPermissions);
-                        addToArrayListUnique("android.permission.ACCESS_NETWORK_STATE", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
                         break;
                     case turnWifiTetheringOn:
-                        addToArrayListUnique(writeSystemSettingsPermissionName, requiredPermissions);
-                        addToArrayListUnique("android.permission.CHANGE_NETWORK_STATE", requiredPermissions);
-                        addToArrayListUnique("android.permission.ACCESS_NETWORK_STATE", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
                         break;
                     case waitBeforeNextAction:
                         break;
                     case wakeupDevice:
-                        addToArrayListUnique("android.permission.WAKE_LOCK", requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.WAKE_LOCK, requiredPermissions);
                         break;
                     default:
                         break;
@@ -635,7 +629,7 @@ public class ActivityPermissions extends Activity
     protected ArrayList<String> getRulesUsing(Trigger.Trigger_Enum triggerType)
     {
         ArrayList<String> returnList = new ArrayList<>();
-        
+
         for (Rule rule : Rule.getRuleCollection())
         {
             if (rule.isRuleActive())
@@ -647,7 +641,7 @@ public class ActivityPermissions extends Activity
                 }
             }
         }
-        
+
         return returnList;
     }
 
@@ -669,38 +663,38 @@ public class ActivityPermissions extends Activity
 
         return returnList;
     }
-    
+
     public ArrayList<String> getReasonForPermission(String permission)
     {
         ArrayList<String> usingElements = new ArrayList<String>();
 
         switch(permission)
         {
-            case "android.permission.RECEIVE_BOOT_COMPLETED":
+            case Manifest.permission.RECEIVE_BOOT_COMPLETED:
                 usingElements.add(getResources().getString(R.string.startAtSystemBoot));
                 break;
-            case accessNotificationPolicyPermissionName:
+            case Manifest.permission.ACCESS_NOTIFICATION_POLICY:
                 usingElements.add(getResources().getString(R.string.actionChangeSoundProfile));
                 break;
-            case "android.permission.WRITE_EXTERNAL_STORAGE":
+            case Manifest.permission.WRITE_EXTERNAL_STORAGE:
                 usingElements.add(getResources().getString(R.string.storeSettings));
                 break;
-            case permissionNameReadNotifications:
+            case Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE:
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.notification))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
 
                 break;
-            case "com.google.android.gms.permission.ACTIVITY_RECOGNITION":
+            case permissionNameGoogleActivityDetection:
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.activityDetection))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
 
                 break;
-            case "android.permission.ACTIVITY_RECOGNITION":
+            case Manifest.permission.ACTIVITY_RECOGNITION:
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.activityDetection))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
 
                 break;
-            case permissionNameLocationCoarse:
+            case Manifest.permission.ACCESS_COARSE_LOCATION:
 //                usingElements.add(getResources().getString(R.string.android_permission_ACCESS_COARSE_LOCATION));
                 usingElements.add(getResources().getString(R.string.manageLocations));
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.pointOfInterest))
@@ -708,21 +702,21 @@ public class ActivityPermissions extends Activity
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.speed))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
-            case permissionNameLocationFine:
+            case Manifest.permission.ACCESS_FINE_LOCATION:
                 usingElements.add(getResources().getString(R.string.manageLocations));
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.pointOfInterest))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.speed))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
-            case permissionNameLocationBackground:
+            case Manifest.permission.ACCESS_BACKGROUND_LOCATION:
                 usingElements.add(getResources().getString(R.string.googleLocationChicanery));
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.pointOfInterest))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.speed))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
-            case "android.permission.ACCESS_NETWORK_STATE":
+            case Manifest.permission.ACCESS_NETWORK_STATE:
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.airplaneMode))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.bluetoothConnection))
@@ -758,7 +752,7 @@ public class ActivityPermissions extends Activity
                 for(String ruleName : getRulesUsing(Action.Action_Enum.turnWifiTetheringOn))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
-            case "android.permission.ACCESS_WIFI_STATE":
+            case Manifest.permission.ACCESS_WIFI_STATE:
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.pointOfInterest))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.wifiConnection))
@@ -772,7 +766,7 @@ public class ActivityPermissions extends Activity
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.usb_host_connection))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;*/
-            case "android.permission.BLUETOOTH_ADMIN":
+            case Manifest.permission.BLUETOOTH_ADMIN:
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.bluetoothConnection))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 for(String ruleName : getRulesUsing(Action.Action_Enum.setBluetooth))
@@ -782,7 +776,7 @@ public class ActivityPermissions extends Activity
                 for(String ruleName : getRulesUsing(Action.Action_Enum.turnBluetoothOn))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
-            case "android.permission.BLUETOOTH":
+            case Manifest.permission.BLUETOOTH:
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.bluetoothConnection))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 for(String ruleName : getRulesUsing(Action.Action_Enum.setBluetooth))
@@ -792,11 +786,11 @@ public class ActivityPermissions extends Activity
                 for(String ruleName : getRulesUsing(Action.Action_Enum.turnBluetoothOn))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
-            case "android.permission.GET_TASKS":
+            case Manifest.permission.GET_TASKS:
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.process_started_stopped))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
-            case "android.permission.INTERNET":
+            case Manifest.permission.INTERNET:
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.pointOfInterest))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.speed))
@@ -804,15 +798,15 @@ public class ActivityPermissions extends Activity
                 for(String ruleName : getRulesUsing(Action.Action_Enum.triggerUrl))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
-            case "android.permission.NFC":
+            case Manifest.permission.NFC:
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.nfcTag))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
-            case permissionNameCall:
+            case Manifest.permission.PROCESS_OUTGOING_CALLS:
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.phoneCall))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
-            case "android.permission.READ_PHONE_STATE":
+            case Manifest.permission.READ_PHONE_STATE:
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.batteryLevel))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.charging))
@@ -824,15 +818,15 @@ public class ActivityPermissions extends Activity
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.usb_host_connection))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
-            case "android.permission.RECORD_AUDIO":
+            case Manifest.permission.RECORD_AUDIO:
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.noiseLevel))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
-            case "android.permission.SEND_SMS":
+            case Manifest.permission.SEND_SMS:
                 for(String ruleName : getRulesUsing(Action.Action_Enum.sendTextMessage))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
-            case "android.permission.FOREGROUND_SERVICE":
+            case Manifest.permission.FOREGROUND_SERVICE:
                 usingElements.add(getResources().getString(R.string.startAutomationAsService));
                 break;
         }
@@ -874,7 +868,7 @@ public class ActivityPermissions extends Activity
             }
 
             if (requestCode == requestCodeForPermissionsNotifications)
-                if(havePermission(permissionNameReadNotifications, ActivityPermissions.this))
+                if(havePermission(Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE, ActivityPermissions.this))
                     requestPermissions(cachedPermissionsToRequest, true);
         }
     }
@@ -884,16 +878,16 @@ public class ActivityPermissions extends Activity
         ArrayList<String> permissionList = new ArrayList<String>();
         for(String permission : permissionNames)
         {
-            if(permissionNames.equals(permissionNameCall))
+            if(permissionNames.equals(Manifest.permission.PROCESS_OUTGOING_CALLS))
             {
-                    if(ActivityPermissions.isPermissionDeclaratedInManifest(Miscellaneous.getAnyContext(), permissionNameCall) && !Miscellaneous.isGooglePlayInstalled(Miscellaneous.getAnyContext()))
-                    {
-                        permissionList.add(permission);
-                    }
+                if(ActivityPermissions.isPermissionDeclaratedInManifest(Miscellaneous.getAnyContext(), Manifest.permission.PROCESS_OUTGOING_CALLS) && !Miscellaneous.isGooglePlayInstalled(Miscellaneous.getAnyContext()))
+                {
+                    permissionList.add(permission);
+                }
             }
-            else if(permissionNames.equals("android.permission.SEND_SMS"))
+            else if(permissionNames.equals(Manifest.permission.SEND_SMS))
             {
-                if(ActivityPermissions.isPermissionDeclaratedInManifest(Miscellaneous.getAnyContext(), "android.permission.SEND_SMS") && !Miscellaneous.isGooglePlayInstalled(Miscellaneous.getAnyContext()))
+                if(ActivityPermissions.isPermissionDeclaratedInManifest(Miscellaneous.getAnyContext(), Manifest.permission.SEND_SMS) && !Miscellaneous.isGooglePlayInstalled(Miscellaneous.getAnyContext()))
                 {
                     permissionList.add(permission);
                 }
@@ -917,7 +911,7 @@ public class ActivityPermissions extends Activity
             {
                 for (String s : requiredPermissions)
                 {
-                    if (s.equalsIgnoreCase(writeSystemSettingsPermissionName))
+                    if (s.equalsIgnoreCase(Manifest.permission.WRITE_SETTINGS))
                     {
                         requiredPermissions.remove(s);
                         cachedPermissionsToRequest = requiredPermissions;
@@ -926,7 +920,7 @@ public class ActivityPermissions extends Activity
                         startActivityForResult(intent, requestCodeForPermissionsWriteSettings);
                         return;
                     }
-                    else if (s.equalsIgnoreCase(accessNotificationPolicyPermissionName))
+                    else if (s.equalsIgnoreCase(Manifest.permission.ACCESS_NOTIFICATION_POLICY))
                     {
                         requiredPermissions.remove(s);
                         cachedPermissionsToRequest = requiredPermissions;
@@ -935,7 +929,7 @@ public class ActivityPermissions extends Activity
                         startActivityForResult(intent, requestCodeForPermissionsNotificationPolicy);
                         return;
                     }
-                    else if (s.equalsIgnoreCase(permissionNameReadNotifications))
+                    else if (s.equalsIgnoreCase(Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE))
                     {
                         requiredPermissions.remove(s);
                         cachedPermissionsToRequest = requiredPermissions;
@@ -957,25 +951,25 @@ public class ActivityPermissions extends Activity
 
             if(requiredPermissions.size() > 0)
             {
-                if(requiredPermissions.contains(permissionNameCall))
+                if(requiredPermissions.contains(Manifest.permission.PROCESS_OUTGOING_CALLS))
                 {
-                    if(!ActivityPermissions.isPermissionDeclaratedInManifest(Miscellaneous.getAnyContext(), "android.permission.SEND_SMS")
-                            &&
-                      Miscellaneous.isGooglePlayInstalled(Miscellaneous.getAnyContext())
-                    )
-                    {
-                        requiredPermissions.remove(permissionNameCall);
-                        Miscellaneous.messageBox("Problem", getResources().getString(R.string.googleSarcasm), ActivityPermissions.this).show();
-                    }
-                }
-                if(requiredPermissions.contains("android.permission.SEND_SMS"))
-                {
-                    if(!ActivityPermissions.isPermissionDeclaratedInManifest(Miscellaneous.getAnyContext(), "android.permission.SEND_SMS")
+                    if(!ActivityPermissions.isPermissionDeclaratedInManifest(Miscellaneous.getAnyContext(), Manifest.permission.SEND_SMS)
                             &&
                             Miscellaneous.isGooglePlayInstalled(Miscellaneous.getAnyContext())
                     )
                     {
-                        requiredPermissions.remove("android.permission.SEND_SMS");
+                        requiredPermissions.remove(Manifest.permission.PROCESS_OUTGOING_CALLS);
+                        Miscellaneous.messageBox("Problem", getResources().getString(R.string.googleSarcasm), ActivityPermissions.this).show();
+                    }
+                }
+                if(requiredPermissions.contains(Manifest.permission.SEND_SMS))
+                {
+                    if(!ActivityPermissions.isPermissionDeclaratedInManifest(Miscellaneous.getAnyContext(), Manifest.permission.SEND_SMS)
+                            &&
+                            Miscellaneous.isGooglePlayInstalled(Miscellaneous.getAnyContext())
+                    )
+                    {
+                        requiredPermissions.remove(Manifest.permission.SEND_SMS);
                         Miscellaneous.messageBox("Problem", getResources().getString(R.string.googleSarcasm), ActivityPermissions.this).show();
                     }
                 }
@@ -1021,7 +1015,7 @@ public class ActivityPermissions extends Activity
 
             for (int i=0; i < grantResults.length; i++)
             {
-                if(permissions[i].equalsIgnoreCase(writeExternalStoragePermissionName) && grantResults[i] == PackageManager.PERMISSION_GRANTED)
+                if(permissions[i].equalsIgnoreCase(Manifest.permission.WRITE_EXTERNAL_STORAGE) && grantResults[i] == PackageManager.PERMISSION_GRANTED)
                 {
                     // We just got permission to read the config file. Read again.
                     try
@@ -1056,9 +1050,9 @@ public class ActivityPermissions extends Activity
                 }
             }
 
-			/*
-			 * In theory we now have 3 arrays that hold the features which can't function.
-			 */
+            /*
+             * In theory we now have 3 arrays that hold the features which can't function.
+             */
             /*StringBuilder message = new StringBuilder();
 
             for (String s : affectedGeneralList)
@@ -1129,27 +1123,27 @@ public class ActivityPermissions extends Activity
         {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
             {
-                addToArrayListUnique(permissionNameLocationBackground, permsList);
-                addToArrayListUnique(permissionNameLocationFine, permsList);
-                addToArrayListUnique(permissionNameLocationCoarse, permsList);
+                addToArrayListUnique(Manifest.permission.ACCESS_BACKGROUND_LOCATION, permsList);
+                addToArrayListUnique(Manifest.permission.ACCESS_FINE_LOCATION, permsList);
+                addToArrayListUnique(Manifest.permission.ACCESS_COARSE_LOCATION, permsList);
             }
             else
             {
-                addToArrayListUnique(permissionNameLocationFine, permsList);
-                addToArrayListUnique(permissionNameLocationCoarse, permsList);
+                addToArrayListUnique(Manifest.permission.ACCESS_FINE_LOCATION, permsList);
+                addToArrayListUnique(Manifest.permission.ACCESS_COARSE_LOCATION, permsList);
             }
-            addToArrayListUnique("android.permission.ACCESS_NETWORK_STATE", permsList);
-            addToArrayListUnique("android.permission.INTERNET", permsList);
-            addToArrayListUnique("android.permission.ACCESS_WIFI_STATE", permsList);
+            addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, permsList);
+            addToArrayListUnique(Manifest.permission.INTERNET, permsList);
+            addToArrayListUnique(Manifest.permission.ACCESS_WIFI_STATE, permsList);
         }
         else if(text.contains("[phonenr]"))
         {
-            addToArrayListUnique("android.permission.READ_PHONE_STATE", permsList);
-            addToArrayListUnique(permissionNameCall, permsList);
+            addToArrayListUnique(Manifest.permission.READ_PHONE_STATE, permsList);
+            addToArrayListUnique(Manifest.permission.PROCESS_OUTGOING_CALLS, permsList);
         }
         else if(text.contains("[notificationTitle]") || text.contains("[notificationTitle]"))
         {
-            addToArrayListUnique(permissionNameReadNotifications, permsList);
+            addToArrayListUnique(Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE, permsList);
         }
 
         return permsList;
@@ -1230,104 +1224,104 @@ public class ActivityPermissions extends Activity
     protected static void fillPermissionMaps()
     {
         mapGeneralPermissions = new HashMap<String, String>();
-        mapGeneralPermissions.put("general", "android.permission.RECEIVE_BOOT_COMPLETED");
-        mapGeneralPermissions.put("general", "android.permission.WRITE_EXTERNAL_STORAGE");
+        mapGeneralPermissions.put("general", Manifest.permission.RECEIVE_BOOT_COMPLETED);
+        mapGeneralPermissions.put("general", Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
         mapTriggerPermissions = new HashMap<String, String>();
-        mapTriggerPermissions.put("activityDetection", "com.google.android.gms.permission.ACTIVITY_RECOGNITION");
-        mapTriggerPermissions.put("activityDetection", "android.permission.ACTIVITY_RECOGNITION");
-        mapTriggerPermissions.put("airplaneMode", "android.permission.ACCESS_NETWORK_STATE");
-        mapTriggerPermissions.put("batteryLevel", "android.permission.READ_PHONE_STATE");
-        mapTriggerPermissions.put("batteryLevel", "android.permission.BATTERY_STATS");
-        mapTriggerPermissions.put("bluetoothConnection", "android.permission.BLUETOOTH_ADMIN");
-        mapTriggerPermissions.put("bluetoothConnection", "android.permission.BLUETOOTH");
-        mapTriggerPermissions.put("bluetoothConnection", "android.permission.ACCESS_NETWORK_STATE");
-        mapTriggerPermissions.put("charging", "android.permission.READ_PHONE_STATE");
-        mapTriggerPermissions.put("charging", "android.permission.BATTERY_STATS");
-        mapTriggerPermissions.put("headsetPlugged", "android.permission.READ_PHONE_STATE");
-        mapTriggerPermissions.put("nfcTag", "android.permission.NFC");
-        mapTriggerPermissions.put("noiseLevel", "android.permission.RECORD_AUDIO");
-        mapTriggerPermissions.put("phoneCall", "android.permission.READ_PHONE_STATE");
-        mapTriggerPermissions.put("phoneCall", permissionNameCall);
-        mapTriggerPermissions.put("pointOfInterest", permissionNameLocationFine);
-        mapTriggerPermissions.put("pointOfInterest", permissionNameLocationCoarse);
+        mapTriggerPermissions.put("activityDetection", permissionNameGoogleActivityDetection);
+        mapTriggerPermissions.put("activityDetection", Manifest.permission.ACTIVITY_RECOGNITION);
+        mapTriggerPermissions.put("airplaneMode", Manifest.permission.ACCESS_NETWORK_STATE);
+        mapTriggerPermissions.put("batteryLevel", Manifest.permission.READ_PHONE_STATE);
+        mapTriggerPermissions.put("batteryLevel", Manifest.permission.BATTERY_STATS);
+        mapTriggerPermissions.put("bluetoothConnection", Manifest.permission.BLUETOOTH_ADMIN);
+        mapTriggerPermissions.put("bluetoothConnection", Manifest.permission.BLUETOOTH);
+        mapTriggerPermissions.put("bluetoothConnection", Manifest.permission.ACCESS_NETWORK_STATE);
+        mapTriggerPermissions.put("charging", Manifest.permission.READ_PHONE_STATE);
+        mapTriggerPermissions.put("charging", Manifest.permission.BATTERY_STATS);
+        mapTriggerPermissions.put("headsetPlugged", Manifest.permission.READ_PHONE_STATE);
+        mapTriggerPermissions.put("nfcTag", Manifest.permission.NFC);
+        mapTriggerPermissions.put("noiseLevel", Manifest.permission.RECORD_AUDIO);
+        mapTriggerPermissions.put("phoneCall", Manifest.permission.READ_PHONE_STATE);
+        mapTriggerPermissions.put("phoneCall", Manifest.permission.PROCESS_OUTGOING_CALLS);
+        mapTriggerPermissions.put("pointOfInterest", Manifest.permission.ACCESS_FINE_LOCATION);
+        mapTriggerPermissions.put("pointOfInterest", Manifest.permission.ACCESS_COARSE_LOCATION);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-            mapTriggerPermissions.put("pointOfInterest", permissionNameLocationBackground);
-        mapTriggerPermissions.put("pointOfInterest", "android.permission.ACCESS_NETWORK_STATE");
-        mapTriggerPermissions.put("pointOfInterest", "android.permission.INTERNET");
-        mapTriggerPermissions.put("pointOfInterest", "android.permission.ACCESS_WIFI_STATE");
-        mapTriggerPermissions.put("process_started_stopped", "android.permission.GET_TASKS");
-        mapTriggerPermissions.put("roaming", "android.permission.ACCESS_NETWORK_STATE");
-        mapTriggerPermissions.put("speed", permissionNameLocationFine);
-        mapTriggerPermissions.put("speed", permissionNameLocationCoarse);
+            mapTriggerPermissions.put("pointOfInterest", Manifest.permission.ACCESS_BACKGROUND_LOCATION);
+        mapTriggerPermissions.put("pointOfInterest", Manifest.permission.ACCESS_NETWORK_STATE);
+        mapTriggerPermissions.put("pointOfInterest", Manifest.permission.INTERNET);
+        mapTriggerPermissions.put("pointOfInterest", Manifest.permission.ACCESS_WIFI_STATE);
+        mapTriggerPermissions.put("process_started_stopped", Manifest.permission.GET_TASKS);
+        mapTriggerPermissions.put("roaming", Manifest.permission.ACCESS_NETWORK_STATE);
+        mapTriggerPermissions.put("speed", Manifest.permission.ACCESS_FINE_LOCATION);
+        mapTriggerPermissions.put("speed", Manifest.permission.ACCESS_COARSE_LOCATION);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-            mapTriggerPermissions.put("speed", permissionNameLocationBackground);
-        mapTriggerPermissions.put("speed", "android.permission.ACCESS_NETWORK_STATE");
-        mapTriggerPermissions.put("speed", "android.permission.INTERNET");
+            mapTriggerPermissions.put("speed", Manifest.permission.ACCESS_BACKGROUND_LOCATION);
+        mapTriggerPermissions.put("speed", Manifest.permission.ACCESS_NETWORK_STATE);
+        mapTriggerPermissions.put("speed", Manifest.permission.INTERNET);
 //		  map.put("timeFrame", "");
-        mapTriggerPermissions.put("usb_host_connection", "android.permission.READ_PHONE_STATE");
-        mapTriggerPermissions.put("usb_host_connection", "android.permission.BATTERY_STATS");
-        mapTriggerPermissions.put("wifiConnection", "android.permission.ACCESS_NETWORK_STATE");
-        mapTriggerPermissions.put("wifiConnection", "android.permission.ACCESS_WIFI_STATE");
+        mapTriggerPermissions.put("usb_host_connection", Manifest.permission.READ_PHONE_STATE);
+        mapTriggerPermissions.put("usb_host_connection", Manifest.permission.BATTERY_STATS);
+        mapTriggerPermissions.put("wifiConnection", Manifest.permission.ACCESS_NETWORK_STATE);
+        mapTriggerPermissions.put("wifiConnection", Manifest.permission.ACCESS_WIFI_STATE);
 
         mapActionPermissions = new HashMap<String, String>();
-        mapActionPermissions.put("changeSoundProfile", "android.permission.MODIFY_AUDIO_SETTINGS");
-        mapActionPermissions.put("changeSoundProfile", accessNotificationPolicyPermissionName);
-        mapActionPermissions.put("disableScreenRotation", writeSystemSettingsPermissionName);
-        mapActionPermissions.put("enableScreenRotation", writeSystemSettingsPermissionName);
+        mapActionPermissions.put("changeSoundProfile", Manifest.permission.MODIFY_AUDIO_SETTINGS);
+        mapActionPermissions.put("changeSoundProfile", Manifest.permission.ACCESS_NOTIFICATION_POLICY);
+        mapActionPermissions.put("disableScreenRotation", Manifest.permission.WRITE_SETTINGS);
+        mapActionPermissions.put("enableScreenRotation", Manifest.permission.WRITE_SETTINGS);
 //		  mapActionPermissions.put("playMusic", "");
-        mapActionPermissions.put("sendTextMessage", "android.permission.SEND_SMS");
-        mapActionPermissions.put("setAirplaneMode", writeSystemSettingsPermissionName);
-        mapActionPermissions.put("setAirplaneMode", "android.permission.ACCESS_NETWORK_STATE");
-        mapActionPermissions.put("setAirplaneMode", "android.permission.ACCESS_SUPERUSER");
-        mapActionPermissions.put("setAirplaneMode", "android.permission.CHANGE_NETWORK_STATE");
-        mapActionPermissions.put("setBluetooth", "android.permission.BLUETOOTH_ADMIN");
-        mapActionPermissions.put("setBluetooth", "android.permission.BLUETOOTH");
-        mapActionPermissions.put("setBluetooth", "android.permission.ACCESS_NETWORK_STATE");
-        mapActionPermissions.put("setBluetooth", writeSystemSettingsPermissionName);
-        mapActionPermissions.put("setDataConnection", writeSystemSettingsPermissionName);
-        mapActionPermissions.put("setDataConnection", "android.permission.ACCESS_NETWORK_STATE");
-        mapActionPermissions.put("setDataConnection", "android.permission.ACCESS_SUPERUSER");
-        mapActionPermissions.put("setDataConnection", "android.permission.CHANGE_NETWORK_STATE");
-        mapActionPermissions.put("setDisplayRotation", writeSystemSettingsPermissionName);
-        mapActionPermissions.put("setUsbTethering", writeSystemSettingsPermissionName);
-        mapActionPermissions.put("setUsbTethering", "android.permission.CHANGE_NETWORK_STATE");
-        mapActionPermissions.put("setWifi", writeSystemSettingsPermissionName);
-        mapActionPermissions.put("setWifi", "android.permission.CHANGE_NETWORK_STATE");
-        mapActionPermissions.put("setWifi", "android.permission.ACCESS_NETWORK_STATE");
-        mapActionPermissions.put("setWifiTethering", writeSystemSettingsPermissionName);
-        mapActionPermissions.put("setWifiTethering", "android.permission.CHANGE_NETWORK_STATE");
-        mapActionPermissions.put("setWifiTethering", "android.permission.ACCESS_NETWORK_STATE");
-//		  mapActionPermissions.put("speakText", accessNotificationPolicyPermissionName);
+        mapActionPermissions.put("sendTextMessage", Manifest.permission.SEND_SMS);
+        mapActionPermissions.put("setAirplaneMode", Manifest.permission.WRITE_SETTINGS);
+        mapActionPermissions.put("setAirplaneMode", Manifest.permission.ACCESS_NETWORK_STATE);
+        mapActionPermissions.put("setAirplaneMode", permissionNameSuperuser);
+        mapActionPermissions.put("setAirplaneMode", Manifest.permission.CHANGE_NETWORK_STATE);
+        mapActionPermissions.put("setBluetooth", Manifest.permission.BLUETOOTH_ADMIN);
+        mapActionPermissions.put("setBluetooth", Manifest.permission.BLUETOOTH);
+        mapActionPermissions.put("setBluetooth", Manifest.permission.ACCESS_NETWORK_STATE);
+        mapActionPermissions.put("setBluetooth", Manifest.permission.WRITE_SETTINGS);
+        mapActionPermissions.put("setDataConnection", Manifest.permission.WRITE_SETTINGS);
+        mapActionPermissions.put("setDataConnection", Manifest.permission.ACCESS_NETWORK_STATE);
+        mapActionPermissions.put("setDataConnection", permissionNameSuperuser);
+        mapActionPermissions.put("setDataConnection", Manifest.permission.CHANGE_NETWORK_STATE);
+        mapActionPermissions.put("setDisplayRotation", Manifest.permission.WRITE_SETTINGS);
+        mapActionPermissions.put("setUsbTethering", Manifest.permission.WRITE_SETTINGS);
+        mapActionPermissions.put("setUsbTethering", Manifest.permission.CHANGE_NETWORK_STATE);
+        mapActionPermissions.put("setWifi", Manifest.permission.WRITE_SETTINGS);
+        mapActionPermissions.put("setWifi", Manifest.permission.CHANGE_NETWORK_STATE);
+        mapActionPermissions.put("setWifi", Manifest.permission.ACCESS_NETWORK_STATE);
+        mapActionPermissions.put("setWifiTethering", Manifest.permission.WRITE_SETTINGS);
+        mapActionPermissions.put("setWifiTethering", Manifest.permission.CHANGE_NETWORK_STATE);
+        mapActionPermissions.put("setWifiTethering", Manifest.permission.ACCESS_NETWORK_STATE);
+//		  mapActionPermissions.put("speakText", Manifest.permission.ACCESS_NOTIFICATION_POLICY);
 //		  mapActionPermissions.put("startOtherActivity", "");
-        mapActionPermissions.put("triggerUrl", "android.permission.INTERNET");
+        mapActionPermissions.put("triggerUrl", Manifest.permission.INTERNET);
 //			  Hier müßte ein Hinweis kommen, daß nur die Variablen verwendet werden können, für die es Rechte gibt.
-        mapActionPermissions.put("turnBluetoothOff", "android.permission.BLUETOOTH_ADMIN");
-        mapActionPermissions.put("turnBluetoothOff", "android.permission.BLUETOOTH");
-        mapActionPermissions.put("turnBluetoothOff", "android.permission.ACCESS_NETWORK_STATE");
-        mapActionPermissions.put("turnBluetoothOff", writeSystemSettingsPermissionName);
-        mapActionPermissions.put("turnBluetoothOn", "android.permission.BLUETOOTH_ADMIN");
-        mapActionPermissions.put("turnBluetoothOn", "android.permission.BLUETOOTH");
-        mapActionPermissions.put("turnBluetoothOn", "android.permission.ACCESS_NETWORK_STATE");
-        mapActionPermissions.put("turnBluetoothOn", writeSystemSettingsPermissionName);
-        mapActionPermissions.put("turnUsbTetheringOff", writeSystemSettingsPermissionName);
-        mapActionPermissions.put("turnUsbTetheringOff", "android.permission.CHANGE_NETWORK_STATE");
-        mapActionPermissions.put("turnUsbTetheringOn", writeSystemSettingsPermissionName);
-        mapActionPermissions.put("turnUsbTetheringOn", "android.permission.CHANGE_NETWORK_STATE");
-        mapActionPermissions.put("turnWifiOff", writeSystemSettingsPermissionName);
-        mapActionPermissions.put("turnWifiOff", "android.permission.CHANGE_NETWORK_STATE");
-        mapActionPermissions.put("turnWifiOff", "android.permission.ACCESS_NETWORK_STATE");
-        mapActionPermissions.put("turnWifiOn", writeSystemSettingsPermissionName);
-        mapActionPermissions.put("turnWifiOn", "android.permission.CHANGE_NETWORK_STATE");
-        mapActionPermissions.put("turnWifiOn", "android.permission.ACCESS_NETWORK_STATE");
-        mapActionPermissions.put("turnWifiTetheringOff", writeSystemSettingsPermissionName);
-        mapActionPermissions.put("turnWifiTetheringOff", "android.permission.CHANGE_NETWORK_STATE");
-        mapActionPermissions.put("turnWifiTetheringOff", "android.permission.ACCESS_NETWORK_STATE");
-        mapActionPermissions.put("turnWifiTetheringOn", writeSystemSettingsPermissionName);
-        mapActionPermissions.put("turnWifiTetheringOn", "android.permission.CHANGE_NETWORK_STATE");
-        mapActionPermissions.put("turnWifiTetheringOn", "android.permission.ACCESS_NETWORK_STATE");
+        mapActionPermissions.put("turnBluetoothOff", Manifest.permission.BLUETOOTH_ADMIN);
+        mapActionPermissions.put("turnBluetoothOff", Manifest.permission.BLUETOOTH);
+        mapActionPermissions.put("turnBluetoothOff", Manifest.permission.ACCESS_NETWORK_STATE);
+        mapActionPermissions.put("turnBluetoothOff", Manifest.permission.WRITE_SETTINGS);
+        mapActionPermissions.put("turnBluetoothOn", Manifest.permission.BLUETOOTH_ADMIN);
+        mapActionPermissions.put("turnBluetoothOn", Manifest.permission.BLUETOOTH);
+        mapActionPermissions.put("turnBluetoothOn", Manifest.permission.ACCESS_NETWORK_STATE);
+        mapActionPermissions.put("turnBluetoothOn", Manifest.permission.WRITE_SETTINGS);
+        mapActionPermissions.put("turnUsbTetheringOff", Manifest.permission.WRITE_SETTINGS);
+        mapActionPermissions.put("turnUsbTetheringOff", Manifest.permission.CHANGE_NETWORK_STATE);
+        mapActionPermissions.put("turnUsbTetheringOn", Manifest.permission.WRITE_SETTINGS);
+        mapActionPermissions.put("turnUsbTetheringOn", Manifest.permission.CHANGE_NETWORK_STATE);
+        mapActionPermissions.put("turnWifiOff", Manifest.permission.WRITE_SETTINGS);
+        mapActionPermissions.put("turnWifiOff", Manifest.permission.CHANGE_NETWORK_STATE);
+        mapActionPermissions.put("turnWifiOff", Manifest.permission.ACCESS_NETWORK_STATE);
+        mapActionPermissions.put("turnWifiOn", Manifest.permission.WRITE_SETTINGS);
+        mapActionPermissions.put("turnWifiOn", Manifest.permission.CHANGE_NETWORK_STATE);
+        mapActionPermissions.put("turnWifiOn", Manifest.permission.ACCESS_NETWORK_STATE);
+        mapActionPermissions.put("turnWifiTetheringOff", Manifest.permission.WRITE_SETTINGS);
+        mapActionPermissions.put("turnWifiTetheringOff", Manifest.permission.CHANGE_NETWORK_STATE);
+        mapActionPermissions.put("turnWifiTetheringOff", Manifest.permission.ACCESS_NETWORK_STATE);
+        mapActionPermissions.put("turnWifiTetheringOn", Manifest.permission.WRITE_SETTINGS);
+        mapActionPermissions.put("turnWifiTetheringOn", Manifest.permission.CHANGE_NETWORK_STATE);
+        mapActionPermissions.put("turnWifiTetheringOn", Manifest.permission.ACCESS_NETWORK_STATE);
 //		  mapActionPermissions.put("waitBeforeNextAction", "");
-        mapActionPermissions.put("wakeupDevice", "android.permission.WAKE_LOCK");
+        mapActionPermissions.put("wakeupDevice", Manifest.permission.WAKE_LOCK);
     }
 
     /*

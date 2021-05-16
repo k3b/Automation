@@ -1,5 +1,6 @@
 package com.jens.automation2;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -323,9 +324,9 @@ public class ActivityMainScreen extends ActivityGeneric
 						if(
 								Rule.isAnyRuleUsing(Trigger_Enum.pointOfInterest)
 										&&
-								ActivityPermissions.havePermission(ActivityPermissions.permissionNameLocationCoarse, Miscellaneous.getAnyContext())
+								ActivityPermissions.havePermission(Manifest.permission.ACCESS_COARSE_LOCATION, Miscellaneous.getAnyContext())
 										&&
-								ActivityPermissions.havePermission(ActivityPermissions.permissionNameLocationFine, Miscellaneous.getAnyContext())
+								ActivityPermissions.havePermission(Manifest.permission.ACCESS_FINE_LOCATION, Miscellaneous.getAnyContext())
 						  )
 							activityMainScreenInstance.tvActivePoi.setText(activityMainScreenInstance.getResources().getString(R.string.stillGettingPosition));
 						else

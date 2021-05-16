@@ -546,12 +546,12 @@ public class Rule implements Comparable<Rule>
 					Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), "Checking for wifi state", 4);
 					if(oneTrigger.getTriggerParameter() == WifiBroadcastReceiver.lastConnectedState)	// connected / disconnected
 					{
-						if(oneTrigger.getWifiName().length() > 0)	// only check if any wifi name specified, otherwise any wifi will do
+						if(oneTrigger.getTriggerParameter2().length() > 0)	// only check if any wifi name specified, otherwise any wifi will do
 						{
 							Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), "Wifi name specified, checking that.", 4);
-							if(!WifiBroadcastReceiver.getLastWifiSsid().equals(oneTrigger.getWifiName()))
+							if(!WifiBroadcastReceiver.getLastWifiSsid().equals(oneTrigger.getTriggerParameter2()))
 							{
-								Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), String.format(context.getResources().getString(R.string.ruleDoesntApplyNotTheCorrectSsid), oneTrigger.getWifiName(), WifiBroadcastReceiver.getLastWifiSsid()), 3);
+								Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), String.format(context.getResources().getString(R.string.ruleDoesntApplyNotTheCorrectSsid), oneTrigger.getTriggerParameter2(), WifiBroadcastReceiver.getLastWifiSsid()), 3);
 								return false;
 							}
 							else

@@ -673,6 +673,6 @@
     <string name="matching">matching</string>
     <string name="urlRegex" translatable="false">https://regex101.com/</string>
     <string name="loadWifiList">Load wifi list</string>
-    <string name="needLocationPermForWifiList">For some reason unbeknownst to mankind the location permission is required to view the list of wifis. If you want to be able to pick one from the list you need to grant that permission. If not you can enter your wifi name manually.</string>
+    <string name="needLocationPermForWifiList">The list of wifis your device has been connected to could be used to determine which places you have been to. That\'s why the location permission is required to load the list of wifis. If you want to be able to pick one from the list you need to grant that permission. If not you can still enter your wifi name manually.</string>
     <string name="noKnownWifis">There are no known wifis on your device.</string>
 </resources>

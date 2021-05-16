@@ -1040,6 +1040,8 @@ public class Actions
 
 	public static class MobileDataStuff
 	{
+		// https://stackoverflow.com/questions/31120082/latest-update-on-enabling-and-disabling-mobile-data-programmatically
+
 		/**
 			 * Turns data on and off.
 			 * Requires root permissions from lollipop on.
@@ -1066,29 +1068,22 @@ public class Actions
 				    	desiredState = !isEnabled;
 				    }
 
-//				    if(isEnabled != desiredState)
-//				    {
-					    if(Build.VERSION.SDK_INT <= 20)
-					    {
-					    	for(Method m : iConnectivityManagerClass.getDeclaredMethods())
-					    	{
-					    		Miscellaneous.logEvent("i", "method", m.getName(), 5);
-					    	}
+					if(Build.VERSION.SDK_INT <= 20)
+					{
+						for(Method m : iConnectivityManagerClass.getDeclaredMethods())
+						{
+							Miscellaneous.logEvent("i", "method", m.getName(), 5);
+						}
 
-						    final Method setMobileDataEnabledMethod = iConnectivityManagerClass.getDeclaredMethod("setMobileDataEnabled", Boolean.TYPE);
-						    setMobileDataEnabledMethod.setAccessible(true);
+						final Method setMobileDataEnabledMethod = iConnectivityManagerClass.getDeclaredMethod("setMobileDataEnabled", Boolean.TYPE);
+						setMobileDataEnabledMethod.setAccessible(true);
 
-						    setMobileDataEnabledMethod.invoke(iConnectivityManager, desiredState);
-					    }
-					    else
-					    {
-					    	return setDataConnectionWithRoot(desiredState);
-					    }
-//				    }
-//				    else
-//					{
-//						Miscellaneous.logEvent("i", "setData", "Data already set to " + String.valueOf(desiredState) + ". Not doing anything.", 4);
-//					}
+						setMobileDataEnabledMethod.invoke(iConnectivityManager, desiredState);
+					}
+					else
+					{
+						return setDataConnectionWithRoot(desiredState);
+					}
 
 					return true;
 				}
