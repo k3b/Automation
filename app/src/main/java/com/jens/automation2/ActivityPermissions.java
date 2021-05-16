@@ -511,6 +511,7 @@ public class ActivityPermissions extends Activity
                         break;
                     case sendTextMessage:
                         addToArrayListUnique("android.permission.SEND_SMS", requiredPermissions);
+                        checkPermissionsInVariableUse(action.getParameter2(), requiredPermissions);
                         break;
                     case setAirplaneMode:
                         addToArrayListUnique(writeSystemSettingsPermissionName, requiredPermissions);
@@ -555,6 +556,7 @@ public class ActivityPermissions extends Activity
 //                            addToArrayListUnique("android.permission.TETHER_PRIVILEGED", requiredPermissions);
                         break;
                     case speakText:
+                        checkPermissionsInVariableUse(action.getParameter2(), requiredPermissions);
                         break;
                     case startOtherActivity:
                         if(
@@ -574,7 +576,7 @@ public class ActivityPermissions extends Activity
                         break;
                     case triggerUrl:
                         addToArrayListUnique("android.permission.INTERNET", requiredPermissions);
-                        //							  Hier m��te ein Hinweis kommen, da� nur die Variablen verwendet werden k�nnen, f�r die es Rechte gibt.
+                        checkPermissionsInVariableUse(action.getParameter2(), requiredPermissions);
                         break;
                     case turnBluetoothOff:
                         addToArrayListUnique("android.permission.BLUETOOTH_ADMIN", requiredPermissions);
@@ -623,7 +625,6 @@ public class ActivityPermissions extends Activity
                         break;
                     default:
                         break;
-
                 }
             }
         }
@@ -1094,6 +1095,64 @@ public class ActivityPermissions extends Activity
         {
 //			I don't remember asking for permissions....
         }
+    }
+
+    static ArrayList<String> checkPermissionsInVariableUse(String text, ArrayList<String> permsList)
+    {
+        /*
+             [uniqueid]
+             [serialnr]
+             [latitude]
+             [longitude]
+             [phonenr]
+             [d]
+             [m]
+             [Y]
+             [h]
+             [H]
+             [i]
+             [s]
+             [ms]
+             [notificationTitle]
+             [notificationText]
+         */
+
+        if(text.contains("[uniqueid]"))
+        {
+
+        }
+        else if(text.contains("[serialnr]"))
+        {
+
+        }
+        else if(text.contains("[latitude]") || text.contains("[longitude]"))
+        {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+            {
+                addToArrayListUnique(permissionNameLocationBackground, permsList);
+                addToArrayListUnique(permissionNameLocationFine, permsList);
+                addToArrayListUnique(permissionNameLocationCoarse, permsList);
+            }
+            else
+            {
+                addToArrayListUnique(permissionNameLocationFine, permsList);
+                addToArrayListUnique(permissionNameLocationCoarse, permsList);
+            }
+            addToArrayListUnique("android.permission.ACCESS_NETWORK_STATE", permsList);
+            addToArrayListUnique("android.permission.INTERNET", permsList);
+            addToArrayListUnique("android.permission.ACCESS_WIFI_STATE", permsList);
+        }
+        else if(text.contains("[phonenr]"))
+        {
+            addToArrayListUnique("android.permission.READ_PHONE_STATE", permsList);
+            addToArrayListUnique(permissionNameCall, permsList);
+        }
+        else if(text.contains("[notificationTitle]") || text.contains("[notificationTitle]"))
+        {
+            addToArrayListUnique(permissionNameReadNotifications, permsList);
+        }
+
+        return permsList;
     }
 
     private void setHaveAllPermissions()

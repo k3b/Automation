@@ -101,6 +101,8 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeActionPlaySoundEdit = 502;
 	final static int requestCodeTriggerPhoneCallAdd = 601;
 	final static int requestCodeTriggerPhoneCallEdit = 602;
+	final static int requestCodeTriggerWifiAdd = 723;
+	final static int requestCodeTriggerWifiEdit = 724;
 	
 	public static ActivityManageRule getInstance()
 	{
@@ -264,6 +266,13 @@ public class ActivityManageRule extends Activity
 						phoneCallEditor.putExtra("edit", true);
 						startActivityForResult(phoneCallEditor, requestCodeTriggerPhoneCallEdit);
 						break;
+					case wifiConnection:
+						Intent wifiEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerWifi.class);
+						wifiEditor.putExtra("edit", true);
+						wifiEditor.putExtra("wifiState", selectedTrigger.getTriggerParameter());
+						wifiEditor.putExtra("wifiName", selectedTrigger.getTriggerParameter2());
+						startActivityForResult(wifiEditor, requestCodeTriggerWifiEdit);
+						break;
 					default:
 						break;				
 				}
@@ -313,31 +322,10 @@ public class ActivityManageRule extends Activity
 						break;
 					case triggerUrl:
 						Intent activityEditTriggerUrlIntent = new Intent(ActivityManageRule.this, ActivityManageActionTriggerUrl.class);
-//						activityEditTriggerUrlIntent.putExtra("urlToTrigger", a.getParameter2());
 						ActivityManageActionTriggerUrl.resultingAction = a;
 						activityEditTriggerUrlIntent.putExtra("edit", true);
 						startActivityForResult(activityEditTriggerUrlIntent, requestCodeActionTriggerUrlEdit);
 						break;
-//					case turnBluetoothOff:
-//						break;
-//					case turnBluetoothOn:
-//						break;
-//					case turnUsbTetheringOff:
-//						break;
-//					case turnUsbTetheringOn:
-//						break;
-//					case turnWifiOff:
-//						break;
-//					case turnWifiOn:
-//						break;
-//					case turnWifiTetheringOff:
-//						break;
-//					case turnWifiTetheringOn:
-//						break;
-//					case waitBeforeNextAction:
-//						break;
-//					case wakeupDevice:
-//						break;
 					case speakText:
 						Intent activitySpeakTextIntent = new Intent(ActivityManageRule.this, ActivityManageActionSpeakText.class);
 						ActivityManageActionSpeakText.resultingAction = a;
@@ -560,7 +548,15 @@ public class ActivityManageRule extends Activity
 						else if(triggerType == Trigger_Enum.speed | triggerType == Trigger_Enum.noiseLevel | triggerType == Trigger_Enum.batteryLevel)
 							booleanChoices = new String[]{getResources().getString(R.string.exceeds), getResources().getString(R.string.dropsBelow)};
 						else if(triggerType == Trigger_Enum.wifiConnection)
-							booleanChoices = new String[]{getResources().getString(R.string.connected), getResources().getString(R.string.disconnected)};
+						{
+							newTrigger.setTriggerType(Trigger_Enum.wifiConnection);
+							Intent wifiTriggerEditor = new Intent(myContext, ActivityManageTriggerWifi.class);
+							startActivityForResult(wifiTriggerEditor, requestCodeTriggerWifiAdd);
+							return;
+//							booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
+						}
+//						else if(triggerType == Trigger_Enum.wifiConnection)
+//							booleanChoices = new String[]{getResources().getString(R.string.connected), getResources().getString(R.string.disconnected)};
 						else if(triggerType == Trigger_Enum.process_started_stopped)
 							booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
 						else if(triggerType == Trigger_Enum.notification)
@@ -840,7 +836,7 @@ public class ActivityManageRule extends Activity
 		{
 			public void onClick(DialogInterface dialog, int whichButton)
 			{
-				newTrigger.setWifiName(input.getText().toString());
+//				newTrigger.setWifiName(input.getText().toString());
 				ruleToEdit.getTriggerSet().add(newTrigger);
 				refreshTriggerList();
 			}
@@ -1146,6 +1142,25 @@ public class ActivityManageRule extends Activity
 			}
 			else
 				Miscellaneous.logEvent("w", "TimeFrameEdit", "No timeframe returned. Assuming abort.", 5);
+		}
+		else if(requestCode == requestCodeTriggerWifiAdd)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				newTrigger.setTriggerParameter(data.getBooleanExtra("wifiState", false));
+				newTrigger.setTriggerParameter2(data.getStringExtra("wifiName"));
+				ruleToEdit.getTriggerSet().add(newTrigger);
+				this.refreshTriggerList();
+			}
+		}
+		else if(requestCode == requestCodeTriggerWifiEdit)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				newTrigger.setTriggerParameter(data.getBooleanExtra("wifiState", false));
+				newTrigger.setTriggerParameter2(data.getStringExtra("wifiName"));
+				this.refreshTriggerList();
+			}
 		}
 		else if(requestCode == requestCodeActionStartActivityAdd)
 		{

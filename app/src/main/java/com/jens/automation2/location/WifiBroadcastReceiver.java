@@ -28,9 +28,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver
 	protected static WifiBroadcastReceiver wifiBrInstance;
 	protected static IntentFilter wifiListenerIntentFilter;
 	protected static boolean wifiListenerActive=false;
-		
-	
-	
+
 	public static String getLastWifiSsid()
 	{
 		return lastWifiSsid;

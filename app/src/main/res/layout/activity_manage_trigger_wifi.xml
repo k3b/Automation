@@ -55,22 +55,26 @@
                 android:paddingRight="@dimen/default_margin"
                 android:text="@string/name"/>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <EditText
+                android:id="@+id/etTriggerWifiName"
                 android:layout_height="wrap_content"
+                android:layout_width="match_parent" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/bLoadWifiList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/loadWifiList" />
+
+            <Spinner
+                android:id="@+id/spinnerWifiList"
+                android:enabled="false"
                 android:layout_width="match_parent"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/etTriggerWifiName"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent" />
-
-                <Spinner
-                    android:id="@+id/spinnerWifiList"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                android:layout_height="wrap_content" />
 
         </TableRow>
 
@@ -78,6 +82,7 @@
 
     <Button
         android:id="@+id/btriggerWifiSave"
+        android:layout_marginTop="@dimen/default_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/save" />

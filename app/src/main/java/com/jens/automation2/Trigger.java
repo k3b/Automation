@@ -87,8 +87,7 @@ public class Trigger
 
 	private double speed; //km/h
     private long noiseLevelDb;
-    private String wifiName = "";
-    private String processName = null;
+	private String processName = null;
     private int batteryLevel;
     private int phoneDirection = 0; // 0=any, 1=incoming, 2=outgoing
     private String phoneNumber = null;
@@ -314,10 +313,10 @@ public class Trigger
 				break;
 			case wifiConnection:
 				String wifiDisplayName = "";				
-				if(this.getWifiName().length() == 0)
+				if(this.getTriggerParameter2().length() == 0)
 					wifiDisplayName += Miscellaneous.getAnyContext().getResources().getString(R.string.anyWifi);
 				else
-					wifiDisplayName += this.getWifiName();
+					wifiDisplayName += this.getTriggerParameter2();
 				
 				if(getTriggerParameter())
 					returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.connectedToWifi), wifiDisplayName));
@@ -604,15 +603,6 @@ public class Trigger
 		return (String[])triggerTypesList.toArray(new String[triggerTypesList.size()]);
 	}
 
-	public String getWifiName()
-	{
-		return wifiName;
-	}
-
-	public void setWifiName(String wifiName)
-	{
-		this.wifiName = wifiName;
-	}
 	public void setBluetoothEvent(String string)
 	{
 		this.bluetoothEvent = string;

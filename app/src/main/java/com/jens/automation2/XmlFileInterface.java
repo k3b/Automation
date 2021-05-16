@@ -255,7 +255,7 @@ public class XmlFileInterface
 		    	            			else if(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerType() == Trigger_Enum.noiseLevel)
 		    	            				serializer.text(String.valueOf(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getNoiseLevelDb()));
 		    	            			else if(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerType() == Trigger_Enum.wifiConnection)
-		    	            				serializer.text(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getWifiName());
+		    	            				serializer.text(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerParameter2());
 		    	            			else if(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerType() == Trigger_Enum.process_started_stopped)
 		    	            				serializer.text(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getProcessName());
 		    	            			else if(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerType() == Trigger_Enum.batteryLevel)
@@ -916,7 +916,7 @@ public class XmlFileInterface
             	}
             	else if(newTrigger.getTriggerType() == Trigger_Enum.wifiConnection)
             	{
-            		newTrigger.setWifiName(triggerParameter2);
+//            		newTrigger.setWifiName(triggerParameter2);
 					newTrigger.setTriggerParameter2(triggerParameter2);
             	}
             	else if(newTrigger.getTriggerType() == Trigger_Enum.process_started_stopped)
