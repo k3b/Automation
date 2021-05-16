@@ -25,7 +25,9 @@ import androidx.core.app.ActivityCompat;
 
 import com.jens.automation2.receivers.BluetoothReceiver;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ActivityManageTriggerWifi extends Activity
@@ -132,7 +134,10 @@ public class ActivityManageTriggerWifi extends Activity
             wifiList.add(wifi.SSID.replaceAll("\"+$", "").replaceAll("^\"+", ""));
 
         if(wifiList.size() > 0)
+        {
             spinnerWifiList.setEnabled(true);
+            Collections.sort(wifiList);
+        }
         else
         {
             spinnerWifiList.setEnabled(false);
