@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 
+import com.jens.automation2.AutomationService;
 import com.jens.automation2.Miscellaneous;
 import com.jens.automation2.PointOfInterest;
 import com.jens.automation2.R;
@@ -101,7 +102,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver
 						Miscellaneous.logEvent("i", "WifiReceiver", context.getResources().getString(R.string.poiHasNoWifiNotStoppingCellLocationListener), 2);
 				}
 				
-				findRules(parentLocationProvider);
+				findRules(AutomationService.getInstance());
 			}
 			else if(myWifi.isConnectedOrConnecting()) // first time connect from wifi-listener-perspective
 			{
@@ -113,7 +114,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver
 				String ssid = myWifiManager.getConnectionInfo().getSSID();
 				setLastWifiSsid(ssid);
 				lastConnectedState = true;
-				findRules(parentLocationProvider);
+				findRules(AutomationService.getInstance());
 			}			
 			else if(!myWifi.isConnectedOrConnecting()) // really disconnected? because sometimes also fires on connect
 			{
@@ -126,7 +127,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver
 						mayCellLocationChangedReceiverBeActivatedFromWifiPointOfWifi = true;
 						CellLocationChangedReceiver.startCellLocationChangedReceiver();
 						lastConnectedState = false;
-						findRules(parentLocationProvider);
+						findRules(AutomationService.getInstance());
 					}
 					catch(Exception e)
 					{
@@ -141,13 +142,13 @@ public class WifiBroadcastReceiver extends BroadcastReceiver
 		}
 	}
 	
-	public static void findRules(LocationProvider parentLocationProvider)
+	public static void findRules(AutomationService automationServiceInstance)
 	{		
 		ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByWifiConnection();
 		for(Rule oneRule : ruleCandidates)
 		{
-			if(oneRule.applies(parentLocationProvider.parentService))
-				oneRule.activate(parentLocationProvider.parentService, false);
+			if(oneRule.applies(automationServiceInstance))
+				oneRule.activate(automationServiceInstance, false);
 		}
 	}
 

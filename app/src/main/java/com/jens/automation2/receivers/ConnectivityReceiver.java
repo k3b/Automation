@@ -161,7 +161,7 @@ public class ConnectivityReceiver extends BroadcastReceiver implements Automatio
 							WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 						    WifiInfo wifiInfo = wifiManager.getConnectionInfo();
 							WifiBroadcastReceiver.setLastWifiSsid(wifiInfo.getSSID());
-							WifiBroadcastReceiver.findRules(automationServiceRef.getLocationProvider());
+							WifiBroadcastReceiver.findRules(automationServiceRef);
 							break;
 						case ConnectivityManager.TYPE_MOBILE:
 							boolean isRoaming = isRoaming(context);
@@ -219,7 +219,7 @@ public class ConnectivityReceiver extends BroadcastReceiver implements Automatio
 						// This will serve as a disconnected event. Happens if wifi is connected, then module deactivated.
 						Miscellaneous.logEvent("i", "Connectivity", "Wifi deactivated while having been connected before.", 4);
 						WifiBroadcastReceiver.lastConnectedState = false;
-						WifiBroadcastReceiver.findRules(automationServiceRef.getLocationProvider());
+						WifiBroadcastReceiver.findRules(automationServiceRef);
 					}
 				}
 			}

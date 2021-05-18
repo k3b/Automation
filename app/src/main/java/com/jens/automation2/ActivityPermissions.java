@@ -510,8 +510,9 @@ public class ActivityPermissions extends Activity
                     case setAirplaneMode:
                         addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
                         addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
-                        addToArrayListUnique(permissionNameSuperuser, requiredPermissions);
                         addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
+                        /* Permission was not required anymore, even before Android 6: https://su.chainfire.eu/#updates-permission
+                        addToArrayListUnique(permissionNameSuperuser, requiredPermissions);*/
                         break;
                     case setBluetooth:
                         addToArrayListUnique(Manifest.permission.BLUETOOTH_ADMIN, requiredPermissions);
@@ -522,8 +523,9 @@ public class ActivityPermissions extends Activity
                     case setDataConnection:
                         addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
                         addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
-                        addToArrayListUnique(permissionNameSuperuser, requiredPermissions);
                         addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
+                        /* Permission was not required anymore, even before Android 6: https://su.chainfire.eu/#updates-permission
+                        addToArrayListUnique(permissionNameSuperuser, requiredPermissions);*/
                         break;
                     case setDisplayRotation:
                         addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
@@ -1273,7 +1275,8 @@ public class ActivityPermissions extends Activity
         mapActionPermissions.put("sendTextMessage", Manifest.permission.SEND_SMS);
         mapActionPermissions.put("setAirplaneMode", Manifest.permission.WRITE_SETTINGS);
         mapActionPermissions.put("setAirplaneMode", Manifest.permission.ACCESS_NETWORK_STATE);
-        mapActionPermissions.put("setAirplaneMode", permissionNameSuperuser);
+        /* Permission was not required anymore, even before Android 6: https://su.chainfire.eu/#updates-permission
+        mapActionPermissions.put("setAirplaneMode", permissionNameSuperuser);*/
         mapActionPermissions.put("setAirplaneMode", Manifest.permission.CHANGE_NETWORK_STATE);
         mapActionPermissions.put("setBluetooth", Manifest.permission.BLUETOOTH_ADMIN);
         mapActionPermissions.put("setBluetooth", Manifest.permission.BLUETOOTH);
@@ -1281,7 +1284,8 @@ public class ActivityPermissions extends Activity
         mapActionPermissions.put("setBluetooth", Manifest.permission.WRITE_SETTINGS);
         mapActionPermissions.put("setDataConnection", Manifest.permission.WRITE_SETTINGS);
         mapActionPermissions.put("setDataConnection", Manifest.permission.ACCESS_NETWORK_STATE);
-        mapActionPermissions.put("setDataConnection", permissionNameSuperuser);
+        /* Permission was not required anymore, even before Android 6: https://su.chainfire.eu/#updates-permission
+        mapActionPermissions.put("setDataConnection", permissionNameSuperuser);*/
         mapActionPermissions.put("setDataConnection", Manifest.permission.CHANGE_NETWORK_STATE);
         mapActionPermissions.put("setDisplayRotation", Manifest.permission.WRITE_SETTINGS);
         mapActionPermissions.put("setUsbTethering", Manifest.permission.WRITE_SETTINGS);

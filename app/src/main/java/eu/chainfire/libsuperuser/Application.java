@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2014 Jorrit "Chainfire" Jongma
+ * Copyright (C) 2012-2019 Jorrit "Chainfire" Jongma
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,18 +20,24 @@ import android.content.Context;
 import android.os.Handler;
 import android.widget.Toast;
 
+import androidx.annotation.AnyThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 /**
  * Base application class to extend from, solving some issues with
  * toasts and AsyncTasks you are likely to run into
  */
+@SuppressWarnings("WeakerAccess")
 public class Application extends android.app.Application {
     /**
      * Shows a toast message
-     * 
+     *
      * @param context Any context belonging to this application
      * @param message The message to show
      */
-    public static void toast(Context context, String message) {
+    @AnyThread
+    public static void toast(@Nullable Context context, @NonNull String message) {
         // this is a static method so it is easier to call,
         // as the context checking and casting is done for you
 
@@ -45,7 +51,7 @@ public class Application extends android.app.Application {
             final Context c = context;
             final String m = message;
 
-            ((Application)context).runInApplicationThread(new Runnable() {
+            ((Application) context).runInApplicationThread(new Runnable() {
                 @Override
                 public void run() {
                     Toast.makeText(c, m, Toast.LENGTH_LONG).show();
@@ -54,14 +60,15 @@ public class Application extends android.app.Application {
         }
     }
 
-    private static Handler mApplicationHandler = new Handler();
+    private static final Handler mApplicationHandler = new Handler();
 
     /**
      * Run a runnable in the main application thread
-     * 
+     *
      * @param r Runnable to run
      */
-    public void runInApplicationThread(Runnable r) {
+    @AnyThread
+    public void runInApplicationThread(@NonNull Runnable r) {
         mApplicationHandler.post(r);
     }
 
