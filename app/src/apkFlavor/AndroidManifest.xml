@@ -192,7 +192,7 @@
         <activity android:name=".ActivityManageTriggerWifi" />
         <activity android:name=".ActivityVolumeTest" />
         <activity android:name=".ActivityPermissions"></activity>
-        <activity android:name=".ActivityManageTriggerNotification"></activity>
+        <activity android:name=".ActivityManageTriggerNotification" />
 
         <service
             android:name=".receivers.NotificationListener"
@@ -204,6 +204,13 @@
 
         </service>
 
+        <activity android:name=".ActivityPermissions" />
+
+
+<!--        https://developer.android.com/about/versions/pie/android-9.0-changes-28#apache-p-->
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+
+
         <service
             android:name=".receivers.ActivityDetectionReceiver"
             android:exported="false"
@@ -212,13 +219,6 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
-        <activity android:name=".ActivityPermissions"></activity>
-
-
-<!--        https://developer.android.com/about/versions/pie/android-9.0-changes-28#apache-p-->
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
-
         <service android:name=".location.GeofenceIntentService"/>
 
 

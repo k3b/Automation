@@ -188,14 +188,6 @@
         <activity android:name=".ActivityManageTriggerWifi" />
         <activity android:name=".ActivityVolumeTest" />
         <activity android:name=".ActivityPermissions"></activity>
-
-
-<!--        https://developer.android.com/about/versions/pie/android-9.0-changes-28#apache-p-->
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
-
-        <service android:name=".location.GeofenceIntentService"/>
-
-
         <activity android:name=".ActivityManageTriggerNotification" />
 
         <service
@@ -207,6 +199,12 @@
             </intent-filter>
 
         </service>
+
+        <activity android:name=".ActivityPermissions" />
+
+
+<!--        https://developer.android.com/about/versions/pie/android-9.0-changes-28#apache-p-->
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
 
         <provider
             android:name=".FileShareProvider"

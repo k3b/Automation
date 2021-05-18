@@ -524,6 +524,7 @@ public class ActivityPermissions extends Activity
                         addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
                         addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
                         addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.READ_PHONE_STATE, requiredPermissions);
                         /* Permission was not required anymore, even before Android 6: https://su.chainfire.eu/#updates-permission
                         addToArrayListUnique(permissionNameSuperuser, requiredPermissions);*/
                         break;
