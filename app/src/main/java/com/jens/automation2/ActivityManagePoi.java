@@ -172,7 +172,8 @@ public class ActivityManagePoi extends Activity
 
 				double variance = locationGps.distanceTo(locationNetwork);
 
-				String text = getResources().getString(R.string.distanceBetween) + " " + String.valueOf(Math.round(variance)) + " " + getResources().getString(R.string.radiusSuggestion);
+				String text = String.format(getResources().getString(R.string.distanceBetween), Math.round(variance));
+
 //			Toast.makeText(getBaseContext(), text, Toast.LENGTH_LONG).show();
 				Miscellaneous.logEvent("i", "POI Manager", text, 4);
 //			if(variance > 50 && guiPoiRadius.getText().toString().length()>0 && Integer.parseInt(guiPoiRadius.getText().toString())<variance)

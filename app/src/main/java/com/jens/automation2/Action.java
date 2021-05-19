@@ -2,7 +2,6 @@ package com.jens.automation2;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.text.style.TabStopSpan;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -460,7 +459,7 @@ public class Action
 		}
 		catch(Exception e)
 		{
-			Miscellaneous.logEvent("e", "triggerUrl", context.getResources().getString(R.string.errorTriggeringUrl) + ": " + e.getMessage() + ", detailed: " + Log.getStackTraceString(e), 2);
+			Miscellaneous.logEvent("e", "triggerUrl", context.getResources().getString(R.string.logErrorTriggeringUrl) + ": " + e.getMessage() + ", detailed: " + Log.getStackTraceString(e), 2);
 		}
 	}	
 	

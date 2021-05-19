@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Automation</string>
+    <string name="app_name" translatable="false">Automation</string>
     <string name="ruleActivate">Activating rule %1$s</string>
     <string name="profileActivate">Activating profile %1$s</string>
     <string name="ruleActivateToggle">Activating rule %1$s in Togglemode</string>
@@ -14,28 +14,27 @@
     <string name="serviceWontStart">No rules defined. Service won\'t start.</string>
     <string name="serviceStarted">Automation Service started.</string>
     <string name="version">Version %1$s.</string>
-    <string name="logServiceStarting">Starting service.</string>
-    <string name="logNotAllMeasurings">Don\'t have all location measurings, yet. Can\'t do comparison.</string>
-    <string name="distanceBetween">Distance between GPS location and network location is</string>
-    <string name="radiusSuggestion">meters. This +1 should be the absolute minimum radius.</string>
+    <string name="logServiceStarting" translatable="false">Starting service.</string>
+    <string name="logNotAllMeasurings" translatable="false">Don\'t have all location measurings, yet. Can\'t do comparison.</string>
+    <string name="distanceBetween">Distance between GPS location and network location is %1$d meters. This +1m should be the absolute minimum radius.</string>
     <string name="comparing">Have both network and gps location. Comparing...</string>
-    <string name="logNoSuitableProvider">No suitable location providers could be used.</string>
+    <string name="logNoSuitableProvider" translatable="false">No suitable location providers could be used.</string>
     <string name="positioningWindowNotice">If you are in a building it is strongly advised to place your device next to a window until a position has been found. Otherwise it may take a very long time if it is able to find one at all.</string>
     <string name="gettingPosition">Getting position. Please wait...</string>
-    <string name="logGettingPositionWithProvider">Requesting location using provider:</string>
+    <string name="logGettingPositionWithProvider" translatable="false">Requesting location using provider:</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="logGotGpsUpdate">Got GPS update. Accuracy:</string>
-    <string name="logGotNetworkUpdate">Got network update. Accuracy:</string>
+    <string name="logGotGpsUpdate" translatable="false">Got GPS update. Accuracy:</string>
+    <string name="logGotNetworkUpdate" translatable="false">Got network update. Accuracy:</string>
     <string name="pleaseEnterValidLatitude">Please enter a valid latitude.</string>
     <string name="pleaseEnterValidLongitude">Please enter a valid longitude.</string>
     <string name="pleaseEnterValidRadius">Please enter a valid positive radius.</string>
     <string name="selectOneDay">Select at least one day.</string>
-    <string name="logAttemptingToBindToService">Attempting to bind to service... </string>
-    <string name="logAttemptingToUnbindFromService">Attempting to unbind from service... </string>
-    <string name="logBoundToService">Bound to service.</string>
-    <string name="logUnboundFromService">Unbound from service.</string>
-    <string name="logServiceAlreadyRunning">Request to start service, but it is already running.</string>
+    <string name="logAttemptingToBindToService" translatable="false">Attempting to bind to service... </string>
+    <string name="logAttemptingToUnbindFromService" translatable="false">Attempting to unbind from service... </string>
+    <string name="logBoundToService" translatable="false">Bound to service.</string>
+    <string name="logUnboundFromService" translatable="false">Unbound from service.</string>
+    <string name="logServiceAlreadyRunning" translatable="false">Request to start service, but it is already running.</string>
     <string name="whatToDoWithRule">Do what with rule?</string>
     <string name="whatToDoWithPoi">Do what with location?</string>
     <string name="whatToDoWithProfile">Do what with profile?</string>
@@ -71,7 +70,7 @@
     <string name="end">End</string>
     <string name="save">Save</string>
     <string name="urlToTrigger">URL to trigger:</string>
-    <string name="urlLegend">Variables:\nYou can use the following variables. Upon triggering they will be replaced with the corresponding value on your device. Include the brackets in your text.\n\n[uniqueid] - Your device\'s unique id\n[serialnr] - Your device\'s serial number\n[latitude] - Your device\'s latitude\n[longitude] - Your device\'s longitude\n[phonenr] - Number of last incoming or outgoing call\n[d] - Day of the month, 2 digits with leading zeros\n[m] - Numeric representation of a month, with leading zeros\n[Y] - A full numeric representation of a year, 4 digits\n[h] - 12-hour format of an hour with leading zeros\n[H] - 24-hour format of an hour with leading zeros\n[i] - Minutes with leading zeros\n[s] - Seconds, with leading zeros\n[ms] - milliseconds\n[notificationTitle] - title of last notification\n[notificationText] - text of last notification</string>
+    <string name="urlLegend">Variables: You can use the following variables. Upon triggering they will be replaced with the corresponding value on your device. Include the brackets in your text.  [uniqueid] - Your device\'s unique id [serialnr] - Your device\'s serial number [latitude] - Your device\'s latitude [longitude] - Your device\'s longitude [phonenr] - Number of last incoming or outgoing call [d] - Day of the month, 2 digits with leading zeros [m] - Numeric representation of a month, with leading zeros [Y] - A full numeric representation of a year, 4 digits [h] - 12-hour format of an hour with leading zeros [H] - 24-hour format of an hour with leading zeros [i] - Minutes with leading zeros [s] - Seconds, with leading zeros [ms] - milliseconds [notificationTitle] - title of last notification [notificationText] - text of last notification</string>
     <string name="wifi">wifi</string>
     <string name="activating">Activating</string>
     <string name="deactivating">Deactivating</string>
@@ -121,7 +120,7 @@
     <string name="gpsAccuracy">GPS accuracy [m]</string>
     <string name="satisfactoryAccuracyNetwork">Satisfactory accuracy when getting location via cell towers in meters</string>
     <string name="networkAccuracy">Network accuracy [m]</string>
-    <string name="minimumTimeForLocationUpdates">Minimum time change in seconds for location updates</string>
+    <string name="minimumTimeForLocationUpdates">Minimum time change in milliseconds for location updates</string>
     <string name="timeForUpdate">Time for update [milliseconds]</string>
     <string name="soundSettings">Sound settings</string>
     <string name="showHelp">Show help</string>
@@ -189,20 +188,20 @@
     <string name="general">General</string>
     <string name="generalText">To use this program you must setup rules. Those contain triggers, e.g. if you reach a specified area or you enter a certain time. After that\'s been done click the on/off button on the main screen.</string>
     <string name="unknownActionSpecified">Unknown action specified</string>
-    <string name="errorTriggeringUrl">Error triggering URL</string>
+    <string name="logErrorTriggeringUrl" translatable="false">Error triggering URL</string>
     <string name="errorChangingScreenRotation">Error changing screen rotation</string>
     <string name="errorDeterminingWifiApState">Error determining wifiAp state</string>
     <string name="errorActivatingWifiAp">Error activating wifiAp</string>
     <string name="failedToTriggerBluetooth">Failed to trigger Bluetooth. Does this device have Bluetooth?</string>
-    <string name="logAttemptingDownloadOf">attempting download of</string>
-    <string name="logErrorGettingConnectionManagerService">Error getting connectionManager service. Not doing anything to UsbTethering.</string>
-    <string name="logErrorDeterminingCurrentUsbTetheringState">Error determining current UsbTethering state.</string>
-    <string name="logDetectingTetherableUsbInterface">Detecting tetherable usb interface.</string>
-    <string name="logClearingBothLocationListeners">Clearing both location listeners.</string>
-    <string name="logStartingServiceAfterAppUpdate">Starting service after app update.</string>
-    <string name="logNotStartingServiceAfterAppUpdate">Not starting service after app update.</string>
-    <string name="logStartingServiceAtPhoneBoot">Starting service at phone boot.</string>
-    <string name="logNotStartingServiceAtPhoneBoot">Not starting service at phone boot.</string>
+    <string name="logAttemptingDownloadOf" translatable="false">attempting download of</string>
+    <string name="logErrorGettingConnectionManagerService" translatable="false">Error getting connectionManager service. Not doing anything to UsbTethering.</string>
+    <string name="logErrorDeterminingCurrentUsbTetheringState" translatable="false">Error determining current UsbTethering state.</string>
+    <string name="logDetectingTetherableUsbInterface" translatable="false">Detecting tetherable usb interface.</string>
+    <string name="logClearingBothLocationListeners" translatable="false">Clearing both location listeners.</string>
+    <string name="logStartingServiceAfterAppUpdate" translatable="false">Starting service after app update.</string>
+    <string name="logNotStartingServiceAfterAppUpdate" translatable="false">Not starting service after app update.</string>
+    <string name="logStartingServiceAtPhoneBoot" translatable="false">Starting service at phone boot.</string>
+    <string name="logNotStartingServiceAtPhoneBoot" translatable="false">Not starting service at phone boot.</string>
     <string name="applicationHasBeenUpdated">Application has been updated.</string>
     <string name="startServiceAfterAppUpdate">Start service automatically after app update if it has been running before.</string>
     <string name="startServiceAfterAppUpdateShort">Start service after update</string>

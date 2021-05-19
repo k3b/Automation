@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Automation</string>
     <string name="ruleActivate">Aktiviere Regel %1$s</string>
     <string name="profileActivate">Aktiviere Profil %1$s</string>
     <string name="ruleActivateToggle">Aktiviere Regel %1$s im Umschaltmodus</string>
@@ -14,28 +13,16 @@
     <string name="serviceWontStart">Weder Orte noch Regeln sind definitiv. Dienst wird nicht starten.</string>
     <string name="serviceStarted">Automations-Dienst gestarted.</string>
     <string name="version">Version %1$s.</string>
-    <string name="logServiceStarting">Dienst wird gestartet.</string>
-    <string name="logNotAllMeasurings">Es stehen noch nicht alle Messwerte zur Verfügung. Es kann noch kein Vergleich vorgenommen werden.</string>
-    <string name="distanceBetween">Der Abstand zwischen GPS- und Mobilfunk-Position beträgt</string>
-    <string name="radiusSuggestion">Meter. Dies +1 sollte der minimale Radius sein.</string>
+    <string name="distanceBetween">Der Abstand zwischen GPS- und Mobilfunk-Position beträgt %1$d m. Dies +1 sollte der minimale Radius sein.</string>
     <string name="comparing">Sowohl Netzwerk- als auch GPS Position sind bekannt. Vergleiche...</string>
-    <string name="logNoSuitableProvider">Kein brauchbarer Positionsanbieter verfügbar.</string>
     <string name="positioningWindowNotice">Falls Sie in einem Gebäude sind wird empfohlen das Gerät in die Nähe eines Fensters zu bringen bis eine Position ermittelt werden konnte. Andernfalls kann es sehr lange dauern oder es funktioniert gar nicht.</string>
     <string name="gettingPosition">Position wird ermittelt. Bitte warten...</string>
-    <string name="logGettingPositionWithProvider">Position wird ermittelt mit Anbieter:</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
-    <string name="logGotGpsUpdate">GPS Position erhalten. Genauigkeit:</string>
-    <string name="logGotNetworkUpdate">Netzwerk Position erhalten. Genauigkeit:</string>
     <string name="pleaseEnterValidLatitude">Bitte geben Sie einen gültigen Breitengrad an.</string>
     <string name="pleaseEnterValidLongitude">Bitte geben Sie einen gültigen Längengrad an.</string>
     <string name="pleaseEnterValidRadius">Bitte geben Sie einen gültigen positiven Radius an.</string>
     <string name="selectOneDay">Bitte wählen Sie wenigstens einen Tag aus.</string>
-    <string name="logAttemptingToBindToService">Versuche zum Dienst zu verbinden... </string>
-    <string name="logAttemptingToUnbindFromService">Versuche vom Dienst zu trennen... </string>
-    <string name="logBoundToService">Zum Dienst verbunden.</string>
-    <string name="logUnboundFromService">Vom Dienst getrennt.</string>
-    <string name="logServiceAlreadyRunning">Befehl zum Starten des Dienstes, aber er läuft bereits.</string>
     <string name="whatToDoWithRule">Was soll mit der Regel gemacht werden?</string>
     <string name="whatToDoWithPoi">Was soll mit dem Ort gemacht werden?</string>
     <string name="whatToDoWithProfile">Was soll mit dem Profil gemacht werden?</string>
@@ -121,7 +108,7 @@
     <string name="gpsAccuracy">GPS Genauigkeit [m]</string>
     <string name="satisfactoryAccuracyNetwork">Genauigkeit für Mobilfunk Änderungen in Metern</string>
     <string name="networkAccuracy">Mobilfunk Genauigkeit [m]</string>
-    <string name="minimumTimeForLocationUpdates">Minimale Zeitänderung in Sekunden für Positionsupdates</string>
+    <string name="minimumTimeForLocationUpdates">Minimale Zeitänderung in Millisekunden für Positionsupdates</string>
     <string name="timeForUpdate">Zeit für Updates [millisek]</string>
     <string name="soundSettings">Ton Einstellungen</string>
     <string name="showHelp">Hilfe</string>
@@ -146,7 +133,7 @@
     <string name="lengthOfNoiseLevelMeasurementsTitle">Länge einer Lautstärkemessung in Sekunden</string>
     <string name="referenceValueForNoiseLevelMeasurementsSummary">Physikalischer Referenzwert für Lautstärkemessungen</string>
     <string name="referenceValueForNoiseLevelMeasurementsTitle">Referenz für Lautstärkemessungen</string>
-    <string name="logLevelSummary">Protokollierungsgrad (1=minimum, 5=maximum)</string>
+    <string name="logLevelSummary">Protokollierungsgrad (1=Minimum, 5=Maximum)</string>
     <string name="logLevelTitle">Protokollierungsgrad</string>
     <string name="ruleActive">Regel aktiv</string>
     <string name="triggerPointOfInterest">Ort</string>
@@ -189,7 +176,6 @@
     <string name="general">Allgemein</string>
     <string name="generalText">Um dieses Programm zu benutzen, müssen Sie Regeln anlegen. Diese enthalten Auslöser (z.B. ob Sie ein bestimmtes Gebiet betreten oder eine bestimmte Zeitspanne beginnt). Nachdem Sie dies erledigt haben, klicken Sie auf den Ein/Aus Schalter auf dem Hauptbildschirm.</string>
     <string name="unknownActionSpecified">Unbekannte Aktion definiert.</string>
-    <string name="errorTriggeringUrl">Fehler beim Aufrufen der URL</string>
     <string name="errorChangingScreenRotation">Fehler beim Ändern der Bildschirmrotation</string>
     <string name="errorDeterminingWifiApState">Fehler bei der Statusprüfung des WLAN Routers</string>
     <string name="errorActivatingWifiAp">Fehler beim Aktivieren des WLAN Routers</string>
@@ -666,4 +652,12 @@
     <string name="packageName">Paketname</string>
     <string name="activityOrActionName">Acitivity/Action name</string>
     <string name="warning">Warnung</string>
+    <string name="logLevelSummary">Log level (1=minimum, 5=maximum)</string>
+    <string name="ringing">klingelt</string>
+    <string name="from">von</string>
+    <string name="to">an</string>
+    <string name="matching">übereinstimmend</string>
+    <string name="loadWifiList">WLAN Liste laden</string>
+    <string name="noKnownWifis">Es gibt keine bekannten WLANs auf Ihrem Gerät.</string>
+    <string name="needLocationPermForWifiList">Die Liste von WLANs auf Ihrem Gerät könnte verwendet werden, um zu ermitteln, an welchen Orten Sie waren. Deshalb ist die Positions-Berechtigung nötig, um die Liste dieser WLANs zu laden. Wenn Sie eines aus der Liste auswählen möchten, müssen Sie diese Berechtigung gewähren. Wenn nicht, können Sie immer noch eines manuell eingeben.</string>
 </resources>
