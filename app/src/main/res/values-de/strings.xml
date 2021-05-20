@@ -652,7 +652,6 @@
     <string name="packageName">Paketname</string>
     <string name="activityOrActionName">Acitivity/Action name</string>
     <string name="warning">Warnung</string>
-    <string name="logLevelSummary">Log level (1=minimum, 5=maximum)</string>
     <string name="ringing">klingelt</string>
     <string name="from">von</string>
     <string name="to">an</string>
