@@ -194,7 +194,7 @@ public class Actions
 			Method[] methods = wifiManager.getClass().getDeclaredMethods();
 			for(Method method : methods)
 			{
-//				Miscellaneous.logEvent("i", "WifiAp", "Trying to find appropriate method... " + method.getName());
+				Miscellaneous.logEvent("i", "WifiAp", "Trying to find appropriate method... " + method.getName(), 5);
 				if(method.getName().equals("setWifiApEnabled"))
 				{
 					try
