@@ -187,11 +187,11 @@
     <string name="serviceNotRunning">Service is not running.</string>
     <string name="general">General</string>
     <string name="generalText">To use this program you must setup rules. Those contain triggers, e.g. if you reach a specified area or you enter a certain time. After that\'s been done click the on/off button on the main screen.</string>
-    <string name="unknownActionSpecified">Unknown action specified</string>
+    <string name="unknownActionSpecified" translatable="false">Unknown action specified</string>
     <string name="logErrorTriggeringUrl" translatable="false">Error triggering URL</string>
-    <string name="errorChangingScreenRotation">Error changing screen rotation</string>
-    <string name="errorDeterminingWifiApState">Error determining wifiAp state</string>
-    <string name="errorActivatingWifiAp">Error activating wifiAp</string>
+    <string name="errorChangingScreenRotation" translatable="false">Error changing screen rotation</string>
+    <string name="errorDeterminingWifiApState" translatable="false">Error determining wifiAp state</string>
+    <string name="errorActivatingWifiAp" translatable="false">Error activating wifiAp</string>
     <string name="failedToTriggerBluetooth">Failed to trigger Bluetooth. Does this device have Bluetooth?</string>
     <string name="logAttemptingDownloadOf" translatable="false">attempting download of</string>
     <string name="logErrorGettingConnectionManagerService" translatable="false">Error getting connectionManager service. Not doing anything to UsbTethering.</string>
@@ -202,23 +202,23 @@
     <string name="logNotStartingServiceAfterAppUpdate" translatable="false">Not starting service after app update.</string>
     <string name="logStartingServiceAtPhoneBoot" translatable="false">Starting service at phone boot.</string>
     <string name="logNotStartingServiceAtPhoneBoot" translatable="false">Not starting service at phone boot.</string>
-    <string name="applicationHasBeenUpdated">Application has been updated.</string>
+    <string name="applicationHasBeenUpdated" translatable="false">Application has been updated.</string>
     <string name="startServiceAfterAppUpdate">Start service automatically after app update if it has been running before.</string>
     <string name="startServiceAfterAppUpdateShort">Start service after update</string>
     <string name="wifiConnection">Wifi connection</string>
     <string name="wifiName">Wifi name</string>
     <string name="enterWifiName">Enter a wifi name. Leave empty for any wifi.</string>
     <string name="cancel">Cancel</string>
-    <string name="ruleDoesntApplyWeAreSlowerThan">Rule doesn\'t apply. We are slower than</string>
-    <string name="ruleDoesntApplyWeAreFasterThan">Rule doesn\'t apply. We are faster than</string>
-    <string name="ruleDoesntApplyItsQuieterThan">Rule doesn\'t apply. It\'s quieter than</string>
-    <string name="ruleDoesntApplyItsLouderThan">Rule doesn\'t apply. It\'s louder than</string>
-    <string name="ruleDoesntApplyBatteryLowerThan">Rule doesn\'t apply. Battery level is lower than</string>
-    <string name="ruleDoesntApplyBatteryHigherThan">Rule doesn\'t apply. Battery level is higher than</string>
-    <string name="ruleDoesntApplyNotTheCorrectSsid">Rule doesn\'t apply. Not the correct SSID (demanded: \"%1$s\", given: \"%2$s\").</string>
-    <string name="ruleDoesntApplyNoTagLabel">Rule doesn\'t apply. There is no tag label or not tag at all.</string>
-    <string name="ruleDoesntApplyWrongTagLabel">Rule doesn\'t apply. Wrong tag label.</string>
-    <string name="ruleIsDeactivatedCantApply">Rule %1$s is deactivated, can\'t apply.</string>
+    <string name="ruleDoesntApplyWeAreSlowerThan" translatable="false">Rule doesn\'t apply. We are slower than</string>
+    <string name="ruleDoesntApplyWeAreFasterThan" translatable="false">Rule doesn\'t apply. We are faster than</string>
+    <string name="ruleDoesntApplyItsQuieterThan" translatable="false">Rule doesn\'t apply. It\'s quieter than</string>
+    <string name="ruleDoesntApplyItsLouderThan" translatable="false">Rule doesn\'t apply. It\'s louder than</string>
+    <string name="ruleDoesntApplyBatteryLowerThan" translatable="false">Rule doesn\'t apply. Battery level is lower than</string>
+    <string name="ruleDoesntApplyBatteryHigherThan" translatable="false">Rule doesn\'t apply. Battery level is higher than</string>
+    <string name="ruleDoesntApplyNotTheCorrectSsid" translatable="false">Rule doesn\'t apply. Not the correct SSID (demanded: \"%1$s\", given: \"%2$s\").</string>
+    <string name="ruleDoesntApplyNoTagLabel" translatable="false">Rule doesn\'t apply. There is no tag label or not tag at all.</string>
+    <string name="ruleDoesntApplyWrongTagLabel" translatable="false">Rule doesn\'t apply. Wrong tag label.</string>
+    <string name="ruleIsDeactivatedCantApply" translatable="false">Rule %1$s is deactivated, can\'t apply.</string>
     <string name="starting">starting</string>
     <string name="stopping">stopping</string>
     <string name="connecting">connecting</string>
@@ -241,12 +241,12 @@
     <string name="runManually">Run manually</string>
     <string name="serviceHasToRunForThat">The service has to be running for that.</string>
     <string name="gpsComparison">GPS comparison</string>
-    <string name="gpsComparisonTimeoutStop">Stopping comparison GPS measurement due to timeout.</string>
+    <string name="gpsComparisonTimeoutStop" translatable="false">Stopping comparison GPS measurement due to timeout.</string>
     <string name="timeoutForGpsComparisonsTitle">GPS timeout [sec]</string>
     <string name="timeoutForGpsComparisonsSummary">Maximum time in seconds to trying getting a GPS location for comparison. If over last known location will be applied.</string>
-    <string name="startingGpsTimeout">Starting GPS timeout.</string>
-    <string name="forcedLocationUpdate">Forced location update</string>
-    <string name="forcedLocationUpdateLong">Due to timeout in comparison measurement the last best location will be applied.</string>
+    <string name="startingGpsTimeout" translatable="false">Starting GPS timeout.</string>
+    <string name="forcedLocationUpdate" translatable="false">Forced location update</string>
+    <string name="forcedLocationUpdateLong" translatable="false">Due to timeout in comparison measurement the last best location will be applied.</string>
     <string name="rememberLastActivePoiSummary">If you are at a location, restart your device or the application and leave the location the application will run rules accociated to leaving the location upon its next start.</string>
     <string name="rememberLastActivePoiTitle">Remember last active location</string>
     <string name="muteTextToSpeechDuringCallsTitle">Mute during calls</string>
@@ -262,35 +262,35 @@
     <string name="settingsCategoryProcessMonitoring">Process monitoring</string>
     <string name="timeBetweenProcessMonitoringsTitle">Seconds between process monitorings</string>
     <string name="timeBetweenProcessMonitoringsSummary">The lower the higher the battery usage</string>
-    <string name="refreshingProcessList">Refreshing process list.</string>
+    <string name="refreshingProcessList" translatable="false">Refreshing process list.</string>
     <string name="processes">Processes</string>
-    <string name="startingPeriodicProcessMonitoringEngine">Starting periodic process monitoring engine.</string>
+    <string name="startingPeriodicProcessMonitoringEngine" translatable="false">Starting periodic process monitoring engine.</string>
     <string name="processMonitoring">Process monitoring</string>
-    <string name="periodicProcessMonitoringIsAlreadyRunning">Periodic process monitoring is already running. Won\'t start it again.</string>
-    <string name="stoppingPeriodicProcessMonitoringEngine">Stopping periodic process monitoring engine.</string>
-    <string name="periodicProcessMonitoringIsNotActive">Periodic process monitoring is not active. Can\'t stop it.</string>
-    <string name="periodicProcessMonitoringStarted">Periodic process monitoring started.</string>
-    <string name="periodicProcessMonitoringStopped">Periodic process monitoring stopped.</string>
-    <string name="rearmingProcessMonitoringMessage">Rearming process monitoring message.</string>
-    <string name="notRearmingProcessMonitoringMessageStopRequested">Not rearming process monitoring message, stop requested.</string>
-    <string name="messageReceivedStatingProcessMonitoringIsComplete">Message received stating process monitoring is complete.</string>
-    <string name="appStarted">App started.</string>
-    <string name="appStopped">App stopped.</string>
-    <string name="runningApp">Running app</string>
-    <string name="errorWritingSettingsToPersistentMemory">Error writing settings to persistent memory.</string>
+    <string name="periodicProcessMonitoringIsAlreadyRunning" translatable="false">Periodic process monitoring is already running. Won\'t start it again.</string>
+    <string name="stoppingPeriodicProcessMonitoringEngine" translatable="false">Stopping periodic process monitoring engine.</string>
+    <string name="periodicProcessMonitoringIsNotActive" translatable="false">Periodic process monitoring is not active. Can\'t stop it.</string>
+    <string name="periodicProcessMonitoringStarted" translatable="false">Periodic process monitoring started.</string>
+    <string name="periodicProcessMonitoringStopped" translatable="false">Periodic process monitoring stopped.</string>
+    <string name="rearmingProcessMonitoringMessage" translatable="false">Rearming process monitoring message.</string>
+    <string name="notRearmingProcessMonitoringMessageStopRequested" translatable="false">Not rearming process monitoring message, stop requested.</string>
+    <string name="messageReceivedStatingProcessMonitoringIsComplete" translatable="false">Message received stating process monitoring is complete.</string>
+    <string name="appStarted" translatable="false">App started.</string>
+    <string name="appStopped" translatable="false">App stopped.</string>
+    <string name="runningApp" translatable="false">Running app</string>
+    <string name="errorWritingSettingsToPersistentMemory" translatable="false">Error writing settings to persistent memory.</string>
     <string name="settings">Settings</string>
-    <string name="writingSettingsToPersistentMemory">Writing settings to persistent memory.</string>
-    <string name="refreshingSettingsFromFileToMemory">Refreshing settings from file to memory.</string>
-    <string name="errorReadingSettings">Error reading settings.</string>
-    <string name="invalidStuffStoredInSettingsErasing">Invalid stuff stored in settings. Erasing settings...</string>
-    <string name="initializingSettingsToPersistentMemory">Initializing settings to persistent memory.</string>
-    <string name="errorInitializingSettingsToPersistentMemory">Error initializing settings to persistent memory.</string>
+    <string name="writingSettingsToPersistentMemory" translatable="false">Writing settings to persistent memory.</string>
+    <string name="refreshingSettingsFromFileToMemory" translatable="false">Refreshing settings from file to memory.</string>
+    <string name="errorReadingSettings" translatable="false">Error reading settings.</string>
+    <string name="invalidStuffStoredInSettingsErasing" translatable="false">Invalid stuff stored in settings. Erasing settings...</string>
+    <string name="initializingSettingsToPersistentMemory" translatable="false">Initializing settings to persistent memory.</string>
+    <string name="errorInitializingSettingsToPersistentMemory" translatable="false">Error initializing settings to persistent memory.</string>
     <string name="settingsErased">Settings erased.</string>
     <string name="settingsSetToDefault">Settings set to default.</string>
     <string name="batteryLevel">Battery level</string>
     <string name="selectSpeed">Select speed</string>
     <string name="selectBattery">Select battery level</string>
-    <string name="applyingSettingsAndRules">Applying settings, rules and locations.</string>
+    <string name="applyingSettingsAndRules" translatable="false">Applying settings, rules and locations.</string>
     <string name="privacy">Privacy Policy</string>
     <string name="privacyConfirmationText">A browser will now open on your device and load the privacy policy from the developer\'s website.</string>
     <string name="waitBeforeNextAction">Wait before next action</string>
@@ -302,9 +302,9 @@
     <string name="moveDown">Move down</string>
     <string name="cantMoveUp">Can\'t move item up. It is already at the top.</string>
     <string name="cantMoveDown">Can\'t move item down. It is already at the bottom.</string>
-    <string name="wifiNameSpecifiedCheckingThat">Wifi name specified, checking that.</string>
-    <string name="wifiNameMatchesRuleWillApply">Wifi name matches. Rule will apply.</string>
-    <string name="noWifiNameSpecifiedAnyWillDo">No wifi name specified, any will do.</string>
+    <string name="wifiNameSpecifiedCheckingThat" translatable="false">Wifi name specified, checking that.</string>
+    <string name="wifiNameMatchesRuleWillApply" translatable="false">Wifi name matches. Rule will apply.</string>
+    <string name="noWifiNameSpecifiedAnyWillDo" translatable="false">No wifi name specified, any will do.</string>
     <string name="ruleCheckOf">RuleCheck of %1$s</string>
     <string name="airplaneMode">Airplane mode</string>
     <string name="activate">Activate</string>
