@@ -20,9 +20,12 @@ import android.telephony.SmsManager;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.jens.automation2.actions.wifi_router.MyOnStartTetheringCallback;
+import com.jens.automation2.actions.wifi_router.MyOreoWifiManager;
 import com.jens.automation2.location.WifiBroadcastReceiver;
 import com.jens.automation2.receivers.ConnectivityReceiver;
 
@@ -190,43 +193,69 @@ public class Actions
 
 		if(((state && !desiredState) || (!state && desiredState)))
 		{
-			WifiManager wifiManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
-			Method[] methods = wifiManager.getClass().getDeclaredMethods();
-			for(Method method : methods)
+			if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
 			{
-				Miscellaneous.logEvent("i", "WifiAp", "Trying to find appropriate method... " + method.getName(), 5);
-				if(method.getName().equals("setWifiApEnabled"))
+				WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+				Method[] methods = wifiManager.getClass().getDeclaredMethods();
+				for (Method method : methods)
 				{
-					try
+					Miscellaneous.logEvent("i", "WifiAp", "Trying to find appropriate method... " + method.getName(), 5);
+					if (method.getName().equals("setWifiApEnabled"))
 					{
-						String desiredString = "";
-						if(desiredState)
-							desiredString = "activate";
-						else
-							desiredString = "deactivate";
-
-						if(!toggleActionIfPossible)
+						try
 						{
-							Miscellaneous.logEvent("i", "WifiAp", "Trying to " + desiredString + " wifi ap...", 2);
-							if(!method.isAccessible())
-								method.setAccessible(true);
-							method.invoke(wifiManager, null, desiredState);
-						}
-						else
-						{
-							Miscellaneous.logEvent("i", "WifiAp", "Trying to " + context.getResources().getString(R.string.toggle) + " wifi ap...", 2);
-							if(!method.isAccessible())
-								method.setAccessible(true);
-							method.invoke(wifiManager, null, !state);
-						}
+							String desiredString = "";
+							if (desiredState)
+								desiredString = "activate";
+							else
+								desiredString = "deactivate";
 
-						Miscellaneous.logEvent("i", "WifiAp", "Wifi ap " + desiredString + "d.", 2);
-					}
-					catch(Exception e)
-					{
-						Miscellaneous.logEvent("i", "WifiAp", context.getResources().getString(R.string.errorActivatingWifiAp) + ". " + e.getMessage(), 2);
+							if (!toggleActionIfPossible)
+							{
+								Miscellaneous.logEvent("i", "WifiAp", "Trying to " + desiredString + " wifi ap...", 2);
+								if (!method.isAccessible())
+									method.setAccessible(true);
+								method.invoke(wifiManager, null, desiredState);
+							}
+							else
+							{
+								Miscellaneous.logEvent("i", "WifiAp", "Trying to " + context.getResources().getString(R.string.toggle) + " wifi ap...", 2);
+								if (!method.isAccessible())
+									method.setAccessible(true);
+								method.invoke(wifiManager, null, !state);
+							}
+
+							Miscellaneous.logEvent("i", "WifiAp", "Wifi ap " + desiredString + "d.", 2);
+						}
+						catch (Exception e)
+						{
+							Miscellaneous.logEvent("i", "WifiAp", context.getResources().getString(R.string.errorActivatingWifiAp) + ". " + e.getMessage(), 2);
+						}
 					}
 				}
+			}
+			else
+			{
+				MyOnStartTetheringCallback cb = new MyOnStartTetheringCallback()
+				{
+					@Override
+					public void onTetheringStarted()
+					{
+						Log.i("Tether", "Läuft");
+					}
+
+					@Override
+					public void onTetheringFailed()
+					{
+						Log.i("Tether", "Doof");
+					}
+				};
+
+				MyOreoWifiManager mowm = new MyOreoWifiManager(context);
+				if(desiredState)
+					mowm.startTethering(cb);
+				else
+					mowm.stopTethering();
 			}
 		}
 		return true;

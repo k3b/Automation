@@ -1,5 +1,10 @@
 package com.jens.automation2.actions.wifi_router;
 
+/*
+    Class taken from here:
+    https://github.com/aegis1980/WifiHotSpot
+ */
+
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiConfiguration;
@@ -10,6 +15,7 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 
 import com.android.dx.stock.ProxyBuilder;
+import com.jens.automation2.Miscellaneous;
 
 import java.io.File;
 import java.lang.reflect.InvocationHandler;
@@ -51,12 +57,11 @@ public class MyOreoWifiManager
         {
             Method setConfigMethod = mWifiManager.getClass().getMethod("setWifiApConfiguration", WifiConfiguration.class);
             boolean status = (boolean) setConfigMethod.invoke(mWifiManager, apConfig);
-            Log.d(TAG, "setWifiApConfiguration - success? " + status);
+            Miscellaneous.logEvent("i", "configureHotspot()", "setWifiApConfiguration - success? " + status, 2);
         }
         catch (Exception e)
         {
-            Log.e(TAG, "Error in configureHotspot");
-            e.printStackTrace();
+            Miscellaneous.logEvent("e", "configureHotspot()", "Error in configureHotspot: " + Log.getStackTraceString(e), 2);
         }
     }
 
@@ -74,13 +79,14 @@ public class MyOreoWifiManager
             Method method = mConnectivityManager.getClass().getDeclaredMethod("getTetheredIfaces");
             if (method == null)
             {
-                Log.e(TAG, "getTetheredIfaces is null");
+                Miscellaneous.logEvent("i", "getTetheredIfaces()", "getTetheredIfaces is null", 2);
             }
             else
             {
                 String res[] = (String []) method.invoke(mConnectivityManager, null);
-                Log.d(TAG, "getTetheredIfaces invoked");
-                Log.d(TAG, Arrays.toString(res));
+                Miscellaneous.logEvent("i", "isTetherActive()", "getTetheredIfaces invoked", 5);
+                Miscellaneous.logEvent("i", "isTetherActive()", Arrays.toString(res), 4);
+
                 if (res.length > 0)
                 {
                     return true;
@@ -89,8 +95,7 @@ public class MyOreoWifiManager
         }
         catch (Exception e)
         {
-            Log.e(TAG, "Error in getTetheredIfaces");
-            e.printStackTrace();
+            Miscellaneous.logEvent("e", "isTetherActive()", "Error in getTetheredIfaces: " + Log.getStackTraceString(e), 2);
         }
         return false;
     }
@@ -102,12 +107,11 @@ public class MyOreoWifiManager
      */
     public boolean startTethering(final MyOnStartTetheringCallback callback)
     {
-
         // On Pie if we try to start tethering while it is already on, it will
         // be disabled. This is needed when startTethering() is called programmatically.
         if (isTetherActive())
         {
-            Log.d(TAG, "Tether already active, returning");
+            Miscellaneous.logEvent("i", "startTethering()", "Tether already active, returning", 2);
             return false;
         }
 
@@ -139,8 +143,7 @@ public class MyOreoWifiManager
         }
         catch (Exception e)
         {
-            Log.e(TAG, "Error in enableTethering ProxyBuilder");
-            e.printStackTrace();
+            Miscellaneous.logEvent("e", "startTethering()", "Error in enableTethering ProxyBuilder", 2);
             return false;
         }
 
@@ -150,19 +153,18 @@ public class MyOreoWifiManager
             method = mConnectivityManager.getClass().getDeclaredMethod("startTethering", int.class, boolean.class, OnStartTetheringCallbackClass(), Handler.class);
             if (method == null)
             {
-                Log.e(TAG, "startTetheringMethod is null");
+                Miscellaneous.logEvent("w", "startTethering()", "startTetheringMethod is null", 2);
             }
             else
             {
                 method.invoke(mConnectivityManager, ConnectivityManager.TYPE_MOBILE, false, proxy, null);
-                Log.d(TAG, "startTethering invoked");
+                Miscellaneous.logEvent("i", "startTethering()", "startTethering invoked", 5);
             }
             return true;
         }
         catch (Exception e)
         {
-            Log.e(TAG, "Error in enableTethering");
-            e.printStackTrace();
+            Miscellaneous.logEvent("w", "startTethering()", "Error in enableTethering: " + Log.getStackTraceString(e), 2);
         }
         return false;
     }
@@ -174,18 +176,17 @@ public class MyOreoWifiManager
             Method method = mConnectivityManager.getClass().getDeclaredMethod("stopTethering", int.class);
             if (method == null)
             {
-                Log.e(TAG, "stopTetheringMethod is null");
+                Miscellaneous.logEvent("w", "stopTethering", "stopTetheringMethod is null", 2);
             }
             else
             {
                 method.invoke(mConnectivityManager, ConnectivityManager.TYPE_MOBILE);
-                Log.d(TAG, "stopTethering invoked");
+                Miscellaneous.logEvent("i", "stopTethering", "stopTethering invoked", 5);
             }
         }
         catch (Exception e)
         {
-            Log.e(TAG, "stopTethering error: " + e.toString());
-            e.printStackTrace();
+            Miscellaneous.logEvent("e", "stopTethering", "stopTethering error: " + Log.getStackTraceString(e), 1);
         }
     }
 
@@ -197,8 +198,7 @@ public class MyOreoWifiManager
         }
         catch (ClassNotFoundException e)
         {
-            Log.e(TAG, "OnStartTetheringCallbackClass error: " + e.toString());
-            e.printStackTrace();
+            Miscellaneous.logEvent("e", "OnStartTetheringCallbackClass()", "OnStartTetheringCallbackClass error: " + Log.getStackTraceString(e), 1);
         }
         return null;
     }
