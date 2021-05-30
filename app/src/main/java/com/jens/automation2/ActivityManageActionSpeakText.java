@@ -24,7 +24,7 @@ public class ActivityManageActionSpeakText extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.speak_text_editor);
+		this.setContentView(R.layout.activity_manage_action_speak_text);
 		
 		etSpeakText = (EditText)findViewById(R.id.etTextToSpeak);
 		bSaveSpeakText = (Button)findViewById(R.id.bSaveTriggerUrl);

@@ -36,7 +36,7 @@ public class ActivityManageActionSendTextMessage extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.send_textmessage_editor);
+		this.setContentView(R.layout.activity_manage_action_send_textmessage);
 		
 		etSendTextMessage = (EditText)findViewById(R.id.etSendTextMessage);
 		etPhoneNumber = (EditText)findViewById(R.id.etPhoneNumber);

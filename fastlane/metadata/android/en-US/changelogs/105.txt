@@ -1,0 +1,3 @@
+* Activate wifi tethering doesn't require root anymore
+* Italian translation updated
+* Spanish translation updated

@@ -1483,13 +1483,13 @@ public class ActivityManageRule extends Activity
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setAirplaneMode.toString()))
 					{
-						if(Build.VERSION.SDK_INT >= 17)
-						{
-							Toast.makeText(context, getResources().getString(R.string.airplaneModeSdk17Warning), Toast.LENGTH_LONG).show();
-							Miscellaneous.messageBox(getResources().getString(R.string.airplaneMode), getResources().getString(R.string.rootExplanation), ActivityManageRule.this).show();
-						}
 						newAction.setAction(Action_Enum.setAirplaneMode);
 						getActionParameter1Dialog(ActivityManageRule.this).show();
+						if(Build.VERSION.SDK_INT >= 17)
+						{
+//							Toast.makeText(context, getResources().getString(R.string.airplaneModeSdk17Warning), Toast.LENGTH_LONG).show();
+							Miscellaneous.messageBox(getResources().getString(R.string.airplaneMode), getResources().getString(R.string.rootExplanation), ActivityManageRule.this).show();
+						}
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setDataConnection.toString()))
 					{

@@ -408,4 +408,6 @@ Incluya las paréntecis en su texto.\n\n[uniqueid] - el número único de su dis
     <string name="any">algun</string>
     <string name="incoming">recibidiendo</string>
     <string name="outgoing">saliendo</string>
+    <string name="urlToTriggerExplanation">Esa función NO abre el browser, pero provoca el URL en el segundo plano. Per ejemplo puede usarlo a enviar ordenes a su automatización de casa.</string>
+    <string name="noKnownWifis">No hay wifis conociendos en su disparador.</string>
 </resources>

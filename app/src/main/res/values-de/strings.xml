@@ -621,4 +621,5 @@
     <string name="loadWifiList">WLAN Liste laden</string>
     <string name="noKnownWifis">Es gibt keine bekannten WLANs auf Ihrem Gerät.</string>
     <string name="needLocationPermForWifiList">Die Liste von WLANs auf Ihrem Gerät könnte verwendet werden, um zu ermitteln, an welchen Orten Sie waren. Deshalb ist die Positions-Berechtigung nötig, um die Liste dieser WLANs zu laden. Wenn Sie eines aus der Liste auswählen möchten, müssen Sie diese Berechtigung gewähren. Wenn nicht, können Sie immer noch eines manuell eingeben.</string>
+    <string name="urlToTriggerExplanation">Diese Funktion öffnet NICHT den Browser, sondern löst die HTTP Anfrage im Hintergrund aus. Sie können das z.B. benutzen, um Befehle an Ihre Heimautomatisierung zu schicken.</string>
 </resources>

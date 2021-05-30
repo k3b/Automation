@@ -70,7 +70,7 @@
     <string name="end">End</string>
     <string name="save">Save</string>
     <string name="urlToTrigger">URL to trigger:</string>
-    <string name="urlLegend">Variables: You can use the following variables. Upon triggering they will be replaced with the corresponding value on your device. Include the brackets in your text.  [uniqueid] - Your device\'s unique id [serialnr] - Your device\'s serial number [latitude] - Your device\'s latitude [longitude] - Your device\'s longitude [phonenr] - Number of last incoming or outgoing call [d] - Day of the month, 2 digits with leading zeros [m] - Numeric representation of a month, with leading zeros [Y] - A full numeric representation of a year, 4 digits [h] - 12-hour format of an hour with leading zeros [H] - 24-hour format of an hour with leading zeros [i] - Minutes with leading zeros [s] - Seconds, with leading zeros [ms] - milliseconds [notificationTitle] - title of last notification [notificationText] - text of last notification</string>
+    <string name="urlLegend">Variables:\nYou can use the following variables. Upon triggering they will be replaced with the corresponding value on your device. Include the brackets in your text.\n\n[uniqueid] - Your device\'s unique id\n[serialnr] - Your device\'s serial number\n[latitude] - Your device\'s latitude\n[longitude] - Your device\'s longitude\n[phonenr] - Number of last incoming or outgoing call\n[d] - Day of the month, 2 digits with leading zeros\n[m] - Numeric representation of a month, with leading zeros\n[Y] - A full numeric representation of a year, 4 digits\n[h] - 12-hour format of an hour with leading zeros\n[H] - 24-hour format of an hour with leading zeros\n[i] - Minutes with leading zeros\n[s] - Seconds, with leading zeros\n[ms] - milliseconds\n[notificationTitle] - title of last notification\n[notificationText] - text of last notification</string>
     <string name="wifi">wifi</string>
     <string name="activating">Activating</string>
     <string name="deactivating">Deactivating</string>
@@ -674,4 +674,5 @@
     <string name="loadWifiList">Load wifi list</string>
     <string name="needLocationPermForWifiList">The list of wifis your device has been connected to could be used to determine which places you have been to. That\'s why the location permission is required to load the list of wifis. If you want to be able to pick one from the list you need to grant that permission. If not you can still enter your wifi name manually.</string>
     <string name="noKnownWifis">There are no known wifis on your device.</string>
+    <string name="urlToTriggerExplanation">This feature does NOT open a browser, but triggers a URL in the background. You can use this e.g. to send commands to your home automation.</string>
 </resources>
