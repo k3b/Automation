@@ -1,3 +1,6 @@
+* SSID for wifi trigger can now be picked from list
 * Activate wifi tethering doesn't require root anymore
-* Italian translation updated
+* PhoneCall trigger significantly enhanced
+* Fixed a problem where usage of root permissions wasn't possible
 * Spanish translation updated
+* Italian translation updated

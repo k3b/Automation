@@ -47,7 +47,7 @@
     <string name="ruleXrequiresThis">Regla \"%1$s\" lo necesita.</string>
     <string name="sendTextMessage">Enviar mensaje SMS</string>
     <string name="importNumberFromContacts">Importar número del directorio</string>
-    <string name="edit">Edit</string>
+    <string name="edit">Editar</string>
     <string name="textToSend">Texto de enviar</string>
     <string name="password">Contraseña</string>
     <string name="showOnMap">Monstrar en una mapa</string>

@@ -491,9 +491,17 @@ public class PointOfInterest implements Comparable<PointOfInterest>
 					AutomationService service = AutomationService.getInstance();
 					if (service != null)
 					{
-						service.applySettingsAndRules();
-						//Easiest way to check for changes in location, reset the last known location.
-						service.getLocationProvider().setCurrentLocation(service.getLocationProvider().getCurrentLocation(), true);
+						try
+						{
+							service.applySettingsAndRules();
+							//Easiest way to check for changes in location, reset the last known location.
+							service.getLocationProvider().setCurrentLocation(service.getLocationProvider().getCurrentLocation(), true);
+						}
+						catch(Exception e)
+						{
+							// Just log the event. This should not cause an interruption in the program flow.
+							Miscellaneous.logEvent("e", "save POI", "Error when trying to apply settings and rules: " + Log.getStackTraceString(e), 2);
+						}
 					}
 
 					return true;
@@ -530,14 +538,18 @@ public class PointOfInterest implements Comparable<PointOfInterest>
 			PointOfInterest.writePoisToFile();
 			
 			AutomationService service = AutomationService.getInstance();
-			if(service != null)
+
+			try
 			{
 				service.applySettingsAndRules();
-				
 				//Easiest way to check for changes in location, reset the last known location.
 				service.getLocationProvider().setCurrentLocation(service.getLocationProvider().getCurrentLocation(), true);
 			}
-			
+			catch(Exception e)
+			{
+				// Just log the event. This should not cause an interruption in the program flow.
+				Miscellaneous.logEvent("e", "save POI", "Error when trying to apply settings and rules: " + Log.getStackTraceString(e), 2);
+			}
 			
 			return true;
 		}
