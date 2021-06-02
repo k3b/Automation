@@ -1,0 +1,7 @@
+* Se puede eligir wifi SSID de una lista
+* Activar wifi tethering no mas necesita root
+* PhoneCall condición mejorada
+* Reparado un problema de usar permisos root no estaba posible
+* Reparado un crash frequente en la version F-Droid
+* Spanish traducción actualizada
+* Italian traducción actualizada
