@@ -127,7 +127,7 @@
     <string name="rules">Rules</string>
     <string name="helpTextRules">All triggers in a rule are AND-connected. The rule will only apply if all triggers are met. If you want OR create another rule.</string>
     <string name="timeframes">TimeFrames</string>
-    <string name="helpTextTimeFrame">If you specify a rule with a timeframe you have two choices. You can choose between entering and leaving a timeframe. Either way an action is triggered only once. So if you create a rule that has \"entering timeframe xyz\" as trigger and let it change your sound profile to vibrate that does not mean that the phone will automatically go to ring if the timeframe is over. If you want that you need to specify another rule with another timeframe.</string>
+    <string name="helpTextTimeFrame">If you specify a rule with a timeframe you have two choices. You can choose between entering OR leaving a timeframe. Either way a rule is triggered only once. So if you create a rule that has \"entering timeframe xyz\" as trigger and let it change your sound profile to vibrate that does not mean that the phone will automatically go to ring if the timeframe is over. If you want that you need to specify another rule with another timeframe.</string>
     <string name="helpTextSound">On the main screen you can use lock sound changes to temporarily avoid rule based sound changes. E.g. you may be in a situation or place where usually ringtones are ok, but this one time it would be disturbing. The feature will automatically deactivate once the configured time has elapsed. Click the + button to add the given amount of time. Once it is active you may deactivate it again using the toggle button (and that way enable rule based sound changes again).</string>
     <string name="toggableRules">Toggable rules</string>
     <string name="helpTextToggable">Rules have a flag called \"Toggable\". This means that if a rule is executed and afterwards the same triggers apply again the rule will be executed in an opposite mode where applicable. Currently this will only happen in conjunction with NFC tags. If you tap them twice and there\'s a toggable rule associated with it it will do the opposite of the current situation, e.g. deactivate wifi if it\'s currently activated.</string>
@@ -305,12 +305,12 @@
     <string name="wifiNameSpecifiedCheckingThat" translatable="false">Wifi name specified, checking that.</string>
     <string name="wifiNameMatchesRuleWillApply" translatable="false">Wifi name matches. Rule will apply.</string>
     <string name="noWifiNameSpecifiedAnyWillDo" translatable="false">No wifi name specified, any will do.</string>
-    <string name="ruleCheckOf">RuleCheck of %1$s</string>
+    <string name="ruleCheckOf" translatable="false">RuleCheck of %1$s</string>
     <string name="airplaneMode">Airplane mode</string>
     <string name="activate">Activate</string>
     <string name="deactivate">Deactivate</string>
     <string name="airplaneModeSdk17Warning">Beginning from Android version 4.2 this feature only works if your device is rooted.</string>
-    <string name="triggerUrlReplacementPositionError">You asked for a position to be added to your URL. Unfortunately at this point I do not have any location,  yet.</string>
+    <string name="triggerUrlReplacementPositionError" translatable="false">You asked for a position to be added to your URL. Unfortunately at this point I do not have any location,  yet.</string>
     <string name="addIntentValue">Add Intent pair</string>
     <string name="parameterName">Parameter name</string>
     <string name="parameterValue">Parameter value</string>
@@ -359,11 +359,11 @@
     <string name="nfcTagDiscovered">Tag discovered.</string>
     <string name="nfcBringTagIntoRange">Bring an NFC tag into range.</string>
     <string name="nfcTagFoundWithText">Tag found with text:</string>
-    <string name="nfcUnsupportedEncoding">Unsupported Encoding:</string>
+    <string name="nfcUnsupportedEncoding">Unsupported encoding:</string>
     <string name="nfcNoNdefIntentBut">No NFC NDEF intent, but</string>
     <string name="nfcNotSupportedInThisAndroidVersionYet">NFC not supported in this Android version, yet.</string>
     <string name="cantRunRule">Cannot run rules.</string>
-    <string name="cantDownloadTooFewRequestsInSettings">Can\'t download anything. Amount of http requests in settings is lower than 1.</string>
+    <string name="cantDownloadTooFewRequestsInSettings" translatable="false">Can\'t download anything. Amount of http requests in settings is lower than 1.</string>
     <string name="nfcApplyTagToRule">Apply tag to rule</string>
     <string name="nfcTagReadSuccessfully">Tag read successfully.</string>
     <string name="nfcValueNotSuitable">Value stored not suitable.</string>
@@ -387,8 +387,8 @@
     <string name="eraseSettings">Erase settings</string>
     <string name="defaultSettings">Default settings</string>
     <string name="areYouSure">Are you sure?</string>
-    <string name="poiCouldBeInRange">At least location %1$s could be in range, if not others in addition.</string>
-    <string name="noPoiInRelevantRange">No location in relevant range.</string>
+    <string name="poiCouldBeInRange" translatable="false">At least location %1$s could be in range, if not others in addition.</string>
+    <string name="noPoiInRelevantRange" translatable="false">No location in relevant range.</string>
     <string name="activityDetection">Activity detection</string>
     <string name="android.permission.ACTIVITY_RECOGNITION">Activity detection</string>
     <string name="detectedActivity">Detected activity:</string>
@@ -401,8 +401,8 @@
     <string name="detectedActivityWalking">Walking</string>
     <string name="detectedActivityRunning">Running</string>
     <string name="detectedActivityInvalidStatus">Invalid activity</string>
-    <string name="ruleDoesntApplyActivityGivenButTooLowProbability">Rule doesn\'t apply. Detected activity %1$s given, but too low probability (%2$s %%), required %3$s %%.</string>
-    <string name="ruleDoesntApplyActivityNotPresent">Rule doesn\'t apply. Required activity %1$s not present.</string>
+    <string name="ruleDoesntApplyActivityGivenButTooLowProbability" translatable="false">Rule doesn\'t apply. Detected activity %1$s given, but too low probability (%2$s %%), required %3$s %%.</string>
+    <string name="ruleDoesntApplyActivityNotPresent" translatable="false">Rule doesn\'t apply. Required activity %1$s not present.</string>
     <string name="selectTypeOfActivity">Select type of activity</string>
     <string name="triggerOnlyAvailableIfPlayServicesInstalled">This trigger is only available if Google Play Services is installed.</string>
     <string name="activityDetectionFrequencyTitle">Activity detection frequency [sec]</string>
@@ -442,22 +442,22 @@
     <string name="headphoneMicrophone">Microphone</string>
     <string name="headphoneAny">Either</string>
     <string name="headphoneSelectType">Select type of headphone</string>
-    <string name="ruleDoesntApplyWrongHeadphoneType">Rule doesn\'t apply. Wrong headphone type.</string>
-    <string name="ignoringActivityDetectionUpdateTooSoon">Ignoring activity detection update. Came in sooner that %1$s seconds.</string>
+    <string name="ruleDoesntApplyWrongHeadphoneType" translatable="false">Rule doesn\'t apply. Wrong headphone type.</string>
+    <string name="ignoringActivityDetectionUpdateTooSoon" translatable="false">Ignoring activity detection update. Came in sooner that %1$s seconds.</string>
     <string name="whatsThis">What\'s this?</string>
-    <string name="atLeastRuleXisUsingY">At least rule \"%1$s\" is using a trigger of type \"%2$s\".</string>
+    <string name="atLeastRuleXisUsingY" translatable="false">At least rule \"%1$s\" is using a trigger of type \"%2$s\".</string>
     <string name="privacyLocationingTitle">Only private locationing</string>
     <string name="privacyLocationingSummary">Avoid locationing methods that may send your location to a provider, e.g. Google. This will use GPS only and may therefore be slow or not work reliably.</string>
-    <string name="enforcingGps">Private Locationing enabled, enforcing GPS use.</string>
-    <string name="notEnforcingGps">Private Locationing not enabled, using regular provider search.</string>
-    <string name="gpsMeasurement">GPS measurement</string>
-    <string name="gpsMeasurementTimeout">GPS measurement stopped due to timeout.</string>
-    <string name="cellMastChanged">Cell mast changed: %1$s</string>
+    <string name="enforcingGps" translatable="false">Private Locationing enabled, enforcing GPS use.</string>
+    <string name="notEnforcingGps" translatable="false">Private Locationing not enabled, using regular provider search.</string>
+    <string name="gpsMeasurement" translatable="false">GPS measurement</string>
+    <string name="gpsMeasurementTimeout" translatable="false">GPS measurement stopped due to timeout.</string>
+    <string name="cellMastChanged" translatable="false">Cell mast changed: %1$s</string>
     <string name="noiseDetectionHint">If you think the noise detection isn\'t working correctly (depending on the value you specify) please keep in mind that every phone is different. You can therefore change \"Reference for noise measurement\" in settings. See http://en.wikipedia.org/wiki/Decibel for more information. You can use the volume tester from the main screen to calibrate your device.</string>
     <string name="hint">Hint</string>
     <string name="selectNoiseLevel">Select noise level</string>
-    <string name="poiHasWifiStoppingCellLocationListener">Location has wifi. Stopping CellLocationChangedReceiver.</string>
-    <string name="poiHasNoWifiNotStoppingCellLocationListener">Location doesn\'t have wifi. Not stopping CellLocationChangedReceiver.</string>
+    <string name="poiHasWifiStoppingCellLocationListener" translatable="false">Location has wifi. Stopping CellLocationChangedReceiver.</string>
+    <string name="poiHasNoWifiNotStoppingCellLocationListener" translatable="false">Location doesn\'t have wifi. Not stopping CellLocationChangedReceiver.</string>
     <string name="showOnMap">Show on map</string>
     <string name="noMapsApplicationFound">No maps application found on your device.</string>
     <string name="locationEngineNotActive">Location engine not active.</string>
@@ -504,10 +504,10 @@
     <string name="volumeTest">Volume test</string>
     <string name="volumeTesterExplanation">To calculate a dB value for noise monitoring you need to specify a so called physical reference value. Please read Wikipedia for further information. This value is most likely different for every phone. Drag the seekbar to change the defined physical reference value. The higher the reference value the lower the dB value will be. Constant measurings will be performed every %1$s seconds and the results displayed below. Press back when you have found a suitable value.</string>
     <string name="settingsWillTakeTime">Some settings will not be applied before certain environment settings change or service is restarted.</string>
-    <string name="phoneIsRooted">Phone is rooted.</string>
-    <string name="phoneIsNotRooted">Phone is not rooted.</string>
-    <string name="dataConWithRootSuccess">Data connection was successfully changed using superuser permissions.</string>
-    <string name="dataConWithRootFail">Data could not be changed using superuser permissions.</string>
+    <string name="phoneIsRooted" translatable="false">Phone is rooted.</string>
+    <string name="phoneIsNotRooted" translatable="false">Phone is not rooted.</string>
+    <string name="dataConWithRootSuccess" translatable="false">Data connection was successfully changed using superuser permissions.</string>
+    <string name="dataConWithRootFail" translatable="false">Data could not be changed using superuser permissions.</string>
     <string name="rootExplanation">You need to root your phone for this function to work. Afterwards you needs to \"run the rule manually\" to show up the superuser permission question. When the superuser popups shows up you need to always allow the application to do that. Otherwise the rule cannot function when the phone is unattended.</string>
     <string name="errorWritingConfig">Error writing config. Do you have a writable memory?</string>
     <string name="phoneNrReplacementError">I could not insert the last phone nr in the variable. I don\'t have it.</string>
@@ -576,7 +576,7 @@
     <string name="chooseActivityHint">In this final selection popup you need to select a specific activity. Simplified this is like a window of the desired application. If you do not know which one it is generally a good idea to pick one that has \"main\" or \"launcher\" in its name.</string>
     <string name="edit">Edit</string>
     <string name="clickAndHoldForOptions">Click and hold an item for options.</string>
-    <string name="ruleActivationComplete">Rule \"%1$s\" finished.</string>
+    <string name="ruleActivationComplete" translatable="false">Rule \"%1$s\" finished.</string>
     <string name="positioningEngine">Positioning engine</string>
     <string name="googleSarcasm">Thanks to Google\'s infinite whisdom and constant endeavor to protect everyone\'s privacy rules that may send sms or involve the users phone state have to be stripped off applicable triggers and actions.</string>
     <string name="startAutomationAsService">Start automation as a service</string>
@@ -589,7 +589,7 @@
     <string name="autoBrightnessNotice">If you use auto brightness the brightness value you use below will probably not be used long.</string>
     <string name="screenLockSoundNotice">Screenlock sounds cannot automatically be changed anymore on devices running Android version 6.0 or higher. Whatever you set here, it will not work in either direction.</string>
     <string name="startScreen">Start screen</string>
-    <string name="startScreenSummary">Select the screen the applications opens withs at start.</string>
+    <string name="startScreenSummary">Select the screen the applications opens with at start.</string>
     <string name="executeRulesAndProfilesWithSingleClickTitle">Run rules/profiles with single click.</string>
     <string name="googleLocationChicanery">This app collects location data to enable location based rules and speed detection even when the app is closed or not in use.</string>
     <string name="googleLocationChicaneryOld">This app collects location data to determine if you\'re currently at one of the locations you created. Furthermore it is used to determine your current speed if you are using that trigger in rules. That is done even when the app is closed or not in use (but only when the service is activated).</string>

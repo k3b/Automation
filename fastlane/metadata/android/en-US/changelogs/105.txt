@@ -2,5 +2,6 @@
 * Activate wifi tethering doesn't require root anymore
 * PhoneCall trigger significantly enhanced
 * Fixed a problem where usage of root permissions wasn't possible
+* Fixed a frequent crash that concerned the F-Droid version
 * Spanish translation updated
 * Italian translation updated

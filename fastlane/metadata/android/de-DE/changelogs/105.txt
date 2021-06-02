@@ -1,0 +1,7 @@
+* SSID für WLANs kann nun aus Liste ausgewählt werden
+* WLAN Router aktivieren benötigt keine root-Rechte mehr
+* Telefonanruf-Auslöser erheblich verbessert
+* Problem behoben, bei dem die Nutzung von Root-Rechten nicht funktioniert hat
+* Absturz behoben, der in der F-Droid Version aufgetreten ist
+* Spanische Übersetzung aktualisiert
+* Italienische Übersetzung verbessert

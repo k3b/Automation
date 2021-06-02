@@ -271,41 +271,45 @@ public class ReceiverCoordinator
             ProcessListener.stopProcessListener(AutomationService.getInstance());
         }
 
-        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.activityDetection))
+        if(!BuildConfig.FLAVOR.equalsIgnoreCase("fdroidFlavor"))
         {
-            Object runResult = Miscellaneous.runMethodReflective(activityDetectionClassPath, "isActivityDetectionReceiverRunning", null);;
-            if(runResult instanceof Boolean)
+            if (Rule.isAnyRuleUsing(Trigger.Trigger_Enum.activityDetection))
             {
-                boolean isRunning = (Boolean) runResult;
-                if (isRunning)
+                Object runResult = Miscellaneous.runMethodReflective(activityDetectionClassPath, "isActivityDetectionReceiverRunning", null);
+
+                if (runResult instanceof Boolean)
                 {
-                    Miscellaneous.logEvent("i", "LocationProvider", "Restarting ActivityDetectionReceiver because used in a new/changed rule.", 4);
-                    boolean haveAllPerms = (Boolean) Miscellaneous.runMethodReflective(activityDetectionClassPath, "haveAllPermission", null);
-                    if (haveAllPerms)
-                        Miscellaneous.runMethodReflective(activityDetectionClassPath, "restartActivityDetectionReceiver", null);
+                    boolean isRunning = (Boolean) runResult;
+                    if (isRunning)
+                    {
+                        Miscellaneous.logEvent("i", "LocationProvider", "Restarting ActivityDetectionReceiver because used in a new/changed rule.", 4);
+                        boolean haveAllPerms = (Boolean) Miscellaneous.runMethodReflective(activityDetectionClassPath, "haveAllPermission", null);
+                        if (haveAllPerms)
+                            Miscellaneous.runMethodReflective(activityDetectionClassPath, "restartActivityDetectionReceiver", null);
 //                    ActivityDetectionReceiver.restartActivityDetectionReceiver();
-                }
-                else
-                {
-                    Miscellaneous.logEvent("i", "LocationProvider", "Starting ActivityDetectionReceiver because used in a new/changed rule.", 4);
-                    boolean haveAllPerms = (Boolean) Miscellaneous.runMethodReflective(activityDetectionClassPath, "haveAllPermission", null);
-                    if (haveAllPerms)
-                        Miscellaneous.runMethodReflective(activityDetectionClassPath, "startActivityDetectionReceiver", null);
+                    }
+                    else
+                    {
+                        Miscellaneous.logEvent("i", "LocationProvider", "Starting ActivityDetectionReceiver because used in a new/changed rule.", 4);
+                        boolean haveAllPerms = (Boolean) Miscellaneous.runMethodReflective(activityDetectionClassPath, "haveAllPermission", null);
+                        if (haveAllPerms)
+                            Miscellaneous.runMethodReflective(activityDetectionClassPath, "startActivityDetectionReceiver", null);
 //                    ActivityDetectionReceiver.startActivityDetectionReceiver();
+                    }
                 }
             }
-        }
-        else
-        {
-            Object runResult = Miscellaneous.runMethodReflective(activityDetectionClassPath, "isActivityDetectionReceiverRunning", null);
-            if(runResult instanceof Boolean)
+            else
             {
-                boolean isRunning = (Boolean) runResult;
-                if (isRunning)
+                Object runResult = Miscellaneous.runMethodReflective(activityDetectionClassPath, "isActivityDetectionReceiverRunning", null);
+                if (runResult instanceof Boolean)
                 {
-                    Miscellaneous.logEvent("i", "LocationProvider", "Shutting down ActivityDetectionReceiver because not used in any rule.", 4);
-                    Miscellaneous.runMethodReflective(activityDetectionClassPath, "stopActivityDetectionReceiver", null);
+                    boolean isRunning = (Boolean) runResult;
+                    if (isRunning)
+                    {
+                        Miscellaneous.logEvent("i", "LocationProvider", "Shutting down ActivityDetectionReceiver because not used in any rule.", 4);
+                        Miscellaneous.runMethodReflective(activityDetectionClassPath, "stopActivityDetectionReceiver", null);
 //                ActivityDetectionReceiver.stopActivityDetectionReceiver();
+                    }
                 }
             }
         }
