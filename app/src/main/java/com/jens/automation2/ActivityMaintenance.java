@@ -305,6 +305,7 @@ public class ActivityMaintenance extends Activity
                 emailBody.append("Device: " + android.os.Build.DEVICE + Miscellaneous.lineSeparator);
                 emailBody.append("Model: " + android.os.Build.MODEL + Miscellaneous.lineSeparator);
                 emailBody.append("Product: " + android.os.Build.PRODUCT);
+                emailBody.append("Flavor: " + BuildConfig.FLAVOR);
 
                 Uri uri = Uri.parse("content://com.jens.automation2/" + Settings.zipFileName);
 

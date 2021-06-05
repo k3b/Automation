@@ -45,7 +45,7 @@ So if a certain feature is not working on your device - let me know. Over the ye
 If you have a problem and think about contacting me please update to the latest version first and see if your problem persists there, too.
 
 Donations are certainly a good, but not the only way to motivate me :-)
-* If you want to support me, can also leave a positive review for the app on Google Play.
+* If you'd like to support me, you can also leave a positive review for the app on Google Play.
 * Furthermore I can always use help in translating the app. English, German and some Spanish are among my own skills. But everything else is more than welcome.
 
 Explanation of the many permissions can be found here: https://server47.de/automation/permissions_en.html
