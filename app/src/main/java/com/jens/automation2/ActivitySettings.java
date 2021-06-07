@@ -14,6 +14,6 @@ public class ActivitySettings extends PreferenceActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(layout.settings);
+		addPreferencesFromResource(layout.activity_settings);
 	}
 }
