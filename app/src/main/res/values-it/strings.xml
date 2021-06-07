@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-	<string name="ConfigurationExportError">There was an error while exporting the configuration.</string>
+	<string name="ConfigurationExportError">C'è stato un errore durante l'esportazione della  configurazione.</string>
 	<string name="accelerometer">Accelerometro</string>
     <string name="accelerometerThreshold">Soglia accelerometro</string>
     <string name="accelerometerThresholdDescription">Soglia per i movimenti dell\'accelerometro</string>
@@ -21,8 +21,8 @@
     <string name="actionTriggerUrl">Apri indirizzo</string>
     <string name="actionTurnAirplaneModeOff">termina la modalità aereo</string>
     <string name="actionTurnAirplaneModeOn">passa a modalità aereo</string>
-    <string name="actionTurnBluetoothOff">attiva Bluetooth</string>
-    <string name="actionTurnBluetoothOn">disattiva Bluetooth</string>
+    <string name="actionTurnBluetoothOff">disattiva Bluetooth</string>
+    <string name="actionTurnBluetoothOn">attiva Bluetooth</string>
     <string name="actionTurnUsbTetheringOff">disattiva Tethering USB</string>
     <string name="actionTurnUsbTetheringOn">attiva Tethering USB</string>
     <string name="actionTurnWifiOff">disattiva Wifi</string>
@@ -46,7 +46,7 @@
     <string name="addParameters">Aggiungi parametri</string>
     <string name="addPoi">Aggiungi posizione</string>
     <string name="addProfile">Aggiungi profilo</string>
-    <string name="addRule">Aggiugni regola</string>
+    <string name="addRule">Aggiungi regola</string>
     <string name="addTrigger">Aggiungi evento di attivazione</string>
     <string name="airplaneMode">Modalità aereo</string>
     <string name="airplaneModeSdk17Warning">A partire dalla versione Android 4.2 questa funzione è disponibile solo se il dispositivo ha accesso root.</string>
@@ -56,7 +56,7 @@
     <string name="android.permission.ACCESS_COARSE_LOCATION">Leggi posizione approssimativa</string>
     <string name="android.permission.ACCESS_FINE_LOCATION">Leggi posizione precisa</string>
     <string name="android.permission.ACCESS_NETWORK_STATE">Leggi lo stato della rete mobile</string>
-    <string name="android.permission.ACCESS_NOTIFICATION_POLICY">Ignore la politica di "non disturbare"</string>
+    <string name="android.permission.ACCESS_NOTIFICATION_POLICY">Ignora la politica di "non disturbare"</string>
     <string name="android.permission.ACCESS_WIFI_STATE">Leggi lo stato della rete wifi</string>
     <string name="android.permission.ACTIVITY_RECOGNITION">Identificazione attività</string>
     <string name="android.permission.BATTERY_STATS">Leggere lo stato della batteria</string>
@@ -73,13 +73,13 @@
     <string name="android.permission.READ_CALENDAR">Leggere gli appuntamenti dal calendario</string>
     <string name="android.permission.READ_CALL_LOG">Leggere il registro chiamate</string>
     <string name="android.permission.READ_CONTACTS">Leggere informazioni dai Contatti</string>
-    <string name="android.permission.READ_EXTERNAL_STORAGE">Legge la memoria esterna</string>
+    <string name="android.permission.READ_EXTERNAL_STORAGE">Leggere la memoria esterna</string>
     <string name="android.permission.READ_PHONE_STATE">Rileva lo stato del telefono</string>
     <string name="android.permission.RECEIVE_BOOT_COMPLETED">Rileva riavvio del dispositivo</string>
     <string name="android.permission.RECORD_AUDIO">Registra audio</string>
     <string name="android.permission.SEND_SMS">Invia messaggio di testo</string>
     <string name="android.permission.VIBRATE">Attiva vibrazione</string>
-    <string name="android.permission.WAKE_LOCK">Mantiene attivo il dispositivo</string>
+    <string name="android.permission.WAKE_LOCK">Mantienere attivo il dispositivo</string>
     <string name="android.permission.WRITE_EXTERNAL_STORAGE">Scrive sulla SD</string>
     <string name="android.permission.WRITE_SECURE_SETTINGS">Cambia le impostazioni del dispositivo</string>
     <string name="android.permission.WRITE_SETTINGS">Cambia le impostazioni del dispositivo</string>
@@ -96,6 +96,8 @@
     <string name="anyNumber">qualsiasi numero</string>
     <string name="anyWifi">qualsiasi wifi</string>
     <string name="appRequiresPermissiontoAccessExternalStorage">Automation richiede accesso alla memoria esterna per leggere le proprie impostazioni e regole.</string>
+    <string name="appStarted">Applicazione avviata.</string>
+    <string name="appStopped">Applicazione terminata.</string>
     <string name="application">Applicazione</string>
     <string name="applicationHasBeenUpdated">L\'applicazione è stata aggiornata.</string>
     <string name="apply">applica</string>
@@ -119,13 +121,14 @@
     <string name="cantMoveUp">Non posso spostare su l\'elemento. E\' già il primo.</string>
     <string name="cantRunRule">Impossibile eseguire le regole.</string>
     <string name="cantStopIt">Non posso fermarla.</string>
+    <string name="cellMastChanged">Ripetitore modificato: %1$s</string>
     <string name="cellMastIdleTime">Massimo tempo di inattività del ripetitore</string>
     <string name="change">Modifica</string>
-    <string name="chooseActivityHint">In questa ultima selezione dovrai selezionare una attività specifica. Praticamente, questa è come una finestra dell\'applicazione desiderata. Se non sai qual è, si raccomanda scegliere quella che ha \"main\" o \"launcher\" nel suo nome.</string>
+    <string name="chooseActivityHint">In questa ultima selezione dovrai selezionare una attività specifica. Praticamente, questa è come una finestra dell'applicazione desiderata. Se non sai qual è, si raccomanda scegliere quella che ha \"main\" o \"launcher\" nel suo nome.</string>
     <string name="clickAndHoldForOptions">Clicca e mantieni premuto un elemento per vedere le opzioni.</string>
     <string name="closeTo">vicino a</string>
     <string name="closestPoi">Posizione più vicina:</string>
-    <string name="com.wireguard.android.permission.CONTROL_TUNNELS">Controlla i tunnels dell\'applicazione wireguard</string>
+    <string name="com.wireguard.android.permission.CONTROL_TUNNELS">Controllare i tunnels dell'applicazione wireguard</string>
     <string name="comparing">Ho la posizione sia dalla rete che dal GPS e le sto confrontando...</string>
     <string name="configurationExportedSuccessfully">Configurazione esportata con successo.</string>
     <string name="configurationImportedSuccessfully">Configurazione esportata con successo.</string>
@@ -136,6 +139,8 @@
     <string name="continueText">continua</string>
     <string name="currentId">ID corrente:</string>
     <string name="currentVolume">Volume attuale</string>
+    <string name="dataConWithRootFail">La informazione non può essere cambiata usando i permessi superuser.</string>
+    <string name="dataConWithRootSuccess">La connessione è stata cambiata usando i permessi superuser. </string>
     <string name="deactivate">Disattivazione</string>
     <string name="deactivated">non attivo</string>
     <string name="deactivating">Disattivazione in corso</string>
@@ -168,7 +173,7 @@
     <string name="disconnectedFromWifi">disconnesso dalla rete wifi \"%1$s</string>
     <string name="disconnecting">disconnessione in corso</string>
     <string name="disconnectionFromDevice">disconnesso dal dispositivo</string>
-    <string name="displayNewsOnMainScreen">Visualizza le novità dell\'applicazione sullo schermo principale</string>
+    <string name="displayNewsOnMainScreen">Visualizza le novità dell'applicazione sullo schermo principale</string>
     <string name="displayNewsOnMainScreenDescription">Novità relative solo a questa applicazione, stiamo parlando di un paio per anno, non di più.</string>
     <string name="distanceBetween">La distanza tra la posizione GPS e la posizione di rete è di %1$d metri. Il raggio minimo è +1 metro.</string>
     <string name="distanceForGpsUpdate">Distanza per l\'aggiornamento del GPS [m]</string>
@@ -177,7 +182,8 @@
     <string name="dropsBelow">inferiore</string>
     <string name="edit">Modifica</string>
     <string name="end">Fine</string>
-    <string name="enterAPositiveValidNonDecimalNumber">Inserire un numero intero positivo</string>
+    <string name="enforcingGps">Impedisce la localizzazione del provider e forza il  GPS</string>
+    <string name="enterAPositiveValidNonDecimalNumber">Inserisci un numero intero positivo</string>
     <string name="enterAname">Inserisci un nome!</string>
     <string name="enterNameForIntentPair">Definisci un nome per la coppia di intenzioni</string>
     <string name="enterPackageName">Inserisci un nome di pacchetto che sia valido.</string>
@@ -193,11 +199,14 @@
     <string name="errorActivatingWifiAp">Errore nell\'attivazione del punto di accesso wifi</string>
     <string name="errorChangingScreenRotation">Errore nel ruotare lo schermo</string>
     <string name="errorDeterminingWifiApState">Errore nel riconoscimento del punto di accesso wifi</string>
+    <string name="errorInitializingSettingsToPersistentMemory">Errore nell\'inizializzare le impostazioni nella memoria di massa.</string>
     <string name="errorReadingPoisAndRulesFromFile">Errore nella lettura di regole e posizioni dal file.</string>
+    <string name="errorReadingSettings">Errore nel leggere le impostazioni</string>
     <string name="errorRunningRule">C\'è stato un errore cercando di eseguire una regola.</string>
     <string name="errorStartingOtherActivity">Errore nel\'avvio dell\'altra attività</string>
     <string name="errorWritingConfig">Errore nello scrivere la configurazione. È la memoria in sola lettura?</string>
     <string name="errorWritingFile">Errore nella scrittura delle impostazioni.</string>
+    <string name="errorWritingSettingsToPersistentMemory">Errore nella scrittura delle impostazioni nella memoria di massa.</string>
     <string name="exceeding">sta sorpassando</string>
     <string name="exceeds">è superiore</string>
     <string name="executeRulesAndProfilesWithSingleClickTitle">Esegui regole/profili con un singolo click.</string>
@@ -220,11 +229,13 @@
     <string name="gettingPosition">Sto rilevando la posizione. Attendere prego ...</string>
     <string name="googleLocationChicanery">Questa applicazione accumula dati di localizzazione per abilitare regole basate sulla posizione insieme al rilevamento della velocità anche quando l\'applicazione è chiusa o non in uso.</string>
     <string name="googleLocationChicaneryOld">Questa applicazione accumula dati di localizzazione per determinare se sei attualmente ad una delle posizioni che hai creato. Inoltre, questa funzione è usata per determinare la tua velocità attuale se tale evento è stato attivato nelle regole. Questi rilevamenti sono effettuati anche quando l\'applicazione è chiusa o non in uso (ma solo se il servizio è attivato).</string>
-    <string name="googleSarcasm">Grazie alla infinita sapienza di Google e continui sforzi per proteggere la privacy di ognuno di noi, nelle regole che possano inviare SMS o coinvolgere lo stato del telefono, sono state rimossi eventi ed azioni rilevanti.</string>
+    <string name="googleSarcasm">Grazie alla infinita sapienza di Google e continui sforzi per proteggere la nostra privacy, nelle regole che possano inviare SMS o coinvolgere lo stato del telefono, sono state rimossi eventi ed azioni rilevanti.</string>
     <string name="google_app_id">id della tua app</string>
     <string name="gpsAccuracy">Precisone del GPS [m]</string>
     <string name="gpsComparison">Comparazione GPS</string>
     <string name="gpsComparisonTimeoutStop">Sto fermando la comparazione con il GPS a causa di un timeout.</string>
+    <string name="gpsMeasurement">Misurazione GPS</string>
+    <string name="gpsMeasurementTimeout">Misurazione GPS fermata per timeout.</string>
     <string name="hapticFeedback">Sensazione tattile (vibrazione al tocco)</string>
     <string name="headphoneAny">Oppure</string>
     <string name="headphoneMicrophone">Microfono</string>
@@ -232,7 +243,7 @@
     <string name="headphoneSimple">Auricolari</string>
     <string name="headsetConnected">Connesso auricolare (tipo: %1$s) </string>
     <string name="headsetDisconnected">Disconnesso auticolari (tipo: %1$s) </string>
-    <string name="helpTextActivityDetection">Questa funzione può identificare se sei attualmente in movimento e se sei a piedi o in che tipo di veicolo (almeno con una certa precisione). Questa funzione non è completamente integrata con Automation, ma viene fornita dai servizi di Google Play. In pratica, non fornisce un risultato si/no, ma provvede una percentuale del livello di sicurezza dello stato di movimento identificato. Puoi scegliere la percentuale raggiunta la quale Automation accetterà un resultato. Nota: 1) è possibile che più di uno stato sia identificato nello stesso momento. Per esempio, potresti star CAMMINANDO dentro a un bus in movimento; 2) Questo sensor usa molta energia. Se possibile, potresti considerare delle alternative, per esempio, potresti identificare che stai guidando, forzando una connessione con il vivavoce.</string>
+    <string name="helpTextActivityDetection">Questa funzione può identificare se sei attualmente in movimento e se sei a piedi o in che tipo di veicolo (almeno con una certa precisione). Questa funzione non è completamente integrata con Automation, ma viene fornita dai servizi di Google Play. In pratica, non fornisce un risultato si/no, ma provvede una percentuale del livello di sicurezza dello stato di movimento identificato. Puoi scegliere la percentuale raggiunta la quale Automation accetterà un resultato. Nota: 1) è possibile che più di uno stato sia identificato nello stesso momento. Per esempio, potresti star CAMMINANDO dentro a un bus in movimento; 2) Questo sensore ha bisogno di molte risorse di sistema. Se possibile, potresti considerare delle alternative, per esempio, potresti identificare che stai guidando, forzando una connessione con il vivavoce.</string>
     <string name="helpTextEnergySaving">Molti produttori di dispositive Android cercano di salvare energia limitando le attività di applicazioni eseguite in secondo piano. Sfortunatamente, questo spesso fa che tali applicazioni non funzionino correttamente e Automation è fra queste. Puoi leggere questa <a href="https://dontkillmyapp.com/">pagina web</a> per scoprire come escludere Automation da queste funzioni di risparmio energetico.</string>
     <string name="helpTextPoi">Una posizione è composta da cooridinate GPS ed un raggio d\'azione. Dato che il posizionamento realizzato tramite i ripetitori del tuo gestore è piuttosto impreciso (ma veloce e consuma poca batteria), è bene non specificare un raggio troppo piccolo. L\'applicazione suggerisce un raggio minimo quando si crea una nuova posizione.</string>
     <string name="helpTextProcessMonitoring">Se si specifica una regola che controlli l\'esecuzione di un processo, Automation eseguirà la verifica ogni x secondi (con x selezionabile nelle impostazioni). Bisogna considerare che un monitoraggio costante provocherebbe un rapido esaurimento della batteria e non esistono notifiche di questo tipo di attività proviste dal sistema operativo.</string>
@@ -272,7 +283,7 @@
     <string name="listenToWifiState">Rileva il cambiamento di stato del wifi se disponibile</string>
     <string name="loadWifiList">Carica lista wifi</string>
     <string name="locationDisabled">Localizzazione disattivata</string>
-    <string name="locationEngineDisabledLong">Purtroppo la tua posizione non può più essere determinata. Un debito di gratitudine è dovuto a Google per la sua infinita saggezza e amabilità.\n\nVediamo di approfondire questo problema. A partire da Android 10 è stato introdotto un nuovo permesso che è necessario per determinare la vostra posizione in secondo piano (che naturalmente è necessario per un\'app come questa). Sebbene la consideri una buona idea in generale, i problemi che comporta per gli sviluppatori non lo sono.\n\nWQuando si sviluppa un\'app si può cercare di qualificarsi per questo permesso rispettando un catalogo di requisiti. Purtroppo le nuove versioni della mia app sono state rifiutate per un periodo di tre mesi. Ho soddisfatto tutti questi requisiti, mentre il merdoso supporto allo sviluppo di Google ha affermato che non l\'ho fatto. Dopo aver dato loro la prova che l\'ho fatto - ho ottenuto una risposta del tipo \"non posso più aiutarti\". Alla fine mi sono arreso.\n\nDi conseguenza, la versione di Google Play non può più usare la tua posizione come trigger. La mia unica opzione alternativa sarebbe stata quella di avere questa applicazione rimossa dal negozio interamente.\n\nNe sono molto dispiaciuto, ma ho fatto del mio meglio per discutere con un \"supporto\" che ripetutamente non ha superato il test di Turing.\n\nInfine, c\'è una buona notizia: puoi ancora avere tutto!\n\nAutomation è adesso una applicazione di codice aperto e si può trovare su F-Droid. Questo è un app store che si preoccupa davvero della tua privacy - invece che fingere di farlo. Basta fare il backup del tuo file di configurazione, disinstallare questa app, installarla di nuovo da F-Droid e ripristinare il tuo file di configurazione - fatto.\n\nClicca qui per maggiori informazioni:</string>
+    <string name="locationEngineDisabledLong">Purtroppo la tua posizione non può più essere determinata. Un debito di gratitudine è dovuto a Google per la sua infinita saggezza e amabilità.\\n\\nVediamo di approfondire questo problema. A partire da Android 10 è stato introdotto un nuovo permesso che è necessario per determinare la vostra posizione in secondo piano (che naturalmente è necessario per un\'app come questa). Sebbene la consideri una buona idea in generale, i problemi che comporta per gli sviluppatori non lo sono.\\n\\nWQuando si sviluppa un\'app si può cercare di qualificarsi per questo permesso rispettando un catalogo di requisiti. Purtroppo le nuove versioni della mia app sono state rifiutate per un periodo di tre mesi. Ho soddisfatto tutti questi requisiti, mentre il merdoso supporto allo sviluppo di Google ha affermato che non l\'ho fatto. Dopo aver dato loro la prova che l'ho fatto - ho ottenuto una risposta del tipo \"non posso più aiutarti\". Alla fine mi sono arreso.  \\n\\nDi conseguenza, la versione di Google Play non può più usare la tua posizione come trigger. La mia unica opzione alternativa sarebbe stata quella di avere questa applicazione rimossa dal negozio interamente.\\n\\nNe sono molto dispiaciuto, ma ho fatto del mio meglio per discutere con un \"supporto\" che ripetutamente non ha superato il test di Turing.\n\\nInfine, c'è una buona notizia: puoi ancora avere tutto!\\n\\nAutomation è adesso una applicazione di codice aperto e si può trovare su F-Droid. Questo è un app store che si preoccupa davvero della tua privacy - invece che fingere di farlo. Basta fare il backup del tuo file di configurazione, disinstallare questa app, installarla di nuovo da F-Droid e ripristinare il tuo file di configurazione - fatto.\\n\\nClicca qui per maggiori informazioni:</string>
     <string name="locationEngineDisabledShort">La localizzazione non può più essere determinata. Clicca qui per scoprirne il perché.</string>
     <string name="locationEngineNotActive">Ricerca posizione non attiva.</string>
     <string name="lockSoundChanges">Blocca il cambio dei suoni:</string>
@@ -286,6 +297,7 @@
     <string name="manageLocations">Creare o modificare posizioni</string>
     <string name="matching">abbinando</string>
     <string name="messageNotShownAgain">Questo messaggio non sarà mostrato più.</string>
+    <string name="messageReceivedStatingProcessMonitoringIsComplete">Il messaggio ricevuto attesta che il monitoraggio del processo è stato completato.</string>
     <string name="minimumDistanceChangeForGpsLocationUpdates">Minimo intervallo (in metri) per aggiornare le posizioni GPS </string>
     <string name="minimumDistanceChangeForNetworkLocationUpdates">Minimo cambio della distanza per aggiornare la posizione dalla rete.</string>
     <string name="minimumTimeForLocationUpdates">Intervallo minimo in millisecondi per aggiornare la localizzazione</string>
@@ -296,17 +308,17 @@
     <string name="muteTextToSpeechDuringCallsSummary">Disabilitazione del TextToSpeach durante le chiamate</string>
     <string name="muteTextToSpeechDuringCallsTitle">Silenziare durante le chiamate</string>
     <string name="name">Nome</string>
-    <string name="needLocationPermForWifiList">L\'elenco delle wifi a cui il tuo dispositivo è stato connesso potrebbe essere usato per determinare i luoghi in cui sei stato. Questo è il motivo per cui il permesso di localizzazione è richiesto per caricare l\'elenco delle wifi. Se vuoi essere in grado di sceglierne una dalla lista devi concedere questo permesso. Altrimenti puoi ancora inserire il nome della tua wifi manualmente.</string>
+    <string name="needLocationPermForWifiList">L\'elenco delle wifi a cui il tuo dispositivo è stato connesso potrebbe essere usato per determinare i luoghi in cui sei stato. Questo è il motivo per cui il permesso di localizzazione è richiesto per caricare l'elenco delle wifi. Se vuoi essere in grado di sceglierne una dalla lista devi concedere questo permesso. Altrimenti puoi ancora inserire il nome della tua wifi manualmente.</string>
     <string name="networkAccuracy">Precisione della rete [m]</string>
     <string name="newId">Nuovo ID:</string>
     <string name="newNfcId">Scrivi un nuovo ID NFC</string>
     <string name="newThreadRules">Nuova discussione</string>
-    <string name="newsOptIn">Vuoi ricevere delle notizie su questa app (solo quelle importanti) nella schermata principale? Queste vengono scaricate dal sito web dello sviluppatore. Non ci sarà nessuna notifica intrusiva, solo un testo nella schermata principale quando apri l\'app.</string>
+    <string name="newsOptIn">Vuoi ricevere delle notizie su questa app (solo quelle importanti) nella schermata principale? Queste vengono scaricate dal sito web dello sviluppatore. Non ci sarà nessuna notifica intrusiva, solo un testo nella schermata principale quando apri l'app.</string>
     <string name="nfcApplyTagToRule">Applicazione del tag alla regola</string>
     <string name="nfcBringTagIntoRange">Portare un tag NFC nel campo d\'azione.</string>
     <string name="nfcBringTagIntoRangeToRead">Avvicina il TAG da leggere.</string>
     <string name="nfcEnterValidIdentifier">Inserire un nome valido per il tag (come "Porta d\'ingresso di casa").</string>
-    <string name="nfcNoNdefIntentBut">Nessun intento NFC NDEF , ma</string>
+    <string name="nfcNoNdefIntentBut">Nessun intento NFC NDEF, ma</string>
     <string name="nfcNoTag">Nessun tag rilevato.</string>
     <string name="nfcNotSupportedInThisAndroidVersionYet">NFC non ancora supportato in questa versione di Android.</string>
     <string name="nfcReadTag">Lettura ID dal tag</string>
@@ -334,7 +346,7 @@
     <string name="noPoisDefinedShort">Nessuna posizione indicata.</string>
     <string name="noPoisSpecified">Non hai specificato nessuna posizione. È necessario.</string>
     <string name="noProfileChangeSoundLocked">Il profilo non può essere attivato. L\'ultimo profilo attivato è bloccato.</string>
-    <string name="noProfilesCreateOneFirst">Non è specificato nessun profilo nella tua configurazione. Prima di tutto, creane uno.</string>
+    <string name="noProfilesCreateOneFirst">Non c'è nessun profilo nella tua configurazione. Prima di tutto, creane uno.</string>
     <string name="noWifiNameSpecifiedAnyWillDo">Nessun nome della wifi specificato; devi inserirne uno.</string>
     <string name="noWritableFolderFound">Nessuna cartella scrivibile trovata che permetta salvare il file di configurazione.</string>
     <string name="noiseDetectionHint">Se pensi che la rilevazione del rumore non funzioni correttamente (in base al valore specificato) considera che ogni telefono è diverso. Quindi puoi tarare il "riferimento per la misurazione del rumore" nelle impostazioni. Consulta http://en.wikipedia.org/wiki/Decibel per maggiori informazioni. È possibile utilizzare la \"Taratura audio\" dalla schermata principale per calibrare il dispositivo.</string>
@@ -360,14 +372,14 @@
     <string name="parameterValue">Valore</string>
     <string name="password">Password</string>
     <string name="permissionsExplanation">Spiegazione delle autorizzazioni richieste</string>
-    <string name="permissionsExplanationGeneric">L\'applicazione sta venendo attualmente eseguita in modalità limitata ed ha pertanto disattivato alcune funzioni. Per funzionare appieno richiede ulteriori permessi. Se vuoi utilizzare tutte le funzionalità è necessario concedere i permessi nelle successive finestre o alcune regole non potranno essere eseguite. Di seguito ti viene data una spiegazione dei permessi richiesti. Clicca su \"Continua\" quando sei pronto a procedere.</string>
+    <string name="permissionsExplanationGeneric">L\'applicazione si sta eseguendo in modalità limitata ed ha pertanto disattivato alcune funzioni. Per funzionare appieno richiede ulteriori permessi. Se vuoi utilizzare tutte le funzionalità è necessario concedere i permessi nelle successive finestre o alcune regole non potranno essere eseguite. Di seguito ti viene data una spiegazione dei permessi richiesti. Clicca su \"Continua\" quando sei pronto a procedere.</string>
     <string name="permissionsExplanationSmall">Per attivare la funzione che hai appena tentato di utilizzare, sono necessari ulteriori permessi. Clicca \"Continua\" per richiederli.</string>
     <string name="permissionsTitle">Permessi necessari</string>
     <string name="phoneCall">Chiamata</string>
     <string name="phoneDirection">Seleziona se entrante o uscente</string>
     <string name="phoneNrReplacementError">Non ho l\'ultimo numero di telefono e quindi non posso inserirlo nella variabile.</string>
     <string name="phoneNumber">Numero di telefono</string>
-    <string name="phoneNumberExplanation">È possibile inserire un numero di telefono specifico, ma non è necessario. Se vuoi specificarne uno, puoi sceglierlo dalla tua rubrica o inserirlo manualmente. Inoltre puoi usare espressioni regolari. Per testare un\'espressione regolare mi piace questa pagina:</string>
+    <string name="phoneNumberExplanation">È possibile inserire un numero di telefono specifico, ma non è necessario. Se vuoi specificarne uno, puoi sceglierlo dalla tua rubrica o inserirlo manualmente. Inoltre puoi usare espressioni regolari. Per testare un'espressione regolare mi piace questa pagina:</string>
     <string name="playSound">Esegui suono</string>
     <string name="pleaseEnterValidLatitude">Inserisci una latitudine valida.</string>
     <string name="pleaseEnterValidLongitude">Inserisci una longitudine valida.</string>
@@ -385,7 +397,7 @@
     <string name="positioningThresholds">Soglie del posizionamento</string>
     <string name="positioningWindowNotice">Se sei all\' interno di  un edificio è fortemente consigliato avvicinarsi ad una finestra fino a quando è stata trovata una posizione. Diversamente la ricerca potrebbe richiedere molto tempo o non riuscire a trovare nulla.</string>
     <string name="postsNotification">%1$s notifica dei messaggi</string>
-    <string name="prefsImportError">C\'è stato un errore nell\'importazione delle preferenze.</string>
+    <string name="prefsImportError">C'è stato un errore nell'importazione delle preferenze.</string>
     <string name="privacy">Informativa sulla Privacy</string>
     <string name="privacyConfirmationText">Sarai reindirizzato al sito dello sviluppatore per scaricare l\'informativa sulla privacy.</string>
     <string name="privacyLocationingSummary">Evita i metodi di localizzazione che possono inviare la tua posizione a un provider, ad esempio Google. Userà solo il GPS e pertanto potrebbe essere lento o non funzionare correttamente.</string>
@@ -399,9 +411,12 @@
     <string name="radiusHasToBePositive">Il raggio deve essere un numero positivo.</string>
     <string name="radiusWithUnit">Raggio [m]</string>
     <string name="readLocation">Legge la posizione</string>
+    <string name="rearmingProcessMonitoringMessage">Messaggio di riavvio del monitoraggio.</string>
     <string name="referenceValueForNoiseLevelMeasurementsSummary">Valore di riferimento fisico per la misura di rumore</string>
     <string name="referenceValueForNoiseLevelMeasurementsTitle">Riferimento per la misura di rumore</string>
-    <string name="rememberLastActivePoiSummary">Se sei in una posizione, riavvia il tuo dispositivo o l\'applicazione e lascia la posizione. L\'applicazione eseguirà le regole associate alla uscita dal luogo al suo prossimo avvio.</string>
+    <string name="refreshingProcessList">Attualizzando la lista dei processi.</string>
+    <string name="refreshingSettingsFromFileToMemory">Leggendo da file le impostazioni per ripristinarle in memoria.</string>
+    <string name="rememberLastActivePoiSummary">Se sei in una posizione, riavvia il tuo dispositivo o l\'applicazione e lascia la posizione. L'\applicazione eseguirà le regole associate alla uscita dal luogo al suo prossimo avvio.</string>
     <string name="rememberLastActivePoiTitle">Ricorda la ultima posizione attiva</string>
     <string name="removedNotification">la notifica da %1$s rimossa</string>
     <string name="ringing">squillando</string>
@@ -410,8 +425,11 @@
     <string name="rule">Regola</string>
     <string name="ruleActivate">Attivando la regola %1$s</string>
     <string name="ruleActivateToggle">Attivando la regola %1$s in modalità reversibile</string>
+    <string name="ruleActivationComplete">Regola \"%1$s\" completa.</string>
     <string name="ruleActive">Regola attiva</string>
     <string name="ruleCheckOf">Controllo della regola %1$s</string>
+    <string name="ruleDoesntApplyActivityGivenButTooLowProbability">Impossibile applicare la regola. Attività \"%1$s\" rilevata, ma con una probabilità insufficente (%2$s %%), occorre almeno il %3$s %%.</string>
+    <string name="ruleDoesntApplyActivityNotPresent">Impossibile applicare la regola. L\'attività %1$s non è disponibile.</string>
     <string name="ruleDoesntApplyBatteryHigherThan">Impossibile applicare la regola: Livello della batteria superiore a</string>
     <string name="ruleDoesntApplyBatteryLowerThan">Impossibile applicare la regola: livello della batteria inferiore a</string>
     <string name="ruleDoesntApplyDeviceInRangeButShouldNotBe">Impossibile applicare la regola. Il dispositivo è in portata, ma non dovrebbe esserlo</string>
@@ -424,6 +442,7 @@
     <string name="ruleDoesntApplyStateNotCorrect">Impossibile applicare la regola. Stato errato</string>
     <string name="ruleDoesntApplyWeAreFasterThan">Impossibile applicare la regola. Velocità superiore a</string>
     <string name="ruleDoesntApplyWeAreSlowerThan">Impossibile applicare la regola. Velocità inferiore a</string>
+    <string name="ruleDoesntApplyWrongHeadphoneType">Impossibile applicare la regola. Tipo di auricolare errato.</string>
     <string name="ruleDoesntApplyWrongTagLabel">Impossibile applicare la regola. Etichetta Tag errata.</string>
     <string name="ruleHistory">Cronologia delle regole           (dalla più recente):</string>
     <string name="ruleIsDeactivatedCantApply">La regola %1$s è disabilitata e non posso applicarla.</string>
@@ -437,6 +456,7 @@
     <string name="rulesImportError">C\'è stato un errore nell\'importazione di regole e posizioni</string>
     <string name="rulesImportedSuccessfully">Le regole e le posizioni sono state importate con successo.</string>
     <string name="runManually">Esecuzione manuale</string>
+    <string name="runningApp">App in esecuzione</string>
     <string name="satisfactoryAccuracyGps">Precisione minima in metri quando la posizione è individuata via GPS</string>
     <string name="satisfactoryAccuracyNetwork">Precisione minima quando la localizzazione è effettuata in metri attraverso i ripetitori</string>
     <string name="saturday">Sabato</string>
@@ -517,10 +537,13 @@
     <string name="started">avviato</string>
     <string name="starting">avviando</string>
     <string name="startingGpsTimeout">Avviando timeout GPS</string>
+    <string name="startingPeriodicProcessMonitoringEngine">Avvio del sistema di monitoraggio periodico dei processi.</string>
+    <string name="status">Stato</string>
     <string name="status">Stato</string>
     <string name="stillGettingPosition">Ancora in attesa della posizione</string>
     <string name="stopped">terminatoo</string>
     <string name="stopping">terminando</string>
+    <string name="stoppingPeriodicProcessMonitoringEngine">Arresto del sistema di monitoraggio periodico dei processi.</string>
     <string name="storeSettings">Leggere e scrivere le impostazioni</string>
     <string name="stringNotAllowed">La stringa %1$s non è permessa.</string>
     <string name="sunday">Domenica</string>
@@ -565,7 +588,7 @@
     <string name="unknownActionSpecified">Azione non riconosciuta.</string>
     <string name="unknownError">Errore indeterminato.</string>
     <string name="until">finchè</string>
-    <string name="urlLegend">Variabili:\n È possibile utilizzare le seguenti variabili. All\'attivazione saranno sostituite con il valore corrispondente sul dispositivo. Includi le parentesi nel tuo testo.\n\n[uniqueid] - Il numero di serie del tuo dispositivo\n[serialnr] - Il serial number del tuo dispositivio\n[latitude] - La latitudine del tuo dispositivo\n[longitude] - La longitudine del tuo dispositivo\n[phonenr] - Numero dell\'ultima chiamata (entrante o uscente)\n[d] - Il giorno del mese, sempre 2 cifre\n[m] - Mese in formato numerico, sempre 2 cifre\n[Y] - L\’anno, sempre 4 cifre\n[h] - Ore in formato 12 ore, sempre 2 cifre con due punti\n[H] - Ore in formato 24 ore, sempre 2 cifre con due punti\n[i] - Minuti, sempre 2 cifre\n[s] - Secondi, sempre 2 cifre\n[ms] - millisecondi, sempre 3 cifre [notificationTitle] - titolo dell\'ultima notifica [notificationText] - testo dell\'ultima notifica</string>
+    <string name="urlLegend">Variabili:\n È possibile utilizzare le seguenti variabili. All\'attivazione saranno sostituite con il valore corrispondente sul dispositivo. Includi le parentesi nel tuo testo.\n\n[uniqueid] - Il numero di serie del tuo dispositivo\n[serialnr] - Il serial number del tuo dispositivio\n[latitude] - La latitudine del tuo dispositivo\n[longitude] - La longitudine del tuo dispositivo\n[phonenr] - Numero dell\'ultima chiamata (entrante o uscente)\n[d] - Il giorno del mese, sempre 2 cifre\n[m] - Mese in formato numerico, sempre 2 cifre\n[Y] - L\’anno, sempre 4 cifre\n[h] - Ore in formato 12 ore, sempre 2 cifre con due punti\n[H] - Ore in formato 24 ore, sempre 2 cifre con due punti\n[i] - Minuti, sempre 2 cifre\n[s] - Secondi, sempre 2 cifre\n[ms] - millisecondi, sempre 3 cifre [notificationTitle] - titolo dell'ultima notifica [notificationText] - testo dell'ultima notifica</string>
     <string name="urlToTrigger">URL da caricare:</string>
     <string name="urlTooShort">L\'url deve avere almeno 10 caratteri.</string>
     <string name="usbTetheringFailForAboveGingerbread">Questo molto probabilmente non funzionerà dato che sei su una versione superiore ad Android 2.3. Tuttavia è possibile utilizzare la connessione wifi tethering per attivare la regola se sei su una versione inferiore ad Android 7.</string>
@@ -610,5 +633,6 @@
     <string name="with">con</string>
     <string name="withLabel">con etichetta</string>
     <string name="writeLogFile">Memorizza un file di log</string>
+    <string name="writingSettingsToPersistentMemory">Scrivo le impostazioni nella memoria interna.</string>
     <string name="yes">Si</string>
 </resources>

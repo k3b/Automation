@@ -107,8 +107,8 @@
     <string name="wifiState">Wifi state</string>
     <string name="listenToAccelerometerState">Observe device movement where wifi is not available</string>
     <string name="accelerometer">Accelerometer</string>
-    <string name="accelerometerTimer">Use Accelerometer after x minutes without cell mast change</string>
-    <string name="cellMastIdleTime">Cell mast idle time</string>
+    <string name="accelerometerTimer">Use Accelerometer after x minutes without tower mast change</string>
+    <string name="cellMastIdleTime">Cell tower idle time</string>
     <string name="accelerometerThresholdDescription">Threshold for accelerometer movements</string>
     <string name="accelerometerThreshold">Accelerometer threshold</string>
     <string name="positioningThresholds">Positioning thresholds</string>
@@ -452,7 +452,7 @@
     <string name="notEnforcingGps" translatable="false">Private Locationing not enabled, using regular provider search.</string>
     <string name="gpsMeasurement" translatable="false">GPS measurement</string>
     <string name="gpsMeasurementTimeout" translatable="false">GPS measurement stopped due to timeout.</string>
-    <string name="cellMastChanged" translatable="false">Cell mast changed: %1$s</string>
+    <string name="cellMastChanged" translatable="false">Cell tower changed: %1$s</string>
     <string name="noiseDetectionHint">If you think the noise detection isn\'t working correctly (depending on the value you specify) please keep in mind that every phone is different. You can therefore change \"Reference for noise measurement\" in settings. See http://en.wikipedia.org/wiki/Decibel for more information. You can use the volume tester from the main screen to calibrate your device.</string>
     <string name="hint">Hint</string>
     <string name="selectNoiseLevel">Select noise level</string>
@@ -565,7 +565,7 @@
     <string name="android.permission.ACCESS_NOTIFICATION_POLICY">Override do not disturb policy</string>
     <string name="theseAreThePermissionsRequired">These are the permissions required:</string>
     <string name="ruleXrequiresThis">Rule \"%1$s\" requires this.</string>
-    <string name="helpTextActivityDetection">This feature can detect if you\'re currently on the go and if it is on foot or in which type of vehicle (to a certain extent). The feature is not fully built into Automation, but is provided by Google Play Services. Technically it does not give a yes/no result, but return a percentage to which level it is sure it detected you\'re status. You can setup the percentage value from which Automation will accept a result. Two remarks: 1) More than 1 status could occur at the same time. For example you might be WALKING inside a driving bus. 2) This sensor is relative cost intensive. If it is possible you might consider using alternatives, e.g. require your car\'s handsfree device to be connected to detect you\'re driving.</string>
+    <string name="helpTextActivityDetection">This feature can detect if you\'re currently on the go and if it is on foot or in which type of vehicle (to a certain extent). The feature is not fully built into Automation, but is provided by Google Play Services. Technically it does not give a yes/no result, but return a percentage to which level it is sure it detected you\'re status. You can setup the percentage value from which Automation will accept a result. Two remarks: 1) More than 1 status could occur at the same time. For example you might be WALKING inside a driving bus. 2) This sensor is relatively expensive in terms of battery usage. If it is possible you might consider using alternatives, e.g. require your car\'s handsfree device to be connected to detect you\'re driving.</string>
     <string name="sendTextMessage">Send text message</string>
     <string name="textToSend">Text to send</string>
     <string name="textMessageAnnotations">You can directly enter a phone number. Alternatively use the contacts option to pick one. But keep in mind: The number will be stored here, not the contact. If you change the phone number of a selected contact you\'ll need to update this rule. It doesn\'t do that by itself.</string>
@@ -578,7 +578,7 @@
     <string name="clickAndHoldForOptions">Click and hold an item for options.</string>
     <string name="ruleActivationComplete" translatable="false">Rule \"%1$s\" finished.</string>
     <string name="positioningEngine">Positioning engine</string>
-    <string name="googleSarcasm">Thanks to Google\'s infinite whisdom and constant endeavor to protect everyone\'s privacy rules that may send sms or involve the users phone state have to be stripped off applicable triggers and actions.</string>
+    <string name="googleSarcasm">Thanks to Google\'s infinite wisdom and constant endeavor to protect everyone\'s privacy, all the rules that may be used to send sms or read the phone state have been stripped off of all the triggers and actions which Google considers risky.</string>
     <string name="startAutomationAsService">Start automation as a service</string>
     <string name="setScreenBrightness">Set screen brightness</string>
     <string name="setScreenBrightnessEnterValue">Enter the desired brightness (from 0 to 100).</string>
