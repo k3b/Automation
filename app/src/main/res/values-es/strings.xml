@@ -376,8 +376,6 @@ Incluya las paréntecis en su texto.\n\n[uniqueid] - el número único de su dis
     <string name="referenceValueForNoiseLevelMeasurementsTitle">Referencia fisicalo para ensayo de nivel ruido</string>
     <string name="logLevelSummary">Nivel del registro (1=mínimo, 5=máximo)</string>
     <string name="logLevelTitle">Nivel del registro</string>
-    <string name="unknownActionSpecified">Ación inconocido especicado</string>
-    <string name="errorChangingScreenRotation">Error cambiando rotación del monitor</string>
     <string name="failedToTriggerBluetooth">Error cambiando Bluetooth. El dispositivo tiene Bluetooth?</string>
     <string name="settingsCategoryHttp">Pedido HTTP</string>
     <string name="httpAttemptsSummary">Cantidad de los pruebos en caso pedidos HTTP fallan por razones de conexißon</string>

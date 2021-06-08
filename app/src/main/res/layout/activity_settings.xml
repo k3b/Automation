@@ -57,6 +57,12 @@
 			android:title="@string/executeRulesAndProfilesWithSingleClickTitle" />
 
 		<CheckBoxPreference
+			android:id="@+id/chkPrefUpdateCheck"
+			android:enabled="false"
+			android:title="@string/automaticUpdateCheck"
+			android:summary="@string/automaticUpdateCheckSummary"/>
+
+		<CheckBoxPreference
 			android:key="displayNewsOnMainScreen"
 			android:title="@string/displayNewsOnMainScreen"
 			android:summary="@string/displayNewsOnMainScreenDescription" />

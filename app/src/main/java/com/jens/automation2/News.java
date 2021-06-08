@@ -76,7 +76,7 @@ public class News
         if(oldFilePath.exists())
             oldFilePath.delete();
 
-        if (!(new File(filePath)).exists() || Settings.lastNewsPolltime == -1 || now.getTimeInMillis() >= Settings.lastNewsPolltime + (long)(Settings.newsDisplayForXDays * 24 * 60 * 60 * 1000))
+        if (!(new File(filePath)).exists() || Settings.lastNewsPolltime == Settings.default_lastNewsPolltime || now.getTimeInMillis() >= Settings.lastNewsPolltime + (long)(Settings.newsDisplayForXDays * 24 * 60 * 60 * 1000))
         {
             String newsUrl = "https://server47.de/automation/appNews.php";
             newsContent = Miscellaneous.downloadURL(newsUrl, null, null);

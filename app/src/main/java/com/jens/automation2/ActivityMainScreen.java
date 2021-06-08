@@ -45,6 +45,7 @@ public class ActivityMainScreen extends ActivityGeneric
 	private ToggleButton toggleService, tbLockSound;
 	private Button bShowHelp, bPrivacy, bSettingsErase, bAddSoundLockTIme;
 	private TextView tvActivePoi, tvClosestPoi, tvLastRule, tvMainScreenNotePermissions, tvMainScreenNoteFeaturesFromOtherFlavor, tvMainScreenNoteLocationImpossibleBlameGoogle, tvMainScreenNoteNews, tvlockSoundDuration;
+	private static boolean updateNoteDisplayed = false;
 
 	private ListView lvRuleHistory;
 	private ArrayAdapter<Rule> ruleHistoryListViewAdapter;
@@ -407,6 +408,15 @@ public class ActivityMainScreen extends ActivityGeneric
 			else
 				activityMainScreenInstance.checkForNews();
 
+			if(BuildConfig.FLAVOR.equals("apkFlavor") && Settings.automaticUpdateCheck)
+			{
+				Calendar now = Calendar.getInstance();
+				if (Settings.lastUpdateCheck == Settings.default_lastUpdateCheck || now.getTimeInMillis() >= Settings.lastUpdateCheck + (long)(Settings.updateCheckFrequencyDays * 24 * 60 * 60 * 1000))
+				{
+					activityMainScreenInstance.checkForUpdate();
+				}
+			}
+
 			Settings.considerDone(Settings.constNewsOptInDone);
 			Settings.writeSettings(Miscellaneous.getAnyContext());
 		}
@@ -588,6 +598,15 @@ public class ActivityMainScreen extends ActivityGeneric
 		Miscellaneous.messageBox(title, text, ActivityMainScreen.getActivityMainScreenInstance());
 	}
 
+	synchronized void checkForUpdate()
+	{
+		if(Settings.automaticUpdateCheck)
+		{
+			AsyncTasks.AsyncTaskUpdateCheck updateCheckTask = new AsyncTasks.AsyncTaskUpdateCheck();
+			updateCheckTask.execute(ActivityMainScreen.this);
+		}
+	}
+
 	synchronized void checkForNews()
 	{
 		if(Settings.displayNewsOnMainScreen)
@@ -615,6 +634,27 @@ public class ActivityMainScreen extends ActivityGeneric
 		catch(Exception e)
 		{
 			Miscellaneous.logEvent("e", "Error displaying news", Log.getStackTraceString(e), 3);
+		}
+	}
+
+	public void processUpdateCheckResult(Boolean result)
+	{
+		if(result && !updateNoteDisplayed)
+		{
+			AlertDialog.Builder updateNoteBuilder = new AlertDialog.Builder(ActivityMainScreen.this);
+			updateNoteBuilder.setMessage(getResources().getString(R.string.updateAvailable));
+			updateNoteBuilder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener()
+			{
+				@Override
+				public void onClick(DialogInterface dialogInterface, int i)
+				{
+					String url = "https://server47.de/automation/";
+					Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+					startActivity(browserIntent);
+				}
+			});
+			updateNoteBuilder.setNegativeButton(getResources().getString(R.string.no), null);
+			updateNoteBuilder.show();
 		}
 	}
 }

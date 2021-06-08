@@ -15,6 +15,7 @@ public class Settings implements SharedPreferences
 	public final static int lockSoundChangesInterval = 15;
 	public static final int newsPollEveryXDays = 3;
 	public static final int newsDisplayForXDays = 3;
+	public static final int updateCheckFrequencyDays = 7;
 	public static final String folderName = "Automation";
 	public static final String zipFileName = "automation.zip";
 
@@ -61,10 +62,13 @@ public class Settings implements SharedPreferences
 	public static int startScreen;
 	public static boolean executeRulesAndProfilesWithSingleClick;
 	public static boolean displayNewsOnMainScreen;
+	public static boolean automaticUpdateCheck;
+
 	public static boolean lockSoundChanges;
 	public static boolean noticeAndroid9MicrophoneShown;
 	public static boolean noticeAndroid10WifiShown;
 	public static long lastNewsPolltime;
+	public static long lastUpdateCheck;
 
 	public static ArrayList<String> whatHasBeenDone;
 
@@ -114,8 +118,10 @@ public class Settings implements SharedPreferences
 	protected static final int default_startScreen = 0;
 	protected static final boolean default_executeRulesAndProfilesWithSingleClick = false;
 	protected static final boolean default_displayNewsOnMainScreen = false;
+	protected static final boolean default_automaticUpdateCheck = false;
 	protected static final boolean default_lockSoundChanges = false;
 	protected static final long default_lastNewsPolltime = -1;
+	protected static final long default_lastUpdateCheck = -1;
 
     @Override
 	public boolean contains(String arg0)
@@ -249,6 +255,7 @@ public class Settings implements SharedPreferences
 			startScreen = Integer.parseInt(prefs.getString("startScreen", String.valueOf(default_startScreen)));
 
 			executeRulesAndProfilesWithSingleClick = prefs.getBoolean("executeRulesAndProfilesWithSingleClick", default_executeRulesAndProfilesWithSingleClick);
+			automaticUpdateCheck = prefs.getBoolean("chkPrefUpdateCheck", default_automaticUpdateCheck);
 			displayNewsOnMainScreen = prefs.getBoolean("displayNewsOnMainScreen", default_displayNewsOnMainScreen);
 
 			lockSoundChanges = prefs.getBoolean("lockSoundChanges", default_lockSoundChanges);
@@ -256,6 +263,7 @@ public class Settings implements SharedPreferences
 			noticeAndroid10WifiShown = prefs.getBoolean("noticeAndroid10WifiShown", false);
 
 			lastNewsPolltime = prefs.getLong("lastNewsPolltime", default_lastNewsPolltime);
+			lastUpdateCheck = prefs.getLong("lastUpdateCheck", default_lastUpdateCheck);
 
 			String whbdString = prefs.getString("whatHasBeenDone", "");
 			if(whbdString != null && whbdString.length() > 0)
@@ -435,6 +443,9 @@ public class Settings implements SharedPreferences
 			if(!prefs.contains("executeRulesAndProfilesWithSingleClick") | force)
 				editor.putBoolean("executeRulesAndProfilesWithSingleClick", default_executeRulesAndProfilesWithSingleClick);
 
+			if(!prefs.contains("automaticUpdateCheck") | force)
+				editor.putBoolean("automaticUpdateCheck", default_automaticUpdateCheck);
+
 			if(!prefs.contains("displayNewsOnMainScreen") | force)
 				editor.putBoolean("displayNewsOnMainScreen", default_displayNewsOnMainScreen);
 
@@ -446,6 +457,9 @@ public class Settings implements SharedPreferences
 
 			if(!prefs.contains("lastNewsPolltime") | force)
 				editor.putLong("lastNewsPolltime", default_lastNewsPolltime);
+
+			if(!prefs.contains("lastUpdateCheck") | force)
+				editor.putLong("lastUpdateCheck", default_lastUpdateCheck);
 
 			if(!prefs.contains("whatHasBeenDone") | force)
 				editor.putString("whatHasBeenDone", "");
@@ -511,6 +525,7 @@ public class Settings implements SharedPreferences
 				editor.putBoolean("privacyLocationing", privacyLocationing);
 				editor.putString("startScreen", String.valueOf(startScreen));
 				editor.putBoolean("executeRulesAndProfilesWithSingleClick", executeRulesAndProfilesWithSingleClick);
+				editor.putBoolean("automaticUpdateCheck", automaticUpdateCheck);
 				editor.putBoolean("displayNewsOnMainScreen", displayNewsOnMainScreen);
 
 				editor.putBoolean("lockSoundChanges", lockSoundChanges);
@@ -518,6 +533,7 @@ public class Settings implements SharedPreferences
 				editor.putBoolean("noticeAndroid10WifiShown", noticeAndroid10WifiShown);
 
 				editor.putLong("lastNewsPolltime", lastNewsPolltime);
+				editor.putLong("lastUpdateCheck", lastUpdateCheck);
 
 				editor.putString("whatHasBeenDone", Miscellaneous.explode(";", whatHasBeenDone));
 
