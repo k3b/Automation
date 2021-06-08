@@ -16,6 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.documentfile.provider.DocumentFile;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -221,10 +223,17 @@ public class ActivityMaintenance extends Activity
         // Clean up
         for(DocumentFile file : directory.listFiles())
         {
-            if(file.getName().equals(XmlFileInterface.settingsFileName) && file.canWrite())
-                file.delete();
-            else if(file.getName().equals(prefsFileName) && file.canWrite())
-                file.delete();
+            /*
+                On some few users' devices it seems this caused a crash because file.getName() was null.
+                The reason for that remains unknown, but we don't want the export to crash because of it.
+             */
+            if(!StringUtils.isEmpty(file.getName()))
+            {
+                if (file.getName().equals(XmlFileInterface.settingsFileName) && file.canWrite())
+                    file.delete();
+                else if (file.getName().equals(prefsFileName) && file.canWrite())
+                    file.delete();
+            }
         }
 
         DocumentFile dstRules = directory.createFile("text/xml", XmlFileInterface.settingsFileName);
