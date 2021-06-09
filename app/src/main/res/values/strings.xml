@@ -378,9 +378,9 @@
     <string name="toggling">Toggling</string>
     <string name="toggle">toggle</string>
     <string name="overlapBetweenPois">Overlap detected to location %1$s of %2$s meters. Reduce radius by at least that.</string>
-    <string name="noOverLap">No overlap to other locations detected.</string>
-    <string name="ruleToggable">Rule %1$s is toggable.</string>
-    <string name="ruleNotToggable">Rule %1$s is not suitable for toggling.</string>
+    <string name="noOverLap" translatable="false">No overlap to other locations detected.</string>
+    <string name="ruleToggable" translatable="false">Rule %1$s is toggable.</string>
+    <string name="ruleNotToggable" translatable="false">Rule %1$s is not suitable for toggling.</string>
     <string name="none">none</string>
     <string name="anyLocation">any location</string>
     <string name="invalidPoiName">Invalid name for location.</string>
@@ -396,7 +396,7 @@
     <string name="detectedActivityOnBicycle">On bicycle</string>
     <string name="detectedActivityOnFoot">On foot</string>
     <string name="detectedActivityStill">Still</string>
-    <string name="detectedActivityUnknown">Unknown</string>
+    <string name="detectedActivityUnknown">unknown</string>
     <string name="detectedActivityTilting">Tilting</string>
     <string name="detectedActivityWalking">Walking</string>
     <string name="detectedActivityRunning">Running</string>
@@ -422,8 +422,8 @@
     <string name="bluetoothDeviceInRange">Bluetooth device %1$s in range.</string>
     <string name="bluetoothDeviceOutOfRange">Bluetooth device %1$s out of range.</string>
     <string name="anyDevice">any device</string>
-    <string name="ruleDoesntApplyNotTheCorrectDeviceName">Rule doesn\'t apply. Not the correct bluetooth device name.</string>
-    <string name="ruleDoesntApplyNotTheCorrectDeviceAddress">Rule doesn\'t apply. Not the correct bluetooth device address.</string>
+    <string name="ruleDoesntApplyNotTheCorrectDeviceName" translatable="false">Rule doesn\'t apply. Not the correct bluetooth device name.</string>
+    <string name="ruleDoesntApplyNotTheCorrectDeviceAddress" translatable="false">Rule doesn\'t apply. Not the correct bluetooth device address.</string>
     <string name="noDevice">no device</string>
     <string name="selectDeviceFromList">one from list</string>
     <string name="connectionToDevice">connection to device</string>
@@ -432,8 +432,8 @@
     <string name="deviceOutOfRange">device out of range</string>
     <string name="selectDeviceOption">Select a device option.</string>
     <string name="selectConnectionOption">Select a connection option.</string>
-    <string name="ruleDoesntApplyDeviceInRangeButShouldNotBe">Rule doesn\'t apply. Device is in range, but should not be.</string>
-    <string name="ruleDoesntApplyStateNotCorrect">Rule doesn\'t apply. Wrong state.</string>
+    <string name="ruleDoesntApplyDeviceInRangeButShouldNotBe" translatable="false">Rule doesn\'t apply. Device is in range, but should not be.</string>
+    <string name="ruleDoesntApplyStateNotCorrect" translatable="false">Rule doesn\'t apply. Wrong state.</string>
     <string name="triggerHeadsetPlugged">Headset connection</string>
     <string name="actionPlayMusic">Open music player</string>
     <string name="headsetConnected">Headset (type: %1$s) connected</string>

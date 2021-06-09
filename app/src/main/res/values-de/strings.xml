@@ -310,9 +310,7 @@
     <string name="toggling">Schalte um</string>
     <string name="toggle">umzuschalten</string>
     <string name="overlapBetweenPois">Überschneidung mit Ort %1$s von %2$s Metern festgestellt. Reduzieren Sie den Radius um mindestens diesen Wert.</string>
-    <string name="noOverLap">Keine Überschneidung mit anderen Orten festgestellt.</string>
     <string name="ruleToggable">Regel %1$s ist umkehrbar.</string>
-    <string name="ruleNotToggable">Regel %1$s ist nicht umkehrbar.</string>
     <string name="none">keiner</string>
     <string name="anyLocation">irgendein Ort</string>
     <string name="invalidPoiName">Ungültiger Name für einen Ort.</string>
@@ -325,7 +323,7 @@
     <string name="detectedActivityOnBicycle">Auf dem Fahrrad</string>
     <string name="detectedActivityOnFoot">Zu Fuß</string>
     <string name="detectedActivityStill">Ruhe</string>
-    <string name="detectedActivityUnknown">Unbekannt</string>
+    <string name="detectedActivityUnknown">unbekannt</string>
     <string name="detectedActivityTilting">Kippen</string>
     <string name="detectedActivityWalking">Gehen</string>
     <string name="detectedActivityRunning">Laufen</string>
@@ -349,9 +347,7 @@
 	<string name="bluetoothDeviceInRange">Bluetooth Gerät %1$s in Reichweite.</string>
     <string name="bluetoothDeviceOutOfRange">Bluetooth Gerät %1$s außer Reichweite.</string>
 	<string name="anyDevice">irgendeinem Gerät</string>
-	<string name="ruleDoesntApplyNotTheCorrectDeviceName">Regel trifft nicht zu. Nicht der korrekte Bluetooth-Geräte-Name.</string>
-	<string name="ruleDoesntApplyNotTheCorrectDeviceAddress">Regel trifft nicht zu. Nicht die korrekte Bluetooth-Geräte-Adresse.</string>
-	<string name="noDevice">kein Gerät</string>
+    <string name="noDevice">kein Gerät</string>
 	<string name="selectDeviceFromList">Gerät aus Liste</string>
 	<string name="connectionToDevice">Gerät verbunden</string>
 	<string name="disconnectionFromDevice">Gerät getrennt</string>
@@ -359,9 +355,7 @@
 	<string name="deviceOutOfRange">Gerät außer Reichweite</string>
 	<string name="selectDeviceOption">Wählen Sie eine Geräteoption.</string>
 	<string name="selectConnectionOption">Wählen Sie eine Verbindungsoption.</string>
-	<string name="ruleDoesntApplyDeviceInRangeButShouldNotBe">Regel trifft nicht zu. Gerät ist in Reichweite, aber sollte nicht sein.</string>
-	<string name="ruleDoesntApplyStateNotCorrect">Regel trifft nicht zu. Falscher Status.</string>
-	<string name="triggerHeadsetPlugged">Headset Verbindung</string>
+    <string name="triggerHeadsetPlugged">Headset Verbindung</string>
 	<string name="actionPlayMusic">Musikplayer öffnen</string>
 	<string name="headsetConnected">Headset (type: %1$s) verbunden</string>
 	<string name="headsetDisconnected">Headset (type: %1$s) getrennt</string>

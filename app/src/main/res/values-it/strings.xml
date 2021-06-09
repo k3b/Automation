@@ -322,7 +322,6 @@
     <string name="noFilesImported">Non è stato possibile importare nessun file.</string>
     <string name="noKnownWifis">Non c\'è nessuna wifi conosciuta sul tuo dispositivo.</string>
     <string name="noMapsApplicationFound">Non trovo un navigatore installato.</string>
-    <string name="noOverLap">Nessuna duplicazione di posizioni rilevata.</string>
     <string name="noPoisDefinedShort">Nessuna posizione indicata.</string>
     <string name="noPoisSpecified">Non hai specificato nessuna posizione. È necessario.</string>
     <string name="noProfileChangeSoundLocked">Il profilo non può essere attivato. L\'ultimo profilo attivato è bloccato.</string>
@@ -401,15 +400,10 @@
     <string name="ruleActivate">Attivando la regola %1$s</string>
     <string name="ruleActivateToggle">Attivando la regola %1$s in modalità reversibile</string>
     <string name="ruleActive">Regola attiva</string>
-    <string name="ruleDoesntApplyDeviceInRangeButShouldNotBe">Impossibile applicare la regola. Il dispositivo è in portata, ma non dovrebbe esserlo</string>
-    <string name="ruleDoesntApplyNotTheCorrectDeviceAddress">Impossibile applicare la regola. Indirizzo dispositivo bluetooth errato.</string>
-    <string name="ruleDoesntApplyNotTheCorrectDeviceName">Impossibile applicare la regola. Nome dispositivo bluetooth errato.</string>
-    <string name="ruleDoesntApplyStateNotCorrect">Impossibile applicare la regola. Stato errato</string>
     <string name="ruleHistory">Cronologia delle regole           (dalla più recente):</string>
     <string name="ruleLegend">Verde = abilitata, Rosso = disabilitata, Giallo = necessita ulteriori permessi</string>
     <string name="ruleList">Elenco delle regole:</string>
     <string name="ruleName">Nome della regola</string>
-    <string name="ruleNotToggable">La regola %1$s non è adatta ad essere Reversibile.</string>
     <string name="ruleToggable">La regola %1$s è adatta per essere Reversibile.</string>
     <string name="ruleXrequiresThis">La regola \"%1$s\" ne ha bisogno.</string>
     <string name="rules">Regole</string>
