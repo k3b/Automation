@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-	<string name="ConfigurationExportError">C'è stato un errore durante l'esportazione della  configurazione.</string>
+	<string name="ConfigurationExportError">C\'è stato un errore durante l\'esportazione della  configurazione.</string>
 	<string name="accelerometer">Accelerometro</string>
     <string name="accelerometerThreshold">Soglia accelerometro</string>
     <string name="accelerometerThresholdDescription">Soglia per i movimenti dell\'accelerometro</string>
@@ -120,11 +120,11 @@
     <string name="cantStopIt">Non posso fermarla.</string>
     <string name="cellMastIdleTime">Massimo tempo di inattività del ripetitore</string>
     <string name="change">Modifica</string>
-    <string name="chooseActivityHint">In questa ultima selezione dovrai selezionare una attività specifica. Praticamente, questa è come una finestra dell'applicazione desiderata. Se non sai qual è, si raccomanda scegliere quella che ha \"main\" o \"launcher\" nel suo nome.</string>
+    <string name="chooseActivityHint">In questa ultima selezione dovrai selezionare una attività specifica. Praticamente, questa è come una finestra dell\'applicazione desiderata. Se non sai qual è, si raccomanda scegliere quella che ha \"main\" o \"launcher\" nel suo nome.</string>
     <string name="clickAndHoldForOptions">Clicca e mantieni premuto un elemento per vedere le opzioni.</string>
     <string name="closeTo">vicino a</string>
     <string name="closestPoi">Posizione più vicina:</string>
-    <string name="com.wireguard.android.permission.CONTROL_TUNNELS">Controllare i tunnels dell'applicazione wireguard</string>
+    <string name="com.wireguard.android.permission.CONTROL_TUNNELS">Controllare i tunnels dell\'applicazione wireguard</string>
     <string name="comparing">Ho la posizione sia dalla rete che dal GPS e le sto confrontando...</string>
     <string name="configurationExportedSuccessfully">Configurazione esportata con successo.</string>
     <string name="configurationImportedSuccessfully">Configurazione esportata con successo.</string>
@@ -167,7 +167,7 @@
     <string name="disconnectedFromWifi">disconnesso dalla rete wifi \"%1$s</string>
     <string name="disconnecting">disconnessione in corso</string>
     <string name="disconnectionFromDevice">disconnesso dal dispositivo</string>
-    <string name="displayNewsOnMainScreen">Visualizza le novità dell'applicazione sullo schermo principale</string>
+    <string name="displayNewsOnMainScreen">Visualizza le novità dell\'applicazione sullo schermo principale</string>
     <string name="displayNewsOnMainScreenDescription">Novità relative solo a questa applicazione, stiamo parlando di un paio per anno, non di più.</string>
     <string name="distanceBetween">La distanza tra la posizione GPS e la posizione di rete è di %1$d metri. Il raggio minimo è +1 metro.</string>
     <string name="distanceForGpsUpdate">Distanza per l\'aggiornamento del GPS [m]</string>
@@ -265,7 +265,7 @@
     <string name="listenToWifiState">Rileva il cambiamento di stato del wifi se disponibile</string>
     <string name="loadWifiList">Carica lista wifi</string>
     <string name="locationDisabled">Localizzazione disattivata</string>
-    <string name="locationEngineDisabledLong">Purtroppo la tua posizione non può più essere determinata. Un debito di gratitudine è dovuto a Google per la sua infinita saggezza e amabilità.\\n\\nVediamo di approfondire questo problema. A partire da Android 10 è stato introdotto un nuovo permesso che è necessario per determinare la vostra posizione in secondo piano (che naturalmente è necessario per un\'app come questa). Sebbene la consideri una buona idea in generale, i problemi che comporta per gli sviluppatori non lo sono.\\n\\nWQuando si sviluppa un\'app si può cercare di qualificarsi per questo permesso rispettando un catalogo di requisiti. Purtroppo le nuove versioni della mia app sono state rifiutate per un periodo di tre mesi. Ho soddisfatto tutti questi requisiti, mentre il merdoso supporto allo sviluppo di Google ha affermato che non l\'ho fatto. Dopo aver dato loro la prova che l'ho fatto - ho ottenuto una risposta del tipo \"non posso più aiutarti\". Alla fine mi sono arreso.  \\n\\nDi conseguenza, la versione di Google Play non può più usare la tua posizione come trigger. La mia unica opzione alternativa sarebbe stata quella di avere questa applicazione rimossa dal negozio interamente.\\n\\nNe sono molto dispiaciuto, ma ho fatto del mio meglio per discutere con un \"supporto\" che ripetutamente non ha superato il test di Turing.\n\\nInfine, c'è una buona notizia: puoi ancora avere tutto!\\n\\nAutomation è adesso una applicazione di codice aperto e si può trovare su F-Droid. Questo è un app store che si preoccupa davvero della tua privacy - invece che fingere di farlo. Basta fare il backup del tuo file di configurazione, disinstallare questa app, installarla di nuovo da F-Droid e ripristinare il tuo file di configurazione - fatto.\\n\\nClicca qui per maggiori informazioni:</string>
+    <string name="locationEngineDisabledLong">Purtroppo la tua posizione non può più essere determinata. Un debito di gratitudine è dovuto a Google per la sua infinita saggezza e amabilità.\\n\\nVediamo di approfondire questo problema. A partire da Android 10 è stato introdotto un nuovo permesso che è necessario per determinare la vostra posizione in secondo piano (che naturalmente è necessario per un\'app come questa). Sebbene la consideri una buona idea in generale, i problemi che comporta per gli sviluppatori non lo sono.\\n\\nWQuando si sviluppa un\'app si può cercare di qualificarsi per questo permesso rispettando un catalogo di requisiti. Purtroppo le nuove versioni della mia app sono state rifiutate per un periodo di tre mesi. Ho soddisfatto tutti questi requisiti, mentre il merdoso supporto allo sviluppo di Google ha affermato che non l\'ho fatto. Dopo aver dato loro la prova che l\'ho fatto - ho ottenuto una risposta del tipo \"non posso più aiutarti\". Alla fine mi sono arreso.  \\n\\nDi conseguenza, la versione di Google Play non può più usare la tua posizione come trigger. La mia unica opzione alternativa sarebbe stata quella di avere questa applicazione rimossa dal negozio interamente.\\n\\nNe sono molto dispiaciuto, ma ho fatto del mio meglio per discutere con un \"supporto\" che ripetutamente non ha superato il test di Turing.\n\\nInfine, c\'è una buona notizia: puoi ancora avere tutto!\\n\\nAutomation è adesso una applicazione di codice aperto e si può trovare su F-Droid. Questo è un app store che si preoccupa davvero della tua privacy - invece che fingere di farlo. Basta fare il backup del tuo file di configurazione, disinstallare questa app, installarla di nuovo da F-Droid e ripristinare il tuo file di configurazione - fatto.\\n\\nClicca qui per maggiori informazioni:</string>
     <string name="locationEngineDisabledShort">La localizzazione non può più essere determinata. Clicca qui per scoprirne il perché.</string>
     <string name="locationEngineNotActive">Ricerca posizione non attiva.</string>
     <string name="lockSoundChanges">Blocca il cambio dei suoni:</string>
@@ -289,12 +289,12 @@
     <string name="muteTextToSpeechDuringCallsSummary">Disabilitazione del TextToSpeach durante le chiamate</string>
     <string name="muteTextToSpeechDuringCallsTitle">Silenziare durante le chiamate</string>
     <string name="name">Nome</string>
-    <string name="needLocationPermForWifiList">L\'elenco delle wifi a cui il tuo dispositivo è stato connesso potrebbe essere usato per determinare i luoghi in cui sei stato. Questo è il motivo per cui il permesso di localizzazione è richiesto per caricare l'elenco delle wifi. Se vuoi essere in grado di sceglierne una dalla lista devi concedere questo permesso. Altrimenti puoi ancora inserire il nome della tua wifi manualmente.</string>
+    <string name="needLocationPermForWifiList">L\'elenco delle wifi a cui il tuo dispositivo è stato connesso potrebbe essere usato per determinare i luoghi in cui sei stato. Questo è il motivo per cui il permesso di localizzazione è richiesto per caricare l\'elenco delle wifi. Se vuoi essere in grado di sceglierne una dalla lista devi concedere questo permesso. Altrimenti puoi ancora inserire il nome della tua wifi manualmente.</string>
     <string name="networkAccuracy">Precisione della rete [m]</string>
     <string name="newId">Nuovo ID:</string>
     <string name="newNfcId">Scrivi un nuovo ID NFC</string>
     <string name="newThreadRules">Nuova discussione</string>
-    <string name="newsOptIn">Vuoi ricevere delle notizie su questa app (solo quelle importanti) nella schermata principale? Queste vengono scaricate dal sito web dello sviluppatore. Non ci sarà nessuna notifica intrusiva, solo un testo nella schermata principale quando apri l'app.</string>
+    <string name="newsOptIn">Vuoi ricevere delle notizie su questa app (solo quelle importanti) nella schermata principale? Queste vengono scaricate dal sito web dello sviluppatore. Non ci sarà nessuna notifica intrusiva, solo un testo nella schermata principale quando apri l\'app.</string>
     <string name="nfcApplyTagToRule">Applicazione del tag alla regola</string>
     <string name="nfcBringTagIntoRange">Portare un tag NFC nel campo d\'azione.</string>
     <string name="nfcBringTagIntoRangeToRead">Avvicina il TAG da leggere.</string>
@@ -325,7 +325,7 @@
     <string name="noPoisDefinedShort">Nessuna posizione indicata.</string>
     <string name="noPoisSpecified">Non hai specificato nessuna posizione. È necessario.</string>
     <string name="noProfileChangeSoundLocked">Il profilo non può essere attivato. L\'ultimo profilo attivato è bloccato.</string>
-    <string name="noProfilesCreateOneFirst">Non c'è nessun profilo nella tua configurazione. Prima di tutto, creane uno.</string>
+    <string name="noProfilesCreateOneFirst">Non c\'è nessun profilo nella tua configurazione. Prima di tutto, creane uno.</string>
     <string name="noWritableFolderFound">Nessuna cartella scrivibile trovata che permetta salvare il file di configurazione.</string>
     <string name="noiseDetectionHint">Se pensi che la rilevazione del rumore non funzioni correttamente (in base al valore specificato) considera che ogni telefono è diverso. Quindi puoi tarare il "riferimento per la misurazione del rumore" nelle impostazioni. Consulta http://en.wikipedia.org/wiki/Decibel per maggiori informazioni. È possibile utilizzare la \"Taratura audio\" dalla schermata principale per calibrare il dispositivo.</string>
     <string name="none">nessuno</string>
@@ -357,7 +357,7 @@
     <string name="phoneDirection">Seleziona se entrante o uscente</string>
     <string name="phoneNrReplacementError">Non ho l\'ultimo numero di telefono e quindi non posso inserirlo nella variabile.</string>
     <string name="phoneNumber">Numero di telefono</string>
-    <string name="phoneNumberExplanation">È possibile inserire un numero di telefono specifico, ma non è necessario. Se vuoi specificarne uno, puoi sceglierlo dalla tua rubrica o inserirlo manualmente. Inoltre puoi usare espressioni regolari. Per testare un'espressione regolare mi piace questa pagina:</string>
+    <string name="phoneNumberExplanation">È possibile inserire un numero di telefono specifico, ma non è necessario. Se vuoi specificarne uno, puoi sceglierlo dalla tua rubrica o inserirlo manualmente. Inoltre puoi usare espressioni regolari. Per testare un\'espressione regolare mi piace questa pagina:</string>
     <string name="playSound">Esegui suono</string>
     <string name="pleaseEnterValidLatitude">Inserisci una latitudine valida.</string>
     <string name="pleaseEnterValidLongitude">Inserisci una longitudine valida.</string>
@@ -374,7 +374,7 @@
     <string name="positioningThresholds">Soglie del posizionamento</string>
     <string name="positioningWindowNotice">Se sei all\' interno di  un edificio è fortemente consigliato avvicinarsi ad una finestra fino a quando è stata trovata una posizione. Diversamente la ricerca potrebbe richiedere molto tempo o non riuscire a trovare nulla.</string>
     <string name="postsNotification">%1$s notifica dei messaggi</string>
-    <string name="prefsImportError">C'è stato un errore nell'importazione delle preferenze.</string>
+    <string name="prefsImportError">C\'è stato un errore nell\'importazione delle preferenze.</string>
     <string name="privacy">Informativa sulla Privacy</string>
     <string name="privacyConfirmationText">Sarai reindirizzato al sito dello sviluppatore per scaricare l\'informativa sulla privacy.</string>
     <string name="privacyLocationingSummary">Evita i metodi di localizzazione che possono inviare la tua posizione a un provider, ad esempio Google. Userà solo il GPS e pertanto potrebbe essere lento o non funzionare correttamente.</string>
@@ -390,7 +390,7 @@
     <string name="readLocation">Legge la posizione</string>
     <string name="referenceValueForNoiseLevelMeasurementsSummary">Valore di riferimento fisico per la misura di rumore</string>
     <string name="referenceValueForNoiseLevelMeasurementsTitle">Riferimento per la misura di rumore</string>
-    <string name="rememberLastActivePoiSummary">Se sei in una posizione, riavvia il tuo dispositivo o l\'applicazione e lascia la posizione. L'\applicazione eseguirà le regole associate alla uscita dal luogo al suo prossimo avvio.</string>
+    <string name="rememberLastActivePoiSummary">Se sei in una posizione, riavvia il tuo dispositivo o l\'applicazione e lascia la posizione. L\'applicazione eseguirà le regole associate alla uscita dal luogo al suo prossimo avvio.</string>
     <string name="rememberLastActivePoiTitle">Ricorda la ultima posizione attiva</string>
     <string name="removedNotification">la notifica da %1$s rimossa</string>
     <string name="ringing">squillando</string>
@@ -490,7 +490,6 @@
     <string name="started">avviato</string>
     <string name="starting">avviando</string>
     <string name="status">Stato</string>
-    <string name="status">Stato</string>
     <string name="stillGettingPosition">Ancora in attesa della posizione</string>
     <string name="stopped">terminatoo</string>
     <string name="stopping">terminando</string>
@@ -536,7 +535,7 @@
     <string name="tuesday">Martedì</string>
     <string name="unknownError">Errore indeterminato.</string>
     <string name="until">finchè</string>
-    <string name="urlLegend">Variabili:\n È possibile utilizzare le seguenti variabili. All\'attivazione saranno sostituite con il valore corrispondente sul dispositivo. Includi le parentesi nel tuo testo.\n\n[uniqueid] - Il numero di serie del tuo dispositivo\n[serialnr] - Il serial number del tuo dispositivio\n[latitude] - La latitudine del tuo dispositivo\n[longitude] - La longitudine del tuo dispositivo\n[phonenr] - Numero dell\'ultima chiamata (entrante o uscente)\n[d] - Il giorno del mese, sempre 2 cifre\n[m] - Mese in formato numerico, sempre 2 cifre\n[Y] - L\’anno, sempre 4 cifre\n[h] - Ore in formato 12 ore, sempre 2 cifre con due punti\n[H] - Ore in formato 24 ore, sempre 2 cifre con due punti\n[i] - Minuti, sempre 2 cifre\n[s] - Secondi, sempre 2 cifre\n[ms] - millisecondi, sempre 3 cifre [notificationTitle] - titolo dell'ultima notifica [notificationText] - testo dell'ultima notifica</string>
+    <string name="urlLegend">Variabili:\n È possibile utilizzare le seguenti variabili. All\'attivazione saranno sostituite con il valore corrispondente sul dispositivo. Includi le parentesi nel tuo testo.\n\n[uniqueid] - Il numero di serie del tuo dispositivo\n[serialnr] - Il serial number del tuo dispositivio\n[latitude] - La latitudine del tuo dispositivo\n[longitude] - La longitudine del tuo dispositivo\n[phonenr] - Numero dell\'ultima chiamata (entrante o uscente)\n[d] - Il giorno del mese, sempre 2 cifre\n[m] - Mese in formato numerico, sempre 2 cifre\n[Y] - L\’anno, sempre 4 cifre\n[h] - Ore in formato 12 ore, sempre 2 cifre con due punti\n[H] - Ore in formato 24 ore, sempre 2 cifre con due punti\n[i] - Minuti, sempre 2 cifre\n[s] - Secondi, sempre 2 cifre\n[ms] - millisecondi, sempre 3 cifre [notificationTitle] - titolo dell\'ultima notifica [notificationText] - testo dell\'ultima notifica</string>
     <string name="urlToTrigger">URL da caricare:</string>
     <string name="urlTooShort">L\'url deve avere almeno 10 caratteri.</string>
     <string name="usbTetheringFailForAboveGingerbread">Questo molto probabilmente non funzionerà dato che sei su una versione superiore ad Android 2.3. Tuttavia è possibile utilizzare la connessione wifi tethering per attivare la regola se sei su una versione inferiore ad Android 7.</string>
