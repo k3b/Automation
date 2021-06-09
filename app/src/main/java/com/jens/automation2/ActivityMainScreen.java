@@ -641,6 +641,8 @@ public class ActivityMainScreen extends ActivityGeneric
 	{
 		if(result && !updateNoteDisplayed)
 		{
+			updateNoteDisplayed = true;
+
 			AlertDialog.Builder updateNoteBuilder = new AlertDialog.Builder(ActivityMainScreen.this);
 			updateNoteBuilder.setMessage(getResources().getString(R.string.updateAvailable));
 			updateNoteBuilder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener()
@@ -651,10 +653,21 @@ public class ActivityMainScreen extends ActivityGeneric
 					String url = "https://server47.de/automation/";
 					Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
 					startActivity(browserIntent);
+
+					updateNoteDisplayed = false;
 				}
 			});
-			updateNoteBuilder.setNegativeButton(getResources().getString(R.string.no), null);
+			updateNoteBuilder.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener()
+			{
+				@Override
+				public void onClick(DialogInterface dialogInterface, int i)
+				{
+					updateNoteDisplayed = false;
+				}
+			});
 			updateNoteBuilder.show();
 		}
+
+		AsyncTasks.AsyncTaskUpdateCheck.checkRunning = false;
 	}
 }

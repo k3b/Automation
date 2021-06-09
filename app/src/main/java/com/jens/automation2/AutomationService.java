@@ -258,7 +258,8 @@ public class AutomationService extends Service implements OnInitListener
 			case reloadSettings:
 				Settings.readFromPersistentStorage(this);
 				applySettingsAndRules();
-				myLocationProvider.applySettingsAndRules();
+				if(myLocationProvider != null)
+					myLocationProvider.applySettingsAndRules();
 				break;
 			case updateNotification:
 				this.updateNotification();

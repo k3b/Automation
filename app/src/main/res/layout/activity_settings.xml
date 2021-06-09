@@ -57,7 +57,7 @@
 			android:title="@string/executeRulesAndProfilesWithSingleClickTitle" />
 
 		<CheckBoxPreference
-			android:id="@+id/chkPrefUpdateCheck"
+			android:key="automaticUpdateCheck"
 			android:enabled="false"
 			android:title="@string/automaticUpdateCheck"
 			android:summary="@string/automaticUpdateCheckSummary"/>

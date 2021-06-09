@@ -255,7 +255,7 @@ public class Settings implements SharedPreferences
 			startScreen = Integer.parseInt(prefs.getString("startScreen", String.valueOf(default_startScreen)));
 
 			executeRulesAndProfilesWithSingleClick = prefs.getBoolean("executeRulesAndProfilesWithSingleClick", default_executeRulesAndProfilesWithSingleClick);
-			automaticUpdateCheck = prefs.getBoolean("chkPrefUpdateCheck", default_automaticUpdateCheck);
+			automaticUpdateCheck = prefs.getBoolean("automaticUpdateCheck", default_automaticUpdateCheck);
 			displayNewsOnMainScreen = prefs.getBoolean("displayNewsOnMainScreen", default_displayNewsOnMainScreen);
 
 			lockSoundChanges = prefs.getBoolean("lockSoundChanges", default_lockSoundChanges);

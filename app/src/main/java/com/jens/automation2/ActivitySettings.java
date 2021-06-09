@@ -20,7 +20,7 @@ public class ActivitySettings extends PreferenceActivity
 
 		if(BuildConfig.FLAVOR.equals("apkFlavor"))
 		{
-			chkPrefUpdateCheck = (CheckBoxPreference) findPreference("chkPrefUpdateCheck");
+			chkPrefUpdateCheck = (CheckBoxPreference) findPreference("automaticUpdateCheck");
 			chkPrefUpdateCheck.setEnabled(true);
 		}
 	}
