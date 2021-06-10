@@ -678,4 +678,6 @@
     <string name="automaticUpdateCheck">Check for updates</string>
     <string name="automaticUpdateCheckSummary">Only applies to APK version.</string>
     <string name="updateAvailable">There\'s a new update available. Would you like opening the browser to download it?</string>
+    <string name="locationFound">Location found. The suggested minimum radius for locations is %1$d."</string>
+    <string name="locationFoundInaccurate">Only a location with a limited accuracy could be found. It might not work reliably. The suggested minimum radius for locations is %1$d."</string>
 </resources>

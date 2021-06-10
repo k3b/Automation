@@ -21,6 +21,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 public class ActivityManagePoi extends Activity
 {
 	public LocationManager myLocationManager;
@@ -31,6 +33,10 @@ public class ActivityManagePoi extends Activity
 	Button bGetPosition, bSavePoi;
 	ImageButton ibShowOnMap;
     EditText guiPoiName, guiPoiLatitude, guiPoiLongitude, guiPoiRadius;
+    Calendar locationSearchStart = null;
+
+    final static int defaultRadius = 300;
+    final static int searchTimeout = 120;
 
     private static ProgressDialog progressDialog;
 
@@ -150,17 +156,20 @@ public class ActivityManagePoi extends Activity
 		}
 		else
 		{
+			locationSearchStart = Calendar.getInstance();
+
 			Miscellaneous.logEvent("i", "POI Manager", getResources().getString(R.string.logGettingPositionWithProvider) + " " + provider1, 3);
 			myLocationManager.requestLocationUpdates(provider1, 500, Settings.satisfactoryAccuracyNetwork, myLocationListenerNetwork);
 			
 			Miscellaneous.logEvent("i", "POI Manager", getResources().getString(R.string.logGettingPositionWithProvider) + " " + provider2, 3);
 			myLocationManager.requestLocationUpdates(provider2, 500, Settings.satisfactoryAccuracyGps, myLocationListenerGps);
 		}
-		
 	}
 	
 	private void compareLocations()
 	{
+		Miscellaneous.logEvent("i", "POI Manager", getResources().getString(R.string.comparing), 4);
+
 		if(locationGps != null)
 		{
 			guiPoiLatitude.setText(String.valueOf(locationGps.getLatitude()));
@@ -168,20 +177,11 @@ public class ActivityManagePoi extends Activity
 
 			if(locationNetwork != null)
 			{
-				Miscellaneous.logEvent("i", "POI Manager", getResources().getString(R.string.comparing), 4);
-
 				double variance = locationGps.distanceTo(locationNetwork);
-
 				String text = String.format(getResources().getString(R.string.distanceBetween), Math.round(variance));
-
-//			Toast.makeText(getBaseContext(), text, Toast.LENGTH_LONG).show();
 				Miscellaneous.logEvent("i", "POI Manager", text, 4);
-//			if(variance > 50 && guiPoiRadius.getText().toString().length()>0 && Integer.parseInt(guiPoiRadius.getText().toString())<variance)
-//			{
-//				String text = "Positioning via network is off by " + variance + " meters. The radius you specify shouldn't be smaller than that.";
+
 				getDialog(text, Math.round(variance) + 1).show();
-//				Toast.makeText(getBaseContext(), "Positioning via network is off by " + variance + " meters. The radius you specify shouldn't be smaller than that.", Toast.LENGTH_LONG).show();
-//			}
 			}
 			else
 			{
@@ -189,6 +189,31 @@ public class ActivityManagePoi extends Activity
 				myLocationManager.removeUpdates(myLocationListenerNetwork);
 				guiPoiRadius.setText("250");
 			}
+		}
+		else if(locationNetwork != null && locationNetwork.getAccuracy() <= Settings.satisfactoryAccuracyGps && locationNetwork.getAccuracy() <= defaultRadius)
+		{
+			/*
+				We do not yet have a GPS result. But we have a network result that is good enough
+				to accept it a sole result. In that case we suggest a default radius, no variance.
+			 */
+
+			String text = String.format(getResources().getString(R.string.locationFound), defaultRadius);
+			Miscellaneous.logEvent("i", "POI Manager", text, 4);
+
+			getDialog(text, defaultRadius).show();
+		}
+		else if(
+				locationNetwork != null
+						&&
+				Calendar.getInstance().getTimeInMillis()
+						>
+				(locationSearchStart.getTimeInMillis() + ((long)searchTimeout * 1000))
+			)
+		{
+			// Only a network location was found that is also not very accurate.
+
+			String text = String.format(getResources().getString(R.string.locationFoundInaccurate), defaultRadius);
+			Miscellaneous.logEvent("i", "POI Manager", text, 4);
 		}
 		else
 			Miscellaneous.logEvent("i", "POI Manager", getResources().getString(R.string.logNotAllMeasurings), 4);
@@ -203,15 +228,6 @@ public class ActivityManagePoi extends Activity
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
-//				switch(which)
-//				{
-//					case DialogInterface.BUTTON_POSITIVE:
-//						guiPoiRadius.setText(String.valueOf(value));
-//						break;
-//					case DialogInterface.BUTTON_NEGATIVE:
-//						break;
-//				}
-				
 				progressDialog = ProgressDialog.show(ActivityManagePoi.this, "", getResources().getString(R.string.gettingPosition), true, true);
 				getLocation();
 			}
@@ -251,7 +267,6 @@ public class ActivityManagePoi extends Activity
 	
 	public class MyLocationListenerGps implements LocationListener
 	{
-
 		@Override
 		public void onLocationChanged(Location location)
 		{
@@ -288,66 +303,27 @@ public class ActivityManagePoi extends Activity
 			// TODO Auto-generated method stub
 			
 		}
-		
 	}
-//	public class MyLocationListenerWifi implements LocationListener
-//	{
-//
-//		@Override
-//		public void onLocationChanged(Location location)
-//		{
-//			Miscellaneous.logEvent("i", "POI Manager", getResources().getString(R.string.gotGpsUpdate) + " " + String.valueOf(location.getAccuracy()));
-//			// Deactivate when accuracy reached
-////			if(location.getAccuracy() < Settings.SATISFACTORY_ACCURACY_GPS)
-////			{
-////				Miscellaneous.logEvent("i", "POI Manager", "satisfactoryNetworkAccuracy of " + String.valueOf(Settings.SATISFACTORY_ACCURACY_GPS) + "m reached. Removing location updates...");
-//
-//				myLocationManager.removeUpdates(this);
-//				locationGps = location;
-//				
-//				compareLocations();
-////			}
-//		}
-//
-//		@Override
-//		public void onProviderDisabled(String provider)
-//		{
-//			// TODO Auto-generated method stub
-//			
-//		}
-//
-//		@Override
-//		public void onProviderEnabled(String provider)
-//		{
-//			// TODO Auto-generated method stub
-//			
-//		}
-//
-//		@Override
-//		public void onStatusChanged(String provider, int status, Bundle extras)
-//		{
-//			// TODO Auto-generated method stub
-//			
-//		}
-//		
-//	}
+
 	public class MyLocationListenerNetwork implements LocationListener
 	{
-
 		@Override
 		public void onLocationChanged(Location location)
 		{			
 			Miscellaneous.logEvent("i", "POI Manager", getResources().getString(R.string.logGotNetworkUpdate) + " " + String.valueOf(location.getAccuracy()), 3);
+			String text = "Network position found. satisfactoryNetworkAccuracy of " + String.valueOf(Settings.satisfactoryAccuracyNetwork) + "m reached. Removing location updates...";
+			Miscellaneous.logEvent("i", "POI Manager", text, 5);
+			myLocationManager.removeUpdates(this);
+			locationNetwork = location;
+
 			// Deactivate when accuracy reached
-//			if(location.getAccuracy() < Settings.SATISFACTORY_ACCURACY_GPS)
-//			{
-//				String text = "Network position found. satisfactoryNetworkAccuracy of " + String.valueOf(Settings.SATISFACTORY_ACCURACY_NETWORK) + "m reached. Removing location updates...";
-//				Miscellaneous.logEvent("i", "POI Manager", text);
-				myLocationManager.removeUpdates(this);
-				locationNetwork = location;
-				
-				compareLocations();
-//			}
+			if(location.getAccuracy() <= Settings.satisfactoryAccuracyGps)
+			{
+				// Accuracy is so good that we don't need to wait for GPS result
+				myLocationManager.removeUpdates(myLocationListenerGps);
+			}
+
+			compareLocations();
 		}
 
 		@Override
@@ -370,7 +346,6 @@ public class ActivityManagePoi extends Activity
 			// TODO Auto-generated method stub
 			
 		}
-		
 	}
 	
 	public void editPoi(PointOfInterest poi)
