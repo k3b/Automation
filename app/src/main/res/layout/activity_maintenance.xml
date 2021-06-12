@@ -97,6 +97,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <TextView
+            android:id="@+id/tvAppVersion"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginVertical="@dimen/default_margin"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </ScrollView>

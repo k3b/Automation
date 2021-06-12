@@ -212,7 +212,7 @@
     <string name="anotherPoiByThatName">Es gibt bereits einen Ort mit diesem Namen.</string>
     <string name="anotherRuleByThatName">Es gibt bereits eine Regel mit diesem Namen.</string>
     <string name="startOtherActivity">Programm starten</string>
-    <string name="selectApplication">Wählen Sie\neine Anwendung</string>
+    <string name="selectApplication">Anwendung wählen</string>
     <string name="selectPackageOfApplication">Wählen Sie ein Paket der Anwendung</string>
     <string name="selectActivityToBeStarted">Wählen Sie die Activity des Pakets</string>
     <string name="errorStartingOtherActivity">Fehler beim Starten einer anderen Anwendung</string>

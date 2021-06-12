@@ -193,8 +193,8 @@ public class ActivityManagePoi extends Activity
 
 		Miscellaneous.logEvent("i", "POI Manager", "Starting timeout for location search: " + String.valueOf(searchTimeout) + " seconds", 5);
 
-		TimerTask updateBall = new TimeoutTask();
-		timer.scheduleAtFixedRate(updateBall, 0, searchTimeout * 1000);
+		TimerTask timeoutTask = new TimeoutTask();
+		timer.schedule(timeoutTask, searchTimeout * 1000);
 	}
 
 	private void stopTimeout()

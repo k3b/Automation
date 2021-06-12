@@ -141,7 +141,7 @@
     <string name="exceeding">exedendo</string>
     <string name="droppingBelow">estendo menos que</string>
     <string name="anyWifi">algún wifi</string>
-    <string name="selectApplication">Elija la app</string>
+    <string name="selectApplication">Elija app</string>
     <string name="selectPackageOfApplication">Elija el paquete de la app</string>
     <string name="selectActivityToBeStarted">Elija la actividad de la app</string>
     <string name="errorStartingOtherActivity">Error encendiendo otra app</string>

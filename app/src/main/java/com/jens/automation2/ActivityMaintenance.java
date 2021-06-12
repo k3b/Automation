@@ -29,7 +29,7 @@ public class ActivityMaintenance extends Activity
 
     final static String prefsFileName = "com.jens.automation2_preferences.xml";
 
-    TextView tvFileStoreLocation;
+    TextView tvFileStoreLocation, tvAppVersion;
     Button bVolumeTest, bMoreSettings, bSettingsSetToDefault, bShareConfigAndLog, bImportConfiguration, bExportConfiguration;
 
     @Override
@@ -103,6 +103,13 @@ public class ActivityMaintenance extends Activity
         });
 
         tvFileStoreLocation = (TextView)findViewById(R.id.tvFileStoreLocation);
+        tvAppVersion = (TextView)findViewById(R.id.tvAppVersion);
+
+        tvAppVersion.setText(
+                                "Version: " + BuildConfig.VERSION_NAME + Miscellaneous.lineSeparator +
+                                "Version code: " + String.valueOf(BuildConfig.VERSION_CODE) + Miscellaneous.lineSeparator +
+                                "Flavor: " + BuildConfig.FLAVOR
+                            );
     }
 
     @Override
