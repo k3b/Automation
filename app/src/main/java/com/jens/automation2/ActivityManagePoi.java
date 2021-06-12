@@ -13,6 +13,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -113,7 +114,7 @@ public class ActivityManagePoi extends Activity
 		myLocationManager.removeUpdates(myLocationListenerGps);
 		ActivityMainPoi.poiToEdit = new PointOfInterest();
 		ActivityMainPoi.poiToEdit.setLocation(new Location("POINT_LOCATION"));
-		if(loadFormValuesToVariable())
+		if(loadFormValuesToVariable(false))
 			if(ActivityMainPoi.poiToEdit.create(this))
 			{
 				this.setResult(RESULT_OK);
@@ -123,7 +124,7 @@ public class ActivityManagePoi extends Activity
 	private void changePoi()
 	{
 		myLocationManager.removeUpdates(myLocationListenerGps);
-		if(loadFormValuesToVariable())
+		if(loadFormValuesToVariable(false))
 			if(ActivityMainPoi.poiToEdit.change(this))
 			{
 				this.setResult(RESULT_OK);
@@ -162,9 +163,14 @@ public class ActivityManagePoi extends Activity
 			locationSearchStart = Calendar.getInstance();
 			startTimeout();
 
-			Miscellaneous.logEvent("i", "POI Manager", getResources().getString(R.string.logGettingPositionWithProvider) + " " + provider1, 3);
-			myLocationManager.requestLocationUpdates(provider1, 500, Settings.satisfactoryAccuracyNetwork, myLocationListenerNetwork);
-			
+			if(!Settings.privacyLocationing)
+			{
+				Miscellaneous.logEvent("i", "POI Manager", getResources().getString(R.string.logGettingPositionWithProvider) + " " + provider1, 3);
+				myLocationManager.requestLocationUpdates(provider1, 500, Settings.satisfactoryAccuracyNetwork, myLocationListenerNetwork);
+			}
+			else
+				Miscellaneous.logEvent("i", "POI Manager", "Skipping network location query because private locationing is active.", 4);
+
 			Miscellaneous.logEvent("i", "POI Manager", getResources().getString(R.string.logGettingPositionWithProvider) + " " + provider2, 3);
 			myLocationManager.requestLocationUpdates(provider2, 500, Settings.satisfactoryAccuracyGps, myLocationListenerGps);
 		}
@@ -181,7 +187,7 @@ public class ActivityManagePoi extends Activity
 		{
 			public void run()
 			{
-				//calculate the new position of myBall
+				evaluateLocationResults();
 			}
 		}
 
@@ -202,9 +208,16 @@ public class ActivityManagePoi extends Activity
 		}
 	}
 
-	private void compareLocations()
+	private void evaluateLocationResults()
 	{
-		Miscellaneous.logEvent("i", "POI Manager", getResources().getString(R.string.comparing), 4);
+		/*
+			Procedure:
+			If we get a GPS result we take it and suggest a default minimum radius.
+			If private locationing is active that's the only possible outcome other than a timeout.
+
+			If private locationing is not active
+			If we get a network
+		 */
 
 		// We have GPS
 		if(locationGps != null)
@@ -217,18 +230,18 @@ public class ActivityManagePoi extends Activity
 			String text;
 			if(locationNetwork != null)
 			{
+				Miscellaneous.logEvent("i", "POI Manager", getResources().getString(R.string.comparing), 4);
 				double variance = locationGps.distanceTo(locationNetwork);
-
 				text = String.format(getResources().getString(R.string.distanceBetween), Math.round(variance));
-				getDialog(text, Math.round(variance) + 1).show();
+				getRadiusConfirmationDialog(text, Math.round(variance) + 1).show();
 			}
 			else
 			{
 				text = String.format(getResources().getString(R.string.locationFound), defaultRadius);
-				getDialog(text, defaultRadius).show();
+				getRadiusConfirmationDialog(text, defaultRadius).show();
 			}
 			Miscellaneous.logEvent("i", "POI Manager", text, 4);
-		}	// we have a great network signal
+		}	// we have a great network signal:
 		else if(locationNetwork != null && locationNetwork.getAccuracy() <= Settings.satisfactoryAccuracyGps && locationNetwork.getAccuracy() <= defaultRadius)
 		{
 			/*
@@ -242,9 +255,9 @@ public class ActivityManagePoi extends Activity
 			String text = String.format(getResources().getString(R.string.locationFound), defaultRadius);
 			Miscellaneous.logEvent("i", "POI Manager", text, 4);
 
-			getDialog(text, defaultRadius).show();
-		}	// we have a bad network signal
-		else if(
+			getRadiusConfirmationDialog(text, defaultRadius).show();
+		}
+		else if(	// we have a bad network signal
 				locationNetwork != null
 						&&
 				Calendar.getInstance().getTimeInMillis()
@@ -258,11 +271,20 @@ public class ActivityManagePoi extends Activity
 			guiPoiLongitude.setText(String.valueOf(locationNetwork.getLongitude()));
 
 			String text = String.format(getResources().getString(R.string.locationFoundInaccurate), defaultRadius);
-			getDialog(text, defaultRadius).show();
+			getRadiusConfirmationDialog(text, defaultRadius).show();
 			Miscellaneous.logEvent("i", "POI Manager", text, 4);
 		}
 		else
-			Miscellaneous.logEvent("i", "POI Manager", getResources().getString(R.string.logNotAllMeasurings), 4);
+		{
+			String text = String.format(getResources().getString(R.string.noLocationCouldBeFound), searchTimeout);
+			Miscellaneous.logEvent("i", "POI Manager", text, 2);
+
+			if(myLocationListenerNetwork != null)
+				myLocationManager.removeUpdates(myLocationListenerNetwork);
+
+			myLocationManager.removeUpdates(myLocationListenerGps);
+			getErrorDialog(text).show();
+		}
 	}
 	
 	private AlertDialog getNotificationDialog(String text)
@@ -284,8 +306,11 @@ public class ActivityManagePoi extends Activity
 		
 		return alertDialog;
 	}
-	private AlertDialog getDialog(String text, final double value)
+
+	private AlertDialog getRadiusConfirmationDialog(String text, final double value)
 	{
+		stopTimeout();
+
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener()
 		{			
@@ -310,6 +335,24 @@ public class ActivityManagePoi extends Activity
 		
 		return alertDialog;
 	}
+
+	private AlertDialog getErrorDialog(String text)
+	{
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				progressDialog.dismiss();
+			}
+		};
+		alertDialogBuilder.setMessage(text);
+		Looper.prepare();
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		return alertDialog;
+	}
 	
 	public class MyLocationListenerGps implements LocationListener
 	{
@@ -326,7 +369,7 @@ public class ActivityManagePoi extends Activity
 				myLocationManager.removeUpdates(this);
 				locationGps = location;
 				
-				compareLocations();
+				evaluateLocationResults();
 //			}
 		}
 
@@ -370,7 +413,7 @@ public class ActivityManagePoi extends Activity
 				myLocationManager.removeUpdates(myLocationListenerGps);
 			}
 
-			compareLocations();
+			evaluateLocationResults();
 		}
 
 		@Override
@@ -403,19 +446,22 @@ public class ActivityManagePoi extends Activity
 		guiPoiRadius.setText(String.valueOf(poi.getRadius()));
 	}
 	
-	public boolean loadFormValuesToVariable()
+	public boolean loadFormValuesToVariable(boolean checkOnlyCoordinates)
 	{
 		if(ActivityMainPoi.poiToEdit == null)
 			ActivityMainPoi.poiToEdit = new PointOfInterest();
-		
-		if(guiPoiName.getText().length() == 0)
+
+		if(!checkOnlyCoordinates)
 		{
-			Toast.makeText(this, getResources().getString(R.string.pleaseEnterValidName), Toast.LENGTH_LONG).show();
-			return false;
+			if (guiPoiName.getText().length() == 0)
+			{
+				Toast.makeText(this, getResources().getString(R.string.pleaseEnterValidName), Toast.LENGTH_LONG).show();
+				return false;
+			}
+			else
+				ActivityMainPoi.poiToEdit.setName(guiPoiName.getText().toString());
 		}
-		else
-			ActivityMainPoi.poiToEdit.setName(guiPoiName.getText().toString());
-		
+
 		if(ActivityMainPoi.poiToEdit.getLocation() == null)
 			ActivityMainPoi.poiToEdit.setLocation(new Location("POINT_LOCATION"));
 		
@@ -438,28 +484,31 @@ public class ActivityManagePoi extends Activity
 			Toast.makeText(this, getResources().getString(R.string.pleaseEnterValidLongitude), Toast.LENGTH_LONG).show();
 			return false;
 		}
-		
-		try
+
+		if(!checkOnlyCoordinates)
 		{
-			ActivityMainPoi.poiToEdit.setRadius(Double.parseDouble(guiPoiRadius.getText().toString()), this);
+			try
+			{
+				ActivityMainPoi.poiToEdit.setRadius(Double.parseDouble(guiPoiRadius.getText().toString()), this);
+			}
+			catch (NumberFormatException e)
+			{
+				Toast.makeText(this, getResources().getString(R.string.pleaseEnterValidRadius), Toast.LENGTH_LONG).show();
+				return false;
+			}
+			catch (Exception e)
+			{
+				Toast.makeText(this, getResources().getString(R.string.unknownError), Toast.LENGTH_LONG).show();
+				return false;
+			}
 		}
-		catch(NumberFormatException e)
-		{
-			Toast.makeText(this, getResources().getString(R.string.pleaseEnterValidRadius), Toast.LENGTH_LONG).show();
-			return false;
-		}
-		catch (Exception e)
-		{
-			Toast.makeText(this, getResources().getString(R.string.unknownError), Toast.LENGTH_LONG).show();
-			return false;
-		}
-		
+
 		return true;
 	}
 	
 	private void showOnMap()
 	{
-		if(loadFormValuesToVariable())
+		if(loadFormValuesToVariable(true))
 		{
 			try
 			{

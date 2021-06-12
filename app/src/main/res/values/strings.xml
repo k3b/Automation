@@ -681,4 +681,5 @@
     <string name="locationFound">Location found. The suggested minimum radius for locations is %1$d m.</string>
     <string name="locationFoundInaccurate">Only a location with a limited accuracy could be found. It might not work reliably. The suggested minimum radius for locations is %1$d."</string>
     <string name="clone">Clone</string>
+    <string name="noLocationCouldBeFound">No position could be found after a timeout of %1$o seconds.</string>
 </resources>
