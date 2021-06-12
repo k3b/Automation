@@ -14,7 +14,6 @@
     <string name="serviceStarted">Automation servicio ha iniciado.</string>
     <string name="version">Versión %1$s.</string>
     <string name="distanceBetween">Distancia entre el sitio GPS y el sitio red está %1$d metros. Este +1m debe ser el mínimo.</string>
-    <string name="comparing">Tengo tanto sitio red como sitio gps. Estoy comparando...</string>
     <string name="positioningWindowNotice">Si está en una edificación vaya cerca de una ventana hasta que una posición haya sido encontrada. Sino podria durar mucho tiempo o no seria posible.</string>
     <string name="gettingPosition">Buscando posición. Espere, por favor...</string>
     <string name="yes">Si</string>
@@ -517,4 +516,11 @@ Incluya las paréntecis en su texto.\n\n[uniqueid] - el número único de su dis
     <string name="helpTextProcessMonitoring">Si crea una norma con vigilancia del proceso la aplicación va a revisar periodicamente si el proceso esta activo. Puede ajustar la frecuencia en la configuración. Puede relentizar la reacción, pero vigilancia permanente gasta mucha bateria. No hay una broadcast del sistema operativo para este evento.</string>
     <string name="helpTextEnergySaving">Muchos fabricantes intentan conservar energia en limitando la actividades de segundo plano de otras apps. Desafortunadamente el resultado es que en esas aplicaciones no funcionan por completo. Automation esta entre ellas. Vease <a href="https://dontkillmyapp.com/">esta pagina</a> para determinar como excluir Automation de tales medidas.</string>
     <string name="speedMaximumTimeBetweenLocations">Tiempo maximo entre 2 sitios para determinar la velocidad.</string>
+    <string name="clone">Clonar</string>
+    <string name="updateAvailable">Hay nueva versión de la app. Quiere abrir un browser y descargar lo?</string>
+    <string name="automaticUpdateCheck">Buscar updates</string>
+    <string name="urlToTriggerExplanation">Esta función NO abre el browser, pero enciende un URL en el fondo. Puede usar lo por ejemplo para enviar comandos a su automatización de la casa.</string>
+    <string name="automaticUpdateCheckSummary">Solo en la versión APK.</string>
+    <string name="locationFound">Determine un posición. El radio minimo sugeri es %1$d m.</string>
+    <string name="locationFoundInaccurate">Solo pude determinar una posición imprecisa. Puede ser va a funcionar poco fiable. El radio minimo sugeri es %1$d m.</string>
 </resources>

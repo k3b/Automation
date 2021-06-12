@@ -52,12 +52,6 @@ public class ActivityMainRules extends ActivityGeneric
 			@Override
 			public void onClick(View v)
 			{
-//				if(!ActivityPermissions.havePermission(ActivityPermissions.writeExternalStoragePermissionName, ActivityMainRules.this))
-//				{
-//					Toast.makeText(ActivityMainRules.this, getResources().getString(R.string.appRequiresPermissiontoAccessExternalStorage), Toast.LENGTH_LONG).show();
-//					return;
-//				}
-
 				ruleToEdit = null;
 				Intent startAddRuleIntent = new Intent(ActivityMainRules.this, ActivityManageRule.class);
 				startActivityForResult(startAddRuleIntent, 3000);
@@ -190,7 +184,7 @@ public class ActivityMainRules extends ActivityGeneric
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		alertDialogBuilder.setTitle(getResources().getString(R.string.whatToDoWithRule));
-		alertDialogBuilder.setItems(new String[]{ getResources().getString(R.string.runManually), getResources().getString(R.string.edit), getResources().getString(R.string.deleteCapital) }, new DialogInterface.OnClickListener()
+		alertDialogBuilder.setItems(new String[]{ getResources().getString(R.string.runManually), getResources().getString(R.string.edit), getResources().getString(R.string.deleteCapital), getResources().getString(R.string.clone) }, new DialogInterface.OnClickListener()
 		{			
 			@Override
 			public void onClick(DialogInterface dialog, int which)
@@ -216,6 +210,11 @@ public class ActivityMainRules extends ActivityGeneric
 						break;
 					case 2:
 						if(ruleThisIsAbout.delete())
+							updateListView();
+						break;
+					case 3:
+						ruleToEdit = ruleThisIsAbout;
+						if(ruleToEdit.cloneRule(ActivityMainRules.this))
 							updateListView();
 						break;
 				}

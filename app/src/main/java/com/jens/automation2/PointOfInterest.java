@@ -805,6 +805,7 @@ public class PointOfInterest implements Comparable<PointOfInterest>
 			{
 				String text = String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.overlapBetweenPois), otherPoi.getName(), String.valueOf(overlap));
 				Miscellaneous.logEvent("w", "POI", text, 2);
+//				Miscellaneous.messageBox("POI", text, Miscellaneous.getAnyContext()).show();
 				Toast.makeText(Miscellaneous.getAnyContext(), text, Toast.LENGTH_LONG).show();
 				return false;
 			}

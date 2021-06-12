@@ -14,8 +14,7 @@
     <string name="serviceStarted">Automations-Dienst gestarted.</string>
     <string name="version">Version %1$s.</string>
     <string name="distanceBetween">Der Abstand zwischen GPS- und Mobilfunk-Position beträgt %1$d m. Dies +1 sollte der minimale Radius sein.</string>
-    <string name="comparing">Sowohl Netzwerk- als auch GPS Position sind bekannt. Vergleiche...</string>
-    <string name="positioningWindowNotice">Falls Sie in einem Gebäude sind wird empfohlen das Gerät in die Nähe eines Fensters zu bringen bis eine Position ermittelt werden konnte. Andernfalls kann es sehr lange dauern oder es funktioniert gar nicht.</string>
+    <string name="positioningWindowNotice">Falls Sie in einem Gebäude sind, wird empfohlen das Gerät in die Nähe eines Fensters zu bringen bis eine Position ermittelt werden konnte. Andernfalls kann es sehr lange dauern oder es funktioniert gar nicht.</string>
     <string name="gettingPosition">Position wird ermittelt. Bitte warten...</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
@@ -580,4 +579,10 @@
     <string name="noKnownWifis">Es gibt keine bekannten WLANs auf Ihrem Gerät.</string>
     <string name="needLocationPermForWifiList">Die Liste von WLANs auf Ihrem Gerät könnte verwendet werden, um zu ermitteln, an welchen Orten Sie waren. Deshalb ist die Positions-Berechtigung nötig, um die Liste dieser WLANs zu laden. Wenn Sie eines aus der Liste auswählen möchten, müssen Sie diese Berechtigung gewähren. Wenn nicht, können Sie immer noch eines manuell eingeben.</string>
     <string name="urlToTriggerExplanation">Diese Funktion öffnet NICHT den Browser, sondern löst die HTTP Anfrage im Hintergrund aus. Sie können das z.B. benutzen, um Befehle an Ihre Heimautomatisierung zu schicken.</string>
+    <string name="clone">Klonen</string>
+    <string name="updateAvailable">Es gibt eine neue Version der Anwendung. Möchten Sie den Browser öffnen, um sie herunterzuladen?</string>
+    <string name="automaticUpdateCheckSummary">Nur bei der APK Version.</string>
+    <string name="automaticUpdateCheck">Nach Updates suchen</string>
+    <string name="locationFound">Position gefunden. Der vorgeschlagene Mindestradius für Orte beträgt %1$d m.</string>
+    <string name="locationFoundInaccurate">Es konnte nur eine ungenaue Position gefunden werden. Das funktioniert u.U. nicht zuverlässig. Der vorgeschlagene Mindestradius für Orte beträgt %1$d m.</string>
 </resources>

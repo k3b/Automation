@@ -875,7 +875,18 @@ public class Rule implements Comparable<Rule>
 		Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), String.format(context.getResources().getString(R.string.ruleIsDeactivatedCantApply), this.getName()), 3);
 		return false;
 	}
-	
+
+	public boolean cloneRule(Context context)
+	{
+		Rule newRule = new Rule();
+		newRule.setName(this.getName() + " - clone");
+		newRule.setRuleActive(this.isRuleActive());
+		newRule.setRuleToggle(this.isRuleToggle());
+		newRule.setTriggerSet(this.getTriggerSet());
+		newRule.setActionSet(this.getActionSet());
+		return newRule.create(context);
+	}
+
 	private class ActivateRuleTask extends AsyncTask<Object, String, Void>
 	{
 		boolean wasActivated = false;

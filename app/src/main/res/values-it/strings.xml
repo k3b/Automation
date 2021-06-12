@@ -125,7 +125,6 @@
     <string name="closeTo">vicino a</string>
     <string name="closestPoi">Posizione più vicina:</string>
     <string name="com.wireguard.android.permission.CONTROL_TUNNELS">Controllare i tunnels dell\'applicazione wireguard</string>
-    <string name="comparing">Ho la posizione sia dalla rete che dal GPS e le sto confrontando...</string>
     <string name="configurationExportedSuccessfully">Configurazione esportata con successo.</string>
     <string name="configurationImportedSuccessfully">Configurazione esportata con successo.</string>
     <string name="connected">connesso</string>
@@ -579,4 +578,5 @@
     <string name="withLabel">con etichetta</string>
     <string name="writeLogFile">Memorizza un file di log</string>
     <string name="yes">Si</string>
+    <string name="clone">Clonare</string>
 </resources>

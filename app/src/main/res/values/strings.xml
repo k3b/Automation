@@ -17,7 +17,7 @@
     <string name="logServiceStarting" translatable="false">Starting service.</string>
     <string name="logNotAllMeasurings" translatable="false">Don\'t have all location measurings, yet. Can\'t do comparison.</string>
     <string name="distanceBetween">Distance between GPS location and network location is %1$d meters. This +1m should be the absolute minimum radius.</string>
-    <string name="comparing">Have both network and gps location. Comparing...</string>
+    <string name="comparing" translatable="false">Have both network and gps location. Comparing...</string>
     <string name="logNoSuitableProvider" translatable="false">No suitable location providers could be used.</string>
     <string name="positioningWindowNotice">If you are in a building it is strongly advised to place your device next to a window until a position has been found. Otherwise it may take a very long time if it is able to find one at all.</string>
     <string name="gettingPosition">Getting position. Please wait...</string>
@@ -678,6 +678,7 @@
     <string name="automaticUpdateCheck">Check for updates</string>
     <string name="automaticUpdateCheckSummary">Only applies to APK version.</string>
     <string name="updateAvailable">There\'s a new update available. Would you like opening the browser to download it?</string>
-    <string name="locationFound">Location found. The suggested minimum radius for locations is %1$d."</string>
+    <string name="locationFound">Location found. The suggested minimum radius for locations is %1$d m.</string>
     <string name="locationFoundInaccurate">Only a location with a limited accuracy could be found. It might not work reliably. The suggested minimum radius for locations is %1$d."</string>
+    <string name="clone">Clone</string>
 </resources>
