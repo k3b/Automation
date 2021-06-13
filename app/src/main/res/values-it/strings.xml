@@ -353,7 +353,7 @@
     <string name="permissionsExplanationSmall">Per attivare la funzione che hai appena tentato di utilizzare, sono necessari ulteriori permessi. Clicca \"Continua\" per richiederli.</string>
     <string name="permissionsTitle">Permessi necessari</string>
     <string name="phoneCall">Chiamata</string>
-    <string name="phoneDirection">Seleziona se entrante o uscente</string>
+    <string name="phoneDirection">Seleziona se\nentrante o uscente</string>
     <string name="phoneNrReplacementError">Non ho l\'ultimo numero di telefono e quindi non posso inserirlo nella variabile.</string>
     <string name="phoneNumber">Numero di telefono</string>
     <string name="phoneNumberExplanation">È possibile inserire un numero di telefono specifico, ma non è necessario. Se vuoi specificarne uno, puoi sceglierlo dalla tua rubrica o inserirlo manualmente. Inoltre puoi usare espressioni regolari. Per testare un\'espressione regolare mi piace questa pagina:</string>

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:layout_weight="30" 
-    android:layout_margin="10dp" >
+    android:layout_margin="@dimen/default_margin" >
 	    
 	<LinearLayout
 	    android:layout_width="match_parent"
@@ -34,18 +34,18 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content" />
     
-	<ImageView
-	  android:layout_width="match_parent"
-	  android:layout_height="1dp"
-	  android:layout_margin="10dp"
-	  android:background="#aa000000" />
+		<ImageView
+		  android:layout_width="match_parent"
+		  android:layout_height="1dp"
+		  android:layout_margin="10dp"
+		  android:background="#aa000000" />
 
-	<TextView
-	    android:id="@+id/textView2"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:text="@string/insideOrOutsideTimeFrames"
-	    android:textAppearance="?android:attr/textAppearanceLarge" />
+		<TextView
+			android:id="@+id/textView2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/insideOrOutsideTimeFrames"
+			android:textAppearance="?android:attr/textAppearanceLarge" />
 
 	    <RadioGroup
 	        android:layout_width="match_parent" 
@@ -65,18 +65,18 @@
 		        android:text="@string/leaving" />
 		</RadioGroup>
     
-	<ImageView
-	  android:layout_width="match_parent"
-	  android:layout_height="1dp"
-	  android:layout_margin="10dp"
-	  android:background="#aa000000" />
+		<ImageView
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_margin="10dp"
+			android:background="#aa000000" />
 
-	<TextView
-	    android:id="@+id/tvCurrentNfcIdValue"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:text="@string/timeFrameWhichDays"
-	    android:textAppearance="?android:attr/textAppearanceLarge" />
+			<TextView
+				android:id="@+id/tvCurrentNfcIdValue"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/timeFrameWhichDays"
+				android:textAppearance="?android:attr/textAppearanceLarge" />
 			
 	    <CheckBox
 	        android:id="@+id/checkMonday"
@@ -122,6 +122,7 @@
 	
 	    <Button
 	        android:id="@+id/bSaveTimeFrame"
+			android:layout_marginTop="@dimen/default_margin"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="@string/save" />

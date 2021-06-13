@@ -271,7 +271,7 @@
     <string name="with">mit</string>
     <string name="phoneNumber">Telefonnummer</string>
     <string name="enterPhoneNumber">Geben Sie eine Telefonnummer ein. Leer lassen für irgendeine Nummer.</string>
-    <string name="phoneDirection">Wählen Sie die Gesprächsrichtung</string>
+    <string name="phoneDirection">Wählen Sie die\nGesprächsrichtung</string>
     <string name="any">egal</string>
     <string name="incoming">eingehend</string>
     <string name="outgoing">ausgehend</string>

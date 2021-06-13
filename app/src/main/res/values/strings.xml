@@ -339,7 +339,7 @@
     <string name="with">with</string>
     <string name="phoneNumber">Phone number</string>
     <string name="enterPhoneNumber">Enter phone number. Leave empty for any number.</string>
-    <string name="phoneDirection">Select call direction</string>
+    <string name="phoneDirection">Select call\ndirection</string>
     <string name="any">any</string>
     <string name="incoming">incoming</string>
     <string name="outgoing">outgoing</string>

@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -27,7 +26,7 @@ public class ActivityManageActionPlaySound extends Activity
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_play_sound);
+        setContentView(R.layout.activity_manage_action_play_sound);
 
         chkPlaySoundAlwaysPlay = (CheckBox)findViewById(R.id.chkPlaySoundAlwaysPlay);
         etSelectedSoundFile = (EditText)findViewById(R.id.etSelectedSoundFile);

@@ -172,6 +172,7 @@
 
                 <Button
                     android:id="@+id/bTriggerPhoneCallImportFromContacts"
+                    android:drawableLeft="@drawable/contacts"
                     android:layout_marginVertical="@dimen/default_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
