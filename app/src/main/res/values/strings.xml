@@ -489,7 +489,6 @@
     <string name="unknownError">Unknown error.</string>
     <string name="noWritableFolderFound">No writable folder found to store config file.</string>
     <string name="usbTetheringFailForAboveGingerbread">This will most likely not work as you\'re above Android 2.3. You could use wifi tethering instead instead.</string>
-    <string name="wifiTetheringFailForAboveNougat">This will not work anymore as you\'re above Android 7.</string>
     <string name="usingNewThreadForRuleExecution">Using new thread for rule activation.</string>
     <string name="startNewThreadForRuleExecution">Start new thread for rule activation.</string>
     <string name="newThreadRules">New thread</string>

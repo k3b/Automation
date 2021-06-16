@@ -1445,10 +1445,7 @@ public class ActivityManageRule extends Activity
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setWifiTethering.toString()))
 					{
 						newAction.setAction(Action_Enum.setWifiTethering);
-						if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1)
-							Miscellaneous.messageBox(context.getResources().getString(R.string.warning), context.getResources().getString(R.string.wifiTetheringFailForAboveNougat), context).show();
-						else
-							getActionParameter1Dialog(ActivityManageRule.this).show();
+						getActionParameter1Dialog(ActivityManageRule.this).show();
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setDisplayRotation.toString()))
 					{
