@@ -389,7 +389,7 @@
     <string name="soundModeNormal">Normal</string>
     <string name="soundModeVibrate">Vibration</string>
     <string name="soundModeSilent">Stumm</string>
-    <string name="enterAname">Enter a name!</string>
+    <string name="enterAname">Enter a name.</string>
     <string name="noChangeSelectedProfileDoesntMakeSense">Keine Veränderungen ausgewählt. Profil macht so keinen Sinn.</string>
     <string name="noProfilesCreateOneFirst">Es existieren keine Profile. Erstellen Sie erst eins.</string>
     <string name="errorActivatingProfile">Fehler beim Aktivieren des Profils:</string>

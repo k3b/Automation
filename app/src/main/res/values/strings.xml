@@ -479,7 +479,7 @@
     <string name="soundModeNormal">Normal</string>
     <string name="soundModeVibrate">Vibrate</string>
     <string name="soundModeSilent">Silent</string>
-    <string name="enterAname">Enter a name!</string>
+    <string name="enterAname">Enter a name.</string>
     <string name="noChangeSelectedProfileDoesntMakeSense">No change selected. Profile doesn\'t make sense.</string>
     <string name="noProfilesCreateOneFirst">There are no profiles in your configuration. Create one first.</string>
     <string name="errorActivatingProfile">Error activating profile:</string>
@@ -488,7 +488,7 @@
     <string name="errorWritingFile">Error writing settings file.</string>
     <string name="unknownError">Unknown error.</string>
     <string name="noWritableFolderFound">No writable folder found to store config file.</string>
-    <string name="usbTetheringFailForAboveGingerbread">This will most likely not work as you\'re above Android 2.3. If you\'re below Android 7 you could use wifi tethering instead instead.</string>
+    <string name="usbTetheringFailForAboveGingerbread">This will most likely not work as you\'re above Android 2.3. You could use wifi tethering instead instead.</string>
     <string name="wifiTetheringFailForAboveNougat">This will not work anymore as you\'re above Android 7.</string>
     <string name="usingNewThreadForRuleExecution">Using new thread for rule activation.</string>
     <string name="startNewThreadForRuleExecution">Start new thread for rule activation.</string>
@@ -498,7 +498,7 @@
     <string name="ruleHistory">Rule history (most recent first):</string>
     <string name="someOptionsNotAvailableYet">Some options are disabled as they cannot be used, yet. They will be introduced in a later program version.</string>
     <string name="lockSoundChanges">Lock sound changes</string>
-    <string name="noProfileChangeSoundLocked">Profile will not be activated. Last activated profile was locked.</string>
+    <string name="noProfileChangeSoundLocked">Profile will not be activated. Last activated profile has been locked.</string>
     <string name="currentVolume">Current volume</string>
     <string name="enterValidReferenceValue">Enter a valid reference value.</string>
     <string name="volumeTest">Volume test</string>

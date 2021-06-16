@@ -32,7 +32,7 @@
     <string name="soundModeNormal">Normal</string>
     <string name="soundModeVibrate">Vibración</string>
     <string name="soundModeSilent">Silencio</string>
-    <string name="enterAname">Enter a name!</string>
+    <string name="enterAname">Inserte un nombre.</string>
     <string name="username">Nombre de usuario</string>
     <string name="ok">Ok</string>
     <string name="continueText">continuar</string>
@@ -226,7 +226,7 @@
     <string name="actionPlayMusic">Abrir reproductor de música</string>
     <string name="profiles">Perfiles</string>
     <string name="ruleHistory">Historia de reglas (más ultimas al primero)</string>
-    <string name="lockSoundChanges">Bloquerar modificaciónes sonidas</string>
+    <string name="lockSoundChanges">Bloquear modificaciónes de sonido</string>
     <string name="status">Estado</string>
     <string name="android.permission.ACCESS_NETWORK_STATE">Determinar el estado de la red</string>
     <string name="clickAndHoldForOptions">Clice ý ase un elemento para opciónes</string>
@@ -234,7 +234,7 @@
     <string name="addProfile">Añadir perfil</string>
     <string name="profile">Perfil</string>
     <string name="invalidProfileName">Nombre invalido</string>
-    <string name="anotherProfileByThatName">Hay otro perfil con lo mismo nombre.</string>
+    <string name="anotherProfileByThatName">Hay otro perfil con el mismo nombre.</string>
     <string name="errorActivatingProfile">Error activando perfil:</string>
     <string name="executeRulesAndProfilesWithSingleClickTitle">Activar reglas/perfiles con 1 clic</string>
     <string name="name">Nombre</string>
@@ -365,7 +365,7 @@ Incluya las paréntecis en su texto.\n\n[uniqueid] - el número único de su dis
     <string name="needLocationPermForWifiList">Se puede usar la lista de wifis conocidos para determinar los sitios a cuales estuve. Por eso el permiso locación esta necesaria para cargar la lista de wifis. Si quiere elegir un de la lista tiene que conceder el permiso. En caso contrario todavia puede entrar un nombre wifi manualmente.</string>
     <string name="com.wireguard.android.permission.CONTROL_TUNNELS">Controlar conexiones de la app wireguard</string>
     <string name="shareConfigAndLogFilesWithDev">Enviar configuración y procotolo al developer (vía email).</string>
-    <string name="rootExplanation">Necesita permiso root para este functión. Después encenda la función \"ejecutar regla manualmente\" para presentar el permiso superuser dialogo. Es necesita elegir \"siempre permitir root para esta app\". En caso contrario la regla no puede funcionar al fondo.</string>
+    <string name="rootExplanation">Necesita permiso root para esta función. Después encienda la función \"ejecutar regla manualmente\" para presentar el permiso superuser dialogo. Es necesario elegir \"siempre permitir root para esta app\". En caso contrario la regla no puede funcionar en segundo plano.</string>
     <string name="helpTextRules">Todos las condiciones están y-conectado. La regla solo va a aplicarse cuando todos las condiciones sus aplican. Si quiere O cree otra regla.</string>
     <string name="timeBetweenNoiseLevelMeasurementsSummary">Segundos inter dos ensayos de nivel de ruido</string>
     <string name="timeBetweenNoiseLevelMeasurementsTitle">Segundos inter dos ensayos de nivel de ruido</string>
@@ -475,7 +475,7 @@ Incluya las paréntecis en su texto.\n\n[uniqueid] - el número único de su dis
     <string name="currentVolume">Volumen actual</string>
     <string name="volumeTest">Prueba de volumen</string>
     <string name="permissionsTitle">Permisos necesarios</string>
-    <string name="disabledFeatures">Funcionas desactivadas</string>
+    <string name="disabledFeatures">Funciones desactivadas</string>
     <string name="invalidDevice">Dispositivo no valido.</string>
     <string name="android.permission.ACCESS_WIFI_STATE">Determinar estado de wifi</string>
     <string name="android.permission.WAKE_LOCK">Tener dispositivo despierto</string>
@@ -523,4 +523,29 @@ Incluya las paréntecis en su texto.\n\n[uniqueid] - el número único de su dis
     <string name="automaticUpdateCheckSummary">Solo en la versión APK.</string>
     <string name="locationFound">Determine un posición. El radio minimo sugeri es %1$d m.</string>
     <string name="locationFoundInaccurate">Solo pude determinar una posición imprecisa. Puede ser va a funcionar poco fiable. El radio minimo sugeri es %1$d m.</string>
+    <string name="volumeMusicVideoGameMedia">Multimedia (música, video …)</string>
+    <string name="audibleSelection">Audio habilitado cuando selectión</string>
+    <string name="screenLockUnlockSound">Sonido del (des-)bloqueo de pantalla</string>
+    <string name="vibrateWhenRinging">Vibrar timbrando</string>
+    <string name="noChangeSelectedProfileDoesntMakeSense">No hay cambios seleccionados. Perfil no tiene sentido.</string>
+    <string name="noProfilesCreateOneFirst">No hay perfilies en su configuración. Cree uno primero.</string>
+    <string name="errorWritingFile">Error escribiendo el archivo.</string>
+    <string name="unknownError">Error desconocido.</string>
+    <string name="noWritableFolderFound">No pude encontrar una carpeta para guardar el archivo de la configuración.</string>
+    <string name="usbTetheringFailForAboveGingerbread">Probablemente no funcionará porque esta mas actual que Android 2.3. Podría usar el enrutador wifi en lugar de eso.</string>
+    <string name="usingNewThreadForRuleExecution">Usar nuevo thread para ejecutar regla.</string>
+    <string name="startNewThreadForRuleExecution">Usar nuevo thread para ejecutar regla.</string>
+    <string name="newThreadRules">Nuevo thread</string>
+    <string name="someOptionsNotAvailableYet">Algunas opcciones estan desactivadas y todavia no pueden ser usadas. Estas seran introducidas en una versión futura.</string>
+    <string name="noProfileChangeSoundLocked">Perfil no será activado. Último perfil activado estuvo/esta bloqueado.</string>
+    <string name="enterValidReferenceValue">Inserte un valor valido de referencia.</string>
+    <string name="settingsWillTakeTime">Algunos ajustes no seran aplicados antes de reiniciar el servicio.</string>
+    <string name="errorWritingConfig">Error escribiendo config. Tiene una memoria descrita?</string>
+    <string name="phoneNrReplacementError">No pude insertar el numero de la ultima llamada in en la variable. No lo tengo.</string>
+    <string name="permissionsExplanation">Explicación de permisos necesarios</string>
+    <string name="theFollowingPermissionsHaveBeenDenied">Los siguientes permisos serán negados:</string>
+    <string name="permissionsExplanationGeneric">Por el momento la app está en un modo limitado, pocas funciones están desactivadas. Para funcionar completamente necesita permisos. Si quiere toda la funcionalidad tiene que otorgar en los siguientes diálogos permisos. Si no ciertas reglas no serán ejecutadas. Por consiguiente hay explicaciones para los permisos requeridos. Cliquee continuar cuando esta preparado para proceder.</string>
+    <string name="permissionsExplanationSmall">Para activar la función que será usada, mas permisos son necesarios. Cliquee continuar para los requisitos.</string>
+    <string name="storeSettings">Leer y guardar configuración.</string>
+    <string name="featuresDisabled">CUIDADO: Funciones estan desactivadas, Automation esta en modo limitado. Cliquee aqui para mas informacion.</string>
 </resources>

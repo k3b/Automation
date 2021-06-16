@@ -176,7 +176,7 @@
     <string name="edit">Modifica</string>
     <string name="end">Fine</string>
     <string name="enterAPositiveValidNonDecimalNumber">Inserisci un numero intero positivo</string>
-    <string name="enterAname">Inserisci un nome!</string>
+    <string name="enterAname">Inserisci un nome.</string>
     <string name="enterNameForIntentPair">Definisci un nome per la coppia di intenzioni</string>
     <string name="enterPackageName">Inserisci un nome di pacchetto che sia valido.</string>
     <string name="enterPhoneNumber">Inserisci un numero di telefono. Lascia vuoto per accettare qualsiasi numero.</string>
