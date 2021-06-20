@@ -26,9 +26,13 @@ import java.util.ArrayList;
 public class ActivityMainRules extends ActivityGeneric
 {
 	private ListView ruleListView;
+	ArrayList<Rule> ruleList = new ArrayList<>();
 	private ArrayAdapter<Rule> ruleListViewAdapter;
 	public static Rule ruleToEdit;
 	protected static ActivityMainRules instance = null;
+
+	public static final int requestCodeCreateRule = 3000;
+	public static final int requestCodeChangeRule = 4000;
 
 	public static ActivityMainRules getInstance()
 	{
@@ -54,13 +58,12 @@ public class ActivityMainRules extends ActivityGeneric
 			{
 				ruleToEdit = null;
 				Intent startAddRuleIntent = new Intent(ActivityMainRules.this, ActivityManageRule.class);
-				startActivityForResult(startAddRuleIntent, 3000);
+				startActivityForResult(startAddRuleIntent, requestCodeCreateRule);
 			}
 		});
-		
+
+		ruleListViewAdapter = new RuleArrayAdapter(this, R.layout.view_for_rule_listview, ruleList);
 		ruleListView = (ListView)findViewById(R.id.lvRuleList);
-		
-		ruleListViewAdapter = new RuleArrayAdapter(this, R.layout.view_for_rule_listview, Rule.getRuleCollection());
 		ruleListView.setClickable(true);
 
 		ruleListView.setOnItemLongClickListener(new OnItemLongClickListener()
@@ -106,7 +109,6 @@ public class ActivityMainRules extends ActivityGeneric
 	
 	private static class RuleArrayAdapter extends ArrayAdapter<Rule>
 	{
-
 		public RuleArrayAdapter(Context context, int resource, ArrayList<Rule> objects)
 		{
 			super(context, resource, objects);
@@ -157,13 +159,13 @@ public class ActivityMainRules extends ActivityGeneric
 		if(AutomationService.isMyServiceRunning(this))
 			bindToService();
 		
-		if(requestCode == 3000) //add Rule
+		if(requestCode == requestCodeCreateRule) //add Rule
 		{
 			ruleToEdit = null; //clear cache
 			updateListView();
 		}
 		
-		if(requestCode == 4000) //editRule
+		if(requestCode == requestCodeChangeRule) //editRule
 		{
 			ruleToEdit = null; //clear cache
 			updateListView();
@@ -206,16 +208,22 @@ public class ActivityMainRules extends ActivityGeneric
 					case 1:
 						ruleToEdit = ruleThisIsAbout;
 						Intent manageSpecificRuleIntent = new Intent (ActivityMainRules.this, ActivityManageRule.class);
-						startActivityForResult(manageSpecificRuleIntent, 4000);
+						startActivityForResult(manageSpecificRuleIntent, requestCodeChangeRule);
 						break;
 					case 2:
 						if(ruleThisIsAbout.delete())
+						{
+							ruleToEdit = null; //clear cache
 							updateListView();
+						}
 						break;
 					case 3:
 						ruleToEdit = ruleThisIsAbout;
 						if(ruleToEdit.cloneRule(ActivityMainRules.this))
+						{
+							ruleToEdit = null; //clear cache
 							updateListView();
+						}
 						break;
 				}
 			}
@@ -228,6 +236,11 @@ public class ActivityMainRules extends ActivityGeneric
 	public void updateListView()
 	{
 		Miscellaneous.logEvent("i", "ListView", "Attempting to update RuleListView", 4);
+
+		ruleList.clear();
+		for(Rule r : Rule.getRuleCollection())
+			ruleList.add(r);
+
 		try
 		{
 			if(ruleListView.getAdapter() == null)

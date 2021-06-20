@@ -175,6 +175,15 @@ public class Rule implements Comparable<Rule>
 			Miscellaneous.logEvent("i", "Rule", "Creating rule: " + this.toString(), 3);
 			ruleCollection.add(this);
 			boolean returnValue = XmlFileInterface.writeFile();
+
+			try
+			{
+				XmlFileInterface.readFile();
+			}
+			catch(Exception e)
+			{
+				Miscellaneous.logEvent("w", "Read file", Log.getStackTraceString(e), 3);
+			}
 			
 			if(returnValue)
 			{
@@ -217,6 +226,19 @@ public class Rule implements Comparable<Rule>
 			service.applySettingsAndRules();
 		
 		return XmlFileInterface.writeFile();
+	}
+
+	public boolean cloneRule(Context context)
+	{
+		Rule newRule = new Rule();
+		newRule.setName(this.getName() + " - clone");
+		newRule.setRuleActive(this.isRuleActive());
+		newRule.setRuleToggle(this.isRuleToggle());
+
+		newRule.setTriggerSet(this.getTriggerSet());
+		newRule.setActionSet(this.getActionSet());
+
+		return newRule.create(context);
 	}
 	
 	private boolean checkBeforeSaving(Context context, boolean changeExistingRule)
@@ -874,17 +896,6 @@ public class Rule implements Comparable<Rule>
 		
 		Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), String.format(context.getResources().getString(R.string.ruleIsDeactivatedCantApply), this.getName()), 3);
 		return false;
-	}
-
-	public boolean cloneRule(Context context)
-	{
-		Rule newRule = new Rule();
-		newRule.setName(this.getName() + " - clone");
-		newRule.setRuleActive(this.isRuleActive());
-		newRule.setRuleToggle(this.isRuleToggle());
-		newRule.setTriggerSet(this.getTriggerSet());
-		newRule.setActionSet(this.getActionSet());
-		return newRule.create(context);
 	}
 
 	private class ActivateRuleTask extends AsyncTask<Object, String, Void>

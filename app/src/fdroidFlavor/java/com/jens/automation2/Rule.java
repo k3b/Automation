@@ -172,6 +172,15 @@ public class Rule implements Comparable<Rule>
 			Miscellaneous.logEvent("i", "Rule", "Creating rule: " + this.toString(), 3);
 			ruleCollection.add(this);
 			boolean returnValue = XmlFileInterface.writeFile();
+
+			try
+			{
+				XmlFileInterface.readFile();
+			}
+			catch(Exception e)
+			{
+				Miscellaneous.logEvent("w", "Read file", Log.getStackTraceString(e), 3);
+			}
 			
 			if(returnValue)
 			{
