@@ -85,15 +85,6 @@ public class ActivityPermissions extends Activity
                 }
             });
 
-//            bRequestPermissions.setOnClickListener(new View.OnClickListener()
-//            {
-//                @Override
-//                public void onClick(View v)
-//                {
-//                    finish();
-//                }
-//            });
-
             bRequestPermissions.setOnClickListener(new View.OnClickListener()
             {
                 @Override
@@ -101,9 +92,6 @@ public class ActivityPermissions extends Activity
                 {
                     // Request the basic permissions, that are absolutely required.
                     //getRequiredPermissions(true); // request permissions to access sd card access and "receive boot completed"
-
-                    //fillPermissionMaps();
-
 
                     if(specificPermissionsToRequest != null)
                         requestSpecificPermission(specificPermissionsToRequest);
@@ -123,7 +111,6 @@ public class ActivityPermissions extends Activity
                 if(extras != null)
                 {
                     specificPermissionsToRequest = extras.getStringArray(ActivityPermissions.intentExtraName);;
-//                    requestSpecificPermission(permissionsToRequest);
                     tvPermissionsExplanationLong.setText(R.string.permissionsExplanationSmall);
                     tvPermissionsExplanation.setText("");
                     fillExplanationText();
@@ -940,15 +927,15 @@ public class ActivityPermissions extends Activity
                         startActivityForResult(intent, requestCodeForPermissionsNotifications);
                         return;
                     }
-//                    else if (s.equalsIgnoreCase(permissionNameLocationBackground) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-//                    {
-//                        requiredPermissions.remove(s);
-//                        cachedPermissionsToRequest = requiredPermissions;
-//                        Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-//                        intent.setData(Uri.parse("package:" + getPackageName()));
-//                        startActivityForResult(intent, requestCodeForPermissionsBackgroundLocation);
-//                        return;
-//                    }
+                    else if (s.equalsIgnoreCase(Manifest.permission.ACCESS_BACKGROUND_LOCATION) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+                    {
+                        requiredPermissions.remove(s);
+                        cachedPermissionsToRequest = requiredPermissions;
+                        Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        intent.setData(Uri.parse("package:" + getPackageName()));
+                        startActivityForResult(intent, requestCodeForPermissionsBackgroundLocation);
+                        return;
+                    }
                 }
             }
 
