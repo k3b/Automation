@@ -121,15 +121,6 @@ public class Miscellaneous extends Service
                 if(url.toLowerCase().contains("https"))
                 {
                 	connection = (HttpsURLConnection) urlObject.openConnection();
-                	
-//                	if(Settings.httpAcceptAllCertificates)
-//                	{
-//                		SSLContext sc = SSLContext.getInstance("TLS");
-//        	            sc.init(null, getInsecureTrustManager(), new java.security.SecureRandom());
-//        	            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-//    	                Miscellaneous.disableSSLCertificateChecking();
-//        	            HttpsURLConnection.setDefaultHostnameVerifier(getInsecureHostnameVerifier());
-//                	}
                 }
                 else
                 	connection = (HttpURLConnection) urlObject.openConnection();

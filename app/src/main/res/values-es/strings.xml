@@ -558,4 +558,17 @@ Incluya las paréntecis en su texto.\n\n[uniqueid] - el número único de su dis
     <string name="theseAreThePermissionsRequired">Esos son los permisos necesarios.</string>
     <string name="android9RecordAudioNotice">Si usa la condición nivel del ruido fondo: Desafortunadamente iniciando con Android 9 (Pie) Google decidió prohibir aplicaciones de fondo usando el micrófono. Por eso esta condición no tendrá un efecto y no iniciará algo.</string>
     <string name="android10WifiToggleNotice">Si usa la condición nivel del ruido fondo: Desafortunadamente iniciando con Android 9 (Pie) Google decidió prohibir aplicaciones de fondo usando el micrófono. Por eso esta condición no tendrá un efecto y no iniciará algo.</string>
+    <string name="messageNotShownAgain">Esta nota no aparecerá otra vez.</string>
+    <string name="noLocationCouldBeFound">No pude encontrar una posición despues un limite de 120 segundos..</string>
+    <string name="pleaseGiveBgLocation">En la proxima pantalla por favor vaya a permisos, luego posición. Ahi elija \"Siempre permitir\" para permitir Automation determinar la posición en el fondo.</string>
+    <string name="ConfigurationExportError">Hubo un error durante exportar la configuración.</string>
+    <string name="rulesImportedSuccessfully">Reglas y sitios serán exportado con exito.</string>
+    <string name="rulesImportError">Hubo un error durante importando reglas y sitios.</string>
+    <string name="notAllFilesImported">No pude importar todos los archivos aplicables.</string>
+    <string name="importExportExplanation">Despues de cliquear importar o exportar elija el directorio de que archivos serán importados o a que serán exportados. Si exporta archivos que ya existen serán sobreescribidos.</string>
+    <string name="errorRunningRule">Hubo un error iniciar una regla.</string>
+    <string name="locationEngineDisabledShort">La posición no mas sera determinado en el fondo. Cliquee aqui para averiguar más.</string>
+    <string name="displayNewsOnMainScreen">Mostrar noticias de la app en la pantalla principal.</string>
+    <string name="displayNewsOnMainScreenDescription">Noticias solo de esta app. Hablamos de 1-2 veces per año, no mas.</string>
+    <string name="featureNotInFdroidVersion">Esta characteristica es basado en software libre. Por eso no esta disponsible in la versión F-Droid.</string>
 </resources>

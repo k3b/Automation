@@ -577,4 +577,5 @@
     <string name="writeLogFile">Memorizza un file di log</string>
     <string name="yes">Si</string>
     <string name="clone">Clonare</string>
+    <string name="state">Status</string>
 </resources>

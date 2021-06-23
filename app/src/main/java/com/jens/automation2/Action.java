@@ -345,18 +345,11 @@ public class Action
 					 * Old version. Those checks should not be necessary anymore. Also they didn't work
 					 * because profiles were created with names like silent, vibrate  and normal.
 					 */
-//				if(this.getParameter2().equals("silent"))
-//					Actions.setSound(context, AudioManager.RINGER_MODE_SILENT);
-//				else if(this.getParameter2().equals("vibrate"))
-//					Actions.setSound(context, AudioManager.RINGER_MODE_VIBRATE);
-//				else if(this.getParameter2().equals("normal"))
-//					Actions.setSound(context, AudioManager.RINGER_MODE_NORMAL);
-//				else
-//				{
+
 					Profile p = Profile.getByName(this.getParameter2());
 					if (p != null)
 						p.activate(context);
-//				}
+
 					break;
 				case triggerUrl:
 					triggerUrl(context);
@@ -490,62 +483,24 @@ public class Action
 	    	while(attempts <= Settings.httpAttempts && response.equals("httpError"))
 	    	{
 	    		Miscellaneous.logEvent("i", "HTTP Request", "Attempt " + String.valueOf(attempts++) + " of " + String.valueOf(Settings.httpAttempts), 3);
-	    		
-//				try
-//				{
-					// Either thorough checking or no encryption
-					if(!Settings.httpAcceptAllCertificates | !urlString.toLowerCase(Locale.getDefault()).contains("https"))
-//					{
-//						URL url = new URL(urlString);
-//						URLConnection urlConnection = url.openConnection();
-//						urlConnection.setReadTimeout(Settings.httpAttemptsTimeout * 1000);
-//						InputStream in = urlConnection.getInputStream();
-//						response = Miscellaneous.convertStreamToString(in);
-						
-						response = Miscellaneous.downloadURL(urlString, urlUsername, urlPassword);
-//					}
-					else
-//					{
-						response = Miscellaneous.downloadURLwithoutCertificateChecking(urlString, urlUsername, urlPassword);
-//						post = new HttpGet(new URI(urlString));
-//						final HttpParams httpParams = new BasicHttpParams();
-//					    HttpConnectionParams.setConnectionTimeout(httpParams, Settings.httpAttemptsTimeout * 1000);
-//						HttpClient client = new DefaultHttpClient(httpParams);
-//
-//						client = sslClient(client);
-//						
-//						// Execute HTTP Post Request					 
-//						HttpResponse result = client.execute(post);
-//						response = EntityUtils.toString(result.getEntity());
-//					}
-//				}
-//				catch (URISyntaxException e)
-//				{
-//					Miscellaneous.logEvent("w", "HTTP RESULT", Log.getStackTraceString(e), 3);
-//				}
-//				catch (ClientProtocolException e)
-//				{
-//					Miscellaneous.logEvent("w", "HTTP RESULT", Log.getStackTraceString(e), 3);
-//				}
-//				catch (IOException e)
-//				{
-//					Miscellaneous.logEvent("w", "HTTP RESULT", Log.getStackTraceString(e), 3);
-//					e.printStackTrace();
-//				}
-//				finally
-//				{
-					try
-					{
-						Thread.sleep(Settings.httpAttemptGap * 1000);
-					}
-					catch (InterruptedException e1)
-					{
-						Miscellaneous.logEvent("w", "HTTP RESULT", "Failed to pause between HTTP requests.", 5);
-					}
-//				}
+
+				// Either thorough checking or no encryption
+				if(!Settings.httpAcceptAllCertificates || !urlString.toLowerCase(Locale.getDefault()).contains("https"))
+					response = Miscellaneous.downloadURL(urlString, urlUsername, urlPassword);
+				else
+					response = Miscellaneous.downloadURLwithoutCertificateChecking(urlString, urlUsername, urlPassword);
+
+				try
+				{
+					Thread.sleep(Settings.httpAttemptGap * 1000);
+				}
+				catch (InterruptedException e1)
+				{
+					Miscellaneous.logEvent("w", "HTTP RESULT", "Failed to pause between HTTP requests.", 5);
+				}
 	    	}
 	    	
-//	    	Miscellaneous.logEvent("i", "HTTPS RESULT", response, 3);
+	    	Miscellaneous.logEvent("i", "HTTPS RESULT", response, 5);
 			
 			return response;
 	    }
