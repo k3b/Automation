@@ -436,7 +436,6 @@
     <string name="appRequiresPermissiontoAccessExternalStorage">Automation benötigt Rechte, um auf den Speicher zuzugreifen, um seine Konfiguration und Regeln lesen zu können.</string>
     <string name="mainScreenPermissionNote">Automation benötigt mehr Rechte, um vollständig funktionsfähig zu sein. Klicken Sie auf diesen Text, um mehr zu erfahren und die fehlenden Rechte zu beantragen.</string>
     <string name="invalidDevice">Ungültiges Gerät</string>
-    <string name="google_app_id">your app id</string>
     <string name="logFileMaxSizeSummary">Maximale Größe der Protokolldatei in Megabyte. Wenn sie größer wird, wird sie rotiert.</string>
     <string name="logFileMaxSizeTitle">Maximale Größe des Protokolls [Mb]</string>
     <string name="android.permission.READ_CALL_LOG">Telefonprotokoll lesen</string>

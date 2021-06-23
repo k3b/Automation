@@ -2,9 +2,11 @@ package com.jens.automation2;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -929,11 +931,21 @@ public class ActivityPermissions extends Activity
                     }
                     else if (s.equalsIgnoreCase(Manifest.permission.ACCESS_BACKGROUND_LOCATION) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
                     {
-                        requiredPermissions.remove(s);
-                        cachedPermissionsToRequest = requiredPermissions;
-                        Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                        intent.setData(Uri.parse("package:" + getPackageName()));
-                        startActivityForResult(intent, requestCodeForPermissionsBackgroundLocation);
+                        AlertDialog dialog = Miscellaneous.messageBox(getResources().getString(R.string.readLocation), getResources().getString(R.string.pleaseGiveBgLocation), ActivityPermissions.this);
+                        dialog.setOnDismissListener(new DialogInterface.OnDismissListener()
+                        {
+                            @Override
+                            public void onDismiss(DialogInterface dialog)
+                            {
+                                requiredPermissions.remove(s);
+                                cachedPermissionsToRequest = requiredPermissions;
+                                Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                intent.setData(Uri.parse("package:" + getPackageName()));
+                                startActivityForResult(intent, requestCodeForPermissionsBackgroundLocation);
+                            }
+                        });
+                        dialog.show();
+
                         return;
                     }
                 }

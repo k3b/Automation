@@ -226,6 +226,19 @@ public class Rule implements Comparable<Rule>
 		
 		return XmlFileInterface.writeFile();
 	}
+
+	public boolean cloneRule(Context context)
+	{
+		Rule newRule = new Rule();
+		newRule.setName(this.getName() + " - clone");
+		newRule.setRuleActive(this.isRuleActive());
+		newRule.setRuleToggle(this.isRuleToggle());
+
+		newRule.setTriggerSet(this.getTriggerSet());
+		newRule.setActionSet(this.getActionSet());
+
+		return newRule.create(context);
+	}
 	
 	private boolean checkBeforeSaving(Context context, boolean changeExistingRule)
 	{

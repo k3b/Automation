@@ -530,7 +530,7 @@
     <string name="appRequiresPermissiontoAccessExternalStorage">Automation requires access to external storage to read its settings and rules.</string>
     <string name="mainScreenPermissionNote">Automation requires more permissions to fully function. Click on this text to find out more and request them.</string>
     <string name="invalidDevice">Invalid device</string>
-    <string name="google_app_id">your app id</string>
+    <string name="google_app_id" translatable="false">your app id</string>
     <string name="logFileMaxSizeSummary">Maximum log file size in Megabyte. Will be rotated if bigger.</string>
     <string name="logFileMaxSizeTitle">Maximum log file size [Mb]</string>
     <string name="android.permission.READ_CALL_LOG">Read phone log</string>
@@ -680,5 +680,6 @@
     <string name="locationFound">Location found. The suggested minimum radius for locations is %1$d m.</string>
     <string name="locationFoundInaccurate">Only a location with a limited accuracy could be found. It might not work reliably. The suggested minimum radius for locations is %1$d."</string>
     <string name="clone">Clone</string>
-    <string name="noLocationCouldBeFound">No position could be found after a timeout of %1$o seconds.</string>
+    <string name="noLocationCouldBeFound">No position could be found after a timeout of %1$s seconds.</string>
+    <string name="pleaseGiveBgLocation">In the next screen please go to permissions, then location. There select \"Allow all the time\" to allow Automation to determine your location in the background.</string>
 </resources>

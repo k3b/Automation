@@ -343,6 +343,9 @@ public class AutomationService extends Service implements OnInitListener
 		{
 			boolean displayNotification = false;
 
+			String rule = "";
+
+			outerLoop:
 			for(Rule r : Rule.getRuleCollection())
 			{
 				if(r.isRuleActive())
@@ -355,7 +358,11 @@ public class AutomationService extends Service implements OnInitListener
 //							r.setRuleActive(false);
 //							r.change(AutomationService.this);
 							if(!displayNotification)
+							{
 								displayNotification = true;
+								rule = r.getName();
+								break outerLoop;
+							}
 						}
 					}
 				}
@@ -363,18 +370,16 @@ public class AutomationService extends Service implements OnInitListener
 
 			if(displayNotification)
 			{
-//				Toast.makeText(Miscellaneous.getAnyContext(), "Require more permissions.", Toast.LENGTH_LONG).show();
-				// Update notification or show new one that notifiies of the lack or permissions.
-
 				Intent intent = new Intent(AutomationService.this, ActivityPermissions.class);
 				PendingIntent pi = PendingIntent.getActivity(AutomationService.this, 0, intent, 0);
+
+				Miscellaneous.logEvent("w", "Features disabled", "Features disabled because of rule " + rule, 5);
+
 				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
 					Miscellaneous.createDismissableNotificationWithDelay(1010, getResources().getString(R.string.featuresDisabled), ActivityPermissions.notificationIdPermissions, pi);
 				else
 					Miscellaneous.createDismissableNotification(getResources().getString(R.string.featuresDisabled), ActivityPermissions.notificationIdPermissions, pi);
 			}
-//			else
-//				Toast.makeText(Miscellaneous.getAnyContext(), "Have all required permissions.", Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -391,6 +396,9 @@ public class AutomationService extends Service implements OnInitListener
 				Intent intent = new Intent(AutomationService.this, ActivityMainTabLayout.class);
 				PendingIntent pi = PendingIntent.getActivity(AutomationService.this, 0, intent, 0);
 //				Miscellaneous.createDismissableNotification(getResources().getString(R.string.settingsReferringToRestrictedFeatures), ActivityPermissions.notificationIdPermissions, pi);
+
+				Miscellaneous.logEvent("w", "Features disabled", "Background location disabled because Google to blame.", 5);
+
 				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
 					Miscellaneous.createDismissableNotificationWithDelay(3300, getResources().getString(R.string.featuresDisabled), notificationIdRestrictions, pi);
 				else
@@ -405,6 +413,8 @@ public class AutomationService extends Service implements OnInitListener
 		{
 			Intent intent = new Intent(AutomationService.this, ActivityMainTabLayout.class);
 			PendingIntent pi = PendingIntent.getActivity(AutomationService.this, 0, intent, 0);
+
+			Miscellaneous.logEvent("w", "Features disabled", "Background location disabled because Google to blame.", 5);
 
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
 				Miscellaneous.createDismissableNotificationWithDelay(2200, getResources().getString(R.string.featuresDisabled), notificationIdLocationRestriction, pi);

@@ -257,13 +257,23 @@ public class ActivityManagePoi extends Activity
 
 			getRadiusConfirmationDialog(text, defaultRadius).show();
 		}
-		else if(	// we have a bad network signal
+		else if(	// we have a bad network signal and nothing else, GPS result may still come in
+				locationNetwork != null
+						&&
+				Calendar.getInstance().getTimeInMillis()
+						<
+				(locationSearchStart.getTimeInMillis() + ((long)searchTimeout * 1000))
+			)
+		{
+			// Only a network location was found and it is also not very accurate.
+		}
+		else if(	// we have a bad network signal and nothing else, timeout has expired, nothing else can possibly come in
 				locationNetwork != null
 						&&
 				Calendar.getInstance().getTimeInMillis()
 						>
 				(locationSearchStart.getTimeInMillis() + ((long)searchTimeout * 1000))
-			)
+		)
 		{
 			// Only a network location was found and it is also not very accurate.
 
@@ -276,13 +286,14 @@ public class ActivityManagePoi extends Activity
 		}
 		else
 		{
-			String text = String.format(getResources().getString(R.string.noLocationCouldBeFound), searchTimeout);
+			String text = String.format(getResources().getString(R.string.noLocationCouldBeFound), String.valueOf(searchTimeout));
 			Miscellaneous.logEvent("i", "POI Manager", text, 2);
 
 			if(myLocationListenerNetwork != null)
 				myLocationManager.removeUpdates(myLocationListenerNetwork);
 
 			myLocationManager.removeUpdates(myLocationListenerGps);
+			progressDialog.dismiss();
 			getErrorDialog(text).show();
 		}
 	}
@@ -348,7 +359,11 @@ public class ActivityManagePoi extends Activity
 			}
 		};
 		alertDialogBuilder.setMessage(text);
-		Looper.prepare();
+		alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok), null);
+
+		if (Looper.myLooper() == null)
+			Looper.prepare();
+
 		AlertDialog alertDialog = alertDialogBuilder.create();
 
 		return alertDialog;

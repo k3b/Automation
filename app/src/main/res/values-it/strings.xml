@@ -214,7 +214,6 @@
     <string name="googleLocationChicanery">Questa applicazione accumula dati di localizzazione per abilitare regole basate sulla posizione insieme al rilevamento della velocità anche quando l\'applicazione è chiusa o non in uso.</string>
     <string name="googleLocationChicaneryOld">Questa applicazione accumula dati di localizzazione per determinare se sei attualmente ad una delle posizioni che hai creato. Inoltre, questa funzione è usata per determinare la tua velocità attuale se tale evento è stato attivato nelle regole. Questi rilevamenti sono effettuati anche quando l\'applicazione è chiusa o non in uso (ma solo se il servizio è attivato).</string>
     <string name="googleSarcasm">Grazie alla infinita sapienza di Google e continui sforzi per proteggere la nostra privacy, nelle regole che possano inviare SMS o coinvolgere lo stato del telefono, sono state rimossi eventi ed azioni rilevanti.</string>
-    <string name="google_app_id">id della tua app</string>
     <string name="gpsAccuracy">Precisone del GPS [m]</string>
     <string name="gpsComparison">Comparazione GPS</string>
     <string name="hapticFeedback">Sensazione tattile (vibrazione al tocco)</string>
