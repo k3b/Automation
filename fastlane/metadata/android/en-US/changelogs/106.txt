@@ -1,0 +1,6 @@
+* Translations updated.
+* Layout optimizations
+* Fixed a bug during config export that affected few users
+* Fixed a problem in the management of locations that occured on few devices (location couldn't be found)
+* Automatic update check for APK version
+* Rules can now be cloned

@@ -585,4 +585,5 @@
     <string name="locationFound">Position gefunden. Der vorgeschlagene Mindestradius für Orte beträgt %1$d m.</string>
     <string name="locationFoundInaccurate">Es konnte nur eine ungenaue Position gefunden werden. Das funktioniert u.U. nicht zuverlässig. Der vorgeschlagene Mindestradius für Orte beträgt %1$d m.</string>
     <string name="pleaseGiveBgLocation">Gehen Sie auf dem nächsten Bildschirm bitte auf Berechtigungen, dann Position. Wählen Sie dort Immer erlauben aus, um Automation zu ermöglichen, die Position im Hintergrund zu ermitteln.</string>
+    <string name="noLocationCouldBeFound">Leider konnte nach einem Limit von %1$s Sekunden keine Position gefunden werden.</string>
 </resources>

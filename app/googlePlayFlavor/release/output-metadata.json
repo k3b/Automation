@@ -10,8 +10,8 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 105,
-      "versionName": "1.6.34-googlePlay",
+      "versionCode": 106,
+      "versionName": "1.6.35-googlePlay",
       "outputFile": "app-googlePlayFlavor-release.apk"
     }
   ]

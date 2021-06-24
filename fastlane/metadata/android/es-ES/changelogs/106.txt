@@ -1,0 +1,6 @@
+* Traducciones actualizadas
+* Optimizaciones de diseño
+* Arregló un fallo durante la exportación de config que afectó a pocos usuarios
+* Arregló un problema en la gestión de lugares que se produjeron en pocos dispositivos (la ubicación no se pudo encontrar)
+* Comprobación de actualización automática para la versión APK
+* Las reglas ahora pueden ser clonadas

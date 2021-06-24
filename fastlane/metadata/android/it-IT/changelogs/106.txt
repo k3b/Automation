@@ -1,0 +1,6 @@
+* Traduzioni aggiornate.
+* Ottimizzazione del layout
+* Corretto un bug durante l'esportazione di configurazione che ha interessato pochi utenti
+* Risolto un problema nella gestione delle posizioni che si sono verificate su pochi dispositivi (la posizione non potrebbe essere trovata)
+* Controllo aggiornamento automatico per la versione APK
+* Le regole possono ora essere clonate

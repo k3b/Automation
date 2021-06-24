@@ -578,4 +578,12 @@
     <string name="yes">Si</string>
     <string name="clone">Clonare</string>
     <string name="state">Status</string>
+    <string name="urlToTriggerExplanation">Questa funzione NON apre un navigatore, ma attiva un indirizzo URL in secondo piano. Puoi usarla per esempio per mandare dei comandi al tuo sistema di domotica.</string>
+    <string name="automaticUpdateCheck">Controlla aggiornamenti</string>
+    <string name="automaticUpdateCheckSummary">Applicabile solo alla versione APK.</string>
+    <string name="updateAvailable">C\'è un nuovo aggiornamento disponibile. Vuoi aprire il navigatore per scaricarlo?</string>
+    <string name="locationFound">Ubicazione trovata. Il raggio minimo per le ubicazioni è di %1$d m.</string>
+    <string name="locationFoundInaccurate">È stato possibile solo trovare una ubicazione con una precisione limitata. Potrebbe non funzionare in maniera affidabile. Il raggio minimo per le ubicazioni è di %1$d m.</string>
+    <string name="noLocationCouldBeFound">Nessuna posizione è stata trovata dopo un tempo di attesa di %1$s seconds.</string>
+    <string name="pleaseGiveBgLocation">Nella schermata successiva vai su permessi, poi posizione. Lì seleziona \"Consenti sempre\" per permettere ad Automation di determinare la tua posizione in secondo piano.</string>
 </resources>

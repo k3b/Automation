@@ -1,0 +1,6 @@
+* Übersetzungen aktualisiert.
+* Layout Verbesserungen
+* Fehler behoben, bei dem die Konfiguration auf manchen Geräten nicht exportiert werden konnte
+* Ein Problem behoben, bei dem auf manchen Geräten keine Orte verwaltet werden konnten (die Position konnte nicht gefunden werden)
+* Automatische Prüfung auf neue Versionen in der APK Version
+* Regeln können jetzt geklont werden.
