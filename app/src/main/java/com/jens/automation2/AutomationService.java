@@ -211,7 +211,7 @@ public class AutomationService extends Service implements OnInitListener
 				ActivityMainScreen.updateMainScreen();
 
             this.isRunning = true;
-			Miscellaneous.logEvent("i", "Service", this.getResources().getString(R.string.serviceStarted) + " " + String.format(this.getResources().getString(R.string.version), BuildConfig.VERSION_NAME + "(Build " + BuildConfig.VERSION_CODE + ")"), 1);
+			Miscellaneous.logEvent("i", "Service", this.getResources().getString(R.string.serviceStarted) + " VERSION_CODE: " + BuildConfig.VERSION_CODE + ", VERSION_NAME: " + BuildConfig.VERSION_NAME + ", flavor: " + BuildConfig.FLAVOR, 1);
 			Toast.makeText(this, this.getResources().getString(R.string.serviceStarted), Toast.LENGTH_LONG).show();
 			// ********** Test area **********
 //			Miscellaneous.logEvent("i", "setNetworkType", "bin hier.", 3);
