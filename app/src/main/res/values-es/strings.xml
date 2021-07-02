@@ -172,9 +172,9 @@
     <string name="notification">Notificaión</string>
     <string name="locationDisabled">Localización desactivado</string>
     <string name="error">Error</string>
-    <string name="android.permission.ACCESS_BACKGROUND_LOCATION">Determinar su posición en el contexto</string>
-    <string name="manageLocations">Crear p editar sitios</string>
-    <string name="startScreen">Ventana incial</string>
+    <string name="android.permission.ACCESS_BACKGROUND_LOCATION">Determinar su posición en el fondo.</string>
+    <string name="manageLocations">Crear o editar sitios</string>
+    <string name="startScreen">Ventana de inicio</string>
     <string name="positioningEngine">Metodo de localización</string>
     <string name="deviceDoesNotHaveBluetooth">Este dispositivo no tiene Bluetooth. Puede continuar pero probablemente no va a funciónar.</string>
     <string name="android.permission.READ_CALL_LOG">Leer protocolo de llamadas</string>
@@ -196,8 +196,8 @@
     <string name="android.permission.CHANGE_BACKGROUND_DATA_SETTING">Modificar la conexión internet</string>
     <string name="android.permission.ACCESS_NOTIFICATION_POLICY">Exeder configuración no molestar</string>
     <string name="android.permission.WRITE_SECURE_SETTINGS">Escribir en el almacenamiento</string>
-    <string name="apply">acplicar</string>
-    <string name="publishedOn">publicitado el</string>
+    <string name="apply">aplicar</string>
+    <string name="publishedOn">publicado el</string>
     <string name="postsNotification">%1$s crea notificación</string>
     <string name="removedNotification">notificación de %1$s removido</string>
     <string name="notificationAppears">Notificación aparece</string>
@@ -229,14 +229,14 @@
     <string name="lockSoundChanges">Bloquear modificaciónes de sonido</string>
     <string name="status">Estado</string>
     <string name="android.permission.ACCESS_NETWORK_STATE">Determinar el estado de la red</string>
-    <string name="clickAndHoldForOptions">Clice ý ase un elemento para opciónes</string>
+    <string name="clickAndHoldForOptions">Cliquee y mantenga un elemento para opciónes.</string>
     <string name="ruleLegend">Verde = activado, roja = desactivado, amarillo = no sufienctes permisos</string>
     <string name="addProfile">Añadir perfil</string>
     <string name="profile">Perfil</string>
     <string name="invalidProfileName">Nombre invalido</string>
     <string name="anotherProfileByThatName">Hay otro perfil con el mismo nombre.</string>
     <string name="errorActivatingProfile">Error activando perfil:</string>
-    <string name="executeRulesAndProfilesWithSingleClickTitle">Activar reglas/perfiles con 1 clic</string>
+    <string name="executeRulesAndProfilesWithSingleClickTitle">Activar reglas/perfiles con 1 clic.</string>
     <string name="name">Nombre</string>
     <string name="useAuthentication">Usar verificación de la autenticidad</string>
     <string name="radiusWithUnit">Radio [m]</string>
@@ -266,12 +266,12 @@
     <string name="wakeupDevice">Despertar dispositivo</string>
     <string name="textToSpeak">Texto para hablar</string>
     <string name="state">Estado</string>
-    <string name="setScreenBrightness">Poner luminosidad del monitor</string>
-    <string name="brightnessManual">luminosidad manual del monitor</string>
-    <string name="brightnessAuto">luminosidad automatico</string>
-    <string name="autoBrightness">Activar luminosidad automatico</string>
-    <string name="setScreenBrightnessEnterValue">Inserte luminosidad deseada (de 0 a 100).</string>
-    <string name="autoBrightnessNotice">Si usa luminosidad automatica el valor probablemente no va a durar mucho tiempo.</string>
+    <string name="setScreenBrightness">Poner nivel de brillo</string>
+    <string name="brightnessManual">nivel de brillo manual</string>
+    <string name="brightnessAuto">brillo automatico</string>
+    <string name="autoBrightness">Activar brillo automatico</string>
+    <string name="setScreenBrightnessEnterValue">Inserte nivel de brillo deseado (de 0 a 100).</string>
+    <string name="autoBrightnessNotice">Si usa nivel de brillo automatico el valor probablemente no va a durar mucho tiempo.</string>
     <string name="actionDataConnection">Datos móviles</string>
     <string name="actionSpeakText">Hablar texto</string>
     <string name="selectToggleDirection">Activar o desactivar?</string>
@@ -485,7 +485,7 @@ Incluya las paréntecis en su texto.\n\n[uniqueid] - el número único de su dis
     <string name="helpTextActivityDetection">Esta función puede detectar su estado de movimiento (a pie, en bicicleta, en vehiculo). La función no es parte de Automation, pero de Google Play Services. Técnicamente no da un \"si\" o \"no\" resultado, pero una probabilidad. Puede configurar este porcentaje del cual Automation va a aceptar un resultado. Dos comentarios: 1) Mas de un estado se puede aplicar al mismo tiempo. Por ejemplo puede estar a pie en un autobus. 2) Este sensor es relativamente caro (bateria). Si es posible considere alternativas, por ejemplo bluetooth conexión a su coche en vez de \"en vehiculo\".</string>
     <string name="textMessageAnnotations">Puede insertar un numero de llamada. Alternativamente puede importar un numero de su directorio. Pero tenga en cuenta: El número será guardado, no el contacto. Si cambias el número en su directorio tiene que cambiar la regla también.</string>
     <string name="startAutomationAsService">Encender automation como un servicio</string>
-    <string name="startScreenSummary">Elija la pantalla con que automation enciende.</string>
+    <string name="startScreenSummary">Elija la pantalla con que Automation enciende.</string>
     <string name="useExistingTag">Use existente tag NFC</string>
     <string name="nfcBringTagIntoRangeToRead">Traiga un tag dentro del alcance.</string>
     <string name="toggleRule">Regla reversible</string>
@@ -569,6 +569,13 @@ Incluya las paréntecis en su texto.\n\n[uniqueid] - el número único de su dis
     <string name="errorRunningRule">Hubo un error iniciar una regla.</string>
     <string name="locationEngineDisabledShort">La posición no mas sera determinado en el fondo. Cliquee aqui para averiguar más.</string>
     <string name="displayNewsOnMainScreen">Mostrar noticias de la app en la pantalla principal.</string>
-    <string name="displayNewsOnMainScreenDescription">Noticias solo de esta app. Hablamos de 1-2 veces per año, no mas.</string>
-    <string name="featureNotInFdroidVersion">Esta characteristica es basado en software libre. Por eso no esta disponsible in la versión F-Droid.</string>
+    <string name="displayNewsOnMainScreenDescription">Noticias solo de esta app. Hablamos de 1-2 veces por año, no mas.</string>
+    <string name="featureNotInFdroidVersion">Esta caracteristica esta basada en software libre. Por eso no esta disponsible en la versión F-Droid.</string>
+    <string name="chooseActivityHint">En esta selección final tiene que elegir una \"Activity\" especifica. Simplificado: es una ventana especifica de la aplicación elegida. Si no sabe cual tiene que elegir, normalmente es una buena idea probar los que tienen \"main\" o \"launcher\" en el nombre.</string>
+    <string name="googleSarcasm">Gracias a la sabiduria infinita de Google y su esfuerzo constante de proteger la privacidad de todo el mundo. Por eso de todas las reglas que pueden enviar SMS o determinar el estado del movil las condiciones y acciones, que Google considera de riesgo, fueron eliminadas.</string>
+    <string name="screenLockSoundNotice">Sonidos de bloqueo de pantalla no seran mas cambiados en dispositivos que usan Android 6 o mas nuevos. Cualquier ajuste aqui no va a funcionar en cualquier dirección.</string>
+    <string name="googleLocationChicanery">Este app almacena datos de posición para activar reglas que necesitan la posición o la velocidad - incluso cuando la app esta cerrada o no en uso.</string>
+    <string name="googleLocationChicaneryOld">Este app almacena datos de posición para determinar si actualmente esta en uno de los sitios que creó. Además estan usados para determinar su actual velocidad (si usa esta condición en reglas). Incluso cuando la app esta cerrada o no en uso (pero solo cuando el servicio esta iniciado).</string>
+    <string name="settingsReferringToRestrictedFeatures">Su configuración y/o reglas actualmente referencian caracteristicas no-libres no seran proveidas en la versión F-Droid. Esto incluye determinar su actual actividad fisica.</string>
+    <string name="filesHaveBeenMovedTo">Automation ahora usa otra ruta para guardar sus archivos. Todos sus archivos de Automation fueron desplazados aqui: \"%s\". El permiso del almacenamiento externo todavia no es necesario; puede revocarlo. Sera eliminado en una futura versión.</string>
 </resources>
