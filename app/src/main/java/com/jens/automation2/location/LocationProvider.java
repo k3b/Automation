@@ -144,8 +144,33 @@ public class LocationProvider
 				}
 				else
 				{
+					speedCalculation:
 					if (locationList.size() >= 2)
 					{
+						while (locationList.size() > 2)
+						{
+							// Remove all entries except for the last 2
+							Miscellaneous.logEvent("i", "Speed", "About to delete oldest position record until only 2 left. Currently have " + String.valueOf(locationList.size()) + " records.", 4);
+							locationList.remove(0);
+						}
+
+						/*
+							The two most recent locations in the list must have a usable accuracy.
+						 */
+						for(int i = 0; i < 2; i++)
+						{
+							if
+								(
+									(locationList.get(i).getProvider().equals(LocationManager.GPS_PROVIDER) && locationList.get(i).getAccuracy() > Settings.satisfactoryAccuracyGps)
+											||
+									(locationList.get(i).getProvider().equals(LocationManager.NETWORK_PROVIDER) && locationList.get(i).getAccuracy() > Settings.satisfactoryAccuracyNetwork)
+								)
+							{
+								Miscellaneous.logEvent("i", "Speed", "Not using 2 most recent locations for speed calculation because at least one does not have a satisfactory accuracy: " + locationList.get(i).toString(), 4);
+								break speedCalculation;
+							}
+						}
+
 						Miscellaneous.logEvent("i", "Speed", "Trying to calculate speed based on the last locations.", 4);
 
 						double currentSpeed;
@@ -184,14 +209,6 @@ public class LocationProvider
 						}
 						else
                             Miscellaneous.logEvent("i", "Speed", "Last two locations are too far apart in terms of time. Cannot use them for speed calculation.", 4);
-
-
-                        while (locationList.size() > 2)
-						{
-							// Remove all entries except for the last 2
-							Miscellaneous.logEvent("i", "Speed", "About to delete oldest position record until only 2 left. Currently have " + String.valueOf(locationList.size()) + " records.", 4);
-							locationList.remove(0);
-						}
 					}
 					else
 					{
@@ -489,18 +506,10 @@ public class LocationProvider
 			{
 				// time is up, no cell location updates since x minutes, start accelerometer
 				String text = "Timer triggered. Based on the last location and speed we may be at a POI. Forcing location update in case CellLocationChangedReceiver didn\'t fire.";
-//				Miscellaneous.logEvent("i", "AccelerometerHandler", text, 5);
-//				CellLocationChangedReceiver.stopCellLocationChangedReceiver();
-//				startAccelerometerReceiver();
+
 				Location currentLocation = CellLocationChangedReceiver.getInstance().getLocation("coarse");
 				AutomationService.getInstance().getLocationProvider().setCurrentLocation(currentLocation, false);
 			}
-			/*else if(msg.what == 0)
-			{
-				String text = "Abort command received, deactivating SpeedReceiver";
-				Miscellaneous.logEvent("i", "SpeedHandler", text, 4);
-				stopAccelerometerReceiver();
-			}*/
 		}
 	}
 }
