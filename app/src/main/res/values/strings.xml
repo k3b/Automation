@@ -682,4 +682,7 @@
     <string name="clone">Clone</string>
     <string name="noLocationCouldBeFound">No position could be found after a timeout of %1$s seconds.</string>
     <string name="pleaseGiveBgLocation">In the next screen please go to permissions, then location. There select \"Allow all the time\" to allow Automation to determine your location in the background.</string>
+    <string name="vibrate">Vibrate</string>
+    <string name="test">Test</string>
+    <string name="VibrateExplanation">Enter one or many vibrate durations in milliseconds. Separate them by kommas.</string>
 </resources>

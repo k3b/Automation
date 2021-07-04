@@ -146,6 +146,7 @@
         <activity android:name=".ActivityManageTriggerPhoneCall" />
         <activity android:name=".ActivityManageActionBrightnessSetting" />
         <activity android:name=".ActivityHelp" />
+        <activity android:name=".ActivityManageActionVibrate" />
         <activity
             android:name=".ActivityMainTabLayout"
             android:launchMode="singleTask">
@@ -185,7 +186,6 @@
         <activity android:name=".ActivityManageActionStartActivity" />
         <activity android:name=".ActivityManageTriggerNfc" />
         <activity android:name=".ActivityManageActionSpeakText" />
-        <activity android:name=".ActivityManageActionPlaySound" />
         <activity android:name=".ActivityManageTriggerBluetooth" />
         <activity android:name=".ActivityMainProfiles" />
         <activity android:name=".ActivityManageProfile" />
@@ -203,8 +203,6 @@
             </intent-filter>
 
         </service>
-
-        <activity android:name=".ActivityPermissions" />
 
 
 <!--        https://developer.android.com/about/versions/pie/android-9.0-changes-28#apache-p-->

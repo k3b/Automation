@@ -137,6 +137,7 @@
         <activity android:name=".ActivityManageTriggerPhoneCall" />
         <activity android:name=".ActivityManageActionBrightnessSetting" />
         <activity android:name=".ActivityHelp" />
+        <activity android:name=".ActivityManageActionVibrate" />
         <activity
             android:name=".ActivityMainTabLayout"
             android:launchMode="singleTask">
