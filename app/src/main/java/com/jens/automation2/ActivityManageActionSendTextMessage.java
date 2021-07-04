@@ -84,20 +84,10 @@ public class ActivityManageActionSendTextMessage extends Activity
 			etPhoneNumber.setText(parameters[0]);
 			etSendTextMessage.setText(parameters[1]);
 		}
-		
-
-//		String url = getIntent().getStringExtra("urlToTrigger");
-//		if(url != null)
-//			existingUrl = url;
 	}
 	
 	private void backToRuleManager()
 	{
-//		Intent returnIntent = new Intent();
-//		returnIntent.putExtra("urlToTrigger", existingUrl);		
-		
-//		setResult(RESULT_OK, returnIntent);
-		
 		if(edit && resultingAction != null)
 		{
 			ActivityManageActionSendTextMessage.resultingAction.setParameter2(etPhoneNumber.getText().toString() + Actions.smsSeparator + etSendTextMessage.getText().toString());

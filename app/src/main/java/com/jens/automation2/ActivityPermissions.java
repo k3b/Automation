@@ -852,9 +852,7 @@ public class ActivityPermissions extends Activity
             {
                 if (requestCode == requestCodeForPermissionsBackgroundLocation)
                 {
-                    NotificationManager mNotificationManager = (NotificationManager) ActivityPermissions.this.getSystemService(Context.NOTIFICATION_SERVICE);
-
-                    if (mNotificationManager.isNotificationPolicyAccessGranted())
+                    if (havePermission(Manifest.permission.ACCESS_BACKGROUND_LOCATION, ActivityPermissions.this))
                         requestPermissions(cachedPermissionsToRequest, true);
                 }
             }

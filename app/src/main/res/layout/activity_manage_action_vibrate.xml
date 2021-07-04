@@ -26,7 +26,8 @@
         <EditText
             android:id="@+id/etVibratePattern"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/default_margin"/>
 
         <Button
             android:id="@+id/bTestVibratePattern"

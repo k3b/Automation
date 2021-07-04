@@ -103,6 +103,9 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeTriggerPhoneCallEdit = 602;
 	final static int requestCodeTriggerWifiAdd = 723;
 	final static int requestCodeTriggerWifiEdit = 724;
+	final static int requestCodeActionSendTextMessageAdd = 5001;
+	final static int requestCodeActionVibrateAdd = 801;
+	final static int requestCodeActionVibrateEdit = 802;
 	
 	public static ActivityManageRule getInstance()
 	{
@@ -228,27 +231,11 @@ public class ActivityManageRule extends Activity
 				Trigger selectedTrigger = (Trigger)triggerListView.getItemAtPosition(arg2);
 				switch(selectedTrigger.getTriggerType())
 				{
-//					case batteryLevel:
-//						break;
-//					case charging:
-//						break;
-//					case noiseLevel:
-//						break;
-//					case pointOfInterest:
-//						break;
-//					case process_started_stopped:
-//						break;
-//					case speed:
-//						break;
 					case timeFrame:
 						ActivityManageTriggerTimeFrame.editedTimeFrameTrigger = selectedTrigger;
 						Intent timeFrameEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerTimeFrame.class);
 						startActivityForResult(timeFrameEditor, requestCodeTriggerTimeframeEdit);
 						break;
-//					case usb_host_connection:
-//						break;
-//					case wifiConnection:
-//						break;
 					case bluetoothConnection:
 						ActivityManageTriggerBluetooth.editedBluetoothTrigger = selectedTrigger;
 						Intent bluetoothEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerBluetooth.class);
@@ -306,14 +293,6 @@ public class ActivityManageRule extends Activity
 				Action a = (Action)actionListView.getItemAtPosition(arg2);
 				switch(a.getAction())
 				{
-//					case changeSoundProfile:
-//						break;
-//					case disableScreenRotation:
-//						break;
-//					case enableScreenRotation:
-//						break;
-//					case setAirplaneMode:
-//						break;
 					case startOtherActivity:
 						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionStartActivity.class);
 						ActivityManageActionStartActivity.resultingAction = a;
@@ -340,10 +319,14 @@ public class ActivityManageRule extends Activity
 						break;
 					case setScreenBrightness:
 						Intent activityEditScreenBrightnessIntent = new Intent(ActivityManageRule.this, ActivityManageActionBrightnessSetting.class);
-//						ActivityEditTriggerUrl.resultingAction = a;
 						activityEditScreenBrightnessIntent.putExtra("autoBrightness", a.getParameter1());
 						activityEditScreenBrightnessIntent.putExtra("brightnessValue", Integer.parseInt(a.getParameter2()));
 						startActivityForResult(activityEditScreenBrightnessIntent, requestCodeActionScreenBrightnessEdit);
+						break;
+					case vibrate:
+						Intent activityEditVibrateIntent = new Intent(ActivityManageRule.this, ActivityManageActionVibrate.class);
+						activityEditVibrateIntent.putExtra("vibratePattern", a.getParameter2());
+						startActivityForResult(activityEditVibrateIntent, requestCodeActionVibrateEdit);
 						break;
 					case playSound:
 						Intent actionPlaySoundIntent = new Intent(context, ActivityManageActionPlaySound.class);
@@ -686,13 +669,6 @@ public class ActivityManageRule extends Activity
 					String[] choices = (String[]) choicesList.toArray(new String[choicesList.size()]);
 					getTriggerNoiseDialog(myContext, choices).show();
 				}
-//				else if(triggerType.equals(Trigger.Event_Enum.timeFrame))
-//				{
-//					newTrigger.setTriggerType(Trigger.Event_Enum.timeFrame);
-//					ActivityManageTimeFrame.editedTimeFrameTrigger = null;
-//					Intent timeFrameEditor = new Intent(myContext, ActivityManageTimeFrame.class);
-//					startActivityForResult(timeFrameEditor, 2000);
-//				}
 				else if(triggerType.equals(Trigger_Enum.wifiConnection))
 				{
 					newTrigger.setTriggerType(Trigger_Enum.wifiConnection);
@@ -703,7 +679,6 @@ public class ActivityManageRule extends Activity
 					progressDialog = ProgressDialog.show(myContext, null, getResources().getString(R.string.gettingListOfInstalledApplications), true, false);
 					newTrigger.setTriggerType(Trigger_Enum.process_started_stopped);
 					new GenerateApplicationSelectionsDialogTask().execute(ActivityManageRule.this);
-//					getTriggerRunningProcessDialog1(myContext).show();
 				}
 				else if(triggerType.equals(Trigger_Enum.phoneCall))
 				{
@@ -1298,6 +1273,25 @@ public class ActivityManageRule extends Activity
 				this.refreshActionList();
 			}
 		}
+		else if(requestCode == requestCodeActionVibrateAdd)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				newAction.setParameter2(data.getStringExtra("vibratePattern"));
+				ruleToEdit.getActionSet().add(newAction);
+				this.refreshActionList();
+			}
+		}
+		else if(requestCode == requestCodeActionVibrateEdit)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				if(data.hasExtra("vibratePattern"))
+					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra("vibratePattern"));
+
+				this.refreshActionList();
+			}
+		}
 		else if(requestCode == requestCodeActionPlaySoundAdd)
 		{
 			if(resultCode == RESULT_OK)
@@ -1375,6 +1369,8 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.brightness));
 			else if(types[i].toString().equals(Action_Enum.playSound.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.sound));
+			else if(types[i].toString().equals(Action_Enum.vibrate.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.vibrate));
 			else if(types[i].toString().equals(Action_Enum.sendTextMessage.toString()))
 			{
 //			    if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageSpecificRule.this, "android.permission.SEND_SMS") && !Miscellaneous.isGooglePlayInstalled(ActivityManageSpecificRule.this))
@@ -1504,14 +1500,13 @@ public class ActivityManageRule extends Activity
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.sendTextMessage.toString()))
 					{
-//                            if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageSpecificRule.this, "android.permission.SEND_SMS") && !Miscellaneous.isGooglePlayInstalled(ActivityManageSpecificRule.this))
 						if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageRule.this, "android.permission.SEND_SMS"))
 						{
 							//launch other activity to enter parameters;
 							newAction.setAction(Action_Enum.sendTextMessage);
 							ActivityManageActionSendTextMessage.resultingAction = null;
 							Intent editTriggerIntent = new Intent(context, ActivityManageActionSendTextMessage.class);
-							startActivityForResult(editTriggerIntent, 5001);
+							startActivityForResult(editTriggerIntent, requestCodeActionSendTextMessageAdd);
 						}
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.playMusic.toString()))
@@ -1519,6 +1514,12 @@ public class ActivityManageRule extends Activity
 						newAction.setAction(Action_Enum.playMusic);
 						ruleToEdit.getActionSet().add(newAction);
 						refreshActionList();
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.vibrate.toString()))
+					{
+						newAction.setAction(Action_Enum.vibrate);
+						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionVibrate.class);
+						startActivityForResult(intent, requestCodeActionVibrateAdd);
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setScreenBrightness.toString()))
 					{
@@ -1636,63 +1637,6 @@ public class ActivityManageRule extends Activity
 		
 		return alertDialog;
 	}
-
-	/*private AlertDialog getActionStartActivityDialog1(final Context myContext)
-	{
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-		alertDialogBuilder.setTitle(myContext.getResources().getString(R.string.selectApplication));
-		final String[] applicationArray = ActivityManageStartActivity.getApplicationNameListString(ActivityManageSpecificRule.this);
-		alertDialogBuilder.setItems(applicationArray, new DialogInterface.OnClickListener()
-		{			
-			@Override
-			public void onClick(DialogInterface dialog, int which)
-			{
-				getActionStartActivityDialog2(myContext, applicationArray[which]).show();
-			}
-		});
-		AlertDialog alertDialog = alertDialogBuilder.create();
-		
-		return alertDialog;
-	}
-	private AlertDialog getActionStartActivityDialog2(final Context myContext, String applicationName)
-	{
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-		alertDialogBuilder.setTitle(myContext.getResources().getString(R.string.selectPackageOfApplication));
-		final String[] packageArray = ActivityManageStartActivity.getPackageListString(ActivityManageSpecificRule.this, applicationName);
-		alertDialogBuilder.setItems(packageArray, new DialogInterface.OnClickListener()
-		{			
-			@Override
-			public void onClick(DialogInterface dialog, int which)
-			{
-				getActionStartActivityDialog3(ActivityManageSpecificRule.this, packageArray[which]).show();
-			}
-		});
-		AlertDialog alertDialog = alertDialogBuilder.create();
-		
-		return alertDialog;
-	}
-	private AlertDialog getActionStartActivityDialog3(final Context myContext, final String packageName)
-	{
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-		alertDialogBuilder.setTitle(myContext.getResources().getString(R.string.selectActivityToBeStarted));
-		final String activityArray[] = ActivityManageStartActivity.getActivityListForPackageName(packageName);
-		alertDialogBuilder.setItems(activityArray, new DialogInterface.OnClickListener()
-		{			
-			@Override
-			public void onClick(DialogInterface dialog, int which)
-			{
-				ActivityInfo ai = ActivityManageStartActivity.getActivityInfoForPackageNameAndActivityName(packageName, activityArray[which]);
-//				Log.i("Selected", ai.packageName + " / " + ai.name);
-				newAction.setParameter2(ai.packageName + ";" + ai.name);
-				newAction.toString();
-				ruleToEdit.getActionSet().add(newAction);
-				refreshActionList();
-			}
-		});
-		AlertDialog alertDialog = alertDialogBuilder.create();
-		
-		return alertDialog;
-	}*/
 
 	private AlertDialog getActionWaitBeforeNextActionDialog(final Context myContext)
 	{

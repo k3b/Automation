@@ -15,6 +15,7 @@ public class Action
 {
 	public static final String actionParameter2Split = "ap2split";
 	public static final String intentPairSeperator = "intPairSplit";
+	public static final String vibrateSeparator = ",";
 
 	public enum Action_Enum {	
 								setWifi,
@@ -38,6 +39,7 @@ public class Action
 								playMusic,
 								setScreenBrightness,
 								playSound,
+								vibrate,
 								sendTextMessage;
 								
 								public String getFullName(Context context)
@@ -84,6 +86,8 @@ public class Action
 											return context.getResources().getString(R.string.waitBeforeNextAction);
 										case wakeupDevice:
 											return context.getResources().getString(R.string.wakeupDevice);
+										case vibrate:
+											return context.getResources().getString(R.string.vibrate);
 										case setAirplaneMode:
 											return context.getResources().getString(R.string.airplaneMode);
 										case setDataConnection:
@@ -404,6 +408,9 @@ public class Action
 					break;
 				case setScreenBrightness:
 					Actions.setScreenBrightness(getParameter1(), Integer.parseInt(getParameter2()));
+					break;
+				case vibrate:
+					Actions.vibrate(getParameter1(), getParameter2());
 					break;
 				case playSound:
 					Actions.playSound(getParameter1(), getParameter2());

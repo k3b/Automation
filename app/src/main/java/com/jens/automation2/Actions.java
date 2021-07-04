@@ -16,6 +16,8 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.telephony.SmsManager;
 import android.telephony.SubscriptionManager;
@@ -544,7 +546,38 @@ public class Actions
 			Miscellaneous.logEvent("i", "Play sound file", "Not playing sound file because phone is on some kind of mute state.", 2);
 	}
 
-	public void useDownloadedWebpage(String result)
+    public static void vibrate(boolean parameter1, String parameter2)
+    {
+		String vibrateDurations[] = parameter2.split(Action.vibrateSeparator);
+
+		int counter = 1;
+		for(String vibrate : vibrateDurations)
+		{
+			if(counter % 2 != 0)
+			{
+				Vibrator vibrator = (Vibrator) Miscellaneous.getAnyContext().getSystemService(Context.VIBRATOR_SERVICE);
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+					vibrator.vibrate(VibrationEffect.createOneShot(Long.parseLong(vibrate), VibrationEffect.DEFAULT_AMPLITUDE));
+				else
+					vibrator.vibrate(Long.parseLong(vibrate));
+			}
+			else
+			{
+				try
+				{
+					Thread.sleep(Long.parseLong(vibrate));
+				}
+				catch (Exception e)
+				{
+					Miscellaneous.logEvent("e", "VibrateSleep", Log.getStackTraceString(e), 5);
+				}
+			}
+
+			counter++;
+		}
+    }
+
+    public void useDownloadedWebpage(String result)
 	{
 //		Toast.makeText(context, "Result: " + result, Toast.LENGTH_LONG).show();
 	}
