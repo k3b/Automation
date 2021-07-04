@@ -1213,13 +1213,13 @@ public class XmlFileInterface
 	            			newAction.setParameter2(tag);
 	            		}
 
-
+/*
 						androidx.security.crypto.MasterKey.Builder
 
 						MasterKey mainKey = new MasterKey.Builder(context)
 								.setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
 								.build();
-
+*/
 					}
             	}
 				else if(newAction.getAction().equals(Action_Enum.startOtherActivity))	// separator has been changed, convert in old files
