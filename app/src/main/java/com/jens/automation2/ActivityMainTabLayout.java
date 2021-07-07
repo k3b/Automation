@@ -13,7 +13,6 @@ import com.jens.automation2.receivers.NfcReceiver;
 @SuppressLint("NewApi")
 public class ActivityMainTabLayout extends TabActivity
 {
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
