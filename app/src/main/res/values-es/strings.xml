@@ -583,4 +583,13 @@ Incluya las paréntecis en su texto.\n\n[uniqueid] - el número único de su dis
     <string name="notificationTriggerExplanation">Esta condición responde a todas las aplicaciones que abren o cierran notificaciones en el areal notificaciones. Puedes especificar otra aplicación de que la notificación tiene que venir. Si no la notificación puede originarse de cualquier app. Tambien puedes especificar strings que (/no) tienen que estar en en titulo o el texto de la notificación. La comparación es insensible a minúsculas y mayúsculas.</string>
     <string name="alwaysPlayExplanation">Si este ajuste esta activo el sonido será reproducido siempre. Si esta inactivo el sonido solo será reproducido si su dispositivo ni esta en mute ni en vibración. Pero si esta activo cambiará el volumen. Tambien si su dispositivo esta en el modo timbre el volumen multimedia no será cambiado por ejemplo. En resumen si el volumen multimedia esta en mute no escuchará nada.</string>
     <string name="shareConfigAndLogExplanation">Esto comenzará un nuevo email con su config y los archivos de log adjunto como archivo zip. No será enviado automaticamente. Todavia tiene que cliquear \"enviar\". Tambien puede cambiar el receptor a si mismo por ejemplo.</string>
+    <string name="tabsPlacement">Posición de la barra de tabs</string>
+    <string name="top">Cima</string>
+    <string name="bottom">Fondo</string>
+    <string name="vibrate">Vibrar</string>
+    <string name="test">Probar</string>
+    <string name="VibrateExplanation">Elija la duración de la vibración, seguido de un coma y una pausa. Puedes concatenar tantos como quiere. Separe los con comas tambien. Por ejemplo el patrón 100,500,500,1000,100 va a vibrar 100, esperar 500, vibrar 500, esperar 1000, vibrar 100 ms. Si cree una vibración está perdido, pruebe imcrementar la pausa antes la.</string>
+    <string name="pleaseEnterValidVibrationPattern">Por favor introduzca un válido patrón de vibración.</string>
+    <string name="tabsPlacementSummary">Elija done la barra de tabs está puesto.</string>
+    <string name="intentDataComment">Si su parametro es de tipo Uri y especifica \"IntentData\" como nombre (minúscula/mayáscula no es importante), el parametro no está añadido como un parametro normal con puExtra(), pero estará añadido al intent con setData().</string>
 </resources>

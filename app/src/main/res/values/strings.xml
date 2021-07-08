@@ -683,11 +683,11 @@
     <string name="pleaseGiveBgLocation">In the next screen please go to permissions, then location. There select \"Allow all the time\" to allow Automation to determine your location in the background.</string>
     <string name="vibrate">Vibrate</string>
     <string name="test">Try</string>
-    <string name="VibrateExplanation">Enter a vibration duration, followed by a comma, then a pause duration. You can concatenate as many vibrations as you like. Separate them by commas again.\nE.g. the pattern 100,500,500,1000,100 will vibrate 100, wait 500, vibrate 500, wait 1000, vibrate 100.\nIf you think a vibration is dropped try increasing the pause before them.</string>
+    <string name="VibrateExplanation">Enter a vibration duration, followed by a comma, then a pause duration. You can concatenate as many vibrations as you like. Separate them by commas again. E.g. the pattern 100,500,500,1000,100 will vibrate 100, wait 500, vibrate 500, wait 1000, vibrate 100 ms. If you think a vibration is dropped, try increasing the pause before them.</string>
     <string name="pleaseEnterValidVibrationPattern">Please enter a valid vibration pattern.</string>
     <string name="newsOptIn">Would you like to receive (only important) news about this app on the main screen? Those are downloaded from the developer\'s website. There will be no intrusive notification, just a text on the main screen when you open the app.</string>
     <string name="top">Top</string>
     <string name="bottom">Bottom</string>
-    <string name="tabsPlacement">Position of tabs</string>
+    <string name="tabsPlacement">Position of tab bar</string>
     <string name="tabsPlacementSummary">Choose where the tabs bar should be placed.</string>
 </resources>

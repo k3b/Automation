@@ -590,4 +590,8 @@
     <string name="test">Ausprobieren</string>
     <string name="VibrateExplanation">Geben Sie eine Vibrationsdauer, gefolgt von einem Komma ein, dann eine Pausendauer. Sie können so viele Vibrationen eingeben, wie sie möchten. Trennen Sie sie wieder mit Kommata.\nZ.B. wird das Muster 100,500,500,1000,100 100ms vibrieren, 500ms warten, 500ms vibrieren, 1000ms warten, 100ms vibrieren.\nWenn Sie denken, daß eine Vibration verschluckt wird, verlängern Sie die Pause vor ihr.</string>
     <string name="pleaseEnterValidVibrationPattern">Bitte geben Sie ein gültiges Vibrationsmuster ein.</string>
+    <string name="tabsPlacement">Position der Tableiste</string>
+    <string name="top">Oben</string>
+    <string name="bottom">Unten</string>
+    <string name="tabsPlacementSummary">Wol soll die Taskleiste angezeigt werden?</string>
 </resources>
