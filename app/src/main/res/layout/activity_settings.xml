@@ -52,6 +52,13 @@
 			android:entries="@array/startScreenOptions"
 			android:entryValues="@array/startScreenOptionsValues" />
 
+		<ListPreference
+			android:key="tabsPlacement"
+			android:title="@string/tabsPlacement"
+			android:summary="@string/tabsPlacementSummary"
+			android:entries="@array/tabsPlacementOptions"
+			android:entryValues="@array/tabsPlacementOptionsValues" />
+
 		<CheckBoxPreference
 			android:key="executeRulesAndProfilesWithSingleClick"
 			android:title="@string/executeRulesAndProfilesWithSingleClickTitle" />

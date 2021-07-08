@@ -17,7 +17,13 @@ public class ActivityMainTabLayout extends TabActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main_tab_layout);
+
+		Settings.readFromPersistentStorage(ActivityMainTabLayout.this);
+
+		if(Settings.tabsPlacement == 1)
+			setContentView(R.layout.main_tab_layout_tabs_at_bottom);
+		else
+			setContentView(R.layout.main_tab_layout_tabs_at_top);
 		
 		TabHost tabHost = getTabHost();
 		

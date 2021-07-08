@@ -60,6 +60,7 @@ public class Settings implements SharedPreferences
 	public static int activityDetectionRequiredProbability;
 	public static boolean privacyLocationing;
 	public static int startScreen;
+	public static int tabsPlacement;
 	public static boolean executeRulesAndProfilesWithSingleClick;
 	public static boolean displayNewsOnMainScreen;
 	public static boolean automaticUpdateCheck;
@@ -116,6 +117,7 @@ public class Settings implements SharedPreferences
 	protected static final int default_activityDetectionRequiredProbability = 75;
 	protected static final boolean default_privacyLocationing = false;
 	protected static final int default_startScreen = 0;
+	protected static final int default_tabsPlacement = 0;
 	protected static final boolean default_executeRulesAndProfilesWithSingleClick = false;
 	protected static final boolean default_displayNewsOnMainScreen = false;
 	protected static final boolean default_automaticUpdateCheck = false;
@@ -253,6 +255,7 @@ public class Settings implements SharedPreferences
 
 			privacyLocationing = prefs.getBoolean("privacyLocationing", default_privacyLocationing);
 			startScreen = Integer.parseInt(prefs.getString("startScreen", String.valueOf(default_startScreen)));
+			tabsPlacement = Integer.parseInt(prefs.getString("tabsPlacement", String.valueOf(default_tabsPlacement)));
 
 			executeRulesAndProfilesWithSingleClick = prefs.getBoolean("executeRulesAndProfilesWithSingleClick", default_executeRulesAndProfilesWithSingleClick);
 			automaticUpdateCheck = prefs.getBoolean("automaticUpdateCheck", default_automaticUpdateCheck);
@@ -440,6 +443,9 @@ public class Settings implements SharedPreferences
 			if(!prefs.contains("startScreen") | force)
 				editor.putString("startScreen", String.valueOf(default_startScreen));
 
+			if(!prefs.contains("tabsPlacement") | force)
+				editor.putString("tabsPlacement", String.valueOf(default_tabsPlacement));
+
 			if(!prefs.contains("executeRulesAndProfilesWithSingleClick") | force)
 				editor.putBoolean("executeRulesAndProfilesWithSingleClick", default_executeRulesAndProfilesWithSingleClick);
 
@@ -524,6 +530,7 @@ public class Settings implements SharedPreferences
 				editor.putString("activityDetectionRequiredProbability", String.valueOf(activityDetectionRequiredProbability));
 				editor.putBoolean("privacyLocationing", privacyLocationing);
 				editor.putString("startScreen", String.valueOf(startScreen));
+				editor.putString("tabsPlacement", String.valueOf(tabsPlacement));
 				editor.putBoolean("executeRulesAndProfilesWithSingleClick", executeRulesAndProfilesWithSingleClick);
 				editor.putBoolean("automaticUpdateCheck", automaticUpdateCheck);
 				editor.putBoolean("displayNewsOnMainScreen", displayNewsOnMainScreen);
