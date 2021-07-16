@@ -325,11 +325,11 @@
     <string name="moveUp">Desplazar a arriba</string>
     <string name="moveDown">Desplazar a abajo</string>
     <string name="warning">Alerta</string>
-    <string name="ringing">soniendo</string>
+    <string name="ringing">sonando</string>
     <string name="from">de</string>
     <string name="to">a</string>
-    <string name="matching">concordiando</string>
-    <string name="loadWifiList">Cargar listo de wifis</string>
+    <string name="matching">cordinando</string>
+    <string name="loadWifiList">Cargar lista de wifis</string>
     <string name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">Leer notificaciónes del sistema</string>
     <string name="bluetoothFailed">No pude activar o desactivar Bluetooth. Tiene el dispositvo Bluetooth?</string>
     <string name="urlTooShort">El url tiene que tener mínimo 10 caracteres.</string>
@@ -362,7 +362,7 @@
 Incluya las paréntecis en su texto.\n\n[uniqueid] - el número único de su dispositivo\n[serialnr] - el número de serie de su dispositivo\n[latitude] - su latitud\n[longitude] - su longitud\n[phonenr] - Ùltimo número de llamada realizada tanto de salida como entrante\n[d] - Dia del mes, 2 digitos con cero al comienzo\n[m] - número del mes, 2 digitos con cero al comienzo\n[Y] - Número del año, 4 digitos\n[h] - Hora, formato 12 horas con cero al comienzo\n[H] - Hora, formato 24 horas con cero al comienzo\n[i] - Minutos con cero al comienzo\n[s] - Segundos con cero al comienzo\n[ms] - milisegundos\n[notificationTitle] - Título de la última notificación\n[notificationText] - Texto de la última notificación</string>
     <string name="screenRotationAlreadyEnabled">Rotación del monitor todavia esta activado.</string>
     <string name="screenRotationAlreadyDisabled">Rotación del monitor todavia esta desactivado.</string>
-    <string name="needLocationPermForWifiList">Se puede usar la lista de wifis conocidos para determinar los sitios a cuales estuve. Por eso el permiso locación esta necesaria para cargar la lista de wifis. Si quiere elegir un de la lista tiene que conceder el permiso. En caso contrario todavia puede introducir un nombre wifi manualmente.</string>
+    <string name="needLocationPermForWifiList">Se puede usar la lista de wifis conocidos para determinar los sitios en los cuales estuvo. Por eso el permiso de localización es necesario para cargar la lista de wifis. Si quiere elegir uno de la lista tiene que conceder el permiso. En caso contrario todavia puede introducir un nombre wifi manualmente.</string>
     <string name="com.wireguard.android.permission.CONTROL_TUNNELS">Controlar conexiones de la app Wireguard</string>
     <string name="shareConfigAndLogFilesWithDev">Enviar configuración y procotolo al desarollador (vía email).</string>
     <string name="rootExplanation">Necesita permiso root para esta función. Después encienda la función \"ejecutar regla manualmente\" para presentar el permiso superuser dialogo. Es necesario elegir \"siempre permitir root para esta app\". En caso contrario la regla no puede funcionar en segundo plano.</string>
@@ -400,7 +400,7 @@ Incluya las paréntecis en su texto.\n\n[uniqueid] - el número único de su dis
     <string name="any">cualquier</string>
     <string name="incoming">recibiendo</string>
     <string name="outgoing">saliendo</string>
-    <string name="noKnownWifis">No hay wifis conociendos en su disparador.</string>
+    <string name="noKnownWifis">No hay wifis conocidos en su dispositivo.</string>
     <string name="helpTextTimeFrame">Si crea una regla con un periodo tiene dos opciones. Puede elegir entre entrar o salir de un periodo. En todo caso la regla será ejecutada solo una vez. Si crea una regla con una condición \"entrar periodo xyz\" y por ejemplo la acción \"poner el dispositivo en vibración\", el dispositivo NO va a cambiar a sonido de llamada automaticamente despues del periodo. Si desea esto tiene que crear otra regla con otro periodo.</string>
     <string name="toggableRules">Reglas reversibles</string>
     <string name="helpTextPoi">Un sitio consiste de coordinadas GPS y un radio. Porque la localización vía red móvil terrestre es relativamente imprecisa (pero rápido y barato) no especifiqué el radio demasiado corto. La applicación va a sugerir un radio minimo cuando cree nuevo sitio.</string>
@@ -517,12 +517,12 @@ Incluya las paréntecis en su texto.\n\n[uniqueid] - el número único de su dis
     <string name="helpTextEnergySaving">Muchos fabricantes intentan conservar energia en limitando la actividades de segundo plano de otras apps. Desafortunadamente el resultado es que en esas aplicaciones no funcionan por completo. Automation esta entre ellas. Vease <a href="https://dontkillmyapp.com/">esta pagina</a> para determinar como excluir Automation de tales medidas.</string>
     <string name="speedMaximumTimeBetweenLocations">Tiempo maximo entre 2 sitios para determinar la velocidad.</string>
     <string name="clone">Clonar</string>
-    <string name="updateAvailable">Hay nueva versión de la app. Quiere abrir un browser y descargar lo?</string>
+    <string name="updateAvailable">Hay nueva versión de la app. Quiere abrir un browser y descargarla?</string>
     <string name="automaticUpdateCheck">Buscar updates</string>
     <string name="urlToTriggerExplanation">Esta función NO abre el browser, pero enciende un URL en el fondo. Puede usar lo por ejemplo para enviar comandos a su automatización de la casa.</string>
     <string name="automaticUpdateCheckSummary">Solo en la versión APK.</string>
-    <string name="locationFound">Determine un posición. El radio minimo sugeri es %1$d m.</string>
-    <string name="locationFoundInaccurate">Solo pude determinar una posición imprecisa. Puede ser va a funcionar poco fiable. El radio minimo sugeri es %1$d m.</string>
+    <string name="locationFound">Determine una posición. El radio minimo sugerido es %1$d m.</string>
+    <string name="locationFoundInaccurate">Solo pude determinar una posición imprecisa. Puede ser, que funcione poco fiable. El radio minimo sugerido es %1$d m.</string>
     <string name="volumeMusicVideoGameMedia">Multimedia (música, video …)</string>
     <string name="audibleSelection">Audio habilitado cuando selectión</string>
     <string name="screenLockUnlockSound">Sonido del (des-)bloqueo de pantalla</string>
@@ -559,8 +559,8 @@ Incluya las paréntecis en su texto.\n\n[uniqueid] - el número único de su dis
     <string name="android9RecordAudioNotice">Si usa la condición nivel del ruido fondo: Desafortunadamente iniciando con Android 9 (Pie) Google decidió prohibir aplicaciones de fondo usando el micrófono. Por eso esta condición no tendrá un efecto y no iniciará algo.</string>
     <string name="android10WifiToggleNotice">Si usa la condición nivel del ruido fondo: Desafortunadamente iniciando con Android 9 (Pie) Google decidió prohibir aplicaciones de fondo usando el micrófono. Por eso esta condición no tendrá un efecto y no iniciará algo.</string>
     <string name="messageNotShownAgain">Esta nota no aparecerá otra vez.</string>
-    <string name="noLocationCouldBeFound">No pude encontrar una posición despues un limite de 120 segundos..</string>
-    <string name="pleaseGiveBgLocation">En la proxima pantalla por favor vaya a permisos, luego posición. Ahi elija \"Siempre permitir\" para permitir Automation determinar la posición en el fondo.</string>
+    <string name="noLocationCouldBeFound">No pude encontrar una posición despues de un limite de %1$s segundos..</string>
+    <string name="pleaseGiveBgLocation">En la proxima pantalla por favor vaya a permisos, luego a posición. Ahi elija \"Siempre permitir\" para permitir Automation determinar la posición en el fondo.</string>
     <string name="ConfigurationExportError">Hubo un error durante la exportación de la configuración.</string>
     <string name="rulesImportedSuccessfully">Reglas y sitios están exportados con exito.</string>
     <string name="rulesImportError">Hubo un error durante la importación de las reglas y sitios.</string>
@@ -584,12 +584,12 @@ Incluya las paréntecis en su texto.\n\n[uniqueid] - el número único de su dis
     <string name="alwaysPlayExplanation">Si este ajuste esta activo el sonido será reproducido siempre. Si esta inactivo el sonido solo será reproducido si su dispositivo ni esta en mute ni en vibración. Pero si esta activo cambiará el volumen. Tambien si su dispositivo esta en el modo timbre el volumen multimedia no será cambiado por ejemplo. En resumen si el volumen multimedia esta en mute no escuchará nada.</string>
     <string name="shareConfigAndLogExplanation">Esto comenzará un nuevo email con su config y los archivos de log adjunto como archivo zip. No será enviado automaticamente. Todavia tiene que cliquear \"enviar\". Tambien puede cambiar el receptor a si mismo por ejemplo.</string>
     <string name="tabsPlacement">Posición de la barra de tabs</string>
-    <string name="top">Cima</string>
-    <string name="bottom">Fondo</string>
+    <string name="top">Arriba</string>
+    <string name="bottom">Abajo</string>
     <string name="vibrate">Vibrar</string>
     <string name="test">Probar</string>
-    <string name="VibrateExplanation">Elija la duración de la vibración, seguido de un coma y una pausa. Puedes concatenar tantos como quiere. Separe los con comas tambien. Por ejemplo el patrón 100,500,500,1000,100 va a vibrar 100, esperar 500, vibrar 500, esperar 1000, vibrar 100 ms. Si cree una vibración está perdido, pruebe imcrementar la pausa antes la.</string>
-    <string name="pleaseEnterValidVibrationPattern">Por favor introduzca un válido patrón de vibración.</string>
+    <string name="VibrateExplanation">Elija la duración de la vibración, seguido de un coma y una duración de una pausa. Puedes concatenar tantos como quiere. Separelos con comas tambien. Por ejemplo el patrón 100,500,500,1000,100 va a vibrar 100, esperar 500, vibrar 500, esperar 1000, vibrar 100 ms. Si cree que una vibración está perdida, pruebe incrementar la pausa antes de esta vibración.</string>
+    <string name="pleaseEnterValidVibrationPattern">Por favor introduzca un patrón de vibración válido.</string>
     <string name="tabsPlacementSummary">Elija done la barra de tabs está puesto.</string>
     <string name="intentDataComment">Si su parametro es de tipo Uri y especifica \"IntentData\" como nombre (minúscula/mayáscula no es importante), el parametro no está añadido como un parametro normal con puExtra(), pero estará añadido al intent con setData().</string>
 </resources>
