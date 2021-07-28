@@ -125,7 +125,7 @@
     <string name="soundSettings">Sound settings</string>
     <string name="showHelp">Show help</string>
     <string name="rules">Rules</string>
-    <string name="helpTextRules">All triggers in a rule are AND-connected. The rule will only apply if all triggers are met. If you want OR create another rule.</string>
+    <string name="helpTextRules">All triggers in a rule are AND-connected. The rule will only apply if all triggers are met. If you want OR, create another rule.</string>
     <string name="timeframes">TimeFrames</string>
     <string name="helpTextTimeFrame">If you specify a rule with a timeframe you have two choices. You can choose between entering OR leaving a timeframe. Either way a rule is triggered only once. So if you create a rule that has \"entering timeframe xyz\" as trigger and let it change your sound profile to vibrate that does not mean that the phone will automatically go to ring if the timeframe is over. If you want that you need to specify another rule with another timeframe.</string>
     <string name="helpTextSound">On the main screen you can use lock sound changes to temporarily avoid rule based sound changes. E.g. you may be in a situation or place where usually ringtones are ok, but this one time it would be disturbing. The feature will automatically deactivate once the configured time has elapsed. Click the + button to add the given amount of time. Once it is active you may deactivate it again using the toggle button (and that way enable rule based sound changes again).</string>
@@ -261,7 +261,7 @@
     <string name="anotherAppIsRunning">Another app is started/stopped</string>
     <string name="settingsCategoryProcessMonitoring">Process monitoring</string>
     <string name="timeBetweenProcessMonitoringsTitle">Seconds between process monitorings</string>
-    <string name="timeBetweenProcessMonitoringsSummary">The lower the higher the battery usage</string>
+    <string name="timeBetweenProcessMonitoringsSummary">The lower, the higher the battery usage</string>
     <string name="refreshingProcessList" translatable="false">Refreshing process list.</string>
     <string name="processes">Processes</string>
     <string name="startingPeriodicProcessMonitoringEngine" translatable="false">Starting periodic process monitoring engine.</string>
