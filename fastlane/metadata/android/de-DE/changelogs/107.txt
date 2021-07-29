@@ -1,0 +1,4 @@
+* Übersetzungen aktualisiert.
+* Neue Aktion: Vibrieren
+* Geschwindigkeitsberechnung verbessert
+* Position der Tableiste kann gewählt werden (oben/unten)

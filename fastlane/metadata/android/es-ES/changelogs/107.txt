@@ -1,0 +1,4 @@
+* Traducciones actualizadas.
+* Nueva acción: Vibrate
+* Cálculo de velocidad mejorado
+* Posición de tabbar se puede elegir (top/bottom)

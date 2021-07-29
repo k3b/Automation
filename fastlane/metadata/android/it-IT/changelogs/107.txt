@@ -1,0 +1,4 @@
+* Traduzioni aggiornate.
+* Nuova azione: Vibrate
+* Calcolo della velocità migliorato
+* La posizione della barra delle schede può essere scelta (in alto / in basso)
