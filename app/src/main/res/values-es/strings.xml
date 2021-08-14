@@ -244,7 +244,7 @@
     <string name="volumeRingtoneNotifications">Sonido polifónico ý notificaciónes</string>
     <string name="notificationRingtone">Sonido polifónico para notificaciónes</string>
     <string name="incomingCallsRingtone">Sonido de llamadas</string>
-    <string name="batteryLevel">NIvel de la bateria</string>
+    <string name="batteryLevel">Nivel de la bateria</string>
     <string name="selectBattery">Elija nivel de la bateria</string>
     <string name="triggerNoiseLevel">Nivel del ruido fondo</string>
     <string name="anotherAppIsRunning">Otra app esta encendida/terminada</string>

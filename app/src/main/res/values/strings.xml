@@ -670,7 +670,7 @@
     <string name="matching">matching</string>
     <string name="urlRegex" translatable="false">https://regex101.com/</string>
     <string name="loadWifiList">Load wifi list</string>
-    <string name="needLocationPermForWifiList">The list of wifis your device has been connected to could be used to determine which places you have been to. That\'s why the location permission is required to load the list of wifis. If you want to be able to pick one from the list you need to grant that permission. If not you can still enter your wifi name manually.</string>
+    <string name="needLocationPermForWifiList">The list of wifis your device has been connected to could be used to determine which places you have been to. That\'s why the location permission is required to load the list of wifis. If you want to be able to pick one from the list you need to grant that permission. If you do not want that, you can still enter your wifi name manually.</string>
     <string name="noKnownWifis">There are no known wifis on your device.</string>
     <string name="urlToTriggerExplanation">This feature does NOT open a browser, but triggers a URL in the background. You can use this e.g. to send commands to your home automation.</string>
     <string name="automaticUpdateCheck">Check for updates</string>
@@ -690,4 +690,5 @@
     <string name="bottom">Bottom</string>
     <string name="tabsPlacement">Position of tab bar</string>
     <string name="tabsPlacementSummary">Choose where the tabs bar should be placed.</string>
+    <string name="wifiApi30">Because Google screwd up yet another part of Android, starting with API 30 only the currently visible wifis can be displayed. Not all the ones your device knows.</string>
 </resources>

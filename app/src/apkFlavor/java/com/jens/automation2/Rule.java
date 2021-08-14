@@ -34,6 +34,8 @@ import static com.jens.automation2.Trigger.triggerParameter2Split;
 import static com.jens.automation2.receivers.NotificationListener.EXTRA_TEXT;
 import static com.jens.automation2.receivers.NotificationListener.EXTRA_TITLE;
 
+import org.apache.commons.lang3.StringUtils;
+
 
 public class Rule implements Comparable<Rule>
 {
@@ -812,38 +814,42 @@ public class Rule implements Comparable<Rule>
 							{
 								if(getLastExecution() == null || sbn.getPostTime() > this.lastExecution.getTimeInMillis())
 								{
-									String app = sbn.getPackageName();
-									String title = sbn.getNotification().extras.getString(EXTRA_TITLE);
-									String text = sbn.getNotification().extras.getString(EXTRA_TEXT);
+									String notificationApp = sbn.getPackageName();
+									String notificationTitle = sbn.getNotification().extras.getString(EXTRA_TITLE);
+									String notificationText = sbn.getNotification().extras.getString(EXTRA_TEXT);
 
-									Miscellaneous.logEvent("i", "NotificationCheck", "Checking if this notification matches our rule " + this.getName() + ". App: " + app + ", title: " + title + ", text: " + text, 5);
+									Miscellaneous.logEvent("i", "NotificationCheck", "Checking if this notification matches our rule " + this.getName() + ". App: " + notificationApp + ", title: " + notificationTitle + ", text: " + notificationText, 5);
 
 									if (!myApp.equals("-1"))
 									{
-										if (!app.equalsIgnoreCase(myApp))
+										if (!notificationApp.equalsIgnoreCase(myApp))
 										{
 											Miscellaneous.logEvent("i", "NotificationCheck", "Notification app name does not match rule.", 5);
 											continue;
 										}
 									}
 
-									if (myTitle.length() > 0)
+									if (!StringUtils.isEmpty(myTitle))
 									{
-										if (!Miscellaneous.compare(myTitleDir, myTitle, title))
+										if (!Miscellaneous.compare(myTitleDir, myTitle, notificationTitle))
 										{
 											Miscellaneous.logEvent("i", "NotificationCheck", "Notification title does not match rule.", 5);
 											continue;
 										}
 									}
+									else
+										Miscellaneous.logEvent("i", "NotificationCheck", "A required title for a notification trigger was not specified.", 5);
 
-									if (myText.length() > 0)
+									if (!StringUtils.isEmpty(myText))
 									{
-										if (!Miscellaneous.compare(myTextDir, myText, text))
+										if (!Miscellaneous.compare(myTextDir, myText, notificationText))
 										{
 											Miscellaneous.logEvent("i", "NotificationCheck", "Notification text does not match rule.", 5);
 											continue;
 										}
 									}
+									else
+										Miscellaneous.logEvent("i", "NotificationCheck", "A required text for a notification trigger was not specified.", 5);
 
 									foundMatch = true;
 									break;

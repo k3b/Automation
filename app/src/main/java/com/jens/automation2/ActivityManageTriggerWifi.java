@@ -7,9 +7,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -55,6 +58,7 @@ public class ActivityManageTriggerWifi extends Activity
 
         wifiSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, wifiList);
         spinnerWifiList.setAdapter(wifiSpinnerAdapter);
+        spinnerWifiList.setEnabled(false);  // bug in Android; this only works when done in code, not in xml
 
         if (getIntent().hasExtra("edit"))
         {
@@ -128,12 +132,20 @@ public class ActivityManageTriggerWifi extends Activity
 
     void reallyLoadWifiList()
     {
-        WifiManager myWifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        if(Build.VERSION.SDK_INT >= 30)
+        {
+            Miscellaneous.messageBox(getResources().getString(R.string.hint), getResources().getString(R.string.wifiApi30), ActivityManageTriggerWifi.this).show();
+            loadListOfVisibleWifis();
+        }
+        else
+        {
+            WifiManager myWifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
-        for (WifiConfiguration wifi : myWifiManager.getConfiguredNetworks())
-            wifiList.add(wifi.SSID.replaceAll("\"+$", "").replaceAll("^\"+", ""));
+            for (WifiConfiguration wifi : myWifiManager.getConfiguredNetworks())
+                wifiList.add(wifi.SSID.replaceAll("\"+$", "").replaceAll("^\"+", ""));
+        }
 
-        if(wifiList.size() > 0)
+            if (wifiList.size() > 0)
         {
             spinnerWifiList.setEnabled(true);
             Collections.sort(wifiList);
@@ -145,6 +157,24 @@ public class ActivityManageTriggerWifi extends Activity
         }
 
         wifiSpinnerAdapter.notifyDataSetChanged();
+    }
+
+    void loadListOfVisibleWifis()
+    {
+        List<ScanResult> results = null;
+
+        try
+        {
+            WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+            results = wifiManager.getScanResults();
+
+            for (ScanResult wifi : results)
+                wifiList.add(wifi.SSID.replaceAll("\"+$", "").replaceAll("^\"+", ""));
+        }
+        catch(Exception e)
+        {
+            Miscellaneous.logEvent("e", "loadListOfVisibleWifis()", Log.getStackTraceString(e), 1);
+        }
     }
 
     @Override
