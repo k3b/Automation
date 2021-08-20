@@ -11,8 +11,8 @@ android {
         compileSdkVersion 29
         buildToolsVersion '29.0.2'
         useLibrary  'org.apache.http.legacy'
-        versionCode 108
-        versionName "1.6.38"
+        versionCode 109
+        versionName "1.6.39"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -1,0 +1,1 @@
+* Allowed cleartext HTTP traffic for rules using triggerUrl action

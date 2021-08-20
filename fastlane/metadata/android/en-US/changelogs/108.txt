@@ -1,4 +1,4 @@
 * Translations updated.
 * New action: Vibrate
 * Improved speed calculation
-* Position of tabbar can be chosen (top/bottom)
+* Position of tab-bar can be chosen (top/bottom)
