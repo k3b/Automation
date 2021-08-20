@@ -75,7 +75,6 @@
 
     <application
         android:allowBackup="true"
-        android:usesClearTextTraffic="true"
         android:allowClearUserData="true"
         android:icon="@drawable/gears"
         android:label="@string/app_name"

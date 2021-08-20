@@ -1,0 +1,1 @@
+* HTTP Klartext wieder entfernt, hat nicht kompiliert.
