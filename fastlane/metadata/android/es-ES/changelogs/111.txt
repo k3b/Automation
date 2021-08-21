@@ -1,0 +1,1 @@
+* Permitido texto claro HTTP tráfico para reglas usando el gatillo Acción urgente

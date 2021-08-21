@@ -1,0 +1,1 @@
+* Cleartext http traffico dati per le azioni di trigger URL abilitate.
