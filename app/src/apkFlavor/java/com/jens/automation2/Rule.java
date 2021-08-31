@@ -1,11 +1,14 @@
 package com.jens.automation2;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Looper;
+import android.os.Parcelable;
 import android.service.notification.StatusBarNotification;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -33,6 +36,8 @@ import java.util.Date;
 import static com.jens.automation2.Trigger.triggerParameter2Split;
 import static com.jens.automation2.receivers.NotificationListener.EXTRA_TEXT;
 import static com.jens.automation2.receivers.NotificationListener.EXTRA_TITLE;
+
+import androidx.core.app.NotificationCompat;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -796,13 +801,13 @@ public class Rule implements Comparable<Rule>
 
 						String myApp = params[0];
 						String myTitleDir = params[1];
-						String myTitle = params[2];
+						String requiredTitle = params[2];
 						String myTextDir = params[3];
-						String myText;
+						String requiredText;
 						if (params.length >= 5)
-							myText = params[4];
+							requiredText = params[4];
 						else
-							myText = "";
+							requiredText = "";
 
 						if(oneTrigger.getTriggerParameter())
 						{
@@ -815,8 +820,8 @@ public class Rule implements Comparable<Rule>
 								if(getLastExecution() == null || sbn.getPostTime() > this.lastExecution.getTimeInMillis())
 								{
 									String notificationApp = sbn.getPackageName();
-									String notificationTitle = sbn.getNotification().extras.getString(EXTRA_TITLE);
-									String notificationText = sbn.getNotification().extras.getString(EXTRA_TEXT);
+									String notificationTitle = null;
+									String notificationText = null;
 
 									Miscellaneous.logEvent("i", "NotificationCheck", "Checking if this notification matches our rule " + this.getName() + ". App: " + notificationApp + ", title: " + notificationTitle + ", text: " + notificationText, 5);
 
@@ -829,27 +834,44 @@ public class Rule implements Comparable<Rule>
 										}
 									}
 
-									if (!StringUtils.isEmpty(myTitle))
-									{
-										if (!Miscellaneous.compare(myTitleDir, myTitle, notificationTitle))
-										{
-											Miscellaneous.logEvent("i", "NotificationCheck", "Notification title does not match rule.", 5);
-											continue;
-										}
-									}
-									else
-										Miscellaneous.logEvent("i", "NotificationCheck", "A required title for a notification trigger was not specified.", 5);
+									/*
+										If there are multiple notifications ("stacked") this will fail.
+										https://stackoverflow.com/questions/28047767/notificationlistenerservice-not-reading-text-of-stacked-notifications
+									 */
 
-									if (!StringUtils.isEmpty(myText))
-									{
-										if (!Miscellaneous.compare(myTextDir, myText, notificationText))
+									Bundle extras = sbn.getNotification().extras;
+									if (extras.containsKey(EXTRA_TITLE))
+										notificationTitle = sbn.getNotification().extras.getString(EXTRA_TITLE);
+
+									if (extras.containsKey(EXTRA_TEXT))
+										notificationText = sbn.getNotification().extras.getString(EXTRA_TEXT);
+
+										// T I T L E
+
+										if (!StringUtils.isEmpty(requiredTitle))
 										{
-											Miscellaneous.logEvent("i", "NotificationCheck", "Notification text does not match rule.", 5);
-											continue;
+											if (!Miscellaneous.compare(myTitleDir, requiredTitle, notificationTitle))
+											{
+												Miscellaneous.logEvent("i", "NotificationCheck", "Notification title does not match rule.", 5);
+												continue;
+											}
 										}
-									}
-									else
-										Miscellaneous.logEvent("i", "NotificationCheck", "A required text for a notification trigger was not specified.", 5);
+										else
+											Miscellaneous.logEvent("i", "NotificationCheck", "A required title for a notification trigger was not specified.", 5);
+
+										// T E X T
+
+										if (!StringUtils.isEmpty(requiredText))
+										{
+											if (!Miscellaneous.compare(myTextDir, requiredText, notificationText))
+											{
+												Miscellaneous.logEvent("i", "NotificationCheck", "Notification text does not match rule.", 5);
+												continue;
+											}
+										}
+										else
+											Miscellaneous.logEvent("i", "NotificationCheck", "A required text for a notification trigger was not specified.", 5);
+//									}
 
 									foundMatch = true;
 									break;
@@ -877,15 +899,15 @@ public class Rule implements Comparable<Rule>
 											return false;
 									}
 
-									if (myTitle.length() > 0)
+									if (requiredTitle.length() > 0)
 									{
-										if (!Miscellaneous.compare(myTitleDir, title, myTitle))
+										if (!Miscellaneous.compare(myTitleDir, title, requiredTitle))
 											return false;
 									}
 
-									if (myText.length() > 0)
+									if (requiredText.length() > 0)
 									{
-										if (!Miscellaneous.compare(myTextDir, text, myText))
+										if (!Miscellaneous.compare(myTextDir, text, requiredText))
 											return false;
 									}
 								}

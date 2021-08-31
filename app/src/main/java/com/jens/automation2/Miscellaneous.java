@@ -447,6 +447,14 @@ public class Miscellaneous extends Service
 
 	public static boolean compare(String direction, String needle, String haystack)
 	{
+		// If only one of needle or haystack is null
+		if(
+				(needle == null && haystack != null)
+					||
+				(needle != null && haystack == null)
+		)
+			return false;
+
 		switch(direction)
 		{
 			case Trigger.directionEquals:

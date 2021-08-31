@@ -145,7 +145,7 @@ public class ActivityManageTriggerWifi extends Activity
                 wifiList.add(wifi.SSID.replaceAll("\"+$", "").replaceAll("^\"+", ""));
         }
 
-            if (wifiList.size() > 0)
+        if (wifiList.size() > 0)
         {
             spinnerWifiList.setEnabled(true);
             Collections.sort(wifiList);
