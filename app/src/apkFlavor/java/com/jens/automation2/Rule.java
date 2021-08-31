@@ -835,43 +835,42 @@ public class Rule implements Comparable<Rule>
 									}
 
 									/*
-										If there are multiple notifications ("stacked") this will fail.
+										If there are multiple notifications ("stacked") title or text might be null:
 										https://stackoverflow.com/questions/28047767/notificationlistenerservice-not-reading-text-of-stacked-notifications
 									 */
 
 									Bundle extras = sbn.getNotification().extras;
+
+									// T I T L E
 									if (extras.containsKey(EXTRA_TITLE))
 										notificationTitle = sbn.getNotification().extras.getString(EXTRA_TITLE);
+
+									if (!StringUtils.isEmpty(requiredTitle))
+									{
+										if (!Miscellaneous.compare(myTitleDir, requiredTitle, notificationTitle))
+										{
+											Miscellaneous.logEvent("i", "NotificationCheck", "Notification title does not match rule.", 5);
+											continue;
+										}
+									}
+									else
+										Miscellaneous.logEvent("i", "NotificationCheck", "A required title for a notification trigger was not specified.", 5);
+
+									// T E X T
 
 									if (extras.containsKey(EXTRA_TEXT))
 										notificationText = sbn.getNotification().extras.getString(EXTRA_TEXT);
 
-										// T I T L E
-
-										if (!StringUtils.isEmpty(requiredTitle))
+									if (!StringUtils.isEmpty(requiredText))
+									{
+										if (!Miscellaneous.compare(myTextDir, requiredText, notificationText))
 										{
-											if (!Miscellaneous.compare(myTitleDir, requiredTitle, notificationTitle))
-											{
-												Miscellaneous.logEvent("i", "NotificationCheck", "Notification title does not match rule.", 5);
-												continue;
-											}
+											Miscellaneous.logEvent("i", "NotificationCheck", "Notification text does not match rule.", 5);
+											continue;
 										}
-										else
-											Miscellaneous.logEvent("i", "NotificationCheck", "A required title for a notification trigger was not specified.", 5);
-
-										// T E X T
-
-										if (!StringUtils.isEmpty(requiredText))
-										{
-											if (!Miscellaneous.compare(myTextDir, requiredText, notificationText))
-											{
-												Miscellaneous.logEvent("i", "NotificationCheck", "Notification text does not match rule.", 5);
-												continue;
-											}
-										}
-										else
-											Miscellaneous.logEvent("i", "NotificationCheck", "A required text for a notification trigger was not specified.", 5);
-//									}
+									}
+									else
+										Miscellaneous.logEvent("i", "NotificationCheck", "A required text for a notification trigger was not specified.", 5);
 
 									foundMatch = true;
 									break;
