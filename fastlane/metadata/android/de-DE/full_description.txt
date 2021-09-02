@@ -39,7 +39,7 @@ Mögliche Aktionen:
 * SMS verschicken
 * Sounddatei abspielen.
 
-Es ist ziemlich schwierig diese Anwendung über die vielen verschiedenen Geräte sowie die vielen Änderungen an Android Versionen am Laufen zu halten. Ich kann vieles im Emulator testen, aber eben nicht alles.
+Es ist ziemlich schwierig diese Anwendung über die vielen verschiedenen Geräte und Android Versionen am Laufen zu halten. Ich kann vieles im Emulator testen, aber eben nicht alles.
 Wenn also eine bestimmte Funktion nicht so tut wie sie sollte - lassen Sie es mich wissen. Über die Jahre habe ich noch alle Fehler behoben, die mir vernünftig gemeldet wurden. Aber dafür bin ich auf Ihre Mithilfe angewiesen.
 
 Wenn Sie ein Problem mit der Anwendung haben und mich dazu kontaktieren möchten, updaten Sie bitte vorher auf die neueste Version und schauen Sie, ob Ihr Problem darin auch besteht.
