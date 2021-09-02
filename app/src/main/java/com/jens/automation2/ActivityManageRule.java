@@ -88,13 +88,12 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeActionStartActivityEdit = 3001;
 	final static int requestCodeTriggerNfcTagAdd = 4000;
 	final static int requestCodeTriggerNfcTagEdit = 4001;
-	final static int requestCodeActionSpeakTextAdd = 5000;
-	final static int requestCodeActionSpeakTextEdit = 1001;
+	final static int requestCodeActionSpeakTextAdd = 5101;
+	final static int requestCodeActionSpeakTextEdit = 5102;
 	final static int requestCodeTriggerBluetoothAdd = 6000;
 	final static int requestCodeTriggerBluetoothEdit = 6001;
 	final static int requestCodeActionScreenBrightnessAdd = 401;
 	final static int requestCodeActionScreenBrightnessEdit = 402;
-	final static int requestCodeActionSendTextMessage = 7001;
 	final static int requestCodeTriggerNotificationAdd = 8000;
 	final static int requestCodeTriggerNfcNotificationEdit = 8001;
 	final static int requestCodeActionPlaySoundAdd = 501;
@@ -104,6 +103,7 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeTriggerWifiAdd = 723;
 	final static int requestCodeTriggerWifiEdit = 724;
 	final static int requestCodeActionSendTextMessageAdd = 5001;
+	final static int requestCodeActionSendTextMessageEdit = 5002;
 	final static int requestCodeActionVibrateAdd = 801;
 	final static int requestCodeActionVibrateEdit = 802;
 	
@@ -315,7 +315,7 @@ public class ActivityManageRule extends Activity
 						Intent activitySendTextMessageIntent = new Intent(ActivityManageRule.this, ActivityManageActionSendTextMessage.class);
 						ActivityManageActionSendTextMessage.resultingAction = a;
 						activitySendTextMessageIntent.putExtra("edit", true);
-						startActivityForResult(activitySendTextMessageIntent, requestCodeActionSendTextMessage);
+						startActivityForResult(activitySendTextMessageIntent, requestCodeActionSendTextMessageEdit);
 						break;
 					case setScreenBrightness:
 						Intent activityEditScreenBrightnessIntent = new Intent(ActivityManageRule.this, ActivityManageActionBrightnessSetting.class);
@@ -1224,8 +1224,8 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
-				//add SpeakText
-				ruleToEdit.getActionSet().add(ActivityManageActionSendTextMessage.resultingAction);
+				//edit SpeakText
+				newAction = ActivityManageActionSpeakText.resultingAction;
 				this.refreshActionList();
 			}
 		}
@@ -1315,17 +1315,25 @@ public class ActivityManageRule extends Activity
 				this.refreshActionList();
 			}
 		}
-
-		//TODO: Check with has data been changed or something like that.
-		/*try
+		else if(requestCode == requestCodeActionSendTextMessageAdd)
 		{
-			Miscellaneous.logEvent("i", "ActivityManageSpecificRule", getResources().getString(R.string.noDataChangedReadingAnyway), 4);
-			XmlFileInterface.readFile();
+			if(resultCode == RESULT_OK)
+			{
+				//add SendTextMessage
+				ruleToEdit.getActionSet().add(ActivityManageActionSendTextMessage.resultingAction);
+				this.refreshActionList();
+			}
 		}
-		catch (FileNotFoundException e)
+		else if(requestCode == requestCodeActionSendTextMessageEdit)
 		{
-			Miscellaneous.logEvent("e", "ActivityManageSpecificRule", getResources().getString(R.string.errorReadingPoisAndRulesFromFile) + ": " + Log.getStackTraceString(e), 5);
-		}*/
+			if(resultCode == RESULT_OK)
+			{
+				//edit SendTextMessage
+				newAction = ActivityManageActionSendTextMessage.resultingAction;
+				//ruleToEdit.getActionSet().add(ActivityManageActionSendTextMessage.resultingAction);
+				this.refreshActionList();
+			}
+		}
 	}
 
 	protected Dialog getActionTypeDialog()
