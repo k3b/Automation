@@ -7,6 +7,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.jens.automation2.ActivityMainScreen;
@@ -26,13 +27,9 @@ import java.util.Calendar;
 
 public class LocationProvider
 {
-	
 	protected static boolean passiveLocationListenerActive = false;
-	
 	protected static LocationListener passiveLocationListener;
-	
 	protected static LocationProvider locationProviderInstance = null;
-	
 	protected AutomationService parentService;
 	public AutomationService getParentService()
 	{
@@ -109,123 +106,128 @@ public class LocationProvider
 
 	public void setCurrentLocation(Location newLocation, boolean skipVerification)
 	{
-		Miscellaneous.logEvent("i", "Location", "Setting location.", 4);
-
-		currentLocation = newLocation;
-		currentLocationStaticCopy = newLocation;
-
-		Miscellaneous.logEvent("i", "LocationListener", "Giving update to POI class", 4);
-		PointOfInterest.positionUpdate(newLocation, parentService, false, skipVerification);
-
-		try
+		if(newLocation != null)
 		{
-			if(
-				locationList.size() >= 1
-					&&
-				locationList.get(locationList.size()-1).getTime() == newLocation.getTime()
-					&&
-				locationList.get(locationList.size()-1).getProvider().equals(newLocation.getProvider())
+			Miscellaneous.logEvent("i", "Location", "Setting location.", 4);
+
+			currentLocation = newLocation;
+			currentLocationStaticCopy = newLocation;
+
+			Miscellaneous.logEvent("i", "LocationListener", "Giving update to POI class", 4);
+			PointOfInterest.positionUpdate(newLocation, parentService, false, skipVerification);
+
+			try
+			{
+				if (
+						locationList.size() >= 1
+								&&
+								locationList.get(locationList.size() - 1).getTime() == newLocation.getTime()
+								&&
+								locationList.get(locationList.size() - 1).getProvider().equals(newLocation.getProvider())
 				)
-			{
-				// This is a duplicate update, do not store it
-				Miscellaneous.logEvent("i", "LocationListener", "Duplicate location, ignoring.", 4);
-			}
-			else
-			{
-				Miscellaneous.logEvent("i", "Speed", "Commencing speed calculation.", 4);
-				// This part keeps the last two location entries to determine the current speed.
-
-				locationList.add(newLocation);
-
-				if(newLocation.hasSpeed())
 				{
-					Miscellaneous.logEvent("i", "Speed", "Location has speed, taking that: " + String.valueOf(newLocation.getSpeed()) + " km/h", 4);
-					setSpeed(newLocation.getSpeed());	// Take the value that came with the location, that should be more precise
+					// This is a duplicate update, do not store it
+					Miscellaneous.logEvent("i", "LocationListener", "Duplicate location, ignoring.", 4);
 				}
 				else
 				{
-					speedCalculation:
-					if (locationList.size() >= 2)
+					Miscellaneous.logEvent("i", "Speed", "Commencing speed calculation.", 4);
+					// This part keeps the last two location entries to determine the current speed.
+
+					locationList.add(newLocation);
+
+					if (newLocation.hasSpeed())
 					{
-						while (locationList.size() > 2)
+						Miscellaneous.logEvent("i", "Speed", "Location has speed, taking that: " + String.valueOf(newLocation.getSpeed()) + " km/h", 4);
+						setSpeed(newLocation.getSpeed());    // Take the value that came with the location, that should be more precise
+					}
+					else
+					{
+						speedCalculation:
+						if (locationList.size() >= 2)
 						{
-							// Remove all entries except for the last 2
-							Miscellaneous.logEvent("i", "Speed", "About to delete oldest position record until only 2 left. Currently have " + String.valueOf(locationList.size()) + " records.", 4);
-							locationList.remove(0);
-						}
+							while (locationList.size() > 2)
+							{
+								// Remove all entries except for the last 2
+								Miscellaneous.logEvent("i", "Speed", "About to delete oldest position record until only 2 left. Currently have " + String.valueOf(locationList.size()) + " records.", 4);
+								locationList.remove(0);
+							}
 
 						/*
 							The two most recent locations in the list must have a usable accuracy.
 						 */
-						for(int i = 0; i < 2; i++)
-						{
-							if
+							for (int i = 0; i < 2; i++)
+							{
+								if
 								(
-									(locationList.get(i).getProvider().equals(LocationManager.GPS_PROVIDER) && locationList.get(i).getAccuracy() > Settings.satisfactoryAccuracyGps)
-											||
-									(locationList.get(i).getProvider().equals(LocationManager.NETWORK_PROVIDER) && locationList.get(i).getAccuracy() > Settings.satisfactoryAccuracyNetwork)
+										(locationList.get(i).getProvider().equals(LocationManager.GPS_PROVIDER) && locationList.get(i).getAccuracy() > Settings.satisfactoryAccuracyGps)
+												||
+												(locationList.get(i).getProvider().equals(LocationManager.NETWORK_PROVIDER) && locationList.get(i).getAccuracy() > Settings.satisfactoryAccuracyNetwork)
 								)
-							{
-								Miscellaneous.logEvent("i", "Speed", "Not using 2 most recent locations for speed calculation because at least one does not have a satisfactory accuracy: " + locationList.get(i).toString(), 4);
-								break speedCalculation;
-							}
-						}
-
-						Miscellaneous.logEvent("i", "Speed", "Trying to calculate speed based on the last locations.", 4);
-
-						double currentSpeed;
-						long timeDifferenceInSeconds = (Math.abs(locationList.get(locationList.size() - 2).getTime() - locationList.get(locationList.size() - 1).getTime())) / 1000; //milliseconds
-						if (timeDifferenceInSeconds <= Settings.speedMaximumTimeBetweenLocations * 60)
-						{
-							double distanceTraveled = locationList.get(locationList.size() - 2).distanceTo(locationList.get(locationList.size() - 1)); //results in meters
-
-							if (timeDifferenceInSeconds == 0)
-							{
-								Miscellaneous.logEvent("w", "Speed", "No time passed since last position. Can't calculate speed here.", 4);
-								return;
+								{
+									Miscellaneous.logEvent("i", "Speed", "Not using 2 most recent locations for speed calculation because at least one does not have a satisfactory accuracy: " + locationList.get(i).toString(), 4);
+									break speedCalculation;
+								}
 							}
 
-							currentSpeed = distanceTraveled / timeDifferenceInSeconds * 3.6;    // convert m/s --> km/h
+							Miscellaneous.logEvent("i", "Speed", "Trying to calculate speed based on the last locations.", 4);
+
+							double currentSpeed;
+							long timeDifferenceInSeconds = (Math.abs(locationList.get(locationList.size() - 2).getTime() - locationList.get(locationList.size() - 1).getTime())) / 1000; //milliseconds
+							if (timeDifferenceInSeconds <= Settings.speedMaximumTimeBetweenLocations * 60)
+							{
+								double distanceTraveled = locationList.get(locationList.size() - 2).distanceTo(locationList.get(locationList.size() - 1)); //results in meters
+
+								if (timeDifferenceInSeconds == 0)
+								{
+									Miscellaneous.logEvent("w", "Speed", "No time passed since last position. Can't calculate speed here.", 4);
+									return;
+								}
+
+								currentSpeed = distanceTraveled / timeDifferenceInSeconds * 3.6;    // convert m/s --> km/h
 
                             /*
                                 Due to strange factors the time difference might be 0 resulting in mathematical error.
                              */
-							if (Double.isInfinite(currentSpeed) | Double.isNaN(currentSpeed))
-								Miscellaneous.logEvent("i", "Speed", "Error while calculating speed.", 4);
-							else
-							{
-								Miscellaneous.logEvent("i", "Speed", "Current speed: " + String.valueOf(currentSpeed) + " km/h", 2);
-
-								setSpeed(currentSpeed);
-
-								// execute matching rules containing speed
-								ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesBySpeed();
-								for (Rule oneRule : ruleCandidates)
+								if (Double.isInfinite(currentSpeed) | Double.isNaN(currentSpeed))
+									Miscellaneous.logEvent("i", "Speed", "Error while calculating speed.", 4);
+								else
 								{
-									if (oneRule.applies(this.getParentService()))
-										oneRule.activate(getParentService(), false);
+									Miscellaneous.logEvent("i", "Speed", "Current speed: " + String.valueOf(currentSpeed) + " km/h", 2);
+
+									setSpeed(currentSpeed);
+
+									// execute matching rules containing speed
+									ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesBySpeed();
+									for (Rule oneRule : ruleCandidates)
+									{
+										if (oneRule.applies(this.getParentService()))
+											oneRule.activate(getParentService(), false);
+									}
 								}
 							}
+							else
+								Miscellaneous.logEvent("i", "Speed", "Last two locations are too far apart in terms of time. Cannot use them for speed calculation.", 4);
 						}
 						else
-                            Miscellaneous.logEvent("i", "Speed", "Last two locations are too far apart in terms of time. Cannot use them for speed calculation.", 4);
-					}
-					else
-					{
-						Miscellaneous.logEvent("w", "Speed", "Don't have enough values for speed calculation, yet.", 3);
+						{
+							Miscellaneous.logEvent("w", "Speed", "Don't have enough values for speed calculation, yet.", 3);
+						}
 					}
 				}
 			}
-		}
-		catch(Exception e)
-		{
-			Miscellaneous.logEvent("e", "Speed", "Error during speed calculation: " + Log.getStackTraceString(e), 3);
-		}
+			catch (Exception e)
+			{
+				Miscellaneous.logEvent("e", "Speed", "Error during speed calculation: " + Log.getStackTraceString(e), 3);
+			}
 
-		AutomationService.updateNotification();
+			AutomationService.updateNotification();
 
-		if(AutomationService.isMainActivityRunning(parentService))
-			ActivityMainScreen.updateMainScreen();
+			if (AutomationService.isMainActivityRunning(parentService))
+				ActivityMainScreen.updateMainScreen();
+		}
+		else
+			Miscellaneous.logEvent("w", "Location", "New location given is null. Ignoring.", 5);
 	}
 
 	public void startLocationService()
@@ -244,13 +246,37 @@ public class LocationProvider
 
 		if(Settings.positioningEngine == 0)
 		{
-			// startCellLocationChangedReceiver
-			if (!ConnectivityReceiver.isAirplaneMode(this.parentService) && WifiBroadcastReceiver.mayCellLocationReceiverBeActivated() && (Rule.isAnyRuleUsing(Trigger_Enum.pointOfInterest) | Rule.isAnyRuleUsing(Trigger_Enum.speed)))
-				CellLocationChangedReceiver.startCellLocationChangedReceiver();
-
-			// startPassiveLocationListener
 			if(Rule.isAnyRuleUsing(Trigger_Enum.pointOfInterest) | Rule.isAnyRuleUsing(Trigger_Enum.speed))
+			{
+//				TelephonyManager telephonyManager = (TelephonyManager) AutomationService.getInstance().getSystemService(Context.TELEPHONY_SERVICE);
+
+				// startCellLocationChangedReceiver
+				if (CellLocationChangedReceiver.isCellLocationChangedReceiverPossible())
+				{
+					if (WifiBroadcastReceiver.mayCellLocationReceiverBeActivated())
+						CellLocationChangedReceiver.startCellLocationChangedReceiver();
+				}
+				else
+				{
+				/*
+					Reasons why we may end up here:
+					- Airplane mode is active
+					- No phone module present (pure wifi device)
+					- No SIM card is inserted or it's not unlocked
+
+					We'd have to try GPS now to get an initial position.
+					For permanent use there is no way we could know when it
+					would make sense to check the position again.
+				 */
+
+					// Trigger a one-time-position-search
+					Location loc = CellLocationChangedReceiver.getInstance().getLocation("fine");
+					LocationProvider.getInstance().setCurrentLocation(loc, true);
+				}
+
+				// startPassiveLocationListener
 				startPassiveLocationListener();
+			}
 		}
 		else
 		{

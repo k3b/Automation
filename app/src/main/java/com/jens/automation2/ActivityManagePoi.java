@@ -22,6 +22,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.jens.automation2.receivers.ConnectivityReceiver;
+
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -163,7 +165,7 @@ public class ActivityManagePoi extends Activity
 			locationSearchStart = Calendar.getInstance();
 			startTimeout();
 
-			if(!Settings.privacyLocationing)
+			if(!Settings.privacyLocationing || !ConnectivityReceiver.isDataConnectionAvailable(AutomationService.getInstance()))
 			{
 				Miscellaneous.logEvent("i", "POI Manager", getResources().getString(R.string.logGettingPositionWithProvider) + " " + provider1, 3);
 				myLocationManager.requestLocationUpdates(provider1, 500, Settings.satisfactoryAccuracyNetwork, myLocationListenerNetwork);

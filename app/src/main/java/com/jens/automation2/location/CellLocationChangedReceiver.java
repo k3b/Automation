@@ -130,6 +130,21 @@ public class CellLocationChangedReceiver extends PhoneStateListener
 		}
 	}
 
+	public static boolean isCellLocationChangedReceiverPossible()
+	{
+		if(telephonyManager == null)
+			telephonyManager = (TelephonyManager) AutomationService.getInstance().getSystemService(Context.TELEPHONY_SERVICE);
+
+		if(
+			ConnectivityReceiver.isAirplaneMode(AutomationService.getInstance())
+										||
+			telephonyManager.getSimState() != TelephonyManager.SIM_STATE_READY
+		)
+			return false;
+		else
+			return true;
+	}
+
 	public Location getLocation(String accuracy)
 	{
 		Criteria crit = new Criteria();
@@ -137,7 +152,7 @@ public class CellLocationChangedReceiver extends PhoneStateListener
 		String myProviderName;
 		
 		// If privacy mode or no data connection available
-		if(Settings.privacyLocationing | !ConnectivityReceiver.isDataConnectionAvailable(AutomationService.getInstance()))
+		if(Settings.privacyLocationing || !ConnectivityReceiver.isDataConnectionAvailable(AutomationService.getInstance()))
 		{
 			Miscellaneous.logEvent("i", "CellLocation", Miscellaneous.getAnyContext().getResources().getString(R.string.enforcingGps), 4);
 			myProviderName = LocationManager.GPS_PROVIDER;
@@ -175,6 +190,9 @@ public class CellLocationChangedReceiver extends PhoneStateListener
 		}
 		else
 		{
+			if(myLocationManager == null)
+				myLocationManager = (LocationManager) AutomationService.getInstance().getSystemService(Context.LOCATION_SERVICE);
+
 			if(!myLocationManager.isProviderEnabled(myProviderName))
 			{
 				if(myProviderName.equals(LocationManager.NETWORK_PROVIDER))
@@ -226,12 +244,10 @@ public class CellLocationChangedReceiver extends PhoneStateListener
 		return currentLocation;
 	}
 
-
 	public void setCurrentLocation(Location currentLocation)
 	{
 		this.currentLocation = currentLocation;
 	}
-
 
 	public class MyLocationListener implements LocationListener
 	{
@@ -322,12 +338,12 @@ public class CellLocationChangedReceiver extends PhoneStateListener
 	{
 		if(telephonyManager == null)
 			telephonyManager = (TelephonyManager) AutomationService.getInstance().getSystemService(Context.TELEPHONY_SERVICE);
-				
+
 		try
 		{
 			if(!cellLocationListenerActive)
 			{				
-				if(!ConnectivityReceiver.isAirplaneMode(AutomationService.getInstance()))
+				if(!ConnectivityReceiver.isAirplaneMode(AutomationService.getInstance()) && telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY)
 				{
 					if(WifiBroadcastReceiver.mayCellLocationReceiverBeActivated())
 					{
@@ -356,7 +372,7 @@ public class CellLocationChangedReceiver extends PhoneStateListener
 						Miscellaneous.logEvent("w", "cellReceiver", "Wanted to activate CellLocationChangedReceiver,  but Wifi-Receiver says not to.", 4);
 				}
 				else
-					Miscellaneous.logEvent("i", "cellReceiver", "Not starting cellLocationListener because Airplane mode is active.", 4);
+					Miscellaneous.logEvent("i", "cellReceiver", "Not starting cellLocationListener because Airplane mode is active or SIM_STATE is not ready.", 4);
 			}
 		}
 		catch(Exception ex)
@@ -410,4 +426,3 @@ public class CellLocationChangedReceiver extends PhoneStateListener
 				ActivityPermissions.havePermission("android.permission.ACCESS_WIFI_STATE", Miscellaneous.getAnyContext());
 	}
 }
-

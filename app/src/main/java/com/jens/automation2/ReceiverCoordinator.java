@@ -144,14 +144,14 @@ public class ReceiverCoordinator
         ConnectivityReceiver.startConnectivityReceiver(AutomationService.getInstance());
 
         // startCellLocationChangedReceiver
-        if(!ConnectivityReceiver.isAirplaneMode(AutomationService.getInstance()) && WifiBroadcastReceiver.mayCellLocationReceiverBeActivated() && (Rule.isAnyRuleUsing(Trigger.Trigger_Enum.pointOfInterest) | Rule.isAnyRuleUsing(Trigger.Trigger_Enum.speed)))
+        if(!ConnectivityReceiver.isAirplaneMode(AutomationService.getInstance()) && WifiBroadcastReceiver.mayCellLocationReceiverBeActivated() && (Rule.isAnyRuleUsing(Trigger.Trigger_Enum.pointOfInterest) || Rule.isAnyRuleUsing(Trigger.Trigger_Enum.speed)))
         {
             if(!Miscellaneous.googleToBlameForLocation(true))
                 CellLocationChangedReceiver.startCellLocationChangedReceiver();
         }
 
         // startBatteryReceiver
-        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.charging) | Rule.isAnyRuleUsing(Trigger.Trigger_Enum.usb_host_connection) | Rule.isAnyRuleUsing(Trigger.Trigger_Enum.batteryLevel))
+        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.charging) || Rule.isAnyRuleUsing(Trigger.Trigger_Enum.usb_host_connection) || Rule.isAnyRuleUsing(Trigger.Trigger_Enum.batteryLevel))
             BatteryReceiver.startBatteryReceiver(AutomationService.getInstance());
 
         // startAlarmListener

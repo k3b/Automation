@@ -333,7 +333,7 @@ public class AutomationService extends Service implements OnInitListener
 
 	protected void startLocationProvider()
 	{
-		if(ActivityPermissions.havePermission("android.permission.ACCESS_COARSE_LOCATION", AutomationService.this))
+		if(ActivityPermissions.havePermission(Manifest.permission.ACCESS_COARSE_LOCATION, AutomationService.this))
 			myLocationProvider = new LocationProvider(this); //autostart with this (only) constructor
 	}
 
@@ -631,7 +631,10 @@ public class AutomationService extends Service implements OnInitListener
 //					myNotification.setLatestEventInfo(instance, "Automation", textToDisplay, myPendingIntent);
 //				}
 //				else
-//				{			
+//				{
+					if(notificationBuilder == null)
+							notificationBuilder = createDefaultNotificationBuilder();
+
 					notificationBuilder.setContentText(textToDisplay);
 					notificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(textToDisplay));
 

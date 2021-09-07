@@ -29,6 +29,7 @@ import androidx.core.text.HtmlCompat;
 
 import com.jens.automation2.AutomationService.serviceCommands;
 import com.jens.automation2.Trigger.Trigger_Enum;
+import com.jens.automation2.location.CellLocationChangedReceiver;
 import com.jens.automation2.location.LocationProvider;
 
 import java.io.File;
