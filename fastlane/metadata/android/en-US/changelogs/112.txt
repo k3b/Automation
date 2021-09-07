@@ -1,0 +1,4 @@
+* Fixed bug in notification trigger.
+* Load wifi list for API > 30 (as far as possible)
+* Fixed a bug when adding/editing sendTextMessage action
+* Fixed a bug when editing speakText action

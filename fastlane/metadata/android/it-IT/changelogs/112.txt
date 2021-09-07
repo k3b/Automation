@@ -1,0 +1,4 @@
+* Corretto bug nel trigger di notifica.
+* Carica elenco wifi per API > 30 (per quanto possibile)
+* Corretto un bug quando si aggiunge / modifica l'azione di sendTextMessage
+* Corretto un bug quando si modifica l'azione del testo

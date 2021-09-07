@@ -1,0 +1,4 @@
+* Error fijo en el gatillo de notificación.
+* Lista de wifi de carga para API > 30 (en la medida de lo posible)
+* Arregló un error al añadir/editar sendTextMessage acción
+* Arregló un error al editar la acción de TalkText

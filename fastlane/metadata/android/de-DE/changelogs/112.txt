@@ -1,0 +1,4 @@
+* Fehler im Benachrichtigungsauslöser behoben
+* WLAN Liste laden für API > 30 (soweit möglich)
+* Fehler behoben beim Hinzufügen/Ändern der SMS-senden Aktion
+* Fehler behoben beim Ändern der Text-sprechen Aktion
