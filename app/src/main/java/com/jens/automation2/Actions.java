@@ -3,6 +3,7 @@ package com.jens.automation2;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ActivityNotFoundException;
@@ -26,6 +27,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
 
 import com.jens.automation2.actions.wifi_router.MyOnStartTetheringCallback;
 import com.jens.automation2.actions.wifi_router.MyOreoWifiManager;
@@ -459,12 +462,53 @@ public class Actions
 		return false;
 	}
 
-	public static void setSound(Context context, int soundSetting)
+	@RequiresApi(api = Build.VERSION_CODES.M)
+	public static void setDoNotDisturb(Context context, int desiredSetting)
 	{
-		Miscellaneous.logEvent("i", context.getResources().getString(R.string.soundSettings), "Changing sound to " + String.valueOf(soundSetting), 4);
+		NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+		// Check if the notification policy access has been granted for the app.
+/*		if (!notificationManager.isNotificationPolicyAccessGranted())
+		{
+			Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+			startActivity(intent);
+			return;
+		}*/
+
+		notificationManager.setInterruptionFilter(desiredSetting);
+
+		/*if (notificationManager.getCurrentInterruptionFilter() == NotificationManager.INTERRUPTION_FILTER_ALL)
+		{
+			notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE);
+		}
+		else
+		{
+			notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);
+		}*/
+	}
+
+	@RequiresApi(api = Build.VERSION_CODES.M)
+	public static boolean isDoNotDisturbActive(Context context)
+	{
+		NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		int result = notificationManager.getCurrentInterruptionFilter();
+		return (notificationManager.getCurrentInterruptionFilter() != NotificationManager.INTERRUPTION_FILTER_ALL);
+	}
+
+	public static void setSound(Context context, int desiredSoundSetting)
+	{
+		Miscellaneous.logEvent("i", context.getResources().getString(R.string.soundSettings), "Changing sound to " + String.valueOf(desiredSoundSetting), 4);
 
 		AudioManager myAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-		myAudioManager.setRingerMode(soundSetting);
+
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && desiredSoundSetting == AudioManager.RINGER_MODE_SILENT)
+		{
+			AudioManager am = (AudioManager) Miscellaneous.getAnyContext().getSystemService(Context.AUDIO_SERVICE);
+			am.setStreamVolume(AudioManager.STREAM_NOTIFICATION, 0, AudioManager.FLAG_PLAY_SOUND);
+			am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
+		}
+		else
+			myAudioManager.setRingerMode(desiredSoundSetting);
 	}
 
 	private static String getIPAddressUsb(final boolean useIPv4)
