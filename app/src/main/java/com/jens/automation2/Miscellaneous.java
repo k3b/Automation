@@ -607,7 +607,10 @@ public class Miscellaneous extends Service
 			if(notificationTitle != null && notificationTitle.length() > 0)
 				source = source.replace("[notificationTitle]", notificationTitle);
 			else
+			{
+				source = source.replace("notificationTitle unknown", notificationTitle);
 				Miscellaneous.logEvent("w", "Variable replacement", "notificationTitle was empty.", 3);
+			}
 		}
 
 		if(source.contains("[notificationText]"))
@@ -617,7 +620,10 @@ public class Miscellaneous extends Service
 			if(notificationText != null && notificationText.length() > 0)
 				source = source.replace("[notificationText]", notificationText);
 			else
+			{
+				source = source.replace("notificationText unknown", notificationText);
 				Miscellaneous.logEvent("w", "Variable replacement", "notificationText was empty.", 3);
+			}
 		}
 		
 //		Miscellaneous.logEvent("i", "URL after replace", source);
