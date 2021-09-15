@@ -9,6 +9,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/smsDialogNotice"
+            android:textColor="#ea131b"
+            android:layout_marginBottom="@dimen/default_margin" />
+
         <Button
             android:id="@+id/bImportNumberFromContacts"
             android:drawableLeft="@drawable/contacts"

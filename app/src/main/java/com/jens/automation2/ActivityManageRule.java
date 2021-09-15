@@ -1,5 +1,6 @@
 package com.jens.automation2;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -613,16 +614,16 @@ public class ActivityManageRule extends Activity
 						if(triggerType == Trigger_Enum.nfcTag)
 						{
 							if (NfcReceiver.checkNfcRequirements(ActivityManageRule.this, true))
-								getTriggerParamterDialog(context, booleanChoices).show();
+								getTriggerParameterDialog(context, booleanChoices).show();
 						}
 						else
-							getTriggerParamterDialog(context, booleanChoices).show();
+							getTriggerParameterDialog(context, booleanChoices).show();
 			        }
 			    });
 			
 			return builder.create();
 	}
-	private AlertDialog getTriggerParamterDialog(final Context myContext, final String[] choices)
+	private AlertDialog getTriggerParameterDialog(final Context myContext, final String[] choices)
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 		alertDialogBuilder.setTitle(getResources().getString(R.string.selectTypeOfTrigger));
@@ -1176,6 +1177,7 @@ public class ActivityManageRule extends Activity
 			{
 				ruleToEdit.getTriggerSet().add(newTrigger);
 
+				newTrigger.setTriggerParameter(data.getBooleanExtra("direction", false));
 				newTrigger.setTriggerParameter2(
 													data.getStringExtra("app") + Trigger.triggerParameter2Split +
 													data.getStringExtra("titleDir") + Trigger.triggerParameter2Split +
@@ -1382,7 +1384,7 @@ public class ActivityManageRule extends Activity
 			else if(types[i].toString().equals(Action_Enum.sendTextMessage.toString()))
 			{
 //			    if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageSpecificRule.this, "android.permission.SEND_SMS") && !Miscellaneous.isGooglePlayInstalled(ActivityManageSpecificRule.this))
-				if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageRule.this, "android.permission.SEND_SMS"))
+				if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageRule.this, Manifest.permission.SEND_SMS))
 					items.add(new Item(typesLong[i].toString(), R.drawable.message));
 			}
 			else
@@ -1423,14 +1425,15 @@ public class ActivityManageRule extends Activity
 						newAction.setAction(Action_Enum.triggerUrl);
 						ActivityManageActionTriggerUrl.resultingAction = null;
 						Intent editTriggerIntent = new Intent(context, ActivityManageActionTriggerUrl.class);
-						startActivityForResult(editTriggerIntent, 1000);
+						startActivityForResult(editTriggerIntent, requestCodeActionTriggerUrlAdd);
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setWifi.toString()))
 					{
 						newAction.setAction(Action_Enum.setWifi);
-						if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-							Toast.makeText(context, context.getResources().getString(R.string.android10WifiToggleNotice), Toast.LENGTH_LONG).show();
 						getActionParameter1Dialog(ActivityManageRule.this).show();
+
+						if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+							Miscellaneous.messageBox(context.getResources().getString(R.string.app_name), context.getResources().getString(R.string.android10WifiToggleNotice), context).show();
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setBluetooth.toString()))
 					{
@@ -1470,7 +1473,7 @@ public class ActivityManageRule extends Activity
 					{
 						newAction.setAction(Action_Enum.startOtherActivity);
 						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionStartActivity.class);
-						startActivityForResult(intent, 3000);
+						startActivityForResult(intent, requestCodeActionStartActivityAdd);
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.waitBeforeNextAction.toString()))
 					{
@@ -1504,7 +1507,7 @@ public class ActivityManageRule extends Activity
 						newAction.setAction(Action_Enum.speakText);
 						ActivityManageActionSpeakText.resultingAction = null;
 						Intent editTriggerIntent = new Intent(context, ActivityManageActionSpeakText.class);
-						startActivityForResult(editTriggerIntent, 5000);
+						startActivityForResult(editTriggerIntent, requestCodeActionSpeakTextAdd);
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.sendTextMessage.toString()))
 					{

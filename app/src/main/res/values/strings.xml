@@ -691,4 +691,5 @@
     <string name="tabsPlacement">Position of tab bar</string>
     <string name="tabsPlacementSummary">Choose where the tabs bar should be placed.</string>
     <string name="wifiApi30">Because Google screwd up yet another part of Android, starting with API 30 only the currently visible wifis can be displayed. Not all the ones your device knows.</string>
+    <string name="smsDialogNotice">If you have not used a send-sms action in this program before, Android may show an additional confirmation dialog, asking you to allow sending messages. You need to select the \"always allow\" checkbox and confirm if you want this action to work in the background. It's advised to run this rule manually once.</string>
 </resources>
