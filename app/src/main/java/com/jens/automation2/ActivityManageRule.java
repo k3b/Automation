@@ -121,7 +121,7 @@ public class ActivityManageRule extends Activity
 	{
 		context = this;
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.manage_specific_rule);
+		setContentView(R.layout.activity_manage_specific_rule);
 		
 		instance = this;
 		

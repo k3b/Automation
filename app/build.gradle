@@ -36,27 +36,27 @@ android {
     flavorDimensions "version"
 
     productFlavors
-            {
-                googlePlayFlavor
-                        {
-                            dimension "version"
-                            versionNameSuffix "-googlePlay"
-                            targetSdkVersion 29
-                        }
+    {
+        googlePlayFlavor
+        {
+            dimension "version"
+            versionNameSuffix "-googlePlay"
+            targetSdkVersion 29
+        }
 
-                fdroidFlavor
-                        {
-                            dimension "version"
-                            targetSdkVersion 28
-                        }
+        fdroidFlavor
+        {
+            dimension "version"
+            targetSdkVersion 28
+        }
 
-                apkFlavor
-                        {
-                            dimension "version"
-                            versionNameSuffix "-apk"
-                            targetSdkVersion 28
-                        }
-            }
+        apkFlavor
+        {
+            dimension "version"
+            versionNameSuffix "-apk"
+            targetSdkVersion 28
+        }
+    }
 }
 
 dependencies {
