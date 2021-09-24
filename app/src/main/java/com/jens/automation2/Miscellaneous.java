@@ -15,6 +15,8 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -670,6 +672,24 @@ public class Miscellaneous extends Service
 
 		return alertDialog.create();
 	}
+
+	private boolean haveNetworkConnection()
+	{
+		boolean haveConnectedWifi = false;
+		boolean haveConnectedMobile = false;
+
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+		for (NetworkInfo ni : netInfo) {
+			if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+				if (ni.isConnected())
+					haveConnectedWifi = true;
+			if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+				if (ni.isConnected())
+					haveConnectedMobile = true;
+		}
+		return haveConnectedWifi || haveConnectedMobile;
+	}
 	
 	/**
 	   * Checks if the device is rooted.
@@ -678,9 +698,13 @@ public class Miscellaneous extends Service
 	   */
 	  public static boolean isPhoneRooted()
 	  {
+	  	if(true)
+	  		return true;
+
 	    // get from build info
 	    String buildTags = Build.TAGS;
-	    if (buildTags != null && buildTags.contains("test-keys")) {
+	    if (buildTags != null && buildTags.contains("test-keys"))
+	    {
 	      return true;
 	    }
 

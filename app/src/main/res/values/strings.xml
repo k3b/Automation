@@ -507,7 +507,7 @@
     <string name="phoneIsNotRooted" translatable="false">Phone is not rooted.</string>
     <string name="dataConWithRootSuccess" translatable="false">Data connection was successfully changed using superuser permissions.</string>
     <string name="dataConWithRootFail" translatable="false">Data could not be changed using superuser permissions.</string>
-    <string name="rootExplanation">You need to root your phone for this function to work. Afterwards you needs to \"run the rule manually\" to show up the superuser permission question. When the superuser popups shows up you need to always allow the application to do that. Otherwise the rule cannot function when the phone is unattended.</string>
+    <string name="rootExplanation">You need to root your phone for this function to work. Afterwards you need to \"run the rule manually\" to show up the superuser permission question. When the superuser popups shows up you need to always allow the application to do that. Otherwise the rule cannot function when the phone is unattended.</string>
     <string name="errorWritingConfig">Error writing config. Do you have a writable memory?</string>
     <string name="phoneNrReplacementError">I could not insert the last phone nr in the variable. I don\'t have it.</string>
     <string name="username">Username</string>

@@ -1445,9 +1445,10 @@ public class ActivityManageRule extends Activity
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setUsbTethering.toString()))
 					{
 						newAction.setAction(Action_Enum.setUsbTethering);
+						getActionParameter1Dialog(ActivityManageRule.this).show();
+
 						if(Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1)
 							Miscellaneous.messageBox(context.getResources().getString(R.string.warning), context.getResources().getString(R.string.usbTetheringFailForAboveGingerbread), context).show();
-						getActionParameter1Dialog(ActivityManageRule.this).show();
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setWifiTethering.toString()))
 					{

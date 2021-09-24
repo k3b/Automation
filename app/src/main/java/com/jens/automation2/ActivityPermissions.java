@@ -499,7 +499,8 @@ public class ActivityPermissions extends Activity
                     case setAirplaneMode:
                         addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
                         addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
-                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
+//                        https://stackoverflow.com/questions/32185628/connectivitymanager-requestnetwork-in-android-6-0
+//                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
                         /* Permission was not required anymore, even before Android 6: https://su.chainfire.eu/#updates-permission
                         addToArrayListUnique(permissionNameSuperuser, requiredPermissions);*/
                         break;
@@ -512,7 +513,8 @@ public class ActivityPermissions extends Activity
                     case setDataConnection:
                         addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
                         addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
-                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
+//                        https://stackoverflow.com/questions/32185628/connectivitymanager-requestnetwork-in-android-6-0
+//                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
                         addToArrayListUnique(Manifest.permission.READ_PHONE_STATE, requiredPermissions);
                         /* Permission was not required anymore, even before Android 6: https://su.chainfire.eu/#updates-permission
                         addToArrayListUnique(permissionNameSuperuser, requiredPermissions);*/
@@ -522,16 +524,19 @@ public class ActivityPermissions extends Activity
                         break;
                     case setUsbTethering:
                         addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
-                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
+//                        https://stackoverflow.com/questions/32185628/connectivitymanager-requestnetwork-in-android-6-0
+//                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
                         break;
                     case setWifi:
                         addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
-                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
+//                        https://stackoverflow.com/questions/32185628/connectivitymanager-requestnetwork-in-android-6-0
+//                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
                         addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
                         break;
                     case setWifiTethering:
                         addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
-                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
+//                        https://stackoverflow.com/questions/32185628/connectivitymanager-requestnetwork-in-android-6-0
+//                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
                         addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
 
                     /*
@@ -578,30 +583,30 @@ public class ActivityPermissions extends Activity
                         break;
                     case turnUsbTetheringOff:
                         addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
-                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
+//                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
                         break;
                     case turnUsbTetheringOn:
                         addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
-                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
+//                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
                         break;
                     case turnWifiOff:
                         addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
-                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
+//                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
                         addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
                         break;
                     case turnWifiOn:
                         addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
-                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
+//                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
                         addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
                         break;
                     case turnWifiTetheringOff:
                         addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
-                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
+//                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
                         addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
                         break;
                     case turnWifiTetheringOn:
                         addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
-                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
+//                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
                         addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
                         break;
                     case waitBeforeNextAction:
