@@ -1253,37 +1253,62 @@ public class Actions
 
 			try
 			{
-				// Get the current state of the mobile network.
-				state = isMobileDataEnabled() ? 0 : 1;
-				// Get the value of the "TRANSACTION_setDataEnabled" field.
-				String transactionCode = getTransactionCode(context);
-				// Android 5.1+ (API 22) and later.
-				if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP)
+				if(Build.VERSION.SDK_INT > Build.VERSION_CODES.O_MR1)
 				{
+					/*
+						Android 8.1 is the last version on which the transaction code can be determined
+						with the below method. From 9.0 on the field TRANSACTION_setDataEnabled does not
+						exist anymore. Usually it was 83 and we'll just try this number hardcoded.
+						Alternatively the bottom of this might be an approach:
+						https://stackoverflow.com/questions/26539445/the-setmobiledataenabled-method-is-no-longer-callable-as-of-android-l-and-later
+					 */
 					SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
 					// Loop through the subscription list i.e. SIM list.
 					for (int i = 0; i < mSubscriptionManager.getActiveSubscriptionInfoCountMax(); i++)
 					{
-						if (transactionCode != null && transactionCode.length() > 0)
-						{
-							// Get the active subscription ID for a given SIM card.
-							int subscriptionId = mSubscriptionManager.getActiveSubscriptionInfoList().get(i).getSubscriptionId();
-							// Execute the command via `su` to turn off
-							// mobile network for a subscription service.
-							command = "service call phone " + transactionCode + " i32 " + subscriptionId + " i32 " + desiredState;
-							Miscellaneous.logEvent("i", "setDataConnectionWithRoot()", "Running command: " + command.toString(), 5);
-							return executeCommandViaSu(new String[]{command});
-						}
+						// Get the active subscription ID for a given SIM card.
+						int subscriptionId = mSubscriptionManager.getActiveSubscriptionInfoList().get(i).getSubscriptionId();
+						// Execute the command via `su` to turn off
+						// mobile network for a subscription service.
+						command = "service call phone " + "83" + " i32 " + subscriptionId + " i32 " + desiredState;
+						Miscellaneous.logEvent("i", "setDataConnectionWithRoot()", "Running command: " + command.toString(), 5);
+						return executeCommandViaSu(new String[]{command});
 					}
 				}
-				else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP)
+				else
 				{
-					// Android 5.0 (API 21) only.
-					if (transactionCode != null && transactionCode.length() > 0)
+					// Get the current state of the mobile network.
+					state = isMobileDataEnabled() ? 0 : 1;
+					// Get the value of the "TRANSACTION_setDataEnabled" field.
+					String transactionCode = getTransactionCode(context);
+					// Android 5.1+ (API 22) and later.
+					if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP)
 					{
-						// Execute the command via `su` to turn off mobile network.
-						command = "service call phone " + transactionCode + " i32 " + desiredState;
-						return executeCommandViaSu(new String[]{command});
+						SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+						// Loop through the subscription list i.e. SIM list.
+						for (int i = 0; i < mSubscriptionManager.getActiveSubscriptionInfoCountMax(); i++)
+						{
+							if (transactionCode != null && transactionCode.length() > 0)
+							{
+								// Get the active subscription ID for a given SIM card.
+								int subscriptionId = mSubscriptionManager.getActiveSubscriptionInfoList().get(i).getSubscriptionId();
+								// Execute the command via `su` to turn off
+								// mobile network for a subscription service.
+								command = "service call phone " + transactionCode + " i32 " + subscriptionId + " i32 " + desiredState;
+								Miscellaneous.logEvent("i", "setDataConnectionWithRoot()", "Running command: " + command.toString(), 5);
+								return executeCommandViaSu(new String[]{command});
+							}
+						}
+					}
+					else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP)
+					{
+						// Android 5.0 (API 21) only.
+						if (transactionCode != null && transactionCode.length() > 0)
+						{
+							// Execute the command via `su` to turn off mobile network.
+							command = "service call phone " + transactionCode + " i32 " + desiredState;
+							return executeCommandViaSu(new String[]{command});
+						}
 					}
 				}
 			}

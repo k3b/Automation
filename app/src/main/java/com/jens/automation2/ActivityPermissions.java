@@ -411,11 +411,11 @@ public class ActivityPermissions extends Activity
                         addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
                         break;
                     case charging:
-                        addToArrayListUnique(Manifest.permission.READ_PHONE_STATE, requiredPermissions);
+//                        addToArrayListUnique(Manifest.permission.READ_PHONE_STATE, requiredPermissions);
 //                        addToArrayListUnique("android.permission.BATTERY_STATS", requiredPermissions);
                         break;
                     case headsetPlugged:
-                        addToArrayListUnique(Manifest.permission.READ_PHONE_STATE, requiredPermissions);
+//                        addToArrayListUnique(Manifest.permission.READ_PHONE_STATE, requiredPermissions);
                         break;
                     case nfcTag:
                         addToArrayListUnique(Manifest.permission.NFC, requiredPermissions);
