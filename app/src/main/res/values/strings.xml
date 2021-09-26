@@ -692,5 +692,13 @@
     <string name="tabsPlacementSummary">Choose where the tabs bar should be placed.</string>
     <string name="wifiApi30">Because Google screwd up yet another part of Android, starting with API 30 only the currently visible wifis can be displayed. Not all the ones your device knows.</string>
     <string name="smsDialogNotice">If you have not used a send-sms action in this program before, Android may show an additional confirmation dialog, asking you to allow sending messages. You need to select the \"always allow\" checkbox and confirm if you want this action to work in the background. It\'s advised to run this rule manually once.</string>
-    <string name="silentTriggersDnd">REMARK: The silent mode often triggers Do-Not-Disturb on newer devices.</string>
+    <string name="silentTriggersDnd">REMARK: The silent mode often triggers Do-Not-Disturb on newer devices. If that happens on your device, I recommend using the normal mode instead and lowering all volumes to zero.</string>
+    <string name="tones">Tones</string>
+    <string name="miscellaneous">Miscellaneous</string>
+    <string name="dnd">Do not disturb</string>
+    <string name="dndOff">DND off</string>
+    <string name="dndPriority">Let priority notifications through</string>
+    <string name="dndAlarms">Let alarms through</string>
+    <string name="dndNothing">Let nothing through</string>
+    <string name="dndRemarks">Fine tuning (like allowing phone calls, picking specific numbers, etc.) can only be done from the system\'s settings.</string>
 </resources>

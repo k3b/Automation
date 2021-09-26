@@ -594,4 +594,5 @@
     <string name="top">Oben</string>
     <string name="bottom">Unten</string>
     <string name="tabsPlacementSummary">Wol soll die Taskleiste angezeigt werden?</string>
+    <string name="tones">Klingeltöne</string>
 </resources>

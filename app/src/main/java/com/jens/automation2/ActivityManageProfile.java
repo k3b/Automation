@@ -1,6 +1,7 @@
 package com.jens.automation2;
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -37,8 +38,8 @@ public class ActivityManageProfile extends Activity
 	final static int intentCodeRingtonePickerNotificationsFile = 9020;
 	final static int intentCodeRingtonePickerNotificationsRingtone = 9021;
 	
-	CheckBox checkBoxChangeSoundMode, checkBoxChangeVolumeMusicVideoGameMedia, checkBoxChangeVolumeNotifications, checkBoxChangeVolumeAlarms, checkBoxChangeIncomingCallsRingtone, checkBoxChangeNotificationRingtone, checkBoxChangeAudibleSelection, checkBoxChangeScreenLockUnlockSound, checkBoxChangeHapticFeedback, checkBoxChangeVibrateWhenRinging, checkBoxVibrateWhenRinging, checkBoxAudibleSelection, checkBoxScreenLockUnlockSound, checkBoxHapticFeedback;
-	Spinner spinnerSoundMode;
+	CheckBox checkBoxChangeSoundMode, checkBoxChangeVolumeMusicVideoGameMedia, checkBoxChangeVolumeNotifications, checkBoxChangeVolumeAlarms, checkBoxChangeIncomingCallsRingtone, checkBoxChangeNotificationRingtone, checkBoxChangeAudibleSelection, checkBoxChangeScreenLockUnlockSound, checkBoxChangeHapticFeedback, checkBoxChangeVibrateWhenRinging, checkBoxVibrateWhenRinging, checkBoxAudibleSelection, checkBoxScreenLockUnlockSound, checkBoxHapticFeedback, checkBoxChangeDnd;
+	Spinner spinnerSoundMode, spinnerDndMode;
 	SeekBar seekBarVolumeMusic, seekBarVolumeNotifications, seekBarVolumeAlarms;		
 	Button bChangeSoundIncomingCalls, bChangeSoundNotifications, bSaveProfile;
 	TextView tvIncomingCallsRingtone, tvNotificationsRingtone;
@@ -47,6 +48,7 @@ public class ActivityManageProfile extends Activity
 	File incomingCallsRingtone = null, notificationsRingtone = null;
 	
 	ArrayAdapter<String> soundModeAdapter;
+	ArrayAdapter<String> dndModeAdapter;
 
 	public void setIncomingCallsRingtone(File incomingCallsRingtone)
 	{
@@ -85,6 +87,7 @@ public class ActivityManageProfile extends Activity
 		this.setContentView(R.layout.activity_manage_specific_profile);
 		
 		checkBoxChangeSoundMode = (CheckBox)findViewById(R.id.checkBoxChangeSoundMode);
+		checkBoxChangeDnd = (CheckBox)findViewById(R.id.checkBoxChangeDnd);
 		checkBoxChangeVolumeMusicVideoGameMedia = (CheckBox)findViewById(R.id.checkBoxChangeVolumeMusicVideoGameMedia);
 		checkBoxChangeVolumeNotifications = (CheckBox)findViewById(R.id.checkBoxChangeVolumeNotifications);
 		checkBoxChangeVolumeAlarms = (CheckBox)findViewById(R.id.checkBoxChangeVolumeAlarms);
@@ -99,6 +102,7 @@ public class ActivityManageProfile extends Activity
 		checkBoxHapticFeedback = (CheckBox)findViewById(R.id.checkBoxHapticFeedback);
 		checkBoxVibrateWhenRinging = (CheckBox)findViewById(R.id.checkBoxVibrateWhenRinging);
 		spinnerSoundMode = (Spinner)findViewById(R.id.spinnerSoundMode);
+		spinnerDndMode = (Spinner)findViewById(R.id.spinnerDndMode);
 		seekBarVolumeMusic = (SeekBar)findViewById(R.id.seekBarVolumeMusic);
 		seekBarVolumeNotifications = (SeekBar)findViewById(R.id.seekBarVolumeNotifications);
 		seekBarVolumeAlarms = (SeekBar)findViewById(R.id.seekBarVolumeAlarms);
@@ -114,6 +118,7 @@ public class ActivityManageProfile extends Activity
 		checkBoxScreenLockUnlockSound.setEnabled(false);
 		checkBoxHapticFeedback.setEnabled(false);
 		spinnerSoundMode.setEnabled(false);
+		spinnerDndMode.setEnabled(false);
 		seekBarVolumeMusic.setEnabled(false);
 		seekBarVolumeNotifications.setEnabled(false);
 		seekBarVolumeAlarms.setEnabled(false);
@@ -121,6 +126,7 @@ public class ActivityManageProfile extends Activity
 		bChangeSoundNotifications.setEnabled(false);
 		
 		spinnerSoundMode.setSelection(0);
+		spinnerDndMode.setSelection(0);
 		
 		// Scale SeekBars to the system's maximum volume values
 		AudioManager am = (AudioManager) Miscellaneous.getAnyContext().getSystemService(Context.AUDIO_SERVICE);
@@ -130,6 +136,16 @@ public class ActivityManageProfile extends Activity
 		
 		soundModeAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, new String[] { getResources().getString(R.string.soundModeSilent), getResources().getString(R.string.soundModeVibrate), getResources().getString(R.string.soundModeNormal) });
 		spinnerSoundMode.setAdapter(soundModeAdapter);
+
+		dndModeAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, new String[] { getResources().getString(R.string.dndOff), getResources().getString(R.string.dndPriority), getResources().getString(R.string.dndAlarms), getResources().getString(R.string.dndNothing) });
+		spinnerDndMode.setAdapter(dndModeAdapter);
+		/*
+			NotificationManager.INTERRUPTION_FILTER_UNKNOWN	-> Returned when the value is unavailable for any reason.
+			NotificationManager.INTERRUPTION_FILTER_ALL -> Normal interruption filter - no notifications are suppressed. -> essentially turn off DND
+			NotificationManager.INTERRUPTION_FILTER_PRIORITY ->  Priority interruption filter - all notifications are suppressed except those that match the priority criteria.
+			NotificationManager.INTERRUPTION_FILTER_ALARMS -> Alarms only interruption filter - all notifications except those of category
+			NotificationManager.INTERRUPTION_FILTER_NONE -> No interruptions filter - all notifications are suppressed and all audio streams (except those used for phone calls) and vibrations are muted.
+		*/
 		
 		checkBoxChangeSoundMode.setOnCheckedChangeListener(new OnCheckedChangeListener()
 		{			
@@ -137,6 +153,14 @@ public class ActivityManageProfile extends Activity
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
 			{
 				spinnerSoundMode.setEnabled(isChecked);
+			}
+		});
+		checkBoxChangeDnd.setOnCheckedChangeListener(new OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+			{
+				spinnerDndMode.setEnabled(isChecked);
 			}
 		});
 		checkBoxChangeVolumeMusicVideoGameMedia.setOnCheckedChangeListener(new OnCheckedChangeListener()

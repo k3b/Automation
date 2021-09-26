@@ -45,6 +45,19 @@
 			    <requestFocus />
 			</EditText>
 
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:layout_margin="10dp"
+				android:layout_marginVertical="@dimen/default_margin"
+				android:background="#aa000000" />
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/general"
+				android:textAppearance="?android:attr/textAppearanceMedium" />
+
 			<CheckBox
 			    android:id="@+id/checkBoxChangeSoundMode"
 			    android:layout_width="wrap_content"
@@ -69,12 +82,48 @@
 				android:layout_marginLeft="40dp"
 				android:text="@string/silentTriggersDnd" />
 
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:layout_margin="10dp"
+				android:layout_marginVertical="@dimen/default_margin"
+				android:background="#aa000000" />
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/dnd"
+				android:textAppearance="?android:attr/textAppearanceMedium" />
+
+			<CheckBox
+				android:id="@+id/checkBoxChangeDnd"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/change" />
+
+			<Spinner
+				android:id="@+id/spinnerDndMode"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="40dp" />
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="40dp"
+				android:text="@string/dndRemarks" />
+
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:layout_margin="10dp"
+				android:layout_marginVertical="@dimen/default_margin"
+				android:background="#aa000000" />
+
 			<TextView
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
 			    android:text="@string/volumes"
-			    android:textAppearance="?android:attr/textAppearanceMedium" 
-			    android:layout_marginLeft="40dp" />
+			    android:textAppearance="?android:attr/textAppearanceMedium" />
 			
 			<CheckBox
 			    android:id="@+id/checkBoxChangeVolumeMusicVideoGameMedia"
@@ -126,7 +175,20 @@
 			    android:layout_width="match_parent"
 			    android:layout_height="wrap_content" 
 			    android:layout_marginLeft="40dp" />
-			
+
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:layout_margin="10dp"
+				android:layout_marginVertical="@dimen/default_margin"
+				android:background="#aa000000" />
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/tones"
+				android:textAppearance="?android:attr/textAppearanceMedium" />
+
 			<CheckBox
 			    android:id="@+id/checkBoxChangeIncomingCallsRingtone"
 			    android:layout_width="wrap_content"
@@ -204,7 +266,20 @@
 				    android:text="@string/notificationRingtone"
 				    android:textAppearance="?android:attr/textAppearanceMedium" />
 			</LinearLayout>
-			
+
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:layout_margin="10dp"
+				android:layout_marginVertical="@dimen/default_margin"
+				android:background="#aa000000" />
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/miscellaneous"
+				android:textAppearance="?android:attr/textAppearanceMedium" />
+
 			<CheckBox
 			    android:id="@+id/checkBoxChangeAudibleSelection"
 			    android:layout_width="wrap_content"
@@ -245,6 +320,7 @@
 
 			<Button
 			    android:id="@+id/bSaveProfile"
+				android:layout_marginTop="@dimen/default_margin"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
 			    android:text="@string/save" />
