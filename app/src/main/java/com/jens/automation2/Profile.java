@@ -24,6 +24,9 @@ public class Profile implements Comparable<Profile>
     protected boolean changeSoundMode;
     protected int soundMode;
 
+	protected boolean changeDndMode;
+	protected int dndMode;
+
     boolean changeVolumeMusicVideoGameMedia;
     protected int volumeMusic;
 
@@ -79,6 +82,26 @@ public class Profile implements Comparable<Profile>
 	public int getSoundMode()
 	{
 		return soundMode;
+	}
+
+	public boolean getChangeDndMode()
+	{
+		return changeDndMode;
+	}
+
+	public void setChangeDndMode(boolean changeDndMode)
+	{
+		this.changeDndMode = changeDndMode;
+	}
+
+	public int getDndMode()
+	{
+		return dndMode;
+	}
+
+	public void setDndMode(int dndMode)
+	{
+		this.dndMode = dndMode;
 	}
 
 	public void setChangeVolumeMusicVideoGameMedia(boolean changeVolumeMusicVideoGameMedia)
@@ -449,6 +472,9 @@ public class Profile implements Comparable<Profile>
 				
 			    if(changeSoundMode)
 			    	Actions.setSound(context, soundMode);
+
+				if(changeDndMode)
+					Actions.setDND(context, dndMode);
 		
 			    if(changeVolumeMusicVideoGameMedia)
 			    	am.setStreamVolume(AudioManager.STREAM_MUSIC, volumeMusic, AudioManager.FLAG_PLAY_SOUND);

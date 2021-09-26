@@ -127,6 +127,13 @@ public class ActivityManageProfile extends Activity
 		
 		spinnerSoundMode.setSelection(0);
 		spinnerDndMode.setSelection(0);
+
+		if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+		{
+			// Disable DND controls
+			checkBoxChangeDnd.setEnabled(false);
+			spinnerDndMode.setEnabled(false);
+		}
 		
 		// Scale SeekBars to the system's maximum volume values
 		AudioManager am = (AudioManager) Miscellaneous.getAnyContext().getSystemService(Context.AUDIO_SERVICE);
@@ -134,17 +141,29 @@ public class ActivityManageProfile extends Activity
 		seekBarVolumeNotifications.setMax(am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION));
 		seekBarVolumeAlarms.setMax(am.getStreamMaxVolume(AudioManager.STREAM_ALARM));
 		
-		soundModeAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, new String[] { getResources().getString(R.string.soundModeSilent), getResources().getString(R.string.soundModeVibrate), getResources().getString(R.string.soundModeNormal) });
+		soundModeAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, new String[]
+																				{
+																						getResources().getString(R.string.soundModeSilent),
+																						getResources().getString(R.string.soundModeVibrate),
+																						getResources().getString(R.string.soundModeNormal)
+																				});
 		spinnerSoundMode.setAdapter(soundModeAdapter);
 
-		dndModeAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, new String[] { getResources().getString(R.string.dndOff), getResources().getString(R.string.dndPriority), getResources().getString(R.string.dndAlarms), getResources().getString(R.string.dndNothing) });
+		dndModeAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, new String[]
+																				{
+																						getResources().getString(R.string.dndOff),
+																						getResources().getString(R.string.dndPriority),
+																						getResources().getString(R.string.dndNothing),
+																						getResources().getString(R.string.dndAlarms)
+																				});
 		spinnerDndMode.setAdapter(dndModeAdapter);
 		/*
+			Order in spinner: 1, 2, 4, 3
 			NotificationManager.INTERRUPTION_FILTER_UNKNOWN	-> Returned when the value is unavailable for any reason.
-			NotificationManager.INTERRUPTION_FILTER_ALL -> Normal interruption filter - no notifications are suppressed. -> essentially turn off DND
-			NotificationManager.INTERRUPTION_FILTER_PRIORITY ->  Priority interruption filter - all notifications are suppressed except those that match the priority criteria.
-			NotificationManager.INTERRUPTION_FILTER_ALARMS -> Alarms only interruption filter - all notifications except those of category
-			NotificationManager.INTERRUPTION_FILTER_NONE -> No interruptions filter - all notifications are suppressed and all audio streams (except those used for phone calls) and vibrations are muted.
+			NotificationManager.INTERRUPTION_FILTER_ALL -> 1 -> Normal interruption filter - no notifications are suppressed. -> essentially turn off DND
+			NotificationManager.INTERRUPTION_FILTER_PRIORITY -> 2 ->  Priority interruption filter - all notifications are suppressed except those that match the priority criteria.
+			NotificationManager.INTERRUPTION_FILTER_ALARMS -> 4 -> Alarms only interruption filter - all notifications except those of category
+			NotificationManager.INTERRUPTION_FILTER_NONE -> 3 -> No interruptions filter - all notifications are suppressed and all audio streams (except those used for phone calls) and vibrations are muted.
 		*/
 		
 		checkBoxChangeSoundMode.setOnCheckedChangeListener(new OnCheckedChangeListener()
@@ -351,6 +370,7 @@ public class ActivityManageProfile extends Activity
 	{
 		etName.setText(ActivityMainProfiles.profileToEdit.getName());
 		checkBoxChangeSoundMode.setChecked(ActivityMainProfiles.profileToEdit.getChangeSoundMode());
+		checkBoxChangeDnd.setChecked(ActivityMainProfiles.profileToEdit.getChangeDndMode());
 		checkBoxChangeVolumeMusicVideoGameMedia.setChecked(ActivityMainProfiles.profileToEdit.getChangeVolumeMusicVideoGameMedia());
 		checkBoxChangeVolumeNotifications.setChecked(ActivityMainProfiles.profileToEdit.getChangeVolumeNotifications());
 		checkBoxChangeVolumeAlarms.setChecked(ActivityMainProfiles.profileToEdit.getChangeVolumeAlarms());
@@ -362,6 +382,7 @@ public class ActivityManageProfile extends Activity
 		checkBoxChangeVibrateWhenRinging.setChecked(ActivityMainProfiles.profileToEdit.getChangeVibrateWhenRinging());
 		
 		spinnerSoundMode.setSelection(ActivityMainProfiles.profileToEdit.getSoundMode());
+		spinnerDndMode.setSelection(ActivityMainProfiles.profileToEdit.getDndMode()-1);
 		seekBarVolumeMusic.setProgress(ActivityMainProfiles.profileToEdit.getVolumeMusic());
 		seekBarVolumeNotifications.setProgress(ActivityMainProfiles.profileToEdit.getVolumeNotifications());
 		seekBarVolumeAlarms.setProgress(ActivityMainProfiles.profileToEdit.getVolumeAlarms());
@@ -383,6 +404,7 @@ public class ActivityManageProfile extends Activity
 			
 			ActivityMainProfiles.profileToEdit.setName(etName.getText().toString());
 			ActivityMainProfiles.profileToEdit.setChangeSoundMode(checkBoxChangeSoundMode.isChecked());
+			ActivityMainProfiles.profileToEdit.setChangeDndMode(checkBoxChangeDnd.isChecked());
 			ActivityMainProfiles.profileToEdit.setChangeVolumeMusicVideoGameMedia(checkBoxChangeVolumeMusicVideoGameMedia.isChecked());
 			ActivityMainProfiles.profileToEdit.setChangeVolumeNotifications(checkBoxChangeVolumeNotifications.isChecked());
 			ActivityMainProfiles.profileToEdit.setChangeVolumeAlarms(checkBoxChangeVolumeAlarms.isChecked());
@@ -398,6 +420,7 @@ public class ActivityManageProfile extends Activity
 			ActivityMainProfiles.profileToEdit.setHapticFeedback(checkBoxHapticFeedback.isChecked());
 			ActivityMainProfiles.profileToEdit.setVibrateWhenRinging(checkBoxVibrateWhenRinging.isChecked());
 			ActivityMainProfiles.profileToEdit.setSoundMode(spinnerSoundMode.getSelectedItemPosition());
+			ActivityMainProfiles.profileToEdit.setDndMode(spinnerDndMode.getSelectedItemPosition()+1);
 			ActivityMainProfiles.profileToEdit.setVolumeMusic(seekBarVolumeMusic.getProgress());
 			ActivityMainProfiles.profileToEdit.setVolumeNotifications(seekBarVolumeNotifications.getProgress());
 			ActivityMainProfiles.profileToEdit.setVolumeAlarms(seekBarVolumeAlarms.getProgress());
@@ -425,21 +448,23 @@ public class ActivityManageProfile extends Activity
 		}
 		
 		if(!checkBoxChangeSoundMode.isChecked()
-				&
+				&&
+			!checkBoxChangeDnd.isChecked()
+				&&
 			!checkBoxChangeVolumeMusicVideoGameMedia.isChecked()
-				&
+				&&
 			!checkBoxChangeVolumeNotifications.isChecked()
-				&
+				&&
 			!checkBoxChangeVolumeAlarms.isChecked()
-				&
+				&&
 			!checkBoxChangeIncomingCallsRingtone.isChecked()
-				&
+				&&
 			!checkBoxChangeNotificationRingtone.isChecked()
-				&
+				&&
 			!checkBoxChangeAudibleSelection.isChecked()
-				&
+				&&
 			!checkBoxChangeScreenLockUnlockSound.isChecked()
-				&
+				&&
 			!checkBoxChangeHapticFeedback.isChecked()
 			)
 		{

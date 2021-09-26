@@ -621,7 +621,19 @@ public class Actions
 		}
     }
 
-    public void useDownloadedWebpage(String result)
+	public static void setDND(Context context, int desiredDndMode)
+	{
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+		{
+			Miscellaneous.logEvent("i", context.getResources().getString(R.string.soundSettings), "Changing DND to " + String.valueOf(desiredDndMode), 4);
+			NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+			mNotificationManager.setInterruptionFilter(desiredDndMode);
+		}
+		else
+			Miscellaneous.logEvent("w", context.getResources().getString(R.string.soundSettings), "Cannot change DND to " + String.valueOf(desiredDndMode) + ". This Android version is too and doesn\'t have that feature, yet.", 4);
+	}
+
+	public void useDownloadedWebpage(String result)
 	{
 //		Toast.makeText(context, "Result: " + result, Toast.LENGTH_LONG).show();
 	}

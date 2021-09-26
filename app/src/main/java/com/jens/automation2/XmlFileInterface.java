@@ -204,7 +204,14 @@ public class XmlFileInterface
 	    	            	serializer.endTag(null, "changeHapticFeedback");//		    	            
 	    	            	serializer.startTag(null, "hapticFeedback");
 	    	            		serializer.text(String.valueOf(Profile.getProfileCollection().get(i).getHapticFeedback()));
-	    	            	serializer.endTag(null, "hapticFeedback"); 	            
+	    	            	serializer.endTag(null, "hapticFeedback");
+
+							serializer.startTag(null, "changeDndMode");
+							serializer.text(String.valueOf(Profile.getProfileCollection().get(i).getChangeDndMode()));
+							serializer.endTag(null, "changeDndMode");//
+							serializer.startTag(null, "dndMode");
+							serializer.text(String.valueOf(Profile.getProfileCollection().get(i).getDndMode()));
+							serializer.endTag(null, "dndMode");
 	
 	    	            serializer.endTag(null, "Profile");
 	                }	                
@@ -607,6 +614,10 @@ public class XmlFileInterface
                 newProfile.setChangeSoundMode(Boolean.parseBoolean(readTag(parser, "changeSoundMode")));
             else if (name.equals("soundMode"))
                 newProfile.setSoundMode(Integer.parseInt(readTag(parser, "soundMode")));
+			else if (name.equals("changeDndMode"))
+				newProfile.setChangeDndMode(Boolean.parseBoolean(readTag(parser, "changeDndMode")));
+			else if (name.equals("dndMode"))
+				newProfile.setDndMode(Integer.parseInt(readTag(parser, "dndMode")));
             else if (name.equals("changeVolumeMusicVideoGameMedia"))
                 newProfile.setChangeVolumeMusicVideoGameMedia(Boolean.parseBoolean(readTag(parser, "changeVolumeMusicVideoGameMedia")));
             else if (name.equals("volumeMusic"))

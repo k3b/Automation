@@ -698,8 +698,8 @@ public class Miscellaneous extends Service
 	   */
 	  public static boolean isPhoneRooted()
 	  {
-	  	if(true)
-	  		return true;
+//	  	if(true)
+//	  		return true;
 
 	    // get from build info
 	    String buildTags = Build.TAGS;
