@@ -5,6 +5,7 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
@@ -490,10 +491,19 @@ public class Profile implements Comparable<Profile>
 			    		applyRingTone(incomingCallsRingtone, RingtoneManager.TYPE_RINGTONE, context);
 			    
 			    if(changeVibrateWhenRinging)
-			    	if(vibrateWhenRinging)
-			    		am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_ON);
-			    	else
-			    		am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
+				{
+					if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+					{
+						android.provider.Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", vibrateWhenRinging?1:0);
+					}
+					else
+					{
+						if (vibrateWhenRinging)
+							am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_ON);
+						else
+							am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
+					}
+				}
 			    
 			    if(changeNotificationRingtone)
 			       	if(notificationRingtone != null)
