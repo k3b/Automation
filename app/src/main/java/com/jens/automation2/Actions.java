@@ -1399,9 +1399,9 @@ public class Actions
 
 			String desiredStateString;
 			if(desiredState == 0)
-				desiredStateString = "enable";
-			else
 				desiredStateString = "disable";
+			else
+				desiredStateString = "enable";
 
 			try
 			{
