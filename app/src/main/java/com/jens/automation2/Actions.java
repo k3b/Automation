@@ -1261,15 +1261,10 @@ public class Actions
 			}
 		}
 
-		protected static boolean setDataConnectionWithRoot(boolean enable)
+		protected static boolean setDataConnectionWithRoot(boolean desiredState)
 		{
 			try
 			{
-				int desiredState = 0;
-				if (enable)
-					desiredState = 1;
-
-
 				if(Build.VERSION.SDK_INT > Build.VERSION_CODES.O_MR1)
 				{
 					if(MobileDataStuff.setMobileNetworkFromAndroid9(desiredState, autoMationServerRef))
@@ -1324,15 +1319,20 @@ public class Actions
 		}
 
 		@SuppressLint("NewApi")
-		public static boolean setMobileNetworkAndroid6Till8(int desiredState, Context context) throws Exception
+		public static boolean setMobileNetworkAndroid6Till8(boolean desiredState, Context context) throws Exception
 		{
 			String command = null;
-			int state = 0;
 
 			try
 			{
+				int desiredStateString;
+				if(desiredState)
+					desiredStateString = 1;
+				else
+					desiredStateString = 0;
+
 				// Get the current state of the mobile network.
-				state = isMobileDataEnabled() ? 0 : 1;
+//				boolean state = isMobileDataEnabled() ? 0 : 1;
 				// Get the value of the "TRANSACTION_setDataEnabled" field.
 				String transactionCode = getTransactionCode(context);
 				// Android 5.1+ (API 22) and later.
@@ -1346,7 +1346,7 @@ public class Actions
 						int subscriptionId = mSubscriptionManager.getActiveSubscriptionInfoList().get(i).getSubscriptionId();
 						// Execute the command via `su` to turn off
 						// mobile network for a subscription service.
-						command = "service call phone " + transactionCode + " i32 " + subscriptionId + " i32 " + desiredState;
+						command = "service call phone " + transactionCode + " i32 " + subscriptionId + " i32 " + desiredStateString;
 						Miscellaneous.logEvent("i", "setMobileNetworkAndroid6Till8()", "Running command: " + command.toString(), 5);
 						return executeCommandViaSu(new String[]{command});
 					}
@@ -1362,22 +1362,27 @@ public class Actions
 		}
 
 		@SuppressLint("NewApi")
-		public static boolean setMobileNetworkTillAndroid5(int desiredState, Context context) throws Exception
+		public static boolean setMobileNetworkTillAndroid5(boolean desiredState, Context context) throws Exception
 		{
 			String command = null;
-			int state = 0;
 
 			try
 			{
+				int desiredStateString;
+				if(desiredState)
+					desiredStateString = 1;
+				else
+					desiredStateString = 0;
+
 				// Get the current state of the mobile network.
-				state = isMobileDataEnabled() ? 0 : 1;
+//				int currentState = isMobileDataEnabled() ? 0 : 1;
 				// Get the value of the "TRANSACTION_setDataEnabled" field.
 				String transactionCode = getTransactionCode(context);
 				// Android 5.0 (API 21) only.
 				if (transactionCode != null && transactionCode.length() > 0)
 				{
 					// Execute the command via `su` to turn off mobile network.
-					command = "service call phone " + transactionCode + " i32 " + desiredState;
+					command = "service call phone " + transactionCode + " i32 " + desiredStateString;
 					Miscellaneous.logEvent("i", "setMobileNetworkTillAndroid5()", "Running command: " + command.toString(), 5);
 					return executeCommandViaSu(new String[]{command});
 				}
@@ -1392,16 +1397,15 @@ public class Actions
 		}
 
 		@SuppressLint("NewApi")
-		public static boolean setMobileNetworkFromAndroid9(int desiredState, Context context) throws Exception
+		public static boolean setMobileNetworkFromAndroid9(boolean desiredState, Context context) throws Exception
 		{
 			String command = null;
-			int state = 0;
 
 			String desiredStateString;
-			if(desiredState == 0)
-				desiredStateString = "disable";
-			else
+			if(desiredState)
 				desiredStateString = "enable";
+			else
+				desiredStateString = "disable";
 
 			try
 			{
