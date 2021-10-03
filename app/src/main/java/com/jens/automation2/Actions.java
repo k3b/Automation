@@ -24,7 +24,6 @@ import android.telephony.SmsManager;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -73,48 +72,85 @@ public class Actions
 	public static final String wireguard_tunnel_down = "com.wireguard.android.action.SET_TUNNEL_DOWN";
 	public static final String wireguard_tunnel_refresh = "com.wireguard.android.action.REFRESH_TUNNEL_STATES";
 
-	public static Boolean setWifi(Context context, Boolean desiredState, boolean toggleActionIfPossible)
+	public static class WifiStuff
 	{
-		Miscellaneous.logEvent("i", "Wifi", "Changing Wifi to " + String.valueOf(desiredState), 4);
-
-		if (desiredState && Settings.useWifiForPositioning)
-			WifiBroadcastReceiver.startWifiReceiver(autoMationServerRef.getLocationProvider());
-
-		WifiManager myWifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-
-		// toggle
-		if (toggleActionIfPossible)
+		public static Boolean setWifi(Context context, Boolean desiredState, boolean toggleActionIfPossible)
 		{
-			Toast.makeText(context, context.getResources().getString(R.string.toggling) + " " + context.getResources().getString(R.string.wifi), Toast.LENGTH_LONG).show();
-			desiredState = !myWifi.isWifiEnabled();
+			if(context.getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.Q)
+				return setWifiWithRoot(context, desiredState, toggleActionIfPossible);
+			else
+				return setWifiOldFashioned(context, desiredState, toggleActionIfPossible);
 		}
 
-		// Only perform action if necessary
-		if ((!myWifi.isWifiEnabled() && desiredState) | (myWifi.isWifiEnabled() && !desiredState))
+		public static Boolean setWifiWithRoot(Context context, Boolean desiredState, boolean toggleActionIfPossible)
 		{
-			String wifiString = "";
+			Miscellaneous.logEvent("i", "Wifi", "Changing wifi to " + String.valueOf(desiredState), 4);
 
-			if (desiredState)
-			{
-				wifiString = context.getResources().getString(R.string.activating) + " " + context.getResources().getString(R.string.wifi);
-			}
+			String command = null;
+			int state = 0;
+
+			String desiredStateString;
+			if(desiredState)
+				desiredStateString = "enable";
 			else
+				desiredStateString = "disable";
+
+			try
 			{
-				wifiString = context.getResources().getString(R.string.deactivating) + " " + context.getResources().getString(R.string.wifi);
+				command = "svc wifi " + desiredStateString;
+				Miscellaneous.logEvent("i", "setWifiWithRoot()", "Running command: " + command.toString(), 5);
+				return executeCommandViaSu(new String[]{command});
 			}
-
-			Toast.makeText(context, wifiString, Toast.LENGTH_LONG).show();
-
-			boolean returnValue = myWifi.setWifiEnabled(desiredState);
-			if (!returnValue)
-				Miscellaneous.logEvent("i", "Wifi", "Error changing Wifi to " + String.valueOf(desiredState), 2);
-			else
-				Miscellaneous.logEvent("i", "Wifi", "Wifi changed to " + String.valueOf(desiredState), 2);
-
-			return returnValue;
+			catch (Exception e)
+			{
+				// Oops! Something went wrong, so we throw the exception here.
+				throw e;
+			}
 		}
 
-		return true;
+		public static Boolean setWifiOldFashioned(Context context, Boolean desiredState, boolean toggleActionIfPossible)
+		{
+			Miscellaneous.logEvent("i", "Wifi", "Changing wifi to " + String.valueOf(desiredState), 4);
+
+			if (desiredState && Settings.useWifiForPositioning)
+				WifiBroadcastReceiver.startWifiReceiver(autoMationServerRef.getLocationProvider());
+
+			WifiManager myWifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+
+			// toggle
+			if (toggleActionIfPossible)
+			{
+				Toast.makeText(context, context.getResources().getString(R.string.toggling) + " " + context.getResources().getString(R.string.wifi), Toast.LENGTH_LONG).show();
+				desiredState = !myWifi.isWifiEnabled();
+			}
+
+			// Only perform action if necessary
+			if ((!myWifi.isWifiEnabled() && desiredState) | (myWifi.isWifiEnabled() && !desiredState))
+			{
+				String wifiString = "";
+
+				if (desiredState)
+				{
+					wifiString = context.getResources().getString(R.string.activating) + " " + context.getResources().getString(R.string.wifi);
+				}
+				else
+				{
+					wifiString = context.getResources().getString(R.string.deactivating) + " " + context.getResources().getString(R.string.wifi);
+				}
+
+				Toast.makeText(context, wifiString, Toast.LENGTH_LONG).show();
+
+				boolean returnValue = myWifi.setWifiEnabled(desiredState);
+				if (!returnValue)
+					Miscellaneous.logEvent("i", "Wifi", "Error changing Wifi to " + String.valueOf(desiredState), 2);
+				else
+					Miscellaneous.logEvent("i", "Wifi", "Wifi changed to " + String.valueOf(desiredState), 2);
+
+				return returnValue;
+			}
+
+			return true;
+		}
 	}
 
 	public static void setDisplayRotation(Context myContext, Boolean desiredState, boolean toggleActionIfPossible)
@@ -1199,7 +1235,7 @@ public class Actions
 					desiredState = !isEnabled;
 				}
 
-				if (Build.VERSION.SDK_INT <= 20)
+				if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT_WATCH)
 				{
 					for (Method m : iConnectivityManagerClass.getDeclaredMethods())
 					{
@@ -1233,15 +1269,45 @@ public class Actions
 				if (enable)
 					desiredState = 1;
 
-				if (MobileDataStuff.setMobileNetworkFromLollipop(desiredState, autoMationServerRef))
+
+				if(Build.VERSION.SDK_INT > Build.VERSION_CODES.O_MR1)
 				{
-					Miscellaneous.logEvent("i", "setDataConnectionWithRoot()", Miscellaneous.getAnyContext().getResources().getString(R.string.dataConWithRootSuccess), 2);
-					return true;
+					if(MobileDataStuff.setMobileNetworkFromAndroid9(desiredState, autoMationServerRef))
+					{
+						Miscellaneous.logEvent("i", "setDataConnectionWithRoot()", Miscellaneous.getAnyContext().getResources().getString(R.string.dataConWithRootSuccess), 2);
+						return true;
+					}
+					else
+					{
+						Miscellaneous.logEvent("e", "setDataConnectionWithRoot()", Miscellaneous.getAnyContext().getResources().getString(R.string.dataConWithRootFail), 2);
+						return false;
+					}
+				}
+				else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP)
+				{
+					if (MobileDataStuff.setMobileNetworkTillAndroid5(desiredState, autoMationServerRef))
+					{
+						Miscellaneous.logEvent("i", "setDataConnectionWithRoot()", Miscellaneous.getAnyContext().getResources().getString(R.string.dataConWithRootSuccess), 2);
+						return true;
+					}
+					else
+					{
+						Miscellaneous.logEvent("e", "setDataConnectionWithRoot()", Miscellaneous.getAnyContext().getResources().getString(R.string.dataConWithRootFail), 2);
+						return false;
+					}
 				}
 				else
 				{
-					Miscellaneous.logEvent("e", "setDataConnectionWithRoot()", Miscellaneous.getAnyContext().getResources().getString(R.string.dataConWithRootFail), 2);
-					return false;
+					if (MobileDataStuff.setMobileNetworkAndroid6Till8(desiredState, autoMationServerRef))
+					{
+						Miscellaneous.logEvent("i", "setDataConnectionWithRoot()", Miscellaneous.getAnyContext().getResources().getString(R.string.dataConWithRootSuccess), 2);
+						return true;
+					}
+					else
+					{
+						Miscellaneous.logEvent("e", "setDataConnectionWithRoot()", Miscellaneous.getAnyContext().getResources().getString(R.string.dataConWithRootFail), 2);
+						return false;
+					}
 				}
 			}
 			catch (Exception e)
@@ -1258,69 +1324,31 @@ public class Actions
 		}
 
 		@SuppressLint("NewApi")
-		public static boolean setMobileNetworkFromLollipop(int desiredState, Context context) throws Exception
+		public static boolean setMobileNetworkAndroid6Till8(int desiredState, Context context) throws Exception
 		{
 			String command = null;
 			int state = 0;
 
 			try
 			{
-				if(Build.VERSION.SDK_INT > Build.VERSION_CODES.O_MR1)
+				// Get the current state of the mobile network.
+				state = isMobileDataEnabled() ? 0 : 1;
+				// Get the value of the "TRANSACTION_setDataEnabled" field.
+				String transactionCode = getTransactionCode(context);
+				// Android 5.1+ (API 22) and later.
+				SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+				// Loop through the subscription list i.e. SIM list.
+				for (int i = 0; i < mSubscriptionManager.getActiveSubscriptionInfoCountMax(); i++)
 				{
-					/*
-						Android 8.1 is the last version on which the transaction code can be determined
-						with the below method. From 9.0 on the field TRANSACTION_setDataEnabled does not
-						exist anymore. Usually it was 83 and we'll just try this number hardcoded.
-						Alternatively the bottom of this might be an approach:
-						https://stackoverflow.com/questions/26539445/the-setmobiledataenabled-method-is-no-longer-callable-as-of-android-l-and-later
-					 */
-					SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
-					// Loop through the subscription list i.e. SIM list.
-					for (int i = 0; i < mSubscriptionManager.getActiveSubscriptionInfoCountMax(); i++)
+					if (transactionCode != null && transactionCode.length() > 0)
 					{
 						// Get the active subscription ID for a given SIM card.
 						int subscriptionId = mSubscriptionManager.getActiveSubscriptionInfoList().get(i).getSubscriptionId();
 						// Execute the command via `su` to turn off
 						// mobile network for a subscription service.
-						command = "service call phone " + "83" + " i32 " + subscriptionId + " i32 " + desiredState;
-						Miscellaneous.logEvent("i", "setDataConnectionWithRoot()", "Running command: " + command.toString(), 5);
+						command = "service call phone " + transactionCode + " i32 " + subscriptionId + " i32 " + desiredState;
+						Miscellaneous.logEvent("i", "setMobileNetworkAndroid6Till8()", "Running command: " + command.toString(), 5);
 						return executeCommandViaSu(new String[]{command});
-					}
-				}
-				else
-				{
-					// Get the current state of the mobile network.
-					state = isMobileDataEnabled() ? 0 : 1;
-					// Get the value of the "TRANSACTION_setDataEnabled" field.
-					String transactionCode = getTransactionCode(context);
-					// Android 5.1+ (API 22) and later.
-					if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP)
-					{
-						SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
-						// Loop through the subscription list i.e. SIM list.
-						for (int i = 0; i < mSubscriptionManager.getActiveSubscriptionInfoCountMax(); i++)
-						{
-							if (transactionCode != null && transactionCode.length() > 0)
-							{
-								// Get the active subscription ID for a given SIM card.
-								int subscriptionId = mSubscriptionManager.getActiveSubscriptionInfoList().get(i).getSubscriptionId();
-								// Execute the command via `su` to turn off
-								// mobile network for a subscription service.
-								command = "service call phone " + transactionCode + " i32 " + subscriptionId + " i32 " + desiredState;
-								Miscellaneous.logEvent("i", "setDataConnectionWithRoot()", "Running command: " + command.toString(), 5);
-								return executeCommandViaSu(new String[]{command});
-							}
-						}
-					}
-					else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP)
-					{
-						// Android 5.0 (API 21) only.
-						if (transactionCode != null && transactionCode.length() > 0)
-						{
-							// Execute the command via `su` to turn off mobile network.
-							command = "service call phone " + transactionCode + " i32 " + desiredState;
-							return executeCommandViaSu(new String[]{command});
-						}
 					}
 				}
 			}
@@ -1331,6 +1359,71 @@ public class Actions
 			}
 
 			return false;
+		}
+
+		@SuppressLint("NewApi")
+		public static boolean setMobileNetworkTillAndroid5(int desiredState, Context context) throws Exception
+		{
+			String command = null;
+			int state = 0;
+
+			try
+			{
+				// Get the current state of the mobile network.
+				state = isMobileDataEnabled() ? 0 : 1;
+				// Get the value of the "TRANSACTION_setDataEnabled" field.
+				String transactionCode = getTransactionCode(context);
+				// Android 5.0 (API 21) only.
+				if (transactionCode != null && transactionCode.length() > 0)
+				{
+					// Execute the command via `su` to turn off mobile network.
+					command = "service call phone " + transactionCode + " i32 " + desiredState;
+					Miscellaneous.logEvent("i", "setMobileNetworkTillAndroid5()", "Running command: " + command.toString(), 5);
+					return executeCommandViaSu(new String[]{command});
+				}
+			}
+			catch (Exception e)
+			{
+				// Oops! Something went wrong, so we throw the exception here.
+				throw e;
+			}
+
+			return false;
+		}
+
+		@SuppressLint("NewApi")
+		public static boolean setMobileNetworkFromAndroid9(int desiredState, Context context) throws Exception
+		{
+			String command = null;
+			int state = 0;
+
+			String desiredStateString;
+			if(desiredState == 0)
+				desiredStateString = "enable";
+			else
+				desiredStateString = "disable";
+
+			try
+			{
+				/*
+					Android 8.1 is the last version on which the transaction code can be determined
+					with the below method. From 9.0 on the field TRANSACTION_setDataEnabled does not
+					exist anymore. Usually it was 83 and we'll just try this number hardcoded.
+					Alternatively the bottom of this might be an approach:
+					https://stackoverflow.com/questions/26539445/the-setmobiledataenabled-method-is-no-longer-callable-as-of-android-l-and-later
+				 */
+
+				// Execute the command via `su` to turn off
+				// mobile network for a subscription service.
+				command = "svc data " + desiredStateString;
+				Miscellaneous.logEvent("i", "setMobileNetworkFromAndroid9()", "Running command: " + command.toString(), 5);
+				return executeCommandViaSu(new String[]{command});
+			}
+			catch (Exception e)
+			{
+				// Oops! Something went wrong, so we throw the exception here.
+				throw e;
+			}
 		}
 
 		@SuppressLint("NewApi")

@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jens.automation2.receivers.NotificationListener;
 
@@ -494,7 +495,7 @@ public class ActivityPermissions extends Activity
                         break;
                     case sendTextMessage:
                         addToArrayListUnique(Manifest.permission.SEND_SMS, requiredPermissions);
-                                checkPermissionsInVariableUse(action.getParameter2(), requiredPermissions);
+                        checkPermissionsInVariableUse(action.getParameter2(), requiredPermissions);
                         break;
                     case setAirplaneMode:
                         addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
@@ -970,8 +971,8 @@ public class ActivityPermissions extends Activity
                 if(requiredPermissions.contains(Manifest.permission.SEND_SMS))
                 {
                     if(!ActivityPermissions.isPermissionDeclaratedInManifest(Miscellaneous.getAnyContext(), Manifest.permission.SEND_SMS)
-                            &&
-                            Miscellaneous.isGooglePlayInstalled(Miscellaneous.getAnyContext())
+//                            &&
+//                            Miscellaneous.isGooglePlayInstalled(Miscellaneous.getAnyContext())
                     )
                     {
                         requiredPermissions.remove(Manifest.permission.SEND_SMS);
@@ -989,7 +990,10 @@ public class ActivityPermissions extends Activity
                 Miscellaneous.logEvent("i", "Permissions", "Requesting permissions: " + permissions, 2);
 
 //                Toast.makeText(ActivityPermissions.this, "Requesting permissions. Amount: " + String.valueOf(requiredPermissions.size()), Toast.LENGTH_LONG).show();
-                requestPermissions(requiredPermissions.toArray(new String[requiredPermissions.size()]), requestCodeForPermissions);
+                if(requiredPermissions.size() > 0)
+                    requestPermissions(requiredPermissions.toArray(new String[requiredPermissions.size()]), requestCodeForPermissions);
+//                else
+//                    Miscellaneous.messageBox(getResources().getString(R.string.warning), getResources().getString(R.string.permissionsRequiredNotAvailable), ActivityPermissions.this).show();
             }
             else
                 setHaveAllPermissions();
