@@ -84,7 +84,7 @@ public class Actions
 
 		public static Boolean setWifiWithRoot(Context context, Boolean desiredState, boolean toggleActionIfPossible)
 		{
-			Miscellaneous.logEvent("i", "Wifi", "Changing wifi to " + String.valueOf(desiredState), 4);
+			Miscellaneous.logEvent("i", "Wifi", "Changing wifi to " + String.valueOf(desiredState) + ", but with root permissions.", 4);
 
 			String command = null;
 			int state = 0;
@@ -98,7 +98,7 @@ public class Actions
 			try
 			{
 				command = "svc wifi " + desiredStateString;
-				Miscellaneous.logEvent("i", "setWifiWithRoot()", "Running command: " + command.toString(), 5);
+				Miscellaneous.logEvent("i", "setWifiWithRoot()", "Running command as root: " + command.toString(), 5);
 				return executeCommandViaSu(new String[]{command});
 			}
 			catch (Exception e)

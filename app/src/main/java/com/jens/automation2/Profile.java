@@ -492,17 +492,17 @@ public class Profile implements Comparable<Profile>
 			    
 			    if(changeVibrateWhenRinging)
 				{
-					if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-					{
-						android.provider.Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", vibrateWhenRinging?1:0);
-					}
-					else
-					{
+//					if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+//					{
+//						android.provider.Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", vibrateWhenRinging?1:0);
+//					}
+//					else
+//					{
 						if (vibrateWhenRinging)
 							am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_ON);
 						else
 							am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
-					}
+//					}
 				}
 			    
 			    if(changeNotificationRingtone)

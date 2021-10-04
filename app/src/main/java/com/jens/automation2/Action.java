@@ -381,7 +381,7 @@ public class Action
 					break;
 				case wakeupDevice:
 					Actions.wakeupDevice(Long.parseLong(this.getParameter2()));
-					// wakeupDevice() will create a seperate thread. That'll take some time, we wait 100ms.
+					// wakeupDevice() will create a separate thread. That'll take some time, we wait 100ms.
 					try
 					{
 						Thread.sleep(100);

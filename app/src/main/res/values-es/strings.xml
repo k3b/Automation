@@ -556,7 +556,7 @@
     <string name="logFileMaxSizeTitle">Maximo tamaño del archivo log [Mb]</string>
     <string name="theseAreThePermissionsRequired">Esos son los permisos necesarios.</string>
     <string name="android9RecordAudioNotice">Si usa la condición nivel del ruido fondo: Desafortunadamente iniciando con Android 9 (Pie) Google decidió prohibir aplicaciones de fondo usando el micrófono. Por eso esta condición no tendrá un efecto y no iniciará algo.</string>
-    <string name="android10WifiToggleNotice">Si usa la condición nivel del ruido fondo: Desafortunadamente iniciando con Android 9 (Pie) Google decidió prohibir aplicaciones de fondo usando el micrófono. Por eso esta condición no tendrá un efecto y no iniciará algo.</string>
+    <string name="android10WifiToggleNotice">Desafortunadamente Google dedició remover esta función en Android 10. Applicaciones regulares ya no pueden activar o desactivar wifi. Solo si su dispositivo esta rooted debe funcionar adelante. Si no este ación no va a continuar de funcionar.</string>
     <string name="messageNotShownAgain">Esta nota no aparecerá otra vez.</string>
     <string name="noLocationCouldBeFound">No pude encontrar una posición despues de un limite de %1$s segundos..</string>
     <string name="pleaseGiveBgLocation">En la proxima pantalla por favor vaya a permisos, luego a posición. Ahi elija \"Siempre permitir\" para permitir Automation determinar la posición en el fondo.</string>
