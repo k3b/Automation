@@ -170,9 +170,9 @@ public class XmlFileInterface
 	    	            	serializer.startTag(null, "changeVibrateWhenRinging");
 	    	            		serializer.text(String.valueOf(Profile.getProfileCollection().get(i).getChangeVibrateWhenRinging()));
 	    	            	serializer.endTag(null, "changeVibrateWhenRinging");//		    	            
-	    	            	serializer.startTag(null, "changeVibrateWhenRinging");
+	    	            	serializer.startTag(null, "vibrateWhenRinging");
 	    	            		serializer.text(String.valueOf(Profile.getProfileCollection().get(i).getVibrateWhenRinging()));
-	    	            	serializer.endTag(null, "changeVibrateWhenRinging");
+	    	            	serializer.endTag(null, "vibrateWhenRinging");
 	    	            
 	    	            	serializer.startTag(null, "changeNotificationRingtone");
 	    	            		serializer.text(String.valueOf(Profile.getProfileCollection().get(i).getChangeNotificationRingtone()));
@@ -216,8 +216,7 @@ public class XmlFileInterface
 	    	            serializer.endTag(null, "Profile");
 	                }	                
 		            serializer.endTag(null, "ProfileCollection");
-		            
-		            
+
 		            
 		            serializer.startTag(null, "RuleCollection");
 	                for(int i=0; i<Rule.getRuleCollection().size(); i++)
@@ -652,6 +651,8 @@ public class XmlFileInterface
             	else
             		newProfile.setNotificationRingtone(null);
             }
+			else if (name.equals("vibrateWhenRinging"))
+				newProfile.setVibrateWhenRinging(Boolean.parseBoolean(readTag(parser, "vibrateWhenRinging")));
             else if (name.equals("changeAudibleSelection"))
                 newProfile.setChangeAudibleSelection(Boolean.parseBoolean(readTag(parser, "changeAudibleSelection")));
             else if (name.equals("audibleSelection"))
