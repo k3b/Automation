@@ -615,6 +615,9 @@ public class ActivityPermissions extends Activity
                     case wakeupDevice:
                         addToArrayListUnique(Manifest.permission.WAKE_LOCK, requiredPermissions);
                         break;
+                    case playSound:
+                        addToArrayListUnique(Manifest.permission.READ_EXTERNAL_STORAGE, requiredPermissions);
+                        break;
                     default:
                         break;
                 }
@@ -826,6 +829,10 @@ public class ActivityPermissions extends Activity
                 break;
             case Manifest.permission.FOREGROUND_SERVICE:
                 usingElements.add(getResources().getString(R.string.startAutomationAsService));
+                break;
+            case Manifest.permission.READ_EXTERNAL_STORAGE:
+                for(String ruleName : getRulesUsing(Action.Action_Enum.playSound))
+                    usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
         }
 
@@ -1331,6 +1338,7 @@ public class ActivityPermissions extends Activity
         mapActionPermissions.put("turnWifiTetheringOn", Manifest.permission.WRITE_SETTINGS);
         mapActionPermissions.put("turnWifiTetheringOn", Manifest.permission.CHANGE_NETWORK_STATE);
         mapActionPermissions.put("turnWifiTetheringOn", Manifest.permission.ACCESS_NETWORK_STATE);
+        mapActionPermissions.put("playSound", Manifest.permission.READ_EXTERNAL_STORAGE);
 //		  mapActionPermissions.put("waitBeforeNextAction", "");
         mapActionPermissions.put("wakeupDevice", Manifest.permission.WAKE_LOCK);
     }
