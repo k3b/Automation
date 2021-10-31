@@ -656,7 +656,7 @@ public class ActivityPermissions extends Activity
             {
                 for (Action action : rule.getActionSet())
                 {
-                    if(action.equals(actionType))
+                    if(action.getAction().equals(actionType))
                         addToArrayListUnique(rule.getName(), returnList);
                 }
             }
