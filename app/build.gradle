@@ -41,7 +41,7 @@ android {
         {
             dimension "version"
             versionNameSuffix "-googlePlay"
-            targetSdkVersion 29
+            targetSdkVersion 30
         }
 
         fdroidFlavor
