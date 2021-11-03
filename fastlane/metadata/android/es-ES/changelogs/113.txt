@@ -1,0 +1,6 @@
+* Se ha corregido un error al agregar la acción speakText
+* Se ha corregido un error en la adición de un disparador de notificación
+* Corregido: vibrarCuando la configuración deRinging en los perfiles no se guardó ni se activó
+* Añadido: No molestar se puede controlar en un perfil
+* Conexión USB habilitada para Android 9 y superior (requiere root)
+* Se agregó permiso READ_EXTERNAL_STORAGE para las reglas que reproducen archivos de sonido.

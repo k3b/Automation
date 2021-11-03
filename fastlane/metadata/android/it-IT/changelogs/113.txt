@@ -1,0 +1,6 @@
+* Corretto bug nell'aggiunta dell'azione speakText
+* Risolto bug nell'aggiunta del trigger di notifica
+* Risolto: vibrazioneQuando l'impostazioneringing nei profili non è stata salvata né attivata
+* Aggiunto: Non disturbare può essere controllato in un profilo
+* Tethering USB abilitato per Android 9 e versioni successive (richiede root)
+* Aggiunta la READ_EXTERNAL_STORAGE delle autorizzazioni per le regole che riproduceno file audio.

@@ -1,0 +1,6 @@
+* Fehler beim Erstellen einer Text-sprechen-Aktion behoben
+* Fehler beim Hinzufügen eines Benachrichtigungs-Auslösers behoben
+* Behoben: "beim Anrufen vibrieren" in Profilen hatte nicht funktioniert
+* Hinzugefügt: "Nicht stören" kann nun in Profilen gesteuert werden.
+* USB Router für Android 9 und höher unterstützt (benötigt root)
+* Berechtigung READ_EXTERNAL_STORAGE für Regeln hinzugefügt, die Tondateien abspielen.

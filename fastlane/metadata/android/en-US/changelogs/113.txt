@@ -1,0 +1,6 @@
+* Fixed bug in adding speakText action
+* Fixed bug in adding notification trigger
+* Fixed: vibrateWhenRinging setting in profiles didn't save nor activate
+* Added: Do not disturb can be controlled in a profile
+* Enabled USB Tethering for Android 9 and above (requires root)
+* Added permission READ_EXTERNAL_STORAGE for rules that play sound files.
