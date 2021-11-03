@@ -3,6 +3,7 @@ package com.jens.automation2;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -20,6 +21,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.app.NotificationManagerCompat;
 
 import com.jens.automation2.receivers.NotificationListener;
 
@@ -683,17 +686,14 @@ public class ActivityPermissions extends Activity
             case Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE:
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.notification))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
-
                 break;
             case permissionNameGoogleActivityDetection:
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.activityDetection))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
-
                 break;
             case Manifest.permission.ACTIVITY_RECOGNITION:
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.activityDetection))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
-
                 break;
             case Manifest.permission.ACCESS_COARSE_LOCATION:
 //                usingElements.add(getResources().getString(R.string.android_permission_ACCESS_COARSE_LOCATION));
@@ -1168,10 +1168,6 @@ public class ActivityPermissions extends Activity
     private void setHaveAllPermissions()
     {
         setResult(RESULT_OK);
-        // All permissions have been granted.
-        NotificationManager mNotificationManager = (NotificationManager) Miscellaneous.getAnyContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.cancel(notificationIdPermissions);
-        ActivityMainScreen.updateMainScreen();
 
         try
         {
@@ -1181,6 +1177,14 @@ public class ActivityPermissions extends Activity
         {
             // Activity may not have been loaded, yet.
         }
+
+        // All permissions have been granted.
+        NotificationManager mNotificationManager = (NotificationManager) Miscellaneous.getAnyContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.cancel(notificationIdPermissions);
+        if(AutomationService.getInstance() != null)
+            AutomationService.getInstance().cancelNotification();
+
+        ActivityMainScreen.updateMainScreen();
 
         this.finish();
     }

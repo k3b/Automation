@@ -911,6 +911,7 @@ public class Miscellaneous extends Service
 		dismissableNotificationBuilder.setContentText(textToDisplay);
 		dismissableNotificationBuilder.setContentIntent(pendingIntent);
 		dismissableNotificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(textToDisplay));
+		dismissableNotificationBuilder.setAutoCancel(true);
 
 		Notification dismissableNotification = dismissableNotificationBuilder.build();
 
@@ -1012,6 +1013,7 @@ public class Miscellaneous extends Service
 		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
 			builder.setCategory(Notification.CATEGORY_SERVICE);
 
+		builder.setAutoCancel(true);
 		builder.setWhen(System.currentTimeMillis());
 		builder.setContentIntent(myPendingIntent);
 

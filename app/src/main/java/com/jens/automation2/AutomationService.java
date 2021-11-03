@@ -24,6 +24,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.jens.automation2.Trigger.Trigger_Enum;
 import com.jens.automation2.location.LocationProvider;
@@ -407,6 +408,14 @@ public class AutomationService extends Service implements OnInitListener
 		}
 	}
 
+	public void cancelNotification()
+	{
+//		stopForeground(false);
+		NotificationManagerCompat.from(AutomationService.this).cancelAll();
+//		NotificationManagerCompat.from(AutomationService.this).cancel(ActivityPermissions.notificationIdPermissions);
+//		NotificationManagerCompat.from(AutomationService.this).cancel(AutomationService.notificationIdRestrictions);
+	}
+
 	protected void checkForMissingBackgroundLocationPermission()
 	{
 		if(Miscellaneous.googleToBlameForLocation(true))
@@ -421,23 +430,6 @@ public class AutomationService extends Service implements OnInitListener
 			else
 				Miscellaneous.createDismissableNotification(getResources().getString(R.string.featuresDisabled), notificationIdLocationRestriction, pi);
 		}
-
-		/*
-		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-		{
-			if (BuildConfig.FLAVOR.equalsIgnoreCase("googlePlayFlavor"))
-			{
-				if (Rule.isAnyRuleUsing(Trigger_Enum.pointOfInterest))
-				{
-					Intent intent = new Intent(AutomationService.this, ActivityMainTabLayout.class);
-					PendingIntent pi = PendingIntent.getActivity(AutomationService.this, 0, intent, 0);
-					if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
-						Miscellaneous.createDismissableNotificationWithDelay(2200, getResources().getString(R.string.featuresDisabled), notificationIdLocationRestriction, pi);
-					else
-						Miscellaneous.createDismissableNotification(getResources().getString(R.string.featuresDisabled), notificationIdLocationRestriction, pi);
-				}
-			}
-		}*/
 	}
 
 	public static void startAutomationService(Context context, boolean startAtBoot)
