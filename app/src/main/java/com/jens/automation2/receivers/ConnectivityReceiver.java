@@ -112,7 +112,7 @@ public class ConnectivityReceiver extends BroadcastReceiver implements Automatio
 	@SuppressLint("NewApi")
 	public static boolean isAirplaneMode(Context context)
 	{
-	  if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1)
+	  	if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1)
 		{
 		  	int value = android.provider.Settings.System.getInt(context.getContentResolver(), android.provider.Settings.System.AIRPLANE_MODE_ON, 0);
 			return value != 0;
