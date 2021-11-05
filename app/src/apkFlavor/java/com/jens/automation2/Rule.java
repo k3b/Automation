@@ -833,6 +833,13 @@ public class Rule implements Comparable<Rule>
 											continue;
 										}
 									}
+									else
+									{
+										if(myApp.equals(BuildConfig.APPLICATION_ID))
+										{
+											return false;
+										}
+									}
 
 									/*
 										If there are multiple notifications ("stacked") title or text might be null:
@@ -896,6 +903,13 @@ public class Rule implements Comparable<Rule>
 									{
 										if (!app.equalsIgnoreCase(myApp))
 											return false;
+									}
+									else
+									{
+										if(myApp.equals(BuildConfig.APPLICATION_ID))
+										{
+											return false;
+										}
 									}
 
 									if (requiredTitle.length() > 0)

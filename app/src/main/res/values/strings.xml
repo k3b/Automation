@@ -702,4 +702,5 @@
     <string name="dndNothing">Let nothing through</string>
     <string name="dndRemarks">Fine tuning (like allowing phone calls, picking specific numbers, etc.) can only be done from the system\'s settings.</string>
     <string name="permissionsRequiredNotAvailable">Your rules required permissions which cannot be requested from this installed flavor of Automation.</string>
+    <string name="automationNotificationsIgnored">If you do not choose a specific app, but choose \"Any app\" notifications from Automation will be ignored to avoid loops.</string>
 </resources>
