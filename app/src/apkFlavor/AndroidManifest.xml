@@ -132,7 +132,7 @@
                     android:scheme="package" />-->
             </intent-filter>
         </receiver>
-        <receiver android:name=".receivers.AlarmListener" />
+        <receiver android:name=".receivers.DateTimeListener" />
         <receiver android:name=".receivers.ConnectivityReceiver" />
         <receiver android:name=".receivers.TimeZoneListener" />
 

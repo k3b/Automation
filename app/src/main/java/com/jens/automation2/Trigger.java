@@ -294,7 +294,11 @@ public class Trigger
 				else
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.leaving) + " ");
 
-				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.triggerTimeFrame) + ": " + this.getTimeFrame().getTriggerTimeStart().toString() + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.until) + " " + this.getTimeFrame().getTriggerTimeStop().toString() + " on days " + this.getTimeFrame().getDayList().toString());
+				String repeat = ", no repetition";
+				if(this.getTimeFrame().getRepetition() > 0)
+					repeat = ", " + String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.repeatEveryXsecondsWithVariable), this.getTimeFrame().getRepetition());
+
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.triggerTimeFrame) + ": " + this.getTimeFrame().getTriggerTimeStart().toString() + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.until) + " " + this.getTimeFrame().getTriggerTimeStop().toString() + " on days " + this.getTimeFrame().getDayList().toString() + repeat);
 				break;
 			case speed:
 				if(getTriggerParameter())

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AlarmListener extends BroadcastReceiver implements AutomationListenerInterface
+public class DateTimeListener extends BroadcastReceiver implements AutomationListenerInterface
 {
 	private static AutomationService automationServiceRef;
 	private static AlarmManager centralAlarmManagerInstance;
@@ -31,11 +31,11 @@ public class AlarmListener extends BroadcastReceiver implements AutomationListen
 
 	public static void startAlarmListener(final AutomationService automationServiceRef)
 	{		
-		AlarmListener.startAlarmListenerInternal(automationServiceRef);
+		DateTimeListener.startAlarmListenerInternal(automationServiceRef);
 	}
 	public static void stopAlarmListener(Context context)
 	{
-		AlarmListener.stopAlarmListenerInternal();
+		DateTimeListener.stopAlarmListenerInternal();
 	}
 
 	public static boolean isAlarmListenerActive()
@@ -207,7 +207,7 @@ public class AlarmListener extends BroadcastReceiver implements AutomationListen
 			}
 		}
 		
-		Intent alarmIntent = new Intent(automationServiceRef, AlarmListener.class);
+		Intent alarmIntent = new Intent(automationServiceRef, DateTimeListener.class);
 		PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(automationServiceRef, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		centralAlarmManagerInstance.set(AlarmManager.RTC_WAKEUP, scheduleCandidate, alarmPendingIntent);
 		
@@ -224,7 +224,7 @@ public class AlarmListener extends BroadcastReceiver implements AutomationListen
 		Miscellaneous.logEvent("i", "AlarmManager", "Clearing possibly standing alarms.", 4);
 		for(int requestCode : requestCodeList)
 		{
-			Intent alarmIntent = new Intent(automationServiceRef, AlarmListener.class);
+			Intent alarmIntent = new Intent(automationServiceRef, DateTimeListener.class);
 			PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(automationServiceRef, requestCode, alarmIntent, 0);
 //			Miscellaneous.logEvent("i", "AlarmManager", "Clearing alarm with request code: " + String.valueOf(requestCode));
 			centralAlarmManagerInstance.cancel(alarmPendingIntent);
@@ -237,13 +237,13 @@ public class AlarmListener extends BroadcastReceiver implements AutomationListen
 		if(!alarmListenerActive)
 		{
 			Miscellaneous.logEvent("i", "AlarmListener", "Starting alarm listener.", 4);
-			AlarmListener.automationServiceRef = givenAutomationServiceRef;
+			DateTimeListener.automationServiceRef = givenAutomationServiceRef;
 			centralAlarmManagerInstance = (AlarmManager)automationServiceRef.getSystemService(automationServiceRef.ALARM_SERVICE);
 //			alarmIntent = new Intent(automationServiceRef, AlarmListener.class);
 //			alarmPendingIntent = PendingIntent.getBroadcast(automationServiceRef, 0, alarmIntent, 0);
 			alarmListenerActive = true;
 			Miscellaneous.logEvent("i", "AlarmListener", "Alarm listener started.", 4);
-			AlarmListener.setAlarms();
+			DateTimeListener.setAlarms();
 			
 //			// get a Calendar object with current time
 //			 Calendar cal = Calendar.getInstance();
@@ -269,17 +269,17 @@ public class AlarmListener extends BroadcastReceiver implements AutomationListen
 	}
 	public static void reloadAlarms()
 	{
-		AlarmListener.setAlarms();
+		DateTimeListener.setAlarms();
 	}
 	@Override
 	public void startListener(AutomationService automationService)
 	{
-		AlarmListener.startAlarmListener(automationService);
+		DateTimeListener.startAlarmListener(automationService);
 	}
 	@Override
 	public void stopListener(AutomationService automationService)
 	{
-		AlarmListener.stopAlarmListener(automationService);
+		DateTimeListener.stopAlarmListener(automationService);
 	}
 
 	public static boolean haveAllPermission()
