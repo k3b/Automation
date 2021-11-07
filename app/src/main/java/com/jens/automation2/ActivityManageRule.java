@@ -1113,9 +1113,7 @@ public class ActivityManageRule extends Activity
 		{
 			//edit TimeFrame
 			if(resultCode == RESULT_OK && ActivityManageTriggerTimeFrame.editedTimeFrameTrigger != null)
-			{
 				this.refreshTriggerList();
-			}
 			else
 				Miscellaneous.logEvent("w", "TimeFrameEdit", "No timeframe returned. Assuming abort.", 5);
 		}
@@ -1133,8 +1131,11 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
-				newTrigger.setTriggerParameter(data.getBooleanExtra("wifiState", false));
-				newTrigger.setTriggerParameter2(data.getStringExtra("wifiName"));
+				Trigger editedTrigger = new Trigger();
+				editedTrigger.setTriggerType(Trigger_Enum.wifiConnection);
+				editedTrigger.setTriggerParameter(data.getBooleanExtra("wifiState", false));
+				editedTrigger.setTriggerParameter2(data.getStringExtra("wifiName"));
+				ruleToEdit.getTriggerSet().set(editIndex, editedTrigger);
 				this.refreshTriggerList();
 			}
 		}
