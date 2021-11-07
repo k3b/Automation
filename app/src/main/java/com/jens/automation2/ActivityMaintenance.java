@@ -201,6 +201,9 @@ public class ActivityMaintenance extends Activity
                     try
                     {
                         XmlFileInterface.readFile();
+                        ActivityMainPoi.getInstance().updateListView();
+                        ActivityMainRules.getInstance().updateListView();
+                        ActivityMainProfiles.getInstance().updateListView();
                     }
                     catch (Exception e)
                     {
@@ -314,24 +317,28 @@ public class ActivityMaintenance extends Activity
 
                 String subject = "Automation logs";
 
-                StringBuilder emailBody = new StringBuilder();
-                emailBody.append("Device details" + Miscellaneous.lineSeparator);
-                emailBody.append("OS version: " + System.getProperty("os.version") + Miscellaneous.lineSeparator);
-                emailBody.append("API Level: " + android.os.Build.VERSION.SDK + Miscellaneous.lineSeparator);
-                emailBody.append("Device: " + android.os.Build.DEVICE + Miscellaneous.lineSeparator);
-                emailBody.append("Model: " + android.os.Build.MODEL + Miscellaneous.lineSeparator);
-                emailBody.append("Product: " + android.os.Build.PRODUCT);
-                emailBody.append("Flavor: " + BuildConfig.FLAVOR);
-
                 Uri uri = Uri.parse("content://com.jens.automation2/" + Settings.zipFileName);
 
-                Miscellaneous.sendEmail(ActivityMaintenance.this, "android-development@gmx.de", "Automation logs", emailBody.toString(), uri);
+                Miscellaneous.sendEmail(ActivityMaintenance.this, "android-development@gmx.de", "Automation logs", getSystemInfo(), uri);
             }
         });
         alertDialogBuilder.setNegativeButton(context.getResources().getString(R.string.no), null);
         AlertDialog alertDialog = alertDialogBuilder.create();
 
         return alertDialog;
+    }
+
+    public static String getSystemInfo()
+    {
+        StringBuilder systemInfoText = new StringBuilder();
+        systemInfoText.append("Device details" + Miscellaneous.lineSeparator);
+        systemInfoText.append("OS version: " + System.getProperty("os.version") + Miscellaneous.lineSeparator);
+        systemInfoText.append("API Level: " + android.os.Build.VERSION.SDK + Miscellaneous.lineSeparator);
+        systemInfoText.append("Device: " + android.os.Build.DEVICE + Miscellaneous.lineSeparator);
+        systemInfoText.append("Model: " + android.os.Build.MODEL + Miscellaneous.lineSeparator);
+        systemInfoText.append("Product: " + android.os.Build.PRODUCT);
+        systemInfoText.append("Flavor: " + BuildConfig.FLAVOR);
+        return systemInfoText.toString();
     }
 
     @Override

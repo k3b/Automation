@@ -199,6 +199,7 @@ public class AutomationService extends Service implements OnInitListener
 		if (checkStartupRequirements(this, startAtBoot))
 		{
 			Miscellaneous.logEvent("i", "Service", this.getResources().getString(R.string.logServiceStarting) + " VERSION_CODE: " + BuildConfig.VERSION_CODE + ", VERSION_NAME: " + BuildConfig.VERSION_NAME + ", flavor: " + BuildConfig.FLAVOR, 1);
+			Miscellaneous.logEvent("i", "Service", ActivityMaintenance.getSystemInfo(), 1);
 
 			startUpRoutine();
 
