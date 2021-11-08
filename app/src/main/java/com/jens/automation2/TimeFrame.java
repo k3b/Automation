@@ -70,7 +70,7 @@ public class TimeFrame
 		this.setRepetition(repetition);
 	}
 
-	TimeFrame (String fileContent)
+	public TimeFrame (String fileContent)
 	{
 		String[] dateArray = fileContent.split(separator); // example: timestart/timestop/days[int]/repetition
 		this.setTriggerTimeStart(Time.valueOf(dateArray[0]));

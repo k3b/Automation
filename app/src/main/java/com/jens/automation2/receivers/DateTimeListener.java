@@ -5,10 +5,15 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.util.Log;
+
+import androidx.annotation.RequiresApi;
 
 import com.jens.automation2.AutomationService;
 import com.jens.automation2.Miscellaneous;
 import com.jens.automation2.Rule;
+import com.jens.automation2.TimeFrame;
 import com.jens.automation2.Trigger;
 import com.jens.automation2.Trigger.Trigger_Enum;
 
@@ -25,7 +30,7 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 //	private static Intent alarmIntent;
 //	private static PendingIntent alarmPendingIntent;
 	private static boolean alarmListenerActive=false;
-	private static ArrayList<Long> alarmCandidates = new ArrayList<Long>();
+	private static ArrayList<ScheduleElement> alarmCandidates = new ArrayList<>();
 	
 	private static ArrayList<Integer> requestCodeList = new ArrayList<Integer>();
 
@@ -61,10 +66,12 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 		setAlarms();
 	}
 	
+	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
 	public static void setAlarms()
 	{
 		alarmCandidates.clear();
-		
+
+		Calendar calNow = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("E dd.MM.yyyy HH:mm");
 		
 		clearAlarms();
@@ -89,94 +96,141 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 				 
 		ArrayList<Rule> allRulesWithTimeFrames = new ArrayList<Rule>();
 		allRulesWithTimeFrames = Rule.findRuleCandidatesByTimeFrame();
+		/*
+		 * Take care of regular executions, no repetitions in between.
+		 */
+		Miscellaneous.logEvent("i", "DateTimeListener", "Checking rules for single run alarm candidates.", 5);
 		for(Rule oneRule : allRulesWithTimeFrames)
 		{
-			for(Trigger oneTrigger : oneRule.getTriggerSet())
+			Miscellaneous.logEvent("i", "DateTimeListener","Checking rule " + oneRule.getName() + " for single run alarm candidates.", 5);
+			if(oneRule.isRuleActive())
 			{
-				if(oneTrigger.getTriggerType() == Trigger_Enum.timeFrame)
+				try
 				{
-					Calendar calNow, calSet;
-					Time setTime;
-					
-					if(oneTrigger.getTriggerParameter())
-						setTime = oneTrigger.getTimeFrame().getTriggerTimeStart();
-					else
-						setTime = oneTrigger.getTimeFrame().getTriggerTimeStop();
-					
-					calNow = Calendar.getInstance();			
-					calSet = (Calendar) calNow.clone();
-					calSet.set(Calendar.HOUR_OF_DAY, setTime.getHours());
-					calSet.set(Calendar.MINUTE, setTime.getMinutes());
-					calSet.set(Calendar.SECOND, 0);
-					calSet.set(Calendar.MILLISECOND, 0);
-					// At this point calSet would be a scheduling candidate. It's just the day the might not be right, yet.
-					
-					long milliSecondsInAWeek = 1000 * 60 * 60 * 24 * 7;
-					
-					for(int dayOfWeek : oneTrigger.getTimeFrame().getDayList())
+					for(Trigger oneTrigger : oneRule.getTriggerSet())
 					{
-						Calendar calSetWorkingCopy = (Calendar) calSet.clone();
-						
-//						calSetWorkingCopy.set(Calendar.HOUR_OF_DAY, setTime.getHours());
-//						calSetWorkingCopy.set(Calendar.MINUTE, setTime.getMinutes());
-//						calSetWorkingCopy.set(Calendar.SECOND, 0);
-//						calSetWorkingCopy.set(Calendar.MILLISECOND, 0);
-						
-						int diff = dayOfWeek - calNow.get(Calendar.DAY_OF_WEEK);
-//						Log.i("AlarmManager", "Today: " + String.valueOf(calNow.get(Calendar.DAY_OF_WEEK)) + " / Sched.Day: " + String.valueOf(dayOfWeek) + " Difference to target day is: " + String.valueOf(diff));
-						if(diff == 0) //if we're talking about the current day, is the time still in the future?
-						{
-							if(calSetWorkingCopy.getTime().getHours() < calNow.getTime().getHours())
-							{
-//								Log.i("AlarmManager", "calSetWorkingCopy.getTime().getHours(" + String.valueOf(calSetWorkingCopy.getTime().getHours()) + ") < calNow.getTime().getHours(" + String.valueOf(calNow.getTime().getHours()) + ")");
-								calSetWorkingCopy.add(Calendar.DAY_OF_MONTH, 7); //add a week
-							}
-							else if(calSetWorkingCopy.getTime().getHours() == calNow.getTime().getHours())
-							{
-//								Log.i("AlarmManager", "calSetWorkingCopy.getTime().getHours() == calNow.getTime().getHours()");
-								if(calSetWorkingCopy.getTime().getMinutes() <= calNow.getTime().getMinutes())
-								{
-//									Log.i("AlarmManager", "calSetWorkingCopy.getTime().getMinutes() < calNow.getTime().getMinutes()");
-									calSetWorkingCopy.add(Calendar.DAY_OF_MONTH, 7); //add a week
-								}
-							}
-						}
-						else if(diff < 0)
-						{
-//							Miscellaneous.logEvent("i", "AlarmManager", "Adding " + String.valueOf(diff+7) + " on top of " + String.valueOf(calSetWorkingCopy.get(Calendar.DAY_OF_WEEK)));
-							calSetWorkingCopy.add(Calendar.DAY_OF_WEEK, diff+7);	// it's a past weekday, schedule for next week
-						}
-						else
-						{
-//							Miscellaneous.logEvent("i", "AlarmManager", "Adding " + String.valueOf(diff) + " on top of " + String.valueOf(calSetWorkingCopy.get(Calendar.DAY_OF_WEEK)));
-							calSetWorkingCopy.add(Calendar.DAY_OF_WEEK, diff);		// it's a future weekday, schedule for that day
-						}
-						
-						i++;
-						i=(int)System.currentTimeMillis();
-						String calSetWorkingCopyString = sdf.format(calSetWorkingCopy.getTime()) + " RequestCode: " + String.valueOf(i);
-//						Miscellaneous.logEvent("i", "AlarmManager", "Setting repeating alarm because of rule: " + oneRule.getName() + " beginning at " + calSetWorkingCopyString);
+						Miscellaneous.logEvent("i", "DateTimeListener","Checking trigger " + oneTrigger.toString() + " for single run alarm candidates.", 5);
 
-						alarmCandidates.add(calSetWorkingCopy.getTimeInMillis());
-//						Intent alarmIntent = new Intent(automationServiceRef, AlarmListener.class);
-//						alarmIntent.setData(Uri.parse("myalarms://" + i));
-//						PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(automationServiceRef, i, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-//						centralAlarmManagerInstance.setInexactRepeating(AlarmManager.RTC_WAKEUP, calSetWorkingCopy.getTimeInMillis(), milliSecondsInAWeek, alarmPendingIntent);
-//						requestCodeList.add(i);
+						if(oneTrigger.getTriggerType().equals(Trigger_Enum.timeFrame))
+						{
+							TimeFrame tf = new TimeFrame(oneTrigger.getTriggerParameter2());
+
+							Calendar calSet;
+							Time setTime;
+
+							if(oneTrigger.getTriggerParameter())
+								setTime = tf.getTriggerTimeStart();
+							else
+								setTime = tf.getTriggerTimeStop();
+
+							calSet = (Calendar) calNow.clone();
+							calSet.set(Calendar.HOUR_OF_DAY, setTime.getHours());
+							calSet.set(Calendar.MINUTE, setTime.getMinutes());
+							calSet.set(Calendar.SECOND, 0);
+							calSet.set(Calendar.MILLISECOND, 0);
+							// At this point calSet would be a scheduling candidate. It's just the day that might not be right, yet.
+
+							for(int dayOfWeek : tf.getDayList())
+							{
+								Calendar calSetWorkingCopy = (Calendar) calSet.clone();
+
+								int diff = dayOfWeek - calNow.get(Calendar.DAY_OF_WEEK);
+								if(diff == 0) // We're talking about the current weekday, but is the time still in the future?
+								{
+									if(calSetWorkingCopy.getTime().getHours() < calNow.getTime().getHours())
+									{
+										calSetWorkingCopy.add(Calendar.DAY_OF_MONTH, 7); //add a week
+									}
+									else if(calSetWorkingCopy.getTime().getHours() == calNow.getTime().getHours())
+									{
+										if(calSetWorkingCopy.getTime().getMinutes() <= calNow.getTime().getMinutes())
+										{
+											calSetWorkingCopy.add(Calendar.DAY_OF_MONTH, 7); //add a week
+										}
+									}
+								}
+								else if(diff < 0)
+								{
+									calSetWorkingCopy.add(Calendar.DAY_OF_WEEK, diff+7);	// it's a past weekday, schedule for next week
+								}
+								else
+								{
+									calSetWorkingCopy.add(Calendar.DAY_OF_WEEK, diff);		// it's a future weekday, schedule for that day
+								}
+
+								i++;
+								i=(int)System.currentTimeMillis();
+								sdf.format(calSetWorkingCopy.getTime());
+								String.valueOf(i);
+
+								alarmCandidates.add(new ScheduleElement(calSetWorkingCopy, "Rule " + oneRule.getName() + ", trigger " + oneTrigger.toString()));
+							}
+						}
 					}
+				}
+				catch(Exception e)
+				{
+					Miscellaneous.logEvent("e", "DateTimeListener","Error checking anything for rule " + oneRule.toString() + " needs to be added to candicates list: " + Log.getStackTraceString(e), 1);
 				}
 			}
 		}
-		
-//		// get a Calendar object with current time
-//		Calendar cal = Calendar.getInstance();
-//		cal.add(Calendar.SECOND, 10);
-//		String calSetWorkingCopyString2 = sdf.format(cal.getTime());
-//		Miscellaneous.logEvent("i", "AlarmManager", "Setting repeating alarm because of hardcoded test: beginning at " + calSetWorkingCopyString2);
-//		Intent alarmIntent2 = new Intent(automationServiceRef, AlarmListener.class);
-//		PendingIntent alarmPendingIntent2 = PendingIntent.getBroadcast(automationServiceRef, 0, alarmIntent2, 0);
-//		centralAlarmManagerInstance.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 5000, alarmPendingIntent2);
-//		requestCodeList.add(0);
+
+		/*
+		 * Only take care of repeated executions.
+		 */
+		Miscellaneous.logEvent("i", "DateTimeListener","Checking rules for repeated run alarm candidates.", 5);
+		for(Rule oneRule : allRulesWithTimeFrames)
+		{
+			Miscellaneous.logEvent("i", "DateTimeListener","Checking rule " + oneRule.getName() + " for repeated run alarm candidates.", 5);
+			if(oneRule.isRuleActive())
+			{
+				try
+				{
+					Miscellaneous.logEvent("i", "DateTimeListener","Checking rule " + oneRule.toString() , 5);
+
+					for(Trigger oneTrigger : oneRule.getTriggerSet())
+					{
+						Miscellaneous.logEvent("i", "DateTimeListener","Checking trigger " + oneTrigger.toString() + " for repeated run alarm candidates.", 5);
+						if(oneTrigger.getTriggerType().equals(Trigger_Enum.timeFrame))
+						{
+							Miscellaneous.logEvent("i", "DateTimeListener","Checking rule trigger " + oneTrigger.toString() , 5);
+
+							/*
+							 * Check for next repeated execution:
+							 *
+							 * Check if the rule currently applies....
+							 *
+							 * If no -> do nothing
+							 * If yes -> Take starting time and calculate the next repeated execution
+							 * 	1. Take starting time
+							 * 	2. Take current time
+							 * 	3. Calculate difference, but include check to see if we're after that time,
+							 * 		be it start or end of the timeframe.
+							 * 	4. Take div result +1 and add this on top of starting time
+							 * 	5. Is this next possible execution still inside timeframe? Also consider timeframes spanning over midnight
+							 */
+							Calendar calSet;
+							Time setTime;
+							TimeFrame tf = new TimeFrame(oneTrigger.getTriggerParameter2());
+
+							if(tf.getRepetition() > 0)
+							{
+								if(oneTrigger.applies(calNow))
+								{
+									Calendar calSchedule = getNextRepeatedExecutionAfter(oneTrigger, calNow);
+
+									alarmCandidates.add(new ScheduleElement(calSchedule, "Rule " + oneRule.getName() + ", trigger " + oneTrigger.toString()));
+								}
+							}
+						}
+					}
+				}
+				catch(Exception e)
+				{
+					Miscellaneous.logEvent("e", "DateTimeListener","Error checking anything for rule " + oneRule.toString() + " needs to be added to candicates list: " + Diverse.getStackTraceAsString(e), 1);
+				}
+			}
+		}
 		
 		scheduleNextAlarm();
 	}
@@ -184,7 +238,7 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 	private static void scheduleNextAlarm()
 	{
 		Long currentTime = System.currentTimeMillis();
-		Long scheduleCandidate = null;
+		ScheduleElement scheduleCandidate = null;
 		
 		if(alarmCandidates.size() == 0)
 		{
@@ -200,16 +254,16 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 		{
 			scheduleCandidate = alarmCandidates.get(0);
 			
-			for(long alarmCandidate : alarmCandidates)
+			for(ScheduleElement alarmCandidate : alarmCandidates)
 			{
-				if(Math.abs(currentTime - alarmCandidate) < Math.abs(currentTime - scheduleCandidate))
+				if(Math.abs(currentTime - alarmCandidate.time.getTimeInMillis()) < Math.abs(currentTime - scheduleCandidate.time.getTimeInMillis()))
 					scheduleCandidate = alarmCandidate;
 			}
 		}
 		
 		Intent alarmIntent = new Intent(automationServiceRef, DateTimeListener.class);
 		PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(automationServiceRef, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-		centralAlarmManagerInstance.set(AlarmManager.RTC_WAKEUP, scheduleCandidate, alarmPendingIntent);
+		centralAlarmManagerInstance.set(AlarmManager.RTC_WAKEUP, scheduleCandidate.time.getTimeInMillis(), alarmPendingIntent);
 		
 
 		SimpleDateFormat sdf = new SimpleDateFormat("E dd.MM.yyyy HH:mm");
@@ -298,4 +352,81 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 		return new Trigger_Enum[] { Trigger_Enum.timeFrame };
 	}
 
+	static class ScheduleElement implements Comparable<ScheduleElement>
+	{
+		Calendar time;
+		String reason;
+
+		public ScheduleElement(Calendar timestamp, String reason)
+		{
+			super();
+			this.time = timestamp;
+			this.reason = reason;
+		}
+
+		@Override
+		public int compareTo(ScheduleElement o)
+		{
+			if(time.getTimeInMillis() == o.time.getTimeInMillis())
+				return 0;
+			if(time.getTimeInMillis() < o.time.getTimeInMillis())
+				return -1;
+			else
+				return 1;
+		}
+
+		@Override
+		public String toString()
+		{
+			return Miscellaneous.formatDate(time.getTime()) + ", reason : " + reason;
+		}
+	}
+
+	@RequiresApi(api = Build.VERSION_CODES.N)
+	public static Calendar getNextRepeatedExecutionAfter(Trigger trigger, Calendar now)
+	{
+		Calendar calSet;
+		Time setTime;
+		TimeFrame tf = new TimeFrame(trigger.getTriggerParameter2());
+
+		if(tf.getRepetition() > 0)
+		{
+			if(trigger.getTriggerParameter())
+				setTime = tf.getTriggerTimeStart();
+			else
+				setTime = tf.getTriggerTimeStop();
+
+			calSet = (Calendar) now.clone();
+			calSet.set(Calendar.HOUR_OF_DAY, setTime.getHours());
+			calSet.set(Calendar.MINUTE, setTime.getMinutes());
+			calSet.set(Calendar.SECOND, 0);
+			calSet.set(Calendar.MILLISECOND, 0);
+
+//				if(this.applies(null))
+//				{
+			// If the starting time is a day ahead remove 1 day.
+			if(calSet.getTimeInMillis() > now.getTimeInMillis())
+				calSet.add(Calendar.DAY_OF_MONTH, -1);
+
+			long differenceInSeconds = Math.abs(now.getTimeInMillis() - calSet.getTimeInMillis()) / 1000;
+			long nextExecutionMultiplier = Math.floorDiv(differenceInSeconds, tf.getRepetition()) + 1;
+			long nextScheduleTimestamp = (calSet.getTimeInMillis() / 1000) + (nextExecutionMultiplier * tf.getRepetition());
+			Calendar calSchedule = Calendar.getInstance();
+			calSchedule.setTimeInMillis(nextScheduleTimestamp * 1000);
+
+			/*
+			 * Das war mal aktiviert. Allerdings: Die ganze Funktion liefert zurück, wenn die Regel NOCH nicht
+			 * zutrifft, aber wir z.B. gleich den zeitlichen Bereich betreten.
+			 */
+//					if(trigger.checkDateTime(calSchedule.getTime(), false))
+//					{
+			return calSchedule;
+//					}
+//				}
+		}
+		else
+			Miscellaneous.logEvent("i", "DateTimeListener", "Trigger " + trigger.toString() + " is not executed repeatedly.", 5);
+
+		return null;
+	}
 }

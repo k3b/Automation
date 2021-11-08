@@ -77,6 +77,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -1531,5 +1533,22 @@ public class Miscellaneous extends Service
 		}
 		else*/
 			return PhoneNumberUtils.compare(number1, number2);
+	}
+
+	public static String formatDate(Date input)
+	{
+		DateFormat sdf = null;
+		SimpleDateFormat fallBackFormatter = new SimpleDateFormat(Settings.dateFormat);
+
+		if(sdf == null && Settings.dateFormat != null)
+			sdf = new SimpleDateFormat(Settings.dateFormat);
+
+		String formattedDate;
+		if(sdf != null)
+			formattedDate = sdf.format(input);
+		else
+			formattedDate = fallBackFormatter.format(input);
+
+		return formattedDate;
 	}
 }
