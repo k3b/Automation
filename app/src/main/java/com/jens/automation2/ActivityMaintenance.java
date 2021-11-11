@@ -336,7 +336,7 @@ public class ActivityMaintenance extends Activity
         systemInfoText.append("API Level: " + android.os.Build.VERSION.SDK + Miscellaneous.lineSeparator);
         systemInfoText.append("Device: " + android.os.Build.DEVICE + Miscellaneous.lineSeparator);
         systemInfoText.append("Model: " + android.os.Build.MODEL + Miscellaneous.lineSeparator);
-        systemInfoText.append("Product: " + android.os.Build.PRODUCT);
+        systemInfoText.append("Product: " + android.os.Build.PRODUCT + Miscellaneous.lineSeparator);
         systemInfoText.append("Flavor: " + BuildConfig.FLAVOR);
         return systemInfoText.toString();
     }
