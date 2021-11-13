@@ -76,7 +76,8 @@ public class TimeFrame
 		this.setTriggerTimeStart(Time.valueOf(dateArray[0]));
 		this.setTriggerTimeStop(Time.valueOf(dateArray[1]));
 		this.setDayListFromString(dateArray[2]);
-		this.setRepetition(Long.parseLong(dateArray[3]));
+		if(dateArray.length > 3)	// may not exist in old config files
+			this.setRepetition(Long.parseLong(dateArray[3]));
 	}
 
 	@Override
