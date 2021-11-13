@@ -6,6 +6,9 @@ import android.annotation.TargetApi;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothProfile;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -43,13 +46,16 @@ import org.apache.http.conn.util.InetAddressUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.File;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.security.KeyStore;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import javax.net.ssl.SSLContext;
 
@@ -302,6 +308,118 @@ public class Actions
 			}
 		}
 		return true;
+	}
+
+	public static class BluetoothTetheringClass
+	{
+		static Object instance = null;
+		static Method setTetheringOn = null;
+		static Method isTetheringOn = null;
+		static Object mutex = new Object();
+
+		public static Boolean setBluetoothTethering(Context context, Boolean desiredState, boolean toggleActionIfPossible)
+		{
+			Miscellaneous.logEvent("i", "Bluetooth Tethering", "Changing Bluetooth Tethering to " + String.valueOf(desiredState), 4);
+
+			boolean state = Actions.isWifiApEnabled(context);
+
+			if (toggleActionIfPossible)
+			{
+				Miscellaneous.logEvent("i", "Bluetooth Tethering", context.getResources().getString(R.string.toggling), 2);
+				desiredState = !state;
+			}
+
+			if (((state && !desiredState) || (!state && desiredState)))
+			{
+				BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+				Class<?> classBluetoothPan = null;
+				Constructor<?> BTPanCtor = null;
+				Object BTSrvInstance = null;
+				Method mBTPanConnect = null;
+
+				try
+				{
+					classBluetoothPan = Class.forName("android.bluetooth.BluetoothPan");
+					mBTPanConnect = classBluetoothPan.getDeclaredMethod("connect", BluetoothDevice.class);
+					BTPanCtor = classBluetoothPan.getDeclaredConstructor(Context.class, BluetoothProfile.ServiceListener.class);
+					BTPanCtor.setAccessible(true);
+					BTSrvInstance = BTPanCtor.newInstance(context, new BTPanServiceListener(context));
+				}
+				catch (ClassNotFoundException e)
+				{
+					Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
+				}
+				catch (Exception e)
+				{
+					Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
+				}
+
+				Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+
+				// If there are paired devices
+				if (pairedDevices.size() > 0)
+				{
+					// Loop through paired devices
+					for (BluetoothDevice device : pairedDevices)
+					{
+						try
+						{
+							mBTPanConnect.invoke(BTSrvInstance, device);
+						}
+						catch (Exception e)
+						{
+							Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
+						}
+					}
+				}
+			}
+			return true;
+		}
+
+		public static class BTPanServiceListener implements BluetoothProfile.ServiceListener
+		{
+			private final Context context;
+
+			public BTPanServiceListener(final Context context)
+			{
+				this.context = context;
+			}
+
+			@Override
+			public void onServiceConnected(final int profile, final BluetoothProfile proxy)
+			{
+				//Some code must be here or the compiler will optimize away this callback.
+
+				try
+				{
+					synchronized (mutex)
+					{
+						setTetheringOn.invoke(instance, true);
+						if ((Boolean) isTetheringOn.invoke(instance, null))
+						{
+							Miscellaneous.logEvent("e", "Bluetooth Tethering", "BT Tethering is on", 1);
+						}
+						else
+						{
+							Miscellaneous.logEvent("e", "Bluetooth Tethering", "BT Tethering is off", 1);
+						}
+					}
+				}
+				catch (InvocationTargetException e)
+				{
+					Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
+				}
+				catch (IllegalAccessException e)
+				{
+					Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
+				}
+			}
+
+			@Override
+			public void onServiceDisconnected(final int profile)
+			{
+			}
+		}
 	}
 
 	public static boolean setUsbTethering(Context context2, Boolean desiredState, boolean toggleActionIfPossible)
