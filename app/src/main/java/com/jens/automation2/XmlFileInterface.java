@@ -830,7 +830,6 @@ public class XmlFileInterface
         return (triggerCollection);
 	}
 
-	
 	private static Trigger readTrigger(XmlPullParser parser) throws IOException, XmlPullParserException
 	{
 		

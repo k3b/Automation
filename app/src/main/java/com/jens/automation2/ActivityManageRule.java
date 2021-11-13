@@ -1361,6 +1361,8 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.router));
 			else if(types[i].toString().equals(Action_Enum.setWifiTethering.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.router));
+			else if(types[i].toString().equals(Action_Enum.setBluetoothTethering.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.router));
 			else if(types[i].toString().equals(Action_Enum.setDisplayRotation.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.displayrotation));
 			else if(types[i].toString().equals(Action_Enum.waitBeforeNextAction.toString()))
@@ -1459,6 +1461,11 @@ public class ActivityManageRule extends Activity
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setWifiTethering.toString()))
 					{
 						newAction.setAction(Action_Enum.setWifiTethering);
+						getActionParameter1Dialog(ActivityManageRule.this).show();
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setBluetoothTethering.toString()))
+					{
+						newAction.setAction(Action_Enum.setBluetoothTethering);
 						getActionParameter1Dialog(ActivityManageRule.this).show();
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setDisplayRotation.toString()))

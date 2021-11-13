@@ -321,16 +321,16 @@ public class Actions
 		{
 			Miscellaneous.logEvent("i", "Bluetooth Tethering", "Changing Bluetooth Tethering to " + String.valueOf(desiredState), 4);
 
-			boolean state = Actions.isWifiApEnabled(context);
+//			boolean state = isTetheringOn(context);
 
-			if (toggleActionIfPossible)
-			{
-				Miscellaneous.logEvent("i", "Bluetooth Tethering", context.getResources().getString(R.string.toggling), 2);
-				desiredState = !state;
-			}
+//			if (toggleActionIfPossible)
+//			{
+//				Miscellaneous.logEvent("i", "Bluetooth Tethering", context.getResources().getString(R.string.toggling), 2);
+//				desiredState = !state;
+//			}
 
-			if (((state && !desiredState) || (!state && desiredState)))
-			{
+//			if (((state && !desiredState) || (!state && desiredState)))
+//			{
 				BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 				Class<?> classBluetoothPan = null;
 				Constructor<?> BTPanCtor = null;
@@ -372,7 +372,7 @@ public class Actions
 						}
 					}
 				}
-			}
+//			}
 			return true;
 		}
 

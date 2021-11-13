@@ -531,6 +531,12 @@ public class ActivityPermissions extends Activity
 //                        https://stackoverflow.com/questions/32185628/connectivitymanager-requestnetwork-in-android-6-0
 //                        addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
                         break;
+                    case setBluetoothTethering:
+                        //addToArrayListUnique(Manifest.permission.CHANGE_NETWORK_STATE, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.BLUETOOTH, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.BLUETOOTH_ADMIN, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
+                        break;
                     case setWifi:
                         addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
 //                        https://stackoverflow.com/questions/32185628/connectivitymanager-requestnetwork-in-android-6-0
