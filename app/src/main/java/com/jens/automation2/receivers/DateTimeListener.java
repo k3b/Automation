@@ -227,7 +227,7 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 				}
 				catch(Exception e)
 				{
-					Miscellaneous.logEvent("e", "DateTimeListener","Error checking anything for rule " + oneRule.toString() + " needs to be added to candicates list: " + Diverse.getStackTraceAsString(e), 1);
+					Miscellaneous.logEvent("e", "DateTimeListener","Error checking anything for rule " + oneRule.toString() + " needs to be added to candicates list: " + Log.getStackTraceString(e), 1);
 				}
 			}
 		}
@@ -268,9 +268,8 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 
 		SimpleDateFormat sdf = new SimpleDateFormat("E dd.MM.yyyy HH:mm");
 		Calendar calendar = Calendar.getInstance();
-		calendar.setTimeInMillis(scheduleCandidate);        
+		calendar.setTimeInMillis(scheduleCandidate.time.getTimeInMillis());
         Miscellaneous.logEvent("i", "AlarmManager", "Chose " + sdf.format(calendar.getTime()) + " as next scheduled alarm.", 4);
-		
 	}
 	
 	public static void clearAlarms()

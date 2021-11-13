@@ -37,10 +37,37 @@ public class Trigger
 		}
 		catch(Exception e)
 		{
-			Miscellaneous.logEvent("Error while checking if rule " + getParentRule().getName() + " applies. Error occured in trigger " + this.toString() + "." + Diverse.lineSeparator + Diverse.getStackTraceAsString(e), 1);
+			Miscellaneous.logEvent("e", "Trigger", "Error while checking if rule " + getParentRule().getName() + " applies. Error occured in trigger " + this.toString() + "." + Miscellaneous.lineSeparator + Log.getStackTraceString(e), 1);
 			return false;
 		}
     }
+
+	public boolean hasStateRecentlyNotApplied(Object triggeringObject)
+	{
+		// nur mit einem Trigger?
+
+		// door -> was state different in previous step
+
+		try
+		{
+			switch(getTriggerType())
+			{
+				case timeFrame:
+					if(!checkDateTime(triggeringObject, true))
+						return false;
+					break;
+				default:
+					break;
+			}
+
+			return true;
+		}
+		catch(Exception e)
+		{
+			Miscellaneous.logEvent("e", "Trigger", "Error while checking if rule " + getParentRule().getName() + " applies. Error occured in trigger " + this.toString() + "." + Miscellaneous.lineSeparator + Log.getStackTraceString(e), 1);
+			return false;
+		}
+	}
 
 	public boolean checkDateTime(Object triggeringObject, boolean checkifStateChangedSinceLastRuleExecution)
 	{
@@ -101,7 +128,7 @@ public class Trigger
 							{
 								if(!isSupposedToRepeatSinceLastExecution(compareCal))
 								{
-									Miscellaneous.logEvent("TimeFrame: Trigger of rule " + this.getParentRule().getName() + " applies, but repeated execution is not due, yet.", 4);
+									Miscellaneous.logEvent("i", "TimeFrame", "TimeFrame: Trigger of rule " + this.getParentRule().getName() + " applies, but repeated execution is not due, yet.", 4);
 									return false;
 								}
 							}
@@ -116,14 +143,14 @@ public class Trigger
 								 */
 
 								if(
-										getParentRule().getLastExecutionTimestamp().get(Calendar.YEAR) == calNow.get(Calendar.YEAR)
+										getParentRule().getLastExecution().get(Calendar.YEAR) == calNow.get(Calendar.YEAR)
 												&&
-										getParentRule().getLastExecutionTimestamp().get(Calendar.MONTH) == calNow.get(Calendar.MONTH)
+										getParentRule().getLastExecution().get(Calendar.MONTH) == calNow.get(Calendar.MONTH)
 												&&
-										getParentRule().getLastExecutionTimestamp().get(Calendar.DAY_OF_MONTH) == calNow.get(Calendar.DAY_OF_MONTH)
+										getParentRule().getLastExecution().get(Calendar.DAY_OF_MONTH) == calNow.get(Calendar.DAY_OF_MONTH)
 								)
 								{
-									Miscellaneous.logEvent("TimeFrame: Trigger of rule " + this.getParentRule().getName() + " applies, but it was already executed today.", 4);
+									Miscellaneous.logEvent("i", "TimeFrame", "TimeFrame: Trigger of rule " + this.getParentRule().getName() + " applies, but it was already executed today.", 4);
 									return false;
 								}
 							}
@@ -170,11 +197,11 @@ public class Trigger
 								 */
 
 								if(
-										getParentRule().getLastExecutionTimestamp().get(Calendar.YEAR) == calNow.get(Calendar.YEAR)
+										getParentRule().getLastExecution().get(Calendar.YEAR) == calNow.get(Calendar.YEAR)
 												&&
-										getParentRule().getLastExecutionTimestamp().get(Calendar.MONTH) == calNow.get(Calendar.MONTH)
+										getParentRule().getLastExecution().get(Calendar.MONTH) == calNow.get(Calendar.MONTH)
 												&&
-										getParentRule().getLastExecutionTimestamp().get(Calendar.DAY_OF_MONTH) == calNow.get(Calendar.DAY_OF_MONTH)
+										getParentRule().getLastExecution().get(Calendar.DAY_OF_MONTH) == calNow.get(Calendar.DAY_OF_MONTH)
 								)
 								{
 									Miscellaneous.logEvent("i", "Trigger", "TimeFrame: Trigger of rule " + this.getParentRule().getName() + " applies, but it was already executed today.", 4);
@@ -255,7 +282,7 @@ public class Trigger
 	boolean isSupposedToRepeatSinceLastExecution(Calendar now)
 	{
 		TimeFrame tf = new TimeFrame(getTriggerParameter2());
-		Calendar lastExec = getParentRule().getLastExecutionTimestamp();
+		Calendar lastExec = getParentRule().getLastExecution();
 
 		// the simple stuff:
 
@@ -560,7 +587,7 @@ public class Trigger
 
 				String repeat = ", no repetition";
 				if(this.getTimeFrame().getRepetition() > 0)
-					repeat = ", " + String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.repeatEveryXsecondsWithVariable), this.getTimeFrame().getRepetition());
+					repeat = ", " + String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.repeatEveryXsecondsWithVariable), String.valueOf(this.getTimeFrame().getRepetition()));
 
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.triggerTimeFrame) + ": " + this.getTimeFrame().getTriggerTimeStart().toString() + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.until) + " " + this.getTimeFrame().getTriggerTimeStop().toString() + " on days " + this.getTimeFrame().getDayList().toString() + repeat);
 				break;

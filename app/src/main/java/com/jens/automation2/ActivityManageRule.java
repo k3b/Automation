@@ -403,6 +403,11 @@ public class ActivityManageRule extends Activity
 		ruleToEdit.setName(etRuleName.getText().toString());
 		ruleToEdit.setRuleActive(chkRuleActive.isChecked());
 		ruleToEdit.setRuleToggle(chkRuleToggle.isChecked());
+
+		for(Trigger t : ruleToEdit.getTriggerSet())
+			t.setParentRule(ruleToEdit);
+		for(Action a : ruleToEdit.getActionSet())
+			a.setParentRule(ruleToEdit);
 	}
 
 	private void loadVariablesIntoGui()

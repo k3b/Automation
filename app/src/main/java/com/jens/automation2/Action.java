@@ -13,6 +13,8 @@ import java.util.Locale;
 
 public class Action
 {
+	Rule parentRule = null;
+
 	public static final String actionParameter2Split = "ap2split";
 	public static final String intentPairSeperator = "intPairSplit";
 	public static final String vibrateSeparator = ",";
@@ -271,6 +273,16 @@ public class Action
 				returnString.append(": " + parameter2);
 		
 		return returnString.toString();
+	}
+
+	public Rule getParentRule()
+	{
+		return parentRule;
+	}
+
+	public void setParentRule(Rule parentRule)
+	{
+		this.parentRule = parentRule;
 	}
 
 	public static CharSequence[] getActionTypesAsArray()

@@ -764,6 +764,8 @@ public class XmlFileInterface
             	try
 				{
 					newRule.setTriggerSet(readTriggerCollection(parser));
+					for(Trigger t : newRule.getTriggerSet())
+						t.setParentRule(newRule);
 				}
             	catch (XmlPullParserException e)
 				{
@@ -779,6 +781,8 @@ public class XmlFileInterface
             	try
 				{
 					newRule.setActionSet(readActionCollection(parser));
+					for(Action a : newRule.getActionSet())
+						a.setParentRule(newRule);
 				}
             	catch (XmlPullParserException e)
 				{
