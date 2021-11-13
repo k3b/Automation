@@ -988,6 +988,32 @@ public class Rule implements Comparable<Rule>
 			}
 		}
 
+		public boolean haveTriggersReallyChanged(Object triggeringObject)
+		{
+			boolean returnValue = false;
+
+			try
+			{
+				for(int i=0; i < triggerSet.size(); i++)
+				{
+					Trigger t = (Trigger) triggerSet.get(i);
+
+					if(t.hasStateRecentlyNotApplied(triggeringObject))
+					{
+						Miscellaneous.logEvent("i", "Rule", "Rule \"" + getName() + "\" has trigger that flipped: " + t.toString(), 4);
+						returnValue = true;				// only 1 trigger needs to have flipped recently
+					}
+				}
+
+				return returnValue;
+			}
+			catch(Exception e)
+			{
+				Miscellaneous.logEvent("e", "Rule", "Error while checking if rule \"" + getName() + "\" haveTriggersReallyChanged(): " + Log.getStackTraceString(e), 1);
+				return false;
+			}
+		}
+
 		/**
 		 * Will activate the rule. Should be called by a separate execution thread
 		 * @param automationService
@@ -998,8 +1024,9 @@ public class Rule implements Comparable<Rule>
 
 			boolean notLastActive = getLastActivatedRule() == null || !getLastActivatedRule().equals(Rule.this);
 			boolean doToggle = ruleToggle && isActuallyToggable;
+			boolean triggersApplyAnew = haveTriggersReallyChanged(new Date());
 
-			if(notLastActive || force || doToggle)
+			if(notLastActive || force || doToggle || triggersApplyAnew)
 			{
 				String message;
 				if(!doToggle)

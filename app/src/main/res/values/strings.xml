@@ -690,7 +690,7 @@
     <string name="bottom">Bottom</string>
     <string name="tabsPlacement">Position of tab bar</string>
     <string name="tabsPlacementSummary">Choose where the tabs bar should be placed.</string>
-    <string name="wifiApi30">Because Google screwd up yet another part of Android, starting with API 30 only the currently visible wifis can be displayed. Not all the ones your device knows.</string>
+    <string name="wifiApi30">Because Google screwed up yet another part of Android, starting with API 30 only the currently visible wifis can be displayed. Not all the ones your device knows.</string>
     <string name="smsDialogNotice">If you have not used a send-sms action in this program before, Android may show an additional confirmation dialog, asking you to allow sending messages. You need to select the \"always allow\" checkbox and confirm if you want this action to work in the background. It\'s advised to run this rule manually once.</string>
     <string name="silentTriggersDnd">REMARK: The silent mode often triggers Do-Not-Disturb on newer devices. If that happens on your device, I recommend using the normal mode instead and lowering all volumes to zero.</string>
     <string name="tones">Tones</string>
@@ -703,4 +703,7 @@
     <string name="dndRemarks">Fine tuning (like allowing phone calls, picking specific numbers, etc.) can only be done from the system\'s settings.</string>
     <string name="permissionsRequiredNotAvailable">Your rules required permissions which cannot be requested from this installed flavor of Automation.</string>
     <string name="automationNotificationsIgnored">If you do not choose a specific app, but choose \"Any app\" notifications from Automation will be ignored to avoid loops.</string>
+    <string name="repeatEveryXseconds">Repeat every x seconds</string>
+    <string name="repeatEveryXsecondsWithVariable">repeat every %1$s seconds</string>
+    <string name="enterRepetitionTime">You need to enter a positive non-decimal value for reptition time.</string>
 </resources>

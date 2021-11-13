@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.jens.automation2.location.CellLocationChangedReceiver;
 import com.jens.automation2.location.WifiBroadcastReceiver;
-import com.jens.automation2.receivers.AlarmListener;
+import com.jens.automation2.receivers.DateTimeListener;
 import com.jens.automation2.receivers.AutomationListenerInterface;
 import com.jens.automation2.receivers.BatteryReceiver;
 import com.jens.automation2.receivers.BluetoothReceiver;
@@ -42,7 +42,7 @@ public class ReceiverCoordinator
             Class adClass = Class.forName("ActivityDetectionReceiver");
             allImplementers = new Class[] {
                     adClass,
-                    AlarmListener.class,
+                    DateTimeListener.class,
                     BatteryReceiver.class,
                     BluetoothReceiver.class,
                     ConnectivityReceiver.class,
@@ -59,7 +59,7 @@ public class ReceiverCoordinator
 //            e.printStackTrace();
 
             allImplementers = new Class[] {
-                    AlarmListener.class,
+                    DateTimeListener.class,
                     BatteryReceiver.class,
                     BluetoothReceiver.class,
                     ConnectivityReceiver.class,
@@ -155,7 +155,7 @@ public class ReceiverCoordinator
             BatteryReceiver.startBatteryReceiver(AutomationService.getInstance());
 
         // startAlarmListener
-        AlarmListener.startAlarmListener(AutomationService.getInstance());
+        DateTimeListener.startAlarmListener(AutomationService.getInstance());
         TimeZoneListener.startTimeZoneListener(AutomationService.getInstance());
 
         // startNoiseListener
@@ -199,7 +199,7 @@ public class ReceiverCoordinator
             WifiBroadcastReceiver.stopWifiReceiver();
             BatteryReceiver.stopBatteryReceiver();
             TimeZoneListener.stopTimeZoneListener();
-            AlarmListener.stopAlarmListener(AutomationService.getInstance());
+            DateTimeListener.stopAlarmListener(AutomationService.getInstance());
             NoiseListener.stopNoiseListener();
             ProcessListener.stopProcessListener(AutomationService.getInstance());
 

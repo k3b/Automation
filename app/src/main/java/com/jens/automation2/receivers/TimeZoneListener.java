@@ -77,12 +77,12 @@ public class TimeZoneListener extends BroadcastReceiver implements AutomationLis
 		if(action.equals(Intent.ACTION_TIMEZONE_CHANGED))
 		{
 			Miscellaneous.logEvent("i", "TimeZoneListener", "Device timezone changed. Reloading alarms.", 3);
-			AlarmListener.reloadAlarms();
+			DateTimeListener.reloadAlarms();
 		}
 		else if(action.equals(Intent.ACTION_TIME_CHANGED))
 		{
 			Miscellaneous.logEvent("i", "TimeZoneListener", "Device time changed. Reloading alarms.", 4);
-			AlarmListener.reloadAlarms();
+			DateTimeListener.reloadAlarms();
 		}		
 	}
 	@Override

@@ -19,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jens.automation2.AutomationService.serviceCommands;
-import com.jens.automation2.receivers.AlarmListener;
+import com.jens.automation2.receivers.DateTimeListener;
 
 import java.util.ArrayList;
 
@@ -254,7 +254,7 @@ public class ActivityMainRules extends ActivityGeneric
 		try
 		{
 			if(AutomationService.isMyServiceRunning(this))
-				AlarmListener.reloadAlarms();
+				DateTimeListener.reloadAlarms();
 		}
 		catch(NullPointerException e)
 		{

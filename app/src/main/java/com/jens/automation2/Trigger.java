@@ -3,24 +3,315 @@ package com.jens.automation2;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
 import com.jens.automation2.receivers.BluetoothReceiver;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class Trigger
 {
-	/*
+	Rule parentRule = null;
+
+    public boolean applies(Object triggeringObject)
+    {
+		try
+		{
+			switch(this.getTriggerType())
+			{
+				case timeFrame:
+					if(!checkDateTime(triggeringObject, false))
+						return false;
+					break;
+				default:
+					break;
+			}
+
+			return true;
+		}
+		catch(Exception e)
+		{
+			Miscellaneous.logEvent("e", "Trigger", "Error while checking if rule " + getParentRule().getName() + " applies. Error occured in trigger " + this.toString() + "." + Miscellaneous.lineSeparator + Log.getStackTraceString(e), 1);
+			return false;
+		}
+    }
+
+	public boolean hasStateRecentlyNotApplied(Object triggeringObject)
+	{
+		// nur mit einem Trigger?
+
+		// door -> was state different in previous step
+
+		try
+		{
+			switch(getTriggerType())
+			{
+				case timeFrame:
+					if(!checkDateTime(triggeringObject, true))
+						return false;
+					break;
+				default:
+					break;
+			}
+
+			return true;
+		}
+		catch(Exception e)
+		{
+			Miscellaneous.logEvent("e", "Trigger", "Error while checking if rule " + getParentRule().getName() + " applies. Error occured in trigger " + this.toString() + "." + Miscellaneous.lineSeparator + Log.getStackTraceString(e), 1);
+			return false;
+		}
+	}
+
+	public boolean checkDateTime(Object triggeringObject, boolean checkifStateChangedSinceLastRuleExecution)
+	{
+		/*
+		 * Use format known from Automation
+		 * 07:30:00/17:30:00/23456/300	<-- last parameter is optional: repetition in seconds
+		 * Also required: inside or outside that interval
+		 */
+
+		Date triggeringTime;
+		if(triggeringObject instanceof Date)
+			triggeringTime = (Date)triggeringObject;
+		else
+			triggeringTime = new Date();
+
+		String timeString = String.valueOf(triggeringTime.getHours()) + ":" + String.valueOf(triggeringTime.getMinutes()) + ":" + String.valueOf(triggeringTime.getSeconds());
+		Time nowTime = Time.valueOf(timeString);
+		Calendar calNow = Calendar.getInstance();
+
+		try
+		{
+			TimeFrame tf = new TimeFrame(getTriggerParameter2());
+
+			if(tf.getDayList().contains(calNow.get(Calendar.DAY_OF_WEEK)))
+			{
+				if(
+					// Regular case, start time is lower than end time
+						(
+								Miscellaneous.compareTimes(tf.getTriggerTimeStart(), nowTime) >= 0
+										&&
+								Miscellaneous.compareTimes(nowTime, tf.getTriggerTimeStop()) > 0
+						)
+								|
+								// Other case, start time higher than end time, timeframe goes over midnight
+								(
+										Miscellaneous.compareTimes(tf.getTriggerTimeStart(), tf.getTriggerTimeStop()) < 0
+												&&
+										(Miscellaneous.compareTimes(tf.getTriggerTimeStart(), nowTime) >= 0
+														|
+										Miscellaneous.compareTimes(nowTime, tf.getTriggerTimeStop()) > 0)
+								)
+
+				)
+				{
+					// We are in the timeframe
+					Miscellaneous.logEvent("i", "Trigger", "TimeFrame: We're currently (" + calNow.getTime().toString() + ") in the specified TimeFrame (" + tf.toString() + ").", 4);
+					if(getTriggerParameter())
+					{
+						if(checkifStateChangedSinceLastRuleExecution)
+						{
+							/*
+							 * Was there a target repetition time between last execution and now?
+							 * If not -> return false.
+							 */
+							Calendar compareCal = Calendar.getInstance();
+							compareCal.setTimeInMillis(triggeringTime.getTime());
+							if(tf.getRepetition() > 0)
+							{
+								if(!isSupposedToRepeatSinceLastExecution(compareCal))
+								{
+									Miscellaneous.logEvent("i", "TimeFrame", "TimeFrame: Trigger of rule " + this.getParentRule().getName() + " applies, but repeated execution is not due, yet.", 4);
+									return false;
+								}
+							}
+							else
+							{
+								/*
+								 * This is not a repeating rule. Have we left
+								 * the relevant timeframe since the last run?
+								 * Determine if it has ran today already. If yes
+								 * return false because every rule that is not
+								 * repeating can only be executed once per day.
+								 */
+
+								if(
+										getParentRule().getLastExecution().get(Calendar.YEAR) == calNow.get(Calendar.YEAR)
+												&&
+										getParentRule().getLastExecution().get(Calendar.MONTH) == calNow.get(Calendar.MONTH)
+												&&
+										getParentRule().getLastExecution().get(Calendar.DAY_OF_MONTH) == calNow.get(Calendar.DAY_OF_MONTH)
+								)
+								{
+									Miscellaneous.logEvent("i", "TimeFrame", "TimeFrame: Trigger of rule " + this.getParentRule().getName() + " applies, but it was already executed today.", 4);
+									return false;
+								}
+							}
+						}
+
+						Miscellaneous.logEvent("i", "Trigger", "TimeFrame: That's what's specified. Trigger of rule " + this.getParentRule().getName() + " applies.", 4);
+						return true;
+					}
+					else
+					{
+						Miscellaneous.logEvent("i", "Trigger", "TimeFrame: That's not what's specified. Trigger of rule " + this.getParentRule().getName() + " doesn't apply.", 4);
+						return false;
+					}
+				}
+				else
+				{
+					Miscellaneous.logEvent("i", "Trigger", "TimeFrame: We're currently (" + calNow.getTime().toString() + ", Day: " + String.valueOf(calNow.get(Calendar.DAY_OF_WEEK)) + ") not in the specified TimeFrame (" + tf.toString() + ") because of the time.", 5);
+					if(!getTriggerParameter())
+					{
+						if(checkifStateChangedSinceLastRuleExecution)
+						{
+							/*
+							 * Was there a target repetition time between last execution and now?
+							 * If not -> return false.
+							 */
+							Calendar compareCal = Calendar.getInstance();
+							compareCal.setTimeInMillis(triggeringTime.getTime());
+							if(tf.getRepetition() > 0)
+							{
+								if(!isSupposedToRepeatSinceLastExecution(compareCal))
+								{
+									Miscellaneous.logEvent("i", "Trigger", "TimeFrame: Trigger of rule " + this.getParentRule().getName() + " applies, but repeated execution is not due, yet.", 4);
+									return false;
+								}
+							}
+							else
+							{
+								/*
+								 * This is not a repeating rule. Have we left
+								 * the relevant timeframe since the last run?
+								 * Determine if it has ran today already. If yes
+								 * return false because every rule that is not
+								 * repeating can only be executed once per day.
+								 */
+
+								if(
+										getParentRule().getLastExecution().get(Calendar.YEAR) == calNow.get(Calendar.YEAR)
+												&&
+										getParentRule().getLastExecution().get(Calendar.MONTH) == calNow.get(Calendar.MONTH)
+												&&
+										getParentRule().getLastExecution().get(Calendar.DAY_OF_MONTH) == calNow.get(Calendar.DAY_OF_MONTH)
+								)
+								{
+									Miscellaneous.logEvent("i", "Trigger", "TimeFrame: Trigger of rule " + this.getParentRule().getName() + " applies, but it was already executed today.", 4);
+									return false;
+								}
+							}
+						}
+						Miscellaneous.logEvent("i", "Trigger", "TimeFrame: That's what's specified. Trigger of rule " + this.getParentRule().getName() + " applies.", 5);
+						return true;
+					}
+					else
+					{
+						Miscellaneous.logEvent("i", "Trigger", "TimeFrame: That's not what's specified. Trigger of rule " + this.getParentRule().getName() + " doesn't apply.", 5);
+						return false;
+					}
+				}
+			}
+			else
+			{
+				Miscellaneous.logEvent("i", "Trigger", "TimeFrame: We're currently (" + calNow.getTime().toString() + ", Day: " + String.valueOf(calNow.get(Calendar.DAY_OF_WEEK)) + ") not in the specified TimeFrame (" + tf.toString() + ") because of the day.", 5);
+				return false;
+			}
+		}
+		catch(Exception e)
+		{
+			Miscellaneous.logEvent("e", "Trigger", "There was an error while checking if the time based trigger applies: " + Log.getStackTraceString(e), 1);
+			return false;
+		}
+	}
+
+	public static Calendar getNextRepeatedExecutionAfter(Trigger trigger, Calendar now)
+	{
+		Calendar calSet;
+		Time setTime;
+		TimeFrame tf = new TimeFrame(trigger.getTriggerParameter2());
+
+		if(tf.getRepetition() > 0)
+		{
+			if(trigger.getTriggerParameter())
+				setTime = tf.getTriggerTimeStart();
+			else
+				setTime = tf.getTriggerTimeStop();
+
+			calSet = (Calendar) now.clone();
+			calSet.set(Calendar.HOUR_OF_DAY, setTime.getHours());
+			calSet.set(Calendar.MINUTE, setTime.getMinutes());
+			calSet.set(Calendar.SECOND, 0);
+			calSet.set(Calendar.MILLISECOND, 0);
+
+//				if(this.applies(null))
+//				{
+			// If the starting time is a day ahead remove 1 day.
+			if(calSet.getTimeInMillis() > now.getTimeInMillis())
+				calSet.add(Calendar.DAY_OF_MONTH, -1);
+
+			long differenceInSeconds = Math.abs(now.getTimeInMillis() - calSet.getTimeInMillis()) / 1000;
+			long nextExecutionMultiplier = Math.floorDiv(differenceInSeconds, tf.getRepetition()) + 1;
+			long nextScheduleTimestamp = (calSet.getTimeInMillis() / 1000) + (nextExecutionMultiplier * tf.getRepetition());
+			Calendar calSchedule = Calendar.getInstance();
+			calSchedule.setTimeInMillis(nextScheduleTimestamp * 1000);
+
+			/*
+			 * Das war mal aktiviert. Allerdings: Die ganze Funktion liefert zurück, wenn die Regel NOCH nicht
+			 * zutrifft, aber wir z.B. gleich den zeitlichen Bereich betreten.
+			 */
+//					if(trigger.checkDateTime(calSchedule.getTime(), false))
+//					{
+			return calSchedule;
+//					}
+//				}
+		}
+		else
+			Miscellaneous.logEvent("i", "Trigger", "Trigger " + trigger.toString() + " is not executed repeatedly.", 5);
+
+		return null;
+	}
+
+	boolean isSupposedToRepeatSinceLastExecution(Calendar now)
+	{
+		TimeFrame tf = new TimeFrame(getTriggerParameter2());
+		Calendar lastExec = getParentRule().getLastExecution();
+
+		// the simple stuff:
+
+		if(lastExec == null)				// rule never run, go any way
+			return true;
+		else if(tf.getRepetition() <= 0)	// is not set to repeat at all
+			return false;
+
+		/*
+		 * We don't need to check if the trigger currently applies, that has
+		 * been done externally via the applies() function. We can safely assume
+		 * we're inside the specified timeframe.
+		 */
+
+		Calendar timeSupposedToRunNext = getNextRepeatedExecutionAfter(this, lastExec);
+		if(now.getTimeInMillis() > timeSupposedToRunNext.getTimeInMillis())
+			return true;
+
+		return false;
+	}
+
+    /*
 	 * Can be several things:
 	 * -PointOfInterest
 	 * -TimeFrame
 	 * -Event (like charging, cable plugged, etc.)
 	 */
 	
-	public enum Trigger_Enum { 
+	public enum Trigger_Enum {
 								pointOfInterest, timeFrame, charging, batteryLevel, usb_host_connection, speed, noiseLevel, wifiConnection, process_started_stopped, airplaneMode, roaming, nfcTag, activityDetection, bluetoothConnection, headsetPlugged, notification, phoneCall; //phoneCall always needs to be at the very end because of Google's shitty so called privacy
 								
 								public String getFullName(Context context)
@@ -294,7 +585,11 @@ public class Trigger
 				else
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.leaving) + " ");
 
-				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.triggerTimeFrame) + ": " + this.getTimeFrame().getTriggerTimeStart().toString() + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.until) + " " + this.getTimeFrame().getTriggerTimeStop().toString() + " on days " + this.getTimeFrame().getDayList().toString());
+				String repeat = ", no repetition";
+				if(this.getTimeFrame().getRepetition() > 0)
+					repeat = ", " + String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.repeatEveryXsecondsWithVariable), String.valueOf(this.getTimeFrame().getRepetition()));
+
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.triggerTimeFrame) + ": " + this.getTimeFrame().getTriggerTimeStart().toString() + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.until) + " " + this.getTimeFrame().getTriggerTimeStop().toString() + " on days " + this.getTimeFrame().getDayList().toString() + repeat);
 				break;
 			case speed:
 				if(getTriggerParameter())
@@ -611,5 +906,14 @@ public class Trigger
 	{
 		return this.bluetoothEvent;
 	}
-	
+
+	public Rule getParentRule()
+	{
+		return parentRule;
+	}
+
+	public void setParentRule(Rule parentRule)
+	{
+		this.parentRule = parentRule;
+	}
 }
