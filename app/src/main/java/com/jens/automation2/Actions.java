@@ -331,28 +331,36 @@ public class Actions
 
 //			if (((state && !desiredState) || (!state && desiredState)))
 //			{
-				BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-				Class<?> classBluetoothPan = null;
-				Constructor<?> BTPanCtor = null;
-				Object BTSrvInstance = null;
-				Method mBTPanConnect = null;
+			BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+			Class<?> classBluetoothPan = null;
+			Constructor<?> BTPanCtor = null;
+			Object BTSrvInstance = null;
+			Method mBTPanConnect = null;
 
-				try
+			String sClassName = "android.bluetooth.BluetoothPan";
+			try
+			{
+				classBluetoothPan = Class.forName(sClassName);
+				Constructor<?> ctor = classBluetoothPan.getDeclaredConstructor(Context.class, BluetoothProfile.ServiceListener.class);
+
+				ctor.setAccessible(true);
+				//  Set Tethering ON
+
+				Class[] paramSet = new Class[1];
+				paramSet[0] = boolean.class;
+
+				synchronized (mutex)
 				{
-					classBluetoothPan = Class.forName("android.bluetooth.BluetoothPan");
-					mBTPanConnect = classBluetoothPan.getDeclaredMethod("connect", BluetoothDevice.class);
-					BTPanCtor = classBluetoothPan.getDeclaredConstructor(Context.class, BluetoothProfile.ServiceListener.class);
-					BTPanCtor.setAccessible(true);
-					BTSrvInstance = BTPanCtor.newInstance(context, new BTPanServiceListener(context));
+					setTetheringOn = classBluetoothPan.getDeclaredMethod("setBluetoothTethering", paramSet);
+					isTetheringOn = classBluetoothPan.getDeclaredMethod("isTetheringOn", null);
+					instance = ctor.newInstance(context, new BTPanServiceListener(context));
 				}
-				catch (ClassNotFoundException e)
-				{
-					Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
-				}
-				catch (Exception e)
-				{
-					Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
-				}
+
+				classBluetoothPan = Class.forName("android.bluetooth.BluetoothPan");
+				mBTPanConnect = classBluetoothPan.getDeclaredMethod("connect", BluetoothDevice.class);
+				BTPanCtor = classBluetoothPan.getDeclaredConstructor(Context.class, BluetoothProfile.ServiceListener.class);
+				BTPanCtor.setAccessible(true);
+				BTSrvInstance = BTPanCtor.newInstance(context, new BTPanServiceListener(context));
 
 				Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
 
@@ -372,8 +380,22 @@ public class Actions
 						}
 					}
 				}
-//			}
-			return true;
+				return true;
+			}
+			catch (NoSuchMethodException e)
+			{
+				Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
+			}
+			catch (ClassNotFoundException e)
+			{
+				Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
+			}
+			catch (Exception e)
+			{
+				Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
+			}
+
+			return false;
 		}
 
 		public static class BTPanServiceListener implements BluetoothProfile.ServiceListener

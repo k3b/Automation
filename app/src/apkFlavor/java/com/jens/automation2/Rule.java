@@ -349,6 +349,8 @@ public class Rule implements Comparable<Rule>
 					return true;
 				case setWifiTethering:
 					return true;
+				case setBluetoothTethering:
+					return true;
 				default:
 					break;					
 			}
