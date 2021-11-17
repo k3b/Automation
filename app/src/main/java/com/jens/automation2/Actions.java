@@ -390,6 +390,15 @@ public class Actions
 			{
 				Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
 			}
+			catch(InvocationTargetException e)
+			{
+				/*
+					Exact error message: "Bluetooth binder is null"
+					This means this device doesn't have bluetooth.
+				 */
+				Miscellaneous.logEvent("e", "Bluetooth Tethering", "Device probably doesn't have bluetooth. " + Log.getStackTraceString(e), 1);
+				Toast.makeText(context, context.getResources().getString(R.string.deviceDoesNotHaveBluetooth), Toast.LENGTH_SHORT).show();
+			}
 			catch (Exception e)
 			{
 				Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
