@@ -819,7 +819,15 @@ public class XmlFileInterface
             // Starts by looking for the entry tag
             if (name.equals("Trigger"))
             {
-            	triggerCollection.add(readTrigger(parser));
+				try
+				{
+					triggerCollection.add(readTrigger(parser));
+				}
+				catch (IllegalArgumentException | NullPointerException e)
+				{
+					Miscellaneous.logEvent("e", "XMLFileInterface", "Unknown trigger found in config file. File was probably created by a newer program version. Details: " + Log.getStackTraceString(e), 1);
+					Miscellaneous.messageBox(context.getString(R.string.error), context.getString(R.string.elementSkipped), context).show();
+				}
             }
             else
             {
@@ -1055,7 +1063,15 @@ public class XmlFileInterface
             // Starts by looking for the entry tag
             if (name.equals("Action"))
             {
-            	actionCollection.add(readAction(parser));
+            	try
+				{
+					actionCollection.add(readAction(parser));
+				}
+            	catch (IllegalArgumentException | NullPointerException e)
+				{
+					Miscellaneous.logEvent("e", "XMLFileInterface", "Unknown action found in config file. File was probably created by a newer program version. Details: " + Log.getStackTraceString(e), 1);
+					Miscellaneous.messageBox(context.getString(R.string.error), context.getString(R.string.elementSkipped), context).show();
+				}
             }
             else
             {
@@ -1064,7 +1080,6 @@ public class XmlFileInterface
         }  
         return (actionCollection);
 	}
-
 	
 	private static Action readAction(XmlPullParser parser) throws IOException, XmlPullParserException
 	{		

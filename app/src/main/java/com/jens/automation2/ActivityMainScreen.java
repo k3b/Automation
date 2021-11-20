@@ -44,7 +44,7 @@ public class ActivityMainScreen extends ActivityGeneric
 
 	private static ActivityMainScreen activityMainScreenInstance = null;
 	private ToggleButton toggleService, tbLockSound;
-	private Button bShowHelp, bPrivacy, bSettingsErase, bAddSoundLockTIme;
+	private Button bShowHelp, bPrivacy, bSettingsErase, bAddSoundLockTIme, bDonate;
 	private TextView tvActivePoi, tvClosestPoi, tvLastRule, tvMainScreenNotePermissions, tvMainScreenNoteFeaturesFromOtherFlavor, tvMainScreenNoteLocationImpossibleBlameGoogle, tvMainScreenNoteNews, tvlockSoundDuration;
 	private static boolean updateNoteDisplayed = false;
 
@@ -82,6 +82,12 @@ public class ActivityMainScreen extends ActivityGeneric
 		tvlockSoundDuration = (TextView)findViewById(R.id.tvlockSoundDuration);
 		tbLockSound = (ToggleButton) findViewById(R.id.tbLockSound);
 		toggleService = (ToggleButton) findViewById(R.id.tbArmMastListener);
+
+		bDonate = (Button)findViewById(R.id.bDonate);
+
+		if(!BuildConfig.FLAVOR.equalsIgnoreCase("googlePlayFlavor"))
+			bDonate.setVisibility(View.VISIBLE);
+
 		toggleService.setChecked(AutomationService.isMyServiceRunning(this));
 		toggleService.setOnCheckedChangeListener(new OnCheckedChangeListener()
 		{
@@ -108,6 +114,18 @@ public class ActivityMainScreen extends ActivityGeneric
 			{
 				Intent intent = new Intent(ActivityMainScreen.this, ActivityPermissions.class);
 				startActivityForResult(intent, ActivityPermissions.requestCodeForPermissions);
+			}
+		});
+
+		bDonate.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				String privacyPolicyUrl = "https://server47.de/donate";
+
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(privacyPolicyUrl));
+				startActivity(browserIntent);
 			}
 		});
 
