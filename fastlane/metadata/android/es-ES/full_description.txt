@@ -45,7 +45,7 @@ Si una función no funcióna - digame. En muchos años resolvaba la mayoria de l
 Si tiene un problema y considera contactarme update a la ultima version al primero y probar si su problam persiste.
 
 Donaciónes seguramente son una buena, pero no la unica posibilidad de apoyarme :-)
-* Si quiere apoyarme puedes escribir un buena revisión en Google Play
+* Si quiere apoyarme puedes escribir un buena revisión en Google Play (https://play.google.com/store/apps/details?id=com.jens.automation2).
 * Además siempre necesito ayuda en traduciendo la app. Ingles, Aleman y Español  estan en mis habilidades. Per todo lo demás es bienvenido.
 
 Puedes leer una explicación de los permisos aqui: https://server47.de/automation/permissions_en.html

@@ -45,7 +45,7 @@ Wenn also eine bestimmte Funktion nicht so tut wie sie sollte - lassen Sie es mi
 Wenn Sie ein Problem mit der Anwendung haben und mich dazu kontaktieren möchten, updaten Sie bitte vorher auf die neueste Version und schauen Sie, ob Ihr Problem darin auch besteht.
 
 Spenden sind sicher eine gute, aber nicht die einzige Möglichkeit mich zu motivieren :-)
-* Wer mir etwas Gutes tun will, kann die Anwendung auch im Play Store bewerten.
+* Wer mir etwas Gutes tun will, kann die Anwendung auch im Play Store bewerten (https://play.google.com/store/apps/details?id=com.jens.automation2).
 * Außerdem ist Hilfe bei der Übersetzung willkommen. Englisch, Spanisch und Deutsch kann ich selbst. Aber sonst ist alles gern gesehen.
 
 Erklärungen zu den vielen Berechtigungen können hier abgerufen werden: https://server47.de/automation/permissions_de.html
