@@ -321,38 +321,46 @@ public class Actions
 		{
 			Miscellaneous.logEvent("i", "Bluetooth Tethering", "Changing Bluetooth Tethering to " + String.valueOf(desiredState), 4);
 
-			boolean state = Actions.isWifiApEnabled(context);
+//			boolean state = isTetheringOn(context);
 
-			if (toggleActionIfPossible)
+//			if (toggleActionIfPossible)
+//			{
+//				Miscellaneous.logEvent("i", "Bluetooth Tethering", context.getResources().getString(R.string.toggling), 2);
+//				desiredState = !state;
+//			}
+
+//			if (((state && !desiredState) || (!state && desiredState)))
+//			{
+			BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+			Class<?> classBluetoothPan = null;
+			Constructor<?> BTPanCtor = null;
+			Object BTSrvInstance = null;
+			Method mBTPanConnect = null;
+
+			String sClassName = "android.bluetooth.BluetoothPan";
+			try
 			{
-				Miscellaneous.logEvent("i", "Bluetooth Tethering", context.getResources().getString(R.string.toggling), 2);
-				desiredState = !state;
-			}
+				classBluetoothPan = Class.forName(sClassName);
+				Constructor<?> ctor = classBluetoothPan.getDeclaredConstructor(Context.class, BluetoothProfile.ServiceListener.class);
 
-			if (((state && !desiredState) || (!state && desiredState)))
-			{
-				BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-				Class<?> classBluetoothPan = null;
-				Constructor<?> BTPanCtor = null;
-				Object BTSrvInstance = null;
-				Method mBTPanConnect = null;
+				ctor.setAccessible(true);
+				//  Set Tethering ON
 
-				try
+				Class[] paramSet = new Class[1];
+				paramSet[0] = boolean.class;
+
+				synchronized (mutex)
 				{
-					classBluetoothPan = Class.forName("android.bluetooth.BluetoothPan");
-					mBTPanConnect = classBluetoothPan.getDeclaredMethod("connect", BluetoothDevice.class);
-					BTPanCtor = classBluetoothPan.getDeclaredConstructor(Context.class, BluetoothProfile.ServiceListener.class);
-					BTPanCtor.setAccessible(true);
-					BTSrvInstance = BTPanCtor.newInstance(context, new BTPanServiceListener(context));
+					setTetheringOn = classBluetoothPan.getDeclaredMethod("setBluetoothTethering", paramSet);
+					isTetheringOn = classBluetoothPan.getDeclaredMethod("isTetheringOn", null);
+					instance = ctor.newInstance(context, new BTPanServiceListener(context));
 				}
-				catch (ClassNotFoundException e)
-				{
-					Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
-				}
-				catch (Exception e)
-				{
-					Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
-				}
+
+				classBluetoothPan = Class.forName("android.bluetooth.BluetoothPan");
+				mBTPanConnect = classBluetoothPan.getDeclaredMethod("connect", BluetoothDevice.class);
+				BTPanCtor = classBluetoothPan.getDeclaredConstructor(Context.class, BluetoothProfile.ServiceListener.class);
+				BTPanCtor.setAccessible(true);
+				BTSrvInstance = BTPanCtor.newInstance(context, new BTPanServiceListener(context));
 
 				Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
 
@@ -372,8 +380,31 @@ public class Actions
 						}
 					}
 				}
+				return true;
 			}
-			return true;
+			catch (NoSuchMethodException e)
+			{
+				Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
+			}
+			catch (ClassNotFoundException e)
+			{
+				Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
+			}
+			catch(InvocationTargetException e)
+			{
+				/*
+					Exact error message: "Bluetooth binder is null"
+					This means this device doesn't have bluetooth.
+				 */
+				Miscellaneous.logEvent("e", "Bluetooth Tethering", "Device probably doesn't have bluetooth. " + Log.getStackTraceString(e), 1);
+				Toast.makeText(context, context.getResources().getString(R.string.deviceDoesNotHaveBluetooth), Toast.LENGTH_SHORT).show();
+			}
+			catch (Exception e)
+			{
+				Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
+			}
+
+			return false;
 		}
 
 		public static class BTPanServiceListener implements BluetoothProfile.ServiceListener

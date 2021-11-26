@@ -24,6 +24,7 @@ public class Action
 								setBluetooth,
 								setUsbTethering,
 								setWifiTethering,
+								setBluetoothTethering,
 								setDisplayRotation,
 								turnWifiOn,turnWifiOff,
 								turnBluetoothOn,turnBluetoothOff,
@@ -31,7 +32,7 @@ public class Action
 								changeSoundProfile,
 								turnUsbTetheringOn,turnUsbTetheringOff,
 								turnWifiTetheringOn,turnWifiTetheringOff,
-								enableScreenRotation, disableScreenRotation,
+								enableScreenRotation,disableScreenRotation,
 								startOtherActivity,
 								waitBeforeNextAction,
 								wakeupDevice,
@@ -54,6 +55,8 @@ public class Action
 											return context.getResources().getString(R.string.actionSetBluetooth);
 										case setWifiTethering:
 											return context.getResources().getString(R.string.actionSetWifiTethering);
+										case setBluetoothTethering:
+											return context.getResources().getString(R.string.actionSetBluetoothTethering);
 										case setUsbTethering:
 											return context.getResources().getString(R.string.actionSetUsbTethering);
 										case setDisplayRotation:
@@ -177,6 +180,13 @@ public class Action
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnWifiTetheringOn));
 			else
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnWifiTetheringOff));
+		}
+		else if(this.getAction().equals(Action_Enum.setBluetoothTethering))
+		{
+			if(this.getParameter1())
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnBluetoothTetheringOn));
+			else
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnBluetoothTetheringOff));
 		}
 		else if(this.getAction().equals(Action_Enum.setDisplayRotation))
 		{
@@ -381,6 +391,9 @@ public class Action
 					break;
 				case setWifiTethering:
 					Actions.setWifiTethering(context, getParameter1(), toggleActionIfPossible);
+					break;
+				case setBluetoothTethering:
+					Actions.BluetoothTetheringClass.setBluetoothTethering(context, getParameter1(), toggleActionIfPossible);
 					break;
 				case setDisplayRotation:
 					Actions.setDisplayRotation(context, getParameter1(), toggleActionIfPossible);

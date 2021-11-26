@@ -158,6 +158,7 @@
     <string name="actionSetBluetooth">Bluetooth</string>
     <string name="actionSetUsbTethering">USB Tethering</string>
     <string name="actionSetWifiTethering">Wifi Tethering</string>
+    <string name="actionSetBluetoothTethering">Bluetooth Tethering</string>
     <string name="actionSetDisplayRotation">Display rotation</string>
     <string name="actionTurnWifiOn">turn Wifi on</string>
     <string name="actionTurnWifiOff">turn Wifi off</string>
@@ -169,6 +170,8 @@
     <string name="actionTurnUsbTetheringOff">turn USB Tethering off</string>
     <string name="actionTurnWifiTetheringOn">turn Wifi Tethering on</string>
     <string name="actionTurnWifiTetheringOff">turn Wifi Tethering off</string>
+    <string name="actionTurnBluetoothTetheringOn">turn Bluetooth Tethering on</string>
+    <string name="actionTurnBluetoothTetheringOff">turn Bluetooth Tethering off</string>
     <string name="actionTurnAirplaneModeOn">turn airplane mode on</string>
     <string name="actionTurnAirplaneModeOff">turn airplane mode off</string>
     <string name="actionEnableScreenRotation">enable screen rotation</string>
