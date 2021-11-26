@@ -25,6 +25,7 @@ Supported actions:
 * Pasar de bluetooth
 * Pasar USB rúter
 * Pasar wifi rúter
+* Pasar Bluetooth rúter
 * Pasar rotación automatica del monitor
 * Hacer un solicitud HTTP
 * Cambiar el tono de llamada / ajustes de sonido

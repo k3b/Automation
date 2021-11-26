@@ -25,6 +25,7 @@ Mögliche Aktionen:
 * Bluetooth ein-/ausschalten
 * USB Router ein-/ausschalten
 * WLAN Router ein-/ausschalten
+* Bluetooth Router ein-/ausschalten
 * Bildschirmdrehung ein-/ausschalten
 * HTTP Request im Hintergrund auslösen
 * Klingelton und Toneinstellungen ändern

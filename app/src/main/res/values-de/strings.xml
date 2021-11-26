@@ -595,4 +595,21 @@
     <string name="bottom">Unten</string>
     <string name="tabsPlacementSummary">Wol soll die Taskleiste angezeigt werden?</string>
     <string name="tones">Klingeltöne</string>
+    <string name="miscellaneous">Verschiedenes</string>
+    <string name="dnd">Nicht stören</string>
+    <string name="dndOff">Nicht stören aus</string>
+    <string name="dndAlarms">Alarme durchlassen</string>
+    <string name="dndPriority">Prioritätsbenachrichtigungen durchlassen</string>
+    <string name="dndNothing">Nichts durchlassen</string>
+    <string name="repeatEveryXseconds">Alle x Sekunden wiederholen</string>
+    <string name="repeatEveryXsecondsWithVariable">alle %1$s Sekunden wiederholen</string>
+    <string name="donate">Spenden</string>
+    <string name="notice">Hinweis</string>
+    <string name="automationNotificationsIgnored">Wenn Sie keine bestimmte Anwendung auswählen, werden Benachrichtigungen von Automation selbst ignoriert, um Schleifen zu verhindern.</string>
+    <string name="elementSkipped">Ein Element der Konfigurationsdatei konnte nicht gelesen werden. Die Datei könnte von einer neueren Programmversion erstellt worden sein.</string>
+    <string name="permissionsRequiredNotAvailable">Ihre Regeln benötigen Berechtigungen, die die installierte Variante von Automation nicht unterstützt.</string>
+    <string name="dndRemarks">Feineinstellungen (wie Telefonanrufe erlauben, Auswählen bestimmter Telefonnummern, etc.) können nur in den Systemeinstellungen gesetzt werden.</string>
+    <string name="wifiApi30">Weil Google wieder einen weiteren Teil von Android kaputt gemacht hat, können ab API 30 nur noch jede WLANs angezeigt werden, die sich gegenwärtig in Reichweite befinden, nicht mehr alle, zu denen das Gerät einmal verbunden war.</string>
+    <string name="smsDialogNotice">Wenn Sie in diesem Programm noch keine SMS-senden Aktion benutzt haben, zeigt Android wahrscheinlich beim ersten Ausführen einen Bestätigungsdialog an. Sie müssen das Häkchen bei \"Immer erlauben\" setzen und bestätigen, wenn Sie möchten, daß diese Aktion im Hintergrund ausgeführt werden kann. Es wird daher empfohlen, diese Regel einmalig manuell auszuführen, um diesen Dialog zu provozieren.</string>
+    <string name="silentTriggersDnd">Hinweis: Der Stumm-Modus löst auf neuren Geräten häufig die Funktion \"Nicht stören\" aus. Wenn das auf Ihrem Gerät passiert, wird empfohlen stattdessen den Normalen Modus zu verwenden und alle Lautstärken auf 0 zu reduzieren.</string>
 </resources>

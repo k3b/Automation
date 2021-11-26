@@ -25,6 +25,7 @@ Supported actions:
 * Change bluetooth state
 * Toggle USB tethering
 * Toggle wifi tethering
+* Toggle Bluetooth tethering
 * Toggle automatic screen rotation
 * Make an HTTP request
 * Change ringtone/sound setting

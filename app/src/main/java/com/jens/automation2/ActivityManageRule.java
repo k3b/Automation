@@ -1467,6 +1467,12 @@ public class ActivityManageRule extends Activity
 					{
 						newAction.setAction(Action_Enum.setBluetoothTethering);
 						getActionParameter1Dialog(ActivityManageRule.this).show();
+
+						if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
+							Miscellaneous.messageBox("Bluetooth", getResources().getString(R.string.deviceDoesNotHaveBluetooth), ActivityManageRule.this).show();;
+
+						if(Build.VERSION.SDK_INT > Build.VERSION_CODES.O)
+							Miscellaneous.messageBox(context.getResources().getString(R.string.notice), context.getResources().getString(R.string.btTetheringNotice), context).show();
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setDisplayRotation.toString()))
 					{
