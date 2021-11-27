@@ -18,8 +18,19 @@ import java.util.Date;
 public class Trigger
 {
 	Rule parentRule = null;
+	boolean hasFlipped = false;
 
-    public boolean applies(Object triggeringObject)
+	public boolean getHasFlipped()
+	{
+		return hasFlipped;
+	}
+
+	public void setHasFlipped(boolean hasFlipped)
+	{
+		this.hasFlipped = hasFlipped;
+	}
+
+	public boolean applies(Object triggeringObject)
     {
 		try
 		{
