@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/default_margin" >
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/devicePositionExplanation"
+            android:layout_marginBottom="@dimen/default_margin" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:text="@string/orientationX"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/currentOrientationX"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:text="@string/orientationY"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/currentOrientationY"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:text="@string/orientationZ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/currentOrientationZ"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </TableRow>
+
+        </TableLayout>
+
+        <Button
+            android:id="@+id/bApplyPositionValues"
+            android:text="@string/apply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/default_margin" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:text=""
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="Position"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="@string/tolerance"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="@string/wouldCurrentlyApply"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:text="x"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/default_margin" />
+
+                <EditText
+                    android:id="@+id/etDesiredPositionX"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:minWidth="100dp"/>
+
+                <EditText
+                    android:id="@+id/etDesiredPositionXTolerance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:minWidth="100dp"/>
+
+                <TextView
+                    android:id="@+id/tvAppliesX"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:text="y"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/default_margin" />
+
+                <EditText
+                    android:id="@+id/etDesiredPositionY"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:minWidth="100dp"/>
+
+                <EditText
+                    android:id="@+id/etDesiredPositionYTolerance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:minWidth="100dp"/>
+
+                <TextView
+                    android:id="@+id/tvAppliesY"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:text="z"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/default_margin" />
+
+                <EditText
+                    android:id="@+id/etDesiredPositionZ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:minWidth="100dp"/>
+
+                <EditText
+                    android:id="@+id/etDesiredPositionZTolerance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:minWidth="100dp"/>
+
+                <TextView
+                    android:id="@+id/tvAppliesZ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </TableRow>
+
+        </TableLayout>
+
+        <Button
+            android:id="@+id/bSavePositionValues"
+            android:text="@string/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</ScrollView>

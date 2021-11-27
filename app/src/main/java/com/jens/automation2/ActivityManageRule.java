@@ -95,6 +95,8 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeTriggerBluetoothEdit = 6001;
 	final static int requestCodeActionScreenBrightnessAdd = 401;
 	final static int requestCodeActionScreenBrightnessEdit = 402;
+	final static int requestCodeTriggerDevicePositionAdd = 301;
+	final static int requestCodeTriggerDevicePositionEdit = 302;
 	final static int requestCodeTriggerNotificationAdd = 8000;
 	final static int requestCodeTriggerNfcNotificationEdit = 8001;
 	final static int requestCodeActionPlaySoundAdd = 501;
@@ -470,6 +472,8 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.headphone));
 			else if(types[i].toString().equals(Trigger_Enum.notification.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.notification));
+			else if(types[i].toString().equals(Trigger_Enum.devicePosition.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.smartphone));
 			else
 				items.add(new Item(typesLong[i].toString(), R.drawable.placeholder));
 		}
@@ -541,6 +545,14 @@ public class ActivityManageRule extends Activity
 							newTrigger.setTriggerType(Trigger_Enum.wifiConnection);
 							Intent wifiTriggerEditor = new Intent(myContext, ActivityManageTriggerWifi.class);
 							startActivityForResult(wifiTriggerEditor, requestCodeTriggerWifiAdd);
+							return;
+//							booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
+						}
+						else if(triggerType == Trigger_Enum.devicePosition)
+						{
+							newTrigger.setTriggerType(Trigger_Enum.devicePosition);
+							Intent devicePositionTriggerEditor = new Intent(myContext, ActivityManageTriggerDevicePosition.class);
+							startActivityForResult(devicePositionTriggerEditor, requestCodeTriggerDevicePositionAdd);
 							return;
 //							booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
 						}
