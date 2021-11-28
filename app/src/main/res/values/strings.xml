@@ -715,10 +715,11 @@
     <string name="notice">Notice</string>
     <string name="devicePosition">Device position (Gyroscope)</string>
     <string name="tolerance">Tolerance</string>
-    <string name="orientationX">Orientation X (Roll):</string>
-    <string name="orientationY">Orientation Y (Pitch):</string>
-    <string name="orientationZ">Orientation Z (Yaw):</string>
+    <string name="orientationAzimuth">Azimuth:</string>
+    <string name="orientationPitch">Pitch:</string>
+    <string name="orientationRoll">Roll:</string>
     <string name="enterValidNumbersIntoAllFields">Enter valid numbers in all fields.</string>
     <string name="devicePositionExplanation">When you move your device the below numbers should update. What you can see there, is the current \"position\" of your device. If it is in the desired position, click the apply button to copy the current values to the desired fields.\nBecause you will probably not be able to reach this exact position ever again, enter a tolerance. The is amount to which the position can deviate in one direction or the other.</string>
     <string name="wouldCurrentlyApply">Would currently apply?</string>
+    <string name="deviceIsInCertainPosition">the device is in a certain position</string>
 </resources>

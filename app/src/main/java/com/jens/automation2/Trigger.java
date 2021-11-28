@@ -833,6 +833,9 @@ public class Trigger
 					setTriggerParameter2("-1" + triggerParameter2Split + directionEquals + triggerParameter2Split + triggerParameter2Split + directionEquals + triggerParameter2Split + triggerParameter2Split);
 				}
 				break;
+			case devicePosition:
+				returnString.append(Miscellaneous.getAnyContext().getString(R.string.deviceIsInCertainPosition));
+				break;
 			default:
 				returnString.append("error");
 				break;

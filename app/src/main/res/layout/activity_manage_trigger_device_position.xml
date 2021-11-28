@@ -25,12 +25,12 @@
                 android:layout_height="wrap_content" >
 
                 <TextView
-                    android:text="@string/orientationX"
+                    android:text="@string/orientationAzimuth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/currentOrientationX"
+                    android:id="@+id/tvCurrentAzimuth"
                     android:layout_marginLeft="@dimen/default_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -42,12 +42,12 @@
                 android:layout_height="wrap_content" >
 
                 <TextView
-                    android:text="@string/orientationY"
+                    android:text="@string/orientationPitch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/currentOrientationY"
+                    android:id="@+id/tvCurrentOrientationPitch"
                     android:layout_marginLeft="@dimen/default_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -59,12 +59,12 @@
                 android:layout_height="wrap_content" >
 
                 <TextView
-                    android:text="@string/orientationZ"
+                    android:text="@string/orientationRoll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/currentOrientationZ"
+                    android:id="@+id/tvCurrentRoll"
                     android:layout_marginLeft="@dimen/default_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -82,10 +82,12 @@
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:shrinkColumns="0"
+            android:stretchColumns="1">
 
             <TableRow
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
                 <TextView
@@ -108,6 +110,9 @@
 
                 <TextView
                     android:text="@string/wouldCurrentlyApply"
+                    android:singleLine="false"
+                    android:maxLines="2"
+                    android:lines="2"
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -115,31 +120,32 @@
             </TableRow>
 
             <TableRow
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
                 <TextView
-                    android:text="x"
+                    android:text="@string/orientationAzimuth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/default_margin" />
 
                 <EditText
-                    android:id="@+id/etDesiredPositionX"
+                    android:id="@+id/etDesiredAzimuth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:minWidth="100dp"/>
+                    android:minWidth="50dp"
+                    android:enabled="false"
+                    android:inputType="number" />
 
                 <EditText
-                    android:id="@+id/etDesiredPositionXTolerance"
+                    android:id="@+id/etDesiredAzimuthTolerance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:minWidth="100dp"/>
+                    android:minWidth="50dp"
+                    android:inputType="number" />
 
                 <TextView
-                    android:id="@+id/tvAppliesX"
+                    android:id="@+id/tvAppliesAzimuth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -150,27 +156,28 @@
                 android:layout_height="wrap_content" >
 
                 <TextView
-                    android:text="y"
+                    android:text="@string/orientationPitch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/default_margin" />
 
                 <EditText
-                    android:id="@+id/etDesiredPositionY"
+                    android:id="@+id/etDesiredPitch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:minWidth="100dp"/>
+                    android:minWidth="50dp"
+                    android:enabled="false"
+                    android:inputType="number" />
 
                 <EditText
-                    android:id="@+id/etDesiredPositionYTolerance"
+                    android:id="@+id/etDesiredPitchTolerance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:minWidth="100dp"/>
+                    android:minWidth="50dp"
+                    android:inputType="number" />
 
                 <TextView
-                    android:id="@+id/tvAppliesY"
+                    android:id="@+id/tvAppliesPitch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -181,27 +188,28 @@
                 android:layout_height="wrap_content" >
 
                 <TextView
-                    android:text="z"
+                    android:text="@string/orientationRoll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/default_margin" />
 
                 <EditText
-                    android:id="@+id/etDesiredPositionZ"
+                    android:id="@+id/etDesiredRoll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:minWidth="100dp"/>
+                    android:minWidth="50dp"
+                    android:enabled="false"
+                    android:inputType="number" />
 
                 <EditText
-                    android:id="@+id/etDesiredPositionZTolerance"
+                    android:id="@+id/etDesiredRollTolerance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:minWidth="100dp"/>
+                    android:minWidth="50dp"
+                    android:inputType="number" />
 
                 <TextView
-                    android:id="@+id/tvAppliesZ"
+                    android:id="@+id/tvAppliesRoll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

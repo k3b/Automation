@@ -263,6 +263,11 @@ public class ActivityManageRule extends Activity
 						wifiEditor.putExtra("wifiName", selectedTrigger.getTriggerParameter2());
 						startActivityForResult(wifiEditor, requestCodeTriggerWifiEdit);
 						break;
+					case devicePosition:
+						Intent devicePositionEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerDevicePosition.class);
+						devicePositionEditor.putExtra(ActivityManageTriggerDevicePosition.vectorFieldName, selectedTrigger.getTriggerParameter2());
+						startActivityForResult(devicePositionEditor, requestCodeTriggerDevicePositionEdit);
+						break;
 					default:
 						break;				
 				}
@@ -1352,6 +1357,28 @@ public class ActivityManageRule extends Activity
 				newAction = ActivityManageActionSendTextMessage.resultingAction;
 				//ruleToEdit.getActionSet().add(ActivityManageActionSendTextMessage.resultingAction);
 				this.refreshActionList();
+			}
+		}
+		else if(requestCode == requestCodeTriggerDevicePositionAdd)
+		{
+			if(resultCode == RESULT_OK)
+			{
+//				newTrigger.setTriggerParameter(data.getBooleanExtra("wifiState", false));
+				newTrigger.setTriggerParameter2(data.getStringExtra(ActivityManageTriggerDevicePosition.vectorFieldName));
+				ruleToEdit.getTriggerSet().add(newTrigger);
+				this.refreshTriggerList();
+			}
+		}
+		else if(requestCode == requestCodeTriggerDevicePositionEdit)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				Trigger editedTrigger = new Trigger();
+				editedTrigger.setTriggerType(Trigger_Enum.devicePosition);
+//				newTrigger.setTriggerParameter(data.getBooleanExtra("wifiState", false));
+				newTrigger.setTriggerParameter2(data.getStringExtra(ActivityManageTriggerDevicePosition.vectorFieldName));
+				ruleToEdit.getTriggerSet().set(editIndex, editedTrigger);
+				this.refreshTriggerList();
 			}
 		}
 	}

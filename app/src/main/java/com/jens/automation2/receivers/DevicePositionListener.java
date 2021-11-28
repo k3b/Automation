@@ -22,22 +22,49 @@ public class DevicePositionListener implements SensorEventListener
     private SensorManager sManager;
     static DevicePositionListener instance = null;
 
+    // Gravity rotational data
+    private float gravity[];
+    // Magnetic rotational data
+    private float magnetic[]; //for magnetic rotational data
+    private float accels[] = new float[3];
+    private float mags[] = new float[3];
+    private float[] values = new float[3];
+
+    // azimuth, pitch and roll
+    private float azimuth;
+    private float pitch;
+    private float roll;
+
     public static DevicePositionListener getInstance()
     {
-        if(instance == null)
+        if (instance == null)
             instance = new DevicePositionListener();
 
         return instance;
     }
 
+    /*
+    Computes the device's orientation based on the rotation matrix.
+When it returns, the array values are as follows:
+values[0]: Azimuth, angle of rotation about the -z axis. This value represents the angle between the device's y axis and the magnetic north pole. When facing north, this angle is 0, when facing south, this angle is π. Likewise, when facing east, this angle is π/2, and when facing west, this angle is -π/2. The range of values is -π to π.
+values[1]: Pitch, angle of rotation about the x axis. This value represents the angle between a plane parallel to the device's screen and a plane parallel to the ground. Assuming that the bottom edge of the device faces the user and that the screen is face-up, tilting the top edge of the device toward the ground creates a positive pitch angle. The range of values is -π to π.
+values[2]: Roll, angle of rotation about the y axis. This value represents the angle between a plane perpendicular to the device's screen and a plane perpendicular to the ground. Assuming that the bottom edge of the device faces the user and that the screen is face-up, tilting the left edge of the device toward the ground creates a positive roll angle. The range of values is -π/2 to π/2.
+Applying these three rotations in the azimuth, pitch, roll order transforms an identity matrix to the rotation matrix passed into this method. Also, note that all three orientation angles are expressed in radians.
+     */
+
     public void startSensor(Context context, ActivityManageTriggerDevicePosition activityManageTriggerDevicePositionInstance)
     {
+
         this.activityManageTriggerDevicePositionInstance = activityManageTriggerDevicePositionInstance;
         sManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
         /*register the sensor listener to listen to the gyroscope sensor, use the
         callbacks defined in this class, and gather the sensor information as quick
         as possible*/
-        sManager.registerListener(this, sManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),SensorManager.SENSOR_DELAY_FASTEST);
+
+        sManager.registerListener(this, sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+        sManager.registerListener(this, sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_NORMAL);
+
+//        SensorManager.getOrientation()
     }
 
     public void stopSensor()
@@ -55,37 +82,58 @@ public class DevicePositionListener implements SensorEventListener
     @Override
     public void onSensorChanged(SensorEvent event)
     {
-        //if sensor is unreliable, return void
-        if (event.accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE)
+        switch (event.sensor.getType())
         {
-            return;
+            case Sensor.TYPE_MAGNETIC_FIELD:
+                mags = event.values.clone();
+                break;
+            case Sensor.TYPE_ACCELEROMETER:
+                accels = event.values.clone();
+                break;
+        }
+
+        if (mags != null && accels != null)
+        {
+            gravity = new float[9];
+            magnetic = new float[9];
+            SensorManager.getRotationMatrix(gravity, magnetic, accels, mags);
+            float[] outGravity = new float[9];
+            SensorManager.remapCoordinateSystem(gravity, SensorManager.AXIS_X, SensorManager.AXIS_Z, outGravity);
+            SensorManager.getOrientation(outGravity, values);
+
+            azimuth = values[0] * 57.2957795f;
+            pitch = values[1] * 57.2957795f;
+            roll = values[2] * 57.2957795f;
+            mags = null;
+            accels = null;
         }
 
         //else it will output the Roll, Pitch and Yawn values
-        activityManageTriggerDevicePositionInstance.updateFields(event.values[2], event.values[1], event.values[0]);
+        activityManageTriggerDevicePositionInstance.updateFields(azimuth, pitch, roll);
 
 //        tvToUpdate.setText("Orientation X (Roll) :"+ Float.toString(event.values[2]) +"\n"+
 //                "Orientation Y (Pitch) :"+ Float.toString(event.values[1]) +"\n"+
 //                "Orientation Z (Yaw) :"+ Float.toString(event.values[0]));
+
+
+        /*
+                Azimuth (degrees of rotation about the -z axis).
+                This is the angle between the device's current compass direction and magnetic north. If the top edge of the
+                device faces magnetic north, the azimuth is 0 degrees; if the top edge faces south, the azimuth is 180 degrees.
+                Similarly, if the top edge faces east, the azimuth is 90 degrees, and if the top edge faces west, the azimuth is 270 degrees.
+
+                Pitch (degrees of rotation about the x axis).
+                This is the angle between a plane parallel to the device's screen and a plane parallel to the ground. If you hold the device
+                parallel to the ground with the bottom edge closest to you and tilt the top edge of the device toward the ground, the pitch
+                angle becomes positive. Tilting in the opposite direction— moving the top edge of the device away from the ground—causes
+                the pitch angle to become negative. The range of values is -180 degrees to 180 degrees.
+
+                Roll (degrees of rotation about the y axis).
+                This is the angle between a plane perpendicular to the device's screen and a plane perpendicular to the ground.
+                If you hold the device parallel to the ground with the bottom edge closest to you and tilt the left edge of the
+                device toward the ground, the roll angle becomes positive. Tilting in the opposite direction—moving the right
+                edge of the device toward the ground— causes the roll angle to become negative. The range of values is -90 degrees
+                to 90 degrees.
+         */
     }
-
-    /*
-            Azimuth (degrees of rotation about the -z axis).
-            This is the angle between the device's current compass direction and magnetic north. If the top edge of the
-            device faces magnetic north, the azimuth is 0 degrees; if the top edge faces south, the azimuth is 180 degrees.
-            Similarly, if the top edge faces east, the azimuth is 90 degrees, and if the top edge faces west, the azimuth is 270 degrees.
-
-            Pitch (degrees of rotation about the x axis).
-            This is the angle between a plane parallel to the device's screen and a plane parallel to the ground. If you hold the device
-            parallel to the ground with the bottom edge closest to you and tilt the top edge of the device toward the ground, the pitch
-            angle becomes positive. Tilting in the opposite direction— moving the top edge of the device away from the ground—causes
-            the pitch angle to become negative. The range of values is -180 degrees to 180 degrees.
-
-            Roll (degrees of rotation about the y axis).
-            This is the angle between a plane perpendicular to the device's screen and a plane perpendicular to the ground.
-            If you hold the device parallel to the ground with the bottom edge closest to you and tilt the left edge of the
-            device toward the ground, the roll angle becomes positive. Tilting in the opposite direction—moving the right
-            edge of the device toward the ground— causes the roll angle to become negative. The range of values is -90 degrees
-            to 90 degrees.
-     */
 }
