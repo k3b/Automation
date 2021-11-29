@@ -196,14 +196,14 @@ public class ActivityManageTriggerDevicePosition extends Activity
     protected void onResume()
     {
         super.onResume();
-        DevicePositionListener.getInstance().startSensor(ActivityManageTriggerDevicePosition.this, this);
+        DevicePositionListener.getInstance().startSensorFromConfigActivity(ActivityManageTriggerDevicePosition.this, this);
     }
 
     @Override
     protected void onPause()
     {
         super.onPause();
-        DevicePositionListener.getInstance().stopSensor();
+        DevicePositionListener.getInstance().stopSensorFromConfigActivity();
     }
 
     public class InputFilterMinMax implements InputFilter

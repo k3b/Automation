@@ -10,6 +10,7 @@ import com.jens.automation2.receivers.AutomationListenerInterface;
 import com.jens.automation2.receivers.BatteryReceiver;
 import com.jens.automation2.receivers.BluetoothReceiver;
 import com.jens.automation2.receivers.ConnectivityReceiver;
+import com.jens.automation2.receivers.DevicePositionListener;
 import com.jens.automation2.receivers.HeadphoneJackListener;
 import com.jens.automation2.receivers.NoiseListener;
 import com.jens.automation2.receivers.PhoneStatusListener;
@@ -216,6 +217,7 @@ public class ReceiverCoordinator
 
             BluetoothReceiver.stopBluetoothReceiver();
             HeadphoneJackListener.getInstance().stopListener(AutomationService.getInstance());
+            DevicePositionListener.getInstance().stopListener(AutomationService.getInstance());
         }
         catch(Exception e)
         {
@@ -347,6 +349,24 @@ public class ReceiverCoordinator
             {
                 Miscellaneous.logEvent("i", "LocationProvider", "Shutting down HeadphoneJackListener because not used in any rule.", 4);
                 HeadphoneJackListener.getInstance().stopListener(AutomationService.getInstance());
+            }
+        }
+
+        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.devicePosition))
+        {
+            if(!DevicePositionListener.getInstance().isListenerRunning())
+            {
+                Miscellaneous.logEvent("i", "DevicePositionListener", "Starting DevicePositionListener because used in a new/changed rule.", 4);
+                if(HeadphoneJackListener.getInstance().haveAllPermission())
+                    DevicePositionListener.getInstance().startListener(AutomationService.getInstance());
+            }
+        }
+        else
+        {
+            if(DevicePositionListener.getInstance().isListenerRunning())
+            {
+                Miscellaneous.logEvent("i", "DevicePositionListener", "Shutting down DevicePositionListener because not used in any rule.", 4);
+                DevicePositionListener.getInstance().stopListener(AutomationService.getInstance());
             }
         }
 
