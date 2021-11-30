@@ -14,6 +14,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.location.DetectedActivity;
 import com.jens.automation2.location.LocationProvider;
 import com.jens.automation2.location.WifiBroadcastReceiver;
 import com.jens.automation2.receivers.BatteryReceiver;
@@ -346,6 +347,8 @@ public class Rule implements Comparable<Rule>
 				case setWifi:
 					return true;
 				case setWifiTethering:
+					return true;
+				case setBluetoothTethering:
 					return true;
 				default:
 					break;					
