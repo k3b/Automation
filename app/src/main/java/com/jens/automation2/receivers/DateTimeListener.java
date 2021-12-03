@@ -215,7 +215,7 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 
 							if(tf.getRepetition() > 0)
 							{
-								if(oneTrigger.applies(calNow))
+								if(oneTrigger.applies(calNow, Miscellaneous.getAnyContext()))
 								{
 									Calendar calSchedule = getNextRepeatedExecutionAfter(oneTrigger, calNow);
 
