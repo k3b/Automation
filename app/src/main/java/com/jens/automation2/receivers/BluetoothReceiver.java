@@ -127,7 +127,7 @@ public class BluetoothReceiver extends BroadcastReceiver implements AutomationLi
 		ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByBluetoothConnection();
 		for(int i=0; i<ruleCandidates.size(); i++)
 		{
-			if(ruleCandidates.get(i).applies(AutomationService.getInstance()))
+			if(ruleCandidates.get(i).applies(AutomationService.getInstance()) && ruleCandidates.get(i).hasNotAppliedSinceLastExecution())
 				ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
 		}
 	}

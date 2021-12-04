@@ -1,43 +1,21 @@
 package com.jens.automation2;
 
+import static com.jens.automation2.Trigger.triggerParameter2Split;
+
 import android.annotation.SuppressLint;
-import android.app.Notification;
-import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Bundle;
 import android.os.Looper;
-import android.os.Parcelable;
-import android.service.notification.StatusBarNotification;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.location.DetectedActivity;
-import com.jens.automation2.location.LocationProvider;
-import com.jens.automation2.location.WifiBroadcastReceiver;
 import com.jens.automation2.receivers.ActivityDetectionReceiver;
-import com.jens.automation2.receivers.BatteryReceiver;
-import com.jens.automation2.receivers.BluetoothReceiver;
-import com.jens.automation2.receivers.ConnectivityReceiver;
-import com.jens.automation2.receivers.HeadphoneJackListener;
-import com.jens.automation2.receivers.NfcReceiver;
-import com.jens.automation2.receivers.NoiseListener;
-import com.jens.automation2.receivers.NotificationListener;
-import com.jens.automation2.receivers.PhoneStatusListener;
-import com.jens.automation2.receivers.ProcessListener;
 
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
-import static com.jens.automation2.Trigger.triggerParameter2Split;
-
-import androidx.core.app.NotificationCompat;
-
-import org.apache.commons.lang3.StringUtils;
 
 
 public class Rule implements Comparable<Rule>
@@ -356,6 +334,17 @@ public class Rule implements Comparable<Rule>
 		
 		return false;
 	}
+
+	public boolean hasNotAppliedSinceLastExecution()
+	{
+		for(Trigger oneTrigger : this.getTriggerSet())
+		{
+			if (oneTrigger.hasStateNotAppliedSinceLastRuleExecution())
+				return true;
+		}
+
+		return false;
+	}
 	
 	public boolean applies(Context context)
 	{
@@ -461,32 +450,6 @@ public class Rule implements Comparable<Rule>
 			}
 		}
 
-		public boolean haveTriggersReallyChanged(Object triggeringObject)
-		{
-			boolean returnValue = false;
-
-			try
-			{
-				for(int i=0; i < triggerSet.size(); i++)
-				{
-					Trigger t = (Trigger) triggerSet.get(i);
-
-					if(t.hasStateRecentlyNotApplied(triggeringObject))
-					{
-						Miscellaneous.logEvent("i", "Rule", "Rule \"" + getName() + "\" has trigger that flipped: " + t.toString(), 4);
-						returnValue = true;				// only 1 trigger needs to have flipped recently
-					}
-				}
-
-				return returnValue;
-			}
-			catch(Exception e)
-			{
-				Miscellaneous.logEvent("e", "Rule", "Error while checking if rule \"" + getName() + "\" haveTriggersReallyChanged(): " + Log.getStackTraceString(e), 1);
-				return false;
-			}
-		}
-
 		/**
 		 * Will activate the rule. Should be called by a separate execution thread
 		 * @param automationService
@@ -497,9 +460,9 @@ public class Rule implements Comparable<Rule>
 
 			boolean notLastActive = getLastActivatedRule() == null || !getLastActivatedRule().equals(Rule.this);
 			boolean doToggle = ruleToggle && isActuallyToggable;
-			boolean triggersApplyAnew = haveTriggersReallyChanged(new Date());
 
-			if(notLastActive || force || doToggle || triggersApplyAnew)
+			//if(notLastActive || force || doToggle)
+			if(force || doToggle)
 			{
 				String message;
 				if(!doToggle)

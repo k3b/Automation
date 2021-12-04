@@ -147,7 +147,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver
 		ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByWifiConnection();
 		for(Rule oneRule : ruleCandidates)
 		{
-			if(oneRule.applies(automationServiceInstance))
+			if(oneRule.applies(automationServiceInstance) && oneRule.hasNotAppliedSinceLastExecution())
 				oneRule.activate(automationServiceInstance, false);
 		}
 	}

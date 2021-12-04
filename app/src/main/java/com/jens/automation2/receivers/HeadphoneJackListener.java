@@ -77,7 +77,7 @@ public class HeadphoneJackListener extends BroadcastReceiver implements Automati
 			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByHeadphoneJack(isHeadsetConnected());
 			for(int i=0; i<ruleCandidates.size(); i++)
 			{
-				if(ruleCandidates.get(i).applies(context))
+				if(ruleCandidates.get(i).applies(context) && ruleCandidates.get(i).hasNotAppliedSinceLastExecution())
 					ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
 			}
 		}

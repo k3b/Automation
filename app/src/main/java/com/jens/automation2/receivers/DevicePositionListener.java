@@ -72,6 +72,8 @@ public class DevicePositionListener implements SensorEventListener, AutomationLi
 
     public void stopSensorFromConfigActivity()
     {
+        activityManageTriggerDevicePositionInstance = null;
+
         if(isRunning)
         {
             if(!Rule.isAnyRuleUsing(Trigger.Trigger_Enum.devicePosition))
@@ -127,7 +129,7 @@ public class DevicePositionListener implements SensorEventListener, AutomationLi
             ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.devicePosition);
             for (int i = 0; i < ruleCandidates.size(); i++)
             {
-                if (ruleCandidates.get(i).applies(Miscellaneous.getAnyContext()))
+                if (ruleCandidates.get(i).applies(Miscellaneous.getAnyContext()) && ruleCandidates.get(i).hasNotAppliedSinceLastExecution())
                     ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
             }
         }

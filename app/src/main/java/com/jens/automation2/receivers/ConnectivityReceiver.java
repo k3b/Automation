@@ -141,7 +141,7 @@ public class ConnectivityReceiver extends BroadcastReceiver implements Automatio
 				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByAirplaneMode(isAirplaneMode);
 				for(int i=0; i<ruleCandidates.size(); i++)
 				{
-					if(ruleCandidates.get(i).applies(automationServiceRef))
+					if(ruleCandidates.get(i).applies(automationServiceRef) && ruleCandidates.get(i).hasNotAppliedSinceLastExecution())
 						ruleCandidates.get(i).activate(automationServiceRef, false);
 				}
 			}
@@ -174,7 +174,7 @@ public class ConnectivityReceiver extends BroadcastReceiver implements Automatio
 								ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByRoaming(isRoaming);
 								for(int i=0; i<ruleCandidates.size(); i++)
 								{
-									if(ruleCandidates.get(i).applies(automationServiceRef))
+									if(ruleCandidates.get(i).applies(automationServiceRef) && ruleCandidates.get(i).hasNotAppliedSinceLastExecution())
 										ruleCandidates.get(i).activate(automationServiceRef, false);
 								}
 							}

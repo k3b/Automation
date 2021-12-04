@@ -31,103 +31,99 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-
 public class Trigger
 {
 	Rule parentRule = null;
-	boolean hasFlipped = false;
-
-	public boolean getHasFlipped()
-	{
-		return hasFlipped;
-	}
-
-	public void setHasFlipped(boolean hasFlipped)
-	{
-		this.hasFlipped = hasFlipped;
-	}
+	Calendar lastTimeNotApplied = null;
 
 	public boolean applies(Object triggeringObject, Context context)
     {
+    	boolean result = true;
+
 		try
 		{
 			switch(this.getTriggerType())
 			{
 				case timeFrame:
 					if(!checkDateTime(triggeringObject, false))
-						return false;
+						result = false;
 					break;
 				case pointOfInterest:
 					if(!checkLocation())
-						return false;
+						result = false;
 					break;
 				case charging:
 					if(!checkCharging())
-						return false;
+						result = false;
 					break;
 				case usb_host_connection:
 					if(!checkUsbHostConnection())
-						return false;
+						result = false;
 					break;
 				case batteryLevel:
 					if(!checkBatteryLevel())
-						return false;
+						result = false;
 					break;
 				case speed:
 					if(!checkSpeed())
-						return false;
+						result = false;
 					break;
 				case noiseLevel:
 					if(!checkNoiseLevel())
-						return false;
+						result = false;
 					break;
 				case wifiConnection:
 					if(!checkWifiConnection())
-						return false;
+						result = false;
 					break;
 				case process_started_stopped:
 					if(!checkProcess())
-						return false;
+						result = false;
 					break;
 				case airplaneMode:
 					if(!checkAirplaneMode())
-						return false;
+						result = false;
 					break;
 				case roaming:
 					if(!checkRoaming())
-						return false;
+						result = false;
 					break;
 				case phoneCall:
 					if(!checkPhoneCall())
-						return false;
+						result = false;
 					break;
 				case nfcTag:
 					if(!checkNfc())
-						return false;
+						result = false;
 					break;
 				case bluetoothConnection:
 					if(!checkBluetooth())
-						return false;
+						result = false;
 					break;
 				case headsetPlugged:
 					if(!checkHeadsetPlugged())
-						return false;
+						result = false;
 					break;
 				case notification:
 					if(!checkNotification())
-						return false;
+						result = false;
 					break;
+				case devicePosition:
+					and others
 				default:
 					break;
 			}
-
-			return true;
 		}
 		catch(Exception e)
 		{
 			Miscellaneous.logEvent("e", "Trigger", "Error while checking if rule " + getParentRule().getName() + " applies. Error occured in trigger " + this.getParentRule().toString() + "." + Miscellaneous.lineSeparator + Log.getStackTraceString(e), 1);
-			return false;
+			result = false;
 		}
+
+		if(!result)
+			lastTimeNotApplied = Calendar.getInstance();
+
+		return result;
     }
 
     boolean checkNotification()
@@ -623,31 +619,19 @@ public class Trigger
 		return true;
 	}
 
-	public boolean hasStateRecentlyNotApplied(Object triggeringObject)
+	public boolean hasStateNotAppliedSinceLastRuleExecution()
 	{
-		// nur mit einem Trigger?
-
-		// door -> was state different in previous step
-
-		try
-		{
-			switch(getTriggerType())
-			{
-				case timeFrame:
-					if(!checkDateTime(triggeringObject, true))
-						return false;
-					break;
-				default:
-					break;
-			}
-
+		if(getParentRule().getLastExecution() == null)
 			return true;
-		}
-		catch(Exception e)
+		else if(lastTimeNotApplied != null)
 		{
-			Miscellaneous.logEvent("e", "Trigger", "Error while checking if rule " + getParentRule().getName() + " applies. Error occured in trigger " + this.getParentRule().toString() + "." + Miscellaneous.lineSeparator + Log.getStackTraceString(e), 1);
-			return false;
+			if(lastTimeNotApplied.getTimeInMillis() > getParentRule().getLastExecution().getTimeInMillis())
+			{
+				return true;
+			}
 		}
+
+		return false;
 	}
 
 	boolean checkCharging()

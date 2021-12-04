@@ -96,7 +96,7 @@ public class NotificationListener extends NotificationListenerService
                 ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.notification);
                 for (int i = 0; i < ruleCandidates.size(); i++)
                 {
-                    if (ruleCandidates.get(i).applies(NotificationListener.this))
+                    if (ruleCandidates.get(i).applies(NotificationListener.this) && ruleCandidates.get(i).hasNotAppliedSinceLastExecution())
                         ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
                 }
 //            }

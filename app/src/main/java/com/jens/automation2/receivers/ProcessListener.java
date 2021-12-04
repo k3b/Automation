@@ -62,7 +62,7 @@ public class ProcessListener implements AutomationListenerInterface
 					ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByProcess();
 					for(int i=0; i<ruleCandidates.size(); i++)
 					{
-						if(ruleCandidates.get(i).applies(automationService))
+						if(ruleCandidates.get(i).applies(automationService) && ruleCandidates.get(i).hasNotAppliedSinceLastExecution())
 							ruleCandidates.get(i).activate(automationService, false);
 					}
 				}
