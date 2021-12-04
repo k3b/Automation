@@ -1,7 +1,10 @@
 package com.jens.automation2;
 
+import static android.content.Context.DEVICE_POLICY_SERVICE;
+
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.service.notification.StatusBarNotification;
@@ -15,6 +18,7 @@ import com.jens.automation2.location.WifiBroadcastReceiver;
 import com.jens.automation2.receivers.BatteryReceiver;
 import com.jens.automation2.receivers.BluetoothReceiver;
 import com.jens.automation2.receivers.ConnectivityReceiver;
+import com.jens.automation2.receivers.DevicePositionListener;
 import com.jens.automation2.receivers.HeadphoneJackListener;
 import com.jens.automation2.receivers.NfcReceiver;
 import com.jens.automation2.receivers.NoiseListener;
@@ -109,7 +113,13 @@ public class Trigger
 						result = false;
 					break;
 				case devicePosition:
-					and others
+					if(!checkDevicePosition())
+						result = false;
+					break;
+				case activityDetection:
+					if(!getParentRule().checkActivityDetection(this))
+						result = false;
+					break;
 				default:
 					break;
 			}
@@ -261,6 +271,55 @@ public class Trigger
 						return false;
 				}
 			}
+		}
+
+		return true;
+	}
+
+	boolean checkDevicePosition()
+	{
+		String devicePositionPieces[] = getTriggerParameter2().split(Trigger.triggerParameter2Split);
+		float desiredAzimuth = Float.parseFloat(devicePositionPieces[0]);
+		float desiredAzimuthTolerance = Float.parseFloat(devicePositionPieces[1]);
+		float desiredPitch = Float.parseFloat(devicePositionPieces[2]);
+		float desiredPitchTolerance = Float.parseFloat(devicePositionPieces[3]);
+		float desiredRoll = Float.parseFloat(devicePositionPieces[4]);
+		float desiredRollTolerance = Float.parseFloat(devicePositionPieces[5]);
+		float currentAzimuth = DevicePositionListener.getInstance().getAzimuth();
+		float currentPitch = DevicePositionListener.getInstance().getPitch();
+		float currentRoll = DevicePositionListener.getInstance().getRoll();
+
+		if(
+				!(
+					currentAzimuth <= desiredAzimuth + desiredAzimuthTolerance
+							&&
+					currentAzimuth >= desiredAzimuth - desiredAzimuthTolerance
+				)
+		)
+		{
+			return false;
+		}
+
+		if(
+				!(
+					currentPitch <= desiredPitch + desiredPitchTolerance
+							&&
+					currentPitch >= desiredPitch - desiredPitchTolerance
+				)
+		)
+		{
+			return false;
+		}
+
+		if(
+				!(
+					currentRoll <= desiredRoll + desiredRollTolerance
+							&&
+					currentRoll >= desiredRoll - desiredRollTolerance
+				)
+		)
+		{
+			return false;
 		}
 
 		return true;

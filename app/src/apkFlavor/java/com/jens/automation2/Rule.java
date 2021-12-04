@@ -358,40 +358,8 @@ public class Rule implements Comparable<Rule>
 		{
 			for(Trigger oneTrigger : this.getTriggerSet())
 			{
-				if(oneTrigger.getTriggerType().equals(Trigger.Trigger_Enum.activityDetection))
-				{
-					if (ActivityDetectionReceiver.getActivityDetectionLastResult() != null)
-					{
-						boolean found = false;
-						for (DetectedActivity oneDetectedActivity : ActivityDetectionReceiver.getActivityDetectionLastResult().getProbableActivities())
-						{
-							if (oneDetectedActivity.getType() == oneTrigger.getActivityDetectionType())
-								found = true;
-						}
-
-						if (!found)
-						{
-							Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), String.format(context.getResources().getString(R.string.ruleDoesntApplyActivityNotPresent), ActivityDetectionReceiver.getDescription(oneTrigger.getActivityDetectionType())), 3);
-							return false;
-						}
-						else
-						{
-							for (DetectedActivity oneDetectedActivity : ActivityDetectionReceiver.getActivityDetectionLastResult().getProbableActivities())
-							{
-								if (oneDetectedActivity.getType() == oneTrigger.getActivityDetectionType() && oneDetectedActivity.getConfidence() < Settings.activityDetectionRequiredProbability)
-								{
-									Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), String.format(context.getResources().getString(R.string.ruleDoesntApplyActivityGivenButTooLowProbability), ActivityDetectionReceiver.getDescription(oneDetectedActivity.getType()), String.valueOf(oneDetectedActivity.getConfidence()), String.valueOf(Settings.activityDetectionRequiredProbability)), 3);
-									return false;
-								}
-							}
-						}
-					}
-				}
-				else
-				{
-					if (!oneTrigger.applies(null, context))
-						return false;
-				}
+				if (!oneTrigger.applies(null, context))
+					return false;
 			}
 			
 			return true;
@@ -399,6 +367,44 @@ public class Rule implements Comparable<Rule>
 		
 		Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), String.format(context.getResources().getString(R.string.ruleIsDeactivatedCantApply), this.getName()), 3);
 		return false;
+	}
+
+	/**
+	 * This is actually a function of the class Trigger, but Rule is already distinguished by flavors, Trigger is not.
+	 * Hence it is here.
+	 * @param oneTrigger
+	 * @return
+	 */
+	boolean checkActivityDetection(Trigger oneTrigger)
+	{
+		if (ActivityDetectionReceiver.getActivityDetectionLastResult() != null)
+		{
+			boolean found = false;
+			for (DetectedActivity oneDetectedActivity : ActivityDetectionReceiver.getActivityDetectionLastResult().getProbableActivities())
+			{
+				if (oneDetectedActivity.getType() == oneTrigger.getActivityDetectionType())
+					found = true;
+			}
+
+			if (!found)
+			{
+				Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getName()), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyActivityNotPresent), ActivityDetectionReceiver.getDescription(oneTrigger.getActivityDetectionType())), 3);
+				return false;
+			}
+			else
+			{
+				for (DetectedActivity oneDetectedActivity : ActivityDetectionReceiver.getActivityDetectionLastResult().getProbableActivities())
+				{
+					if (oneDetectedActivity.getType() == oneTrigger.getActivityDetectionType() && oneDetectedActivity.getConfidence() < Settings.activityDetectionRequiredProbability)
+					{
+						Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getName()), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyActivityGivenButTooLowProbability), ActivityDetectionReceiver.getDescription(oneDetectedActivity.getType()), String.valueOf(oneDetectedActivity.getConfidence()), String.valueOf(Settings.activityDetectionRequiredProbability)), 3);
+						return false;
+					}
+				}
+			}
+		}
+
+		return true;
 	}
 
 	private class ActivateRuleTask extends AsyncTask<Object, String, Void>
@@ -418,7 +424,8 @@ public class Rule implements Comparable<Rule>
 			
 	        if (Looper.myLooper() == null)
 	        	Looper.prepare();
-	        
+
+			setLastExecution(Calendar.getInstance());
 			wasActivated = activateInternally((AutomationService)params[0], (Boolean)params[1]);
 
 			return null;
@@ -443,7 +450,7 @@ public class Rule implements Comparable<Rule>
 			 */
 			if(wasActivated)
 			{
-				setLastExecution(Calendar.getInstance());
+//				setLastExecution(Calendar.getInstance());
 				AutomationService.updateNotification();
 				ActivityMainScreen.updateMainScreen();
 				super.onPostExecute(result);
@@ -462,8 +469,8 @@ public class Rule implements Comparable<Rule>
 			boolean doToggle = ruleToggle && isActuallyToggable;
 
 			//if(notLastActive || force || doToggle)
-			if(force || doToggle)
-			{
+//			if(force || doToggle)
+//			{
 				String message;
 				if(!doToggle)
 					message = String.format(automationService.getResources().getString(R.string.ruleActivate), Rule.this.getName());
@@ -492,6 +499,7 @@ public class Rule implements Comparable<Rule>
 				{
 					Rule.ruleRunHistory.add(0, Rule.this);		// add at beginning for better visualization
 					Rule.lastActivatedRuleActivationTime = new Date();
+
 					while(ruleRunHistory.size() > Settings.rulesThatHaveBeenRanHistorySize)
 						ruleRunHistory.remove(ruleRunHistory.size()-1);
 					String history = "";
@@ -507,12 +515,12 @@ public class Rule implements Comparable<Rule>
 				}
 
 				Miscellaneous.logEvent("i", "Rule", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleActivationComplete), Rule.this.getName()), 2);
-			}
-			else
-			{
-				Miscellaneous.logEvent("i", "Rule", "Request to activate rule " + Rule.this.getName() + ", but it is the last one that was activated. Won't do it again.", 3);
-				return false;
-			}
+//			}
+//			else
+//			{
+//				Miscellaneous.logEvent("i", "Rule", "Request to activate rule " + Rule.this.getName() + ", but it is the last one that was activated. Won't do it again.", 3);
+//				return false;
+//			}
 
 			return true;
 		}

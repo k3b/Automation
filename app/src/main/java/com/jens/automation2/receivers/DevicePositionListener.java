@@ -49,6 +49,21 @@ public class DevicePositionListener implements SensorEventListener, AutomationLi
         return instance;
     }
 
+    public float getAzimuth()
+    {
+        return azimuth;
+    }
+
+    public float getPitch()
+    {
+        return pitch;
+    }
+
+    public float getRoll()
+    {
+        return roll;
+    }
+
     public void startSensorFromConfigActivity(Context context, ActivityManageTriggerDevicePosition activityManageTriggerDevicePositionInstance)
     {
         this.activityManageTriggerDevicePositionInstance = activityManageTriggerDevicePositionInstance;
@@ -129,7 +144,15 @@ public class DevicePositionListener implements SensorEventListener, AutomationLi
             ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.devicePosition);
             for (int i = 0; i < ruleCandidates.size(); i++)
             {
-                if (ruleCandidates.get(i).applies(Miscellaneous.getAnyContext()) && ruleCandidates.get(i).hasNotAppliedSinceLastExecution())
+                boolean applies = ruleCandidates.get(i).applies(Miscellaneous.getAnyContext());
+                boolean flipped = ruleCandidates.get(i).hasNotAppliedSinceLastExecution();
+
+//                if (
+//                        ruleCandidates.get(i).applies(Miscellaneous.getAnyContext())
+//                            &&
+//                        ruleCandidates.get(i).hasNotAppliedSinceLastExecution()
+//                )
+                if(applies && flipped)
                     ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
             }
         }
