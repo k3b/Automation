@@ -28,8 +28,6 @@ public class ActivityManageTriggerDevicePosition extends Activity
 
     boolean editMode = false;
 
-    boolean messageDisplayed = false;
-
     float desiredAzimuth, desiredPitch, desiredRoll, desiredAzimuthTolerance, desiredPitchTolerance, desiredRollTolerance;
 
     public void updateFields(float azimuth, float pitch, float roll)
@@ -38,7 +36,7 @@ public class ActivityManageTriggerDevicePosition extends Activity
         currentPitch.setText(Float.toString(pitch));
         currentRoll.setText(Float.toString(roll));
 
-        if(checkInputs())
+        if(checkInputs(false))
         {
             desiredAzimuth = Float.parseFloat(etDesiredAzimuth.getText().toString());
             desiredAzimuthTolerance = Float.parseFloat(etDesiredAzimuthTolerance.getText().toString());
@@ -107,9 +105,9 @@ public class ActivityManageTriggerDevicePosition extends Activity
 //        etDesiredAzimuth.setFilters(new InputFilter[]{new InputFilterMinMax(-180, 180)});
 //        etDesiredPitch.setFilters(new InputFilter[]{new InputFilterMinMax(-180, 180)});
 //        etDesiredRoll.setFilters(new InputFilter[]{new InputFilterMinMax(-180, 180)});
-        etDesiredAzimuthTolerance.setFilters(new InputFilter[]{new InputFilterMinMax(0, 359)});
-        etDesiredPitchTolerance.setFilters(new InputFilter[]{new InputFilterMinMax(0, 359)});
-        etDesiredRollTolerance.setFilters(new InputFilter[]{new InputFilterMinMax(0, 359)});
+        etDesiredAzimuthTolerance.setFilters(new InputFilter[]{new InputFilterMinMax(0, 180)});
+        etDesiredPitchTolerance.setFilters(new InputFilter[]{new InputFilterMinMax(0, 180)});
+        etDesiredRollTolerance.setFilters(new InputFilter[]{new InputFilterMinMax(0, 180)});
 
         if(getIntent().hasExtra(vectorFieldName))
         {
@@ -144,7 +142,7 @@ public class ActivityManageTriggerDevicePosition extends Activity
             @Override
             public void onClick(View v)
             {
-                if(!checkInputs())
+                if(!checkInputs(true))
                 {
                     Toast.makeText(ActivityManageTriggerDevicePosition.this, getResources().getString(R.string.enterValidNumbersIntoAllFields), Toast.LENGTH_LONG).show();
                 }
@@ -167,7 +165,7 @@ public class ActivityManageTriggerDevicePosition extends Activity
         });
     }
 
-    boolean checkInputs()
+    boolean checkInputs(boolean showMessages)
     {
         if(
                 !StringUtils.isEmpty(etDesiredAzimuth.getText().toString()) && Miscellaneous.isNumeric(etDesiredAzimuth.getText().toString())
@@ -192,7 +190,7 @@ public class ActivityManageTriggerDevicePosition extends Activity
                 return false;
             }
 
-            if(!messageDisplayed)
+            if(showMessages)
             {
                 float dat = Float.parseFloat(etDesiredAzimuthTolerance.getText().toString());
                 float dpt = Float.parseFloat(etDesiredPitchTolerance.getText().toString());
@@ -204,7 +202,6 @@ public class ActivityManageTriggerDevicePosition extends Activity
              */
                 if (Math.abs(dat) >= 180 && Math.abs(dpt) >= 180 && Math.abs(drt) >= 180)
                 {
-                    messageDisplayed = true;
                     Miscellaneous.messageBox(getResources().getString(R.string.warning), getResources().getString(R.string.toleranceOf180OnlyAllowedIn2Fields), ActivityManageTriggerDevicePosition.this).show();
                     return false;
                 }

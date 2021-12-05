@@ -714,7 +714,7 @@
     <string name="btTetheringNotice">This feature is confirmed to work up until Android 8.0. From some higher version upwards it ceases to work, but due to a lack of physical devices I cannot tell which one that is. On Android 11 it definitely ain\'t working anymore. If you have a version in between please let me know if it\'s working or not.</string>
     <string name="notice">Notice</string>
     <string name="devicePosition">Device position (Gyroscope)</string>
-    <string name="tolerance">Tolerance</string>
+    <string name="tolerance">Tolerance\n(0-180)</string>
     <string name="orientationAzimuth">Azimuth:</string>
     <string name="orientationPitch">Pitch:</string>
     <string name="orientationRoll">Roll:</string>
@@ -723,4 +723,6 @@
     <string name="wouldCurrentlyApply">Would currently apply?</string>
     <string name="deviceIsInCertainPosition">the device is in a certain position</string>
     <string name="toleranceOf180OnlyAllowedIn2Fields">A tolerance of 180 is allowed for 2 tolerance fields only, not all 3. Otherwise the trigger would ALWAYS apply.</string>
+    <string name="unknown">unknown</string>
+    <string name="position">Position</string>
 </resources>
