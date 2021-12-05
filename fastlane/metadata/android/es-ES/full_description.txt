@@ -19,6 +19,7 @@ Disparadores:
 * Headset conectado
 * Llamado de teléfono activo
 * Notificaciónes de otras apps
+* Posición del dispositivo (giroscopio)
 
 Supported actions:
 * Pasar de wifi
@@ -43,7 +44,9 @@ Supported actions:
 Es muy dificil mantener esta applicación functionando en todos los hardwares y versiónes de Android. Puedo probrar mucho en el emulator, pero no puedo enviar todos los errores.
 Si una función no funcióna - digame. En muchos años resolvaba la mayoria de los errores que los halladores me informaron bien. Pero dependo en su ayuda.
 
-Si tiene un problema y considera contactarme update a la ultima version al primero y probar si su problam persiste.
+Si tiene un problema y considera contactarme
+- update a la ultima version al primero y probar si su problam persiste.
+- al primero compruebe esta lista de problemas conocidos: https://server47.de/automation/index.php#knownProblems
 
 Donaciónes seguramente son una buena, pero no la unica posibilidad de apoyarme :-)
 * Si quiere apoyarme puedes escribir un buena revisión en Google Play (https://play.google.com/store/apps/details?id=com.jens.automation2).
