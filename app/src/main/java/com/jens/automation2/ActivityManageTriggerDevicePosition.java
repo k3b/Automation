@@ -28,6 +28,8 @@ public class ActivityManageTriggerDevicePosition extends Activity
 
     boolean editMode = false;
 
+    boolean messageDisplayed = false;
+
     float desiredAzimuth, desiredPitch, desiredRoll, desiredAzimuthTolerance, desiredPitchTolerance, desiredRollTolerance;
 
     public void updateFields(float azimuth, float pitch, float roll)
@@ -185,8 +187,28 @@ public class ActivityManageTriggerDevicePosition extends Activity
             float dp = Float.parseFloat(etDesiredPitch.getText().toString());
             float dr = Float.parseFloat(etDesiredRoll.getText().toString());
 
-            if(Math.abs(da) <= 180 || Math.abs(dp) <= 180 || Math.abs(dr) <= 180)
-                return true;
+            if(Math.abs(da) > 180 || Math.abs(dp) > 180 || Math.abs(dr) > 180)
+            {
+                return false;
+            }
+
+            if(!messageDisplayed)
+            {
+                float dat = Float.parseFloat(etDesiredAzimuthTolerance.getText().toString());
+                float dpt = Float.parseFloat(etDesiredPitchTolerance.getText().toString());
+                float drt = Float.parseFloat(etDesiredRollTolerance.getText().toString());
+
+            /*
+                The user may enter a tolerance of 180° for two directions, but not all three.
+                Otherwise this trigger would always apply.
+             */
+                if (Math.abs(dat) >= 180 && Math.abs(dpt) >= 180 && Math.abs(drt) >= 180)
+                {
+                    messageDisplayed = true;
+                    Miscellaneous.messageBox(getResources().getString(R.string.warning), getResources().getString(R.string.toleranceOf180OnlyAllowedIn2Fields), ActivityManageTriggerDevicePosition.this).show();
+                    return false;
+                }
+            }
         }
 
         return false;

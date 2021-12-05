@@ -201,7 +201,7 @@ public class LocationProvider
 									ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesBySpeed();
 									for (Rule oneRule : ruleCandidates)
 									{
-										if (oneRule.applies(this.getParentService()) && oneRule.hasNotAppliedSinceLastExecution())
+										if ((oneRule.applies(this.getParentService()) && oneRule.hasNotAppliedSinceLastExecution()) || oneRule.isActuallyToggable())
 											oneRule.activate(getParentService(), false);
 									}
 								}

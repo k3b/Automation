@@ -3,22 +3,11 @@ package com.jens.automation2;
 import static com.jens.automation2.Trigger.triggerParameter2Split;
 
 import android.annotation.SuppressLint;
-import android.app.Notification;
-import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Bundle;
 import android.os.Looper;
-import android.os.Parcelable;
-import android.service.notification.StatusBarNotification;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.google.android.gms.location.DetectedActivity;
-
-
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -375,7 +364,21 @@ public class Rule implements Comparable<Rule>
 		Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), String.format(context.getResources().getString(R.string.ruleIsDeactivatedCantApply), this.getName()), 3);
 		return false;
 	}
-	
+
+	/**
+	 * This is actually a function of the class Trigger, but Rule is already distinguished by flavors, Trigger is not.
+	 * Hence it is here.
+	 * @param oneTrigger
+	 * @return
+	 */
+	boolean checkActivityDetection(Trigger oneTrigger)
+	{
+		/*
+			Feature not present in FOSS edition.
+		 */
+		return false;
+	}
+
 	private class ActivateRuleTask extends AsyncTask<Object, String, Void>
 	{
 		boolean wasActivated = false;
@@ -393,7 +396,8 @@ public class Rule implements Comparable<Rule>
 			
 	        if (Looper.myLooper() == null)
 	        	Looper.prepare();
-	        
+
+			setLastExecution(Calendar.getInstance());
 			wasActivated = activateInternally((AutomationService)params[0], (Boolean)params[1]);
 
 			return null;
@@ -418,7 +422,7 @@ public class Rule implements Comparable<Rule>
 			 */
 			if(wasActivated)
 			{
-				setLastExecution(Calendar.getInstance());
+//				setLastExecution(Calendar.getInstance());
 				AutomationService.updateNotification();
 				ActivityMainScreen.updateMainScreen();
 				super.onPostExecute(result);
@@ -437,8 +441,8 @@ public class Rule implements Comparable<Rule>
 			boolean doToggle = ruleToggle && isActuallyToggable;
 
 			//if(notLastActive || force || doToggle)
-			if(force || doToggle)
-			{
+//			if(force || doToggle)
+//			{
 				String message;
 				if(!doToggle)
 					message = String.format(automationService.getResources().getString(R.string.ruleActivate), Rule.this.getName());
@@ -482,12 +486,12 @@ public class Rule implements Comparable<Rule>
 				}
 
 				Miscellaneous.logEvent("i", "Rule", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleActivationComplete), Rule.this.getName()), 2);
-			}
-			else
-			{
-				Miscellaneous.logEvent("i", "Rule", "Request to activate rule " + Rule.this.getName() + ", but it is the last one that was activated. Won't do it again.", 3);
-				return false;
-			}
+//			}
+//			else
+//			{
+//				Miscellaneous.logEvent("i", "Rule", "Request to activate rule " + Rule.this.getName() + ", but it is the last one that was activated. Won't do it again.", 3);
+//				return false;
+//			}
 
 			return true;
 		}

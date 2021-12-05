@@ -719,7 +719,8 @@
     <string name="orientationPitch">Pitch:</string>
     <string name="orientationRoll">Roll:</string>
     <string name="enterValidNumbersIntoAllFields">Enter valid numbers in all fields.</string>
-    <string name="devicePositionExplanation">When you move your device the below numbers should update. What you can see there, is the current \"position\" of your device. If it is in the desired position, click the apply button to copy the current values to the desired fields.\nBecause you will probably not be able to reach this exact position ever again, enter a tolerance. The is amount to which the position can deviate in one direction or the other.</string>
+    <string name="devicePositionExplanation">When you move your device the below numbers will update. What you can see there, is the current \"position\" of your device measured in degrees. If it is in the desired position, click the apply button to copy the current values to the desired fields.\nBecause reaching this exact position ever again is highly unlikely you must also enter a tolerance. The is amount of degrees to which the position can deviate in either direction. If you only care about one specific axis, specify a tolerance of 180° for the two other ones.</string>
     <string name="wouldCurrentlyApply">Would currently apply?</string>
     <string name="deviceIsInCertainPosition">the device is in a certain position</string>
+    <string name="toleranceOf180OnlyAllowedIn2Fields">A tolerance of 180 is allowed for 2 tolerance fields only, not all 3. Otherwise the trigger would ALWAYS apply.</string>
 </resources>

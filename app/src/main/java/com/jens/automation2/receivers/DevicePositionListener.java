@@ -41,6 +41,11 @@ public class DevicePositionListener implements SensorEventListener, AutomationLi
     private float pitch;
     private float roll;
 
+    boolean applies = false;
+    boolean flipped = false;
+    boolean toggable = false;
+
+
     public static DevicePositionListener getInstance()
     {
         if (instance == null)
@@ -144,15 +149,11 @@ public class DevicePositionListener implements SensorEventListener, AutomationLi
             ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.devicePosition);
             for (int i = 0; i < ruleCandidates.size(); i++)
             {
-                boolean applies = ruleCandidates.get(i).applies(Miscellaneous.getAnyContext());
-                boolean flipped = ruleCandidates.get(i).hasNotAppliedSinceLastExecution();
+                applies = ruleCandidates.get(i).applies(Miscellaneous.getAnyContext());
+                flipped = ruleCandidates.get(i).hasNotAppliedSinceLastExecution();
+                toggable = ruleCandidates.get(i).isActuallyToggable();
 
-//                if (
-//                        ruleCandidates.get(i).applies(Miscellaneous.getAnyContext())
-//                            &&
-//                        ruleCandidates.get(i).hasNotAppliedSinceLastExecution()
-//                )
-                if(applies && flipped)
+                if((applies && flipped) || toggable)
                     ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
             }
         }
