@@ -174,7 +174,7 @@ public class NfcReceiver
 		    		ArrayList<Rule> allRulesWithNfcTags = Rule.findRuleCandidatesByNfc();
 		    		for(int i=0; i<allRulesWithNfcTags.size(); i++)
 		    		{
-		    			if((allRulesWithNfcTags.get(i).applies(asInstance) && allRulesWithNfcTags.get(i).hasNotAppliedSinceLastExecution()) || allRulesWithNfcTags.get(i).isActuallyToggable())
+		    			if(allRulesWithNfcTags.get(i).getsGreenLight(asInstance))
 		    				allRulesWithNfcTags.get(i).activate(asInstance, false);
 		    		}
 	        	}

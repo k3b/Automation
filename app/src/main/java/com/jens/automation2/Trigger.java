@@ -42,7 +42,7 @@ public class Trigger
 
 	public boolean applies(Object triggeringObject, Context context)
     {
-    	boolean result = true;
+		boolean result = true;
 
 		try
 		{
@@ -684,16 +684,20 @@ public class Trigger
 	public boolean hasStateNotAppliedSinceLastRuleExecution()
 	{
 		if(getParentRule().getLastExecution() == null)
+		{
+			Miscellaneous.logEvent("i", "Trigger", "Trigger " + this.toString() + " of rule " + getParentRule().getName() + " has NOT applied since the parent rule\'s last activation.", 4);
 			return true;
+		}
 		else if(lastTimeNotApplied != null)
 		{
 			if(lastTimeNotApplied.getTimeInMillis() > getParentRule().getLastExecution().getTimeInMillis())
 			{
+				Miscellaneous.logEvent("i", "Trigger", "Trigger " + this.toString() + " of rule " + getParentRule().getName() + " has NOT applied since the parent rule\'s last activation.", 4);
 				return true;
 			}
 		}
 
-		Miscellaneous.logEvent("i", "Trigger", "Trigger " + this.toString() + " of rule " + getParentRule().getName() + " may apply currently, but has not NOT applied since the rule\'s last execution.", 5);
+		Miscellaneous.logEvent("i", "Trigger", "Trigger " + this.toString() + " of rule " + getParentRule().getName() + " may apply currently, but has not NOT applied since the rule\'s last execution.", 4);
 		return false;
 	}
 

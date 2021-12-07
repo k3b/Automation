@@ -149,11 +149,7 @@ public class DevicePositionListener implements SensorEventListener, AutomationLi
             ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.devicePosition);
             for (int i = 0; i < ruleCandidates.size(); i++)
             {
-                applies = ruleCandidates.get(i).applies(Miscellaneous.getAnyContext());
-                flipped = ruleCandidates.get(i).hasNotAppliedSinceLastExecution();
-                toggable = ruleCandidates.get(i).isActuallyToggable();
-
-                if((applies && flipped) || toggable)
+                if(ruleCandidates.get(i).getsGreenLight(Miscellaneous.getAnyContext()))
                     ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
             }
         }

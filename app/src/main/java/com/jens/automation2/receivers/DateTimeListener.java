@@ -59,7 +59,7 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 		ArrayList<Rule> allRulesWithNowInTimeFrame = Rule.findRuleCandidatesByTime(passTime);
 		for(int i=0; i<allRulesWithNowInTimeFrame.size(); i++)
 		{
-			if((allRulesWithNowInTimeFrame.get(i).applies(context) && allRulesWithNowInTimeFrame.get(i).hasNotAppliedSinceLastExecution()) || allRulesWithNowInTimeFrame.get(i).isActuallyToggable())
+			if(allRulesWithNowInTimeFrame.get(i).getsGreenLight(context))
 				allRulesWithNowInTimeFrame.get(i).activate(automationServiceRef, false);
 		}
 		

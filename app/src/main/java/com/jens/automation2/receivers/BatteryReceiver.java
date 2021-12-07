@@ -206,7 +206,7 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByCharging(true);
 			for(int i=0; i<ruleCandidates.size(); i++)
 			{
-				if((ruleCandidates.get(i).applies(context) && ruleCandidates.get(i).hasNotAppliedSinceLastExecution()) || ruleCandidates.get(i).isActuallyToggable())
+				if(ruleCandidates.get(i).getsGreenLight(context))
 					ruleCandidates.get(i).activate(automationServiceRef, false);
 			}
 		}
@@ -219,7 +219,7 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 		ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByBatteryLevel();
 		for(int i=0; i<ruleCandidates.size(); i++)
 		{
-			if((ruleCandidates.get(i).applies(context) && ruleCandidates.get(i).hasNotAppliedSinceLastExecution()) || ruleCandidates.get(i).isActuallyToggable())
+			if(ruleCandidates.get(i).getsGreenLight(context))
 				ruleCandidates.get(i).activate(automationServiceRef, false);
 		}
 	}
@@ -234,7 +234,7 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByCharging(false);
 			for(int i=0; i<ruleCandidates.size(); i++)
 			{
-				if((ruleCandidates.get(i).applies(context) && ruleCandidates.get(i).hasNotAppliedSinceLastExecution()) || ruleCandidates.get(i).isActuallyToggable())
+				if(ruleCandidates.get(i).getsGreenLight(context))
 					ruleCandidates.get(i).activate(automationServiceRef, false);
 			}
 			
@@ -257,7 +257,7 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByUsbHost(true);
 			for(Rule oneRule : ruleCandidates)
 			{
-				if((oneRule.applies(context) && oneRule.hasNotAppliedSinceLastExecution()) || oneRule.isActuallyToggable())
+				if(oneRule.getsGreenLight(context))
 					oneRule.activate(automationServiceRef, false);
 			}
 		
@@ -278,7 +278,7 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByUsbHost(false);
 			for(Rule oneRule : ruleCandidates)
 			{
-				if((oneRule.applies(context) && oneRule.hasNotAppliedSinceLastExecution()) || oneRule.isActuallyToggable())
+				if(oneRule.getsGreenLight(context))
 					oneRule.activate(automationServiceRef, false);
 			}
 		}
