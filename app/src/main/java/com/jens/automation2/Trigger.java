@@ -297,6 +297,7 @@ public class Trigger
 				)
 		)
 		{
+			Miscellaneous.logEvent("i", "DevicePosition", "Trigger doesn\'t apply. Azimuth outside of tolerance area.", 5);
 			return false;
 		}
 
@@ -308,6 +309,7 @@ public class Trigger
 				)
 		)
 		{
+			Miscellaneous.logEvent("i", "DevicePosition", "Trigger doesn\'t apply. Pitch outside of tolerance area.", 5);
 			return false;
 		}
 
@@ -319,6 +321,7 @@ public class Trigger
 				)
 		)
 		{
+			Miscellaneous.logEvent("i", "DevicePosition", "Trigger doesn\'t apply. Roll outside of tolerance area.", 5);
 			return false;
 		}
 
@@ -453,19 +456,19 @@ public class Trigger
 				}
 				else
 				{
-					Miscellaneous.logEvent("i", "Rule", "Rule doesn't apply. Wrong direction. Demanded: " + String.valueOf(this.getPhoneDirection()) + ", got: " + String.valueOf(PhoneStatusListener.getLastPhoneDirection()), 4);
+					Miscellaneous.logEvent("i", "Rule", "A trigger of rule " + getParentRule().getName() + " doesn't apply. Wrong direction. Demanded: " + String.valueOf(this.getPhoneDirection()) + ", got: " + String.valueOf(PhoneStatusListener.getLastPhoneDirection()), 4);
 					return false;
 				}
 			}
 			else
 			{
-				Miscellaneous.logEvent("i", "Rule", "Rule doesn't apply. Wrong call status. Demanded: " + String.valueOf(this.getTriggerParameter()) + ", got: " + String.valueOf(PhoneStatusListener.isInACall()), 4);
+				Miscellaneous.logEvent("i", "Rule", "A trigger of rule " + getParentRule().getName() + " doesn't apply. Wrong call status. Demanded: " + String.valueOf(this.getTriggerParameter()) + ", got: " + String.valueOf(PhoneStatusListener.isInACall()), 4);
 				return false;
 			}
 		}
 		else
 		{
-			Miscellaneous.logEvent("i", "Rule", "Rule doesn't apply. Wrong phone number. Demanded: " + this.getPhoneNumber() + ", got: " + PhoneStatusListener.getLastPhoneNumber(), 4);
+			Miscellaneous.logEvent("i", "Rule", "A trigger of rule " + getParentRule().getName() + " doesn't apply. Wrong phone number. Demanded: " + this.getPhoneNumber() + ", got: " + PhoneStatusListener.getLastPhoneNumber(), 4);
 			return false;
 		}
 
@@ -522,7 +525,7 @@ public class Trigger
 				Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "Wifi name specified, checking that.", 4);
 				if(!WifiBroadcastReceiver.getLastWifiSsid().equals(this.getTriggerParameter2()))
 				{
-					Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyNotTheCorrectSsid), this.getTriggerParameter2(), WifiBroadcastReceiver.getLastWifiSsid()), 3);
+					Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyNotTheCorrectSsid), getParentRule().getName(), this.getTriggerParameter2(), WifiBroadcastReceiver.getLastWifiSsid()), 3);
 					return false;
 				}
 				else
@@ -690,6 +693,7 @@ public class Trigger
 			}
 		}
 
+		Miscellaneous.logEvent("i", "Trigger", "Trigger " + this.toString() + " of rule " + getParentRule().getName() + " may apply currently, but has not NOT applied since the rule\'s last execution.", 5);
 		return false;
 	}
 
@@ -1387,21 +1391,25 @@ public class Trigger
 						}
 						catch(NullPointerException e)
 						{
-							device = Miscellaneous.getAnyContext().getResources().getString(R.string.invalidDevice);
-							Miscellaneous.logEvent("w", "Trigger", Miscellaneous.getAnyContext().getResources().getString(R.string.invalidDevice), 3);
+							device = Miscellaneous.getAnyContext().getResources().getString(R.string.invalidDevice) + ": " + device;
+							Miscellaneous.logEvent("w", "Trigger", Miscellaneous.getAnyContext().getResources().getString(R.string.invalidDevice) + ": " + device, 3);
 						}
 					}
 					
-					if(bluetoothEvent.equals(BluetoothDevice.ACTION_ACL_CONNECTED) | bluetoothEvent.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED))
-						if(this.triggerParameter)
+					if(bluetoothEvent.equals(BluetoothDevice.ACTION_ACL_CONNECTED) || bluetoothEvent.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED))
+					{
+						if (this.triggerParameter)
 							returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothConnectionTo), device));
 						else
 							returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothDisconnectFrom), device));
+					}
 					else if(bluetoothEvent.equals(BluetoothDevice.ACTION_FOUND))
-						if(this.triggerParameter)
+					{
+						if (this.triggerParameter)
 							returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothDeviceInRange), device));
 						else
 							returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothDeviceOutOfRange), device));
+					}
 //				}
 				break;
 			case headsetPlugged:

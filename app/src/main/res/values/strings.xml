@@ -212,15 +212,15 @@
     <string name="wifiName">Wifi name</string>
     <string name="enterWifiName">Enter a wifi name. Leave empty for any wifi.</string>
     <string name="cancel">Cancel</string>
-    <string name="ruleDoesntApplyWeAreSlowerThan" translatable="false">Rule doesn\'t apply. We are slower than</string>
-    <string name="ruleDoesntApplyWeAreFasterThan" translatable="false">Rule doesn\'t apply. We are faster than</string>
-    <string name="ruleDoesntApplyItsQuieterThan" translatable="false">Rule doesn\'t apply. It\'s quieter than</string>
-    <string name="ruleDoesntApplyItsLouderThan" translatable="false">Rule doesn\'t apply. It\'s louder than</string>
-    <string name="ruleDoesntApplyBatteryLowerThan" translatable="false">Rule doesn\'t apply. Battery level is lower than</string>
-    <string name="ruleDoesntApplyBatteryHigherThan" translatable="false">Rule doesn\'t apply. Battery level is higher than</string>
-    <string name="ruleDoesntApplyNotTheCorrectSsid" translatable="false">Rule doesn\'t apply. Not the correct SSID (demanded: \"%1$s\", given: \"%2$s\").</string>
-    <string name="ruleDoesntApplyNoTagLabel" translatable="false">Rule doesn\'t apply. There is no tag label or not tag at all.</string>
-    <string name="ruleDoesntApplyWrongTagLabel" translatable="false">Rule doesn\'t apply. Wrong tag label.</string>
+    <string name="ruleDoesntApplyWeAreSlowerThan" translatable="false">Rule %1$s doesn\'t apply. We are slower than</string>
+    <string name="ruleDoesntApplyWeAreFasterThan" translatable="false">Rule %1$s doesn\'t apply. We are faster than</string>
+    <string name="ruleDoesntApplyItsQuieterThan" translatable="false">Rule %1$s doesn\'t apply. It\'s quieter than</string>
+    <string name="ruleDoesntApplyItsLouderThan" translatable="false">Rule %1$s doesn\'t apply. It\'s louder than</string>
+    <string name="ruleDoesntApplyBatteryLowerThan" translatable="false">Rule %1$s doesn\'t apply. Battery level is lower than</string>
+    <string name="ruleDoesntApplyBatteryHigherThan" translatable="false">Rule %1$s doesn\'t apply. Battery level is higher than</string>
+    <string name="ruleDoesntApplyNotTheCorrectSsid" translatable="false">Rule %1$s doesn\'t apply. Not the correct SSID (demanded: \"%2$s\", given: \"%3$s\").</string>
+    <string name="ruleDoesntApplyNoTagLabel" translatable="false">Rule %1$s doesn\'t apply. There is no tag label or not tag at all.</string>
+    <string name="ruleDoesntApplyWrongTagLabel" translatable="false">Rule %1$s doesn\'t apply. Wrong tag label.</string>
     <string name="ruleIsDeactivatedCantApply" translatable="false">Rule %1$s is deactivated, can\'t apply.</string>
     <string name="starting">starting</string>
     <string name="stopping">stopping</string>
