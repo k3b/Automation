@@ -1097,7 +1097,7 @@ public class Actions
 			try
 			{
 				PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-				WakeLock wakeLock = pm.newWakeLock((WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "Automation:Wakelock");
+				WakeLock wakeLock = pm.newWakeLock((PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "Automation:Wakelock");
 				wakeLock.acquire();
 
 				try
@@ -1118,21 +1118,22 @@ public class Actions
 		}
 	}
 
-	public void turnOnScreen()
+	public static void turnOnScreen()
 	{
 		// turn on screen
-		Log.v("ProximityActivity", "ON!");
+		Miscellaneous.logEvent("i", "Actions", "Turning screen on.", 3);
 		PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 		WakeLock wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "tag");
 		wakeLock.acquire();
 	}
 
 	@TargetApi(21) //Suppress lint error for PROXIMITY_SCREEN_OFF_WAKE_LOCK
-	public void turnOffScreen(){
-		// turn off screen
-		Log.v("ProximityActivity", "OFF!");
+	public static void turnOffScreen()
+	{
+		Miscellaneous.logEvent("i", "Actions", "Turning screen off.", 3);
 		PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-		WakeLock wakeLock = pm.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "tag");
+//		WakeLock wakeLock = pm.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "tag");
+		WakeLock wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK , "tag");
 		wakeLock.acquire();
 	}
 

@@ -726,4 +726,7 @@
     <string name="unknown">unknown</string>
     <string name="position">Position</string>
     <string name="triggerWrong">"     There's something wrong with this trigger. It could not be loaded correctly."</string>
+    <string name="turnScreenOnOrOff">Turn screen on or off</string>
+    <string name="turnScreenOn">turn screen on</string>
+    <string name="turnScreenOff">turn screen off</string>
 </resources>

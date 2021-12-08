@@ -36,6 +36,7 @@ public class Action
 								startOtherActivity,
 								waitBeforeNextAction,
 								wakeupDevice,
+		turnScreenOnOrOff,
 								setAirplaneMode,
 								setDataConnection,
 								speakText,
@@ -91,6 +92,8 @@ public class Action
 											return context.getResources().getString(R.string.waitBeforeNextAction);
 										case wakeupDevice:
 											return context.getResources().getString(R.string.wakeupDevice);
+										case turnScreenOnOrOff:
+											return context.getResources().getString(R.string.turnScreenOnOrOff);
 										case vibrate:
 											return context.getResources().getString(R.string.vibrate);
 										case setAirplaneMode:
@@ -232,6 +235,13 @@ public class Action
 		else if(this.getAction().equals(Action_Enum.wakeupDevice))
 		{
 			returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.wakeupDevice));
+		}
+		else if(this.getAction().equals(Action_Enum.turnScreenOnOrOff))
+		{
+			if(getParameter1())
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.turnScreenOn));
+			else
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.turnScreenOff));
 		}
 		else if(this.getAction().equals(Action_Enum.playSound))
 		{
@@ -414,6 +424,25 @@ public class Action
 					catch (InterruptedException e)
 					{
 						e.printStackTrace();
+					}
+					break;
+				case turnScreenOnOrOff:
+					if(getParameter1())
+					{
+						Actions.wakeupDevice(Long.parseLong(this.getParameter2()));
+						// wakeupDevice() will create a separate thread. That'll take some time, we wait 100ms.
+						try
+						{
+							Thread.sleep(100);
+						}
+						catch (InterruptedException e)
+						{
+							e.printStackTrace();
+						}
+					}
+					else
+					{
+						Actions.turnOffScreen();
 					}
 					break;
 				case setAirplaneMode:

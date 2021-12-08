@@ -1409,6 +1409,8 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.plane));
 			else if(types[i].toString().equals(Action_Enum.wakeupDevice.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.alarm));
+			else if(types[i].toString().equals(Action_Enum.turnScreenOnOrOff.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.smartphone));
 			else if(types[i].toString().equals(Action_Enum.changeSoundProfile.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.sound));
 			else if(types[i].toString().equals(Action_Enum.triggerUrl.toString()))
@@ -1542,6 +1544,11 @@ public class ActivityManageRule extends Activity
 					{
 						newAction.setAction(Action_Enum.wakeupDevice);
 						getActionWakeupDeviceDialog(ActivityManageRule.this).show();
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.turnScreenOnOrOff.toString()))
+					{
+						newAction.setAction(Action_Enum.turnScreenOnOrOff);
+						getActionParameter1Dialog(ActivityManageRule.this).show();
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setAirplaneMode.toString()))
 					{
