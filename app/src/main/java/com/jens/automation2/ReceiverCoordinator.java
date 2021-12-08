@@ -47,6 +47,7 @@ public class ReceiverCoordinator
                     BatteryReceiver.class,
                     BluetoothReceiver.class,
                     ConnectivityReceiver.class,
+                    DevicePositionListener.class,
                     HeadphoneJackListener.class,
                     //NfcReceiver.class,
                     NoiseListener.class,
@@ -57,13 +58,12 @@ public class ReceiverCoordinator
         }
         catch (ClassNotFoundException e)
         {
-//            e.printStackTrace();
-
             allImplementers = new Class[] {
                     DateTimeListener.class,
                     BatteryReceiver.class,
                     BluetoothReceiver.class,
                     ConnectivityReceiver.class,
+                    DevicePositionListener.class,
                     HeadphoneJackListener.class,
                     //NfcReceiver.class,
                     NoiseListener.class,
@@ -166,6 +166,9 @@ public class ReceiverCoordinator
         // startNoiseListener
         if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.process_started_stopped))
             ProcessListener.startProcessListener(AutomationService.getInstance());
+
+        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.devicePosition))
+            DevicePositionListener.getInstance().startListener(AutomationService.getInstance());
 
         try
         {

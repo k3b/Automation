@@ -97,13 +97,14 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="Position"
+                    android:text="@string/position"
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
                     android:text="@string/tolerance"
+                    android:gravity="center_horizontal"
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -146,6 +147,8 @@
 
                 <TextView
                     android:id="@+id/tvAppliesAzimuth"
+                    android:gravity="center_horizontal"
+                    android:text="@string/unknown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -178,6 +181,8 @@
 
                 <TextView
                     android:id="@+id/tvAppliesPitch"
+                    android:gravity="center_horizontal"
+                    android:text="@string/unknown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -210,6 +215,8 @@
 
                 <TextView
                     android:id="@+id/tvAppliesRoll"
+                    android:gravity="center_horizontal"
+                    android:text="@string/unknown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

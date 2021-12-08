@@ -33,7 +33,7 @@ public class NoiseListener implements AutomationListenerInterface
 			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByNoiseLevel();
 			for(Rule oneRule : ruleCandidates)
 			{
-				if(oneRule.applies(automationService))
+				if(oneRule.getsGreenLight(automationService))
 					oneRule.activate(automationService, false);
 			}
 		}

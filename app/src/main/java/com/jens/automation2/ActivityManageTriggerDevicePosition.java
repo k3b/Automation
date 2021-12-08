@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,7 +37,7 @@ public class ActivityManageTriggerDevicePosition extends Activity
         currentPitch.setText(Float.toString(pitch));
         currentRoll.setText(Float.toString(roll));
 
-        if(checkInputs())
+        if(checkInputs(false))
         {
             desiredAzimuth = Float.parseFloat(etDesiredAzimuth.getText().toString());
             desiredAzimuthTolerance = Float.parseFloat(etDesiredAzimuthTolerance.getText().toString());
@@ -105,20 +106,28 @@ public class ActivityManageTriggerDevicePosition extends Activity
 //        etDesiredAzimuth.setFilters(new InputFilter[]{new InputFilterMinMax(-180, 180)});
 //        etDesiredPitch.setFilters(new InputFilter[]{new InputFilterMinMax(-180, 180)});
 //        etDesiredRoll.setFilters(new InputFilter[]{new InputFilterMinMax(-180, 180)});
-        etDesiredAzimuthTolerance.setFilters(new InputFilter[]{new InputFilterMinMax(0, 359)});
-        etDesiredPitchTolerance.setFilters(new InputFilter[]{new InputFilterMinMax(0, 359)});
-        etDesiredRollTolerance.setFilters(new InputFilter[]{new InputFilterMinMax(0, 359)});
+        etDesiredAzimuthTolerance.setFilters(new InputFilter[]{new InputFilterMinMax(0, 180)});
+        etDesiredPitchTolerance.setFilters(new InputFilter[]{new InputFilterMinMax(0, 180)});
+        etDesiredRollTolerance.setFilters(new InputFilter[]{new InputFilterMinMax(0, 180)});
 
         if(getIntent().hasExtra(vectorFieldName))
         {
             editMode = true;
-            String values[] = getIntent().getStringExtra(vectorFieldName).split(Trigger.triggerParameter2Split);
-            etDesiredAzimuth.setText(values[0]);
-            etDesiredAzimuthTolerance.setText(values[1]);
-            etDesiredPitch.setText(values[2]);
-            etDesiredPitchTolerance.setText(values[3]);
-            etDesiredRoll.setText(values[4]);
-            etDesiredRollTolerance.setText(values[5]);
+            try
+            {
+                String values[] = getIntent().getStringExtra(vectorFieldName).split(Trigger.triggerParameter2Split);
+                etDesiredAzimuth.setText(values[0]);
+                etDesiredAzimuthTolerance.setText(values[1]);
+                etDesiredPitch.setText(values[2]);
+                etDesiredPitchTolerance.setText(values[3]);
+                etDesiredRoll.setText(values[4]);
+                etDesiredRollTolerance.setText(values[5]);
+            }
+            catch(Exception e)
+            {
+                Toast.makeText(ActivityManageTriggerDevicePosition.this, getResources().getString(R.string.triggerWrong), Toast.LENGTH_SHORT).show();
+                Miscellaneous.logEvent("e", "DevicePositionTrigger", "There\'s something wrong with a device position trigger. Content: " + getIntent().getStringExtra(vectorFieldName) + ", " + Log.getStackTraceString(e), 1);
+            }
         }
 
         bApplyPositionValues.setOnClickListener(new View.OnClickListener()
@@ -142,7 +151,7 @@ public class ActivityManageTriggerDevicePosition extends Activity
             @Override
             public void onClick(View v)
             {
-                if(!checkInputs())
+                if(!checkInputs(true))
                 {
                     Toast.makeText(ActivityManageTriggerDevicePosition.this, getResources().getString(R.string.enterValidNumbersIntoAllFields), Toast.LENGTH_LONG).show();
                 }
@@ -165,7 +174,7 @@ public class ActivityManageTriggerDevicePosition extends Activity
         });
     }
 
-    boolean checkInputs()
+    boolean checkInputs(boolean showMessages)
     {
         if(
                 !StringUtils.isEmpty(etDesiredAzimuth.getText().toString()) && Miscellaneous.isNumeric(etDesiredAzimuth.getText().toString())
@@ -185,8 +194,29 @@ public class ActivityManageTriggerDevicePosition extends Activity
             float dp = Float.parseFloat(etDesiredPitch.getText().toString());
             float dr = Float.parseFloat(etDesiredRoll.getText().toString());
 
-            if(Math.abs(da) <= 180 || Math.abs(dp) <= 180 || Math.abs(dr) <= 180)
-                return true;
+            if(Math.abs(da) > 180 || Math.abs(dp) > 180 || Math.abs(dr) > 180)
+            {
+                return false;
+            }
+
+            if(showMessages)
+            {
+                float dat = Float.parseFloat(etDesiredAzimuthTolerance.getText().toString());
+                float dpt = Float.parseFloat(etDesiredPitchTolerance.getText().toString());
+                float drt = Float.parseFloat(etDesiredRollTolerance.getText().toString());
+
+            /*
+                The user may enter a tolerance of 180° for two directions, but not all three.
+                Otherwise this trigger would always apply.
+             */
+                if (Math.abs(dat) >= 180 && Math.abs(dpt) >= 180 && Math.abs(drt) >= 180)
+                {
+                    Miscellaneous.messageBox(getResources().getString(R.string.warning), getResources().getString(R.string.toleranceOf180OnlyAllowedIn2Fields), ActivityManageTriggerDevicePosition.this).show();
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         return false;

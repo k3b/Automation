@@ -1094,21 +1094,46 @@ public class Actions
 		@Override
 		public void run()
 		{
-			PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-			WakeLock wakeLock = pm.newWakeLock((WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "Automation:Wakelock");
-			wakeLock.acquire();
-
 			try
 			{
-				Thread.sleep(awakeTime);
-			}
-			catch (InterruptedException e)
-			{
-				Miscellaneous.logEvent("w", context.getResources().getString(R.string.wakeupDevice), "Error keeping device awake: " + Log.getStackTraceString(e), 4);
-			}
+				PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+				WakeLock wakeLock = pm.newWakeLock((WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "Automation:Wakelock");
+				wakeLock.acquire();
 
-			wakeLock.release();
+				try
+				{
+					Thread.sleep(awakeTime);
+				}
+				catch (InterruptedException e)
+				{
+					Miscellaneous.logEvent("w", context.getResources().getString(R.string.wakeupDevice), "Error keeping device awake: " + Log.getStackTraceString(e), 4);
+				}
+
+				wakeLock.release();
+			}
+			catch(Exception e)
+			{
+				Miscellaneous.logEvent("e", "Wakeup device action", "Error while waking up device: " + Log.getStackTraceString(e), 1);
+			}
 		}
+	}
+
+	public void turnOnScreen()
+	{
+		// turn on screen
+		Log.v("ProximityActivity", "ON!");
+		PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+		WakeLock wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "tag");
+		wakeLock.acquire();
+	}
+
+	@TargetApi(21) //Suppress lint error for PROXIMITY_SCREEN_OFF_WAKE_LOCK
+	public void turnOffScreen(){
+		// turn off screen
+		Log.v("ProximityActivity", "OFF!");
+		PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+		WakeLock wakeLock = pm.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "tag");
+		wakeLock.acquire();
 	}
 
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)

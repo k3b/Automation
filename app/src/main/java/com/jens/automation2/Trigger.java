@@ -1,83 +1,730 @@
 package com.jens.automation2;
 
+import static android.content.Context.DEVICE_POLICY_SERVICE;
+
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
+import android.service.notification.StatusBarNotification;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
+import com.jens.automation2.location.LocationProvider;
+import com.jens.automation2.location.WifiBroadcastReceiver;
+import com.jens.automation2.receivers.BatteryReceiver;
 import com.jens.automation2.receivers.BluetoothReceiver;
+import com.jens.automation2.receivers.ConnectivityReceiver;
+import com.jens.automation2.receivers.DevicePositionListener;
+import com.jens.automation2.receivers.HeadphoneJackListener;
+import com.jens.automation2.receivers.NfcReceiver;
+import com.jens.automation2.receivers.NoiseListener;
+import com.jens.automation2.receivers.NotificationListener;
+import com.jens.automation2.receivers.PhoneStatusListener;
+import com.jens.automation2.receivers.ProcessListener;
+import static com.jens.automation2.receivers.NotificationListener.EXTRA_TEXT;
+import static com.jens.automation2.receivers.NotificationListener.EXTRA_TITLE;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-
 public class Trigger
 {
 	Rule parentRule = null;
-	boolean hasFlipped = false;
+	Calendar lastTimeNotApplied = null;
 
-	public boolean getHasFlipped()
-	{
-		return hasFlipped;
-	}
-
-	public void setHasFlipped(boolean hasFlipped)
-	{
-		this.hasFlipped = hasFlipped;
-	}
-
-	public boolean applies(Object triggeringObject)
+	public boolean applies(Object triggeringObject, Context context)
     {
+		boolean result = true;
+
 		try
 		{
 			switch(this.getTriggerType())
 			{
 				case timeFrame:
 					if(!checkDateTime(triggeringObject, false))
-						return false;
+						result = false;
+					break;
+				case pointOfInterest:
+					if(!checkLocation())
+						result = false;
+					break;
+				case charging:
+					if(!checkCharging())
+						result = false;
+					break;
+				case usb_host_connection:
+					if(!checkUsbHostConnection())
+						result = false;
+					break;
+				case batteryLevel:
+					if(!checkBatteryLevel())
+						result = false;
+					break;
+				case speed:
+					if(!checkSpeed())
+						result = false;
+					break;
+				case noiseLevel:
+					if(!checkNoiseLevel())
+						result = false;
+					break;
+				case wifiConnection:
+					if(!checkWifiConnection())
+						result = false;
+					break;
+				case process_started_stopped:
+					if(!checkProcess())
+						result = false;
+					break;
+				case airplaneMode:
+					if(!checkAirplaneMode())
+						result = false;
+					break;
+				case roaming:
+					if(!checkRoaming())
+						result = false;
+					break;
+				case phoneCall:
+					if(!checkPhoneCall())
+						result = false;
+					break;
+				case nfcTag:
+					if(!checkNfc())
+						result = false;
+					break;
+				case bluetoothConnection:
+					if(!checkBluetooth())
+						result = false;
+					break;
+				case headsetPlugged:
+					if(!checkHeadsetPlugged())
+						result = false;
+					break;
+				case notification:
+					if(!checkNotification())
+						result = false;
+					break;
+				case devicePosition:
+					if(!checkDevicePosition())
+						result = false;
+					break;
+				case activityDetection:
+					if(!getParentRule().checkActivityDetection(this))
+						result = false;
 					break;
 				default:
 					break;
 			}
-
-			return true;
 		}
 		catch(Exception e)
 		{
-			Miscellaneous.logEvent("e", "Trigger", "Error while checking if rule " + getParentRule().getName() + " applies. Error occured in trigger " + this.toString() + "." + Miscellaneous.lineSeparator + Log.getStackTraceString(e), 1);
-			return false;
+			Miscellaneous.logEvent("e", "Trigger", "Error while checking if rule " + getParentRule().getName() + " applies. Error occured in trigger " + this.getParentRule().toString() + "." + Miscellaneous.lineSeparator + Log.getStackTraceString(e), 1);
+			result = false;
 		}
+
+		if(!result)
+			lastTimeNotApplied = Calendar.getInstance();
+
+		return result;
     }
 
-	public boolean hasStateRecentlyNotApplied(Object triggeringObject)
+    boolean checkNotification()
 	{
-		// nur mit einem Trigger?
-
-		// door -> was state different in previous step
-
-		try
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
 		{
-			switch(getTriggerType())
+			String[] params = this.getTriggerParameter2().split(triggerParameter2Split);
+
+			String myApp = params[0];
+			String myTitleDir = params[1];
+			String requiredTitle = params[2];
+			String myTextDir = params[3];
+			String requiredText;
+			if (params.length >= 5)
+				requiredText = params[4];
+			else
+				requiredText = "";
+
+			if(this.getTriggerParameter())
 			{
-				case timeFrame:
-					if(!checkDateTime(triggeringObject, true))
-						return false;
-					break;
-				default:
-					break;
-			}
+				// Check an active notification that is still there
 
-			return true;
+				boolean foundMatch = false;
+
+				for (StatusBarNotification sbn : NotificationListener.getInstance().getActiveNotifications())
+				{
+					if(getParentRule().getLastExecution() == null || sbn.getPostTime() > this.getParentRule().getLastExecution().getTimeInMillis())
+					{
+						String notificationApp = sbn.getPackageName();
+						String notificationTitle = null;
+						String notificationText = null;
+
+						Miscellaneous.logEvent("i", "NotificationCheck", "Checking if this notification matches our rule " + this.getParentRule().getName() + ". App: " + notificationApp + ", title: " + notificationTitle + ", text: " + notificationText, 5);
+
+						if (!myApp.equals("-1"))
+						{
+							if (!notificationApp.equalsIgnoreCase(myApp))
+							{
+								Miscellaneous.logEvent("i", "NotificationCheck", "Notification app name does not match rule.", 5);
+								continue;
+							}
+						}
+						else
+						{
+							if(myApp.equals(BuildConfig.APPLICATION_ID))
+							{
+								return false;
+							}
+						}
+
+					/*
+						If there are multiple notifications ("stacked") title or text might be null:
+						https://stackoverflow.com/questions/28047767/notificationlistenerservice-not-reading-text-of-stacked-notifications
+					 */
+
+						Bundle extras = sbn.getNotification().extras;
+
+						// T I T L E
+						if (extras.containsKey(EXTRA_TITLE))
+							notificationTitle = sbn.getNotification().extras.getString(EXTRA_TITLE);
+
+						if (!StringUtils.isEmpty(requiredTitle))
+						{
+							if (!Miscellaneous.compare(myTitleDir, requiredTitle, notificationTitle))
+							{
+								Miscellaneous.logEvent("i", "NotificationCheck", "Notification title does not match rule.", 5);
+								continue;
+							}
+						}
+						else
+							Miscellaneous.logEvent("i", "NotificationCheck", "A required title for a notification trigger was not specified.", 5);
+
+						// T E X T
+
+						if (extras.containsKey(EXTRA_TEXT))
+							notificationText = sbn.getNotification().extras.getString(EXTRA_TEXT);
+
+						if (!StringUtils.isEmpty(requiredText))
+						{
+							if (!Miscellaneous.compare(myTextDir, requiredText, notificationText))
+							{
+								Miscellaneous.logEvent("i", "NotificationCheck", "Notification text does not match rule.", 5);
+								continue;
+							}
+						}
+						else
+							Miscellaneous.logEvent("i", "NotificationCheck", "A required text for a notification trigger was not specified.", 5);
+
+						foundMatch = true;
+						break;
+					}
+				}
+
+				if(!foundMatch)
+					return false;
+			}
+			else
+			{
+				// check a notification that is gone
+
+				if(NotificationListener.getLastNotification() != null)
+				{
+					if(!NotificationListener.getLastNotification().isCreated())
+					{
+						String app = NotificationListener.getLastNotification().getApp();
+						String title = NotificationListener.getLastNotification().getTitle();
+						String text = NotificationListener.getLastNotification().getText();
+
+						if (!myApp.equals("-1"))
+						{
+							if (!app.equalsIgnoreCase(myApp))
+								return false;
+						}
+						else
+						{
+							if(myApp.equals(BuildConfig.APPLICATION_ID))
+							{
+								return false;
+							}
+						}
+
+						if (requiredTitle.length() > 0)
+						{
+							if (!Miscellaneous.compare(myTitleDir, title, requiredTitle))
+								return false;
+						}
+
+						if (requiredText.length() > 0)
+						{
+							if (!Miscellaneous.compare(myTextDir, text, requiredText))
+								return false;
+						}
+					}
+					else
+						return false;
+				}
+			}
 		}
-		catch(Exception e)
+
+		return true;
+	}
+
+	boolean checkDevicePosition()
+	{
+		String devicePositionPieces[] = getTriggerParameter2().split(Trigger.triggerParameter2Split);
+		float desiredAzimuth = Float.parseFloat(devicePositionPieces[0]);
+		float desiredAzimuthTolerance = Float.parseFloat(devicePositionPieces[1]);
+		float desiredPitch = Float.parseFloat(devicePositionPieces[2]);
+		float desiredPitchTolerance = Float.parseFloat(devicePositionPieces[3]);
+		float desiredRoll = Float.parseFloat(devicePositionPieces[4]);
+		float desiredRollTolerance = Float.parseFloat(devicePositionPieces[5]);
+		float currentAzimuth = DevicePositionListener.getInstance().getAzimuth();
+		float currentPitch = DevicePositionListener.getInstance().getPitch();
+		float currentRoll = DevicePositionListener.getInstance().getRoll();
+
+		if(
+				desiredAzimuthTolerance < 180
+					&&
+				!(
+					currentAzimuth <= desiredAzimuth + desiredAzimuthTolerance
+							&&
+					currentAzimuth >= desiredAzimuth - desiredAzimuthTolerance
+				)
+		)
 		{
-			Miscellaneous.logEvent("e", "Trigger", "Error while checking if rule " + getParentRule().getName() + " applies. Error occured in trigger " + this.toString() + "." + Miscellaneous.lineSeparator + Log.getStackTraceString(e), 1);
+			Miscellaneous.logEvent("i", "DevicePosition", "Trigger doesn\'t apply. Azimuth outside of tolerance area.", 5);
 			return false;
 		}
+
+		if(
+				desiredPitchTolerance < 180
+					&&
+				!(
+					currentPitch <= desiredPitch + desiredPitchTolerance
+							&&
+					currentPitch >= desiredPitch - desiredPitchTolerance
+				)
+		)
+		{
+			Miscellaneous.logEvent("i", "DevicePosition", "Trigger doesn\'t apply. Pitch outside of tolerance area.", 5);
+			return false;
+		}
+
+		if(
+				desiredRollTolerance < 180
+					&&
+				!(
+					currentRoll <= desiredRoll + desiredRollTolerance
+							&&
+					currentRoll >= desiredRoll - desiredRollTolerance
+				)
+		)
+		{
+			Miscellaneous.logEvent("i", "DevicePosition", "Trigger doesn\'t apply. Roll outside of tolerance area.", 5);
+			return false;
+		}
+
+		return true;
+	}
+
+    boolean checkHeadsetPlugged()
+	{
+		if(HeadphoneJackListener.isHeadsetConnected() != this.getTriggerParameter())
+			return false;
+		else
+		if(this.getHeadphoneType() != 2 && this.getHeadphoneType() != HeadphoneJackListener.getHeadphoneType())
+		{
+			Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyWrongHeadphoneType), 3);
+			return false;
+		}
+
+		return true;
+	}
+
+    boolean checkBluetooth()
+	{
+		Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "Checking for bluetooth...", 4);
+
+		if(this.getBluetoothDeviceAddress().equals("<any>"))
+		{
+			if(this.getBluetoothEvent().equals(BluetoothDevice.ACTION_ACL_CONNECTED))
+			{
+				if(BluetoothReceiver.isAnyDeviceConnected() != this.getTriggerParameter())
+					return false;
+			}
+			else if((this.getBluetoothEvent().equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)))
+			{
+				if(BluetoothReceiver.isAnyDeviceConnected() != this.getTriggerParameter())
+					return false;
+			}
+			else
+			{
+				// range
+				if(BluetoothReceiver.isAnyDeviceInRange() != this.getTriggerParameter())
+					return false;
+			}
+		}
+		else if(this.getBluetoothDeviceAddress().equals("<none>"))
+		{
+			if(this.getBluetoothEvent().equals(BluetoothDevice.ACTION_ACL_CONNECTED))
+			{
+				if(BluetoothReceiver.isAnyDeviceConnected() == this.getTriggerParameter())
+					return false;
+			}
+			else if((this.getBluetoothEvent().equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)))
+			{
+				if(BluetoothReceiver.isAnyDeviceConnected() == this.getTriggerParameter())
+					return false;
+			}
+			else
+			{
+				// range
+				if(BluetoothReceiver.isAnyDeviceInRange() == this.getTriggerParameter())
+					return false;
+			}
+		}
+		else if(this.getBluetoothDeviceAddress().length() > 0)
+		{
+			if(this.getBluetoothEvent().equals(BluetoothDevice.ACTION_ACL_CONNECTED))
+			{
+				if(BluetoothReceiver.isDeviceCurrentlyConnected(BluetoothReceiver.getDeviceByAddress(this.getBluetoothDeviceAddress())) != this.getTriggerParameter())
+					return false;
+			}
+			else if((this.getBluetoothEvent().equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)))
+			{
+				if(BluetoothReceiver.isDeviceCurrentlyConnected(BluetoothReceiver.getDeviceByAddress(this.getBluetoothDeviceAddress())) != this.getTriggerParameter())
+					return false;
+			}
+			else
+			{
+				// range
+				if(BluetoothReceiver.isDeviceInRange(BluetoothReceiver.getDeviceByAddress(this.getBluetoothDeviceAddress())) != this.getTriggerParameter())
+					return false;
+			}
+		}
+		else
+		{
+			Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyStateNotCorrect), 3);
+			return false;
+		}
+
+		return true;
+	}
+
+    boolean checkNfc()
+	{
+		if(NfcReceiver.lastReadLabel == null)
+		{
+			Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyNoTagLabel), 3);
+			return false;
+		}
+		else if(!NfcReceiver.lastReadLabel.equals(this.getNfcTagId()))
+		{
+			Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyWrongTagLabel) + " " + NfcReceiver.lastReadLabel + " / " + this.getNfcTagId(), 3);
+			return false;
+		}
+
+		return true;
+	}
+
+    boolean checkPhoneCall()
+	{
+		String[] elements = this.getTriggerParameter2().split(triggerParameter2Split);
+		// state dir number
+
+		if(elements[2].equals(Trigger.triggerPhoneCallNumberAny) || Miscellaneous.comparePhoneNumbers(PhoneStatusListener.getLastPhoneNumber(), elements[2]) || (Miscellaneous.isRegularExpression(elements[2]) && PhoneStatusListener.getLastPhoneNumber().matches(elements[2])))
+		{
+			//if(PhoneStatusListener.isInACall() == oneTrigger.getTriggerParameter())
+			if(
+					(elements[0].equals(Trigger.triggerPhoneCallStateRinging) && PhoneStatusListener.getCurrentState() == TelephonyManager.CALL_STATE_RINGING)
+							||
+							(elements[0].equals(Trigger.triggerPhoneCallStateStarted) && PhoneStatusListener.getCurrentState() == TelephonyManager.CALL_STATE_OFFHOOK)
+							||
+							(elements[0].equals(Trigger.triggerPhoneCallStateStopped) && PhoneStatusListener.getCurrentState() == TelephonyManager.CALL_STATE_IDLE)
+			)
+			{
+				if(
+						elements[1].equals(Trigger.triggerPhoneCallDirectionAny)
+								||
+								(elements[1].equals(Trigger.triggerPhoneCallDirectionIncoming) && PhoneStatusListener.getLastPhoneDirection() == 1)
+								||
+								(elements[1].equals(Trigger.triggerPhoneCallDirectionOutgoing) && PhoneStatusListener.getLastPhoneDirection() == 2)
+				)
+				{
+					// Trigger conditions are met
+				}
+				else
+				{
+					Miscellaneous.logEvent("i", "Rule", "A trigger of rule " + getParentRule().getName() + " doesn't apply. Wrong direction. Demanded: " + String.valueOf(this.getPhoneDirection()) + ", got: " + String.valueOf(PhoneStatusListener.getLastPhoneDirection()), 4);
+					return false;
+				}
+			}
+			else
+			{
+				Miscellaneous.logEvent("i", "Rule", "A trigger of rule " + getParentRule().getName() + " doesn't apply. Wrong call status. Demanded: " + String.valueOf(this.getTriggerParameter()) + ", got: " + String.valueOf(PhoneStatusListener.isInACall()), 4);
+				return false;
+			}
+		}
+		else
+		{
+			Miscellaneous.logEvent("i", "Rule", "A trigger of rule " + getParentRule().getName() + " doesn't apply. Wrong phone number. Demanded: " + this.getPhoneNumber() + ", got: " + PhoneStatusListener.getLastPhoneNumber(), 4);
+			return false;
+		}
+
+		return false;
+	}
+
+    boolean checkRoaming()
+	{
+		if(ConnectivityReceiver.isRoaming(Miscellaneous.getAnyContext()) != this.getTriggerParameter())
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+    boolean checkAirplaneMode()
+	{
+		if(ConnectivityReceiver.isAirplaneMode(Miscellaneous.getAnyContext()) != this.getTriggerParameter())
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+    boolean checkProcess()
+	{
+		boolean running = ProcessListener.getRunningApps().contains(this.getProcessName());
+
+		if(running)
+			Miscellaneous.logEvent("i", "ProcessMonitoring", "App " + this.getProcessName() + " is currently running.", 4);
+		else
+			Miscellaneous.logEvent("i", "ProcessMonitoring", "App " + this.getProcessName() + " is not running.", 4);
+
+		if(running != this.getTriggerParameter())
+		{
+			Miscellaneous.logEvent("i", "ProcessMonitoring", "Trigger doesn't apply.", 4);
+			return false;
+		}
+
+		Miscellaneous.logEvent("i", "ProcessMonitoring", "Trigger applies.", 4);
+
+		return true;
+	}
+
+    boolean checkWifiConnection()
+	{
+		Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "Checking for wifi state", 4);
+		if(this.getTriggerParameter() == WifiBroadcastReceiver.lastConnectedState)	// connected / disconnected
+		{
+			if(this.getTriggerParameter2().length() > 0)	// only check if any wifi name specified, otherwise any wifi will do
+			{
+				Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "Wifi name specified, checking that.", 4);
+				if(!WifiBroadcastReceiver.getLastWifiSsid().equals(this.getTriggerParameter2()))
+				{
+					Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyNotTheCorrectSsid), getParentRule().getName(), this.getTriggerParameter2(), WifiBroadcastReceiver.getLastWifiSsid()), 3);
+					return false;
+				}
+				else
+					Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "Wifi name matches. Rule will apply.", 4);
+			}
+			else
+				Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "No wifi name specified, any will do.", 4);
+		}
+		else
+		{
+			Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "Wifi state not correct, demanded " + String.valueOf(this.getTriggerParameter() + ", got " + String.valueOf(WifiBroadcastReceiver.lastConnectedState)), 4);
+			return false;
+		}
+
+		return true;
+	}
+
+    boolean checkNoiseLevel()
+	{
+		if(this.getTriggerParameter())
+		{
+			if(NoiseListener.getNoiseLevelDb() < this.getNoiseLevelDb())
+			{
+				Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyItsQuieterThan) + " " + String.valueOf(this.getNoiseLevelDb()), 3);
+				return false;
+			}
+		}
+		else
+		{
+			if(NoiseListener.getNoiseLevelDb() > this.getNoiseLevelDb())
+			{
+				Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyItsLouderThan) + " " + String.valueOf(this.getNoiseLevelDb()), 3);
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+    boolean checkSpeed()
+	{
+		if(this.getTriggerParameter())
+		{
+			if(LocationProvider.getSpeed() < this.getSpeed())
+			{
+				Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyWeAreSlowerThan) + " " + String.valueOf(this.getSpeed()), 3);
+				return false;
+			}
+		}
+		else
+		{
+			if(LocationProvider.getSpeed() > this.getSpeed())
+			{
+				Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyWeAreFasterThan) + " " + String.valueOf(this.getSpeed()), 3);
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+    boolean checkBatteryLevel()
+	{
+		if(this.getTriggerParameter())
+		{
+			if(BatteryReceiver.getBatteryLevel() <= this.getBatteryLevel())
+			{
+				Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyBatteryLowerThan) + " " + String.valueOf(this.getBatteryLevel()), 3);
+				return false;
+			}
+		}
+		else
+		{
+			if(this.getBatteryLevel() >= this.getBatteryLevel())
+			{
+				Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyBatteryHigherThan) + " " + String.valueOf(this.getBatteryLevel()), 3);
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+    boolean checkUsbHostConnection()
+	{
+		if(BatteryReceiver.isUsbHostConnected() != this.getTriggerParameter())
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+    boolean checkLocation()
+	{
+		// Am I here?
+		PointOfInterest activePoi = PointOfInterest.getActivePoi();
+		if(activePoi != null)	//entering one
+		{
+			if(this.getPointOfInterest() != null)
+			{
+				if(activePoi.equals(this.getPointOfInterest()))
+				{
+					if(!this.getTriggerParameter())
+					{
+						Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "Rule doesn't apply. We're entering POI: " + this.getPointOfInterest().getName() + ", not leaving it.", 4);
+						return false;
+					}
+				}
+				else
+				{
+					Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "Rule doesn't apply. This is " + activePoi.getName() + ", not " + this.getPointOfInterest().getName() + ".", 4);
+					return false;
+				}
+			}
+			else if(this.getPointOfInterest() == null)
+			{
+				if(this.getTriggerParameter())
+				{
+					Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "Rule doesn't apply. We're at a POI. Rule specifies not at none, so leaving any.", 4);
+					return false;
+				}
+			}
+		}
+		else					//leaving one
+		{
+			// We are not at any POI. But if this trigger requires us NOT to be there, that may be fine.
+			if(this.getPointOfInterest() != null)
+			{
+//							if(activePoi.equals(oneTrigger.getPointOfInterest()))
+//							{
+				if(!this.getTriggerParameter())
+				{
+					Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "We are not at POI \"" + this.getPointOfInterest().getName() + "\". But since that's required by this rule that's fine.", 4);
+				}
+				else
+				{
+					Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "Rule doesn't apply. We're not at POI \"" + this.getPointOfInterest().getName() + "\".", 3);
+					return false;
+				}
+//							}
+			}
+			else if(this.getPointOfInterest() == null)
+			{
+				if(!this.getTriggerParameter())
+				{
+					Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "Rule doesn't apply. We're at no POI. Rule specifies to be at anyone.", 5);
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	public boolean hasStateNotAppliedSinceLastRuleExecution()
+	{
+		if(getParentRule().getLastExecution() == null)
+		{
+			Miscellaneous.logEvent("i", "Trigger", "Trigger " + this.toString() + " of rule " + getParentRule().getName() + " has NOT applied since the parent rule\'s last activation.", 4);
+			return true;
+		}
+		else if(lastTimeNotApplied != null)
+		{
+			if(lastTimeNotApplied.getTimeInMillis() > getParentRule().getLastExecution().getTimeInMillis())
+			{
+				Miscellaneous.logEvent("i", "Trigger", "Trigger " + this.toString() + " of rule " + getParentRule().getName() + " has NOT applied since the parent rule\'s last activation.", 4);
+				return true;
+			}
+		}
+
+		Miscellaneous.logEvent("i", "Trigger", "Trigger " + this.toString() + " of rule " + getParentRule().getName() + " may apply currently, but has not NOT applied since the rule\'s last execution.", 4);
+		return false;
+	}
+
+	boolean checkCharging()
+	{
+		if(BatteryReceiver.isDeviceCharging(Miscellaneous.getAnyContext()) == 0)
+		{
+			return false; // unknown charging state, can't activate rule under these conditions
+		}
+		else if(BatteryReceiver.isDeviceCharging(Miscellaneous.getAnyContext()) == 1)
+		{
+			if(this.getTriggerParameter()) //rule says when charging, but we're currently discharging
+				return false;
+		}
+		else if(BatteryReceiver.isDeviceCharging(Miscellaneous.getAnyContext()) == 2)
+		{
+			if(!this.getTriggerParameter()) //rule says when discharging, but we're currently charging
+				return false;
+		}
+
+		return true;
 	}
 
 	public boolean checkDateTime(Object triggeringObject, boolean checkifStateChangedSinceLastRuleExecution)
@@ -754,21 +1401,25 @@ public class Trigger
 						}
 						catch(NullPointerException e)
 						{
-							device = Miscellaneous.getAnyContext().getResources().getString(R.string.invalidDevice);
-							Miscellaneous.logEvent("w", "Trigger", Miscellaneous.getAnyContext().getResources().getString(R.string.invalidDevice), 3);
+							device = Miscellaneous.getAnyContext().getResources().getString(R.string.invalidDevice) + ": " + device;
+							Miscellaneous.logEvent("w", "Trigger", Miscellaneous.getAnyContext().getResources().getString(R.string.invalidDevice) + ": " + device, 3);
 						}
 					}
 					
-					if(bluetoothEvent.equals(BluetoothDevice.ACTION_ACL_CONNECTED) | bluetoothEvent.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED))
-						if(this.triggerParameter)
+					if(bluetoothEvent.equals(BluetoothDevice.ACTION_ACL_CONNECTED) || bluetoothEvent.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED))
+					{
+						if (this.triggerParameter)
 							returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothConnectionTo), device));
 						else
 							returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothDisconnectFrom), device));
+					}
 					else if(bluetoothEvent.equals(BluetoothDevice.ACTION_FOUND))
-						if(this.triggerParameter)
+					{
+						if (this.triggerParameter)
 							returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothDeviceInRange), device));
 						else
 							returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothDeviceOutOfRange), device));
+					}
 //				}
 				break;
 			case headsetPlugged:

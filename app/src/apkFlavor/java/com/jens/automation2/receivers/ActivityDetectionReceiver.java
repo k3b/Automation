@@ -294,7 +294,7 @@ public class ActivityDetectionReceiver extends IntentService implements Automati
 						ArrayList<Rule> allRulesWithActivityDetection = Rule.findRuleCandidatesByActivityDetection();
 						for(int i=0; i<allRulesWithActivityDetection.size(); i++)
 						{
-							if(allRulesWithActivityDetection.get(i).applies(Miscellaneous.getAnyContext()))
+							if(allRulesWithActivityDetection.get(i).getsGreenLight(Miscellaneous.getAnyContext()))
 								allRulesWithActivityDetection.get(i).activate(AutomationService.getInstance(), false);
 						}
 					}

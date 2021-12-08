@@ -212,15 +212,15 @@
     <string name="wifiName">Wifi name</string>
     <string name="enterWifiName">Enter a wifi name. Leave empty for any wifi.</string>
     <string name="cancel">Cancel</string>
-    <string name="ruleDoesntApplyWeAreSlowerThan" translatable="false">Rule doesn\'t apply. We are slower than</string>
-    <string name="ruleDoesntApplyWeAreFasterThan" translatable="false">Rule doesn\'t apply. We are faster than</string>
-    <string name="ruleDoesntApplyItsQuieterThan" translatable="false">Rule doesn\'t apply. It\'s quieter than</string>
-    <string name="ruleDoesntApplyItsLouderThan" translatable="false">Rule doesn\'t apply. It\'s louder than</string>
-    <string name="ruleDoesntApplyBatteryLowerThan" translatable="false">Rule doesn\'t apply. Battery level is lower than</string>
-    <string name="ruleDoesntApplyBatteryHigherThan" translatable="false">Rule doesn\'t apply. Battery level is higher than</string>
-    <string name="ruleDoesntApplyNotTheCorrectSsid" translatable="false">Rule doesn\'t apply. Not the correct SSID (demanded: \"%1$s\", given: \"%2$s\").</string>
-    <string name="ruleDoesntApplyNoTagLabel" translatable="false">Rule doesn\'t apply. There is no tag label or not tag at all.</string>
-    <string name="ruleDoesntApplyWrongTagLabel" translatable="false">Rule doesn\'t apply. Wrong tag label.</string>
+    <string name="ruleDoesntApplyWeAreSlowerThan" translatable="false">Rule %1$s doesn\'t apply. We are slower than</string>
+    <string name="ruleDoesntApplyWeAreFasterThan" translatable="false">Rule %1$s doesn\'t apply. We are faster than</string>
+    <string name="ruleDoesntApplyItsQuieterThan" translatable="false">Rule %1$s doesn\'t apply. It\'s quieter than</string>
+    <string name="ruleDoesntApplyItsLouderThan" translatable="false">Rule %1$s doesn\'t apply. It\'s louder than</string>
+    <string name="ruleDoesntApplyBatteryLowerThan" translatable="false">Rule %1$s doesn\'t apply. Battery level is lower than</string>
+    <string name="ruleDoesntApplyBatteryHigherThan" translatable="false">Rule %1$s doesn\'t apply. Battery level is higher than</string>
+    <string name="ruleDoesntApplyNotTheCorrectSsid" translatable="false">Rule %1$s doesn\'t apply. Not the correct SSID (demanded: \"%2$s\", given: \"%3$s\").</string>
+    <string name="ruleDoesntApplyNoTagLabel" translatable="false">Rule %1$s doesn\'t apply. There is no tag label or not tag at all.</string>
+    <string name="ruleDoesntApplyWrongTagLabel" translatable="false">Rule %1$s doesn\'t apply. Wrong tag label.</string>
     <string name="ruleIsDeactivatedCantApply" translatable="false">Rule %1$s is deactivated, can\'t apply.</string>
     <string name="starting">starting</string>
     <string name="stopping">stopping</string>
@@ -714,12 +714,16 @@
     <string name="btTetheringNotice">This feature is confirmed to work up until Android 8.0. From some higher version upwards it ceases to work, but due to a lack of physical devices I cannot tell which one that is. On Android 11 it definitely ain\'t working anymore. If you have a version in between please let me know if it\'s working or not.</string>
     <string name="notice">Notice</string>
     <string name="devicePosition">Device position (Gyroscope)</string>
-    <string name="tolerance">Tolerance</string>
+    <string name="tolerance">Tolerance\n(0-180)</string>
     <string name="orientationAzimuth">Azimuth:</string>
     <string name="orientationPitch">Pitch:</string>
     <string name="orientationRoll">Roll:</string>
     <string name="enterValidNumbersIntoAllFields">Enter valid numbers in all fields.</string>
-    <string name="devicePositionExplanation">When you move your device the below numbers should update. What you can see there, is the current \"position\" of your device. If it is in the desired position, click the apply button to copy the current values to the desired fields.\nBecause you will probably not be able to reach this exact position ever again, enter a tolerance. The is amount to which the position can deviate in one direction or the other.</string>
+    <string name="devicePositionExplanation">When you move your device the below numbers will update. What you can see there, is the current \"position\" of your device measured in degrees. If it is in the desired position, click the apply button to copy the current values to the desired fields.\nBecause reaching this exact position ever again is highly unlikely you must also enter a tolerance. The is amount of degrees to which the position can deviate in either direction. If you only care about one specific axis, specify a tolerance of 180° for the two other ones.</string>
     <string name="wouldCurrentlyApply">Would currently apply?</string>
     <string name="deviceIsInCertainPosition">the device is in a certain position</string>
+    <string name="toleranceOf180OnlyAllowedIn2Fields">A tolerance of 180 is allowed for 2 tolerance fields only, not all 3. Otherwise the trigger would ALWAYS apply.</string>
+    <string name="unknown">unknown</string>
+    <string name="position">Position</string>
+    <string name="triggerWrong">"     There's something wrong with this trigger. It could not be loaded correctly."</string>
 </resources>

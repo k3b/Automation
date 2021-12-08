@@ -114,7 +114,7 @@ public class PhoneStatusListener implements AutomationListenerInterface
 				{
 					AutomationService asInstance = AutomationService.getInstance();
 					if(asInstance != null)
-						if(ruleCandidates.get(i).applies(asInstance))
+						if(ruleCandidates.get(i).getsGreenLight(asInstance))
 							ruleCandidates.get(i).activate(asInstance, false);
 				}
 			}
@@ -146,7 +146,7 @@ public class PhoneStatusListener implements AutomationListenerInterface
 				{
 					AutomationService asInstance = AutomationService.getInstance();
 					if (asInstance != null)
-						if (ruleCandidates.get(i).applies(asInstance))
+						if (ruleCandidates.get(i).getsGreenLight(asInstance))
 							ruleCandidates.get(i).activate(asInstance, false);
 				}
 			}
@@ -183,7 +183,7 @@ public class PhoneStatusListener implements AutomationListenerInterface
 			{
 				AutomationService asInstance = AutomationService.getInstance();
 				if(asInstance != null)
-					if(ruleCandidates.get(i).applies(asInstance))
+				if(ruleCandidates.get(i).getsGreenLight(asInstance))
 						ruleCandidates.get(i).activate(asInstance, false);
 			}
         }		
