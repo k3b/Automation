@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.admin.DevicePolicyManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
@@ -1131,11 +1132,40 @@ public class Actions
 	public static void turnOffScreen()
 	{
 		Miscellaneous.logEvent("i", "Actions", "Turning screen off.", 3);
+
+		DevicePolicyManager deviceManger = (DevicePolicyManager)Miscellaneous.getAnyContext().getSystemService(Context. DEVICE_POLICY_SERVICE);
+		deviceManger.lockNow();
+
+		/*params.flags |= LayoutParams.FLAG_KEEP_SCREEN_ON;
+		params.screenBrightness = 0;
+		getWindow().setAttributes(params);
+
 		PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-//		WakeLock wakeLock = pm.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "tag");
-		WakeLock wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK , "tag");
-		wakeLock.acquire();
+		WakeLock wakeLock = pm.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "tag");
+//		WakeLock wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK , "tag");
+		wakeLock.acquire();*/
 	}
+
+	// using root
+	/*private void turnOffScreen()
+	{
+		try
+		{
+			Class c = Class.forName("android.os.PowerManager");
+			PowerManager  mPowerManager = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
+			for(Method m : c.getDeclaredMethods()){
+				if(m.getName().equals("goToSleep")){
+					m.setAccessible(true);
+					if(m.getParameterTypes().length == 1){
+						m.invoke(mPowerManager,SystemClock.uptimeMillis()-2);
+					}
+				}
+			}
+		}
+		catch (Exception e)
+		{
+		}
+	}*/
 
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 	@SuppressLint("NewApi")
