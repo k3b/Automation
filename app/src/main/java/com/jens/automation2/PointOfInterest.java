@@ -276,6 +276,7 @@ public class PointOfInterest implements Comparable<PointOfInterest>
 			ActivityMainScreen.updateMainScreen();
 		}
 	}
+
 	public void deactivate(AutomationService parentService)
 	{
 		if(this.isActivated())

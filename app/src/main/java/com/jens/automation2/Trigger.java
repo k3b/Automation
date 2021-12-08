@@ -290,6 +290,8 @@ public class Trigger
 		float currentRoll = DevicePositionListener.getInstance().getRoll();
 
 		if(
+				desiredAzimuthTolerance < 180
+					&&
 				!(
 					currentAzimuth <= desiredAzimuth + desiredAzimuthTolerance
 							&&
@@ -302,6 +304,8 @@ public class Trigger
 		}
 
 		if(
+				desiredPitchTolerance < 180
+					&&
 				!(
 					currentPitch <= desiredPitch + desiredPitchTolerance
 							&&
@@ -314,6 +318,8 @@ public class Trigger
 		}
 
 		if(
+				desiredRollTolerance < 180
+					&&
 				!(
 					currentRoll <= desiredRoll + desiredRollTolerance
 							&&

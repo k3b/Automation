@@ -348,7 +348,7 @@ public class Rule implements Comparable<Rule>
 
 	public boolean getsGreenLight(Context context)
 	{
-		return isRuleActive() && applies(context) && (hasNotAppliedSinceLastExecution() || isActuallyToggable());
+		return applies(context) && hasNotAppliedSinceLastExecution();
 	}
 	
 	public boolean applies(Context context)

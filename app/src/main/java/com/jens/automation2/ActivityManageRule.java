@@ -1375,8 +1375,7 @@ public class ActivityManageRule extends Activity
 			{
 				Trigger editedTrigger = new Trigger();
 				editedTrigger.setTriggerType(Trigger_Enum.devicePosition);
-//				newTrigger.setTriggerParameter(data.getBooleanExtra("wifiState", false));
-				newTrigger.setTriggerParameter2(data.getStringExtra(ActivityManageTriggerDevicePosition.vectorFieldName));
+				editedTrigger.setTriggerParameter2(data.getStringExtra(ActivityManageTriggerDevicePosition.vectorFieldName));
 				ruleToEdit.getTriggerSet().set(editIndex, editedTrigger);
 				this.refreshTriggerList();
 			}

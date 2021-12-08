@@ -345,6 +345,11 @@ public class Rule implements Comparable<Rule>
 
 		return false;
 	}
+
+	public boolean getsGreenLight(Context context)
+	{
+		return isRuleActive() && applies(context) && hasNotAppliedSinceLastExecution();
+	}
 	
 	public boolean applies(Context context)
 	{
