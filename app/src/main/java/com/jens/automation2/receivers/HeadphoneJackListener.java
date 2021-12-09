@@ -1,5 +1,6 @@
 package com.jens.automation2.receivers;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -133,7 +134,7 @@ public class HeadphoneJackListener extends BroadcastReceiver implements Automati
 
 	public static boolean haveAllPermission()
 	{
-		return ActivityPermissions.havePermission("android.permission.READ_PHONE_STATE", Miscellaneous.getAnyContext());
+		return ActivityPermissions.havePermission(Manifest.permission.READ_PHONE_STATE, Miscellaneous.getAnyContext());
 	}
 
 

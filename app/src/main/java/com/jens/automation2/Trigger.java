@@ -300,7 +300,10 @@ public class Trigger
 		)
 		{
 			Miscellaneous.logEvent("i", "DevicePosition", "Trigger doesn\'t apply. Azimuth outside of tolerance area.", 5);
-			return false;
+			if(getTriggerParameter())
+				return false;
+			else
+				return true;
 		}
 
 		if(
@@ -314,7 +317,10 @@ public class Trigger
 		)
 		{
 			Miscellaneous.logEvent("i", "DevicePosition", "Trigger doesn\'t apply. Pitch outside of tolerance area.", 5);
-			return false;
+			if(getTriggerParameter())
+				return false;
+			else
+				return true;
 		}
 
 		if(
@@ -328,10 +334,16 @@ public class Trigger
 		)
 		{
 			Miscellaneous.logEvent("i", "DevicePosition", "Trigger doesn\'t apply. Roll outside of tolerance area.", 5);
-			return false;
+			if(getTriggerParameter())
+				return false;
+			else
+				return true;
 		}
 
-		return true;
+		if(getTriggerParameter())
+			return true;
+		else
+			return false;
 	}
 
     boolean checkHeadsetPlugged()
@@ -1383,44 +1395,41 @@ public class Trigger
 				break;
 			case bluetoothConnection:
 				String device = Miscellaneous.getAnyContext().getResources().getString(R.string.anyDevice);
-//				if(this.bluetoothDeviceAddress != null)
-//				{
-					if(bluetoothDeviceAddress.equals("<any>"))
+				if(bluetoothDeviceAddress.equals("<any>"))
+				{
+					device = Miscellaneous.getAnyContext().getResources().getString(R.string.any);
+				}
+				else if(bluetoothDeviceAddress.equals("<none>"))
+				{
+					device = Miscellaneous.getAnyContext().getResources().getString(R.string.noDevice);
+				}
+				else
+				{
+					try
 					{
-						device = Miscellaneous.getAnyContext().getResources().getString(R.string.any);
+						device = BluetoothReceiver.getDeviceByAddress(bluetoothDeviceAddress).getName() + " (" + this.bluetoothDeviceAddress + ")";
 					}
-					else if(bluetoothDeviceAddress.equals("<none>"))
+					catch(NullPointerException e)
 					{
-						device = Miscellaneous.getAnyContext().getResources().getString(R.string.noDevice);
+						device = Miscellaneous.getAnyContext().getResources().getString(R.string.invalidDevice) + ": " + this.bluetoothDeviceAddress;
+						Miscellaneous.logEvent("w", "Trigger", device, 3);
 					}
+				}
+
+				if(bluetoothEvent.equals(BluetoothDevice.ACTION_ACL_CONNECTED) || bluetoothEvent.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED))
+				{
+					if (this.triggerParameter)
+						returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothConnectionTo), device));
 					else
-					{
-						try
-						{
-							device = BluetoothReceiver.getDeviceByAddress(bluetoothDeviceAddress).getName() + " (" + this.bluetoothDeviceAddress + ")";
-						}
-						catch(NullPointerException e)
-						{
-							device = Miscellaneous.getAnyContext().getResources().getString(R.string.invalidDevice) + ": " + device;
-							Miscellaneous.logEvent("w", "Trigger", Miscellaneous.getAnyContext().getResources().getString(R.string.invalidDevice) + ": " + device, 3);
-						}
-					}
-					
-					if(bluetoothEvent.equals(BluetoothDevice.ACTION_ACL_CONNECTED) || bluetoothEvent.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED))
-					{
-						if (this.triggerParameter)
-							returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothConnectionTo), device));
-						else
-							returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothDisconnectFrom), device));
-					}
-					else if(bluetoothEvent.equals(BluetoothDevice.ACTION_FOUND))
-					{
-						if (this.triggerParameter)
-							returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothDeviceInRange), device));
-						else
-							returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothDeviceOutOfRange), device));
-					}
-//				}
+						returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothDisconnectFrom), device));
+				}
+				else if(bluetoothEvent.equals(BluetoothDevice.ACTION_FOUND))
+				{
+					if (this.triggerParameter)
+						returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothDeviceInRange), device));
+					else
+						returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothDeviceOutOfRange), device));
+				}
 				break;
 			case headsetPlugged:
 				String type;

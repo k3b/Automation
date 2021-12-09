@@ -348,14 +348,24 @@ public class Rule implements Comparable<Rule>
 
 	public boolean getsGreenLight(Context context)
 	{
-		return applies(context) && hasNotAppliedSinceLastExecution();
+		if(applies(context))
+		{
+			if(hasNotAppliedSinceLastExecution())
+				return true;
+			else
+				Miscellaneous.logEvent("i", "getsGreenLight()", "Rule " + getName() + " has not flipped since its last execution.", 4);
+		}
+		else
+			Miscellaneous.logEvent("i", "getsGreenLight()", "Rule " + getName() + " does not apply.", 4);
+
+		return false;
 	}
 	
 	public boolean applies(Context context)
 	{
 		if(AutomationService.getInstance() == null)
 		{
-			Miscellaneous.logEvent("i", "RuleCheck", "Automation service not running. Rule cannot apply.", 3);
+			Miscellaneous.logEvent("i", "RuleCheck", "Automation service not running. Rule " + getName() + " cannot apply.", 3);
 			return false;
 		}
 		
@@ -393,7 +403,7 @@ public class Rule implements Comparable<Rule>
 
 			if (!found)
 			{
-				Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getName()), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyActivityNotPresent), ActivityDetectionReceiver.getDescription(oneTrigger.getActivityDetectionType())), 3);
+				Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getName()), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyActivityNotPresent), getName(), ActivityDetectionReceiver.getDescription(oneTrigger.getActivityDetectionType())), 3);
 				return false;
 			}
 			else
@@ -402,7 +412,7 @@ public class Rule implements Comparable<Rule>
 				{
 					if (oneDetectedActivity.getType() == oneTrigger.getActivityDetectionType() && oneDetectedActivity.getConfidence() < Settings.activityDetectionRequiredProbability)
 					{
-						Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getName()), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyActivityGivenButTooLowProbability), ActivityDetectionReceiver.getDescription(oneDetectedActivity.getType()), String.valueOf(oneDetectedActivity.getConfidence()), String.valueOf(Settings.activityDetectionRequiredProbability)), 3);
+						Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getName()), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyActivityGivenButTooLowProbability), getName(), ActivityDetectionReceiver.getDescription(oneDetectedActivity.getType()), String.valueOf(oneDetectedActivity.getConfidence()), String.valueOf(Settings.activityDetectionRequiredProbability)), 3);
 						return false;
 					}
 				}
@@ -534,15 +544,7 @@ public class Rule implements Comparable<Rule>
 	public void activate(AutomationService automationService, boolean force)
 	{
 		ActivateRuleTask task = new ActivateRuleTask();
-		
-//		if(Settings.startNewThreadForRuleActivation)
-			task.execute(automationService, force);
-//		else
-//		{
-//			task.activateInternally(automationService, force);
-//			AutomationService.updateNotification();
-//			ActivityMainScreen.updateMainScreen();
-//		}		
+		task.execute(automationService, force);
 	}
 	
 	public static ArrayList<Rule> findRuleCandidatesByPoi(PointOfInterest searchPoi, boolean triggerParameter)
@@ -627,7 +629,7 @@ public class Rule implements Comparable<Rule>
 					
 					if(oneTrigger.getTimeFrame().getTriggerTimeStart().getTime() > oneTrigger.getTimeFrame().getTriggerTimeStop().getTime())
 					{
-						Miscellaneous.logEvent("i", "Timeframe search", "Rule goes over midnight.", 5);
+						Miscellaneous.logEvent("i", "Timeframe search", "Rule (" + oneRule.getName() + ") stretches over midnight.", 5);
 						if(oneTrigger.getTimeFrame().getTriggerTimeStart().getTime() <= searchTime.getTime() || searchTime.getTime() <= oneTrigger.getTimeFrame().getTriggerTimeStop().getTime()+20000) //add 20 seconds because of delay
 						{
 							ruleCandidates.add(oneRule);
@@ -636,7 +638,7 @@ public class Rule implements Comparable<Rule>
 					}
 					else if(oneTrigger.getTimeFrame().getTriggerTimeStart().getTime() <= searchTime.getTime() && searchTime.getTime() <= oneTrigger.getTimeFrame().getTriggerTimeStop().getTime()+20000) //add 20 seconds because of delay
 					{
-						Miscellaneous.logEvent("i", "RuleSearch", "Rule found with TimeFrame with time " + searchTime.toString(), 3);
+						Miscellaneous.logEvent("i", "RuleSearch", "Rule found (" + oneRule.getName() + ") with TimeFrame with time " + searchTime.toString(), 3);
 						ruleCandidates.add(oneRule);
 						break innerloop; //if the poi is found we don't need to search the other triggers in the same rule
 					}

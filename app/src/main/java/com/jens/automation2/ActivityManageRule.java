@@ -49,6 +49,7 @@ import java.util.Collections;
 public class ActivityManageRule extends Activity
 {
 	final static String activityDetectionClassPath = "com.jens.automation2.receivers.ActivityDetectionReceiver";
+	public final static String intentNameTriggerParameter1 = "triggerParameter1";
 
 	public Context context;
 	private Button cmdTriggerAdd, cmdActionAdd, cmdSaveRule;
@@ -182,7 +183,7 @@ public class ActivityManageRule extends Activity
 		});
 		
 		cmdSaveRule.setOnClickListener(new OnClickListener()
-		{			
+		{
 			@Override
 			public void onClick(View v)
 			{
@@ -265,6 +266,7 @@ public class ActivityManageRule extends Activity
 						break;
 					case devicePosition:
 						Intent devicePositionEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerDevicePosition.class);
+						devicePositionEditor.putExtra(ActivityManageRule.intentNameTriggerParameter1, selectedTrigger.getTriggerParameter());
 						devicePositionEditor.putExtra(ActivityManageTriggerDevicePosition.vectorFieldName, selectedTrigger.getTriggerParameter2());
 						startActivityForResult(devicePositionEditor, requestCodeTriggerDevicePositionEdit);
 						break;
@@ -1365,6 +1367,7 @@ public class ActivityManageRule extends Activity
 			{
 //				newTrigger.setTriggerParameter(data.getBooleanExtra("wifiState", false));
 				newTrigger.setTriggerParameter2(data.getStringExtra(ActivityManageTriggerDevicePosition.vectorFieldName));
+				newTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().add(newTrigger);
 				this.refreshTriggerList();
 			}
@@ -1375,7 +1378,9 @@ public class ActivityManageRule extends Activity
 			{
 				Trigger editedTrigger = new Trigger();
 				editedTrigger.setTriggerType(Trigger_Enum.devicePosition);
+				editedTrigger.setTriggerParameter(data.getBooleanExtra(ActivityManageRule.intentNameTriggerParameter1, true));
 				editedTrigger.setTriggerParameter2(data.getStringExtra(ActivityManageTriggerDevicePosition.vectorFieldName));
+				editedTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().set(editIndex, editedTrigger);
 				this.refreshTriggerList();
 			}

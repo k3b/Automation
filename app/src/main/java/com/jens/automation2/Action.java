@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.HttpGet;
 
 import java.util.ArrayList;
@@ -429,7 +430,10 @@ public class Action
 				case turnScreenOnOrOff:
 					if(getParameter1())
 					{
-						Actions.wakeupDevice(Long.parseLong(this.getParameter2()));
+						if(StringUtils.isNumeric(this.getParameter2()))
+							Actions.wakeupDevice(Long.parseLong(this.getParameter2()));
+						else
+							Actions.wakeupDevice((long)1000);
 						// wakeupDevice() will create a separate thread. That'll take some time, we wait 100ms.
 						try
 						{

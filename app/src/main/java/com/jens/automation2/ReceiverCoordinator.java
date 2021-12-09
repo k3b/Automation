@@ -360,7 +360,7 @@ public class ReceiverCoordinator
             if(!DevicePositionListener.getInstance().isListenerRunning())
             {
                 Miscellaneous.logEvent("i", "DevicePositionListener", "Starting DevicePositionListener because used in a new/changed rule.", 4);
-                if(HeadphoneJackListener.getInstance().haveAllPermission())
+//                if(DevicePositionListener.getInstance().haveAllPermission())
                     DevicePositionListener.getInstance().startListener(AutomationService.getInstance());
             }
         }

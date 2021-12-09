@@ -404,8 +404,8 @@
     <string name="detectedActivityWalking">Walking</string>
     <string name="detectedActivityRunning">Running</string>
     <string name="detectedActivityInvalidStatus">Invalid activity</string>
-    <string name="ruleDoesntApplyActivityGivenButTooLowProbability" translatable="false">Rule doesn\'t apply. Detected activity %1$s given, but too low probability (%2$s %%), required %3$s %%.</string>
-    <string name="ruleDoesntApplyActivityNotPresent" translatable="false">Rule doesn\'t apply. Required activity %1$s not present.</string>
+    <string name="ruleDoesntApplyActivityGivenButTooLowProbability" translatable="false">Rule %1$s doesn\'t apply. Detected activity %2$s given, but too low probability (%3$s %%), required %4$s %%.</string>
+    <string name="ruleDoesntApplyActivityNotPresent" translatable="false">Rule %1$s doesn\'t apply. Required activity %2$s not present.</string>
     <string name="selectTypeOfActivity">Select type of activity</string>
     <string name="triggerOnlyAvailableIfPlayServicesInstalled">This trigger is only available if Google Play Services is installed.</string>
     <string name="activityDetectionFrequencyTitle">Activity detection frequency [sec]</string>
@@ -729,4 +729,6 @@
     <string name="turnScreenOnOrOff">Turn screen on or off</string>
     <string name="turnScreenOn">turn screen on</string>
     <string name="turnScreenOff">turn screen off</string>
+    <string name="mustApply">Must apply</string>
+    <string name="explanationDevicePositionDirection">If the checkbox is checked that means the device has to be in the position you specify. If it\'s not checked, any position that does NOT match your criteria will do.</string>
 </resources>

@@ -9,6 +9,7 @@ import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ public class ActivityManageTriggerDevicePosition extends Activity
     TextView currentAzimuth, currentPitch, currentRoll, tvAppliesAzimuth, tvAppliesPitch, tvAppliesRoll;
     Button bApplyPositionValues, bSavePositionValues;
     EditText etDesiredAzimuth, etDesiredAzimuthTolerance, etDesiredPitch, etDesiredPitchTolerance, etDesiredRoll, etDesiredRollTolerance;
+    CheckBox chkDevicePositionApplies;
 
     public static String vectorFieldName = "deviceVector";
 
@@ -37,11 +39,11 @@ public class ActivityManageTriggerDevicePosition extends Activity
         currentPitch.setText(Float.toString(pitch));
         currentRoll.setText(Float.toString(roll));
 
-        if(checkInputs(false))
+        try
         {
             desiredAzimuth = Float.parseFloat(etDesiredAzimuth.getText().toString());
             desiredAzimuthTolerance = Float.parseFloat(etDesiredAzimuthTolerance.getText().toString());
-            if(Math.abs(azimuth) <= Math.abs(desiredAzimuth - desiredAzimuthTolerance) || Math.abs(azimuth) <= desiredAzimuth + desiredAzimuthTolerance)
+            if (Math.abs(azimuth) <= Math.abs(desiredAzimuth - desiredAzimuthTolerance) || Math.abs(azimuth) <= desiredAzimuth + desiredAzimuthTolerance)
             {
                 tvAppliesAzimuth.setText(getResources().getString(R.string.yes));
                 tvAppliesAzimuth.setTextColor(Color.GREEN);
@@ -51,10 +53,17 @@ public class ActivityManageTriggerDevicePosition extends Activity
                 tvAppliesAzimuth.setText(getResources().getString(R.string.no));
                 tvAppliesAzimuth.setTextColor(Color.RED);
             }
+        }
+        catch(Exception e)
+        {
+            tvAppliesAzimuth.setText("");
+        }
 
+        try
+        {
             desiredPitch = Float.parseFloat(etDesiredPitch.getText().toString());
             desiredPitchTolerance = Float.parseFloat(etDesiredPitchTolerance.getText().toString());
-            if(Math.abs(pitch) <= Math.abs(desiredPitch - desiredPitchTolerance) || Math.abs(pitch) <= desiredPitch + desiredPitchTolerance)
+            if (Math.abs(pitch) <= Math.abs(desiredPitch - desiredPitchTolerance) || Math.abs(pitch) <= desiredPitch + desiredPitchTolerance)
             {
                 tvAppliesPitch.setText(getResources().getString(R.string.yes));
                 tvAppliesPitch.setTextColor(Color.GREEN);
@@ -64,10 +73,17 @@ public class ActivityManageTriggerDevicePosition extends Activity
                 tvAppliesPitch.setText(getResources().getString(R.string.no));
                 tvAppliesPitch.setTextColor(Color.RED);
             }
+        }
+        catch(Exception e)
+        {
+            tvAppliesPitch.setText("");
+        }
 
+        try
+        {
             desiredRoll = Float.parseFloat(etDesiredRoll.getText().toString());
             desiredRollTolerance = Float.parseFloat(etDesiredRollTolerance.getText().toString());
-            if(Math.abs(roll) <= Math.abs(desiredRoll - desiredRollTolerance) || Math.abs(roll) <= desiredRoll + desiredRollTolerance)
+            if (Math.abs(roll) <= Math.abs(desiredRoll - desiredRollTolerance) || Math.abs(roll) <= desiredRoll + desiredRollTolerance)
             {
                 tvAppliesRoll.setText(getResources().getString(R.string.yes));
                 tvAppliesRoll.setTextColor(Color.GREEN);
@@ -77,6 +93,10 @@ public class ActivityManageTriggerDevicePosition extends Activity
                 tvAppliesRoll.setText(getResources().getString(R.string.no));
                 tvAppliesRoll.setTextColor(Color.RED);
             }
+        }
+        catch(Exception e)
+        {
+            tvAppliesRoll.setText("");
         }
     }
 
@@ -103,6 +123,8 @@ public class ActivityManageTriggerDevicePosition extends Activity
         etDesiredRoll = (EditText) findViewById(R.id.etDesiredRoll);
         etDesiredRollTolerance = (EditText) findViewById(R.id.etDesiredRollTolerance);
 
+        chkDevicePositionApplies = (CheckBox)findViewById(R.id.chkDevicePositionApplies);
+
 //        etDesiredAzimuth.setFilters(new InputFilter[]{new InputFilterMinMax(-180, 180)});
 //        etDesiredPitch.setFilters(new InputFilter[]{new InputFilterMinMax(-180, 180)});
 //        etDesiredRoll.setFilters(new InputFilter[]{new InputFilterMinMax(-180, 180)});
@@ -115,6 +137,8 @@ public class ActivityManageTriggerDevicePosition extends Activity
             editMode = true;
             try
             {
+                boolean chkValue = getIntent().getBooleanExtra(ActivityManageRule.intentNameTriggerParameter1, true);
+                chkDevicePositionApplies.setChecked(chkValue);
                 String values[] = getIntent().getStringExtra(vectorFieldName).split(Trigger.triggerParameter2Split);
                 etDesiredAzimuth.setText(values[0]);
                 etDesiredAzimuthTolerance.setText(values[1]);
@@ -159,13 +183,14 @@ public class ActivityManageTriggerDevicePosition extends Activity
                 {
                     // Save
                     Intent returnData = new Intent();
+                    returnData.putExtra(ActivityManageRule.intentNameTriggerParameter1, chkDevicePositionApplies.isChecked());
                     returnData.putExtra(vectorFieldName,
-                                            etDesiredAzimuth.getText().toString() + Trigger.triggerParameter2Split +
-                                                etDesiredAzimuthTolerance.getText().toString() + Trigger.triggerParameter2Split +
-                                                etDesiredPitch.getText().toString() + Trigger.triggerParameter2Split +
-                                                etDesiredPitchTolerance.getText().toString() + Trigger.triggerParameter2Split +
-                                                etDesiredRoll.getText().toString() + Trigger.triggerParameter2Split +
-                                                etDesiredRollTolerance.getText().toString());
+                                        etDesiredAzimuth.getText().toString() + Trigger.triggerParameter2Split +
+                                            etDesiredAzimuthTolerance.getText().toString() + Trigger.triggerParameter2Split +
+                                            etDesiredPitch.getText().toString() + Trigger.triggerParameter2Split +
+                                            etDesiredPitchTolerance.getText().toString() + Trigger.triggerParameter2Split +
+                                            etDesiredRoll.getText().toString() + Trigger.triggerParameter2Split +
+                                            etDesiredRollTolerance.getText().toString());
 
                     setResult(RESULT_OK, returnData);
                     finish();

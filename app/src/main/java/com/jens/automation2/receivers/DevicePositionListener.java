@@ -100,7 +100,7 @@ public class DevicePositionListener implements SensorEventListener, AutomationLi
             {
                 //unregister the sensor listener
                 sManager.unregisterListener(this);
-                isRunning = true;
+                isRunning = false;
             }
         }
     }
@@ -184,7 +184,7 @@ public class DevicePositionListener implements SensorEventListener, AutomationLi
         {
             //unregister the sensor listener
             sManager.unregisterListener(this);
-            isRunning = true;
+            isRunning = false;
         }
     }
 

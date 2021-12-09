@@ -1123,7 +1123,7 @@ public class Actions
 		// turn on screen
 		Miscellaneous.logEvent("i", "Actions", "Turning screen on.", 3);
 		PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-		WakeLock wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "tag");
+		WakeLock wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, AutomationService.NOTIFICATION_CHANNEL_ID + ":turnOffScreen");
 		wakeLock.acquire();
 	}
 
@@ -1132,8 +1132,8 @@ public class Actions
 	{
 		Miscellaneous.logEvent("i", "Actions", "Turning screen off.", 3);
 		PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-//		WakeLock wakeLock = pm.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "tag");
-		WakeLock wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK , "tag");
+		WakeLock wakeLock = pm.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK,AutomationService.NOTIFICATION_CHANNEL_ID + ":turnOffScreen");
+//		WakeLock wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK , AutomationService.NOTIFICATION_CHANNEL_ID + ":turnOffScreen");
 		wakeLock.acquire();
 	}
 
