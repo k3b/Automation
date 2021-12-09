@@ -271,7 +271,10 @@ public class PointOfInterest implements Comparable<PointOfInterest>
 					}
 				}
 			}
-			
+
+			Miscellaneous.logEvent("i", "POI", "Reached POI " + this.getName() + ". Done checking POI rules.", 2);
+
+
 			parentService.updateNotification();
 			ActivityMainScreen.updateMainScreen();
 		}

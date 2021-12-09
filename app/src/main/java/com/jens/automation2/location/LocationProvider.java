@@ -121,9 +121,9 @@ public class LocationProvider
 				if (
 						locationList.size() >= 1
 								&&
-								locationList.get(locationList.size() - 1).getTime() == newLocation.getTime()
+						locationList.get(locationList.size() - 1).getTime() == newLocation.getTime()
 								&&
-								locationList.get(locationList.size() - 1).getProvider().equals(newLocation.getProvider())
+						locationList.get(locationList.size() - 1).getProvider().equals(newLocation.getProvider())
 				)
 				{
 					// This is a duplicate update, do not store it

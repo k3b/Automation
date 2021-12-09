@@ -425,8 +425,8 @@
     <string name="bluetoothDeviceInRange">Bluetooth device %1$s in range.</string>
     <string name="bluetoothDeviceOutOfRange">Bluetooth device %1$s out of range.</string>
     <string name="anyDevice">any device</string>
-    <string name="ruleDoesntApplyNotTheCorrectDeviceName" translatable="false">Rule doesn\'t apply. Not the correct bluetooth device name.</string>
-    <string name="ruleDoesntApplyNotTheCorrectDeviceAddress" translatable="false">Rule doesn\'t apply. Not the correct bluetooth device address.</string>
+    <string name="ruleDoesntApplyNotTheCorrectDeviceName" translatable="false">Rule %1$s doesn\'t apply. Not the correct bluetooth device name.</string>
+    <string name="ruleDoesntApplyNotTheCorrectDeviceAddress" translatable="false">Rule %1$s doesn\'t apply. Not the correct bluetooth device address.</string>
     <string name="noDevice">no device</string>
     <string name="selectDeviceFromList">one from list</string>
     <string name="connectionToDevice">connection to device</string>
@@ -435,8 +435,8 @@
     <string name="deviceOutOfRange">device out of range</string>
     <string name="selectDeviceOption">Select a device option.</string>
     <string name="selectConnectionOption">Select a connection option.</string>
-    <string name="ruleDoesntApplyDeviceInRangeButShouldNotBe" translatable="false">Rule doesn\'t apply. Device is in range, but should not be.</string>
-    <string name="ruleDoesntApplyStateNotCorrect" translatable="false">Rule doesn\'t apply. Wrong state.</string>
+    <string name="ruleDoesntApplyDeviceInRangeButShouldNotBe" translatable="false">Rule %1$s doesn\'t apply. Device is in range, but should not be.</string>
+    <string name="ruleDoesntApplyStateNotCorrect" translatable="false">Rule %1$s doesn\'t apply. Wrong state.</string>
     <string name="triggerHeadsetPlugged">Headset connection</string>
     <string name="actionPlayMusic">Open music player</string>
     <string name="headsetConnected">Headset (type: %1$s) connected</string>

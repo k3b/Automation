@@ -353,7 +353,7 @@ public class Trigger
 		else
 		if(this.getHeadphoneType() != 2 && this.getHeadphoneType() != HeadphoneJackListener.getHeadphoneType())
 		{
-			Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyWrongHeadphoneType), 3);
+			Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyWrongHeadphoneType), this.getParentRule().getName()), 3);
 			return false;
 		}
 
@@ -362,7 +362,7 @@ public class Trigger
 
     boolean checkBluetooth()
 	{
-		Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "Checking for bluetooth...", 4);
+		Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format("Checking for bluetooth...", this.getParentRule().getName()), 4);
 
 		if(this.getBluetoothDeviceAddress().equals("<any>"))
 		{
@@ -423,7 +423,7 @@ public class Trigger
 		}
 		else
 		{
-			Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyStateNotCorrect), 3);
+			Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyStateNotCorrect), this.getParentRule().getName()), 3);
 			return false;
 		}
 
@@ -434,12 +434,12 @@ public class Trigger
 	{
 		if(NfcReceiver.lastReadLabel == null)
 		{
-			Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyNoTagLabel), 3);
+			Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyNoTagLabel), this.getParentRule().getName()),3);
 			return false;
 		}
 		else if(!NfcReceiver.lastReadLabel.equals(this.getNfcTagId()))
 		{
-			Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyWrongTagLabel) + " " + NfcReceiver.lastReadLabel + " / " + this.getNfcTagId(), 3);
+			Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyWrongTagLabel) + " " + NfcReceiver.lastReadLabel + " / " + this.getNfcTagId(), this.getParentRule().getName()), 3);
 			return false;
 		}
 
@@ -535,26 +535,26 @@ public class Trigger
 
     boolean checkWifiConnection()
 	{
-		Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "Checking for wifi state", 4);
+		Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format( "Checking for wifi state", this.getParentRule().getName()),4);
 		if(this.getTriggerParameter() == WifiBroadcastReceiver.lastConnectedState)	// connected / disconnected
 		{
 			if(this.getTriggerParameter2().length() > 0)	// only check if any wifi name specified, otherwise any wifi will do
 			{
-				Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "Wifi name specified, checking that.", 4);
+				Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format("Wifi name specified, checking that.", this.getParentRule().getName()), 4);
 				if(!WifiBroadcastReceiver.getLastWifiSsid().equals(this.getTriggerParameter2()))
 				{
-					Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyNotTheCorrectSsid), getParentRule().getName(), this.getTriggerParameter2(), WifiBroadcastReceiver.getLastWifiSsid()), 3);
+					Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyNotTheCorrectSsid), getParentRule().getName(), this.getTriggerParameter2(), WifiBroadcastReceiver.getLastWifiSsid()),this.getParentRule().getName()), 3);
 					return false;
 				}
 				else
-					Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "Wifi name matches. Rule will apply.", 4);
+					Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format("Wifi name matches. Rule will apply.", this.getParentRule().getName()), 4);
 			}
 			else
-				Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "No wifi name specified, any will do.", 4);
+				Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format("No wifi name specified, any will do.", this.getParentRule().getName()), 4);
 		}
 		else
 		{
-			Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "Wifi state not correct, demanded " + String.valueOf(this.getTriggerParameter() + ", got " + String.valueOf(WifiBroadcastReceiver.lastConnectedState)), 4);
+			Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format("Wifi state not correct, demanded " + String.valueOf(this.getTriggerParameter() + ", got " + String.valueOf(WifiBroadcastReceiver.lastConnectedState)), this.getParentRule().getName()), 4);
 			return false;
 		}
 
@@ -567,7 +567,7 @@ public class Trigger
 		{
 			if(NoiseListener.getNoiseLevelDb() < this.getNoiseLevelDb())
 			{
-				Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyItsQuieterThan) + " " + String.valueOf(this.getNoiseLevelDb()), 3);
+				Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyItsQuieterThan) + " " + String.valueOf(this.getNoiseLevelDb()), this.getParentRule().getName()), 3);
 				return false;
 			}
 		}
@@ -575,7 +575,7 @@ public class Trigger
 		{
 			if(NoiseListener.getNoiseLevelDb() > this.getNoiseLevelDb())
 			{
-				Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyItsLouderThan) + " " + String.valueOf(this.getNoiseLevelDb()), 3);
+				Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyItsLouderThan) + " " + String.valueOf(this.getNoiseLevelDb()), this.getParentRule().getName()), 3);
 				return false;
 			}
 		}
@@ -589,7 +589,7 @@ public class Trigger
 		{
 			if(LocationProvider.getSpeed() < this.getSpeed())
 			{
-				Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyWeAreSlowerThan) + " " + String.valueOf(this.getSpeed()), 3);
+				Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyWeAreSlowerThan) + " " + String.valueOf(this.getSpeed()), this.getParentRule().getName()), 3);
 				return false;
 			}
 		}
@@ -597,7 +597,7 @@ public class Trigger
 		{
 			if(LocationProvider.getSpeed() > this.getSpeed())
 			{
-				Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyWeAreFasterThan) + " " + String.valueOf(this.getSpeed()), 3);
+				Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyWeAreFasterThan) + " " + String.valueOf(this.getSpeed()), this.getParentRule().getName()), 3);
 				return false;
 			}
 		}
@@ -611,7 +611,7 @@ public class Trigger
 		{
 			if(BatteryReceiver.getBatteryLevel() <= this.getBatteryLevel())
 			{
-				Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyBatteryLowerThan) + " " + String.valueOf(this.getBatteryLevel()), 3);
+				Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyBatteryLowerThan) + " " + String.valueOf(this.getBatteryLevel()), this.getParentRule().getName()), 3);
 				return false;
 			}
 		}
@@ -619,7 +619,7 @@ public class Trigger
 		{
 			if(this.getBatteryLevel() >= this.getBatteryLevel())
 			{
-				Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyBatteryHigherThan) + " " + String.valueOf(this.getBatteryLevel()), 3);
+				Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyBatteryHigherThan) + " " + String.valueOf(this.getBatteryLevel()), this.getParentRule().getName()), 3);
 				return false;
 			}
 		}
@@ -649,13 +649,13 @@ public class Trigger
 				{
 					if(!this.getTriggerParameter())
 					{
-						Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "Rule doesn't apply. We're entering POI: " + this.getPointOfInterest().getName() + ", not leaving it.", 4);
+						Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), String.format("Rule %1$s doesn't apply. We're entering POI: " + this.getPointOfInterest().getName() + ", not leaving it.", getParentRule().getName()), 4);
 						return false;
 					}
 				}
 				else
 				{
-					Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "Rule doesn't apply. This is " + activePoi.getName() + ", not " + this.getPointOfInterest().getName() + ".", 4);
+					Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), String.format("Rule %1$s doesn't apply. This is " + activePoi.getName() + ", not " + this.getPointOfInterest().getName() + ".", getParentRule().getName()), 4);
 					return false;
 				}
 			}
@@ -663,7 +663,7 @@ public class Trigger
 			{
 				if(this.getTriggerParameter())
 				{
-					Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "Rule doesn't apply. We're at a POI. Rule specifies not at none, so leaving any.", 4);
+					Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), String.format("Rule %s$s doesn't apply. We're at a POI. Rule specifies not at none, so leaving any.",getParentRule().getName()),  4);
 					return false;
 				}
 			}
@@ -681,7 +681,7 @@ public class Trigger
 				}
 				else
 				{
-					Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "Rule doesn't apply. We're not at POI \"" + this.getPointOfInterest().getName() + "\".", 3);
+					Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), String.format("Rule %1$s doesn't apply. We're not at POI \"" + this.getPointOfInterest().getName() + "\".", getParentRule().getName()), 3);
 					return false;
 				}
 //							}
@@ -690,7 +690,7 @@ public class Trigger
 			{
 				if(!this.getTriggerParameter())
 				{
-					Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), "Rule doesn't apply. We're at no POI. Rule specifies to be at anyone.", 5);
+					Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getParentRule().getName()), String.format("Rule %1$s doesn't apply. We're at no POI. Rule specifies to be at anyone.", getParentRule().getName()), 5);
 					return false;
 				}
 			}
