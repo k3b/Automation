@@ -588,4 +588,7 @@
     <string name="pleaseGiveBgLocation">Nella schermata successiva vai su permessi, poi posizione. Lì seleziona \"Consenti sempre\" per permettere ad Automation di determinare la tua posizione in secondo piano.</string>
     <string name="tones">Suonerias</string>
     <string name="dnd">Non disturbare</string>
+    <string name="deviceOrientation">Orientamento</string>
+    <string name="tolerance">Tolleranza</string>
+    <string name="orientationAzimuth">Azimut:</string>
 </resources>

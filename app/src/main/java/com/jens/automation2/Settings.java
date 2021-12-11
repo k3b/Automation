@@ -56,7 +56,7 @@ public class Settings implements SharedPreferences
 	public static boolean rememberLastActivePoi;
 	public static int locationRingBufferSize;
 	public static long timeBetweenProcessMonitorings;
-	public static long acceptDevicePositionSignalEveryX_MilliSeconds;
+	public static long acceptDeviceOrientationSignalEveryX_MilliSeconds;
 	public static int activityDetectionFrequency;
 	public static int activityDetectionRequiredProbability;
 	public static boolean privacyLocationing;
@@ -238,7 +238,7 @@ public class Settings implements SharedPreferences
 			lengthOfNoiseLevelMeasurements = Long.parseLong(prefs.getString("lengthOfNoiseLevelMeasurements", String.valueOf(default_lengthOfNoiseLevelMeasurements)));
 			referenceValueForNoiseLevelMeasurements = Long.parseLong(prefs.getString("referenceValueForNoiseLevelMeasurements", String.valueOf(default_referenceValueForNoiseLevelMeasurements)));
 			timeBetweenProcessMonitorings = Long.parseLong(prefs.getString("timeBetweenProcessMonitorings", String.valueOf(default_timeBetweenProcessMonitorings)));
-			acceptDevicePositionSignalEveryX_MilliSeconds = Long.parseLong(prefs.getString("acceptDevicePositionSignalEveryX_MilliSeconds", String.valueOf(default_acceptDevicePositionSignalEveryX_MilliSeconds)));
+			acceptDeviceOrientationSignalEveryX_MilliSeconds = Long.parseLong(prefs.getString("acceptDevicePositionSignalEveryX_MilliSeconds", String.valueOf(default_acceptDevicePositionSignalEveryX_MilliSeconds)));
 			
 			httpAcceptAllCertificates = prefs.getBoolean("httpAcceptAllCertificates", default_httpAcceptAllCertificates);
 			httpAttempts = Integer.parseInt(prefs.getString("httpAttempts", String.valueOf(default_httpAttempts)));
@@ -532,7 +532,7 @@ public class Settings implements SharedPreferences
 				editor.putString("httpAttemptGap", String.valueOf(httpAttemptGap));
 				editor.putString("locationRingBufferSize", String.valueOf(locationRingBufferSize));
 				editor.putString("timeBetweenProcessMonitorings", String.valueOf(timeBetweenProcessMonitorings));
-				editor.putString("acceptDevicePositionSignalEveryX_MilliSeconds", String.valueOf(acceptDevicePositionSignalEveryX_MilliSeconds));
+				editor.putString("acceptDevicePositionSignalEveryX_MilliSeconds", String.valueOf(acceptDeviceOrientationSignalEveryX_MilliSeconds));
 				editor.putString("activityDetectionFrequency", String.valueOf(activityDetectionFrequency));
 				editor.putString("activityDetectionRequiredProbability", String.valueOf(activityDetectionRequiredProbability));
 				editor.putBoolean("privacyLocationing", privacyLocationing);

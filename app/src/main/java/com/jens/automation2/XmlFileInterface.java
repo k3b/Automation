@@ -891,6 +891,8 @@ public class XmlFileInterface
 
 				if(triggerEventString.equals("process_started_stopped") | triggerEventString.equals("process_running"))
             		newTrigger.setTriggerType(Trigger_Enum.process_started_stopped);
+				if(triggerEventString.equals("devicePosition"))
+					newTrigger.setTriggerType(Trigger_Enum.deviceOrientation);
 				else
 					newTrigger.setTriggerType(Trigger_Enum.valueOf(triggerEventString));
             }
@@ -939,7 +941,6 @@ public class XmlFileInterface
             	}
             	else if(newTrigger.getTriggerType() == Trigger_Enum.wifiConnection)
             	{
-//            		newTrigger.setWifiName(triggerParameter2);
 					newTrigger.setTriggerParameter2(triggerParameter2);
             	}
             	else if(newTrigger.getTriggerType() == Trigger_Enum.process_started_stopped)

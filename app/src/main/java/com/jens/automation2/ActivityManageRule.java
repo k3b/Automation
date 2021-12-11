@@ -264,10 +264,10 @@ public class ActivityManageRule extends Activity
 						wifiEditor.putExtra("wifiName", selectedTrigger.getTriggerParameter2());
 						startActivityForResult(wifiEditor, requestCodeTriggerWifiEdit);
 						break;
-					case devicePosition:
-						Intent devicePositionEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerDevicePosition.class);
+					case deviceOrientation:
+						Intent devicePositionEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerDeviceOrientation.class);
 						devicePositionEditor.putExtra(ActivityManageRule.intentNameTriggerParameter1, selectedTrigger.getTriggerParameter());
-						devicePositionEditor.putExtra(ActivityManageTriggerDevicePosition.vectorFieldName, selectedTrigger.getTriggerParameter2());
+						devicePositionEditor.putExtra(ActivityManageTriggerDeviceOrientation.vectorFieldName, selectedTrigger.getTriggerParameter2());
 						startActivityForResult(devicePositionEditor, requestCodeTriggerDevicePositionEdit);
 						break;
 					default:
@@ -479,7 +479,7 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.headphone));
 			else if(types[i].toString().equals(Trigger_Enum.notification.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.notification));
-			else if(types[i].toString().equals(Trigger_Enum.devicePosition.toString()))
+			else if(types[i].toString().equals(Trigger_Enum.deviceOrientation.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.smartphone));
 			else
 				items.add(new Item(typesLong[i].toString(), R.drawable.placeholder));
@@ -555,10 +555,10 @@ public class ActivityManageRule extends Activity
 							return;
 //							booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
 						}
-						else if(triggerType == Trigger_Enum.devicePosition)
+						else if(triggerType == Trigger_Enum.deviceOrientation)
 						{
-							newTrigger.setTriggerType(Trigger_Enum.devicePosition);
-							Intent devicePositionTriggerEditor = new Intent(myContext, ActivityManageTriggerDevicePosition.class);
+							newTrigger.setTriggerType(Trigger_Enum.deviceOrientation);
+							Intent devicePositionTriggerEditor = new Intent(myContext, ActivityManageTriggerDeviceOrientation.class);
 							startActivityForResult(devicePositionTriggerEditor, requestCodeTriggerDevicePositionAdd);
 							return;
 //							booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
@@ -1366,7 +1366,7 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK)
 			{
 //				newTrigger.setTriggerParameter(data.getBooleanExtra("wifiState", false));
-				newTrigger.setTriggerParameter2(data.getStringExtra(ActivityManageTriggerDevicePosition.vectorFieldName));
+				newTrigger.setTriggerParameter2(data.getStringExtra(ActivityManageTriggerDeviceOrientation.vectorFieldName));
 				newTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().add(newTrigger);
 				this.refreshTriggerList();
@@ -1377,9 +1377,9 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK)
 			{
 				Trigger editedTrigger = new Trigger();
-				editedTrigger.setTriggerType(Trigger_Enum.devicePosition);
+				editedTrigger.setTriggerType(Trigger_Enum.deviceOrientation);
 				editedTrigger.setTriggerParameter(data.getBooleanExtra(ActivityManageRule.intentNameTriggerParameter1, true));
-				editedTrigger.setTriggerParameter2(data.getStringExtra(ActivityManageTriggerDevicePosition.vectorFieldName));
+				editedTrigger.setTriggerParameter2(data.getStringExtra(ActivityManageTriggerDeviceOrientation.vectorFieldName));
 				editedTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().set(editIndex, editedTrigger);
 				this.refreshTriggerList();

@@ -145,7 +145,7 @@
         <activity android:name=".ActivityMaintenance" />
         <activity android:name=".ActivityManageTriggerPhoneCall" />
         <activity android:name=".ActivityManageActionBrightnessSetting" />
-        <activity android:name=".ActivityManageTriggerDevicePosition" />
+        <activity android:name=".ActivityManageTriggerDeviceOrientation" />
         <activity android:name=".ActivityHelp" />
         <activity android:name=".ActivityManageActionVibrate" />
         <activity

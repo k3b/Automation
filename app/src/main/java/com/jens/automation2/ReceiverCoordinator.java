@@ -10,7 +10,7 @@ import com.jens.automation2.receivers.AutomationListenerInterface;
 import com.jens.automation2.receivers.BatteryReceiver;
 import com.jens.automation2.receivers.BluetoothReceiver;
 import com.jens.automation2.receivers.ConnectivityReceiver;
-import com.jens.automation2.receivers.DevicePositionListener;
+import com.jens.automation2.receivers.DeviceOrientationListener;
 import com.jens.automation2.receivers.HeadphoneJackListener;
 import com.jens.automation2.receivers.NoiseListener;
 import com.jens.automation2.receivers.PhoneStatusListener;
@@ -47,7 +47,7 @@ public class ReceiverCoordinator
                     BatteryReceiver.class,
                     BluetoothReceiver.class,
                     ConnectivityReceiver.class,
-                    DevicePositionListener.class,
+                    DeviceOrientationListener.class,
                     HeadphoneJackListener.class,
                     //NfcReceiver.class,
                     NoiseListener.class,
@@ -63,7 +63,7 @@ public class ReceiverCoordinator
                     BatteryReceiver.class,
                     BluetoothReceiver.class,
                     ConnectivityReceiver.class,
-                    DevicePositionListener.class,
+                    DeviceOrientationListener.class,
                     HeadphoneJackListener.class,
                     //NfcReceiver.class,
                     NoiseListener.class,
@@ -167,8 +167,8 @@ public class ReceiverCoordinator
         if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.process_started_stopped))
             ProcessListener.startProcessListener(AutomationService.getInstance());
 
-        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.devicePosition))
-            DevicePositionListener.getInstance().startListener(AutomationService.getInstance());
+        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.deviceOrientation))
+            DeviceOrientationListener.getInstance().startListener(AutomationService.getInstance());
 
         try
         {
@@ -220,7 +220,7 @@ public class ReceiverCoordinator
 
             BluetoothReceiver.stopBluetoothReceiver();
             HeadphoneJackListener.getInstance().stopListener(AutomationService.getInstance());
-            DevicePositionListener.getInstance().stopListener(AutomationService.getInstance());
+            DeviceOrientationListener.getInstance().stopListener(AutomationService.getInstance());
         }
         catch(Exception e)
         {
@@ -355,21 +355,21 @@ public class ReceiverCoordinator
             }
         }
 
-        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.devicePosition))
+        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.deviceOrientation))
         {
-            if(!DevicePositionListener.getInstance().isListenerRunning())
+            if(!DeviceOrientationListener.getInstance().isListenerRunning())
             {
                 Miscellaneous.logEvent("i", "DevicePositionListener", "Starting DevicePositionListener because used in a new/changed rule.", 4);
 //                if(DevicePositionListener.getInstance().haveAllPermission())
-                    DevicePositionListener.getInstance().startListener(AutomationService.getInstance());
+                    DeviceOrientationListener.getInstance().startListener(AutomationService.getInstance());
             }
         }
         else
         {
-            if(DevicePositionListener.getInstance().isListenerRunning())
+            if(DeviceOrientationListener.getInstance().isListenerRunning())
             {
                 Miscellaneous.logEvent("i", "DevicePositionListener", "Shutting down DevicePositionListener because not used in any rule.", 4);
-                DevicePositionListener.getInstance().stopListener(AutomationService.getInstance());
+                DeviceOrientationListener.getInstance().stopListener(AutomationService.getInstance());
             }
         }
 

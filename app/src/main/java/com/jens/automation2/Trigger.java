@@ -1,10 +1,7 @@
 package com.jens.automation2;
 
-import static android.content.Context.DEVICE_POLICY_SERVICE;
-
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.service.notification.StatusBarNotification;
@@ -18,7 +15,7 @@ import com.jens.automation2.location.WifiBroadcastReceiver;
 import com.jens.automation2.receivers.BatteryReceiver;
 import com.jens.automation2.receivers.BluetoothReceiver;
 import com.jens.automation2.receivers.ConnectivityReceiver;
-import com.jens.automation2.receivers.DevicePositionListener;
+import com.jens.automation2.receivers.DeviceOrientationListener;
 import com.jens.automation2.receivers.HeadphoneJackListener;
 import com.jens.automation2.receivers.NfcReceiver;
 import com.jens.automation2.receivers.NoiseListener;
@@ -112,8 +109,8 @@ public class Trigger
 					if(!checkNotification())
 						result = false;
 					break;
-				case devicePosition:
-					if(!checkDevicePosition())
+				case deviceOrientation:
+					if(!checkDeviceOrientation())
 						result = false;
 					break;
 				case activityDetection:
@@ -276,18 +273,18 @@ public class Trigger
 		return true;
 	}
 
-	boolean checkDevicePosition()
+	boolean checkDeviceOrientation()
 	{
-		String devicePositionPieces[] = getTriggerParameter2().split(Trigger.triggerParameter2Split);
-		float desiredAzimuth = Float.parseFloat(devicePositionPieces[0]);
-		float desiredAzimuthTolerance = Float.parseFloat(devicePositionPieces[1]);
-		float desiredPitch = Float.parseFloat(devicePositionPieces[2]);
-		float desiredPitchTolerance = Float.parseFloat(devicePositionPieces[3]);
-		float desiredRoll = Float.parseFloat(devicePositionPieces[4]);
-		float desiredRollTolerance = Float.parseFloat(devicePositionPieces[5]);
-		float currentAzimuth = DevicePositionListener.getInstance().getAzimuth();
-		float currentPitch = DevicePositionListener.getInstance().getPitch();
-		float currentRoll = DevicePositionListener.getInstance().getRoll();
+		String deviceOrientationPieces[] = getTriggerParameter2().split(Trigger.triggerParameter2Split);
+		float desiredAzimuth = Float.parseFloat(deviceOrientationPieces[0]);
+		float desiredAzimuthTolerance = Float.parseFloat(deviceOrientationPieces[1]);
+		float desiredPitch = Float.parseFloat(deviceOrientationPieces[2]);
+		float desiredPitchTolerance = Float.parseFloat(deviceOrientationPieces[3]);
+		float desiredRoll = Float.parseFloat(deviceOrientationPieces[4]);
+		float desiredRollTolerance = Float.parseFloat(deviceOrientationPieces[5]);
+		float currentAzimuth = DeviceOrientationListener.getInstance().getAzimuth();
+		float currentPitch = DeviceOrientationListener.getInstance().getPitch();
+		float currentRoll = DeviceOrientationListener.getInstance().getRoll();
 
 		if(
 				desiredAzimuthTolerance < 180
@@ -299,7 +296,7 @@ public class Trigger
 				)
 		)
 		{
-			Miscellaneous.logEvent("i", "DevicePosition", "Trigger doesn\'t apply. Azimuth outside of tolerance area.", 5);
+			Miscellaneous.logEvent("i", "DeviceOrientation", "Trigger doesn\'t apply. Azimuth outside of tolerance area.", 5);
 			if(getTriggerParameter())
 				return false;
 			else
@@ -316,7 +313,7 @@ public class Trigger
 				)
 		)
 		{
-			Miscellaneous.logEvent("i", "DevicePosition", "Trigger doesn\'t apply. Pitch outside of tolerance area.", 5);
+			Miscellaneous.logEvent("i", "DeviceOrientation", "Trigger doesn\'t apply. Pitch outside of tolerance area.", 5);
 			if(getTriggerParameter())
 				return false;
 			else
@@ -333,7 +330,7 @@ public class Trigger
 				)
 		)
 		{
-			Miscellaneous.logEvent("i", "DevicePosition", "Trigger doesn\'t apply. Roll outside of tolerance area.", 5);
+			Miscellaneous.logEvent("i", "DeviceOrientation", "Trigger doesn\'t apply. Roll outside of tolerance area.", 5);
 			if(getTriggerParameter())
 				return false;
 			else
@@ -982,7 +979,7 @@ public class Trigger
 	 */
 	
 	public enum Trigger_Enum {
-								pointOfInterest, timeFrame, charging, batteryLevel, usb_host_connection, speed, noiseLevel, wifiConnection, process_started_stopped, airplaneMode, roaming, nfcTag, activityDetection, bluetoothConnection, headsetPlugged, notification, devicePosition, phoneCall; //phoneCall always needs to be at the very end because of Google's shitty so called privacy
+								pointOfInterest, timeFrame, charging, batteryLevel, usb_host_connection, speed, noiseLevel, wifiConnection, process_started_stopped, airplaneMode, roaming, nfcTag, activityDetection, bluetoothConnection, headsetPlugged, notification, deviceOrientation, phoneCall; //phoneCall always needs to be at the very end because of Google's shitty so called privacy
 								
 								public String getFullName(Context context)
 								{
@@ -1022,8 +1019,8 @@ public class Trigger
 											return context.getResources().getString(R.string.triggerHeadsetPlugged);
 										case notification:
 											return context.getResources().getString(R.string.notification);
-										case devicePosition:
-											return context.getResources().getString(R.string.devicePosition);
+										case deviceOrientation:
+											return context.getResources().getString(R.string.deviceOrientation);
 										default:
 											return "Unknown";
 									}
@@ -1493,8 +1490,8 @@ public class Trigger
 					setTriggerParameter2("-1" + triggerParameter2Split + directionEquals + triggerParameter2Split + triggerParameter2Split + directionEquals + triggerParameter2Split + triggerParameter2Split);
 				}
 				break;
-			case devicePosition:
-				returnString.append(Miscellaneous.getAnyContext().getString(R.string.deviceIsInCertainPosition));
+			case deviceOrientation:
+				returnString.append(Miscellaneous.getAnyContext().getString(R.string.deviceIsInCertainOrientation));
 				break;
 			default:
 				returnString.append("error");

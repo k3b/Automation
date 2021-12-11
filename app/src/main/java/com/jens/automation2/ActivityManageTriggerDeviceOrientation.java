@@ -16,11 +16,11 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.jens.automation2.receivers.DevicePositionListener;
+import com.jens.automation2.receivers.DeviceOrientationListener;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class ActivityManageTriggerDevicePosition extends Activity
+public class ActivityManageTriggerDeviceOrientation extends Activity
 {
     TextView currentAzimuth, currentPitch, currentRoll, tvAppliesAzimuth, tvAppliesPitch, tvAppliesRoll;
     Button bApplyPositionValues, bSavePositionValues;
@@ -104,7 +104,7 @@ public class ActivityManageTriggerDevicePosition extends Activity
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_trigger_device_position);
+        setContentView(R.layout.activity_manage_trigger_device_orientation);
 
         currentAzimuth = (TextView) findViewById(R.id.tvCurrentAzimuth);
         currentPitch = (TextView) findViewById(R.id.tvCurrentOrientationPitch);
@@ -149,7 +149,7 @@ public class ActivityManageTriggerDevicePosition extends Activity
             }
             catch(Exception e)
             {
-                Toast.makeText(ActivityManageTriggerDevicePosition.this, getResources().getString(R.string.triggerWrong), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityManageTriggerDeviceOrientation.this, getResources().getString(R.string.triggerWrong), Toast.LENGTH_SHORT).show();
                 Miscellaneous.logEvent("e", "DevicePositionTrigger", "There\'s something wrong with a device position trigger. Content: " + getIntent().getStringExtra(vectorFieldName) + ", " + Log.getStackTraceString(e), 1);
             }
         }
@@ -177,7 +177,7 @@ public class ActivityManageTriggerDevicePosition extends Activity
             {
                 if(!checkInputs(true))
                 {
-                    Toast.makeText(ActivityManageTriggerDevicePosition.this, getResources().getString(R.string.enterValidNumbersIntoAllFields), Toast.LENGTH_LONG).show();
+                    Toast.makeText(ActivityManageTriggerDeviceOrientation.this, getResources().getString(R.string.enterValidNumbersIntoAllFields), Toast.LENGTH_LONG).show();
                 }
                 else
                 {
@@ -236,7 +236,7 @@ public class ActivityManageTriggerDevicePosition extends Activity
              */
                 if (Math.abs(dat) >= 180 && Math.abs(dpt) >= 180 && Math.abs(drt) >= 180)
                 {
-                    Miscellaneous.messageBox(getResources().getString(R.string.warning), getResources().getString(R.string.toleranceOf180OnlyAllowedIn2Fields), ActivityManageTriggerDevicePosition.this).show();
+                    Miscellaneous.messageBox(getResources().getString(R.string.warning), getResources().getString(R.string.toleranceOf180OnlyAllowedIn2Fields), ActivityManageTriggerDeviceOrientation.this).show();
                     return false;
                 }
             }
@@ -251,14 +251,14 @@ public class ActivityManageTriggerDevicePosition extends Activity
     protected void onResume()
     {
         super.onResume();
-        DevicePositionListener.getInstance().startSensorFromConfigActivity(ActivityManageTriggerDevicePosition.this, this);
+        DeviceOrientationListener.getInstance().startSensorFromConfigActivity(ActivityManageTriggerDeviceOrientation.this, this);
     }
 
     @Override
     protected void onPause()
     {
         super.onPause();
-        DevicePositionListener.getInstance().stopSensorFromConfigActivity();
+        DeviceOrientationListener.getInstance().stopSensorFromConfigActivity();
     }
 
     public class InputFilterMinMax implements InputFilter

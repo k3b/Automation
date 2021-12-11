@@ -7,9 +7,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.widget.TextView;
 
-import com.jens.automation2.ActivityManageTriggerDevicePosition;
+import com.jens.automation2.ActivityManageTriggerDeviceOrientation;
 import com.jens.automation2.AutomationService;
 import com.jens.automation2.Miscellaneous;
 import com.jens.automation2.Rule;
@@ -19,15 +18,15 @@ import com.jens.automation2.Trigger;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class DevicePositionListener implements SensorEventListener, AutomationListenerInterface
+public class DeviceOrientationListener implements SensorEventListener, AutomationListenerInterface
 {
     // https://developer.android.com/guide/topics/sensors/sensors_position#java
 
-    ActivityManageTriggerDevicePosition activityManageTriggerDevicePositionInstance = null;
+    ActivityManageTriggerDeviceOrientation activityManageTriggerDeviceOrientationInstance = null;
 
     //the Sensor Manager
     private SensorManager sManager;
-    static DevicePositionListener instance = null;
+    static DeviceOrientationListener instance = null;
     boolean isRunning = false;
 
     Calendar now = null;
@@ -51,10 +50,10 @@ public class DevicePositionListener implements SensorEventListener, AutomationLi
     boolean toggable = false;
 
 
-    public static DevicePositionListener getInstance()
+    public static DeviceOrientationListener getInstance()
     {
         if (instance == null)
-            instance = new DevicePositionListener();
+            instance = new DeviceOrientationListener();
 
         return instance;
     }
@@ -74,9 +73,9 @@ public class DevicePositionListener implements SensorEventListener, AutomationLi
         return roll;
     }
 
-    public void startSensorFromConfigActivity(Context context, ActivityManageTriggerDevicePosition activityManageTriggerDevicePositionInstance)
+    public void startSensorFromConfigActivity(Context context, ActivityManageTriggerDeviceOrientation activityManageTriggerDeviceOrientationInstance)
     {
-        this.activityManageTriggerDevicePositionInstance = activityManageTriggerDevicePositionInstance;
+        this.activityManageTriggerDeviceOrientationInstance = activityManageTriggerDeviceOrientationInstance;
 
         if(!isRunning)
         {
@@ -97,11 +96,11 @@ public class DevicePositionListener implements SensorEventListener, AutomationLi
 
     public void stopSensorFromConfigActivity()
     {
-        activityManageTriggerDevicePositionInstance = null;
+        activityManageTriggerDeviceOrientationInstance = null;
 
         if(isRunning)
         {
-            if(!Rule.isAnyRuleUsing(Trigger.Trigger_Enum.devicePosition))
+            if(!Rule.isAnyRuleUsing(Trigger.Trigger_Enum.deviceOrientation))
             {
                 //unregister the sensor listener
                 sManager.unregisterListener(this);
@@ -146,16 +145,19 @@ public class DevicePositionListener implements SensorEventListener, AutomationLi
         }
 
         //else it will output the Roll, Pitch and Yawn values
-        if(activityManageTriggerDevicePositionInstance != null)
-            activityManageTriggerDevicePositionInstance.updateFields(azimuth, pitch, roll);
+        if(activityManageTriggerDeviceOrientationInstance != null)
+            activityManageTriggerDeviceOrientationInstance.updateFields(azimuth, pitch, roll);
 
         now = Calendar.getInstance();
-        if(lastTimeSignalArrived == null || now.getTimeInMillis() >= lastTimeSignalArrived.getTimeInMillis() + Settings.acceptDevicePositionSignalEveryX_MilliSeconds)
+        if(lastTimeSignalArrived == null || now.getTimeInMillis() >= lastTimeSignalArrived.getTimeInMillis() + Settings.acceptDeviceOrientationSignalEveryX_MilliSeconds)
         {
             lastTimeSignalArrived = now;
+
+            Miscellaneous.logEvent("i", "DeviceOrientation", "Got device orientation update: azimuth: " + String.valueOf(azimuth) + ", pitch: " + String.valueOf(pitch) + ", roll: " + String.valueOf(pitch), 4);
+
             if (AutomationService.isMyServiceRunning(Miscellaneous.getAnyContext()))
             {
-                ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.devicePosition);
+                ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.deviceOrientation);
                 for (int i = 0; i < ruleCandidates.size(); i++)
                 {
                     if (ruleCandidates.get(i).getsGreenLight(Miscellaneous.getAnyContext()))
@@ -188,7 +190,7 @@ public class DevicePositionListener implements SensorEventListener, AutomationLi
     @Override
     public void stopListener(AutomationService automationService)
     {
-        this.activityManageTriggerDevicePositionInstance = null;
+        this.activityManageTriggerDeviceOrientationInstance = null;
 
         if(isRunning)
         {
@@ -207,7 +209,7 @@ public class DevicePositionListener implements SensorEventListener, AutomationLi
     @Override
     public Trigger.Trigger_Enum[] getMonitoredTrigger()
     {
-        return new Trigger.Trigger_Enum[] { Trigger.Trigger_Enum.devicePosition };
+        return new Trigger.Trigger_Enum[] { Trigger.Trigger_Enum.deviceOrientation};
     }
 
     /*

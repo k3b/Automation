@@ -597,4 +597,9 @@
     <string name="dnd">No interrumpir</string>
     <string name="donate">Donar</string>
     <string name="notice">Nota</string>
+    <string name="deviceOrientation">Orientación</string>
+    <string name="tolerance">Tolerancia</string>
+    <string name="orientationAzimuth">" Acimut:"</string>
+    <string name="turnScreenOff">apagar pantalla</string>
+    <string name="turnScreenOn">encender pantalla</string>
 </resources>
