@@ -44,7 +44,7 @@ public class ActivityManageActionSpeakText extends Activity
 					backToRuleManager();
 				}
 				else
-					Toast.makeText(getBaseContext(), getResources().getString(R.string.textTooShort), Toast.LENGTH_LONG).show();
+					Toast.makeText(getBaseContext(), getResources().getString(R.string.enterPhoneNumberAndText), Toast.LENGTH_LONG).show();
 			}
 		});
 		

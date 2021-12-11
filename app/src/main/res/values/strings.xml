@@ -76,7 +76,7 @@
     <string name="deactivating">Deactivating</string>
     <string name="bluetoothFailed">Failed to trigger Bluetooth. Does this device have Bluetooth?</string>
     <string name="urlTooShort">The url has to have least 10 characters.</string>
-    <string name="textTooShort">The text has to have least 10 characters.</string>
+    <string name="enterPhoneNumberAndText">Enter a phone number and a text.</string>
     <string name="selectTypeOfTrigger">Select type of trigger</string>
     <string name="entering">entering</string>
     <string name="leaving">leaving</string>
@@ -731,4 +731,7 @@
     <string name="turnScreenOff">turn screen off</string>
     <string name="mustApply">Must apply</string>
     <string name="explanationDevicePositionDirection">If the checkbox is checked that means the device has to be in the position you specify. If it\'s not checked, any position that does NOT match your criteria will do.</string>
+    <string name="devicePositionTimeAcceptIntervalTitle">Signal frequency</string>
+    <string name="devicePositionTimeAcceptIntervalSummary">Accept new movement signals every x milliseconds</string>
+    <string name="devicePositionSettings">Device positioning settings</string>
 </resources>

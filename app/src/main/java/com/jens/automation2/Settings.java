@@ -56,6 +56,7 @@ public class Settings implements SharedPreferences
 	public static boolean rememberLastActivePoi;
 	public static int locationRingBufferSize;
 	public static long timeBetweenProcessMonitorings;
+	public static long acceptDevicePositionSignalEveryX_MilliSeconds;
 	public static int activityDetectionFrequency;
 	public static int activityDetectionRequiredProbability;
 	public static boolean privacyLocationing;
@@ -113,6 +114,7 @@ public class Settings implements SharedPreferences
 	protected static final boolean default_rememberLastActivePoi = true;
 	protected static final int default_locationRingBufferSize=3;
 	protected static final long default_timeBetweenProcessMonitorings = 60;
+	protected static final long default_acceptDevicePositionSignalEveryX_MilliSeconds = 1000;
 	protected static final int default_activityDetectionFrequency = 60;
 	protected static final int default_activityDetectionRequiredProbability = 75;
 	protected static final boolean default_privacyLocationing = false;
@@ -236,6 +238,7 @@ public class Settings implements SharedPreferences
 			lengthOfNoiseLevelMeasurements = Long.parseLong(prefs.getString("lengthOfNoiseLevelMeasurements", String.valueOf(default_lengthOfNoiseLevelMeasurements)));
 			referenceValueForNoiseLevelMeasurements = Long.parseLong(prefs.getString("referenceValueForNoiseLevelMeasurements", String.valueOf(default_referenceValueForNoiseLevelMeasurements)));
 			timeBetweenProcessMonitorings = Long.parseLong(prefs.getString("timeBetweenProcessMonitorings", String.valueOf(default_timeBetweenProcessMonitorings)));
+			acceptDevicePositionSignalEveryX_MilliSeconds = Long.parseLong(prefs.getString("acceptDevicePositionSignalEveryX_MilliSeconds", String.valueOf(default_acceptDevicePositionSignalEveryX_MilliSeconds)));
 			
 			httpAcceptAllCertificates = prefs.getBoolean("httpAcceptAllCertificates", default_httpAcceptAllCertificates);
 			httpAttempts = Integer.parseInt(prefs.getString("httpAttempts", String.valueOf(default_httpAttempts)));
@@ -431,6 +434,9 @@ public class Settings implements SharedPreferences
 			if(!prefs.contains("timeBetweenProcessMonitorings") | force)
 				editor.putString("timeBetweenProcessMonitorings", String.valueOf(default_timeBetweenProcessMonitorings));
 
+			if(!prefs.contains("acceptDevicePositionSignalEveryX_MilliSeconds") | force)
+				editor.putString("acceptDevicePositionSignalEveryX_MilliSeconds", String.valueOf(default_acceptDevicePositionSignalEveryX_MilliSeconds));
+
 			if(!prefs.contains("activityDetectionFrequency") | force)
 				editor.putString("activityDetectionFrequency", String.valueOf(default_activityDetectionFrequency));
 
@@ -526,6 +532,7 @@ public class Settings implements SharedPreferences
 				editor.putString("httpAttemptGap", String.valueOf(httpAttemptGap));
 				editor.putString("locationRingBufferSize", String.valueOf(locationRingBufferSize));
 				editor.putString("timeBetweenProcessMonitorings", String.valueOf(timeBetweenProcessMonitorings));
+				editor.putString("acceptDevicePositionSignalEveryX_MilliSeconds", String.valueOf(acceptDevicePositionSignalEveryX_MilliSeconds));
 				editor.putString("activityDetectionFrequency", String.valueOf(activityDetectionFrequency));
 				editor.putString("activityDetectionRequiredProbability", String.valueOf(activityDetectionRequiredProbability));
 				editor.putBoolean("privacyLocationing", privacyLocationing);

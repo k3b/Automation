@@ -1156,10 +1156,13 @@ public class Actions
 		{
 			Class c = Class.forName("android.os.PowerManager");
 			PowerManager  mPowerManager = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
-			for(Method m : c.getDeclaredMethods()){
-				if(m.getName().equals("goToSleep")){
+			for(Method m : c.getDeclaredMethods())
+			{
+				if(m.getName().equals("goToSleep"))
+				{
 					m.setAccessible(true);
-					if(m.getParameterTypes().length == 1){
+					if(m.getParameterTypes().length == 1)
+					{
 						m.invoke(mPowerManager,SystemClock.uptimeMillis()-2);
 					}
 				}

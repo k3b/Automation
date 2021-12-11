@@ -457,17 +457,17 @@ public class Trigger
 			if(
 					(elements[0].equals(Trigger.triggerPhoneCallStateRinging) && PhoneStatusListener.getCurrentState() == TelephonyManager.CALL_STATE_RINGING)
 							||
-							(elements[0].equals(Trigger.triggerPhoneCallStateStarted) && PhoneStatusListener.getCurrentState() == TelephonyManager.CALL_STATE_OFFHOOK)
+					(elements[0].equals(Trigger.triggerPhoneCallStateStarted) && PhoneStatusListener.getCurrentState() == TelephonyManager.CALL_STATE_OFFHOOK)
 							||
-							(elements[0].equals(Trigger.triggerPhoneCallStateStopped) && PhoneStatusListener.getCurrentState() == TelephonyManager.CALL_STATE_IDLE)
+					(elements[0].equals(Trigger.triggerPhoneCallStateStopped) && PhoneStatusListener.getCurrentState() == TelephonyManager.CALL_STATE_IDLE)
 			)
 			{
 				if(
 						elements[1].equals(Trigger.triggerPhoneCallDirectionAny)
 								||
-								(elements[1].equals(Trigger.triggerPhoneCallDirectionIncoming) && PhoneStatusListener.getLastPhoneDirection() == 1)
+						(elements[1].equals(Trigger.triggerPhoneCallDirectionIncoming) && PhoneStatusListener.getLastPhoneDirection() == 1)
 								||
-								(elements[1].equals(Trigger.triggerPhoneCallDirectionOutgoing) && PhoneStatusListener.getLastPhoneDirection() == 2)
+						(elements[1].equals(Trigger.triggerPhoneCallDirectionOutgoing) && PhoneStatusListener.getLastPhoneDirection() == 2)
 				)
 				{
 					// Trigger conditions are met
@@ -480,7 +480,7 @@ public class Trigger
 			}
 			else
 			{
-				Miscellaneous.logEvent("i", "Rule", "A trigger of rule " + getParentRule().getName() + " doesn't apply. Wrong call status. Demanded: " + String.valueOf(this.getTriggerParameter()) + ", got: " + String.valueOf(PhoneStatusListener.isInACall()), 4);
+				Miscellaneous.logEvent("i", "Rule", "A trigger of rule " + getParentRule().getName() + " doesn't apply. Wrong call status. Demanded: " + elements[0] + ", got: " + String.valueOf(PhoneStatusListener.getCurrentState()) + " (0=idle, 1=ringing, 2=offhook)", 4);
 				return false;
 			}
 		}

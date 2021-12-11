@@ -500,7 +500,7 @@
     <string name="textMessageAnnotations">Puoi inserire direttamente un numero di telefono. In alternativa usa l\'opzione contatti per sceglierne uno. Ma tieni presente che il numero verrà memorizzato qui, non nel contatto. Se cambi il numero di telefono di un contatto, dovrai aggiornarlo nella questa regola. Non si aggiorna da solo.</string>
     <string name="textToSend">Testo da inviare</string>
     <string name="textToSpeak">Testo da leggere</string>
-    <string name="textTooShort">Il testo deve avere almeno 10 caratteri.</string>
+    <string name="enterPhoneNumberAndText">Inserisci un numero di telefono e un testo.</string>
     <string name="theFollowingPermissionsHaveBeenDenied">Sono state negate le seguenti autorizzazioni:</string>
     <string name="theseAreThePermissionsRequired">Queste sono le autorizzazioni necessarie:</string>
     <string name="thursday">Giovedì</string>

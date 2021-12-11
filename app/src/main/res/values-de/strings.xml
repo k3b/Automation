@@ -2,7 +2,7 @@
 <resources>
     <string name="ruleActivate">Aktiviere Regel %1$s</string>
     <string name="profileActivate">Aktiviere Profil %1$s</string>
-    <string name="ruleActivateToggle">Aktiviere Regel %1$s im Umschaltmodus</string>
+    <string name="ruleActivateToggle">Aktiviere Regel %1$s im Umkehrmodus</string>
     <string name="addPoi">Ort hinzufügen</string>
     <string name="addRule">Regel hinzufügen</string>
     <string name="poiList">Orts-Liste:</string>
@@ -63,7 +63,7 @@
     <string name="deactivating">Deaktiviere</string>
     <string name="bluetoothFailed">Änderung des Bluetooth Status fehlgeschlagen. Verfügt dieses Gerät über Bluetooth?</string>
     <string name="urlTooShort">Die Adresse ist zu kurz. Sie muß aus mindestens 10 Buchstaben bestehen.</string>
-    <string name="textTooShort">Der Text ist zu kurz. Er muß aus mindestens 10 Buchstaben bestehen.</string>
+    <string name="enterPhoneNumberAndText">Geben Sie eine Telefonnummer und einen Text ein.</string>
     <string name="selectTypeOfTrigger">Welche Art von Auslöser</string>
     <string name="entering">betrete</string>
     <string name="leaving">verlasse</string>
@@ -116,8 +116,8 @@
     <string name="timeframes">Zeiträume</string>
     <string name="helpTextTimeFrame">Wenn Sie eine Regel mit einem Zeitraum erstellen, haben Sie zwei Möglichkeiten. Sie können wählen, ob der Auslöser besagt, daß der Zeitraum entweder verlassen ODER betreten wird. In jedem Fall wird die Regel nur einmal ausgelöst. Wenn eine Regel z.B. besagt \"betrete timeframe xyz\" und das Klingeltonprofil in Vibration ändert, bedeutet das NICHT, daß das Gerät hinterher automatisch wieder zum normalen Klingelprofil zurückschaltet. Wenn das erwünscht ist, muß eine weitere Regel mit einem Folgezeitraum erstellen werden.</string>
     <string name="helpTextSound">Auf dem Hauptbildschirm können Sie die Funktion Tonänderunugen sperren benutzen, um vorrübergehend regelbasierte Tonänderungen zu deaktivieren. Z.B. könnten Sie in einer Situation oder an einem Ort sein, wo Klingeltöne normalerweise in Ordnung sind, aber dieses eine Mal würde es stören. Die Funktion wird automatisch wieder deaktiviert nachdem die eingestellte Zeit abgelaufen ist.  Klicken Sie den + Knopf, um die angezeigte Zeit zur Frist hinzuzufügen. Sobald es aktiv ist, können Sie es mit dem Schalter rechts wieder abschalten (und so regelbasierte Tonänderungen wieder ermöglichen).</string>
-    <string name="toggableRules">Umkehrbare Regeln</string>
-    <string name="helpTextToggable">Regeln haben eine Einstellung namens \"Umschaltbar\". Das bedeutet: Wurde eine Regel ausgeführt und anschließend treten dieselben Auslöser wieder ein, wird die Regel nochmal in umgekehrter Weise ausgeführt, wo es möglich ist. Gegenwärtig funktioniert das nur im Zusammenspiel mit NFC Tags. Wenn Sie einen Tag zwei Mal berühren und es eine umschaltbare Regel zu diesem Tag gibt, wird das Programm das Gegenteil von gegenwärtigen Zustand tun, z.B. WLAN ausschalten, wenn es gegenwärtig eingeschaltet ist.</string>
+    <string name="toggableRules">Unschaltbare Regeln</string>
+    <string name="helpTextToggable">Regeln haben eine Einstellung namens \"Umkehrbar\". Das bedeutet: Wurde eine Regel ausgeführt und anschließend treten dieselben Auslöser wieder ein, wird die Regel nochmal in umgekehrter Weise ausgeführt, wo es möglich ist. Gegenwärtig funktioniert das nur im Zusammenspiel mit NFC Tags. Wenn Sie einen Tag zwei Mal berühren und es eine umkehrbare Regel zu diesem Tag gibt, wird das Programm das Gegenteil von gegenwärtigen Zustand tun, z.B. WLAN ausschalten, wenn es gegenwärtig eingeschaltet ist.</string>
     <string name="helpTextProcessMonitoring">Wenn Sie eine Regel mit einer Prozess Überwachung erstellen, wird die Anwendung in regelmäßigen Abständen nach diesem Prozess schauen. Wie häufig können Sie in den Einstellungen festlegen. Das mag zwar in vielen Fällen langsam reagieren, aber eine permanente Überwachung würde zuviel Akkuleistung kosten. Und das Betriebssystem stellt dafür keinen Broadcast zur Verfügung.</string>
     <string name="helpTitleEnergySaving">Energiespareinstellungen</string>
     <string name="helpTextEnergySaving">Viele Gerätehersteller versuchen Energie zu sparen, indem die Hintergrundaktivitäten vieler Anwendungen eingeschränkt werden. Unglücklicherweise führt das häufig dazu, dass diese Anwendungen nicht mehr zufällig funktionieren; das gilt auch für Automation. Schauen Sie sich <a href="https://dontkillmyapp.com/">diese Seite</a> an, um herauszufinden, wie Sie Automation auf Ihrem Gerät von dieser Behandlung ausschließen können.</string>
@@ -305,7 +305,7 @@
     <string name="currentId">Aktuelle Bezeichnung:</string>
     <string name="nfcTagDataNotUsable">Tag Daten nicht nutzbar, neu schreiben</string>
     <string name="nfcBringTagIntoRangeToRead">Bringen Sie einen Tag in Reichweite, um ihn zu lesen.</string>
-    <string name="toggleRule">Umschaltregel</string>
+    <string name="toggleRule">Umkehrregel</string>
     <string name="toggling">Schalte um</string>
     <string name="toggle">umzuschalten</string>
     <string name="overlapBetweenPois">Überschneidung mit Ort %1$s von %2$s Metern festgestellt. Reduzieren Sie den Radius um mindestens diesen Wert.</string>
@@ -337,7 +337,7 @@
 	<string name="outgoingCallTo">Ausgehender Telefonanruf von %1$s.</string>
 	<string name="actionSpeakText">Text sprechen</string>
 	<string name="textToSpeak">Zu sprechender Text</string>
-	<string name="toggleNotAllowed">Die Umschaltfunktion ist momentan nur für Regeln erlaubt, die NFC Tags als Auslöser haben. Für weitere Informationen lesen Sie die Hilfe.</string>
+	<string name="toggleNotAllowed">Die Umkehrfunktion ist momentan nur für Regeln erlaubt, die NFC Tags als Auslöser haben. Für weitere Informationen lesen Sie die Hilfe.</string>
 	<string name="errorReadingPoisAndRulesFromFile">Fehler beim Lesen von Orten und Regeln aus Datei.</string>
 	<string name="noDataChangedReadingAnyway">Es scheint als wären keine Datenänderungen gespeichert worden. Allerdings könnten Änderungen im Speicher sein, die zurückgenommen werden müssen. Daher wird die Einstellungsdatei neu geladen.</string>
 	<string name="bluetoothConnection">Bluetooth Verbindung</string>

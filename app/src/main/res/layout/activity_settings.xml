@@ -262,6 +262,18 @@
 	        android:inputType="number"></EditTextPreference>
         
     </PreferenceCategory>
+
+	<PreferenceCategory
+		android:summary="@string/devicePositionSettings"
+		android:title="@string/devicePositionSettings">
+
+		<EditTextPreference
+			android:key="acceptDevicePositionSignalEveryX_MilliSeconds"
+			android:summary="@string/devicePositionTimeAcceptIntervalSummary"
+			android:title="@string/devicePositionTimeAcceptIntervalTitle"
+			android:inputType="number"></EditTextPreference>
+
+	</PreferenceCategory>
                          
     <PreferenceCategory
         android:summary="@string/activityDetection"

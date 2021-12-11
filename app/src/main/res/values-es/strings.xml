@@ -333,7 +333,7 @@
     <string name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">Leer notificaciónes del sistema</string>
     <string name="bluetoothFailed">No pude activar o desactivar Bluetooth. Tiene el dispositvo Bluetooth?</string>
     <string name="urlTooShort">El url tiene que tener mínimo 10 caracteres.</string>
-    <string name="textTooShort">El texto tiene que tener mínimo 10 caracteres.</string>
+    <string name="enterPhoneNumberAndText">Introduce un número de teléfono y un mensaje de texto.</string>
     <string name="onOff">On/Off</string>
     <string name="useTextToSpeechOnNormalSummary">Usar TextToSpeech en un perfil normal</string>
     <string name="useTextToSpeechOnVibrateSummary">Usar TextToSpeech en un perfil vibración</string>

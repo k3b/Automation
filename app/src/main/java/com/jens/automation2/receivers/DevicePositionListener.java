@@ -13,9 +13,11 @@ import com.jens.automation2.ActivityManageTriggerDevicePosition;
 import com.jens.automation2.AutomationService;
 import com.jens.automation2.Miscellaneous;
 import com.jens.automation2.Rule;
+import com.jens.automation2.Settings;
 import com.jens.automation2.Trigger;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class DevicePositionListener implements SensorEventListener, AutomationListenerInterface
 {
@@ -27,6 +29,9 @@ public class DevicePositionListener implements SensorEventListener, AutomationLi
     private SensorManager sManager;
     static DevicePositionListener instance = null;
     boolean isRunning = false;
+
+    Calendar now = null;
+    static Calendar lastTimeSignalArrived = null;
 
     // Gravity rotational data
     private float gravity[];
@@ -144,13 +149,18 @@ public class DevicePositionListener implements SensorEventListener, AutomationLi
         if(activityManageTriggerDevicePositionInstance != null)
             activityManageTriggerDevicePositionInstance.updateFields(azimuth, pitch, roll);
 
-        if(AutomationService.isMyServiceRunning(Miscellaneous.getAnyContext()))
+        now = Calendar.getInstance();
+        if(lastTimeSignalArrived == null || now.getTimeInMillis() >= lastTimeSignalArrived.getTimeInMillis() + Settings.acceptDevicePositionSignalEveryX_MilliSeconds)
         {
-            ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.devicePosition);
-            for (int i = 0; i < ruleCandidates.size(); i++)
+            lastTimeSignalArrived = now;
+            if (AutomationService.isMyServiceRunning(Miscellaneous.getAnyContext()))
             {
-                if(ruleCandidates.get(i).getsGreenLight(Miscellaneous.getAnyContext()))
-                    ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
+                ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.devicePosition);
+                for (int i = 0; i < ruleCandidates.size(); i++)
+                {
+                    if (ruleCandidates.get(i).getsGreenLight(Miscellaneous.getAnyContext()))
+                        ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
+                }
             }
         }
     }
