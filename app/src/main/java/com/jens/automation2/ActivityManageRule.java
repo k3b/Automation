@@ -50,6 +50,8 @@ public class ActivityManageRule extends Activity
 {
 	final static String activityDetectionClassPath = "com.jens.automation2.receivers.ActivityDetectionReceiver";
 	public final static String intentNameTriggerParameter1 = "triggerParameter1";
+	public final static String intentNameActionParameter1 = "actionParameter1";
+	public final static String intentNameActionParameter2 = "actionParameter2";
 
 	public Context context;
 	private Button cmdTriggerAdd, cmdActionAdd, cmdSaveRule;
@@ -96,8 +98,8 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeTriggerBluetoothEdit = 6001;
 	final static int requestCodeActionScreenBrightnessAdd = 401;
 	final static int requestCodeActionScreenBrightnessEdit = 402;
-	final static int requestCodeTriggerDevicePositionAdd = 301;
-	final static int requestCodeTriggerDevicePositionEdit = 302;
+	final static int requestCodeTriggerDeviceOrientationAdd = 301;
+	final static int requestCodeTriggerDeviceOrientationEdit = 302;
 	final static int requestCodeTriggerNotificationAdd = 8000;
 	final static int requestCodeTriggerNfcNotificationEdit = 8001;
 	final static int requestCodeActionPlaySoundAdd = 501;
@@ -268,7 +270,7 @@ public class ActivityManageRule extends Activity
 						Intent devicePositionEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerDeviceOrientation.class);
 						devicePositionEditor.putExtra(ActivityManageRule.intentNameTriggerParameter1, selectedTrigger.getTriggerParameter());
 						devicePositionEditor.putExtra(ActivityManageTriggerDeviceOrientation.vectorFieldName, selectedTrigger.getTriggerParameter2());
-						startActivityForResult(devicePositionEditor, requestCodeTriggerDevicePositionEdit);
+						startActivityForResult(devicePositionEditor, requestCodeTriggerDeviceOrientationEdit);
 						break;
 					default:
 						break;				
@@ -341,8 +343,8 @@ public class ActivityManageRule extends Activity
 					case playSound:
 						Intent actionPlaySoundIntent = new Intent(context, ActivityManageActionPlaySound.class);
 						actionPlaySoundIntent.putExtra("edit", true);
-						actionPlaySoundIntent.putExtra("actionParameter1", a.getParameter1());
-						actionPlaySoundIntent.putExtra("actionParameter2", a.getParameter2());
+						actionPlaySoundIntent.putExtra(intentNameActionParameter1, a.getParameter1());
+						actionPlaySoundIntent.putExtra(intentNameActionParameter2, a.getParameter2());
 						startActivityForResult(actionPlaySoundIntent, requestCodeActionPlaySoundEdit);
 						break;
 					default:
@@ -559,7 +561,7 @@ public class ActivityManageRule extends Activity
 						{
 							newTrigger.setTriggerType(Trigger_Enum.deviceOrientation);
 							Intent devicePositionTriggerEditor = new Intent(myContext, ActivityManageTriggerDeviceOrientation.class);
-							startActivityForResult(devicePositionTriggerEditor, requestCodeTriggerDevicePositionAdd);
+							startActivityForResult(devicePositionTriggerEditor, requestCodeTriggerDeviceOrientationAdd);
 							return;
 //							booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
 						}
@@ -1323,8 +1325,8 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
-				newAction.setParameter1(data.getBooleanExtra("actionParameter1", false));
-				newAction.setParameter2(data.getStringExtra("actionParameter2"));
+				newAction.setParameter1(data.getBooleanExtra(intentNameActionParameter1, false));
+				newAction.setParameter2(data.getStringExtra(intentNameActionParameter2));
 				ruleToEdit.getActionSet().add(newAction);
 				this.refreshActionList();
 			}
@@ -1333,11 +1335,11 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
-				if(data.hasExtra("actionParameter1"))
-					ruleToEdit.getActionSet().get(editIndex).setParameter1(data.getBooleanExtra("actionParameter1", false));
+				if(data.hasExtra(intentNameActionParameter1))
+					ruleToEdit.getActionSet().get(editIndex).setParameter1(data.getBooleanExtra(intentNameActionParameter1, false));
 
-				if(data.hasExtra("actionParameter2"))
-					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra("actionParameter2"));
+				if(data.hasExtra(intentNameActionParameter2))
+					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra(intentNameActionParameter2));
 
 				this.refreshActionList();
 			}
@@ -1361,18 +1363,18 @@ public class ActivityManageRule extends Activity
 				this.refreshActionList();
 			}
 		}
-		else if(requestCode == requestCodeTriggerDevicePositionAdd)
+		else if(requestCode == requestCodeTriggerDeviceOrientationAdd)
 		{
 			if(resultCode == RESULT_OK)
 			{
-//				newTrigger.setTriggerParameter(data.getBooleanExtra("wifiState", false));
+				newTrigger.setTriggerParameter(data.getBooleanExtra(ActivityManageRule.intentNameTriggerParameter1, true));
 				newTrigger.setTriggerParameter2(data.getStringExtra(ActivityManageTriggerDeviceOrientation.vectorFieldName));
 				newTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().add(newTrigger);
 				this.refreshTriggerList();
 			}
 		}
-		else if(requestCode == requestCodeTriggerDevicePositionEdit)
+		else if(requestCode == requestCodeTriggerDeviceOrientationEdit)
 		{
 			if(resultCode == RESULT_OK)
 			{
@@ -1581,7 +1583,7 @@ public class ActivityManageRule extends Activity
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.sendTextMessage.toString()))
 					{
-						if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageRule.this, "android.permission.SEND_SMS"))
+						if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageRule.this, Manifest.permission.SEND_SMS))
 						{
 							//launch other activity to enter parameters;
 							newAction.setAction(Action_Enum.sendTextMessage);

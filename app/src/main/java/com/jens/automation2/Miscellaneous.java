@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -542,6 +543,19 @@ public class Miscellaneous extends Service
 			return returnContext;
 		
 		return null;
+	}
+
+	public static boolean isDarkModeEnabled(Context context)
+	{
+		switch(context.getResources().getConfiguration().uiMode)
+		{
+			case Configuration.UI_MODE_NIGHT_YES:
+				return true;
+			case Configuration.UI_MODE_NIGHT_NO:
+			case Configuration.UI_MODE_NIGHT_UNDEFINED:
+			default:
+				return false;
+		}
 	}
 	
 	@SuppressLint("NewApi")
@@ -1135,11 +1149,11 @@ public class Miscellaneous extends Service
 		}
 		catch (IllegalAccessException e)
 		{
-			e.printStackTrace();
+			Miscellaneous.logEvent("w", "runMethodReflective", Log.getStackTraceString(e),5 );
 		}
 		catch (InvocationTargetException e)
 		{
-			e.printStackTrace();
+			Miscellaneous.logEvent("w", "runMethodReflective", Log.getStackTraceString(e),5 );
 		}
 
 		return result;

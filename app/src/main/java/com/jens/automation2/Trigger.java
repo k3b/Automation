@@ -287,16 +287,18 @@ public class Trigger
 		float currentRoll = DeviceOrientationListener.getInstance().getRoll();
 
 		if(
-				desiredAzimuthTolerance < 180
-					&&
 				!(
-					currentAzimuth <= desiredAzimuth + desiredAzimuthTolerance
-							&&
-					currentAzimuth >= desiredAzimuth - desiredAzimuthTolerance
+					desiredAzimuthTolerance < 180
+						&&
+					(
+						Math.abs(currentAzimuth) <= Math.abs(desiredAzimuth - desiredAzimuthTolerance)
+								||
+						Math.abs(currentAzimuth) <= desiredAzimuth + desiredAzimuthTolerance
+					)
 				)
 		)
 		{
-			Miscellaneous.logEvent("i", "DeviceOrientation", "Trigger doesn\'t apply. Azimuth outside of tolerance area.", 5);
+			Miscellaneous.logEvent("i", "DeviceOrientation", "Azimuth outside of tolerance area.", 5);
 			if(getTriggerParameter())
 				return false;
 			else
@@ -304,16 +306,18 @@ public class Trigger
 		}
 
 		if(
-				desiredPitchTolerance < 180
-					&&
 				!(
-					currentPitch <= desiredPitch + desiredPitchTolerance
-							&&
-					currentPitch >= desiredPitch - desiredPitchTolerance
+					desiredPitchTolerance < 180
+						&&
+					(
+						Math.abs(currentPitch) <= Math.abs(desiredPitch - desiredPitchTolerance)
+								||
+						Math.abs(currentPitch) <= desiredPitch + desiredPitchTolerance
+					)
 				)
 		)
 		{
-			Miscellaneous.logEvent("i", "DeviceOrientation", "Trigger doesn\'t apply. Pitch outside of tolerance area.", 5);
+			Miscellaneous.logEvent("i", "DeviceOrientation", "Pitch outside of tolerance area.", 5);
 			if(getTriggerParameter())
 				return false;
 			else
@@ -321,16 +325,18 @@ public class Trigger
 		}
 
 		if(
-				desiredRollTolerance < 180
-					&&
 				!(
-					currentRoll <= desiredRoll + desiredRollTolerance
-							&&
-					currentRoll >= desiredRoll - desiredRollTolerance
+					desiredRollTolerance < 180
+						&&
+					(
+						Math.abs(currentRoll) <= Math.abs(desiredRoll - desiredRollTolerance)
+								||
+						Math.abs(currentRoll) <= desiredRoll + desiredRollTolerance
+					)
 				)
 		)
 		{
-			Miscellaneous.logEvent("i", "DeviceOrientation", "Trigger doesn\'t apply. Roll outside of tolerance area.", 5);
+			Miscellaneous.logEvent("i", "DeviceOrientation", "Roll outside of tolerance area.", 5);
 			if(getTriggerParameter())
 				return false;
 			else

@@ -445,7 +445,7 @@
     <string name="headphoneMicrophone">Microphone</string>
     <string name="headphoneAny">Either</string>
     <string name="headphoneSelectType">Select type of headphone</string>
-    <string name="ruleDoesntApplyWrongHeadphoneType" translatable="false">Rule doesn\'t apply. Wrong headphone type.</string>
+    <string name="ruleDoesntApplyWrongHeadphoneType" translatable="false">Rule %1$s doesn\'t apply. Wrong headphone type.</string>
     <string name="ignoringActivityDetectionUpdateTooSoon" translatable="false">Ignoring activity detection update. Came in sooner that %1$s seconds.</string>
     <string name="whatsThis">What\'s this?</string>
     <string name="atLeastRuleXisUsingY" translatable="false">At least rule \"%1$s\" is using a trigger of type \"%2$s\".</string>

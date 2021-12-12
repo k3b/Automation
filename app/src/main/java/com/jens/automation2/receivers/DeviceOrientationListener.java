@@ -31,6 +31,7 @@ public class DeviceOrientationListener implements SensorEventListener, Automatio
 
     Calendar now = null;
     static Calendar lastTimeSignalArrived = null;
+    static int sensorValueCounter = 0;
 
     // Gravity rotational data
     private float gravity[];
@@ -148,23 +149,32 @@ public class DeviceOrientationListener implements SensorEventListener, Automatio
         if(activityManageTriggerDeviceOrientationInstance != null)
             activityManageTriggerDeviceOrientationInstance.updateFields(azimuth, pitch, roll);
 
-        now = Calendar.getInstance();
-        if(lastTimeSignalArrived == null || now.getTimeInMillis() >= lastTimeSignalArrived.getTimeInMillis() + Settings.acceptDeviceOrientationSignalEveryX_MilliSeconds)
+        /*
+            For some reason the first 3 values after starting the listener
+            are crap.
+         */
+        if(sensorValueCounter > 3)
         {
-            lastTimeSignalArrived = now;
-
-            Miscellaneous.logEvent("i", "DeviceOrientation", "Got device orientation update: azimuth: " + String.valueOf(azimuth) + ", pitch: " + String.valueOf(pitch) + ", roll: " + String.valueOf(pitch), 4);
-
-            if (AutomationService.isMyServiceRunning(Miscellaneous.getAnyContext()))
+            now = Calendar.getInstance();
+            if (lastTimeSignalArrived == null || now.getTimeInMillis() >= lastTimeSignalArrived.getTimeInMillis() + Settings.acceptDeviceOrientationSignalEveryX_MilliSeconds)
             {
-                ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.deviceOrientation);
-                for (int i = 0; i < ruleCandidates.size(); i++)
+                lastTimeSignalArrived = now;
+
+                Miscellaneous.logEvent("i", "DeviceOrientation", "Got device orientation update: azimuth: " + String.valueOf(azimuth) + ", pitch: " + String.valueOf(pitch) + ", roll: " + String.valueOf(pitch), 4);
+
+                if (AutomationService.isMyServiceRunning(Miscellaneous.getAnyContext()))
                 {
-                    if (ruleCandidates.get(i).getsGreenLight(Miscellaneous.getAnyContext()))
-                        ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
+                    ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.deviceOrientation);
+                    for (int i = 0; i < ruleCandidates.size(); i++)
+                    {
+                        if (ruleCandidates.get(i).getsGreenLight(Miscellaneous.getAnyContext()))
+                            ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
+                    }
                 }
             }
         }
+        else
+            sensorValueCounter++;
     }
 
     @Override

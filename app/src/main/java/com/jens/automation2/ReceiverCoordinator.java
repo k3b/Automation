@@ -175,10 +175,7 @@ public class ReceiverCoordinator
             Class testClass = Class.forName(ActivityManageRule.activityDetectionClassPath);
             //startActivityDetectionReceiver
             if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.activityDetection))
-            {
                 Miscellaneous.runMethodReflective(activityDetectionClassPath, "startActivityDetectionReceiver", null);
-    //            ActivityDetectionReceiver.startActivityDetectionReceiver();
-        }
         }
         catch(ClassNotFoundException e)
         {
@@ -206,12 +203,12 @@ public class ReceiverCoordinator
             DateTimeListener.stopAlarmListener(AutomationService.getInstance());
             NoiseListener.stopNoiseListener();
             ProcessListener.stopProcessListener(AutomationService.getInstance());
+            DeviceOrientationListener.getInstance().stopListener(AutomationService.getInstance());
 
             try
             {
                 Class testClass = Class.forName(ActivityManageRule.activityDetectionClassPath);
                 Miscellaneous.runMethodReflective("ActivityDetectionReceiver", "stopActivityDetectionReceiver", null);
-//              ActivityDetectionReceiver.stopActivityDetectionReceiver();
             }
             catch(ClassNotFoundException e)
             {

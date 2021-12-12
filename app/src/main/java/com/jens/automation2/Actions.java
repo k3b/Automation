@@ -1119,35 +1119,54 @@ public class Actions
 		}
 	}
 
-	public static void turnOnScreen()
+	/*public static void turnOnScreen()
 	{
 		// turn on screen
 		Miscellaneous.logEvent("i", "Actions", "Turning screen on.", 3);
 		PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 		WakeLock wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, AutomationService.NOTIFICATION_CHANNEL_ID + ":turnOffScreen");
 		wakeLock.acquire();
-	}
+	}*/
 
 	@TargetApi(21) //Suppress lint error for PROXIMITY_SCREEN_OFF_WAKE_LOCK
 	public static void turnOffScreen()
 	{
 		Miscellaneous.logEvent("i", "Actions", "Turning screen off.", 3);
 
-		DevicePolicyManager deviceManger = (DevicePolicyManager)Miscellaneous.getAnyContext().getSystemService(Context. DEVICE_POLICY_SERVICE);
-		deviceManger.lockNow();
-
 		/*params.flags |= LayoutParams.FLAG_KEEP_SCREEN_ON;
 		params.screenBrightness = 0;
-		getWindow().setAttributes(params);
+		getWindow().setAttributes(params);*/
 
 		PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-		WakeLock wakeLock = pm.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK,AutomationService.NOTIFICATION_CHANNEL_ID + ":turnOffScreen");
-//		WakeLock wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK , AutomationService.NOTIFICATION_CHANNEL_ID + ":turnOffScreen");
+//		WakeLock wakeLock = pm.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK,AutomationService.NOTIFICATION_CHANNEL_ID + ":turnOffScreen");
+		WakeLock wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK , AutomationService.NOTIFICATION_CHANNEL_ID + ":turnOffScreen");
 		wakeLock.acquire();
-		WakeLock wakeLock = pm.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "tag");
+
+//		WakeLock wakeLock = pm.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "tag");
 //		WakeLock wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK , "tag");
-		wakeLock.acquire();*/
+//		wakeLock.acquire();
+
+		try
+		{
+			Thread.sleep(100);
+		}
+		catch (InterruptedException e)
+		{
+			Miscellaneous.logEvent("w", context.getResources().getString(R.string.wakeupDevice), "Error keeping device awake: " + Log.getStackTraceString(e), 4);
+		}
+
+		wakeLock.release();
 	}
+
+	/*public static void lockScreen()
+	{
+		Miscellaneous.logEvent("i", "Actions", "Locking screen.", 3);
+
+		// Works, but requires Manifest.permission.BIND_DEVICE_ADMIN
+//		https://stackoverflow.com/questions/23898406/java-lang-securityexception-no-active-admin-owned-by-uid-10047-for-policy-4-on
+		DevicePolicyManager deviceManger = (DevicePolicyManager)Miscellaneous.getAnyContext().getSystemService(Context.DEVICE_POLICY_SERVICE);
+		deviceManger.lockNow();
+	}*/
 
 	// using root
 	/*private void turnOffScreen()
