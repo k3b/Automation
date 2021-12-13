@@ -252,8 +252,9 @@ public class PointOfInterest implements Comparable<PointOfInterest>
 			Settings.writeSettings(parentService);
 			
 			Miscellaneous.logEvent("i", "POI", "Reached POI " + this.getName() + ". Checking if there's a rule that applies to that.", 2);
-			
-			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByPoi(this, true);
+
+			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.pointOfInterest);
+//			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByPoi(this);
 			if(ruleCandidates.size()==0)
 			{
 				Miscellaneous.logEvent("i", "POI", "POI " + this.getName() + " not found in ANY rule.", 2);
@@ -289,8 +290,9 @@ public class PointOfInterest implements Comparable<PointOfInterest>
 			Settings.writeSettings(parentService);
 			
 			Miscellaneous.logEvent("i", "POI", "Left POI " + this.getName() + ". Checking if there's a rule that applies to that.", 2);
-			
-			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByPoi(this, false);
+
+			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.pointOfInterest);
+//			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByPoi(this);
 			if(ruleCandidates.size()==0)
 			{
 				Miscellaneous.logEvent("i", "POI", "POI " + this.getName() + " not found in ANY rule.", 2);

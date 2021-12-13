@@ -55,8 +55,9 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 		Date now = new Date();
 		String timeString = String.valueOf(now.getHours()) + ":" + String.valueOf(now.getMinutes()) + ":" + String.valueOf(now.getSeconds());
 		Time passTime = Time.valueOf(timeString);
-		
-		ArrayList<Rule> allRulesWithNowInTimeFrame = Rule.findRuleCandidatesByTime(passTime);
+
+		ArrayList<Rule> allRulesWithNowInTimeFrame = Rule.findRuleCandidates(Trigger_Enum.timeFrame);
+//		ArrayList<Rule> allRulesWithNowInTimeFrame = Rule.findRuleCandidatesByTime(passTime);
 		for(int i=0; i<allRulesWithNowInTimeFrame.size(); i++)
 		{
 			if(allRulesWithNowInTimeFrame.get(i).getsGreenLight(context))
@@ -95,7 +96,8 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 //		requestCodeList.add(0);
 				 
 		ArrayList<Rule> allRulesWithTimeFrames = new ArrayList<Rule>();
-		allRulesWithTimeFrames = Rule.findRuleCandidatesByTimeFrame();
+		allRulesWithTimeFrames = Rule.findRuleCandidates(Trigger_Enum.timeFrame);
+//		allRulesWithTimeFrames = Rule.findRuleCandidatesByTimeFrame();
 		/*
 		 * Take care of regular executions, no repetitions in between.
 		 */

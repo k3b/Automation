@@ -138,7 +138,8 @@ public class ConnectivityReceiver extends BroadcastReceiver implements Automatio
 				boolean isAirplaneMode = isAirplaneMode(context);
 				automationServiceRef.getLocationProvider().handleAirplaneMode(isAirplaneMode);
 
-				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByAirplaneMode(isAirplaneMode);
+				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.airplaneMode);
+//				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByAirplaneMode(isAirplaneMode);
 				for(int i=0; i<ruleCandidates.size(); i++)
 				{
 					if(ruleCandidates.get(i).getsGreenLight(automationServiceRef))
@@ -170,8 +171,9 @@ public class ConnectivityReceiver extends BroadcastReceiver implements Automatio
 								roamingLastState = isRoaming;
 								
 								automationServiceRef.getLocationProvider().handleRoaming(isRoaming);
-	
-								ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByRoaming(isRoaming);
+
+								ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.roaming);
+//								ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByRoaming(isRoaming);
 								for(int i=0; i<ruleCandidates.size(); i++)
 								{
 									if(ruleCandidates.get(i).getsGreenLight(automationServiceRef))

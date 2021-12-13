@@ -57,7 +57,7 @@ public class ProcessListener implements AutomationListenerInterface
 				for(String entry : getRecentlyStoppedApps())
 					Miscellaneous.logEvent("i", automationService.getResources().getString(R.string.appStopped), entry, 3);
 
-				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByProcess();
+				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.process_started_stopped);
 				for(int i=0; i<ruleCandidates.size(); i++)
 				{
 					if(ruleCandidates.get(i).getsGreenLight(automationService))

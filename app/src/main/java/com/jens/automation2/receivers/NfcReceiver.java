@@ -19,6 +19,7 @@ import com.jens.automation2.AutomationService;
 import com.jens.automation2.Miscellaneous;
 import com.jens.automation2.R;
 import com.jens.automation2.Rule;
+import com.jens.automation2.Trigger;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -171,7 +172,7 @@ public class NfcReceiver
 	        	}
 	        	else
 	        	{
-		    		ArrayList<Rule> allRulesWithNfcTags = Rule.findRuleCandidatesByNfc();
+		    		ArrayList<Rule> allRulesWithNfcTags = Rule.findRuleCandidates(Trigger.Trigger_Enum.nfcTag);
 		    		for(int i=0; i<allRulesWithNfcTags.size(); i++)
 		    		{
 		    			if(allRulesWithNfcTags.get(i).getsGreenLight(asInstance))

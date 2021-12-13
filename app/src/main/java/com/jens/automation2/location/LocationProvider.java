@@ -198,7 +198,7 @@ public class LocationProvider
 									setSpeed(currentSpeed);
 
 									// execute matching rules containing speed
-									ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesBySpeed();
+									ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.speed);
 									for (Rule oneRule : ruleCandidates)
 									{
 										if(oneRule.getsGreenLight(this.getParentService()))

@@ -109,7 +109,8 @@ public class PhoneStatusListener implements AutomationListenerInterface
 						break;
 				}
 
-				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByPhoneCall(Trigger.triggerPhoneCallDirectionOutgoing);
+				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.phoneCall);
+//				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByPhoneCall(Trigger.triggerPhoneCallDirectionOutgoing);
 				for(int i=0; i<ruleCandidates.size(); i++)
 				{
 					AutomationService asInstance = AutomationService.getInstance();
@@ -141,7 +142,8 @@ public class PhoneStatusListener implements AutomationListenerInterface
 						break;
 				}
 
-				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByPhoneCall(Trigger.triggerPhoneCallDirectionIncoming);
+				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.phoneCall);
+//				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByPhoneCall(Trigger.triggerPhoneCallDirectionIncoming);
 				for (int i = 0; i < ruleCandidates.size(); i++)
 				{
 					AutomationService asInstance = AutomationService.getInstance();
@@ -178,7 +180,8 @@ public class PhoneStatusListener implements AutomationListenerInterface
 			setLastPhoneNumber(phoneNumber);
 			Miscellaneous.logEvent("i", "Call state", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.outgoingCallTo), getLastPhoneNumber()), 4);
 
-			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByPhoneCall(Trigger.triggerPhoneCallDirectionOutgoing);
+			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.phoneCall);
+//			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByPhoneCall(Trigger.triggerPhoneCallDirectionOutgoing);
 			for(int i=0; i<ruleCandidates.size(); i++)
 			{
 				AutomationService asInstance = AutomationService.getInstance();

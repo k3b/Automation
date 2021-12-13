@@ -74,8 +74,9 @@ public class HeadphoneJackListener extends BroadcastReceiver implements Automati
 				headsetConnected = true;
 				Miscellaneous.logEvent("i", "HeadphoneJackListener", "Headset " + name + " plugged in.", 4);
 			}
-			
-			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByHeadphoneJack(isHeadsetConnected());
+
+			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.headsetPlugged);
+//			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByHeadphoneJack(isHeadsetConnected());
 			for(int i=0; i<ruleCandidates.size(); i++)
 			{
 				if(ruleCandidates.get(i).getsGreenLight(context))
