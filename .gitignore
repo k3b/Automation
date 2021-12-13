@@ -149,3 +149,4 @@ fabric.properties
 /app/app-release.apk
 Automation_settings.xml
 /app/googlePlayFlavor/
+/.idea/deploymentTargetDropDown.xml
