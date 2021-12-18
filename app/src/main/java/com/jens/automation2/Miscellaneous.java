@@ -550,8 +550,10 @@ public class Miscellaneous extends Service
 		int mode = context.getResources().getConfiguration().uiMode;
 		switch(mode)
 		{
+			case 33:
 			case Configuration.UI_MODE_NIGHT_YES:
 				return true;
+			case 17:
 			case Configuration.UI_MODE_NIGHT_NO:
 			case Configuration.UI_MODE_NIGHT_UNDEFINED:
 			default:

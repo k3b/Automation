@@ -1133,6 +1133,7 @@ public class Actions
 	{
 		Miscellaneous.logEvent("i", "Actions", "Turning screen off.", 3);
 
+
 		/*params.flags |= LayoutParams.FLAG_KEEP_SCREEN_ON;
 		params.screenBrightness = 0;
 		getWindow().setAttributes(params);*/
