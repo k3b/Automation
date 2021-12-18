@@ -14,7 +14,7 @@
     <string name="actionSetDataConnectionOff">disattiva la connessione mobile</string>
     <string name="actionSetDataConnectionOn">attiva la connessione mobile</string>
     <string name="actionSetDisplayRotation">Rotazione dello schermo</string>
-    <string name="actionSetUsbTethering">Tethering USB</string>
+    <string name="actionSetUsbTethering">USB Tethering</string>
     <string name="actionSetWifi">Wifi</string>
     <string name="actionSetWifiTethering">Wifi Tethering</string>
     <string name="actionSpeakText">Pronuncia testo</string>
@@ -552,7 +552,7 @@
     <string name="volumeAlarms">Allarmi sonori</string>
     <string name="volumeMusicVideoGameMedia">Multimedia (musica, video …)</string>
     <string name="volumeRingtoneNotifications">Toni e notifiche</string>
-    <string name="volumeTest">Taratura audio</string>
+    <string name="volumeTest">Calibratura audio</string>
     <string name="volumeTesterExplanation">Per calcolare il valore del rumore di fondo in dB è necessario specificare un valore di riferimento fisico (si prega di leggere Wikipedia per ulteriori informazioni). Questo valore è probabilmente diverso per ogni telefono. Trascinare il cursore per modificare il valore di riferimento fisico definito. Più alto è il valore di riferimento e più basso sarà il valore misurato in dB. Misurazioni costanti saranno effettuate ogni %1$s secondi ed i risultati visualizzati sotto. Premere indietro quando hai trovato un valore adeguato.</string>
     <string name="volumes">Volumi</string>
     <string name="waitBeforeNextAction">Attesa prima della azione successiva</string>
@@ -591,4 +591,9 @@
     <string name="deviceOrientation">Orientamento</string>
     <string name="tolerance">Tolleranza</string>
     <string name="orientationAzimuth">Azimut:</string>
+    <string name="actionSetBluetoothTethering">Bluetooth Tethering</string>
+    <string name="actionTurnBluetoothTetheringOn">accendere Bluetooth Tethering</string>
+    <string name="actionTurnBluetoothTetheringOff">spegnere Bluetooth Tethering</string>
+    <string name="vibrate">Vibrare</string>
+    <string name="test">Provare</string>
 </resources>

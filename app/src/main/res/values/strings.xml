@@ -456,7 +456,7 @@
     <string name="gpsMeasurement" translatable="false">GPS measurement</string>
     <string name="gpsMeasurementTimeout" translatable="false">GPS measurement stopped due to timeout.</string>
     <string name="cellMastChanged" translatable="false">Cell tower changed: %1$s</string>
-    <string name="noiseDetectionHint">If you think the noise detection isn\'t working correctly (depending on the value you specify) please keep in mind that every phone is different. You can therefore change \"Reference for noise measurement\" in settings. See http://en.wikipedia.org/wiki/Decibel for more information. You can use the volume tester from the main screen to calibrate your device.</string>
+    <string name="noiseDetectionHint">If you think the noise detection isn\'t working correctly (depending on the value you specify) please keep in mind that every phone is different. You can therefore change \"Reference for noise measurement\" in settings. See http://en.wikipedia.org/wiki/Decibel for more information. You can use the volume calibrator from the main screen to calibrate your device.</string>
     <string name="hint">Hint</string>
     <string name="selectNoiseLevel">Select noise level</string>
     <string name="poiHasWifiStoppingCellLocationListener" translatable="false">Location has wifi. Stopping CellLocationChangedReceiver.</string>
@@ -503,7 +503,7 @@
     <string name="noProfileChangeSoundLocked">Profile will not be activated. Last activated profile has been locked.</string>
     <string name="currentVolume">Current volume</string>
     <string name="enterValidReferenceValue">Enter a valid reference value.</string>
-    <string name="volumeTest">Volume test</string>
+    <string name="volumeTest">Volume calibration</string>
     <string name="volumeTesterExplanation">To calculate a dB value for noise monitoring you need to specify a so called physical reference value. Please read Wikipedia for further information. This value is most likely different for every phone. Drag the seekbar to change the defined physical reference value. The higher the reference value the lower the dB value will be. Constant measurings will be performed every %1$s seconds and the results displayed below. Press back when you have found a suitable value.</string>
     <string name="settingsWillTakeTime">Some settings will not be applied before certain environment settings change or service is restarted.</string>
     <string name="phoneIsRooted" translatable="false">Phone is rooted.</string>

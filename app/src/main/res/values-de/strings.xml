@@ -410,7 +410,7 @@
     <string name="noProfileChangeSoundLocked">Profil wird nicht aktiviert. Zuletzt aktiviertes Profil ist gesperrt worden.</string>
     <string name="currentVolume">Momentane Lautstärke</string>
     <string name="enterValidReferenceValue">Geben Sie einen gültigen Referenzwert ein.</string>
-    <string name="volumeTest">Lautstärkentest</string>
+    <string name="volumeTest">Lautstärkekalibrierung</string>
     <string name="volumeTesterExplanation">Um einen dB Wert für die Lautstärkemessung zu berechnen müssen Sie einen sogenannten physikalischen Referenzwert angeben. Bitte lesen Sie bei Wikipedia nach, um mehr zu erfahren. Dieser Wert wird höchstwahrscheinlich für jedes Smartphone oder Tablet anders sein, deshalb diese Testanwendung. Verschieben Sie den Regler, um den gegenwärtig definierten Wert zu ändern. Je höher der Referenzwert desto niedriger wird der dB Wert. Es werden alle paar %1$s Sekunden neue Messungen vorgenommen und das Ergebnis unten angezeigt. Drücken Sie den zurück-Button, wenn Sie einen passenden Wert gefunden haben.</string>
     <string name="settingsWillTakeTime">Manche Einstellungen können nicht übernommen werden bevor der Dienst neu gestartet wird.</string>
     <string name="rootExplanation">Sie müssen Ihr Telefon rooten, damit diese Funktion funktionieren kann. Danach müssen Sie "Regel manuell ausführen", um den SuperUser Berechtigungsdialog zu zeigen. Wenn dieser erscheint, müssen Sie den Haken setzen, der es immer erlaubt. Ansonsten kann die Regel nicht funktionieren, wenn Sie das Telefon gerade nicht benutzen und demnach den nächsten Dialog nicht genehmigen können.</string>
@@ -632,4 +632,10 @@
     <string name="deviceOrientationSettings">Geräteausrichtungseinstellungen</string>
     <string name="explanationDeviceOrientationDirection">Wenn das Häkchen gesetzt ist, bedeutet das, daß das Geräte in der angegebenen Ausrichtung sein muß. Wenn es nicht gesetzt ist, führt jede andere Ausrichtung zu einem positiven Ergebnis.</string>
     <string name="deviceOrientationExplanation">Wenn Sie Ihr Gerät bewegen, werden die Zahlen unten aktualisiert. Was Sie hier sehen können, ist die momentane Ausrichtung Ihres Geräts, gemessen in Grad. Wenn das Gerät in der gewünschten Ausrichtung ist, klicken Sie den \"übernehmen\" Knopf, um die Werte in die \"gewünscht\" Felder zu übertragen.\nWeil es sehr unwahrscheinlich ist, daß Sie diese exakte Ausrichtung jemals wieder erreichen, müssen Sie Toleranzen eingeben. Dies ist der Winkel in Grad, der in jede Richtung noch akzeptiert wird. 15° entsprechen somit einem Gesamtwinkel von 30°, 15 in jede Richtung.\nWenn Ihnen nur eine bestimmte Achse wichtig ist, können Sie eine Toleranz von 180° für die anderen beiden Richtungen angeben.</string>
+    <string name="actionSetBluetoothTethering">Bluetooth Tethering</string>
+    <string name="actionTurnBluetoothTetheringOn">Bluetooth Tethering einschalten</string>
+    <string name="actionTurnBluetoothTetheringOff">Bluetooth Tethering ausschalten</string>
+    <string name="enterRepetitionTime">Sie müssen eine positive Ganzzahl als Wiederholungszeit eingeben.</string>
+    <string name="btTetheringNotice">Diese Funktion funktioniert bestätigt bis einschließlich Android 8.0. Ab einer höheren Version funktioniert sie nicht mehr, aber ich ich kann mangels physischer Geräte nicht sagen, aber welcher genau. Unter Android 11 funktioniert es definitiv nicht mehr. Wenn Sie eine Version dazwischen haben, lassen Sie mich bitte wissen, ob es funktioniert oder nicht.</string>
+    <string name="triggerWrong">Mit diesem Auslöser stimmt etwas nicht. Er konnte nicht korrekt geladen werden.</string>
 </resources>

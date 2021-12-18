@@ -547,7 +547,8 @@ public class Miscellaneous extends Service
 
 	public static boolean isDarkModeEnabled(Context context)
 	{
-		switch(context.getResources().getConfiguration().uiMode)
+		int mode = context.getResources().getConfiguration().uiMode;
+		switch(mode)
 		{
 			case Configuration.UI_MODE_NIGHT_YES:
 				return true;

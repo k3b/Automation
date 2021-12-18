@@ -472,7 +472,7 @@
     <string name="showIcon">Monstrar icono</string>
     <string name="showIconWhenServiceIsRunning">Monstrar icono cuando el servicio esta activo (ocultando solo funciona antes Android 7)</string>
     <string name="currentVolume">Volumen actual</string>
-    <string name="volumeTest">Prueba de volumen</string>
+    <string name="volumeTest">Calibrado de volumen</string>
     <string name="permissionsTitle">Permisos necesarios</string>
     <string name="disabledFeatures">Funciones desactivadas</string>
     <string name="invalidDevice">Dispositivo no valido.</string>
@@ -578,7 +578,7 @@
     <string name="settingsReferringToRestrictedFeatures">Su configuración y/o reglas actualmente referencian caracteristicas no-libres no seran proveidas en la versión F-Droid. Esto incluye determinar su actual actividad fisica.</string>
     <string name="filesHaveBeenMovedTo">Automation ahora usa otra ruta para guardar sus archivos. Todos sus archivos de Automation fueron desplazados aqui: \"%s\". El permiso del almacenamiento externo todavia no es necesario; puede revocarlo. Sera eliminado en una futura versión.</string>
     <string name="newsOptIn">Quiere recibir noticias (solo importantes) en la pantalla principal? Estas serán descargadas de la pagina del desarollador. No habrán notificaciones inoportunas, solo un texto en la pantalla principal cuando abra la app.</string>
-    <string name="filesStoredAt">Config y archivos de log seran guardados en el directorio %1$s. Cliquee en este texto para abrir un administrador de archivos. Desafortunadamente solo funciona en un dispositivo rooted. PARA OTROS DISP.: Simplemente use el boton para crear un backup.</string>
+    <string name="filesStoredAt">Config y archivos de log seran guardados en el directorio %1$s. Cliquee en este texto para abrir un administrador de archivos. Desafortunadamente solo funciona en un dispositivo rooted.\n\nPARA OTROS DISP.: Simplemente use el boton para crear un backup.</string>
     <string name="notificationTriggerExplanation">Esta condición responde a todas las aplicaciones que abren o cierran notificaciones en el areal notificaciones. Puedes especificar otra aplicación de que la notificación tiene que venir. Si no la notificación puede originarse de cualquier app. Tambien puedes especificar strings que (/no) tienen que estar en en titulo o el texto de la notificación. La comparación es insensible a minúsculas y mayúsculas.</string>
     <string name="alwaysPlayExplanation">Si este ajuste esta activo el sonido será reproducido siempre. Si esta inactivo el sonido solo será reproducido si su dispositivo ni esta en mute ni en vibración. Pero si esta activo cambiará el volumen. Tambien si su dispositivo esta en el modo timbre el volumen multimedia no será cambiado por ejemplo. En resumen si el volumen multimedia esta en mute no escuchará nada.</string>
     <string name="shareConfigAndLogExplanation">Esto comenzará un nuevo email con su config y los archivos de log adjunto como archivo zip. No será enviado automaticamente. Todavia tiene que cliquear \"enviar\". Tambien puede cambiar el receptor a si mismo por ejemplo.</string>
@@ -602,4 +602,7 @@
     <string name="orientationAzimuth">" Acimut:"</string>
     <string name="turnScreenOff">apagar pantalla</string>
     <string name="turnScreenOn">encender pantalla</string>
+    <string name="actionSetBluetoothTethering">Enrutador Bluetooth</string>
+    <string name="actionTurnBluetoothTetheringOn">activar enrutador Bluetooth</string>
+    <string name="actionTurnBluetoothTetheringOff">desactivar enrutador Bluetooth</string>
 </resources>

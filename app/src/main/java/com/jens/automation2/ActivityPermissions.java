@@ -238,9 +238,9 @@ public class ActivityPermissions extends Activity
                 if(
                         s.equalsIgnoreCase(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
                                 ||
-                                s.equalsIgnoreCase(Manifest.permission.ACCESS_FINE_LOCATION)
+                        s.equalsIgnoreCase(Manifest.permission.ACCESS_FINE_LOCATION)
                                 ||
-                                s.equalsIgnoreCase(Manifest.permission.ACCESS_COARSE_LOCATION)
+                        s.equalsIgnoreCase(Manifest.permission.ACCESS_COARSE_LOCATION)
                 )
                 {
                     if (!Miscellaneous.googleToBlameForLocation(true))
@@ -702,13 +702,6 @@ public class ActivityPermissions extends Activity
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
             case Manifest.permission.ACCESS_COARSE_LOCATION:
-//                usingElements.add(getResources().getString(R.string.android_permission_ACCESS_COARSE_LOCATION));
-                usingElements.add(getResources().getString(R.string.manageLocations));
-                for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.pointOfInterest))
-                    usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
-                for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.speed))
-                    usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
-                break;
             case Manifest.permission.ACCESS_FINE_LOCATION:
                 usingElements.add(getResources().getString(R.string.manageLocations));
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.pointOfInterest))
