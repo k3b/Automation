@@ -348,14 +348,24 @@ public class Rule implements Comparable<Rule>
 
 	public boolean getsGreenLight(Context context)
 	{
-		return isRuleActive() && applies(context) && hasNotAppliedSinceLastExecution();
+		if(applies(context))
+		{
+			if(hasNotAppliedSinceLastExecution())
+				return true;
+			else
+				Miscellaneous.logEvent("i", "getsGreenLight()", "Rule " + getName() + " has not flipped since its last execution.", 4);
+		}
+		else
+			Miscellaneous.logEvent("i", "getsGreenLight()", "Rule " + getName() + " does not apply.", 4);
+
+		return false;
 	}
 	
 	public boolean applies(Context context)
 	{
 		if(AutomationService.getInstance() == null)
 		{
-			Miscellaneous.logEvent("i", "RuleCheck", "Automation service not running. Rule cannot apply.", 3);
+			Miscellaneous.logEvent("i", "RuleCheck", "Automation service not running. Rule " + getName() + " cannot apply.", 3);
 			return false;
 		}
 		
@@ -393,7 +403,7 @@ public class Rule implements Comparable<Rule>
 
 			if (!found)
 			{
-				Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getName()), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyActivityNotPresent), ActivityDetectionReceiver.getDescription(oneTrigger.getActivityDetectionType())), 3);
+				Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getName()), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyActivityNotPresent), getName(), ActivityDetectionReceiver.getDescription(oneTrigger.getActivityDetectionType())), 3);
 				return false;
 			}
 			else
@@ -402,7 +412,7 @@ public class Rule implements Comparable<Rule>
 				{
 					if (oneDetectedActivity.getType() == oneTrigger.getActivityDetectionType() && oneDetectedActivity.getConfidence() < Settings.activityDetectionRequiredProbability)
 					{
-						Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getName()), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyActivityGivenButTooLowProbability), ActivityDetectionReceiver.getDescription(oneDetectedActivity.getType()), String.valueOf(oneDetectedActivity.getConfidence()), String.valueOf(Settings.activityDetectionRequiredProbability)), 3);
+						Miscellaneous.logEvent("i", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), this.getName()), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyActivityGivenButTooLowProbability), getName(), ActivityDetectionReceiver.getDescription(oneDetectedActivity.getType()), String.valueOf(oneDetectedActivity.getConfidence()), String.valueOf(Settings.activityDetectionRequiredProbability)), 3);
 						return false;
 					}
 				}
@@ -411,7 +421,7 @@ public class Rule implements Comparable<Rule>
 
 		return true;
 	}
-	
+
 	private class ActivateRuleTask extends AsyncTask<Object, String, Void>
 	{
 		boolean wasActivated = false;
@@ -504,6 +514,7 @@ public class Rule implements Comparable<Rule>
 				{
 					Rule.ruleRunHistory.add(0, Rule.this);		// add at beginning for better visualization
 					Rule.lastActivatedRuleActivationTime = new Date();
+
 					while(ruleRunHistory.size() > Settings.rulesThatHaveBeenRanHistorySize)
 						ruleRunHistory.remove(ruleRunHistory.size()-1);
 					String history = "";
@@ -533,15 +544,27 @@ public class Rule implements Comparable<Rule>
 	public void activate(AutomationService automationService, boolean force)
 	{
 		ActivateRuleTask task = new ActivateRuleTask();
-		
-//		if(Settings.startNewThreadForRuleActivation)
-			task.execute(automationService, force);
-//		else
-//		{
-//			task.activateInternally(automationService, force);
-//			AutomationService.updateNotification();
-//			ActivityMainScreen.updateMainScreen();
-//		}		
+		task.execute(automationService, force);
+	}
+
+	public static ArrayList<Rule> findRuleCandidates(Trigger.Trigger_Enum triggerType)
+	{
+		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
+
+		for(Rule oneRule : ruleCollection)
+		{
+			innerloop:
+			for(Trigger oneTrigger : oneRule.getTriggerSet())
+			{
+				if(oneTrigger.getTriggerType() == triggerType)
+				{
+					ruleCandidates.add(oneRule);
+					break innerloop; // we don't need to check the other triggers in the same rule
+				}
+			}
+		}
+
+		return ruleCandidates;
 	}
 	
 	public static ArrayList<Rule> findRuleCandidatesByPoi(PointOfInterest searchPoi, boolean triggerParameter)
@@ -585,7 +608,7 @@ public class Rule implements Comparable<Rule>
 		return ruleCandidates;
 	}
 	
-	public static ArrayList<Rule> findRuleCandidatesByTimeFrame(TimeFrame searchTimeFrame, boolean triggerParameter)
+	/*public static ArrayList<Rule> findRuleCandidatesByTimeFrame(TimeFrame searchTimeFrame, boolean triggerParameter)
 	{
 		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
 		
@@ -606,8 +629,9 @@ public class Rule implements Comparable<Rule>
 		}
 		
 		return ruleCandidates;
-	}
-	public static ArrayList<Rule> findRuleCandidatesByTime(Time searchTime)
+	}*/
+
+	/*public static ArrayList<Rule> findRuleCandidatesByTime(Time searchTime)
 	{
 		Miscellaneous.logEvent("i", "RuleSearch", "Searching for rules with TimeFrame with time " + searchTime.toString() + ". RuleCollection-Size: " + String.valueOf(ruleCollection.size()), 3);;
 		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
@@ -626,7 +650,7 @@ public class Rule implements Comparable<Rule>
 					
 					if(oneTrigger.getTimeFrame().getTriggerTimeStart().getTime() > oneTrigger.getTimeFrame().getTriggerTimeStop().getTime())
 					{
-						Miscellaneous.logEvent("i", "Timeframe search", "Rule goes over midnight.", 5);
+						Miscellaneous.logEvent("i", "Timeframe search", "Rule (" + oneRule.getName() + ") stretches over midnight.", 5);
 						if(oneTrigger.getTimeFrame().getTriggerTimeStart().getTime() <= searchTime.getTime() || searchTime.getTime() <= oneTrigger.getTimeFrame().getTriggerTimeStop().getTime()+20000) //add 20 seconds because of delay
 						{
 							ruleCandidates.add(oneRule);
@@ -635,7 +659,7 @@ public class Rule implements Comparable<Rule>
 					}
 					else if(oneTrigger.getTimeFrame().getTriggerTimeStart().getTime() <= searchTime.getTime() && searchTime.getTime() <= oneTrigger.getTimeFrame().getTriggerTimeStop().getTime()+20000) //add 20 seconds because of delay
 					{
-						Miscellaneous.logEvent("i", "RuleSearch", "Rule found with TimeFrame with time " + searchTime.toString(), 3);
+						Miscellaneous.logEvent("i", "RuleSearch", "Rule found (" + oneRule.getName() + ") with TimeFrame with time " + searchTime.toString(), 3);
 						ruleCandidates.add(oneRule);
 						break innerloop; //if the poi is found we don't need to search the other triggers in the same rule
 					}
@@ -646,29 +670,9 @@ public class Rule implements Comparable<Rule>
 		Miscellaneous.logEvent("i", "RuleSearch", String.valueOf(ruleCandidates.size()) + " Rule(s) found with TimeFrame with time " + searchTime.toString(), 3);
 		
 		return ruleCandidates;
-	}
+	}*/
 	
-	public static ArrayList<Rule> findRuleCandidatesByTimeFrame()
-	{
-		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
-		
-		for(Rule oneRule : ruleCollection)
-		{
-			innerloop:
-			for(Trigger oneTrigger : oneRule.getTriggerSet())
-			{
-				if(oneTrigger.getTriggerType() == Trigger.Trigger_Enum.timeFrame)
-				{
-					ruleCandidates.add(oneRule);
-					break innerloop; //if the poi is found we don't need to search the other triggers in the same rule
-				}
-			}
-		}
-		
-		return ruleCandidates;
-	}
-	
-	public static ArrayList<Rule> findRuleCandidatesByCharging(boolean triggerParameter)
+	/*public static ArrayList<Rule> findRuleCandidatesByCharging(boolean triggerParameter)
 	{
 		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
 		
@@ -689,9 +693,9 @@ public class Rule implements Comparable<Rule>
 		}
 		
 		return ruleCandidates;
-	}
+	}*/
 	
-	public static ArrayList<Rule> findRuleCandidatesByUsbHost(boolean triggerParameter)
+	/*public static ArrayList<Rule> findRuleCandidatesByUsbHost(boolean triggerParameter)
 	{
 		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
 		
@@ -712,147 +716,9 @@ public class Rule implements Comparable<Rule>
 		}
 		
 		return ruleCandidates;
-	}
+	}*/
 	
-	public static ArrayList<Rule> findRuleCandidatesByBatteryLevel()
-	{
-		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
-		
-		for(Rule oneRule : ruleCollection)
-		{
-			innerloop:
-			for(Trigger oneTrigger : oneRule.getTriggerSet())
-			{
-				if(oneTrigger.getTriggerType() == Trigger.Trigger_Enum.batteryLevel)
-				{
-//					if(oneTrigger.getTriggerParameter() == triggerParameter)
-//					{
-						ruleCandidates.add(oneRule);
-						break innerloop; //if the poi is found we don't need to search the other triggers in the same rule
-//					}
-				}
-			}
-		}
-		
-		return ruleCandidates;
-	}
-	
-	public static ArrayList<Rule> findRuleCandidatesBySpeed()
-	{
-		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
-		
-		for(Rule oneRule : ruleCollection)
-		{
-			innerloop:
-			for(Trigger oneTrigger : oneRule.getTriggerSet())
-			{
-				if(oneTrigger.getTriggerType() == Trigger.Trigger_Enum.speed)
-				{
-//					if(oneTrigger.getTriggerParameter() == triggerParameter)
-//					{
-						ruleCandidates.add(oneRule);
-						break innerloop; //if the poi is found we don't need to search the other triggers in the same rule
-//					}
-				}
-			}
-		}
-		
-		return ruleCandidates;
-	}
-	
-	public static ArrayList<Rule> findRuleCandidatesByNoiseLevel()
-	{
-		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
-		
-		for(Rule oneRule : ruleCollection)
-		{
-			innerloop:
-			for(Trigger oneTrigger : oneRule.getTriggerSet())
-			{
-				if(oneTrigger.getTriggerType() == Trigger.Trigger_Enum.noiseLevel)
-				{
-//					if(oneTrigger.getTriggerParameter() == triggerParameter)
-//					{
-						ruleCandidates.add(oneRule);
-						break innerloop; //if the poi is found we don't need to search the other triggers in the same rule
-//					}
-				}
-			}
-		}
-		
-		return ruleCandidates;
-	}
-	
-	public static ArrayList<Rule> findRuleCandidatesByWifiConnection()
-	{
-		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
-		
-		for(Rule oneRule : ruleCollection)
-		{
-			innerloop:
-			for(Trigger oneTrigger : oneRule.getTriggerSet())
-			{
-				if(oneTrigger.getTriggerType() == Trigger.Trigger_Enum.wifiConnection)
-				{
-//					if(oneTrigger.getTriggerParameter() == triggerParameter)
-//					{
-						ruleCandidates.add(oneRule);
-						break innerloop; //we don't need to search the other triggers in the same rule
-//					}
-				}
-			}
-		}
-		
-		return ruleCandidates;
-	}
-	
-	public static ArrayList<Rule> findRuleCandidatesByBluetoothConnection()
-	{
-		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
-		
-		for(Rule oneRule : ruleCollection)
-		{
-			innerloop:
-			for(Trigger oneTrigger : oneRule.getTriggerSet())
-			{
-				if(oneTrigger.getTriggerType() == Trigger.Trigger_Enum.bluetoothConnection)
-				{
-//					if(oneTrigger.getTriggerParameter() == triggerParameter)
-//					{
-						ruleCandidates.add(oneRule);
-						break innerloop; //we don't need to search the other triggers in the same rule
-//					}
-				}
-			}
-		}
-		
-		return ruleCandidates;
-	}
-	
-	public static ArrayList<Rule> findRuleCandidatesByProcess()
-	{
-		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
-		
-		for(Rule oneRule : ruleCollection)
-		{
-			innerloop:
-			for(Trigger oneTrigger : oneRule.getTriggerSet())
-			{
-				if(oneTrigger.getTriggerType() == Trigger.Trigger_Enum.process_started_stopped)
-				{
-//					if(oneTrigger.getTriggerParameter() == triggerParameter)
-//					{
-						ruleCandidates.add(oneRule);
-						break innerloop; //we don't need to search the other triggers in the same rule
-//					}
-				}
-			}
-		}
-		
-		return ruleCandidates;
-	}
-	
-	public static ArrayList<Rule> findRuleCandidatesByAirplaneMode(boolean triggerParameter)
+	/*public static ArrayList<Rule> findRuleCandidatesByAirplaneMode(boolean triggerParameter)
 	{
 		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
 		
@@ -873,9 +739,9 @@ public class Rule implements Comparable<Rule>
 		}
 		
 		return ruleCandidates;
-	}
+	}*/
 	
-	public static ArrayList<Rule> findRuleCandidatesByRoaming(boolean triggerParameter)
+	/*public static ArrayList<Rule> findRuleCandidatesByRoaming(boolean triggerParameter)
 	{
 		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
 		
@@ -896,9 +762,9 @@ public class Rule implements Comparable<Rule>
 		}
 		
 		return ruleCandidates;
-	}
+	}*/
 	
-	public static ArrayList<Rule> findRuleCandidatesByPhoneCall(String direction)
+	/*public static ArrayList<Rule> findRuleCandidatesByPhoneCall(String direction)
 	{
 		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
 
@@ -920,73 +786,7 @@ public class Rule implements Comparable<Rule>
 		}
 
 		return ruleCandidates;
-	}
-	
-	public static ArrayList<Rule> findRuleCandidatesByNfc()
-	{
-		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
-		
-		for(Rule oneRule : ruleCollection)
-		{
-			innerloop:
-			for(Trigger oneTrigger : oneRule.getTriggerSet())
-			{
-				if(oneTrigger.getTriggerType() == Trigger.Trigger_Enum.nfcTag)
-				{
-//					if(oneTrigger.getTriggerParameter() == triggerParameter)
-//					{
-						ruleCandidates.add(oneRule);
-						break innerloop; //we don't need to search the other triggers in the same rule
-//					}
-				}
-			}
-		}
-		
-		return ruleCandidates;
-	}
-
-	public static ArrayList<Rule> findRuleCandidates(Trigger.Trigger_Enum triggerType)
-	{
-		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
-
-		for(Rule oneRule : ruleCollection)
-		{
-			innerloop:
-			for(Trigger oneTrigger : oneRule.getTriggerSet())
-			{
-				if(oneTrigger.getTriggerType() == triggerType)
-				{
-					ruleCandidates.add(oneRule);
-					break innerloop; //we don't need to search the other triggers in the same rule
-				}
-			}
-		}
-
-		return ruleCandidates;
-	}
-	
-	public static ArrayList<Rule> findRuleCandidatesByActivityDetection()
-	{
-		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
-		
-		for(Rule oneRule : ruleCollection)
-		{
-			innerloop:
-			for(Trigger oneTrigger : oneRule.getTriggerSet())
-			{
-				if(oneTrigger.getTriggerType() == Trigger.Trigger_Enum.activityDetection)
-				{
-//					if(oneTrigger.getTriggerParameter() == triggerParameter)
-//					{
-						ruleCandidates.add(oneRule);
-						break innerloop; //we don't need to search the other triggers in the same rule
-//					}
-				}
-			}
-		}
-		
-		return ruleCandidates;
-	}
+	}*/
 	
 	public static ArrayList<Rule> findRuleCandidatesByPoi(PointOfInterest searchPoi)
 	{
@@ -1011,7 +811,7 @@ public class Rule implements Comparable<Rule>
 		return ruleCandidates;
 	}
 	
-	public static ArrayList<Rule> findRuleCandidatesByHeadphoneJack(boolean triggerParameter)
+	/*public static ArrayList<Rule> findRuleCandidatesByHeadphoneJack(boolean triggerParameter)
 	{
 		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
 		
@@ -1032,7 +832,7 @@ public class Rule implements Comparable<Rule>
 		}
 		
 		return ruleCandidates;
-	}
+	}*/
 	
 	public static ArrayList<Rule> findRuleCandidatesByProfile(Profile profile)
 	{
