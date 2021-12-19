@@ -123,7 +123,7 @@ public class Trigger
 		}
 		catch(Exception e)
 		{
-			Miscellaneous.logEvent("e", "Trigger", "Error while checking if rule " + getParentRule().getName() + " applies. Error occured in trigger " + this.getParentRule().toString() + "." + Miscellaneous.lineSeparator + Log.getStackTraceString(e), 1);
+			Miscellaneous.logEvent("e", "Trigger", "Error while checking if rule " + getParentRule().getName() + " applies." + Miscellaneous.lineSeparator + Log.getStackTraceString(e), 1);
 			result = false;
 		}
 

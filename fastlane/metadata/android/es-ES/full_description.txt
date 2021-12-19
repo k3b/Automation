@@ -21,7 +21,7 @@ Disparadores:
 * Notificaciónes de otras apps
 * Orientación del dispositivo (giroscopio)
 
-Supported actions:
+Aciónes:
 * Pasar de wifi
 * Pasar de bluetooth
 * Pasar USB rúter
@@ -32,7 +32,7 @@ Supported actions:
 * Cambiar el tono de llamada / ajustes de sonido
 * Encender otra app
 * Esperar (inter otras aciónes)
-* Desperatar móvil
+* Encender o apagar pantalla
 * Pasar modo de vuelo
 * Pasar datos móviles
 * Leer texto

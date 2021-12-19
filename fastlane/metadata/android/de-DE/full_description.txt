@@ -32,7 +32,7 @@ Mögliche Aktionen:
 * Klingelton und Toneinstellungen ändern
 * Eine andere Anwendung starten
 * Warten (zwischen anderen Aktionen)
-* Den Bildschirm des Geräts einschalten
+* Bildschirm ein-/ausschalten
 * Flugzeugmodus ein-/ausschalten
 * Datenverbindung ein-/ausschalten
 * Text sprechen (TTS)

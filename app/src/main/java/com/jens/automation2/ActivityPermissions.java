@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -46,6 +47,7 @@ public class ActivityPermissions extends Activity
     private static final int requestCodeForPermissionsNotificationPolicy = 12044;
     private static final int requestCodeForPermissionsBackgroundLocation = 12045;
     private static final int requestCodeForPermissionsNotifications = 12046;
+    private static final int requestCodeForPermissionsDeviceAdmin = 12047;
     protected String[] specificPermissionsToRequest = null;
 
     public static String intentExtraName = "permissionsToBeRequested";
@@ -282,6 +284,10 @@ public class ActivityPermissions extends Activity
             {
                 return verifyNotificationPermission();
             }
+            else if (s.equals(Manifest.permission.BIND_DEVICE_ADMIN))
+            {
+                return haveDeviceAdmin();
+            }
             else
             {
                 int res = context.checkCallingOrSelfPermission(s);
@@ -290,6 +296,33 @@ public class ActivityPermissions extends Activity
         }
         else
             return true;
+    }
+
+    public static boolean haveDeviceAdmin()
+    {
+        DevicePolicyManager deviceManger = (DevicePolicyManager)Miscellaneous.getAnyContext().getSystemService(Context.DEVICE_POLICY_SERVICE);
+//        ComponentName compName = new ComponentName(ActivityPermissions.getInstance(), DeviceAdmin.class ) ;
+        ComponentName compName = new ComponentName(Miscellaneous.getAnyContext(), DeviceAdmin.class) ;
+        boolean active = deviceManger.isAdminActive(compName);
+        return active;
+    }
+
+    public static void requestDeviceAdmin()
+    {
+        if(!haveDeviceAdmin())
+        {
+//            deviceManger.removeActiveAdmin(compName);
+//        }
+//        else
+//        {
+            DevicePolicyManager deviceManger = (DevicePolicyManager)Miscellaneous.getAnyContext().getSystemService(Context.DEVICE_POLICY_SERVICE);
+            ComponentName compName = new ComponentName(ActivityPermissions.getInstance(), DeviceAdmin.class) ;
+
+            Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN );
+            intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN , compName );
+            intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION , Miscellaneous.getAnyContext().getResources().getString(R.string.deviceAdminNote));
+            ActivityPermissions.getInstance().startActivityForResult(intent, requestCodeForPermissionsDeviceAdmin);
+        }
     }
 
     public static String[] getRequiredPermissions(boolean onlyGeneral)
@@ -627,6 +660,9 @@ public class ActivityPermissions extends Activity
                     case playSound:
                         addToArrayListUnique(Manifest.permission.READ_EXTERNAL_STORAGE, requiredPermissions);
                         break;
+                    case turnScreenOnOrOff:
+                        addToArrayListUnique(Manifest.permission.BIND_DEVICE_ADMIN, requiredPermissions);
+                        break;
                     default:
                         break;
                 }
@@ -833,6 +869,10 @@ public class ActivityPermissions extends Activity
                 for(String ruleName : getRulesUsing(Action.Action_Enum.playSound))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
+            case Manifest.permission.BIND_DEVICE_ADMIN:
+                for(String ruleName : getRulesUsing(Action.Action_Enum.turnScreenOnOrOff))
+                    usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
+                break;
         }
 
         return usingElements;
@@ -858,6 +898,13 @@ public class ActivityPermissions extends Activity
                     if (mNotificationManager.isNotificationPolicyAccessGranted())
                         requestPermissions(cachedPermissionsToRequest, true);
                 }
+            }
+            if (requestCode == requestCodeForPermissionsDeviceAdmin)
+            {
+                NotificationManager mNotificationManager = (NotificationManager) ActivityPermissions.this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+                if (mNotificationManager.isNotificationPolicyAccessGranted())
+                    requestPermissions(cachedPermissionsToRequest, true);
             }
 
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
@@ -920,6 +967,13 @@ public class ActivityPermissions extends Activity
                         Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
                         intent.setData(Uri.parse("package:" + getPackageName()));
                         startActivityForResult(intent, requestCodeForPermissionsWriteSettings);
+                        return;
+                    }
+                    if (s.equalsIgnoreCase(Manifest.permission.BIND_DEVICE_ADMIN))
+                    {
+                        requiredPermissions.remove(s);
+                        cachedPermissionsToRequest = requiredPermissions;
+                        requestDeviceAdmin();
                         return;
                     }
                     else if (s.equalsIgnoreCase(Manifest.permission.ACCESS_NOTIFICATION_POLICY))

@@ -326,6 +326,7 @@ public class ActivityManageRule extends Activity
 					case triggerUrl:
 						Intent activityEditTriggerUrlIntent = new Intent(ActivityManageRule.this, ActivityManageActionTriggerUrl.class);
 						ActivityManageActionTriggerUrl.resultingAction = a;
+						ActivityManageActionTriggerUrl.resultingAction.setParentRule(ruleToEdit);
 						activityEditTriggerUrlIntent.putExtra("edit", true);
 						startActivityForResult(activityEditTriggerUrlIntent, requestCodeActionTriggerUrlEdit);
 						break;
@@ -1125,6 +1126,7 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK)
 			{
 				//add TriggerUrl
+				ActivityManageActionTriggerUrl.resultingAction.setParentRule(ruleToEdit);
 				ruleToEdit.getActionSet().add(ActivityManageActionTriggerUrl.resultingAction);
 				this.refreshActionList();
 			}
@@ -1142,6 +1144,7 @@ public class ActivityManageRule extends Activity
 			//add TimeFrame
 			if(resultCode == RESULT_OK && ActivityManageTriggerTimeFrame.editedTimeFrameTrigger != null)
 			{
+				newTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().add(newTrigger);
 				this.refreshTriggerList();
 			}
@@ -1152,7 +1155,10 @@ public class ActivityManageRule extends Activity
 		{
 			//edit TimeFrame
 			if(resultCode == RESULT_OK && ActivityManageTriggerTimeFrame.editedTimeFrameTrigger != null)
+			{
+				ActivityManageTriggerTimeFrame.editedTimeFrameTrigger.setParentRule(ruleToEdit);
 				this.refreshTriggerList();
+			}
 			else
 				Miscellaneous.logEvent("w", "TimeFrameEdit", "No timeframe returned. Assuming abort.", 5);
 		}
@@ -1162,6 +1168,7 @@ public class ActivityManageRule extends Activity
 			{
 				newTrigger.setTriggerParameter(data.getBooleanExtra("wifiState", false));
 				newTrigger.setTriggerParameter2(data.getStringExtra("wifiName"));
+				newTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().add(newTrigger);
 				this.refreshTriggerList();
 			}
@@ -1174,6 +1181,7 @@ public class ActivityManageRule extends Activity
 				editedTrigger.setTriggerType(Trigger_Enum.wifiConnection);
 				editedTrigger.setTriggerParameter(data.getBooleanExtra("wifiState", false));
 				editedTrigger.setTriggerParameter2(data.getStringExtra("wifiName"));
+				editedTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().set(editIndex, editedTrigger);
 				this.refreshTriggerList();
 			}
@@ -1184,6 +1192,7 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK)
 			{
 				newAction = ActivityManageActionStartActivity.resultingAction;
+				newAction.setParentRule(ruleToEdit);
 				ruleToEdit.getActionSet().add(newAction);
 				this.refreshActionList();
 			}
@@ -1194,6 +1203,7 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK)
 			{
 				newAction = ActivityManageActionStartActivity.resultingAction;
+				newAction.setParentRule(ruleToEdit);
 //				ruleToEdit.getActionSet().add(newAction);
 				this.refreshActionList();
 			}
@@ -1204,6 +1214,7 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK && ActivityManageTriggerNfc.generatedId != null)
 			{
 				newTrigger.setNfcTagId(ActivityManageTriggerNfc.generatedId);
+				newTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().add(newTrigger);
 				this.refreshTriggerList();
 			}
@@ -1225,6 +1236,7 @@ public class ActivityManageRule extends Activity
 													data.getStringExtra("textDir") + Trigger.triggerParameter2Split +
 													data.getStringExtra("text")
 												);
+				newTrigger.setParentRule(ruleToEdit);
 				this.refreshTriggerList();
 			}
 		}
@@ -1233,6 +1245,7 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK)
 			{
 				newTrigger = ActivityManageTriggerNotification.resultingTrigger;
+				newTrigger.setParentRule(ruleToEdit);
 				this.refreshTriggerList();
 			}
 		}
@@ -1240,6 +1253,7 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
+				newTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().add(newTrigger);
 				newTrigger.setTriggerParameter2(data.getStringExtra("triggerParameter2"));
 				this.refreshTriggerList();
@@ -1250,6 +1264,7 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK)
 			{
 				newTrigger = ActivityManageTriggerPhoneCall.resultingTrigger;
+				newTrigger.setParentRule(ruleToEdit);
 				this.refreshTriggerList();
 			}
 		}
@@ -1258,6 +1273,7 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK)
 			{
 				//add SpeakText
+				ActivityManageActionSpeakText.resultingAction.setParentRule(ruleToEdit);
 				ruleToEdit.getActionSet().add(ActivityManageActionSpeakText.resultingAction);
 				this.refreshActionList();
 			}
@@ -1267,6 +1283,7 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK)
 			{
 				//edit SpeakText
+				ActivityManageActionSpeakText.resultingAction.setParentRule(ruleToEdit);
 				newAction = ActivityManageActionSpeakText.resultingAction;
 				this.refreshActionList();
 			}
@@ -1276,6 +1293,7 @@ public class ActivityManageRule extends Activity
 			//add bluetooth trigger
 			if(resultCode == RESULT_OK && ActivityManageTriggerBluetooth.editedBluetoothTrigger != null)
 			{
+				newTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().add(newTrigger);
 				this.refreshTriggerList();
 			}
@@ -1287,6 +1305,7 @@ public class ActivityManageRule extends Activity
 			//edit bluetooth trigger
 			if(resultCode == RESULT_OK && ActivityManageTriggerBluetooth.editedBluetoothTrigger != null)
 			{
+				ActivityManageTriggerBluetooth.editedBluetoothTrigger.setParentRule(ruleToEdit);
 				this.refreshTriggerList();
 			}
 			else
@@ -1298,6 +1317,7 @@ public class ActivityManageRule extends Activity
 			{
 				newAction.setParameter1(data.getBooleanExtra("autoBrightness", false));
 				newAction.setParameter2(String.valueOf(data.getIntExtra("brightnessValue", 0)));
+				newAction.setParentRule(ruleToEdit);
 				ruleToEdit.getActionSet().add(newAction);
 				this.refreshActionList();
 			}
@@ -1312,6 +1332,8 @@ public class ActivityManageRule extends Activity
 				if(data.hasExtra("brightnessValue"))
 					ruleToEdit.getActionSet().get(editIndex).setParameter2(String.valueOf(data.getIntExtra("brightnessValue", 0)));
 
+				ruleToEdit.getActionSet().get(editIndex).setParentRule(ruleToEdit);
+
 				this.refreshActionList();
 			}
 		}
@@ -1319,6 +1341,7 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
+				newAction.setParentRule(ruleToEdit);
 				newAction.setParameter2(data.getStringExtra("vibratePattern"));
 				ruleToEdit.getActionSet().add(newAction);
 				this.refreshActionList();
@@ -1328,6 +1351,8 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
+				ruleToEdit.getActionSet().get(editIndex).setParentRule(ruleToEdit);
+
 				if(data.hasExtra("vibratePattern"))
 					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra("vibratePattern"));
 
@@ -1338,6 +1363,7 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
+				newAction.setParentRule(ruleToEdit);
 				newAction.setParameter1(data.getBooleanExtra(intentNameActionParameter1, false));
 				newAction.setParameter2(data.getStringExtra(intentNameActionParameter2));
 				ruleToEdit.getActionSet().add(newAction);
@@ -1348,6 +1374,8 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
+				ruleToEdit.getActionSet().get(editIndex).setParentRule(ruleToEdit);
+
 				if(data.hasExtra(intentNameActionParameter1))
 					ruleToEdit.getActionSet().get(editIndex).setParameter1(data.getBooleanExtra(intentNameActionParameter1, false));
 
@@ -1361,7 +1389,7 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
-				//add SendTextMessage
+				ActivityManageActionSendTextMessage.resultingAction.setParentRule(ruleToEdit);
 				ruleToEdit.getActionSet().add(ActivityManageActionSendTextMessage.resultingAction);
 				this.refreshActionList();
 			}
@@ -1370,8 +1398,8 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
-				//edit SendTextMessage
 				newAction = ActivityManageActionSendTextMessage.resultingAction;
+				newAction.setParentRule(ruleToEdit);
 				//ruleToEdit.getActionSet().add(ActivityManageActionSendTextMessage.resultingAction);
 				this.refreshActionList();
 			}

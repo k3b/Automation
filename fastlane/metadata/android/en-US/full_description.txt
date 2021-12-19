@@ -32,7 +32,7 @@ Supported actions:
 * Change ringtone/sound setting
 * Start another application
 * Wait (in between other actions)
-* Wakeup device's screen
+* Turn screen on or off
 * Toggle airplane mode
 * Toggle mobile data connection
 * Speak text

@@ -734,4 +734,6 @@
     <string name="deviceOrientationTimeAcceptIntervalTitle">Signal frequency</string>
     <string name="deviceOrientationTimeAcceptIntervalSummary">Accept new movement signals every x milliseconds</string>
     <string name="deviceOrientationSettings">Device orientation settings</string>
+    <string name="android.permission.BIND_DEVICE_ADMIN">Device administrator</string>
+    <string name="deviceAdminNote">Device administrator permissions required for at least 1 rule you created.</string>
 </resources>

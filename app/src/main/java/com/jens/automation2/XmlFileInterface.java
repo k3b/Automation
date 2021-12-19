@@ -891,8 +891,6 @@ public class XmlFileInterface
 
 				if(triggerEventString.equals("process_started_stopped") | triggerEventString.equals("process_running"))
             		newTrigger.setTriggerType(Trigger_Enum.process_started_stopped);
-				if(triggerEventString.equals("devicePosition"))
-					newTrigger.setTriggerType(Trigger_Enum.deviceOrientation);
 				else
 					newTrigger.setTriggerType(Trigger_Enum.valueOf(triggerEventString));
             }
