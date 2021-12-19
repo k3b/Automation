@@ -1455,8 +1455,6 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.wait));
 			else if(types[i].toString().equals(Action_Enum.setAirplaneMode.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.plane));
-			else if(types[i].toString().equals(Action_Enum.wakeupDevice.toString()))
-				items.add(new Item(typesLong[i].toString(), R.drawable.alarm));
 			else if(types[i].toString().equals(Action_Enum.turnScreenOnOrOff.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.smartphone));
 			else if(types[i].toString().equals(Action_Enum.changeSoundProfile.toString()))
@@ -1588,11 +1586,6 @@ public class ActivityManageRule extends Activity
 						newAction.setAction(Action_Enum.waitBeforeNextAction);
 						getActionWaitBeforeNextActionDialog(ActivityManageRule.this).show();
 					}
-					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.wakeupDevice.toString()))
-					{
-						newAction.setAction(Action_Enum.wakeupDevice);
-						getActionWakeupDeviceDialog(ActivityManageRule.this).show();
-					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.turnScreenOnOrOff.toString()))
 					{
 						newAction.setAction(Action_Enum.turnScreenOnOrOff);
@@ -1604,7 +1597,6 @@ public class ActivityManageRule extends Activity
 						getActionParameter1Dialog(ActivityManageRule.this).show();
 						if(Build.VERSION.SDK_INT >= 17)
 						{
-//							Toast.makeText(context, getResources().getString(R.string.airplaneModeSdk17Warning), Toast.LENGTH_LONG).show();
 							Miscellaneous.messageBox(getResources().getString(R.string.airplaneMode), getResources().getString(R.string.rootExplanation), ActivityManageRule.this).show();
 						}
 					}

@@ -553,7 +553,7 @@
     <string name="volumeMusicVideoGameMedia">Multimedia (musica, video …)</string>
     <string name="volumeRingtoneNotifications">Toni e notifiche</string>
     <string name="volumeTest">Calibratura audio</string>
-    <string name="volumeTesterExplanation">Per calcolare il valore del rumore di fondo in dB è necessario specificare un valore di riferimento fisico (si prega di leggere Wikipedia per ulteriori informazioni). Questo valore è probabilmente diverso per ogni telefono. Trascinare il cursore per modificare il valore di riferimento fisico definito. Più alto è il valore di riferimento e più basso sarà il valore misurato in dB. Misurazioni costanti saranno effettuate ogni %1$s secondi ed i risultati visualizzati sotto. Premere indietro quando hai trovato un valore adeguato.</string>
+    <string name="volumeCalibrationExplanation">Per calcolare il valore del rumore di fondo in dB è necessario specificare un valore di riferimento fisico (si prega di leggere Wikipedia per ulteriori informazioni). Questo valore è probabilmente diverso per ogni telefono. Trascinare il cursore per modificare il valore di riferimento fisico definito. Più alto è il valore di riferimento e più basso sarà il valore misurato in dB. Misurazioni costanti saranno effettuate ogni %1$s secondi ed i risultati visualizzati sotto. Premere indietro quando hai trovato un valore adeguato.</string>
     <string name="volumes">Volumi</string>
     <string name="waitBeforeNextAction">Attesa prima della azione successiva</string>
     <string name="waitBeforeNextActionEnterValue">Inserisci il valore della pausa tra tra un\'azione e la successiva (millisecondi).</string>

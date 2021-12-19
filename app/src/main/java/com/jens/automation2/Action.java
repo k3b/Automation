@@ -36,8 +36,7 @@ public class Action
 								enableScreenRotation,disableScreenRotation,
 								startOtherActivity,
 								waitBeforeNextAction,
-								wakeupDevice,
-		turnScreenOnOrOff,
+								turnScreenOnOrOff,
 								setAirplaneMode,
 								setDataConnection,
 								speakText,
@@ -91,8 +90,6 @@ public class Action
 											return context.getResources().getString(R.string.startOtherActivity);
 										case waitBeforeNextAction:
 											return context.getResources().getString(R.string.waitBeforeNextAction);
-										case wakeupDevice:
-											return context.getResources().getString(R.string.wakeupDevice);
 										case turnScreenOnOrOff:
 											return context.getResources().getString(R.string.turnScreenOnOrOff);
 										case vibrate:
@@ -232,10 +229,6 @@ public class Action
 		else if(this.getAction().equals(Action_Enum.sendTextMessage))
 		{
 			returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.sendTextMessage));
-		}
-		else if(this.getAction().equals(Action_Enum.wakeupDevice))
-		{
-			returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.wakeupDevice));
 		}
 		else if(this.getAction().equals(Action_Enum.turnScreenOnOrOff))
 		{
@@ -414,18 +407,6 @@ public class Action
 					break;
 				case waitBeforeNextAction:
 					Actions.waitBeforeNextAction(Long.parseLong(this.getParameter2()));
-					break;
-				case wakeupDevice:
-					Actions.wakeupDevice(Long.parseLong(this.getParameter2()));
-					// wakeupDevice() will create a separate thread. That'll take some time, we wait 100ms.
-					try
-					{
-						Thread.sleep(100);
-					}
-					catch (InterruptedException e)
-					{
-						e.printStackTrace();
-					}
 					break;
 				case turnScreenOnOrOff:
 					if(getParameter1())

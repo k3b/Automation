@@ -889,7 +889,7 @@ public class XmlFileInterface
             {
             	String triggerEventString = readTag(parser, "TriggerEvent");
 
-				if(triggerEventString.equals("process_started_stopped") | triggerEventString.equals("process_running"))
+				if(triggerEventString.equals("process_started_stopped") || triggerEventString.equals("process_running"))
             		newTrigger.setTriggerType(Trigger_Enum.process_started_stopped);
 				else
 					newTrigger.setTriggerType(Trigger_Enum.valueOf(triggerEventString));
@@ -1152,7 +1152,14 @@ public class XmlFileInterface
             		newAction.setAction(Action_Enum.enableScreenRotation);
 	        	else if(actionNameString.equals("disableScreenRotation"))
 	        		newAction.setAction(Action_Enum.disableScreenRotation);
-            // *** deprecated
+				else if(actionNameString.equals("disableScreenRotation"))
+					newAction.setAction(Action_Enum.disableScreenRotation);
+				else if(actionNameString.equals("wakeupDevice"))
+				{
+					newAction.setAction(Action_Enum.turnScreenOnOrOff);
+					newAction.setParameter1(true);
+				}
+						// *** deprecated
 
 				else
 					newAction.setAction(Action_Enum.valueOf(actionNameString));
@@ -1220,6 +1227,18 @@ public class XmlFileInterface
             		newAction.setParameter1(false);
             		readTag(parser, "ActionParameter1"); //read the tag for the parser to head on
             	}
+				else if(newAction.getAction().equals(Action_Enum.disableScreenRotation))
+				{
+					newAction.setAction(Action_Enum.setDisplayRotation);
+					newAction.setParameter1(false);
+					readTag(parser, "ActionParameter1"); //read the tag for the parser to head on
+				}
+				else if(newAction.getAction().equals(Action_Enum.turnScreenOnOrOff) && newAction.getParameter1())
+				{
+					/*
+						If param1 == true we will keep it because this action used to be of type wakeUpDevice.
+					 */
+				}
 	        	else
 	            	// exclusion for deprecated types
 	        		newAction.setParameter1(Boolean.parseBoolean(readTag(parser, "ActionParameter1")));
@@ -1241,7 +1260,6 @@ public class XmlFileInterface
 	            		{
 	            			newAction.setParameter2(tag);
 	            		}
-
 /*
 						androidx.security.crypto.MasterKey.Builder
 
@@ -1300,9 +1318,6 @@ public class XmlFileInterface
             	}
             }
         }
-        
-//        Miscellaneous.logEvent("i", "New Rule from file", newPoi.name + "/" + String.valueOf(newPoi.radius) + "/" + String.valueOf(newPoi.location.getLatitude()) + "/" + String.valueOf(newPoi.location.getLongitude()) + "/" + String.valueOf(newPoi.changeWifiState) + "/" + String.valueOf(newPoi.desiredWifiState) + "/" + String.valueOf(newPoi.changeCameraState) + "/" + String.valueOf(newPoi.desiredCameraState) + "/" + String.valueOf(newPoi.changeSoundSetting) + "/" + String.valueOf(newPoi.desiredSoundSetting));
-        
         return newAction;
 	}
 

@@ -286,61 +286,62 @@ public class Trigger
 		float currentPitch = DeviceOrientationListener.getInstance().getPitch();
 		float currentRoll = DeviceOrientationListener.getInstance().getRoll();
 
-		if(
-				!(
-					desiredAzimuthTolerance < 180
-						&&
-					(
-						Math.abs(currentAzimuth) <= Math.abs(desiredAzimuth - desiredAzimuthTolerance)
-								||
-						Math.abs(currentAzimuth) <= desiredAzimuth + desiredAzimuthTolerance
-					)
-				)
-		)
+		if(desiredAzimuthTolerance < 180)
 		{
-			Miscellaneous.logEvent("i", "DeviceOrientation", "Azimuth outside of tolerance area.", 5);
-			if(getTriggerParameter())
-				return false;
-			else
-				return true;
+			if (
+					!(
+							Math.abs(currentAzimuth) <= Math.abs(desiredAzimuth - desiredAzimuthTolerance)
+									||
+							Math.abs(currentAzimuth) <= desiredAzimuth + desiredAzimuthTolerance
+					)
+			)
+			{
+				Miscellaneous.logEvent("i", "DeviceOrientation", "Azimuth outside of tolerance area.", 5);
+				if (getTriggerParameter())
+					return false;
+				else
+					return true;
+			}
 		}
 
-		if(
-				!(
-					desiredPitchTolerance < 180
-						&&
-					(
-						Math.abs(currentPitch) <= Math.abs(desiredPitch - desiredPitchTolerance)
-								||
-						Math.abs(currentPitch) <= desiredPitch + desiredPitchTolerance
-					)
-				)
-		)
+		if(desiredPitchTolerance < 180)
 		{
-			Miscellaneous.logEvent("i", "DeviceOrientation", "Pitch outside of tolerance area.", 5);
-			if(getTriggerParameter())
-				return false;
-			else
-				return true;
+			if (
+					!(
+						(
+							Math.abs(currentPitch) <= Math.abs(desiredPitch - desiredPitchTolerance)
+										||
+							Math.abs(currentPitch) <= desiredPitch + desiredPitchTolerance
+						)
+			)
+		)
+			{
+				Miscellaneous.logEvent("i", "DeviceOrientation", "Pitch outside of tolerance area.", 5);
+				if (getTriggerParameter())
+					return false;
+				else
+					return true;
+			}
 		}
 
-		if(
-				!(
-					desiredRollTolerance < 180
-						&&
-					(
-						Math.abs(currentRoll) <= Math.abs(desiredRoll - desiredRollTolerance)
-								||
-						Math.abs(currentRoll) <= desiredRoll + desiredRollTolerance
-					)
-				)
-		)
+		if(desiredRollTolerance < 180)
 		{
-			Miscellaneous.logEvent("i", "DeviceOrientation", "Roll outside of tolerance area.", 5);
-			if(getTriggerParameter())
-				return false;
-			else
-				return true;
+			if (
+					!(
+						(
+							Math.abs(currentRoll) <= Math.abs(desiredRoll - desiredRollTolerance)
+										||
+							Math.abs(currentRoll) <= desiredRoll + desiredRollTolerance
+						)
+			)
+		)
+			{
+				Miscellaneous.logEvent("i", "DeviceOrientation", "Roll outside of tolerance area.", 5);
+				if (getTriggerParameter())
+					return false;
+				else
+					return true;
+			}
 		}
 
 		if(getTriggerParameter())
@@ -493,7 +494,7 @@ public class Trigger
 			return false;
 		}
 
-		return false;
+		return true;
 	}
 
     boolean checkRoaming()

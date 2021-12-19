@@ -504,7 +504,7 @@
     <string name="currentVolume">Current volume</string>
     <string name="enterValidReferenceValue">Enter a valid reference value.</string>
     <string name="volumeTest">Volume calibration</string>
-    <string name="volumeTesterExplanation">To calculate a dB value for noise monitoring you need to specify a so called physical reference value. Please read Wikipedia for further information. This value is most likely different for every phone. Drag the seekbar to change the defined physical reference value. The higher the reference value the lower the dB value will be. Constant measurings will be performed every %1$s seconds and the results displayed below. Press back when you have found a suitable value.</string>
+    <string name="volumeCalibrationExplanation">To calculate a dB value for noise monitoring you need to specify a so called physical reference value. Please read Wikipedia for further information. This value is most likely different for every phone. Drag the seekbar to change the defined physical reference value. The higher the reference value the lower the dB value will be. Constant measurings will be performed every %1$s seconds and the results displayed below. Press back when you have found a suitable value.</string>
     <string name="settingsWillTakeTime">Some settings will not be applied before certain environment settings change or service is restarted.</string>
     <string name="phoneIsRooted" translatable="false">Phone is rooted.</string>
     <string name="phoneIsNotRooted" translatable="false">Phone is not rooted.</string>
