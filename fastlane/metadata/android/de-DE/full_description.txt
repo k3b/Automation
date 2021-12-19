@@ -19,7 +19,7 @@ Mögliche Auslöser:
 * Headset verbunden
 * Telefongespräch im Gange
 * Benachrichtigungen anderer Anwendungen
-* Geräteposition (Gyroskop)
+* Geräteausrichtung (Gyroskop)
 
 Mögliche Aktionen:
 * WLAN ein-/ausschalten

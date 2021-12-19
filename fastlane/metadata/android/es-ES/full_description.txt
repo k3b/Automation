@@ -19,7 +19,7 @@ Disparadores:
 * Headset conectado
 * Llamado de teléfono activo
 * Notificaciónes de otras apps
-* Posición del dispositivo (giroscopio)
+* Orientación del dispositivo (giroscopio)
 
 Supported actions:
 * Pasar de wifi

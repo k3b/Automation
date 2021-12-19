@@ -19,7 +19,7 @@ Supported triggers:
 * Headset connected
 * Phone call running
 * Notifications of other apps
-* Device position (gyroscope)
+* Device orientation (gyroscope)
 
 Supported actions:
 * Change wifi state
