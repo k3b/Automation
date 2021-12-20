@@ -23,7 +23,7 @@ import java.util.Map;
 public class News
 {
     Calendar publishDate;
-    String applicablePlattform;
+    String applicablePlatform;
     Map<String,NewsTranslation> translations = new HashMap<>();
 
     public static class NewsTranslation
@@ -151,9 +151,9 @@ public class News
                     String publishDateString = neEl.getElementsByTagName("publishDate").item(0).getTextContent();
                     newsEntry.setPublishDate(Miscellaneous.calendarFromLong(Long.parseLong(publishDateString) * 1000));
 
-                    newsEntry.setApplicablePlattform(neEl.getElementsByTagName("applicablePlattforms").item(0).getTextContent());
+                    newsEntry.setApplicablePlatform(neEl.getElementsByTagName("applicablePlattforms").item(0).getTextContent());
 
-                    if(newsEntry.getApplicablePlattform().equalsIgnoreCase("all") || newsEntry.getApplicablePlattform().equalsIgnoreCase(BuildConfig.FLAVOR))
+                    if(newsEntry.getApplicablePlatform().equalsIgnoreCase("all") || newsEntry.getApplicablePlatform().equalsIgnoreCase(BuildConfig.FLAVOR))
                         returnList.add(newsEntry);
                 }
             }
@@ -199,14 +199,14 @@ public class News
         this.publishDate = publishDate;
     }
 
-    public String getApplicablePlattform()
+    public String getApplicablePlatform()
     {
-        return applicablePlattform;
+        return applicablePlatform;
     }
 
-    public void setApplicablePlattform(String applicablePlattform)
+    public void setApplicablePlatform(String applicablePlatform)
     {
-        this.applicablePlattform = applicablePlattform;
+        this.applicablePlatform = applicablePlatform;
     }
 
     @NonNull

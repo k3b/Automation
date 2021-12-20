@@ -9,7 +9,6 @@ import com.jens.automation2.R.layout;
 
 public class ActivityHelp extends Activity
 {
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -19,5 +18,4 @@ public class ActivityHelp extends Activity
 		TextView tvHelpTextEnergySaving = (TextView) findViewById(R.id.tvHelpTextEnergySaving);
 		tvHelpTextEnergySaving.setMovementMethod(LinkMovementMethod.getInstance());
 	}
-
 }
