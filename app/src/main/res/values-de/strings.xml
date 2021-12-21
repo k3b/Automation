@@ -638,4 +638,6 @@
     <string name="enterRepetitionTime">Sie müssen eine positive Ganzzahl als Wiederholungszeit eingeben.</string>
     <string name="btTetheringNotice">Diese Funktion funktioniert bestätigt bis einschließlich Android 8.0. Ab einer höheren Version funktioniert sie nicht mehr, aber ich ich kann mangels physischer Geräte nicht sagen, aber welcher genau. Unter Android 11 funktioniert es definitiv nicht mehr. Wenn Sie eine Version dazwischen haben, lassen Sie mich bitte wissen, ob es funktioniert oder nicht.</string>
     <string name="triggerWrong">Mit diesem Auslöser stimmt etwas nicht. Er konnte nicht korrekt geladen werden.</string>
+    <string name="android.permission.BIND_DEVICE_ADMIN">Geräte Administrator</string>
+    <string name="deviceAdminNote">Geräte Administrator Rechte werden für mindestens 1 Regel benötigt, die Sie angelegt haben.</string>
 </resources>

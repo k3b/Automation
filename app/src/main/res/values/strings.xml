@@ -694,7 +694,6 @@
     <string name="tabsPlacement">Position of tab bar</string>
     <string name="tabsPlacementSummary">Choose where the tabs bar should be placed.</string>
     <string name="wifiApi30">Because Google screwed up yet another part of Android, starting with API 30 only the currently visible wifis can be displayed, not all the ones your device has connected to anymore.</string>
-    <string name="smsDialogNotice">If you have not used a send-sms action in this program before, Android may show an additional confirmation dialog, asking you to allow sending messages. You need to select the \"always allow\" checkbox and confirm if you want this action to work in the background. It\'s advised to run this rule manually once to provoke this confirmation dialog.</string>
     <string name="silentTriggersDnd">REMARK: The silent mode often triggers Do-Not-Disturb on newer devices. If that happens on your device, I recommend using the normal mode instead and lowering all volumes to zero.</string>
     <string name="tones">Tones</string>
     <string name="miscellaneous">Miscellaneous</string>
@@ -704,11 +703,10 @@
     <string name="dndAlarms">Let alarms through</string>
     <string name="dndNothing">Let nothing through</string>
     <string name="dndRemarks">Fine tuning (like allowing phone calls, picking specific numbers, etc.) can only be done from the system\'s settings.</string>
-    <string name="permissionsRequiredNotAvailable">Your rules required permissions which cannot be requested from this installed flavor of Automation.</string>
     <string name="automationNotificationsIgnored">If you do not choose a specific app, but choose \"Any app\", notifications from Automation will be ignored to avoid loops.</string>
     <string name="repeatEveryXseconds">Repeat every x seconds</string>
     <string name="repeatEveryXsecondsWithVariable">repeat every %1$s seconds</string>
-    <string name="enterRepetitionTime">You need to enter a positive non-decimal value for reptition time.</string>
+    <string name="enterRepetitionTime">You need to enter a positive non-decimal value for repetition time.</string>
     <string name="elementSkipped">An element of the configuration file could not be read. The file may have been created by a newer program version.</string>
     <string name="donate">Donate</string>
     <string name="btTetheringNotice">This feature is confirmed to work up until Android 8.0. From some higher version upwards it ceases to work, but due to a lack of physical devices I cannot tell which one that is. On Android 11 it definitely ain\'t working anymore. If you have a version in between please let me know if it\'s working or not.</string>
@@ -719,7 +717,7 @@
     <string name="orientationPitch">Pitch:</string>
     <string name="orientationRoll">Roll:</string>
     <string name="enterValidNumbersIntoAllFields">Enter valid numbers in all fields.</string>
-    <string name="deviceOrientationExplanation">When you move your device the below numbers will update. What you can see there, is the current orientation of your device measured in degrees. If it is in the desired orientation, click the apply button to copy the current values to the desired fields.\nBecause reaching this exact orientation ever again is highly unlikely you must also enter a tolerance. The is amount of degrees to which the orientation can deviate in either direction. 15° will result in a total angle of 30°, 15° in every direction.\nIf you only care about one specific axis, specify a tolerance of 180° for the two other ones.</string>
+    <string name="deviceOrientationExplanation">When you move your device the below numbers will update. What you can see there, is the current orientation of your device measured in degrees. If it is in the desired orientation, click the apply button to copy the current values to the desired fields. Because reaching this exact orientation ever again is highly unlikely you must also enter a tolerance. This is amount of degrees to which the orientation can deviate in either direction. 15° will result in a total angle of 30°, 15° in every direction. If you only care about one specific axis, specify a tolerance of 180° for the two other ones.</string>
     <string name="wouldCurrentlyApply">Would currently apply?</string>
     <string name="deviceIsInCertainOrientation">the device is in a certain orientation</string>
     <string name="toleranceOf180OnlyAllowedIn2Fields">A tolerance of 180 is allowed for 2 tolerance fields only, not all 3. Otherwise the trigger would ALWAYS apply.</string>
@@ -730,10 +728,12 @@
     <string name="turnScreenOn">turn screen on</string>
     <string name="turnScreenOff">turn screen off</string>
     <string name="mustApply">Must apply</string>
-    <string name="explanationDeviceOrientationDirection">If the checkbox is checked that means the device has to be in the orientation you specify. If it\'s not checked, any orientation that does NOT match your criteria will do.</string>
     <string name="deviceOrientationTimeAcceptIntervalTitle">Signal frequency</string>
     <string name="deviceOrientationTimeAcceptIntervalSummary">Accept new movement signals every x milliseconds</string>
     <string name="deviceOrientationSettings">Device orientation settings</string>
     <string name="android.permission.BIND_DEVICE_ADMIN">Device administrator</string>
     <string name="deviceAdminNote">Device administrator permissions required for at least 1 rule you created.</string>
+    <string name="explanationDeviceOrientationDirection">If the checkbox is checked that means the device has to be in the orientation you specify. If it\'s not checked, any orientation that does NOT match your criteria will do.</string>
+    <string name="permissionsRequiredNotAvailable">Your rules required permissions which cannot be requested from this installed flavor of Automation.</string>
+    <string name="smsDialogNotice">If you have not used a send-sms action in this program before, Android may show an additional confirmation dialog, asking you to allow sending messages. You need to select the \"always allow\" checkbox and confirm if you want this action to work in the background. It\'s advised to run this rule manually once to provoke this confirmation dialog.</string>
 </resources>
