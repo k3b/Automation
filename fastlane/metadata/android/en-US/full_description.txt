@@ -19,18 +19,20 @@ Supported triggers:
 * Headset connected
 * Phone call running
 * Notifications of other apps
+* Device orientation (gyroscope)
 
 Supported actions:
 * Change wifi state
 * Change bluetooth state
 * Toggle USB tethering
 * Toggle wifi tethering
+* Toggle Bluetooth tethering
 * Toggle automatic screen rotation
 * Make an HTTP request
 * Change ringtone/sound setting
 * Start another application
 * Wait (in between other actions)
-* Wakeup device's screen
+* Turn screen on or off
 * Toggle airplane mode
 * Toggle mobile data connection
 * Speak text
@@ -42,10 +44,12 @@ Supported actions:
 It's quite hard to keep this app working across the many different hardwares as well as the many changes Android undergoes over the versions. I can test it in the emulator, but that cannot show all bugs.
 So if a certain feature is not working on your device - let me know. Over the years I have fixed almost all bugs that have been reasonably reported to me. But for that I'm dependend on your input.
 
-If you have a problem and think about contacting me please update to the latest version first and see if your problem persists there, too.
+If you have a problem and think about contacting me please
+- update to the latest version first and see if your problem persists there, too.
+- check this list of known problems first: https://server47.de/automation/index.php#knownProblems
 
 Donations are certainly a good, but not the only way to motivate me :-)
-* If you'd like to support me, you can also leave a positive review for the app on Google Play.
+* If you'd like to support me, you can also leave a positive review for the app on Google Play (https://play.google.com/store/apps/details?id=com.jens.automation2).
 * Furthermore I can always use help in translating the app. English, German and some Spanish are among my own skills. But everything else is more than welcome.
 
 Explanation of the many permissions can be found here: https://server47.de/automation/permissions_en.html

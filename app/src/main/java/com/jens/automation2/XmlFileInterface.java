@@ -764,6 +764,8 @@ public class XmlFileInterface
             	try
 				{
 					newRule.setTriggerSet(readTriggerCollection(parser));
+					for(Trigger t : newRule.getTriggerSet())
+						t.setParentRule(newRule);
 				}
             	catch (XmlPullParserException e)
 				{
@@ -779,6 +781,8 @@ public class XmlFileInterface
             	try
 				{
 					newRule.setActionSet(readActionCollection(parser));
+					for(Action a : newRule.getActionSet())
+						a.setParentRule(newRule);
 				}
             	catch (XmlPullParserException e)
 				{
@@ -815,7 +819,15 @@ public class XmlFileInterface
             // Starts by looking for the entry tag
             if (name.equals("Trigger"))
             {
-            	triggerCollection.add(readTrigger(parser));
+				try
+				{
+					triggerCollection.add(readTrigger(parser));
+				}
+				catch (IllegalArgumentException | NullPointerException e)
+				{
+					Miscellaneous.logEvent("e", "XMLFileInterface", "Unknown trigger found in config file. File was probably created by a newer program version. Details: " + Log.getStackTraceString(e), 1);
+					Miscellaneous.messageBox(context.getString(R.string.error), context.getString(R.string.elementSkipped), context).show();
+				}
             }
             else
             {
@@ -826,7 +838,6 @@ public class XmlFileInterface
         return (triggerCollection);
 	}
 
-	
 	private static Trigger readTrigger(XmlPullParser parser) throws IOException, XmlPullParserException
 	{
 		
@@ -878,7 +889,7 @@ public class XmlFileInterface
             {
             	String triggerEventString = readTag(parser, "TriggerEvent");
 
-				if(triggerEventString.equals("process_started_stopped") | triggerEventString.equals("process_running"))
+				if(triggerEventString.equals("process_started_stopped") || triggerEventString.equals("process_running"))
             		newTrigger.setTriggerType(Trigger_Enum.process_started_stopped);
 				else
 					newTrigger.setTriggerType(Trigger_Enum.valueOf(triggerEventString));
@@ -928,7 +939,6 @@ public class XmlFileInterface
             	}
             	else if(newTrigger.getTriggerType() == Trigger_Enum.wifiConnection)
             	{
-//            		newTrigger.setWifiName(triggerParameter2);
 					newTrigger.setTriggerParameter2(triggerParameter2);
             	}
             	else if(newTrigger.getTriggerType() == Trigger_Enum.process_started_stopped)
@@ -1051,7 +1061,15 @@ public class XmlFileInterface
             // Starts by looking for the entry tag
             if (name.equals("Action"))
             {
-            	actionCollection.add(readAction(parser));
+            	try
+				{
+					actionCollection.add(readAction(parser));
+				}
+            	catch (IllegalArgumentException | NullPointerException e)
+				{
+					Miscellaneous.logEvent("e", "XMLFileInterface", "Unknown action found in config file. File was probably created by a newer program version. Details: " + Log.getStackTraceString(e), 1);
+					Miscellaneous.messageBox(context.getString(R.string.error), context.getString(R.string.elementSkipped), context).show();
+				}
             }
             else
             {
@@ -1060,7 +1078,6 @@ public class XmlFileInterface
         }  
         return (actionCollection);
 	}
-
 	
 	private static Action readAction(XmlPullParser parser) throws IOException, XmlPullParserException
 	{		
@@ -1135,7 +1152,14 @@ public class XmlFileInterface
             		newAction.setAction(Action_Enum.enableScreenRotation);
 	        	else if(actionNameString.equals("disableScreenRotation"))
 	        		newAction.setAction(Action_Enum.disableScreenRotation);
-            // *** deprecated
+				else if(actionNameString.equals("disableScreenRotation"))
+					newAction.setAction(Action_Enum.disableScreenRotation);
+				else if(actionNameString.equals("wakeupDevice"))
+				{
+					newAction.setAction(Action_Enum.turnScreenOnOrOff);
+					newAction.setParameter1(true);
+				}
+						// *** deprecated
 
 				else
 					newAction.setAction(Action_Enum.valueOf(actionNameString));
@@ -1203,6 +1227,18 @@ public class XmlFileInterface
             		newAction.setParameter1(false);
             		readTag(parser, "ActionParameter1"); //read the tag for the parser to head on
             	}
+				else if(newAction.getAction().equals(Action_Enum.disableScreenRotation))
+				{
+					newAction.setAction(Action_Enum.setDisplayRotation);
+					newAction.setParameter1(false);
+					readTag(parser, "ActionParameter1"); //read the tag for the parser to head on
+				}
+				else if(newAction.getAction().equals(Action_Enum.turnScreenOnOrOff) && newAction.getParameter1())
+				{
+					/*
+						If param1 == true we will keep it because this action used to be of type wakeUpDevice.
+					 */
+				}
 	        	else
 	            	// exclusion for deprecated types
 	        		newAction.setParameter1(Boolean.parseBoolean(readTag(parser, "ActionParameter1")));
@@ -1224,7 +1260,6 @@ public class XmlFileInterface
 	            		{
 	            			newAction.setParameter2(tag);
 	            		}
-
 /*
 						androidx.security.crypto.MasterKey.Builder
 
@@ -1283,9 +1318,6 @@ public class XmlFileInterface
             	}
             }
         }
-        
-//        Miscellaneous.logEvent("i", "New Rule from file", newPoi.name + "/" + String.valueOf(newPoi.radius) + "/" + String.valueOf(newPoi.location.getLatitude()) + "/" + String.valueOf(newPoi.location.getLongitude()) + "/" + String.valueOf(newPoi.changeWifiState) + "/" + String.valueOf(newPoi.desiredWifiState) + "/" + String.valueOf(newPoi.changeCameraState) + "/" + String.valueOf(newPoi.desiredCameraState) + "/" + String.valueOf(newPoi.changeSoundSetting) + "/" + String.valueOf(newPoi.desiredSoundSetting));
-        
         return newAction;
 	}
 

@@ -12,7 +12,6 @@
     <color name="black">#000000</color>
     <color name="brightScreenBackgroundColor">#F3F3F3</color>
     <color name="brightScreenTextColor">#FFFFFF</color>
-    <color name="darkScreenBackgroundColor">#FFFFFF</color>
-    <color name="darkScreenTextColor">#F3F3F3</color>
-
+    <color name="darkScreenBackgroundColor">#444444</color>
+    <color name="darkScreenTextColor">#eeeeee</color>
 </resources>

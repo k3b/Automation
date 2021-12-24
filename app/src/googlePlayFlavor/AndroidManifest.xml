@@ -50,6 +50,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+<!--    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />-->
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.NFC" />
@@ -123,9 +124,22 @@
                     android:scheme="package" />-->
             </intent-filter>
         </receiver>
-        <receiver android:name=".receivers.AlarmListener" />
+        <receiver android:name=".receivers.DateTimeListener" />
         <receiver android:name=".receivers.ConnectivityReceiver" />
         <receiver android:name=".receivers.TimeZoneListener" />
+
+        <receiver
+            android:name=".DeviceAdmin"
+            android:description="@string/app_name"
+            android:label="@string/app_name"
+            android:permission= "android.permission.BIND_DEVICE_ADMIN" >
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/policies" />
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
 
         <activity android:name=".ActivityManageRule" />
         <activity android:name=".ActivityManageActionTriggerUrl" />
@@ -136,6 +150,7 @@
         <activity android:name=".ActivityMaintenance" />
         <activity android:name=".ActivityManageTriggerPhoneCall" />
         <activity android:name=".ActivityManageActionBrightnessSetting" />
+        <activity android:name=".ActivityManageTriggerDeviceOrientation" />
         <activity android:name=".ActivityHelp" />
         <activity android:name=".ActivityManageActionVibrate" />
         <activity

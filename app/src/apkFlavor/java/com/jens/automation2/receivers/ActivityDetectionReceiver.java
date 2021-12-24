@@ -291,10 +291,10 @@ public class ActivityDetectionReceiver extends IntentService implements Automati
 			 			 * and some activities are hierarchical (ON_FOOT is a generalization of WALKING and RUNNING).
 						*/
 
-						ArrayList<Rule> allRulesWithActivityDetection = Rule.findRuleCandidatesByActivityDetection();
+						ArrayList<Rule> allRulesWithActivityDetection = Rule.findRuleCandidates(Trigger_Enum.activityDetection);
 						for(int i=0; i<allRulesWithActivityDetection.size(); i++)
 						{
-							if(allRulesWithActivityDetection.get(i).applies(Miscellaneous.getAnyContext()))
+							if(allRulesWithActivityDetection.get(i).getsGreenLight(Miscellaneous.getAnyContext()))
 								allRulesWithActivityDetection.get(i).activate(AutomationService.getInstance(), false);
 						}
 					}

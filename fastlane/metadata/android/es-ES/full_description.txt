@@ -19,18 +19,20 @@ Disparadores:
 * Headset conectado
 * Llamado de teléfono activo
 * Notificaciónes de otras apps
+* Orientación del dispositivo (giroscopio)
 
-Supported actions:
+Aciónes:
 * Pasar de wifi
 * Pasar de bluetooth
 * Pasar USB rúter
 * Pasar wifi rúter
+* Pasar Bluetooth rúter
 * Pasar rotación automatica del monitor
 * Hacer un solicitud HTTP
 * Cambiar el tono de llamada / ajustes de sonido
 * Encender otra app
 * Esperar (inter otras aciónes)
-* Desperatar móvil
+* Encender o apagar pantalla
 * Pasar modo de vuelo
 * Pasar datos móviles
 * Leer texto
@@ -42,10 +44,12 @@ Supported actions:
 Es muy dificil mantener esta applicación functionando en todos los hardwares y versiónes de Android. Puedo probrar mucho en el emulator, pero no puedo enviar todos los errores.
 Si una función no funcióna - digame. En muchos años resolvaba la mayoria de los errores que los halladores me informaron bien. Pero dependo en su ayuda.
 
-Si tiene un problema y considera contactarme update a la ultima version al primero y probar si su problam persiste.
+Si tiene un problema y considera contactarme
+- update a la ultima version al primero y probar si su problam persiste.
+- al primero compruebe esta lista de problemas conocidos: https://server47.de/automation/index.php#knownProblems
 
 Donaciónes seguramente son una buena, pero no la unica posibilidad de apoyarme :-)
-* Si quiere apoyarme puedes escribir un buena revisión en Google Play
+* Si quiere apoyarme puedes escribir un buena revisión en Google Play (https://play.google.com/store/apps/details?id=com.jens.automation2).
 * Además siempre necesito ayuda en traduciendo la app. Ingles, Aleman y Español  estan en mis habilidades. Per todo lo demás es bienvenido.
 
 Puedes leer una explicación de los permisos aqui: https://server47.de/automation/permissions_en.html

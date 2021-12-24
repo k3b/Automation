@@ -2,7 +2,7 @@
 <resources>
     <string name="ruleActivate">Aktiviere Regel %1$s</string>
     <string name="profileActivate">Aktiviere Profil %1$s</string>
-    <string name="ruleActivateToggle">Aktiviere Regel %1$s im Umschaltmodus</string>
+    <string name="ruleActivateToggle">Aktiviere Regel %1$s im Umkehrmodus</string>
     <string name="addPoi">Ort hinzufügen</string>
     <string name="addRule">Regel hinzufügen</string>
     <string name="poiList">Orts-Liste:</string>
@@ -63,7 +63,7 @@
     <string name="deactivating">Deaktiviere</string>
     <string name="bluetoothFailed">Änderung des Bluetooth Status fehlgeschlagen. Verfügt dieses Gerät über Bluetooth?</string>
     <string name="urlTooShort">Die Adresse ist zu kurz. Sie muß aus mindestens 10 Buchstaben bestehen.</string>
-    <string name="textTooShort">Der Text ist zu kurz. Er muß aus mindestens 10 Buchstaben bestehen.</string>
+    <string name="enterPhoneNumberAndText">Geben Sie eine Telefonnummer und einen Text ein.</string>
     <string name="selectTypeOfTrigger">Welche Art von Auslöser</string>
     <string name="entering">betrete</string>
     <string name="leaving">verlasse</string>
@@ -116,8 +116,8 @@
     <string name="timeframes">Zeiträume</string>
     <string name="helpTextTimeFrame">Wenn Sie eine Regel mit einem Zeitraum erstellen, haben Sie zwei Möglichkeiten. Sie können wählen, ob der Auslöser besagt, daß der Zeitraum entweder verlassen ODER betreten wird. In jedem Fall wird die Regel nur einmal ausgelöst. Wenn eine Regel z.B. besagt \"betrete timeframe xyz\" und das Klingeltonprofil in Vibration ändert, bedeutet das NICHT, daß das Gerät hinterher automatisch wieder zum normalen Klingelprofil zurückschaltet. Wenn das erwünscht ist, muß eine weitere Regel mit einem Folgezeitraum erstellen werden.</string>
     <string name="helpTextSound">Auf dem Hauptbildschirm können Sie die Funktion Tonänderunugen sperren benutzen, um vorrübergehend regelbasierte Tonänderungen zu deaktivieren. Z.B. könnten Sie in einer Situation oder an einem Ort sein, wo Klingeltöne normalerweise in Ordnung sind, aber dieses eine Mal würde es stören. Die Funktion wird automatisch wieder deaktiviert nachdem die eingestellte Zeit abgelaufen ist.  Klicken Sie den + Knopf, um die angezeigte Zeit zur Frist hinzuzufügen. Sobald es aktiv ist, können Sie es mit dem Schalter rechts wieder abschalten (und so regelbasierte Tonänderungen wieder ermöglichen).</string>
-    <string name="toggableRules">Umkehrbare Regeln</string>
-    <string name="helpTextToggable">Regeln haben eine Einstellung namens \"Umschaltbar\". Das bedeutet: Wurde eine Regel ausgeführt und anschließend treten dieselben Auslöser wieder ein, wird die Regel nochmal in umgekehrter Weise ausgeführt, wo es möglich ist. Gegenwärtig funktioniert das nur im Zusammenspiel mit NFC Tags. Wenn Sie einen Tag zwei Mal berühren und es eine umschaltbare Regel zu diesem Tag gibt, wird das Programm das Gegenteil von gegenwärtigen Zustand tun, z.B. WLAN ausschalten, wenn es gegenwärtig eingeschaltet ist.</string>
+    <string name="toggableRules">Unschaltbare Regeln</string>
+    <string name="helpTextToggable">Regeln haben eine Einstellung namens \"Umkehrbar\". Das bedeutet: Wurde eine Regel ausgeführt und anschließend treten dieselben Auslöser wieder ein, wird die Regel nochmal in umgekehrter Weise ausgeführt, wo es möglich ist. Gegenwärtig funktioniert das nur im Zusammenspiel mit NFC Tags. Wenn Sie einen Tag zwei Mal berühren und es eine umkehrbare Regel zu diesem Tag gibt, wird das Programm das Gegenteil von gegenwärtigen Zustand tun, z.B. WLAN ausschalten, wenn es gegenwärtig eingeschaltet ist.</string>
     <string name="helpTextProcessMonitoring">Wenn Sie eine Regel mit einer Prozess Überwachung erstellen, wird die Anwendung in regelmäßigen Abständen nach diesem Prozess schauen. Wie häufig können Sie in den Einstellungen festlegen. Das mag zwar in vielen Fällen langsam reagieren, aber eine permanente Überwachung würde zuviel Akkuleistung kosten. Und das Betriebssystem stellt dafür keinen Broadcast zur Verfügung.</string>
     <string name="helpTitleEnergySaving">Energiespareinstellungen</string>
     <string name="helpTextEnergySaving">Viele Gerätehersteller versuchen Energie zu sparen, indem die Hintergrundaktivitäten vieler Anwendungen eingeschränkt werden. Unglücklicherweise führt das häufig dazu, dass diese Anwendungen nicht mehr zufällig funktionieren; das gilt auch für Automation. Schauen Sie sich <a href="https://dontkillmyapp.com/">diese Seite</a> an, um herauszufinden, wie Sie Automation auf Ihrem Gerät von dieser Behandlung ausschließen können.</string>
@@ -305,7 +305,7 @@
     <string name="currentId">Aktuelle Bezeichnung:</string>
     <string name="nfcTagDataNotUsable">Tag Daten nicht nutzbar, neu schreiben</string>
     <string name="nfcBringTagIntoRangeToRead">Bringen Sie einen Tag in Reichweite, um ihn zu lesen.</string>
-    <string name="toggleRule">Umschaltregel</string>
+    <string name="toggleRule">Umkehrregel</string>
     <string name="toggling">Schalte um</string>
     <string name="toggle">umzuschalten</string>
     <string name="overlapBetweenPois">Überschneidung mit Ort %1$s von %2$s Metern festgestellt. Reduzieren Sie den Radius um mindestens diesen Wert.</string>
@@ -337,7 +337,7 @@
 	<string name="outgoingCallTo">Ausgehender Telefonanruf von %1$s.</string>
 	<string name="actionSpeakText">Text sprechen</string>
 	<string name="textToSpeak">Zu sprechender Text</string>
-	<string name="toggleNotAllowed">Die Umschaltfunktion ist momentan nur für Regeln erlaubt, die NFC Tags als Auslöser haben. Für weitere Informationen lesen Sie die Hilfe.</string>
+	<string name="toggleNotAllowed">Die Umkehrfunktion ist momentan nur für Regeln erlaubt, die NFC Tags als Auslöser haben. Für weitere Informationen lesen Sie die Hilfe.</string>
 	<string name="errorReadingPoisAndRulesFromFile">Fehler beim Lesen von Orten und Regeln aus Datei.</string>
 	<string name="noDataChangedReadingAnyway">Es scheint als wären keine Datenänderungen gespeichert worden. Allerdings könnten Änderungen im Speicher sein, die zurückgenommen werden müssen. Daher wird die Einstellungsdatei neu geladen.</string>
 	<string name="bluetoothConnection">Bluetooth Verbindung</string>
@@ -410,8 +410,8 @@
     <string name="noProfileChangeSoundLocked">Profil wird nicht aktiviert. Zuletzt aktiviertes Profil ist gesperrt worden.</string>
     <string name="currentVolume">Momentane Lautstärke</string>
     <string name="enterValidReferenceValue">Geben Sie einen gültigen Referenzwert ein.</string>
-    <string name="volumeTest">Lautstärkentest</string>
-    <string name="volumeTesterExplanation">Um einen dB Wert für die Lautstärkemessung zu berechnen müssen Sie einen sogenannten physikalischen Referenzwert angeben. Bitte lesen Sie bei Wikipedia nach, um mehr zu erfahren. Dieser Wert wird höchstwahrscheinlich für jedes Smartphone oder Tablet anders sein, deshalb diese Testanwendung. Verschieben Sie den Regler, um den gegenwärtig definierten Wert zu ändern. Je höher der Referenzwert desto niedriger wird der dB Wert. Es werden alle paar %1$s Sekunden neue Messungen vorgenommen und das Ergebnis unten angezeigt. Drücken Sie den zurück-Button, wenn Sie einen passenden Wert gefunden haben.</string>
+    <string name="volumeTest">Lautstärkekalibrierung</string>
+    <string name="volumeCalibrationExplanation">Um einen dB Wert für die Lautstärkemessung zu berechnen müssen Sie einen sogenannten physikalischen Referenzwert angeben. Bitte lesen Sie bei Wikipedia nach, um mehr zu erfahren. Dieser Wert wird höchstwahrscheinlich für jedes Smartphone oder Tablet anders sein, deshalb diese Testanwendung. Verschieben Sie den Regler, um den gegenwärtig definierten Wert zu ändern. Je höher der Referenzwert desto niedriger wird der dB Wert. Es werden alle paar %1$s Sekunden neue Messungen vorgenommen und das Ergebnis unten angezeigt. Drücken Sie den zurück-Button, wenn Sie einen passenden Wert gefunden haben.</string>
     <string name="settingsWillTakeTime">Manche Einstellungen können nicht übernommen werden bevor der Dienst neu gestartet wird.</string>
     <string name="rootExplanation">Sie müssen Ihr Telefon rooten, damit diese Funktion funktionieren kann. Danach müssen Sie "Regel manuell ausführen", um den SuperUser Berechtigungsdialog zu zeigen. Wenn dieser erscheint, müssen Sie den Haken setzen, der es immer erlaubt. Ansonsten kann die Regel nicht funktionieren, wenn Sie das Telefon gerade nicht benutzen und demnach den nächsten Dialog nicht genehmigen können.</string>
     <string name="errorWritingConfig">Fehler beim Schreiben der Konfiguration. Gibt es einen beschreibbaren Speicher, und wurde alle Berechtigungen gegeben?</string>
@@ -537,7 +537,7 @@
     <string name="notificationTriggerExplanation">Dieser Auslöser reagiert auf Benachrichtigungen anderer Anwendung im Benachrichtigungsbereich von Android (oder wenn diese geschlossen werden). Sie können eine bestimmte Anwendung festlegen, von die Nachricht stammen muß. Wenn nicht, zählt jede Benachrichtigung. Sie können auch Zeichenketten für Titel oder Nachrichteninhalt festlegen, die enthalten sein müssen. Die Groß-/Kleinschreibung wird hierbei nicht berücksichtigt.</string>
     <string name="addParameters">Parameter hinzufügen</string>
     <string name="errorRunningRule">Fehler beim Ausführen einer Regel.</string>
-    <string name="startAppChoiceNote">Hier haben Sie 2 grundsätzliche Optionen:\n\n1. Sie können ein Programm starten, indem Sie eine Activity auswählen.\nStellen Sie sich das so vor, daß Sie ein bestimmtes Fenster einer Anwendung vorauswählen, in das man direkt springt. Behalten Sie im Kopf, daß das nicht immer funktionieren wird. Das liegt daran, daß die Fenster einer Anwendung miteinander interagieren können, sich u.U. Parameter übergeben. Wenn man jetzt ganz kalt in ein bestimmtes Fenster springt, könnte dieses zum Start z.B. bestimmte Parameter erwarten - die fehlen. So könnte es passieren, daß das Fenster zwar versucht zu öffnen, das aber nicht klappt und es somit nie wirlich sichtbar wird. Versuchen Sie\'s trotzdem!\nSie können den Pfad manuell eingeben, sollten aber den Auswählen-Knopf benutzen. Wenn Sie es dennoch manuell eingeben, geben Sie den PackageName ins obere Feld ein und den vollen Pfad der Activity ins untere.\n\n2. Auswahl per Action\nIm Gegensatz zur Auswahl eines bestimmten Fensters, können Sie ein Programm auch über eine Action starten lassen. Stellen Sie sich das so vor als würden Sie in den Wald rufen \"Ich hätte gerne XYZ\" und falls eine Anwendung installiert ist, die das liefern kann, wird sie gestartet. Ein gutes Beispiel wäre zum Beispiel "Browser starten" - es könnten sogar mehrere installiert sein, die das können (aber normalerweise gibts eine, die als Standard eingestellt ist).\nDiese Action müssen Sie manuell eingeben. Der PackageName ist hier optional. Behalten Sie dabei im Auge, daß mögliche Variablen nicht aufgelöst werden. Beispielsweise werden Sie häufig im Internet finden, daß man die Kamera über die Action \"MediaStore.ACTION_IMAGE_CAPTURE\" starten kann. Das ist grundsätzlich nicht richtig, wird aber nicht direkt funktionieren, denn das ist nur eine Variable. Sie müssen dann einen Blick in die Android Dokumentation werfen, wo Sie sehen werden, daß sich hinter dieser Variable eigentlich der Wert \"android.media.action.IMAGE_CAPTURE\" verbirgt. Gibt man diesen in das Feld ein, wird\'s funktionieren.</string>
+    <string name="startAppChoiceNote">Hier haben Sie 2 grundsätzliche Optionen:\n\n1. Sie können ein Programm starten, indem Sie eine Activity auswählen.\nStellen Sie sich das so vor, daß Sie ein bestimmtes Fenster einer Anwendung vorauswählen, in das man direkt springt. Behalten Sie im Kopf, daß das nicht immer funktionieren wird. Das liegt daran, daß die Fenster einer Anwendung miteinander interagieren können, sich u.U. Parameter übergeben. Wenn man jetzt ganz kalt in ein bestimmtes Fenster springt, könnte dieses zum Start z.B. bestimmte Parameter erwarten - die fehlen. So könnte es passieren, daß das Fenster zwar versucht zu öffnen, das aber nicht klappt und es somit nie wirlich sichtbar wird. Versuchen Sie\'s trotzdem!\nSie können den Pfad manuell eingeben, sollten aber den Auswählen-Knopf benutzen. Wenn Sie es dennoch manuell eingeben, geben Sie den PackageName ins obere Feld ein und den vollen Pfad der Activity ins untere.\n\n2. Auswahl per Action\nIm Gegensatz zur Auswahl eines bestimmten Fensters, können Sie ein Programm auch über eine Action starten lassen. Stellen Sie sich das so vor als würden Sie in den Wald rufen \"Ich hätte gerne XYZ\" und falls eine Anwendung installiert ist, die das liefern kann, wird sie gestartet. Ein gutes Beispiel wäre zum Beispiel "Browser starten" - es könnten sogar mehrere installiert sein, die das können (aber normalerweise gibts eine, die als Standard eingestellt ist).\nDiese Action müssen Sie manuell eingeben. Der PackageName ist hier optional. Behalten Sie dabei im Auge, daß mögliche Variablen nicht aufgelöst werden. Beispielsweise werden Sie häufig im Internet finden, daß man die Kamera über die Action \"MediaStore.ACTION_IMAGE_CAPTURE\" starten kann. Das ist grundsätzlich richtig, wird aber nicht direkt funktionieren, denn das ist nur eine Variable. Sie müssen dann einen Blick in die Android Dokumentation werfen, wo Sie sehen werden, daß sich hinter dieser Variable eigentlich der Wert \"android.media.action.IMAGE_CAPTURE\" verbirgt. Gibt man diesen in das Feld ein, wird\'s funktionieren.</string>
     <string name="cantFindSoundFile">Kann die Audiodatei %1$s nicht finden und daher auch nicht abspielen.</string>
     <string name="startAppByActivity">per Activity</string>
     <string name="startAppByAction">per Action</string>
@@ -595,4 +595,49 @@
     <string name="bottom">Unten</string>
     <string name="tabsPlacementSummary">Wol soll die Taskleiste angezeigt werden?</string>
     <string name="tones">Klingeltöne</string>
+    <string name="miscellaneous">Verschiedenes</string>
+    <string name="dnd">Nicht stören</string>
+    <string name="dndOff">Nicht stören aus</string>
+    <string name="dndAlarms">Alarme durchlassen</string>
+    <string name="dndPriority">Prioritätsbenachrichtigungen durchlassen</string>
+    <string name="dndNothing">Nichts durchlassen</string>
+    <string name="repeatEveryXseconds">Alle x Sekunden wiederholen</string>
+    <string name="repeatEveryXsecondsWithVariable">alle %1$s Sekunden wiederholen</string>
+    <string name="donate">Spenden</string>
+    <string name="notice">Hinweis</string>
+    <string name="automationNotificationsIgnored">Wenn Sie keine bestimmte Anwendung auswählen, werden Benachrichtigungen von Automation selbst ignoriert, um Schleifen zu verhindern.</string>
+    <string name="elementSkipped">Ein Element der Konfigurationsdatei konnte nicht gelesen werden. Die Datei könnte von einer neueren Programmversion erstellt worden sein.</string>
+    <string name="permissionsRequiredNotAvailable">Ihre Regeln benötigen Berechtigungen, die die installierte Variante von Automation nicht unterstützt.</string>
+    <string name="dndRemarks">Feineinstellungen (wie Telefonanrufe erlauben, Auswählen bestimmter Telefonnummern, etc.) können nur in den Systemeinstellungen gesetzt werden.</string>
+    <string name="wifiApi30">Weil Google wieder einen weiteren Teil von Android kaputt gemacht hat, können ab API 30 nur noch jede WLANs angezeigt werden, die sich gegenwärtig in Reichweite befinden, nicht mehr alle, zu denen das Gerät einmal verbunden war.</string>
+    <string name="smsDialogNotice">Wenn Sie in diesem Programm noch keine SMS-senden Aktion benutzt haben, zeigt Android wahrscheinlich beim ersten Ausführen einen Bestätigungsdialog an. Sie müssen das Häkchen bei \"Immer erlauben\" setzen und bestätigen, wenn Sie möchten, daß diese Aktion im Hintergrund ausgeführt werden kann. Es wird daher empfohlen, diese Regel einmalig manuell auszuführen, um diesen Dialog zu provozieren.</string>
+    <string name="silentTriggersDnd">Hinweis: Der Stumm-Modus löst auf neuren Geräten häufig die Funktion \"Nicht stören\" aus. Wenn das auf Ihrem Gerät passiert, wird empfohlen stattdessen den Normalen Modus zu verwenden und alle Lautstärken auf 0 zu reduzieren.</string>
+    <string name="deviceOrientation">Geräteausrichtung</string>
+    <string name="tolerance">Toleranz (0-180)</string>
+    <string name="orientationAzimuth">Azimut:</string>
+    <string name="orientationPitch">Neigung:</string>
+    <string name="enterValidNumbersIntoAllFields">Geben Sie gültige Nummern in allen Feldern ein.</string>
+    <string name="orientationRoll">Rollen:</string>
+    <string name="wouldCurrentlyApply">Würde gerade zutreffen?</string>
+    <string name="deviceIsInCertainOrientation">Das Gerät hat eine bestimmte Ausrichtung</string>
+    <string name="toleranceOf180OnlyAllowedIn2Fields">Eine Toleranz von 180 ist nur für zwei Toleranz-Felder erlaubt, nicht alle drei. Andernfalls würde der Auslöser immer zutreffen.</string>
+    <string name="unknown">unbekannt</string>
+    <string name="orientation">Ausrichtung</string>
+    <string name="turnScreenOnOrOff">Bildschirm ein- oder ausschalten</string>
+    <string name="turnScreenOn">Bildschirm einschalten</string>
+    <string name="turnScreenOff">Bildschirm ausschalten</string>
+    <string name="mustApply">Muß zutreffen</string>
+    <string name="deviceOrientationTimeAcceptIntervalTitle">Signal Häufigkeit</string>
+    <string name="deviceOrientationTimeAcceptIntervalSummary">Neue Signale nur alle x Millisekunden akzeptieren</string>
+    <string name="deviceOrientationSettings">Geräteausrichtungseinstellungen</string>
+    <string name="explanationDeviceOrientationDirection">Wenn das Häkchen gesetzt ist, bedeutet das, daß das Geräte in der angegebenen Ausrichtung sein muß. Wenn es nicht gesetzt ist, führt jede andere Ausrichtung zu einem positiven Ergebnis.</string>
+    <string name="deviceOrientationExplanation">Wenn Sie Ihr Gerät bewegen, werden die Zahlen unten aktualisiert. Was Sie hier sehen können, ist die momentane Ausrichtung Ihres Geräts, gemessen in Grad. Wenn das Gerät in der gewünschten Ausrichtung ist, klicken Sie den \"übernehmen\" Knopf, um die Werte in die \"gewünscht\" Felder zu übertragen.\nWeil es sehr unwahrscheinlich ist, daß Sie diese exakte Ausrichtung jemals wieder erreichen, müssen Sie Toleranzen eingeben. Dies ist der Winkel in Grad, der in jede Richtung noch akzeptiert wird. 15° entsprechen somit einem Gesamtwinkel von 30°, 15 in jede Richtung.\nWenn Ihnen nur eine bestimmte Achse wichtig ist, können Sie eine Toleranz von 180° für die anderen beiden Richtungen angeben.</string>
+    <string name="actionSetBluetoothTethering">Bluetooth Tethering</string>
+    <string name="actionTurnBluetoothTetheringOn">Bluetooth Tethering einschalten</string>
+    <string name="actionTurnBluetoothTetheringOff">Bluetooth Tethering ausschalten</string>
+    <string name="enterRepetitionTime">Sie müssen eine positive Ganzzahl als Wiederholungszeit eingeben.</string>
+    <string name="btTetheringNotice">Diese Funktion funktioniert bestätigt bis einschließlich Android 8.0. Ab einer höheren Version funktioniert sie nicht mehr, aber ich ich kann mangels physischer Geräte nicht sagen, aber welcher genau. Unter Android 11 funktioniert es definitiv nicht mehr. Wenn Sie eine Version dazwischen haben, lassen Sie mich bitte wissen, ob es funktioniert oder nicht.</string>
+    <string name="triggerWrong">Mit diesem Auslöser stimmt etwas nicht. Er konnte nicht korrekt geladen werden.</string>
+    <string name="android.permission.BIND_DEVICE_ADMIN">Geräte Administrator</string>
+    <string name="deviceAdminNote">Geräte Administrator Rechte werden für mindestens 1 Regel benötigt, die Sie angelegt haben.</string>
 </resources>

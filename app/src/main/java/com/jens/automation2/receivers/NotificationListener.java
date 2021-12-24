@@ -89,19 +89,12 @@ public class NotificationListener extends NotificationListenerService
             lastNotification.title = title;
             lastNotification.text = text;
 
-//            if(lastResponseToNotification == null || lastResponseToNotification.getTimeInMillis() < lastNotification.publishTime.getTimeInMillis())
-//            {
-//                lastResponseToNotification = Calendar.getInstance();
-
-                ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.notification);
-                for (int i = 0; i < ruleCandidates.size(); i++)
-                {
-                    if (ruleCandidates.get(i).applies(NotificationListener.this))
-                        ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
-                }
-//            }
-//            else
-//                Miscellaneous.logEvent("e", "NotificationCheck", "Ignoring notification as it is old.", 5);
+            ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.notification);
+            for (int i = 0; i < ruleCandidates.size(); i++)
+            {
+                if(ruleCandidates.get(i).getsGreenLight(NotificationListener.this))
+                    ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
+            }
         }
 
         return false;

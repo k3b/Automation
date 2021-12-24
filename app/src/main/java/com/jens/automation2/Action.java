@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.HttpGet;
 
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ import java.util.Locale;
 
 public class Action
 {
+	Rule parentRule = null;
+
 	public static final String actionParameter2Split = "ap2split";
 	public static final String intentPairSeperator = "intPairSplit";
 	public static final String vibrateSeparator = ",";
@@ -22,6 +25,7 @@ public class Action
 								setBluetooth,
 								setUsbTethering,
 								setWifiTethering,
+								setBluetoothTethering,
 								setDisplayRotation,
 								turnWifiOn,turnWifiOff,
 								turnBluetoothOn,turnBluetoothOff,
@@ -29,10 +33,10 @@ public class Action
 								changeSoundProfile,
 								turnUsbTetheringOn,turnUsbTetheringOff,
 								turnWifiTetheringOn,turnWifiTetheringOff,
-								enableScreenRotation, disableScreenRotation,
+								enableScreenRotation,disableScreenRotation,
 								startOtherActivity,
 								waitBeforeNextAction,
-								wakeupDevice,
+								turnScreenOnOrOff,
 								setAirplaneMode,
 								setDataConnection,
 								speakText,
@@ -52,6 +56,8 @@ public class Action
 											return context.getResources().getString(R.string.actionSetBluetooth);
 										case setWifiTethering:
 											return context.getResources().getString(R.string.actionSetWifiTethering);
+										case setBluetoothTethering:
+											return context.getResources().getString(R.string.actionSetBluetoothTethering);
 										case setUsbTethering:
 											return context.getResources().getString(R.string.actionSetUsbTethering);
 										case setDisplayRotation:
@@ -84,8 +90,8 @@ public class Action
 											return context.getResources().getString(R.string.startOtherActivity);
 										case waitBeforeNextAction:
 											return context.getResources().getString(R.string.waitBeforeNextAction);
-										case wakeupDevice:
-											return context.getResources().getString(R.string.wakeupDevice);
+										case turnScreenOnOrOff:
+											return context.getResources().getString(R.string.turnScreenOnOrOff);
 										case vibrate:
 											return context.getResources().getString(R.string.vibrate);
 										case setAirplaneMode:
@@ -176,6 +182,13 @@ public class Action
 			else
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnWifiTetheringOff));
 		}
+		else if(this.getAction().equals(Action_Enum.setBluetoothTethering))
+		{
+			if(this.getParameter1())
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnBluetoothTetheringOn));
+			else
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnBluetoothTetheringOff));
+		}
 		else if(this.getAction().equals(Action_Enum.setDisplayRotation))
 		{
 			if(this.getParameter1())
@@ -217,9 +230,12 @@ public class Action
 		{
 			returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.sendTextMessage));
 		}
-		else if(this.getAction().equals(Action_Enum.wakeupDevice))
+		else if(this.getAction().equals(Action_Enum.turnScreenOnOrOff))
 		{
-			returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.wakeupDevice));
+			if(getParameter1())
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.turnScreenOn));
+			else
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.turnScreenOff));
 		}
 		else if(this.getAction().equals(Action_Enum.playSound))
 		{
@@ -271,6 +287,16 @@ public class Action
 				returnString.append(": " + parameter2);
 		
 		return returnString.toString();
+	}
+
+	public Rule getParentRule()
+	{
+		return parentRule;
+	}
+
+	public void setParentRule(Rule parentRule)
+	{
+		this.parentRule = parentRule;
 	}
 
 	public static CharSequence[] getActionTypesAsArray()
@@ -370,6 +396,9 @@ public class Action
 				case setWifiTethering:
 					Actions.setWifiTethering(context, getParameter1(), toggleActionIfPossible);
 					break;
+				case setBluetoothTethering:
+					Actions.BluetoothTetheringClass.setBluetoothTethering(context, getParameter1(), toggleActionIfPossible);
+					break;
 				case setDisplayRotation:
 					Actions.setDisplayRotation(context, getParameter1(), toggleActionIfPossible);
 					break;
@@ -379,16 +408,26 @@ public class Action
 				case waitBeforeNextAction:
 					Actions.waitBeforeNextAction(Long.parseLong(this.getParameter2()));
 					break;
-				case wakeupDevice:
-					Actions.wakeupDevice(Long.parseLong(this.getParameter2()));
-					// wakeupDevice() will create a separate thread. That'll take some time, we wait 100ms.
-					try
+				case turnScreenOnOrOff:
+					if(getParameter1())
 					{
-						Thread.sleep(100);
+						if(StringUtils.isNumeric(this.getParameter2()))
+							Actions.wakeupDevice(Long.parseLong(this.getParameter2()));
+						else
+							Actions.wakeupDevice((long)1000);
+						// wakeupDevice() will create a separate thread. That'll take some time, we wait 100ms.
+						try
+						{
+							Thread.sleep(100);
+						}
+						catch (InterruptedException e)
+						{
+							e.printStackTrace();
+						}
 					}
-					catch (InterruptedException e)
+					else
 					{
-						e.printStackTrace();
+						Actions.turnOffScreen();
 					}
 					break;
 				case setAirplaneMode:

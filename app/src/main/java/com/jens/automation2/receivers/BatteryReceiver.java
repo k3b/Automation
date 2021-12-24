@@ -1,5 +1,6 @@
 package com.jens.automation2.receivers;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 
 public class BatteryReceiver extends BroadcastReceiver implements AutomationListenerInterface
 {
-	private static int batteryLevel=-1;	// initialize with a better value than this
+	private static int batteryLevel = -1;	// initialize with a better value than this
 	public static AutomationService automationServiceRef = null;
 	private static boolean usbHostConnected = false;
 
@@ -26,6 +27,7 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 	private static IntentFilter batteryIntentFilter = null;
 	private static Intent batteryStatus = null;
 	private static BroadcastReceiver batteryInfoReceiverInstance = null;
+
 	public static void startBatteryReceiver(final AutomationService automationServiceRef)
 	{
 		if(!batteryReceiverActive)
@@ -78,11 +80,11 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 		return batteryLevel;
 	}
 
-	private static int deviceIsCharging = 0; //0=unknown, 1=no, 2=yes
+	private static int currentChargingState = 0; //0=unknown, 1=no, 2=yes
 	
-	public static int getDeviceIsCharging()
+	public static int getCurrentChargingState()
 	{
-		return deviceIsCharging;
+		return currentChargingState;
 	}
 
 	@Override
@@ -145,31 +147,6 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 							this.actionDischarging(context);
 							break;
 					}
-	//			}
-	//			else if(intent.getAction().equals(Intent.ACTION_POWER_CONNECTED))
-	//			{
-	////				Miscellaneous.logEvent("i", "BatteryReceiver", "Battery is charging or full.");
-	//				deviceIsCharging = 2;
-	//				//activate rule(s)
-	//				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByCharging(true);
-	//				for(int i=0; i<ruleCandidates.size(); i++)
-	//				{
-	//					if(ruleCandidates.get(i).applies(context))
-	//						ruleCandidates.get(i).activate(locationProviderRef.getParentService());
-	//				}
-	//			}
-	//			else if(intent.getAction().equals(Intent.ACTION_POWER_DISCONNECTED))
-	//			{
-	////				Miscellaneous.logEvent("i", "BatteryReceiver", "Battery is discharging.");
-	//				deviceIsCharging = 1;
-	//				//activate rule(s)
-	//				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByCharging(false);
-	//				for(int i=0; i<ruleCandidates.size(); i++)
-	//				{
-	//					if(ruleCandidates.get(i).applies(context))
-	//						ruleCandidates.get(i).activate(locationProviderRef.getParentService());
-	//				}
-	//			}
 			}
 			catch(Exception e)
 			{
@@ -180,7 +157,7 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 	
 	public static int isDeviceCharging(Context context)
 	{
-		switch(deviceIsCharging)
+		switch(currentChargingState)
 		{
 			case 0:
 				Miscellaneous.logEvent("w", "ChargingInfo", "Status of device charging was requested. Information isn't available, yet.", 4);
@@ -188,25 +165,26 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 			case 1:
 				Miscellaneous.logEvent("i", "ChargingInfo", "Status of device charging was requested. Device is discharging.", 3);
 				break;
-			case 2:
+			case BatteryManager.BATTERY_STATUS_CHARGING:
 				Miscellaneous.logEvent("i", "ChargingInfo", "Status of device charging was requested. Device is charging.", 3);
 				break;
 		}
 		
-		return deviceIsCharging;		
+		return currentChargingState;
 	}
 	
 	private void actionCharging(Context context)
 	{
-		if(deviceIsCharging != 2) // Avoid flooding the log. This event will occur on a regular basis even though charging state wasn't changed.
+		if(currentChargingState != BatteryManager.BATTERY_STATUS_CHARGING) // Avoid flooding the log. This event will occur on a regular basis even though charging state wasn't changed.
 		{
 			Miscellaneous.logEvent("i", "BatteryReceiver", "Battery is charging or full.", 3);
-			deviceIsCharging = 2;
+			currentChargingState = BatteryManager.BATTERY_STATUS_CHARGING;
 			//activate rule(s)
-			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByCharging(true);
+			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.charging);
+//			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByCharging(true);
 			for(int i=0; i<ruleCandidates.size(); i++)
 			{
-				if(ruleCandidates.get(i).applies(context))
+				if(ruleCandidates.get(i).getsGreenLight(context))
 					ruleCandidates.get(i).activate(automationServiceRef, false);
 			}
 		}
@@ -216,25 +194,26 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 	{
 		Miscellaneous.logEvent("i", "BatteryReceiver", "Battery level has changed.", 3);
 		//activate rule(s)
-		ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByBatteryLevel();
+		ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.batteryLevel);
 		for(int i=0; i<ruleCandidates.size(); i++)
 		{
-			if(ruleCandidates.get(i).applies(context))
+			if(ruleCandidates.get(i).getsGreenLight(context))
 				ruleCandidates.get(i).activate(automationServiceRef, false);
 		}
 	}
 	
 	private void actionDischarging(Context context)
 	{
-		if(deviceIsCharging != 1) // Avoid flooding the log. This event will occur on a regular basis even though charging state wasn't changed.
+		if(currentChargingState != BatteryManager.BATTERY_STATUS_UNKNOWN) // Avoid flooding the log. This event will occur on a regular basis even though charging state wasn't changed.
 		{
 			Miscellaneous.logEvent("i", "BatteryReceiver", "Battery is discharging.", 3);
-			deviceIsCharging = 1;
+			currentChargingState = BatteryManager.BATTERY_STATUS_UNKNOWN;
 			//activate rule(s)
-			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByCharging(false);
+			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.charging);
+//			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByCharging(false);
 			for(int i=0; i<ruleCandidates.size(); i++)
 			{
-				if(ruleCandidates.get(i).applies(context))
+				if(ruleCandidates.get(i).getsGreenLight(context))
 					ruleCandidates.get(i).activate(automationServiceRef, false);
 			}
 			
@@ -253,11 +232,12 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 			usbHostConnected = true;
 			Miscellaneous.logEvent("i", "BatteryReceiver", "Connected to computer.", 3);
 			Toast.makeText(context, "Connected to computer.", Toast.LENGTH_LONG).show();
-			
-			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByUsbHost(true);
+
+			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.usb_host_connection);
+//			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByUsbHost(true);
 			for(Rule oneRule : ruleCandidates)
 			{
-				if(oneRule.applies(context))
+				if(oneRule.getsGreenLight(context))
 					oneRule.activate(automationServiceRef, false);
 			}
 		
@@ -274,11 +254,12 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 			usbHostConnected = false;
 			Miscellaneous.logEvent("i", "BatteryReceiver", "Disconnected from computer.", 3);
 			Toast.makeText(context, "Disconnected from computer.", Toast.LENGTH_LONG).show();
-		
-			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByUsbHost(false);
+
+			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.usb_host_connection);
+//			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByUsbHost(false);
 			for(Rule oneRule : ruleCandidates)
 			{
-				if(oneRule.applies(context))
+				if(oneRule.getsGreenLight(context))
 					oneRule.activate(automationServiceRef, false);
 			}
 		}
@@ -296,8 +277,8 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 
 	public static boolean haveAllPermission()
 	{
-		return ActivityPermissions.havePermission("android.permission.READ_PHONE_STATE", Miscellaneous.getAnyContext()) &&
-				ActivityPermissions.havePermission("android.permission.BATTERY_STATS", Miscellaneous.getAnyContext());
+		return ActivityPermissions.havePermission(Manifest.permission.READ_PHONE_STATE, Miscellaneous.getAnyContext()) &&
+				ActivityPermissions.havePermission(Manifest.permission.BATTERY_STATS, Miscellaneous.getAnyContext());
 	}
 
 	@Override

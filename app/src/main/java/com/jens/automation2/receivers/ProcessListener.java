@@ -43,34 +43,27 @@ public class ProcessListener implements AutomationListenerInterface
 		@Override
 		public void handleMessage(Message msg)
 		{
-//			try
-//			{
-				Miscellaneous.logEvent("i", automationService.getResources().getString(R.string.processMonitoring), automationService.getResources().getString(R.string.messageReceivedStatingProcessMonitoringIsComplete), 5);
-				// This will take care of results delivered by the actual monitoring instance
-				
-		        for(String entry : getRunningApps())
-		        	Miscellaneous.logEvent("i", automationService.getResources().getString(R.string.runningApp), entry, 5);
-		        
-				// execute matching rules containing processes
-				if(getRecentlyStartedApps().size()>0 | getRecentlyStoppedApps().size()>0)
+			Miscellaneous.logEvent("i", automationService.getResources().getString(R.string.processMonitoring), automationService.getResources().getString(R.string.messageReceivedStatingProcessMonitoringIsComplete), 5);
+			// This will take care of results delivered by the actual monitoring instance
+
+			for(String entry : getRunningApps())
+				Miscellaneous.logEvent("i", automationService.getResources().getString(R.string.runningApp), entry, 5);
+
+			// execute matching rules containing processes
+			if(getRecentlyStartedApps().size()>0 | getRecentlyStoppedApps().size()>0)
+			{
+				for(String entry : getRecentlyStartedApps())
+					Miscellaneous.logEvent("i", automationService.getResources().getString(R.string.appStarted), entry, 3);
+				for(String entry : getRecentlyStoppedApps())
+					Miscellaneous.logEvent("i", automationService.getResources().getString(R.string.appStopped), entry, 3);
+
+				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.process_started_stopped);
+				for(int i=0; i<ruleCandidates.size(); i++)
 				{
-					for(String entry : getRecentlyStartedApps())
-						Miscellaneous.logEvent("i", automationService.getResources().getString(R.string.appStarted), entry, 3);
-					for(String entry : getRecentlyStoppedApps())
-						Miscellaneous.logEvent("i", automationService.getResources().getString(R.string.appStopped), entry, 3);
-					
-					ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByProcess();
-					for(int i=0; i<ruleCandidates.size(); i++)
-					{
-						if(ruleCandidates.get(i).applies(automationService))
-							ruleCandidates.get(i).activate(automationService, false);
-					}
+					if(ruleCandidates.get(i).getsGreenLight(automationService))
+						ruleCandidates.get(i).activate(automationService, false);
 				}
-//			}
-//			catch(Exception e)
-//			{
-//				Miscellaneous.logEvent("e", "Noise level", "Error in workHandler->handleMessage(): " + e.getMessage());
-//			}
+			}
 		}
 	};
 

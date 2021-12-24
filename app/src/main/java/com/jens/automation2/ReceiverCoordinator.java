@@ -5,11 +5,12 @@ import android.util.Log;
 
 import com.jens.automation2.location.CellLocationChangedReceiver;
 import com.jens.automation2.location.WifiBroadcastReceiver;
-import com.jens.automation2.receivers.AlarmListener;
+import com.jens.automation2.receivers.DateTimeListener;
 import com.jens.automation2.receivers.AutomationListenerInterface;
 import com.jens.automation2.receivers.BatteryReceiver;
 import com.jens.automation2.receivers.BluetoothReceiver;
 import com.jens.automation2.receivers.ConnectivityReceiver;
+import com.jens.automation2.receivers.DeviceOrientationListener;
 import com.jens.automation2.receivers.HeadphoneJackListener;
 import com.jens.automation2.receivers.NoiseListener;
 import com.jens.automation2.receivers.PhoneStatusListener;
@@ -42,10 +43,11 @@ public class ReceiverCoordinator
             Class adClass = Class.forName("ActivityDetectionReceiver");
             allImplementers = new Class[] {
                     adClass,
-                    AlarmListener.class,
+                    DateTimeListener.class,
                     BatteryReceiver.class,
                     BluetoothReceiver.class,
                     ConnectivityReceiver.class,
+                    DeviceOrientationListener.class,
                     HeadphoneJackListener.class,
                     //NfcReceiver.class,
                     NoiseListener.class,
@@ -56,13 +58,12 @@ public class ReceiverCoordinator
         }
         catch (ClassNotFoundException e)
         {
-//            e.printStackTrace();
-
             allImplementers = new Class[] {
-                    AlarmListener.class,
+                    DateTimeListener.class,
                     BatteryReceiver.class,
                     BluetoothReceiver.class,
                     ConnectivityReceiver.class,
+                    DeviceOrientationListener.class,
                     HeadphoneJackListener.class,
                     //NfcReceiver.class,
                     NoiseListener.class,
@@ -155,7 +156,7 @@ public class ReceiverCoordinator
             BatteryReceiver.startBatteryReceiver(AutomationService.getInstance());
 
         // startAlarmListener
-        AlarmListener.startAlarmListener(AutomationService.getInstance());
+        DateTimeListener.startAlarmListener(AutomationService.getInstance());
         TimeZoneListener.startTimeZoneListener(AutomationService.getInstance());
 
         // startNoiseListener
@@ -166,15 +167,15 @@ public class ReceiverCoordinator
         if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.process_started_stopped))
             ProcessListener.startProcessListener(AutomationService.getInstance());
 
+        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.deviceOrientation))
+            DeviceOrientationListener.getInstance().startListener(AutomationService.getInstance());
+
         try
         {
             Class testClass = Class.forName(ActivityManageRule.activityDetectionClassPath);
             //startActivityDetectionReceiver
             if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.activityDetection))
-            {
                 Miscellaneous.runMethodReflective(activityDetectionClassPath, "startActivityDetectionReceiver", null);
-    //            ActivityDetectionReceiver.startActivityDetectionReceiver();
-        }
         }
         catch(ClassNotFoundException e)
         {
@@ -199,15 +200,15 @@ public class ReceiverCoordinator
             WifiBroadcastReceiver.stopWifiReceiver();
             BatteryReceiver.stopBatteryReceiver();
             TimeZoneListener.stopTimeZoneListener();
-            AlarmListener.stopAlarmListener(AutomationService.getInstance());
+            DateTimeListener.stopAlarmListener(AutomationService.getInstance());
             NoiseListener.stopNoiseListener();
             ProcessListener.stopProcessListener(AutomationService.getInstance());
+            DeviceOrientationListener.getInstance().stopListener(AutomationService.getInstance());
 
             try
             {
                 Class testClass = Class.forName(ActivityManageRule.activityDetectionClassPath);
                 Miscellaneous.runMethodReflective("ActivityDetectionReceiver", "stopActivityDetectionReceiver", null);
-//              ActivityDetectionReceiver.stopActivityDetectionReceiver();
             }
             catch(ClassNotFoundException e)
             {
@@ -216,6 +217,7 @@ public class ReceiverCoordinator
 
             BluetoothReceiver.stopBluetoothReceiver();
             HeadphoneJackListener.getInstance().stopListener(AutomationService.getInstance());
+            DeviceOrientationListener.getInstance().stopListener(AutomationService.getInstance());
         }
         catch(Exception e)
         {
@@ -347,6 +349,24 @@ public class ReceiverCoordinator
             {
                 Miscellaneous.logEvent("i", "LocationProvider", "Shutting down HeadphoneJackListener because not used in any rule.", 4);
                 HeadphoneJackListener.getInstance().stopListener(AutomationService.getInstance());
+            }
+        }
+
+        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.deviceOrientation))
+        {
+            if(!DeviceOrientationListener.getInstance().isListenerRunning())
+            {
+                Miscellaneous.logEvent("i", "DevicePositionListener", "Starting DevicePositionListener because used in a new/changed rule.", 4);
+//                if(DevicePositionListener.getInstance().haveAllPermission())
+                    DeviceOrientationListener.getInstance().startListener(AutomationService.getInstance());
+            }
+        }
+        else
+        {
+            if(DeviceOrientationListener.getInstance().isListenerRunning())
+            {
+                Miscellaneous.logEvent("i", "DevicePositionListener", "Shutting down DevicePositionListener because not used in any rule.", 4);
+                DeviceOrientationListener.getInstance().stopListener(AutomationService.getInstance());
             }
         }
 

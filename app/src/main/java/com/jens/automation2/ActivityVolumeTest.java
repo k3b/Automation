@@ -30,14 +30,14 @@ public class ActivityVolumeTest extends Activity
 		instance = this;
 		
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_volume_test);
+		setContentView(R.layout.activity_volume_calibration);
 		
 		tvCurrentVolume = (TextView)findViewById(R.id.tvCurrentVolume);
 		etReferenceValue = (EditText)findViewById(R.id.etReferenceValue);
 		sbReferenceValue = (SeekBar)findViewById(R.id.sbReferenceValue);
-		tvVolumeTestExplanation = (TextView)findViewById(R.id.tvVolumeTestExplanation);
+		tvVolumeTestExplanation = (TextView)findViewById(R.id.tvVolumeCalibrationExplanation);
 		
-		tvVolumeTestExplanation.setText(String.format(getResources().getString(R.string.volumeTesterExplanation), String.valueOf(volumeRefreshInterval)));
+		tvVolumeTestExplanation.setText(String.format(getResources().getString(R.string.volumeCalibrationExplanation), String.valueOf(volumeRefreshInterval)));
 		
 		etReferenceValue.setText(String.valueOf(Settings.referenceValueForNoiseLevelMeasurements));
 		

@@ -49,6 +49,9 @@ import java.util.Collections;
 public class ActivityManageRule extends Activity
 {
 	final static String activityDetectionClassPath = "com.jens.automation2.receivers.ActivityDetectionReceiver";
+	public final static String intentNameTriggerParameter1 = "triggerParameter1";
+	public final static String intentNameActionParameter1 = "actionParameter1";
+	public final static String intentNameActionParameter2 = "actionParameter2";
 
 	public Context context;
 	private Button cmdTriggerAdd, cmdActionAdd, cmdSaveRule;
@@ -95,6 +98,8 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeTriggerBluetoothEdit = 6001;
 	final static int requestCodeActionScreenBrightnessAdd = 401;
 	final static int requestCodeActionScreenBrightnessEdit = 402;
+	final static int requestCodeTriggerDeviceOrientationAdd = 301;
+	final static int requestCodeTriggerDeviceOrientationEdit = 302;
 	final static int requestCodeTriggerNotificationAdd = 8000;
 	final static int requestCodeTriggerNfcNotificationEdit = 8001;
 	final static int requestCodeActionPlaySoundAdd = 501;
@@ -165,7 +170,13 @@ public class ActivityManageRule extends Activity
 			{
 				hideKeyboard();
 				newTrigger = new Trigger();
-				getTriggerTypeDialog(context).show();
+
+				AlertDialog dia = getTriggerTypeDialog(context);
+
+				if(Miscellaneous.isDarkModeEnabled(ActivityManageRule.this))
+					dia.getListView().setBackgroundColor(getResources().getColor(R.color.darkScreenBackgroundColor));
+
+				dia.show();
 			}
 		});
 		
@@ -175,12 +186,18 @@ public class ActivityManageRule extends Activity
 			public void onClick(View v)
 			{
 				hideKeyboard();
-				getActionTypeDialog().show();
+
+				AlertDialog dia = getActionTypeDialog();
+
+				if(Miscellaneous.isDarkModeEnabled(ActivityManageRule.this))
+					dia.getListView().setBackgroundColor(getResources().getColor(R.color.darkScreenBackgroundColor));
+
+				dia.show();
 			}
 		});
 		
 		cmdSaveRule.setOnClickListener(new OnClickListener()
-		{			
+		{
 			@Override
 			public void onClick(View v)
 			{
@@ -261,6 +278,12 @@ public class ActivityManageRule extends Activity
 						wifiEditor.putExtra("wifiName", selectedTrigger.getTriggerParameter2());
 						startActivityForResult(wifiEditor, requestCodeTriggerWifiEdit);
 						break;
+					case deviceOrientation:
+						Intent devicePositionEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerDeviceOrientation.class);
+						devicePositionEditor.putExtra(ActivityManageRule.intentNameTriggerParameter1, selectedTrigger.getTriggerParameter());
+						devicePositionEditor.putExtra(ActivityManageTriggerDeviceOrientation.vectorFieldName, selectedTrigger.getTriggerParameter2());
+						startActivityForResult(devicePositionEditor, requestCodeTriggerDeviceOrientationEdit);
+						break;
 					default:
 						break;				
 				}
@@ -303,6 +326,7 @@ public class ActivityManageRule extends Activity
 					case triggerUrl:
 						Intent activityEditTriggerUrlIntent = new Intent(ActivityManageRule.this, ActivityManageActionTriggerUrl.class);
 						ActivityManageActionTriggerUrl.resultingAction = a;
+						ActivityManageActionTriggerUrl.resultingAction.setParentRule(ruleToEdit);
 						activityEditTriggerUrlIntent.putExtra("edit", true);
 						startActivityForResult(activityEditTriggerUrlIntent, requestCodeActionTriggerUrlEdit);
 						break;
@@ -332,8 +356,8 @@ public class ActivityManageRule extends Activity
 					case playSound:
 						Intent actionPlaySoundIntent = new Intent(context, ActivityManageActionPlaySound.class);
 						actionPlaySoundIntent.putExtra("edit", true);
-						actionPlaySoundIntent.putExtra("actionParameter1", a.getParameter1());
-						actionPlaySoundIntent.putExtra("actionParameter2", a.getParameter2());
+						actionPlaySoundIntent.putExtra(intentNameActionParameter1, a.getParameter1());
+						actionPlaySoundIntent.putExtra(intentNameActionParameter2, a.getParameter2());
 						startActivityForResult(actionPlaySoundIntent, requestCodeActionPlaySoundEdit);
 						break;
 					default:
@@ -403,6 +427,11 @@ public class ActivityManageRule extends Activity
 		ruleToEdit.setName(etRuleName.getText().toString());
 		ruleToEdit.setRuleActive(chkRuleActive.isChecked());
 		ruleToEdit.setRuleToggle(chkRuleToggle.isChecked());
+
+		for(Trigger t : ruleToEdit.getTriggerSet())
+			t.setParentRule(ruleToEdit);
+		for(Action a : ruleToEdit.getActionSet())
+			a.setParentRule(ruleToEdit);
 	}
 
 	private void loadVariablesIntoGui()
@@ -465,164 +494,175 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.headphone));
 			else if(types[i].toString().equals(Trigger_Enum.notification.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.notification));
+			else if(types[i].toString().equals(Trigger_Enum.deviceOrientation.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.smartphone));
 			else
 				items.add(new Item(typesLong[i].toString(), R.drawable.placeholder));
 		}
 			
-			ListAdapter adapter = new ArrayAdapter<Item>(this, android.R.layout.select_dialog_item, android.R.id.text1, items)
-		    {
-		        public View getView(int position, View convertView, ViewGroup parent)
-		        {
-		            //User super class to create the View
-		        	View v = super.getView(position, convertView, parent);
-		        	
-		        	TextView tv = (TextView)v.findViewById(android.R.id.text1);		            
+		ListAdapter adapter = new ArrayAdapter<Item>(this, android.R.layout.select_dialog_item, android.R.id.text1, items)
+		{
+			public View getView(int position, View convertView, ViewGroup parent)
+			{
+				//User super class to create the View
+				View v = super.getView(position, convertView, parent);
 
-		            //Put the image on the TextView
-		            tv.setCompoundDrawablesWithIntrinsicBounds(items.get(position).icon, 0, 0, 0);
+				TextView tv = (TextView)v.findViewById(android.R.id.text1);
 
-		            //Add margin between image and text (support various screen densities)
-		            int dp5 = (int) (5 * getResources().getDisplayMetrics().density + 0.5f);
-		            tv.setCompoundDrawablePadding(dp5);
+				//Put the image on the TextView
+				tv.setCompoundDrawablesWithIntrinsicBounds(items.get(position).icon, 0, 0, 0);
 
-		            return v;
-		        }
-		    };
+				//Add margin between image and text (support various screen densities)
+				int dp5 = (int) (5 * getResources().getDisplayMetrics().density + 0.5f);
+				tv.setCompoundDrawablePadding(dp5);
 
-			AlertDialog.Builder builder = new AlertDialog.Builder(this)
-			    .setTitle(getResources().getString(R.string.selectTypeOfTrigger))
-			    .setAdapter(adapter, new DialogInterface.OnClickListener()
-			    {
-			        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-					public void onClick(DialogInterface dialog, int which)
-			        {	
-			        	triggerType = Trigger_Enum.values()[which];
+				return v;
+			}
+		};
 
-						String[] booleanChoices = null;
-						if(triggerType == Trigger_Enum.pointOfInterest)
+		AlertDialog.Builder builder = new AlertDialog.Builder(this)
+			.setTitle(getResources().getString(R.string.selectTypeOfTrigger))
+			.setAdapter(adapter, new DialogInterface.OnClickListener()
+			{
+				@RequiresApi(api = Build.VERSION_CODES.KITKAT)
+				public void onClick(DialogInterface dialog, int which)
+				{
+					triggerType = Trigger_Enum.values()[which];
+
+					String[] booleanChoices = null;
+					if(triggerType == Trigger_Enum.pointOfInterest)
+					{
+						if(Miscellaneous.googleToBlameForLocation(false))
 						{
-							if(Miscellaneous.googleToBlameForLocation(false))
-							{
-								ActivityMainScreen.openGoogleBlamingWindow();
-								return;
-							}
-							else
-							{
-								if (PointOfInterest.getPointOfInterestCollection() != null && PointOfInterest.getPointOfInterestCollection().size() > 0)
-									booleanChoices = new String[]{getResources().getString(R.string.entering), getResources().getString(R.string.leaving)};
-								else
-								{
-									Toast.makeText(myContext, getResources().getString(R.string.noPoisSpecified), Toast.LENGTH_LONG).show();
-									return;
-								}
-							}
-						}
-						else if(triggerType == Trigger_Enum.timeFrame)
-						{
-							newTrigger.setTriggerType(Trigger_Enum.timeFrame);
-							ActivityManageTriggerTimeFrame.editedTimeFrameTrigger = newTrigger;
-							Intent timeFrameEditor = new Intent(myContext, ActivityManageTriggerTimeFrame.class);
-							startActivityForResult(timeFrameEditor, requestCodeTriggerTimeframeAdd);
+							ActivityMainScreen.openGoogleBlamingWindow();
 							return;
-						}
-						else if(triggerType == Trigger_Enum.charging)
-							booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
-						else if(triggerType == Trigger_Enum.usb_host_connection)
-							booleanChoices = new String[]{getResources().getString(R.string.connected), getResources().getString(R.string.disconnected)};
-						else if(triggerType == Trigger_Enum.speed | triggerType == Trigger_Enum.noiseLevel | triggerType == Trigger_Enum.batteryLevel)
-							booleanChoices = new String[]{getResources().getString(R.string.exceeds), getResources().getString(R.string.dropsBelow)};
-						else if(triggerType == Trigger_Enum.wifiConnection)
-						{
-							newTrigger.setTriggerType(Trigger_Enum.wifiConnection);
-							Intent wifiTriggerEditor = new Intent(myContext, ActivityManageTriggerWifi.class);
-							startActivityForResult(wifiTriggerEditor, requestCodeTriggerWifiAdd);
-							return;
-//							booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
-						}
-//						else if(triggerType == Trigger_Enum.wifiConnection)
-//							booleanChoices = new String[]{getResources().getString(R.string.connected), getResources().getString(R.string.disconnected)};
-						else if(triggerType == Trigger_Enum.process_started_stopped)
-							booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
-						else if(triggerType == Trigger_Enum.notification)
-						{
-							newTrigger.setTriggerType(Trigger_Enum.notification);
-							Intent nfcEditor = new Intent(myContext, ActivityManageTriggerNotification.class);
-							startActivityForResult(nfcEditor, requestCodeTriggerNotificationAdd);
-							return;
-						}
-						else if(triggerType == Trigger_Enum.airplaneMode)
-							booleanChoices = new String[]{getResources().getString(R.string.activated), getResources().getString(R.string.deactivated)};
-						else if(triggerType == Trigger_Enum.roaming)
-							booleanChoices = new String[]{getResources().getString(R.string.activated), getResources().getString(R.string.deactivated)};
-						else if(triggerType == Trigger_Enum.phoneCall)
-						{
-							newTrigger.setTriggerType(Trigger_Enum.phoneCall);
-							Intent phoneTriggerEditor = new Intent(myContext, ActivityManageTriggerPhoneCall.class);
-							startActivityForResult(phoneTriggerEditor, requestCodeTriggerPhoneCallAdd);
-							return;
-//							booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
-						}
-						else if(triggerType == Trigger_Enum.activityDetection)
-						{
-							try
-							{
-								Method m = Miscellaneous.getClassMethodReflective(activityDetectionClassPath, "isPlayServiceAvailable");
-								if(m != null)
-								{
-									boolean available = (Boolean)m.invoke(null);
-									if(available)
-									{
-										newTrigger.setTriggerType(Trigger_Enum.activityDetection);
-										getTriggerActivityDetectionDialog().show();
-									}
-									else
-										Toast.makeText(myContext, getResources().getString(R.string.triggerOnlyAvailableIfPlayServicesInstalled), Toast.LENGTH_LONG).show();
-								}
-								else
-									Miscellaneous.messageBox(getResources().getString(R.string.error), getResources().getString(R.string.featureNotInFdroidVersion), ActivityManageRule.this).show();
-							}
-							catch (IllegalAccessException | InvocationTargetException e)
-							{
-								e.printStackTrace();
-							}
-							return;
-						}
-						else if(triggerType == Trigger_Enum.nfcTag)
-						{
-							if(NfcReceiver.checkNfcRequirements(ActivityManageRule.this, true))
-							{
-								newTrigger.setTriggerType(Trigger_Enum.nfcTag);
-								Intent nfcEditor = new Intent(myContext, ActivityManageTriggerNfc.class);
-								startActivityForResult(nfcEditor, requestCodeTriggerNfcTagAdd);
-								return;
-							}
-						}
-						else if(triggerType == Trigger_Enum.bluetoothConnection)
-						{
-							if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
-								Miscellaneous.messageBox("Bluetooth", getResources().getString(R.string.deviceDoesNotHaveBluetooth), ActivityManageRule.this).show();;
-
-							newTrigger.setTriggerType(Trigger_Enum.bluetoothConnection);
-							ActivityManageTriggerBluetooth.editedBluetoothTrigger = newTrigger;
-							Intent bluetoothEditor = new Intent(myContext, ActivityManageTriggerBluetooth.class);
-							startActivityForResult(bluetoothEditor, requestCodeTriggerBluetoothAdd);
-							return;
-						}
-						else if(triggerType == Trigger_Enum.headsetPlugged)
-							booleanChoices = new String[]{getResources().getString(R.string.connected), getResources().getString(R.string.disconnected)};
-
-						if(triggerType == Trigger_Enum.nfcTag)
-						{
-							if (NfcReceiver.checkNfcRequirements(ActivityManageRule.this, true))
-								getTriggerParameterDialog(context, booleanChoices).show();
 						}
 						else
+						{
+							if (PointOfInterest.getPointOfInterestCollection() != null && PointOfInterest.getPointOfInterestCollection().size() > 0)
+								booleanChoices = new String[]{getResources().getString(R.string.entering), getResources().getString(R.string.leaving)};
+							else
+							{
+								Toast.makeText(myContext, getResources().getString(R.string.noPoisSpecified), Toast.LENGTH_LONG).show();
+								return;
+							}
+						}
+					}
+					else if(triggerType == Trigger_Enum.timeFrame)
+					{
+						newTrigger.setTriggerType(Trigger_Enum.timeFrame);
+						ActivityManageTriggerTimeFrame.editedTimeFrameTrigger = newTrigger;
+						Intent timeFrameEditor = new Intent(myContext, ActivityManageTriggerTimeFrame.class);
+						startActivityForResult(timeFrameEditor, requestCodeTriggerTimeframeAdd);
+						return;
+					}
+					else if(triggerType == Trigger_Enum.charging)
+						booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
+					else if(triggerType == Trigger_Enum.usb_host_connection)
+						booleanChoices = new String[]{getResources().getString(R.string.connected), getResources().getString(R.string.disconnected)};
+					else if(triggerType == Trigger_Enum.speed | triggerType == Trigger_Enum.noiseLevel | triggerType == Trigger_Enum.batteryLevel)
+						booleanChoices = new String[]{getResources().getString(R.string.exceeds), getResources().getString(R.string.dropsBelow)};
+					else if(triggerType == Trigger_Enum.wifiConnection)
+					{
+						newTrigger.setTriggerType(Trigger_Enum.wifiConnection);
+						Intent wifiTriggerEditor = new Intent(myContext, ActivityManageTriggerWifi.class);
+						startActivityForResult(wifiTriggerEditor, requestCodeTriggerWifiAdd);
+						return;
+//							booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
+					}
+					else if(triggerType == Trigger_Enum.deviceOrientation)
+					{
+						newTrigger.setTriggerType(Trigger_Enum.deviceOrientation);
+						Intent devicePositionTriggerEditor = new Intent(myContext, ActivityManageTriggerDeviceOrientation.class);
+						startActivityForResult(devicePositionTriggerEditor, requestCodeTriggerDeviceOrientationAdd);
+						return;
+//							booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
+					}
+//						else if(triggerType == Trigger_Enum.wifiConnection)
+//							booleanChoices = new String[]{getResources().getString(R.string.connected), getResources().getString(R.string.disconnected)};
+					else if(triggerType == Trigger_Enum.process_started_stopped)
+						booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
+					else if(triggerType == Trigger_Enum.notification)
+					{
+						newTrigger.setTriggerType(Trigger_Enum.notification);
+						Intent nfcEditor = new Intent(myContext, ActivityManageTriggerNotification.class);
+						startActivityForResult(nfcEditor, requestCodeTriggerNotificationAdd);
+						return;
+					}
+					else if(triggerType == Trigger_Enum.airplaneMode)
+						booleanChoices = new String[]{getResources().getString(R.string.activated), getResources().getString(R.string.deactivated)};
+					else if(triggerType == Trigger_Enum.roaming)
+						booleanChoices = new String[]{getResources().getString(R.string.activated), getResources().getString(R.string.deactivated)};
+					else if(triggerType == Trigger_Enum.phoneCall)
+					{
+						newTrigger.setTriggerType(Trigger_Enum.phoneCall);
+						Intent phoneTriggerEditor = new Intent(myContext, ActivityManageTriggerPhoneCall.class);
+						startActivityForResult(phoneTriggerEditor, requestCodeTriggerPhoneCallAdd);
+						return;
+//							booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
+					}
+					else if(triggerType == Trigger_Enum.activityDetection)
+					{
+						try
+						{
+							Method m = Miscellaneous.getClassMethodReflective(activityDetectionClassPath, "isPlayServiceAvailable");
+							if(m != null)
+							{
+								boolean available = (Boolean)m.invoke(null);
+								if(available)
+								{
+									newTrigger.setTriggerType(Trigger_Enum.activityDetection);
+									getTriggerActivityDetectionDialog().show();
+								}
+								else
+									Toast.makeText(myContext, getResources().getString(R.string.triggerOnlyAvailableIfPlayServicesInstalled), Toast.LENGTH_LONG).show();
+							}
+							else
+								Miscellaneous.messageBox(getResources().getString(R.string.error), getResources().getString(R.string.featureNotInFdroidVersion), ActivityManageRule.this).show();
+						}
+						catch (IllegalAccessException | InvocationTargetException e)
+						{
+							e.printStackTrace();
+						}
+						return;
+					}
+					else if(triggerType == Trigger_Enum.nfcTag)
+					{
+						if(NfcReceiver.checkNfcRequirements(ActivityManageRule.this, true))
+						{
+							newTrigger.setTriggerType(Trigger_Enum.nfcTag);
+							Intent nfcEditor = new Intent(myContext, ActivityManageTriggerNfc.class);
+							startActivityForResult(nfcEditor, requestCodeTriggerNfcTagAdd);
+							return;
+						}
+					}
+					else if(triggerType == Trigger_Enum.bluetoothConnection)
+					{
+						if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
+							Miscellaneous.messageBox("Bluetooth", getResources().getString(R.string.deviceDoesNotHaveBluetooth), ActivityManageRule.this).show();;
+
+						newTrigger.setTriggerType(Trigger_Enum.bluetoothConnection);
+						ActivityManageTriggerBluetooth.editedBluetoothTrigger = newTrigger;
+						Intent bluetoothEditor = new Intent(myContext, ActivityManageTriggerBluetooth.class);
+						startActivityForResult(bluetoothEditor, requestCodeTriggerBluetoothAdd);
+						return;
+					}
+					else if(triggerType == Trigger_Enum.headsetPlugged)
+						booleanChoices = new String[]{getResources().getString(R.string.connected), getResources().getString(R.string.disconnected)};
+
+					if(triggerType == Trigger_Enum.nfcTag)
+					{
+						if (NfcReceiver.checkNfcRequirements(ActivityManageRule.this, true))
 							getTriggerParameterDialog(context, booleanChoices).show();
-			        }
-			    });
-			
-			return builder.create();
+					}
+					else
+						getTriggerParameterDialog(context, booleanChoices).show();
+				}
+			});
+
+		return builder.create();
 	}
+
 	private AlertDialog getTriggerParameterDialog(final Context myContext, final String[] choices)
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
@@ -1086,6 +1126,7 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK)
 			{
 				//add TriggerUrl
+				ActivityManageActionTriggerUrl.resultingAction.setParentRule(ruleToEdit);
 				ruleToEdit.getActionSet().add(ActivityManageActionTriggerUrl.resultingAction);
 				this.refreshActionList();
 			}
@@ -1103,6 +1144,7 @@ public class ActivityManageRule extends Activity
 			//add TimeFrame
 			if(resultCode == RESULT_OK && ActivityManageTriggerTimeFrame.editedTimeFrameTrigger != null)
 			{
+				newTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().add(newTrigger);
 				this.refreshTriggerList();
 			}
@@ -1114,6 +1156,7 @@ public class ActivityManageRule extends Activity
 			//edit TimeFrame
 			if(resultCode == RESULT_OK && ActivityManageTriggerTimeFrame.editedTimeFrameTrigger != null)
 			{
+				ActivityManageTriggerTimeFrame.editedTimeFrameTrigger.setParentRule(ruleToEdit);
 				this.refreshTriggerList();
 			}
 			else
@@ -1125,6 +1168,7 @@ public class ActivityManageRule extends Activity
 			{
 				newTrigger.setTriggerParameter(data.getBooleanExtra("wifiState", false));
 				newTrigger.setTriggerParameter2(data.getStringExtra("wifiName"));
+				newTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().add(newTrigger);
 				this.refreshTriggerList();
 			}
@@ -1133,8 +1177,12 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
-				newTrigger.setTriggerParameter(data.getBooleanExtra("wifiState", false));
-				newTrigger.setTriggerParameter2(data.getStringExtra("wifiName"));
+				Trigger editedTrigger = new Trigger();
+				editedTrigger.setTriggerType(Trigger_Enum.wifiConnection);
+				editedTrigger.setTriggerParameter(data.getBooleanExtra("wifiState", false));
+				editedTrigger.setTriggerParameter2(data.getStringExtra("wifiName"));
+				editedTrigger.setParentRule(ruleToEdit);
+				ruleToEdit.getTriggerSet().set(editIndex, editedTrigger);
 				this.refreshTriggerList();
 			}
 		}
@@ -1144,6 +1192,7 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK)
 			{
 				newAction = ActivityManageActionStartActivity.resultingAction;
+				newAction.setParentRule(ruleToEdit);
 				ruleToEdit.getActionSet().add(newAction);
 				this.refreshActionList();
 			}
@@ -1154,6 +1203,7 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK)
 			{
 				newAction = ActivityManageActionStartActivity.resultingAction;
+				newAction.setParentRule(ruleToEdit);
 //				ruleToEdit.getActionSet().add(newAction);
 				this.refreshActionList();
 			}
@@ -1164,6 +1214,7 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK && ActivityManageTriggerNfc.generatedId != null)
 			{
 				newTrigger.setNfcTagId(ActivityManageTriggerNfc.generatedId);
+				newTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().add(newTrigger);
 				this.refreshTriggerList();
 			}
@@ -1185,6 +1236,7 @@ public class ActivityManageRule extends Activity
 													data.getStringExtra("textDir") + Trigger.triggerParameter2Split +
 													data.getStringExtra("text")
 												);
+				newTrigger.setParentRule(ruleToEdit);
 				this.refreshTriggerList();
 			}
 		}
@@ -1193,6 +1245,7 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK)
 			{
 				newTrigger = ActivityManageTriggerNotification.resultingTrigger;
+				newTrigger.setParentRule(ruleToEdit);
 				this.refreshTriggerList();
 			}
 		}
@@ -1200,6 +1253,7 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
+				newTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().add(newTrigger);
 				newTrigger.setTriggerParameter2(data.getStringExtra("triggerParameter2"));
 				this.refreshTriggerList();
@@ -1210,6 +1264,7 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK)
 			{
 				newTrigger = ActivityManageTriggerPhoneCall.resultingTrigger;
+				newTrigger.setParentRule(ruleToEdit);
 				this.refreshTriggerList();
 			}
 		}
@@ -1218,6 +1273,7 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK)
 			{
 				//add SpeakText
+				ActivityManageActionSpeakText.resultingAction.setParentRule(ruleToEdit);
 				ruleToEdit.getActionSet().add(ActivityManageActionSpeakText.resultingAction);
 				this.refreshActionList();
 			}
@@ -1227,6 +1283,7 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK)
 			{
 				//edit SpeakText
+				ActivityManageActionSpeakText.resultingAction.setParentRule(ruleToEdit);
 				newAction = ActivityManageActionSpeakText.resultingAction;
 				this.refreshActionList();
 			}
@@ -1236,6 +1293,7 @@ public class ActivityManageRule extends Activity
 			//add bluetooth trigger
 			if(resultCode == RESULT_OK && ActivityManageTriggerBluetooth.editedBluetoothTrigger != null)
 			{
+				newTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().add(newTrigger);
 				this.refreshTriggerList();
 			}
@@ -1247,6 +1305,7 @@ public class ActivityManageRule extends Activity
 			//edit bluetooth trigger
 			if(resultCode == RESULT_OK && ActivityManageTriggerBluetooth.editedBluetoothTrigger != null)
 			{
+				ActivityManageTriggerBluetooth.editedBluetoothTrigger.setParentRule(ruleToEdit);
 				this.refreshTriggerList();
 			}
 			else
@@ -1258,6 +1317,7 @@ public class ActivityManageRule extends Activity
 			{
 				newAction.setParameter1(data.getBooleanExtra("autoBrightness", false));
 				newAction.setParameter2(String.valueOf(data.getIntExtra("brightnessValue", 0)));
+				newAction.setParentRule(ruleToEdit);
 				ruleToEdit.getActionSet().add(newAction);
 				this.refreshActionList();
 			}
@@ -1272,6 +1332,8 @@ public class ActivityManageRule extends Activity
 				if(data.hasExtra("brightnessValue"))
 					ruleToEdit.getActionSet().get(editIndex).setParameter2(String.valueOf(data.getIntExtra("brightnessValue", 0)));
 
+				ruleToEdit.getActionSet().get(editIndex).setParentRule(ruleToEdit);
+
 				this.refreshActionList();
 			}
 		}
@@ -1279,6 +1341,7 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
+				newAction.setParentRule(ruleToEdit);
 				newAction.setParameter2(data.getStringExtra("vibratePattern"));
 				ruleToEdit.getActionSet().add(newAction);
 				this.refreshActionList();
@@ -1288,6 +1351,8 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
+				ruleToEdit.getActionSet().get(editIndex).setParentRule(ruleToEdit);
+
 				if(data.hasExtra("vibratePattern"))
 					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra("vibratePattern"));
 
@@ -1298,8 +1363,9 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
-				newAction.setParameter1(data.getBooleanExtra("actionParameter1", false));
-				newAction.setParameter2(data.getStringExtra("actionParameter2"));
+				newAction.setParentRule(ruleToEdit);
+				newAction.setParameter1(data.getBooleanExtra(intentNameActionParameter1, false));
+				newAction.setParameter2(data.getStringExtra(intentNameActionParameter2));
 				ruleToEdit.getActionSet().add(newAction);
 				this.refreshActionList();
 			}
@@ -1308,11 +1374,13 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
-				if(data.hasExtra("actionParameter1"))
-					ruleToEdit.getActionSet().get(editIndex).setParameter1(data.getBooleanExtra("actionParameter1", false));
+				ruleToEdit.getActionSet().get(editIndex).setParentRule(ruleToEdit);
 
-				if(data.hasExtra("actionParameter2"))
-					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra("actionParameter2"));
+				if(data.hasExtra(intentNameActionParameter1))
+					ruleToEdit.getActionSet().get(editIndex).setParameter1(data.getBooleanExtra(intentNameActionParameter1, false));
+
+				if(data.hasExtra(intentNameActionParameter2))
+					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra(intentNameActionParameter2));
 
 				this.refreshActionList();
 			}
@@ -1321,7 +1389,7 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
-				//add SendTextMessage
+				ActivityManageActionSendTextMessage.resultingAction.setParentRule(ruleToEdit);
 				ruleToEdit.getActionSet().add(ActivityManageActionSendTextMessage.resultingAction);
 				this.refreshActionList();
 			}
@@ -1330,15 +1398,39 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
-				//edit SendTextMessage
 				newAction = ActivityManageActionSendTextMessage.resultingAction;
+				newAction.setParentRule(ruleToEdit);
 				//ruleToEdit.getActionSet().add(ActivityManageActionSendTextMessage.resultingAction);
 				this.refreshActionList();
 			}
 		}
+		else if(requestCode == requestCodeTriggerDeviceOrientationAdd)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				newTrigger.setTriggerParameter(data.getBooleanExtra(ActivityManageRule.intentNameTriggerParameter1, true));
+				newTrigger.setTriggerParameter2(data.getStringExtra(ActivityManageTriggerDeviceOrientation.vectorFieldName));
+				newTrigger.setParentRule(ruleToEdit);
+				ruleToEdit.getTriggerSet().add(newTrigger);
+				this.refreshTriggerList();
+			}
+		}
+		else if(requestCode == requestCodeTriggerDeviceOrientationEdit)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				Trigger editedTrigger = new Trigger();
+				editedTrigger.setTriggerType(Trigger_Enum.deviceOrientation);
+				editedTrigger.setTriggerParameter(data.getBooleanExtra(ActivityManageRule.intentNameTriggerParameter1, true));
+				editedTrigger.setTriggerParameter2(data.getStringExtra(ActivityManageTriggerDeviceOrientation.vectorFieldName));
+				editedTrigger.setParentRule(ruleToEdit);
+				ruleToEdit.getTriggerSet().set(editIndex, editedTrigger);
+				this.refreshTriggerList();
+			}
+		}
 	}
 
-	protected Dialog getActionTypeDialog()
+	protected AlertDialog getActionTypeDialog()
 	{
 		final ArrayList<Item> items = new ArrayList<Item>();
 		
@@ -1355,14 +1447,16 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.router));
 			else if(types[i].toString().equals(Action_Enum.setWifiTethering.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.router));
+			else if(types[i].toString().equals(Action_Enum.setBluetoothTethering.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.router));
 			else if(types[i].toString().equals(Action_Enum.setDisplayRotation.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.displayrotation));
 			else if(types[i].toString().equals(Action_Enum.waitBeforeNextAction.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.wait));
 			else if(types[i].toString().equals(Action_Enum.setAirplaneMode.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.plane));
-			else if(types[i].toString().equals(Action_Enum.wakeupDevice.toString()))
-				items.add(new Item(typesLong[i].toString(), R.drawable.alarm));
+			else if(types[i].toString().equals(Action_Enum.turnScreenOnOrOff.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.smartphone));
 			else if(types[i].toString().equals(Action_Enum.changeSoundProfile.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.sound));
 			else if(types[i].toString().equals(Action_Enum.triggerUrl.toString()))
@@ -1455,6 +1549,17 @@ public class ActivityManageRule extends Activity
 						newAction.setAction(Action_Enum.setWifiTethering);
 						getActionParameter1Dialog(ActivityManageRule.this).show();
 					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setBluetoothTethering.toString()))
+					{
+						newAction.setAction(Action_Enum.setBluetoothTethering);
+						getActionParameter1Dialog(ActivityManageRule.this).show();
+
+						if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
+							Miscellaneous.messageBox("Bluetooth", getResources().getString(R.string.deviceDoesNotHaveBluetooth), ActivityManageRule.this).show();;
+
+						if(Build.VERSION.SDK_INT > Build.VERSION_CODES.O)
+							Miscellaneous.messageBox(context.getResources().getString(R.string.notice), context.getResources().getString(R.string.btTetheringNotice), context).show();
+					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setDisplayRotation.toString()))
 					{
 						newAction.setAction(Action_Enum.setDisplayRotation);
@@ -1481,10 +1586,10 @@ public class ActivityManageRule extends Activity
 						newAction.setAction(Action_Enum.waitBeforeNextAction);
 						getActionWaitBeforeNextActionDialog(ActivityManageRule.this).show();
 					}
-					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.wakeupDevice.toString()))
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.turnScreenOnOrOff.toString()))
 					{
-						newAction.setAction(Action_Enum.wakeupDevice);
-						getActionWakeupDeviceDialog(ActivityManageRule.this).show();
+						newAction.setAction(Action_Enum.turnScreenOnOrOff);
+						getActionParameter1Dialog(ActivityManageRule.this).show();
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setAirplaneMode.toString()))
 					{
@@ -1492,7 +1597,6 @@ public class ActivityManageRule extends Activity
 						getActionParameter1Dialog(ActivityManageRule.this).show();
 						if(Build.VERSION.SDK_INT >= 17)
 						{
-//							Toast.makeText(context, getResources().getString(R.string.airplaneModeSdk17Warning), Toast.LENGTH_LONG).show();
 							Miscellaneous.messageBox(getResources().getString(R.string.airplaneMode), getResources().getString(R.string.rootExplanation), ActivityManageRule.this).show();
 						}
 					}
@@ -1512,7 +1616,7 @@ public class ActivityManageRule extends Activity
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.sendTextMessage.toString()))
 					{
-						if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageRule.this, "android.permission.SEND_SMS"))
+						if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageRule.this, Manifest.permission.SEND_SMS))
 						{
 							//launch other activity to enter parameters;
 							newAction.setAction(Action_Enum.sendTextMessage);

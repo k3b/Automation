@@ -119,6 +119,34 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="@string/sunday" />
+
+		<ImageView
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_margin="10dp"
+			android:background="#aa000000" />
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal" >
+
+			<CheckBox
+				android:id="@+id/chkRepeat"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/repeatEveryXseconds" />
+
+			<EditText
+				android:id="@+id/etRepeatEvery"
+				android:layout_marginLeft="@dimen/default_margin"
+				android:minWidth="75dp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:enabled="false"
+				android:inputType="numberSigned" />
+
+		</LinearLayout>
 	
 	    <Button
 	        android:id="@+id/bSaveTimeFrame"

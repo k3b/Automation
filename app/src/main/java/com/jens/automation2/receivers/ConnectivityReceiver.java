@@ -112,7 +112,7 @@ public class ConnectivityReceiver extends BroadcastReceiver implements Automatio
 	@SuppressLint("NewApi")
 	public static boolean isAirplaneMode(Context context)
 	{
-	  if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1)
+	  	if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1)
 		{
 		  	int value = android.provider.Settings.System.getInt(context.getContentResolver(), android.provider.Settings.System.AIRPLANE_MODE_ON, 0);
 			return value != 0;
@@ -138,10 +138,11 @@ public class ConnectivityReceiver extends BroadcastReceiver implements Automatio
 				boolean isAirplaneMode = isAirplaneMode(context);
 				automationServiceRef.getLocationProvider().handleAirplaneMode(isAirplaneMode);
 
-				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByAirplaneMode(isAirplaneMode);
+				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.airplaneMode);
+//				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByAirplaneMode(isAirplaneMode);
 				for(int i=0; i<ruleCandidates.size(); i++)
 				{
-					if(ruleCandidates.get(i).applies(automationServiceRef))
+					if(ruleCandidates.get(i).getsGreenLight(automationServiceRef))
 						ruleCandidates.get(i).activate(automationServiceRef, false);
 				}
 			}
@@ -170,11 +171,12 @@ public class ConnectivityReceiver extends BroadcastReceiver implements Automatio
 								roamingLastState = isRoaming;
 								
 								automationServiceRef.getLocationProvider().handleRoaming(isRoaming);
-	
-								ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByRoaming(isRoaming);
+
+								ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.roaming);
+//								ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByRoaming(isRoaming);
 								for(int i=0; i<ruleCandidates.size(); i++)
 								{
-									if(ruleCandidates.get(i).applies(automationServiceRef))
+									if(ruleCandidates.get(i).getsGreenLight(automationServiceRef))
 										ruleCandidates.get(i).activate(automationServiceRef, false);
 								}
 							}

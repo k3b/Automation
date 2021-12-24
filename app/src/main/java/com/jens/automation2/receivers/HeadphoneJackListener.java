@@ -1,5 +1,6 @@
 package com.jens.automation2.receivers;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -73,11 +74,12 @@ public class HeadphoneJackListener extends BroadcastReceiver implements Automati
 				headsetConnected = true;
 				Miscellaneous.logEvent("i", "HeadphoneJackListener", "Headset " + name + " plugged in.", 4);
 			}
-			
-			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByHeadphoneJack(isHeadsetConnected());
+
+			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.headsetPlugged);
+//			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByHeadphoneJack(isHeadsetConnected());
 			for(int i=0; i<ruleCandidates.size(); i++)
 			{
-				if(ruleCandidates.get(i).applies(context))
+				if(ruleCandidates.get(i).getsGreenLight(context))
 					ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
 			}
 		}
@@ -133,7 +135,7 @@ public class HeadphoneJackListener extends BroadcastReceiver implements Automati
 
 	public static boolean haveAllPermission()
 	{
-		return ActivityPermissions.havePermission("android.permission.READ_PHONE_STATE", Miscellaneous.getAnyContext());
+		return ActivityPermissions.havePermission(Manifest.permission.READ_PHONE_STATE, Miscellaneous.getAnyContext());
 	}
 
 

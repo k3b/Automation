@@ -109,12 +109,12 @@ public class PhoneStatusListener implements AutomationListenerInterface
 						break;
 				}
 
-				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByPhoneCall(Trigger.triggerPhoneCallDirectionOutgoing);
+				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.phoneCall);
 				for(int i=0; i<ruleCandidates.size(); i++)
 				{
 					AutomationService asInstance = AutomationService.getInstance();
 					if(asInstance != null)
-						if(ruleCandidates.get(i).applies(asInstance))
+						if(ruleCandidates.get(i).getsGreenLight(asInstance))
 							ruleCandidates.get(i).activate(asInstance, false);
 				}
 			}
@@ -141,12 +141,12 @@ public class PhoneStatusListener implements AutomationListenerInterface
 						break;
 				}
 
-				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByPhoneCall(Trigger.triggerPhoneCallDirectionIncoming);
+				ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.phoneCall);
 				for (int i = 0; i < ruleCandidates.size(); i++)
 				{
 					AutomationService asInstance = AutomationService.getInstance();
 					if (asInstance != null)
-						if (ruleCandidates.get(i).applies(asInstance))
+						if (ruleCandidates.get(i).getsGreenLight(asInstance))
 							ruleCandidates.get(i).activate(asInstance, false);
 				}
 			}
@@ -168,22 +168,18 @@ public class PhoneStatusListener implements AutomationListenerInterface
 			 */
 			setLastPhoneDirection(2);
 
-//			TelephonyManager tm = (TelephonyManager)context.getSystemService(Service.TELEPHONY_SERVICE);
-//			int newState = tm.getCallState();
-//			setCurrentState(newState);
-
 			setCurrentState(TelephonyManager.CALL_STATE_RINGING);
 
 			String phoneNumber = intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER);
 			setLastPhoneNumber(phoneNumber);
 			Miscellaneous.logEvent("i", "Call state", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.outgoingCallTo), getLastPhoneNumber()), 4);
 
-			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByPhoneCall(Trigger.triggerPhoneCallDirectionOutgoing);
+			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.phoneCall);
 			for(int i=0; i<ruleCandidates.size(); i++)
 			{
 				AutomationService asInstance = AutomationService.getInstance();
 				if(asInstance != null)
-					if(ruleCandidates.get(i).applies(asInstance))
+				if(ruleCandidates.get(i).getsGreenLight(asInstance))
 						ruleCandidates.get(i).activate(asInstance, false);
 			}
         }		

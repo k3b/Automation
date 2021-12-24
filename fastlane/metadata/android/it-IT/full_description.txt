@@ -1,0 +1,85 @@
+Crea regole composte da eventi ed azioni. Un buon esempio sarebbe una regola come "Silenzia il telefono in ufficio".
+
+Ecco la lista di eventi ed azioni supportate:
+
+Eventi supportati:
+* Posizione
+* Data/Ora
+* Stato di carica
+* Livello batteria
+* Connessione USB con il computer attiva
+* Velocità attuale
+* Rumore di fondo (solo fino ad Android 7)
+* Connessione Wifi
+* Altre applicazioni in esecuzione
+* Modalità volo
+* Stato del roaming
+* Etichetta NFC
+* Connessione Bluetooth
+* Auriculari connessi
+* Chiamata in esecuzione
+* Notificazione di un altra applicazione
+* Orientamento del dispositivo (giroscopio)
+
+Azioni supportate:
+* Cambia lo stato del wifi
+* Cambia lo stato del bluetooth
+* Controlla il tethering USB
+* Controlla il tethering wifi
+* Controlla il tethering Bluetooth
+* Controlla la rotazione automatica dello schermo
+* Effettua una richiesta HTTP
+* Cambia suoneria/opzioni sonore
+* Avvia un'altra applicazione
+* Aspetta (fra azioni)
+* Attiva o disattiva lo schermo
+* Controlla modalità volo
+* Controlla la connessione dati
+* Pronuncia testo
+* Apri il lettore musicale
+* Cambia la luminosità dello schermo
+* Manda un messaggio di testo
+* Esegui un file musicale
+
+È piuttosto difficile mantere questa applicazione funzionante su tutti gli hardware esistenti ed includendo tutti i cambi che Android riceve fra una versione e l'altra. Posso effettuare tests nell'emulatore, ma non sarà possibile trovare tutti gli errori.
+Pertanto, se una certa funzione non funziona sul tuo dispositivo -  fammelo sapere. Nel corso degli anni ho potuto risolvere tutti gli errori che sono stati riportati in maniera ragionevole. Infatti, per questo, dipendo dalle informazioni condivise.
+
+Se hai un problema e stai pensando di contattarmi, per favore:
+- assicurati di aggiornare l'applicazione all'ultima versione e controlla se il problema continua.
+- controlla questa lista di problemi conosciuti: https://server47.de/automation/index.php#knownProblems
+
+Donativi sono sicuramente una buona forma di motivarmi, ma non l'unica :-)
+* Se vuoi darmi il tuo supporto, puoi anche lasciare una rassegna positiva su Google Play (https://play.google.com/store/apps/details?id=com.jens.automation2).
+* Inoltre, ho sempre bisogno di aiuto per tradurre l'applicazione.
+Inglese, Tedesco e un po' di Spagnolo son parte delle mie abilità. Ma per tutte le altre, apprezzo molto ogni aiuto.
+
+Una spiegazione di tutti i permessi si trova qui:
+https://server47.de/automation/permissions_en.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

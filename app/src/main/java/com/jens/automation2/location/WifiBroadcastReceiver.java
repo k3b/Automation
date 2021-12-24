@@ -16,6 +16,7 @@ import com.jens.automation2.PointOfInterest;
 import com.jens.automation2.R;
 import com.jens.automation2.Rule;
 import com.jens.automation2.Settings;
+import com.jens.automation2.Trigger;
 
 import java.util.ArrayList;
 
@@ -144,10 +145,10 @@ public class WifiBroadcastReceiver extends BroadcastReceiver
 	
 	public static void findRules(AutomationService automationServiceInstance)
 	{		
-		ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByWifiConnection();
+		ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.wifiConnection);
 		for(Rule oneRule : ruleCandidates)
 		{
-			if(oneRule.applies(automationServiceInstance))
+			if(oneRule.getsGreenLight(automationServiceInstance))
 				oneRule.activate(automationServiceInstance, false);
 		}
 	}

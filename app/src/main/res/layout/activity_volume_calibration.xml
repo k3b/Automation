@@ -6,10 +6,10 @@
     android:layout_margin="@dimen/default_margin" >
 
     <TextView
-        android:id="@+id/tvVolumeTestExplanation"
+        android:id="@+id/tvVolumeCalibrationExplanation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/volumeTesterExplanation"
+        android:text="@string/volumeCalibrationExplanation"
         android:layout_marginBottom="20dp" />
 
     <TableLayout
@@ -26,6 +26,7 @@
 		    
 		    <TextView
 		        android:id="@+id/tvCurrentVolume"
+				android:layout_marginLeft="@dimen/default_margin"
 		        android:layout_width="0dp"
 		        android:layout_height="wrap_content"
 		        android:text="0dB"
@@ -45,6 +46,7 @@
 		    
 		    <EditText
 		        android:id="@+id/etReferenceValue"
+				android:layout_marginLeft="@dimen/default_margin"
 		        android:layout_width="0dp"
 		        android:layout_height="wrap_content"
 			    android:layout_weight="5"

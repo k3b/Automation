@@ -30,10 +30,10 @@ public class NoiseListener implements AutomationListenerInterface
 			noiseLevelDb  = msg.getData().getLong("noiseLevelDb");
 			
 			 // execute matching rules containing noise
-			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByNoiseLevel();
+			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.noiseLevel);
 			for(Rule oneRule : ruleCandidates)
 			{
-				if(oneRule.applies(automationService))
+				if(oneRule.getsGreenLight(automationService))
 					oneRule.activate(automationService, false);
 			}
 		}

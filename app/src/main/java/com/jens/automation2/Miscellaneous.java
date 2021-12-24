@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -77,6 +78,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -540,6 +543,22 @@ public class Miscellaneous extends Service
 			return returnContext;
 		
 		return null;
+	}
+
+	public static boolean isDarkModeEnabled(Context context)
+	{
+		int mode = context.getResources().getConfiguration().uiMode;
+		switch(mode)
+		{
+			case 33:
+			case Configuration.UI_MODE_NIGHT_YES:
+				return true;
+			case 17:
+			case Configuration.UI_MODE_NIGHT_NO:
+			case Configuration.UI_MODE_NIGHT_UNDEFINED:
+			default:
+				return false;
+		}
 	}
 	
 	@SuppressLint("NewApi")
@@ -1133,11 +1152,11 @@ public class Miscellaneous extends Service
 		}
 		catch (IllegalAccessException e)
 		{
-			e.printStackTrace();
+			Miscellaneous.logEvent("w", "runMethodReflective", Log.getStackTraceString(e),5 );
 		}
 		catch (InvocationTargetException e)
 		{
-			e.printStackTrace();
+			Miscellaneous.logEvent("w", "runMethodReflective", Log.getStackTraceString(e),5 );
 		}
 
 		return result;
@@ -1531,5 +1550,22 @@ public class Miscellaneous extends Service
 		}
 		else*/
 			return PhoneNumberUtils.compare(number1, number2);
+	}
+
+	public static String formatDate(Date input)
+	{
+		DateFormat sdf = null;
+		SimpleDateFormat fallBackFormatter = new SimpleDateFormat(Settings.dateFormat);
+
+		if(sdf == null && Settings.dateFormat != null)
+			sdf = new SimpleDateFormat(Settings.dateFormat);
+
+		String formattedDate;
+		if(sdf != null)
+			formattedDate = sdf.format(input);
+		else
+			formattedDate = fallBackFormatter.format(input);
+
+		return formattedDate;
 	}
 }

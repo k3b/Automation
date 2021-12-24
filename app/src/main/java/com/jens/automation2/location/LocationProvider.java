@@ -121,9 +121,9 @@ public class LocationProvider
 				if (
 						locationList.size() >= 1
 								&&
-								locationList.get(locationList.size() - 1).getTime() == newLocation.getTime()
+						locationList.get(locationList.size() - 1).getTime() == newLocation.getTime()
 								&&
-								locationList.get(locationList.size() - 1).getProvider().equals(newLocation.getProvider())
+						locationList.get(locationList.size() - 1).getProvider().equals(newLocation.getProvider())
 				)
 				{
 					// This is a duplicate update, do not store it
@@ -198,10 +198,10 @@ public class LocationProvider
 									setSpeed(currentSpeed);
 
 									// execute matching rules containing speed
-									ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesBySpeed();
+									ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.speed);
 									for (Rule oneRule : ruleCandidates)
 									{
-										if (oneRule.applies(this.getParentService()))
+										if(oneRule.getsGreenLight(this.getParentService()))
 											oneRule.activate(getParentService(), false);
 									}
 								}

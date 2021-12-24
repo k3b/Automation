@@ -199,6 +199,7 @@ public class AutomationService extends Service implements OnInitListener
 		if (checkStartupRequirements(this, startAtBoot))
 		{
 			Miscellaneous.logEvent("i", "Service", this.getResources().getString(R.string.logServiceStarting) + " VERSION_CODE: " + BuildConfig.VERSION_CODE + ", VERSION_NAME: " + BuildConfig.VERSION_NAME + ", flavor: " + BuildConfig.FLAVOR, 1);
+			Miscellaneous.logEvent("i", "Service", ActivityMaintenance.getSystemInfo(), 1);
 
 			startUpRoutine();
 
@@ -273,16 +274,7 @@ public class AutomationService extends Service implements OnInitListener
 
 	public void applySettingsAndRules()
 	{
-		if (Settings.useTextToSpeechOnNormal | Settings.useTextToSpeechOnSilent | Settings.useTextToSpeechOnVibrate)
-		{
-			if (ttsEngine == null)
-				ttsEngine = new TextToSpeech(this, this);
-		}
-		else
-		{
-			if (ttsEngine != null)
-				ttsEngine.shutdown();
-		}
+		checkForTtsEngine();
 
 		startLocationProvider();
 		ReceiverCoordinator.startAllReceivers();
@@ -305,7 +297,7 @@ public class AutomationService extends Service implements OnInitListener
 
 	public void checkForTtsEngine()
 	{
-		if (Settings.useTextToSpeechOnNormal | Settings.useTextToSpeechOnSilent | Settings.useTextToSpeechOnVibrate | Rule.isAnyRuleUsing(Action.Action_Enum.speakText))
+		if (Settings.useTextToSpeechOnNormal || Settings.useTextToSpeechOnSilent || Settings.useTextToSpeechOnVibrate || Rule.isAnyRuleUsing(Action.Action_Enum.speakText))
 		{
 			if (ttsEngine == null)
 				ttsEngine = new TextToSpeech(this, this);
@@ -352,12 +344,8 @@ public class AutomationService extends Service implements OnInitListener
 				if(r.isRuleActive())
 				{
 					if(!r.haveEnoughPermissions())
-//					for (String permission : ActivityPermissions.getPermissionsForRule(r))
 					{
-//						if (!ActivityPermissions.havePermission(permission, AutomationService.this))
 						{
-//							r.setRuleActive(false);
-//							r.change(AutomationService.this);
 							if(!displayNotification)
 							{
 								displayNotification = true;
@@ -410,10 +398,7 @@ public class AutomationService extends Service implements OnInitListener
 
 	public void cancelNotification()
 	{
-//		stopForeground(false);
 		NotificationManagerCompat.from(AutomationService.this).cancelAll();
-//		NotificationManagerCompat.from(AutomationService.this).cancel(ActivityPermissions.notificationIdPermissions);
-//		NotificationManagerCompat.from(AutomationService.this).cancel(AutomationService.notificationIdRestrictions);
 	}
 
 	protected void checkForMissingBackgroundLocationPermission()
@@ -450,7 +435,6 @@ public class AutomationService extends Service implements OnInitListener
 	private void stopRoutine()
 	{
 		Miscellaneous.logEvent("i", "Service", "Stopping service...", 3);
-//		Log.i("STOP", "Stopping");
 		try
 		{
 			myLocationProvider.stopLocationService();
@@ -479,7 +463,6 @@ public class AutomationService extends Service implements OnInitListener
 		builder.setWhen(System.currentTimeMillis());
 		builder.setContentIntent(myPendingIntent);
 
-//		Notification defaultNotification = new Notification();
 		Notification defaultNotification = builder.build();
 
 		defaultNotification.icon = R.drawable.ic_launcher;
@@ -497,31 +480,6 @@ public class AutomationService extends Service implements OnInitListener
 //		defaultNotification.ledOffMS = 1500;
 
 		return builder;
-
-		/*NotificationManager mNotificationManager = (NotificationManager) AutomationService.getInstance().getSystemService(Context.NOTIFICATION_SERVICE);
-
-		NotificationCompat.Builder builder;
-			builder = new NotificationCompat.Builder(AutomationService.getInstance());
-
-		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-			builder.setCategory(Notification.CATEGORY_EVENT);
-
-		builder.setWhen(System.currentTimeMillis());
-
-		builder.setContentTitle("Automation");
-		builder.setSmallIcon(R.drawable.ic_launcher);
-//		builder.setContentText(textToDisplay);
-//		builder.setSmallIcon(icon);
-//		builder.setContentIntent(pendingIntent);
-//		builder.setStyle(new NotificationCompat.BigTextStyle().bigText(textToDisplay));
-
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-		{
-			NotificationChannel channel = new NotificationChannel("notify_001", "Channel human readable title", NotificationManager.IMPORTANCE_DEFAULT);
-			mNotificationManager.createNotificationChannel(channel);
-		}
-
-		return builder;*/
 	}
 	
 	protected static NotificationCompat.Builder createDefaultNotificationBuilder()
@@ -571,79 +529,68 @@ public class AutomationService extends Service implements OnInitListener
 		
 		if(instance != null)
 		{
-//			if(Settings.showIconWhenServiceIsRunning)
-//			{
-				Miscellaneous.logEvent("i", "Notification", "Request to update notification.", 4);
-				
-				String bodyText="";
-				String lastRuleString = "";
-				
-				if(PointOfInterest.getPointOfInterestCollection() != null && PointOfInterest.getPointOfInterestCollection().size() > 0)
-				{
-					try
-					{
-						PointOfInterest activePoi = PointOfInterest.getActivePoi();
-						if(activePoi == null)
-						{
-							PointOfInterest closestPoi = PointOfInterest.getClosestPOI(instance.getLocationProvider().getCurrentLocation());
-							bodyText = AutomationService.getInstance().getResources().getString(R.string.activePoi) + ": " + AutomationService.getInstance().getResources().getString(R.string.none) + "\n" + AutomationService.getInstance().getResources().getString(R.string.closestPoi) + ": " + closestPoi.getName() + lastRuleString;
-						}
-						else
-						{
-							bodyText = AutomationService.getInstance().getResources().getString(R.string.activePoi) + ": " + activePoi.getName() + lastRuleString;
-						}
-					}
-					catch(NullPointerException e)
-					{
-						if(
-								Rule.isAnyRuleUsing(Trigger_Enum.pointOfInterest)
-										&&
-								ActivityPermissions.havePermission(Manifest.permission.ACCESS_COARSE_LOCATION, AutomationService.getInstance())
-										&&
-								ActivityPermissions.havePermission(Manifest.permission.ACCESS_FINE_LOCATION, AutomationService.getInstance())
-						  )
-							bodyText = instance.getResources().getString(R.string.stillGettingPosition);
-						else
-							bodyText = instance.getResources().getString(R.string.locationEngineNotActive);
-					}
-				}
-		
+			Miscellaneous.logEvent("i", "Notification", "Request to update notification.", 4);
+
+			String bodyText="";
+			String lastRuleString = "";
+
+			if(PointOfInterest.getPointOfInterestCollection() != null && PointOfInterest.getPointOfInterestCollection().size() > 0)
+			{
 				try
 				{
-					lastRuleString = instance.getResources().getString(R.string.lastRule) + " " + Rule.getLastActivatedRule().getName()  + " " + instance.getResources().getString(R.string.at) + " " + Rule.getLastActivatedRuleActivationTime().toLocaleString();
+					PointOfInterest activePoi = PointOfInterest.getActivePoi();
+					if(activePoi == null)
+					{
+						PointOfInterest closestPoi = PointOfInterest.getClosestPOI(instance.getLocationProvider().getCurrentLocation());
+						bodyText = AutomationService.getInstance().getResources().getString(R.string.activePoi) + ": " + AutomationService.getInstance().getResources().getString(R.string.none) + "\n" + AutomationService.getInstance().getResources().getString(R.string.closestPoi) + ": " + closestPoi.getName() + lastRuleString;
+					}
+					else
+					{
+						bodyText = AutomationService.getInstance().getResources().getString(R.string.activePoi) + ": " + activePoi.getName() + lastRuleString;
+					}
 				}
-				catch(Exception e)
+				catch(NullPointerException e)
 				{
-					lastRuleString = instance.getResources().getString(R.string.lastRule) + " n./a.";
+					if(
+							Rule.isAnyRuleUsing(Trigger_Enum.pointOfInterest)
+									&&
+							ActivityPermissions.havePermission(Manifest.permission.ACCESS_COARSE_LOCATION, AutomationService.getInstance())
+									&&
+							ActivityPermissions.havePermission(Manifest.permission.ACCESS_FINE_LOCATION, AutomationService.getInstance())
+					  )
+						bodyText = instance.getResources().getString(R.string.stillGettingPosition);
+					else
+						bodyText = instance.getResources().getString(R.string.locationEngineNotActive);
 				}
+			}
 
-				String textToDisplay = bodyText + " " + lastRuleString;
-//				if(Build.VERSION.SDK_INT < 11)
-//				{
-//					myNotification.setLatestEventInfo(instance, "Automation", textToDisplay, myPendingIntent);
-//				}
-//				else
-//				{
-					if(notificationBuilder == null)
-							notificationBuilder = createDefaultNotificationBuilder();
+			try
+			{
+				lastRuleString = instance.getResources().getString(R.string.lastRule) + " " + Rule.getLastActivatedRule().getName()  + " " + instance.getResources().getString(R.string.at) + " " + Rule.getLastActivatedRuleActivationTime().toLocaleString();
+			}
+			catch(Exception e)
+			{
+				lastRuleString = instance.getResources().getString(R.string.lastRule) + " n./a.";
+			}
 
-					notificationBuilder.setContentText(textToDisplay);
-					notificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(textToDisplay));
+			String textToDisplay = bodyText + " " + lastRuleString;
 
-					myNotification = notificationBuilder.build();
-                    myNotification.defaults = 0;
-//				}
+			if(notificationBuilder == null)
+					notificationBuilder = createDefaultNotificationBuilder();
+
+			notificationBuilder.setContentText(textToDisplay);
+			notificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(textToDisplay));
+
+			myNotification = notificationBuilder.build();
+			myNotification.defaults = 0;
 
 //				NotificationManager notificationManager = (NotificationManager) instance.getSystemService(NOTIFICATION_SERVICE);
-			    // hide the notification after its selected
+			// hide the notification after its selected
 //				myNotification.flags |= Notification.FLAG_AUTO_CANCEL;
-				myNotification.flags |= Notification.FLAG_NO_CLEAR;
+			myNotification.flags |= Notification.FLAG_NO_CLEAR;
 //			    notificationManager.notify(notificationId, myNotification);
 
-				instance.startForeground(notificationId, myNotification);
-//			}
-//			else
-//				instance.startForeground(notificationId, null);		// do not show icon in task bar
+			instance.startForeground(notificationId, myNotification);
 		}
 	}
 
@@ -667,18 +614,18 @@ public class AutomationService extends Service implements OnInitListener
 	 **/
 	public void speak(String text, boolean force)
 	{
-		if(text.length() > 0 && (force | Settings.useTextToSpeechOnNormal | Settings.useTextToSpeechOnSilent | Settings.useTextToSpeechOnVibrate))
+		if(text.length() > 0 && (force || Settings.useTextToSpeechOnNormal || Settings.useTextToSpeechOnSilent || Settings.useTextToSpeechOnVibrate))
 		{
 			AudioManager myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 			int mode = myAudioManager.getRingerMode();
 			
 			if(
 					(mode == AudioManager.RINGER_MODE_NORMAL && Settings.useTextToSpeechOnNormal)
-												|
+												||
 					(mode == AudioManager.RINGER_MODE_VIBRATE && Settings.useTextToSpeechOnVibrate)
-												|
+												||
 					(mode == AudioManager.RINGER_MODE_SILENT && Settings.useTextToSpeechOnSilent)
-												|
+												||
 											  force
 				)
 			{
@@ -708,12 +655,12 @@ public class AutomationService extends Service implements OnInitListener
 								{}
 							}
 						}
+						Miscellaneous.logEvent("i", "TextToSpeech", "Speaking " + text + " in language " + ttsEngine.getLanguage().toLanguageTag(), 3);
 						this.ttsEngine.speak(text, TextToSpeech.QUEUE_ADD, null);
 					}
 					catch(Exception e)
 					{
 						Miscellaneous.logEvent("e", "TextToSpeech", Log.getStackTraceString(e), 3);
-						e.printStackTrace();
 					}
 				}
 			}
@@ -726,31 +673,6 @@ public class AutomationService extends Service implements OnInitListener
 			 return false;
 		 else
 			 return true;
-		 
-//		 boolean isActivityFound = false;
-//		 ActivityManager activityManager = (ActivityManager)context.getSystemService (Context.ACTIVITY_SERVICE); 
-//	     List<RunningTaskInfo> activitys = activityManager.getRunningTasks(Integer.MAX_VALUE); 
-//	     isActivityFound = false; 
-//	     for (int i = 0; i < activitys.size(); i++)
-//	     { 
-//	         if (activitys.get(i).topActivity.toString().equalsIgnoreCase("ComponentInfo{com.jens.automation/com.jens.automation.ActivityMainScreen}"))
-//	         {
-//	             isActivityFound = true;
-//	         }
-//	     } 
-//	     Miscellaneous.logEvent("i", "ActivityMainScreen", "Activity running status: " + String.valueOf(isActivityFound), 5);
-//	     return isActivityFound;
-		 
-//		ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-//		List<RunningTaskInfo> tasks = activityManager.getRunningTasks(Integer.MAX_VALUE);
-//		
-//		for (RunningTaskInfo task : tasks)
-//		{
-//		    if (context.getPackageName().equalsIgnoreCase(task.baseActivity.getPackageName())) 
-//		        return true;                                  
-//		}
-//		
-//		return false;
 	 }
 	
 	public static boolean isMyServiceRunning(Context context)
@@ -762,7 +684,6 @@ public class AutomationService extends Service implements OnInitListener
 		    {
 		        if(AutomationService.class.getName().equals(service.service.getClassName()))
 		        {
-//		            return AutomationService.getInstance() != null && AutomationService.getInstance().isRunning;
 		            return true;
 		        }
 		    }
@@ -771,7 +692,6 @@ public class AutomationService extends Service implements OnInitListener
 		{
 			if(Log.getStackTraceString(e).contains("activate"))	// Means that a poi has been activated/deactivated. Service is running.
 				return true;
-//			return AutomationService.getInstance() != null && AutomationService.getInstance().isRunning;
 		}
 
 	    return false;

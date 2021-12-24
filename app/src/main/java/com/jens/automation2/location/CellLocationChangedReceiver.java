@@ -369,7 +369,7 @@ public class CellLocationChangedReceiver extends PhoneStateListener
 	//						Miscellaneous.logEvent("i", "cellReceiver", "Not starting cellLocationListener because we have no data connection.", 4);
 					}
 					else
-						Miscellaneous.logEvent("w", "cellReceiver", "Wanted to activate CellLocationChangedReceiver,  but Wifi-Receiver says not to.", 4);
+						Miscellaneous.logEvent("w", "cellReceiver", "Wanted to activate CellLocationChangedReceiver, but Wifi-Receiver says not to.", 4);
 				}
 				else
 					Miscellaneous.logEvent("i", "cellReceiver", "Not starting cellLocationListener because Airplane mode is active or SIM_STATE is not ready.", 4);

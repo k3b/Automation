@@ -5,7 +5,11 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.admin.DevicePolicyManager;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothProfile;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -43,13 +47,16 @@ import org.apache.http.conn.util.InetAddressUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.File;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.security.KeyStore;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import javax.net.ssl.SSLContext;
 
@@ -302,6 +309,149 @@ public class Actions
 			}
 		}
 		return true;
+	}
+
+	public static class BluetoothTetheringClass
+	{
+		static Object instance = null;
+		static Method setTetheringOn = null;
+		static Method isTetheringOn = null;
+		static Object mutex = new Object();
+
+		public static Boolean setBluetoothTethering(Context context, Boolean desiredState, boolean toggleActionIfPossible)
+		{
+			Miscellaneous.logEvent("i", "Bluetooth Tethering", "Changing Bluetooth Tethering to " + String.valueOf(desiredState), 4);
+
+//			boolean state = isTetheringOn(context);
+
+//			if (toggleActionIfPossible)
+//			{
+//				Miscellaneous.logEvent("i", "Bluetooth Tethering", context.getResources().getString(R.string.toggling), 2);
+//				desiredState = !state;
+//			}
+
+//			if (((state && !desiredState) || (!state && desiredState)))
+//			{
+			BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+			Class<?> classBluetoothPan = null;
+			Constructor<?> BTPanCtor = null;
+			Object BTSrvInstance = null;
+			Method mBTPanConnect = null;
+
+			String sClassName = "android.bluetooth.BluetoothPan";
+			try
+			{
+				classBluetoothPan = Class.forName(sClassName);
+				Constructor<?> ctor = classBluetoothPan.getDeclaredConstructor(Context.class, BluetoothProfile.ServiceListener.class);
+
+				ctor.setAccessible(true);
+				//  Set Tethering ON
+
+				Class[] paramSet = new Class[1];
+				paramSet[0] = boolean.class;
+
+				synchronized (mutex)
+				{
+					setTetheringOn = classBluetoothPan.getDeclaredMethod("setBluetoothTethering", paramSet);
+					isTetheringOn = classBluetoothPan.getDeclaredMethod("isTetheringOn", null);
+					instance = ctor.newInstance(context, new BTPanServiceListener(context));
+				}
+
+				classBluetoothPan = Class.forName("android.bluetooth.BluetoothPan");
+				mBTPanConnect = classBluetoothPan.getDeclaredMethod("connect", BluetoothDevice.class);
+				BTPanCtor = classBluetoothPan.getDeclaredConstructor(Context.class, BluetoothProfile.ServiceListener.class);
+				BTPanCtor.setAccessible(true);
+				BTSrvInstance = BTPanCtor.newInstance(context, new BTPanServiceListener(context));
+
+				Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+
+				// If there are paired devices
+				if (pairedDevices.size() > 0)
+				{
+					// Loop through paired devices
+					for (BluetoothDevice device : pairedDevices)
+					{
+						try
+						{
+							mBTPanConnect.invoke(BTSrvInstance, device);
+						}
+						catch (Exception e)
+						{
+							Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
+						}
+					}
+				}
+				return true;
+			}
+			catch (NoSuchMethodException e)
+			{
+				Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
+			}
+			catch (ClassNotFoundException e)
+			{
+				Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
+			}
+			catch(InvocationTargetException e)
+			{
+				/*
+					Exact error message: "Bluetooth binder is null"
+					This means this device doesn't have bluetooth.
+				 */
+				Miscellaneous.logEvent("e", "Bluetooth Tethering", "Device probably doesn't have bluetooth. " + Log.getStackTraceString(e), 1);
+				Toast.makeText(context, context.getResources().getString(R.string.deviceDoesNotHaveBluetooth), Toast.LENGTH_SHORT).show();
+			}
+			catch (Exception e)
+			{
+				Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
+			}
+
+			return false;
+		}
+
+		public static class BTPanServiceListener implements BluetoothProfile.ServiceListener
+		{
+			private final Context context;
+
+			public BTPanServiceListener(final Context context)
+			{
+				this.context = context;
+			}
+
+			@Override
+			public void onServiceConnected(final int profile, final BluetoothProfile proxy)
+			{
+				//Some code must be here or the compiler will optimize away this callback.
+
+				try
+				{
+					synchronized (mutex)
+					{
+						setTetheringOn.invoke(instance, true);
+						if ((Boolean) isTetheringOn.invoke(instance, null))
+						{
+							Miscellaneous.logEvent("e", "Bluetooth Tethering", "BT Tethering is on", 1);
+						}
+						else
+						{
+							Miscellaneous.logEvent("e", "Bluetooth Tethering", "BT Tethering is off", 1);
+						}
+					}
+				}
+				catch (InvocationTargetException e)
+				{
+					Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
+				}
+				catch (IllegalAccessException e)
+				{
+					Miscellaneous.logEvent("e", "Bluetooth Tethering", Log.getStackTraceString(e), 1);
+				}
+			}
+
+			@Override
+			public void onServiceDisconnected(final int profile)
+			{
+			}
+		}
 	}
 
 	public static boolean setUsbTethering(Context context2, Boolean desiredState, boolean toggleActionIfPossible)
@@ -945,22 +1095,95 @@ public class Actions
 		@Override
 		public void run()
 		{
-			PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-			WakeLock wakeLock = pm.newWakeLock((WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "Automation:Wakelock");
-			wakeLock.acquire();
-
 			try
 			{
-				Thread.sleep(awakeTime);
-			}
-			catch (InterruptedException e)
-			{
-				Miscellaneous.logEvent("w", context.getResources().getString(R.string.wakeupDevice), "Error keeping device awake: " + Log.getStackTraceString(e), 4);
-			}
+				PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+				WakeLock wakeLock = pm.newWakeLock((PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "Automation:Wakelock");
+				wakeLock.acquire();
 
-			wakeLock.release();
+				try
+				{
+					Thread.sleep(awakeTime);
+				}
+				catch (InterruptedException e)
+				{
+					Miscellaneous.logEvent("w", context.getResources().getString(R.string.wakeupDevice), "Error keeping device awake: " + Log.getStackTraceString(e), 4);
+				}
+
+				wakeLock.release();
+			}
+			catch(Exception e)
+			{
+				Miscellaneous.logEvent("e", "Wakeup device action", "Error while waking up device: " + Log.getStackTraceString(e), 1);
+			}
 		}
 	}
+
+	/*public static void turnOnScreen()
+	{
+		// turn on screen
+		Miscellaneous.logEvent("i", "Actions", "Turning screen on.", 3);
+		PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+		WakeLock wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, AutomationService.NOTIFICATION_CHANNEL_ID + ":turnOffScreen");
+		wakeLock.acquire();
+	}*/
+
+	@TargetApi(21) //Suppress lint error for PROXIMITY_SCREEN_OFF_WAKE_LOCK
+	public static void turnOffScreen()
+	{
+		Miscellaneous.logEvent("i", "Actions", "Turning screen off.", 3);
+
+
+		/*params.flags |= LayoutParams.FLAG_KEEP_SCREEN_ON;
+		params.screenBrightness = 0;
+		getWindow().setAttributes(params);*/
+
+//		PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+//		WakeLock wakeLock = pm.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK,AutomationService.NOTIFICATION_CHANNEL_ID + ":turnOffScreen");
+//		WakeLock wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK , AutomationService.NOTIFICATION_CHANNEL_ID + ":turnOffScreen");
+//		wakeLock.acquire();
+
+//		WakeLock wakeLock = pm.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "tag");
+//		WakeLock wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK , "tag");
+//		wakeLock.acquire();
+
+//		wakeLock.release();
+		lockScreen();
+	}
+
+	public static void lockScreen()
+	{
+		Miscellaneous.logEvent("i", "Actions", "Locking screen.", 3);
+
+		// Works, but requires Manifest.permission.BIND_DEVICE_ADMIN
+//		https://stackoverflow.com/questions/23898406/java-lang-securityexception-no-active-admin-owned-by-uid-10047-for-policy-4-on
+		DevicePolicyManager deviceManager = (DevicePolicyManager)Miscellaneous.getAnyContext().getSystemService(Context.DEVICE_POLICY_SERVICE);
+		deviceManager.lockNow();
+	}
+
+	// using root
+	/*private void turnOffScreen()
+	{
+		try
+		{
+			Class c = Class.forName("android.os.PowerManager");
+			PowerManager  mPowerManager = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
+			for(Method m : c.getDeclaredMethods())
+			{
+				if(m.getName().equals("goToSleep"))
+				{
+					m.setAccessible(true);
+					if(m.getParameterTypes().length == 1)
+					{
+						m.invoke(mPowerManager,SystemClock.uptimeMillis()-2);
+					}
+				}
+			}
+		}
+		catch (Exception e)
+		{
+		}
+	}*/
 
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 	@SuppressLint("NewApi")

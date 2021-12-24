@@ -76,7 +76,7 @@
     <string name="deactivating">Deactivating</string>
     <string name="bluetoothFailed">Failed to trigger Bluetooth. Does this device have Bluetooth?</string>
     <string name="urlTooShort">The url has to have least 10 characters.</string>
-    <string name="textTooShort">The text has to have least 10 characters.</string>
+    <string name="enterPhoneNumberAndText">Enter a phone number and a text.</string>
     <string name="selectTypeOfTrigger">Select type of trigger</string>
     <string name="entering">entering</string>
     <string name="leaving">leaving</string>
@@ -158,6 +158,7 @@
     <string name="actionSetBluetooth">Bluetooth</string>
     <string name="actionSetUsbTethering">USB Tethering</string>
     <string name="actionSetWifiTethering">Wifi Tethering</string>
+    <string name="actionSetBluetoothTethering">Bluetooth Tethering</string>
     <string name="actionSetDisplayRotation">Display rotation</string>
     <string name="actionTurnWifiOn">turn Wifi on</string>
     <string name="actionTurnWifiOff">turn Wifi off</string>
@@ -169,6 +170,8 @@
     <string name="actionTurnUsbTetheringOff">turn USB Tethering off</string>
     <string name="actionTurnWifiTetheringOn">turn Wifi Tethering on</string>
     <string name="actionTurnWifiTetheringOff">turn Wifi Tethering off</string>
+    <string name="actionTurnBluetoothTetheringOn">turn Bluetooth Tethering on</string>
+    <string name="actionTurnBluetoothTetheringOff">turn Bluetooth Tethering off</string>
     <string name="actionTurnAirplaneModeOn">turn airplane mode on</string>
     <string name="actionTurnAirplaneModeOff">turn airplane mode off</string>
     <string name="actionEnableScreenRotation">enable screen rotation</string>
@@ -209,15 +212,15 @@
     <string name="wifiName">Wifi name</string>
     <string name="enterWifiName">Enter a wifi name. Leave empty for any wifi.</string>
     <string name="cancel">Cancel</string>
-    <string name="ruleDoesntApplyWeAreSlowerThan" translatable="false">Rule doesn\'t apply. We are slower than</string>
-    <string name="ruleDoesntApplyWeAreFasterThan" translatable="false">Rule doesn\'t apply. We are faster than</string>
-    <string name="ruleDoesntApplyItsQuieterThan" translatable="false">Rule doesn\'t apply. It\'s quieter than</string>
-    <string name="ruleDoesntApplyItsLouderThan" translatable="false">Rule doesn\'t apply. It\'s louder than</string>
-    <string name="ruleDoesntApplyBatteryLowerThan" translatable="false">Rule doesn\'t apply. Battery level is lower than</string>
-    <string name="ruleDoesntApplyBatteryHigherThan" translatable="false">Rule doesn\'t apply. Battery level is higher than</string>
-    <string name="ruleDoesntApplyNotTheCorrectSsid" translatable="false">Rule doesn\'t apply. Not the correct SSID (demanded: \"%1$s\", given: \"%2$s\").</string>
-    <string name="ruleDoesntApplyNoTagLabel" translatable="false">Rule doesn\'t apply. There is no tag label or not tag at all.</string>
-    <string name="ruleDoesntApplyWrongTagLabel" translatable="false">Rule doesn\'t apply. Wrong tag label.</string>
+    <string name="ruleDoesntApplyWeAreSlowerThan" translatable="false">Rule %1$s doesn\'t apply. We are slower than</string>
+    <string name="ruleDoesntApplyWeAreFasterThan" translatable="false">Rule %1$s doesn\'t apply. We are faster than</string>
+    <string name="ruleDoesntApplyItsQuieterThan" translatable="false">Rule %1$s doesn\'t apply. It\'s quieter than</string>
+    <string name="ruleDoesntApplyItsLouderThan" translatable="false">Rule %1$s doesn\'t apply. It\'s louder than</string>
+    <string name="ruleDoesntApplyBatteryLowerThan" translatable="false">Rule %1$s doesn\'t apply. Battery level is lower than</string>
+    <string name="ruleDoesntApplyBatteryHigherThan" translatable="false">Rule %1$s doesn\'t apply. Battery level is higher than</string>
+    <string name="ruleDoesntApplyNotTheCorrectSsid" translatable="false">Rule %1$s doesn\'t apply. Not the correct SSID (demanded: \"%2$s\", given: \"%3$s\").</string>
+    <string name="ruleDoesntApplyNoTagLabel" translatable="false">Rule %1$s doesn\'t apply. There is no tag label or not tag at all.</string>
+    <string name="ruleDoesntApplyWrongTagLabel" translatable="false">Rule %1$s doesn\'t apply. Wrong tag label.</string>
     <string name="ruleIsDeactivatedCantApply" translatable="false">Rule %1$s is deactivated, can\'t apply.</string>
     <string name="starting">starting</string>
     <string name="stopping">stopping</string>
@@ -401,8 +404,8 @@
     <string name="detectedActivityWalking">Walking</string>
     <string name="detectedActivityRunning">Running</string>
     <string name="detectedActivityInvalidStatus">Invalid activity</string>
-    <string name="ruleDoesntApplyActivityGivenButTooLowProbability" translatable="false">Rule doesn\'t apply. Detected activity %1$s given, but too low probability (%2$s %%), required %3$s %%.</string>
-    <string name="ruleDoesntApplyActivityNotPresent" translatable="false">Rule doesn\'t apply. Required activity %1$s not present.</string>
+    <string name="ruleDoesntApplyActivityGivenButTooLowProbability" translatable="false">Rule %1$s doesn\'t apply. Detected activity %2$s given, but too low probability (%3$s %%), required %4$s %%.</string>
+    <string name="ruleDoesntApplyActivityNotPresent" translatable="false">Rule %1$s doesn\'t apply. Required activity %2$s not present.</string>
     <string name="selectTypeOfActivity">Select type of activity</string>
     <string name="triggerOnlyAvailableIfPlayServicesInstalled">This trigger is only available if Google Play Services is installed.</string>
     <string name="activityDetectionFrequencyTitle">Activity detection frequency [sec]</string>
@@ -422,8 +425,8 @@
     <string name="bluetoothDeviceInRange">Bluetooth device %1$s in range.</string>
     <string name="bluetoothDeviceOutOfRange">Bluetooth device %1$s out of range.</string>
     <string name="anyDevice">any device</string>
-    <string name="ruleDoesntApplyNotTheCorrectDeviceName" translatable="false">Rule doesn\'t apply. Not the correct bluetooth device name.</string>
-    <string name="ruleDoesntApplyNotTheCorrectDeviceAddress" translatable="false">Rule doesn\'t apply. Not the correct bluetooth device address.</string>
+    <string name="ruleDoesntApplyNotTheCorrectDeviceName" translatable="false">Rule %1$s doesn\'t apply. Not the correct bluetooth device name.</string>
+    <string name="ruleDoesntApplyNotTheCorrectDeviceAddress" translatable="false">Rule %1$s doesn\'t apply. Not the correct bluetooth device address.</string>
     <string name="noDevice">no device</string>
     <string name="selectDeviceFromList">one from list</string>
     <string name="connectionToDevice">connection to device</string>
@@ -432,8 +435,8 @@
     <string name="deviceOutOfRange">device out of range</string>
     <string name="selectDeviceOption">Select a device option.</string>
     <string name="selectConnectionOption">Select a connection option.</string>
-    <string name="ruleDoesntApplyDeviceInRangeButShouldNotBe" translatable="false">Rule doesn\'t apply. Device is in range, but should not be.</string>
-    <string name="ruleDoesntApplyStateNotCorrect" translatable="false">Rule doesn\'t apply. Wrong state.</string>
+    <string name="ruleDoesntApplyDeviceInRangeButShouldNotBe" translatable="false">Rule %1$s doesn\'t apply. Device is in range, but should not be.</string>
+    <string name="ruleDoesntApplyStateNotCorrect" translatable="false">Rule %1$s doesn\'t apply. Wrong state.</string>
     <string name="triggerHeadsetPlugged">Headset connection</string>
     <string name="actionPlayMusic">Open music player</string>
     <string name="headsetConnected">Headset (type: %1$s) connected</string>
@@ -442,7 +445,7 @@
     <string name="headphoneMicrophone">Microphone</string>
     <string name="headphoneAny">Either</string>
     <string name="headphoneSelectType">Select type of headphone</string>
-    <string name="ruleDoesntApplyWrongHeadphoneType" translatable="false">Rule doesn\'t apply. Wrong headphone type.</string>
+    <string name="ruleDoesntApplyWrongHeadphoneType" translatable="false">Rule %1$s doesn\'t apply. Wrong headphone type.</string>
     <string name="ignoringActivityDetectionUpdateTooSoon" translatable="false">Ignoring activity detection update. Came in sooner that %1$s seconds.</string>
     <string name="whatsThis">What\'s this?</string>
     <string name="atLeastRuleXisUsingY" translatable="false">At least rule \"%1$s\" is using a trigger of type \"%2$s\".</string>
@@ -453,7 +456,7 @@
     <string name="gpsMeasurement" translatable="false">GPS measurement</string>
     <string name="gpsMeasurementTimeout" translatable="false">GPS measurement stopped due to timeout.</string>
     <string name="cellMastChanged" translatable="false">Cell tower changed: %1$s</string>
-    <string name="noiseDetectionHint">If you think the noise detection isn\'t working correctly (depending on the value you specify) please keep in mind that every phone is different. You can therefore change \"Reference for noise measurement\" in settings. See http://en.wikipedia.org/wiki/Decibel for more information. You can use the volume tester from the main screen to calibrate your device.</string>
+    <string name="noiseDetectionHint">If you think the noise detection isn\'t working correctly (depending on the value you specify) please keep in mind that every phone is different. You can therefore change \"Reference for noise measurement\" in settings. See http://en.wikipedia.org/wiki/Decibel for more information. You can use the volume calibrator from the main screen to calibrate your device.</string>
     <string name="hint">Hint</string>
     <string name="selectNoiseLevel">Select noise level</string>
     <string name="poiHasWifiStoppingCellLocationListener" translatable="false">Location has wifi. Stopping CellLocationChangedReceiver.</string>
@@ -500,8 +503,8 @@
     <string name="noProfileChangeSoundLocked">Profile will not be activated. Last activated profile has been locked.</string>
     <string name="currentVolume">Current volume</string>
     <string name="enterValidReferenceValue">Enter a valid reference value.</string>
-    <string name="volumeTest">Volume test</string>
-    <string name="volumeTesterExplanation">To calculate a dB value for noise monitoring you need to specify a so called physical reference value. Please read Wikipedia for further information. This value is most likely different for every phone. Drag the seekbar to change the defined physical reference value. The higher the reference value the lower the dB value will be. Constant measurings will be performed every %1$s seconds and the results displayed below. Press back when you have found a suitable value.</string>
+    <string name="volumeTest">Volume calibration</string>
+    <string name="volumeCalibrationExplanation">To calculate a dB value for noise monitoring you need to specify a so called physical reference value. Please read Wikipedia for further information. This value is most likely different for every phone. Drag the seekbar to change the defined physical reference value. The higher the reference value the lower the dB value will be. Constant measurings will be performed every %1$s seconds and the results displayed below. Press back when you have found a suitable value.</string>
     <string name="settingsWillTakeTime">Some settings will not be applied before certain environment settings change or service is restarted.</string>
     <string name="phoneIsRooted" translatable="false">Phone is rooted.</string>
     <string name="phoneIsNotRooted" translatable="false">Phone is not rooted.</string>
@@ -690,8 +693,7 @@
     <string name="bottom">Bottom</string>
     <string name="tabsPlacement">Position of tab bar</string>
     <string name="tabsPlacementSummary">Choose where the tabs bar should be placed.</string>
-    <string name="wifiApi30">Because Google screwd up yet another part of Android, starting with API 30 only the currently visible wifis can be displayed. Not all the ones your device knows.</string>
-    <string name="smsDialogNotice">If you have not used a send-sms action in this program before, Android may show an additional confirmation dialog, asking you to allow sending messages. You need to select the \"always allow\" checkbox and confirm if you want this action to work in the background. It\'s advised to run this rule manually once.</string>
+    <string name="wifiApi30">Because Google screwed up yet another part of Android, starting with API 30 only the currently visible wifis can be displayed, not all the ones your device has connected to anymore.</string>
     <string name="silentTriggersDnd">REMARK: The silent mode often triggers Do-Not-Disturb on newer devices. If that happens on your device, I recommend using the normal mode instead and lowering all volumes to zero.</string>
     <string name="tones">Tones</string>
     <string name="miscellaneous">Miscellaneous</string>
@@ -701,5 +703,37 @@
     <string name="dndAlarms">Let alarms through</string>
     <string name="dndNothing">Let nothing through</string>
     <string name="dndRemarks">Fine tuning (like allowing phone calls, picking specific numbers, etc.) can only be done from the system\'s settings.</string>
+    <string name="automationNotificationsIgnored">If you do not choose a specific app, but choose \"Any app\", notifications from Automation will be ignored to avoid loops.</string>
+    <string name="repeatEveryXseconds">Repeat every x seconds</string>
+    <string name="repeatEveryXsecondsWithVariable">repeat every %1$s seconds</string>
+    <string name="enterRepetitionTime">You need to enter a positive non-decimal value for repetition time.</string>
+    <string name="elementSkipped">An element of the configuration file could not be read. The file may have been created by a newer program version.</string>
+    <string name="donate">Donate</string>
+    <string name="btTetheringNotice">This feature is confirmed to work up until Android 8.0. From some higher version upwards it ceases to work, but due to a lack of physical devices I cannot tell which one that is. On Android 11 it definitely ain\'t working anymore. If you have a version in between please let me know if it\'s working or not.</string>
+    <string name="notice">Notice</string>
+    <string name="deviceOrientation">Device orientation</string>
+    <string name="tolerance">Tolerance (0-180)</string>
+    <string name="orientationAzimuth">Azimuth:</string>
+    <string name="orientationPitch">Pitch:</string>
+    <string name="orientationRoll">Roll:</string>
+    <string name="enterValidNumbersIntoAllFields">Enter valid numbers in all fields.</string>
+    <string name="deviceOrientationExplanation">When you move your device the below numbers will update. What you can see there, is the current orientation of your device measured in degrees. If it is in the desired orientation, click the apply button to copy the current values to the desired fields. Because reaching this exact orientation ever again is highly unlikely you must also enter a tolerance. This is amount of degrees to which the orientation can deviate in either direction. 15° will result in a total angle of 30°, 15° in every direction. If you only care about one specific axis, specify a tolerance of 180° for the two other ones.</string>
+    <string name="wouldCurrentlyApply">Would currently apply?</string>
+    <string name="deviceIsInCertainOrientation">the device is in a certain orientation</string>
+    <string name="toleranceOf180OnlyAllowedIn2Fields">A tolerance of 180 is allowed for 2 tolerance fields only, not all 3. Otherwise the trigger would ALWAYS apply.</string>
+    <string name="unknown">unknown</string>
+    <string name="orientation">Orientation</string>
+    <string name="triggerWrong">There\'s something wrong with this trigger. It could not be loaded correctly.</string>
+    <string name="turnScreenOnOrOff">Turn screen on or off</string>
+    <string name="turnScreenOn">turn screen on</string>
+    <string name="turnScreenOff">turn screen off</string>
+    <string name="mustApply">Must apply</string>
+    <string name="deviceOrientationTimeAcceptIntervalTitle">Signal frequency</string>
+    <string name="deviceOrientationTimeAcceptIntervalSummary">Accept new movement signals every x milliseconds</string>
+    <string name="deviceOrientationSettings">Device orientation settings</string>
+    <string name="android.permission.BIND_DEVICE_ADMIN">Device administrator</string>
+    <string name="deviceAdminNote">Device administrator permissions required for at least 1 rule you created.</string>
+    <string name="explanationDeviceOrientationDirection">If the checkbox is checked that means the device has to be in the orientation you specify. If it\'s not checked, any orientation that does NOT match your criteria will do.</string>
     <string name="permissionsRequiredNotAvailable">Your rules required permissions which cannot be requested from this installed flavor of Automation.</string>
+    <string name="smsDialogNotice">If you have not used a send-sms action in this program before, Android may show an additional confirmation dialog, asking you to allow sending messages. You need to select the \"always allow\" checkbox and confirm if you want this action to work in the background. It\'s advised to run this rule manually once to provoke this confirmation dialog.</string>
 </resources>

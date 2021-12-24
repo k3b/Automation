@@ -124,10 +124,10 @@ public class BluetoothReceiver extends BroadcastReceiver implements AutomationLi
 			Miscellaneous.logEvent("i", "BluetoothReceiver", String.format(context.getResources().getString(R.string.bluetoothDeviceInRange), bluetoothDevice.getName()), 3);
 		}
 
-		ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByBluetoothConnection();
+		ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.bluetoothConnection);
 		for(int i=0; i<ruleCandidates.size(); i++)
 		{
-			if(ruleCandidates.get(i).applies(AutomationService.getInstance()))
+			if(ruleCandidates.get(i).getsGreenLight(AutomationService.getInstance()))
 				ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
 		}
 	}

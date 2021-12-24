@@ -252,8 +252,9 @@ public class PointOfInterest implements Comparable<PointOfInterest>
 			Settings.writeSettings(parentService);
 			
 			Miscellaneous.logEvent("i", "POI", "Reached POI " + this.getName() + ". Checking if there's a rule that applies to that.", 2);
-			
-			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByPoi(this, true);
+
+			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.pointOfInterest);
+//			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByPoi(this);
 			if(ruleCandidates.size()==0)
 			{
 				Miscellaneous.logEvent("i", "POI", "POI " + this.getName() + " not found in ANY rule.", 2);
@@ -264,18 +265,22 @@ public class PointOfInterest implements Comparable<PointOfInterest>
 				
 				for(int i=0; i<ruleCandidates.size(); i++)
 				{
-					if(ruleCandidates.get(i).applies(parentService) && ruleCandidates.get(i).haveEnoughPermissions())
+					if(ruleCandidates.get(i).haveEnoughPermissions() && ruleCandidates.get(i).getsGreenLight(parentService))
 					{
 						Miscellaneous.logEvent("i", "POI", "Rule " + ruleCandidates.get(i).getName() + " applies for entering POI " + this.getName() + ".", 2);
 						ruleCandidates.get(i).activate(parentService, false);
 					}
 				}
 			}
-			
+
+			Miscellaneous.logEvent("i", "POI", "Reached POI " + this.getName() + ". Done checking POI rules.", 2);
+
+
 			parentService.updateNotification();
 			ActivityMainScreen.updateMainScreen();
 		}
 	}
+
 	public void deactivate(AutomationService parentService)
 	{
 		if(this.isActivated())
@@ -285,8 +290,9 @@ public class PointOfInterest implements Comparable<PointOfInterest>
 			Settings.writeSettings(parentService);
 			
 			Miscellaneous.logEvent("i", "POI", "Left POI " + this.getName() + ". Checking if there's a rule that applies to that.", 2);
-			
-			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByPoi(this, false);
+
+			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.pointOfInterest);
+//			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByPoi(this);
 			if(ruleCandidates.size()==0)
 			{
 				Miscellaneous.logEvent("i", "POI", "POI " + this.getName() + " not found in ANY rule.", 2);
@@ -296,7 +302,7 @@ public class PointOfInterest implements Comparable<PointOfInterest>
 				Miscellaneous.logEvent("i", "POI", "POI " + this.getName() + " found in " + ruleCandidates.size() + " rule(s).", 2);
 				for(int i=0; i<ruleCandidates.size(); i++)
 				{
-					if(ruleCandidates.get(i).applies(parentService))
+					if(ruleCandidates.get(i).haveEnoughPermissions() && ruleCandidates.get(i).getsGreenLight(parentService))
 					{
 						Miscellaneous.logEvent("i", "POI", "Rule " + ruleCandidates.get(i).getName() + " applies for leaving POI " + this.getName() + ".", 2);
 						ruleCandidates.get(i).activate(parentService, false);
