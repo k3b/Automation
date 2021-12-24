@@ -1,0 +1,13 @@
+LEGGI QUESTO!! Modifica del comportamento in relazione all'esecuzione delle regole - Ciò può avere un impatto sulle regole esistenti
+Come evitamento economico di esecuzioni multiple in passato, la stessa regola non sarebbe stata eseguita due volte di seguito. Questo viene ora eseguito in modo più approfondito. I trigger di una regola vengono monitorati. Almeno uno di essi NON deve applicarsi per consentire un'ulteriore esecuzione della regola.
+
+Dettagli: * Risolto: ciclo infinito nel trigger di notifica. * Risolto: Crash durante la modifica di un trigger wifi
+* Risolto: oggetti non aggiornati dopo l'importazione della configurazione
+* Risolto: abilitate le coordinate di posizione negativa (utilizzate per essere vietate involontariamente)
+* Risolto: correzione molto semplice in cui l'elenco dei trigger e delle azioni non era leggibile in modalità oscura (interessava solo pochi dispositivi cinesi). Questo non è ancora il pieno supporto della modalità oscura.
+* Risolto: Bug in Accendi schermo (dispositivo di riattivazione)
+* Risolto: Bug durante l'aggiunta dell'azione speakText
+* Nuova funzione: il trigger temporale può ora funzionare ricorrendo (semplice)
+* Nuova funzione: Attiva/disattiva il tethering Bluetooth (non funziona su versioni Android superiori)
+* Nuova funzione: trigger di orientamento del dispositivo
+* Nuova traduzione: olandese (i crediti vanno a anonimo)

@@ -1,0 +1,16 @@
+READ THIS!!
+Behavior change in relation to rule execution - This may have an impact on your existing rules
+As a cheap avoidance of multiple executions in the past the same rule would not be executed twice in a row. That is now performed more thoroughly. A rule's triggers are being monitored. At least one of them has to NOT apply to allow a further execution of the rule.
+
+Details:
+* Fixed: Infinite loop in notification trigger.
+* Fixed: Crash when editing a wifi trigger
+* Fixed: Objects not refreshing after config import
+* Fixed: Enabled negative location coordinates (used to be forbidden unintentionally)
+* Fixed: Very simple fix where trigger and action list was not readable in Dark Mode (affected only few Chinese devices). This is no full support of Dark Mode, yet.
+* Fixed: Bug in Turn screen on (wake up device)
+* Fixed: Bug when adding speakText action
+* New feature: Time trigger can now operate reoccurring (simple)
+* New feature: Toggle Bluetooth tethering (not working on higher Android versions)
+* New feature: Device orientation trigger
+* New translation: Dutch (credits go to anonymous)

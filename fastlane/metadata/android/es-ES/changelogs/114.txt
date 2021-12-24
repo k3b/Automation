@@ -1,0 +1,16 @@
+¡¡LEE ESTO!!
+Cambio de comportamiento en relación con la ejecución de reglas: esto puede tener un impacto en las reglas existentes
+Como una evitación barata de múltiples ejecuciones en el pasado, la misma regla no se ejecutaría dos veces seguidas. Eso ahora se realiza más a fondo. Los desencadenantes de una regla están siendo monitoreados. Al menos uno de ellos tiene que NO aplicar para permitir una mayor ejecución de la regla.
+
+Detalles:
+* Corregido: Bucle infinito en el disparador de notificaciones.
+* Corregido: Bloqueo al editar un disparador wifi
+* Corregido: Los objetos no se actualizan después de la importación de la configuración
+* Corregido: Coordenadas de ubicación negativas habilitadas (solían prohibirse involuntariamente)
+* Corregido: Solución muy simple donde el disparador y la lista de acciones no eran legibles en modo oscuro (afectaba solo a unos pocos dispositivos chinos). Esto no es un soporte completo del Modo Oscuro, todavía.
+* Corregido: Error en la pantalla de encendido (activar dispositivo)
+* Corregido: Error al agregar la acción speakText
+* Nueva característica: el disparador de tiempo ahora puede funcionar de forma recurrente (simple)
+* Nueva característica: Alternar la conexión Bluetooth (no funciona en versiones superiores de Android)
+* Nueva característica: disparador de orientación del dispositivo
+* Nueva traducción: holandés (los créditos van a anónimos)

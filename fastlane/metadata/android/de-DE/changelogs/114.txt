@@ -1,0 +1,16 @@
+LESEN SIE DAS!!
+Regeln werden jetzt ein wenig anders ausgeführt - Das könnte einen Einfluß auf Ihre Regeln haben.
+Als simple Lösung, um mehrere Ausführungen der selben Regel zu verhindern, wurde bisher nie die selbe 2 mal hintereinander ausgeführt. Das wird jetzt gründlicher geprüft. Die Bedingungen einer Regel werden überwacht. Wenigstens eine davon muß zwischenzeitlich NICHT zugetroffen haben, um eine weitere Ausführung der Regel zu gestatten.
+
+Details:
+* Behoben: Endlosschleife im Benachrichtigungs-Auslöser
+* Behoben: Absturz beim Editieren eines WLAN Auslösers
+* Behoben: Object wurden nach dem Import nicht richtig neu geladen
+* Behoben: Negative Koordinatenwerte für Positionen erlaubt (waren unabsichtlich nicht erlaubt)
+* Behoben: Sehr einfacher Fix dafür, daß die Aktionsliste im Dunklen Modus nicht überall lesbar waren (hat nur ganz wenige Chinesische Geräte betroffen). Das bedeutet noch keine vollständige Unterstützung für den Dunklen Modus.
+* Behoben: Fehler beim Editieren von Bildschirm einschalten (Gerät aufwecken)
+* Behoben: Fehler beim Editieren der Text-sprechen Aktion
+* Neue Funktion: Zeitauslöser kann nun regelmäßig zutreffen (einfache Variante)
+* Neue Funktion: Bluetooth tethering (funktioniert nicht auf höheren Android Versionen)
+* Neue Funktion: Geräteausrichtung als Auslöser
+* Neue Übersetzung: Niederländisch (Dank geht an eine anonyme Person)
