@@ -1,0 +1,1 @@
+* Corregido: El modo silencioso no se configuró en los teléfonos más nuevos.

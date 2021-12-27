@@ -1,0 +1,1 @@
+* Risolto: la modalità silenziosa non è stata impostata sui telefoni più recenti.

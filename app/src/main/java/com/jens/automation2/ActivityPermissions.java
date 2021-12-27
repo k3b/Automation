@@ -301,8 +301,7 @@ public class ActivityPermissions extends Activity
     public static boolean haveDeviceAdmin()
     {
         DevicePolicyManager deviceManger = (DevicePolicyManager)Miscellaneous.getAnyContext().getSystemService(Context.DEVICE_POLICY_SERVICE);
-//        ComponentName compName = new ComponentName(ActivityPermissions.getInstance(), DeviceAdmin.class ) ;
-        ComponentName compName = new ComponentName(Miscellaneous.getAnyContext(), DeviceAdmin.class) ;
+        ComponentName compName = new ComponentName(Miscellaneous.getAnyContext(), DeviceAdmin.class);
         boolean active = deviceManger.isAdminActive(compName);
         return active;
     }
@@ -311,11 +310,7 @@ public class ActivityPermissions extends Activity
     {
         if(!haveDeviceAdmin())
         {
-//            deviceManger.removeActiveAdmin(compName);
-//        }
-//        else
-//        {
-            DevicePolicyManager deviceManger = (DevicePolicyManager)Miscellaneous.getAnyContext().getSystemService(Context.DEVICE_POLICY_SERVICE);
+//            DevicePolicyManager deviceManger = (DevicePolicyManager)Miscellaneous.getAnyContext().getSystemService(Context.DEVICE_POLICY_SERVICE);
             ComponentName compName = new ComponentName(ActivityPermissions.getInstance(), DeviceAdmin.class) ;
 
             Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN );
@@ -341,9 +336,6 @@ public class ActivityPermissions extends Activity
             addToArrayListUnique("android.permission.RECEIVE_BOOT_COMPLETED", requiredPermissions);
         */
 
-//            if (!havePermission(ActivityPermissions.writeExternalStoragePermissionName, workingContext))
-//                addToArrayListUnique(ActivityPermissions.writeExternalStoragePermissionName, requiredPermissions);
-
             if(!havePermission(Manifest.permission.WRITE_SETTINGS, workingContext))
             {
                 for (Profile profile : Profile.getProfileCollection())
@@ -366,9 +358,9 @@ public class ActivityPermissions extends Activity
 
                                     singlePermission.equalsIgnoreCase(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
                                             ||
-                                            singlePermission.equalsIgnoreCase(Manifest.permission.ACCESS_FINE_LOCATION)
+                                    singlePermission.equalsIgnoreCase(Manifest.permission.ACCESS_FINE_LOCATION)
                                             ||
-                                            singlePermission.equalsIgnoreCase(Manifest.permission.ACCESS_COARSE_LOCATION)
+                                    singlePermission.equalsIgnoreCase(Manifest.permission.ACCESS_COARSE_LOCATION)
                             )
                             {
                                 if (!Miscellaneous.googleToBlameForLocation(true))

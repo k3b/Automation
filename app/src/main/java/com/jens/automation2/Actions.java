@@ -687,14 +687,14 @@ public class Actions
 
 		AudioManager myAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
-		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && desiredSoundSetting == AudioManager.RINGER_MODE_SILENT)
-		{
-			AudioManager am = (AudioManager) Miscellaneous.getAnyContext().getSystemService(Context.AUDIO_SERVICE);
-			am.setStreamVolume(AudioManager.STREAM_NOTIFICATION, 0, AudioManager.FLAG_PLAY_SOUND);
-			am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
-		}
-		else
-			myAudioManager.setRingerMode(desiredSoundSetting);
+//		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && desiredSoundSetting == AudioManager.RINGER_MODE_SILENT)
+//		{
+//			AudioManager am = (AudioManager) Miscellaneous.getAnyContext().getSystemService(Context.AUDIO_SERVICE);
+//			am.setStreamVolume(AudioManager.STREAM_NOTIFICATION, 0, AudioManager.FLAG_PLAY_SOUND);
+//			am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
+//		}
+//		else
+//			myAudioManager.setRingerMode(desiredSoundSetting);
 	}
 
 	private static String getIPAddressUsb(final boolean useIPv4)
