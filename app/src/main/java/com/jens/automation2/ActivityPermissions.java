@@ -15,6 +15,8 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -44,6 +46,7 @@ public class ActivityPermissions extends Activity
     private static final int requestCodeForPermissionsBackgroundLocation = 12045;
     private static final int requestCodeForPermissionsNotifications = 12046;
     private static final int requestCodeForPermissionsDeviceAdmin = 12047;
+    private static final int requestCodeForPermissionsBatteryOptimization = 12048;
     protected String[] specificPermissionsToRequest = null;
 
     public static String intentExtraName = "permissionsToBeRequested";
@@ -284,6 +287,12 @@ public class ActivityPermissions extends Activity
             {
                 return haveDeviceAdmin();
             }
+            else if (s.equals(Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS))
+            {
+                PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                String packageName = context.getApplicationContext().getPackageName();
+                return pm.isIgnoringBatteryOptimizations(packageName);
+            }
             else
             {
                 int res = context.checkCallingOrSelfPermission(s);
@@ -337,11 +346,12 @@ public class ActivityPermissions extends Activity
                 for (Profile profile : Profile.getProfileCollection())
                 {
                     if (profile.changeIncomingCallsRingtone)
-                    {
                         addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
-                    }
                 }
             }
+
+            if(!havePermission(Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, workingContext))
+                addToArrayListUnique(Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, requiredPermissions);
 
             if (!onlyGeneral)
             {
@@ -847,6 +857,9 @@ public class ActivityPermissions extends Activity
                 for(String ruleName : getRulesUsing(Action.Action_Enum.turnScreenOnOrOff))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
+            case Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS:
+                usingElements.add(getResources().getString(R.string.recommendedForBetterReliability));
+                break;
         }
 
         return usingElements;
@@ -873,6 +886,7 @@ public class ActivityPermissions extends Activity
                         requestPermissions(cachedPermissionsToRequest, true);
                 }
             }
+
             if (requestCode == requestCodeForPermissionsDeviceAdmin)
             {
                 NotificationManager mNotificationManager = (NotificationManager) ActivityPermissions.this.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -892,6 +906,10 @@ public class ActivityPermissions extends Activity
 
             if (requestCode == requestCodeForPermissionsNotifications)
                 if(havePermission(Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE, ActivityPermissions.this))
+                    requestPermissions(cachedPermissionsToRequest, true);
+
+            if (requestCode == requestCodeForPermissionsBatteryOptimization)
+                if(havePermission(Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, ActivityPermissions.this))
                     requestPermissions(cachedPermissionsToRequest, true);
         }
     }
@@ -962,8 +980,18 @@ public class ActivityPermissions extends Activity
                     {
                         requiredPermissions.remove(s);
                         cachedPermissionsToRequest = requiredPermissions;
-                        Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                        Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
                         startActivityForResult(intent, requestCodeForPermissionsNotifications);
+                        return;
+                    }
+                    else if(s.equals(Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS))
+                    {
+                        requiredPermissions.remove(s);
+                        cachedPermissionsToRequest = requiredPermissions;
+                        String packageName = getApplicationContext().getPackageName();
+                        Intent intent = new Intent(android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                        intent.setData(Uri.parse("package:" + packageName));
+                        startActivityForResult(intent, requestCodeForPermissionsBatteryOptimization);
                         return;
                     }
                     else if (s.equalsIgnoreCase(Manifest.permission.ACCESS_BACKGROUND_LOCATION) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)

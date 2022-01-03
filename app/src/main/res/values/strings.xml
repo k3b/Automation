@@ -736,4 +736,6 @@
     <string name="explanationDeviceOrientationDirection">If the checkbox is checked that means the device has to be in the orientation you specify. If it\'s not checked, any orientation that does NOT match your criteria will do.</string>
     <string name="permissionsRequiredNotAvailable">Your rules required permissions which cannot be requested from this installed flavor of Automation.</string>
     <string name="smsDialogNotice">If you have not used a send-sms action in this program before, Android may show an additional confirmation dialog, asking you to allow sending messages. You need to select the \"always allow\" checkbox and confirm if you want this action to work in the background. It\'s advised to run this rule manually once to provoke this confirmation dialog.</string>
+    <string name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS">Exclude from battery optimization</string>
+    <string name="recommendedForBetterReliability">Recommended for better reliability</string>
 </resources>
