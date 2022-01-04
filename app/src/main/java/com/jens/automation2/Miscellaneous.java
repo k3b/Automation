@@ -1065,6 +1065,23 @@ public class Miscellaneous extends Service
 			return "";
 	}
 
+	public static String explode(String glue, String[] inputArray)
+	{
+		if(inputArray != null)
+		{
+			StringBuilder builder = new StringBuilder();
+			for (String s : inputArray)
+				builder.append(s + glue);
+
+			if (builder.length() > 0)
+				builder.delete(builder.length() - glue.length(), builder.length());
+
+			return builder.toString();
+		}
+		else
+			return "";
+	}
+
 	public static boolean isGooglePlayInstalled(Context context)
 	{
 //		return false;

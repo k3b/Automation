@@ -14,10 +14,12 @@ import com.jens.automation2.Action.Action_Enum;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Profile implements Comparable<Profile>
 {
-	protected static ArrayList<Profile> profileCollection = new ArrayList<Profile>();
+	protected static List<Profile> profileCollection = new ArrayList<Profile>();
+	protected static List<Profile> profileActivationHistory = new ArrayList<>();
 	
 	protected String name;
 	protected String oldName;
@@ -267,7 +269,7 @@ public class Profile implements Comparable<Profile>
 		return hapticFeedback;
 	}
 
-	public static ArrayList<Profile> getProfileCollection()
+	public static List<Profile> getProfileCollection()
 	{
 		return profileCollection;
 	}
@@ -395,6 +397,18 @@ public class Profile implements Comparable<Profile>
 			{
 				for(Rule oneRule : rulesThatReferenceMe)
 				{
+					for(Trigger oneTrigger : oneRule.getTriggerSet())
+					{
+						if(oneTrigger.getTriggerType() == Trigger.Trigger_Enum.profileActive)
+						{
+							String[] parts = oneTrigger.getTriggerParameter2().split(Trigger.triggerParameter2Split);
+							parts[1] = this.name;
+
+							oneTrigger.setTriggerParameter2(Miscellaneous.explode(Trigger.triggerParameter2Split, parts));
+							// We don't need to save the file. This will happen anyway in PointOfInterest.writePoisToFile() below.
+						}
+					}
+
 					for(Action oneAction : oneRule.getActionSet())
 					{
 						if(oneAction.getAction() == Action_Enum.changeSoundProfile)
@@ -462,6 +476,8 @@ public class Profile implements Comparable<Profile>
 	public void activate(Context context)
 	{
 		Miscellaneous.logEvent("i", "Profile " + this.getName(), String.format(context.getResources().getString(R.string.profileActivate), this.getName()), 3);
+
+		profileActivationHistory.add(this);
 
 		AutomationService.getInstance().checkLockSoundChangesTimeElapsed();
 

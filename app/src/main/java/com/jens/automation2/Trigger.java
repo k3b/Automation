@@ -117,6 +117,10 @@ public class Trigger
 					if(!getParentRule().checkActivityDetection(this))
 						result = false;
 					break;
+				case profileActive:
+					if(!checkProfileActive())
+						result = false;
+					break;
 				default:
 					break;
 			}
@@ -272,6 +276,34 @@ public class Trigger
 
 		return true;
 	}
+
+	boolean checkProfileActive()
+	{
+		try
+		{
+			String demandedProfileName = getTriggerParameter2().split(Trigger.triggerParameter2Split)[0];
+			Profile lastProfile = null;
+
+			if(Profile.profileActivationHistory.size() > 0)
+			{
+				lastProfile = Profile.profileActivationHistory.get(Profile.profileActivationHistory.size() - 1);
+
+				if (getTriggerParameter())
+					return demandedProfileName.equals(lastProfile.getName());
+				else
+					return !demandedProfileName.equals(lastProfile.getName());
+			}
+			else
+				return !getTriggerParameter();
+		}
+		catch(Exception e)
+		{
+			Miscellaneous.logEvent("w", "Trigger", "Error checking profile trigger.", 4);
+		}
+
+		return false;
+	}
+
 
 	boolean checkDeviceOrientation()
 	{
@@ -986,7 +1018,7 @@ public class Trigger
 	 */
 	
 	public enum Trigger_Enum {
-								pointOfInterest, timeFrame, charging, batteryLevel, usb_host_connection, speed, noiseLevel, wifiConnection, process_started_stopped, airplaneMode, roaming, nfcTag, activityDetection, bluetoothConnection, headsetPlugged, notification, deviceOrientation, phoneCall; //phoneCall always needs to be at the very end because of Google's shitty so called privacy
+								pointOfInterest, timeFrame, charging, batteryLevel, usb_host_connection, speed, noiseLevel, wifiConnection, process_started_stopped, airplaneMode, roaming, nfcTag, activityDetection, bluetoothConnection, headsetPlugged, notification, deviceOrientation, profileActive, phoneCall; //phoneCall always needs to be at the very end because of Google's shitty so called privacy
 								
 								public String getFullName(Context context)
 								{
@@ -1028,6 +1060,8 @@ public class Trigger
 											return context.getResources().getString(R.string.notification);
 										case deviceOrientation:
 											return context.getResources().getString(R.string.deviceOrientation);
+										case profileActive:
+											return context.getResources().getString(R.string.profile);
 										default:
 											return "Unknown";
 									}
@@ -1373,21 +1407,7 @@ public class Trigger
 					if (ActivityPermissions.isPermissionDeclaratedInManifest(Miscellaneous.getAnyContext(), "com.google.android.gms.permission.ACTIVITY_RECOGNITION"))
 					{
 						// This type doesn't have an activate/deactivate equivalent, at least not yet.
-//					try
-//					{
 						returnString.append(Miscellaneous.runMethodReflective(ActivityManageRule.activityDetectionClassPath, "getDescription", new Object[]{getActivityDetectionType()}));
-//						for(Method method : activityDetection.getMethods())
-//						{
-//							if(method.getName().equalsIgnoreCase("getDescription"))
-//								returnString.append(method.invoke());
-////							returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.detectedActivity) + " " + activityDetection.getDescription(getActivityDetectionType()));
-//						}
-//					}
-//					catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException e)
-//					{
-//						e.printStackTrace();
-//					}
-
 					}
 					else
 						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.featureNotInFdroidVersion));
@@ -1499,6 +1519,12 @@ public class Trigger
 				break;
 			case deviceOrientation:
 				returnString.append(Miscellaneous.getAnyContext().getString(R.string.deviceIsInCertainOrientation));
+				break;
+			case profileActive:
+				if(triggerParameter)
+					returnString.append(String.format(Miscellaneous.getAnyContext().getString(R.string.profileActive), getTriggerParameter2().split(Trigger.triggerParameter2Split)[0]));
+				else
+					returnString.append(String.format(Miscellaneous.getAnyContext().getString(R.string.profileNotActive), getTriggerParameter2().split(Trigger.triggerParameter2Split)[0]));
 				break;
 			default:
 				returnString.append("error");

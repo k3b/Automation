@@ -738,4 +738,8 @@
     <string name="smsDialogNotice">If you have not used a send-sms action in this program before, Android may show an additional confirmation dialog, asking you to allow sending messages. You need to select the \"always allow\" checkbox and confirm if you want this action to work in the background. It\'s advised to run this rule manually once to provoke this confirmation dialog.</string>
     <string name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS">Exclude from battery optimization</string>
     <string name="recommendedForBetterReliability">Recommended for better reliability</string>
+    <string name="needsToBeActive">Needs to be active</string>
+    <string name="checkSettings">Check settings</string>
+    <string name="profileActive">profile %1$s is active</string>
+    <string name="profileNotActive">profile %1$s is not active</string>
 </resources>

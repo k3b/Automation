@@ -16,6 +16,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 public class Rule implements Comparable<Rule>
@@ -23,9 +24,9 @@ public class Rule implements Comparable<Rule>
 	private static ArrayList<Rule> ruleCollection = new ArrayList<Rule>();
 	public static boolean isAnyRuleActive = false;
 	
-	private static ArrayList<Rule> ruleRunHistory = new ArrayList<Rule>();
+	private static List<Rule> ruleRunHistory = new ArrayList<Rule>();
 	
-	public static ArrayList<Rule> getRuleRunHistory()
+	public static List<Rule> getRuleRunHistory()
 	{
 		return ruleRunHistory;
 	}

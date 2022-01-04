@@ -1,1 +1,2 @@
 * Exclusion from battery optimization
+* Profiles can be used as trigger

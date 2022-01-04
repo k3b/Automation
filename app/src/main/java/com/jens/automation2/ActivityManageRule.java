@@ -3,7 +3,6 @@ package com.jens.automation2;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.util.Linkify;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -50,6 +50,7 @@ public class ActivityManageRule extends Activity
 {
 	final static String activityDetectionClassPath = "com.jens.automation2.receivers.ActivityDetectionReceiver";
 	public final static String intentNameTriggerParameter1 = "triggerParameter1";
+	public final static String intentNameTriggerParameter2 = "triggerParameter2";
 	public final static String intentNameActionParameter1 = "actionParameter1";
 	public final static String intentNameActionParameter2 = "actionParameter2";
 
@@ -106,6 +107,8 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeActionPlaySoundEdit = 502;
 	final static int requestCodeTriggerPhoneCallAdd = 601;
 	final static int requestCodeTriggerPhoneCallEdit = 602;
+	final static int requestCodeTriggerProfileAdd = 603;
+	final static int requestCodeTriggerProfileEdit = 604;
 	final static int requestCodeTriggerWifiAdd = 723;
 	final static int requestCodeTriggerWifiEdit = 724;
 	final static int requestCodeActionSendTextMessageAdd = 5001;
@@ -271,6 +274,12 @@ public class ActivityManageRule extends Activity
 						phoneCallEditor.putExtra("edit", true);
 						startActivityForResult(phoneCallEditor, requestCodeTriggerPhoneCallEdit);
 						break;
+					case profileActive:
+						Intent profileActiveEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerProfile.class);
+						profileActiveEditor.putExtra(ActivityManageRule.intentNameTriggerParameter1, selectedTrigger.getTriggerParameter());
+						profileActiveEditor.putExtra(ActivityManageRule.intentNameTriggerParameter2, selectedTrigger.getTriggerParameter2());
+						startActivityForResult(profileActiveEditor, requestCodeTriggerProfileEdit);
+						break;
 					case wifiConnection:
 						Intent wifiEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerWifi.class);
 						wifiEditor.putExtra("edit", true);
@@ -285,7 +294,7 @@ public class ActivityManageRule extends Activity
 						startActivityForResult(devicePositionEditor, requestCodeTriggerDeviceOrientationEdit);
 						break;
 					default:
-						break;				
+						break;
 				}
 			}
 		});
@@ -496,6 +505,8 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.notification));
 			else if(types[i].toString().equals(Trigger_Enum.deviceOrientation.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.smartphone));
+			else if(types[i].toString().equals(Trigger_Enum.profileActive.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.sound));
 			else
 				items.add(new Item(typesLong[i].toString(), R.drawable.placeholder));
 		}
@@ -568,7 +579,6 @@ public class ActivityManageRule extends Activity
 						Intent wifiTriggerEditor = new Intent(myContext, ActivityManageTriggerWifi.class);
 						startActivityForResult(wifiTriggerEditor, requestCodeTriggerWifiAdd);
 						return;
-//							booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
 					}
 					else if(triggerType == Trigger_Enum.deviceOrientation)
 					{
@@ -576,10 +586,7 @@ public class ActivityManageRule extends Activity
 						Intent devicePositionTriggerEditor = new Intent(myContext, ActivityManageTriggerDeviceOrientation.class);
 						startActivityForResult(devicePositionTriggerEditor, requestCodeTriggerDeviceOrientationAdd);
 						return;
-//							booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
 					}
-//						else if(triggerType == Trigger_Enum.wifiConnection)
-//							booleanChoices = new String[]{getResources().getString(R.string.connected), getResources().getString(R.string.disconnected)};
 					else if(triggerType == Trigger_Enum.process_started_stopped)
 						booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
 					else if(triggerType == Trigger_Enum.notification)
@@ -599,7 +606,13 @@ public class ActivityManageRule extends Activity
 						Intent phoneTriggerEditor = new Intent(myContext, ActivityManageTriggerPhoneCall.class);
 						startActivityForResult(phoneTriggerEditor, requestCodeTriggerPhoneCallAdd);
 						return;
-//							booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
+					}
+					else if(triggerType == Trigger_Enum.profileActive)
+					{
+						newTrigger.setTriggerType(Trigger_Enum.profileActive);
+						Intent profileTriggerEditor = new Intent(myContext, ActivityManageTriggerProfile.class);
+						startActivityForResult(profileTriggerEditor, requestCodeTriggerProfileAdd);
+						return;
 					}
 					else if(triggerType == Trigger_Enum.activityDetection)
 					{
@@ -622,7 +635,7 @@ public class ActivityManageRule extends Activity
 						}
 						catch (IllegalAccessException | InvocationTargetException e)
 						{
-							e.printStackTrace();
+							Miscellaneous.logEvent("w", "ActivityDetection", "Either play services are not available or the ActivityDetection classes are not. " + Log.getStackTraceString(e), 4);
 						}
 						return;
 					}
@@ -1423,6 +1436,30 @@ public class ActivityManageRule extends Activity
 				editedTrigger.setTriggerType(Trigger_Enum.deviceOrientation);
 				editedTrigger.setTriggerParameter(data.getBooleanExtra(ActivityManageRule.intentNameTriggerParameter1, true));
 				editedTrigger.setTriggerParameter2(data.getStringExtra(ActivityManageTriggerDeviceOrientation.vectorFieldName));
+				editedTrigger.setParentRule(ruleToEdit);
+				ruleToEdit.getTriggerSet().set(editIndex, editedTrigger);
+				this.refreshTriggerList();
+			}
+		}
+		else if(requestCode == requestCodeTriggerProfileAdd)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				newTrigger.setTriggerParameter(data.getBooleanExtra(ActivityManageRule.intentNameTriggerParameter1, true));
+				newTrigger.setTriggerParameter2(data.getStringExtra(ActivityManageRule.intentNameTriggerParameter2));
+				newTrigger.setParentRule(ruleToEdit);
+				ruleToEdit.getTriggerSet().add(newTrigger);
+				this.refreshTriggerList();
+			}
+		}
+		else if(requestCode == requestCodeTriggerProfileEdit)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				Trigger editedTrigger = new Trigger();
+				editedTrigger.setTriggerType(Trigger_Enum.profileActive);
+				editedTrigger.setTriggerParameter(data.getBooleanExtra(ActivityManageRule.intentNameTriggerParameter1, true));
+				editedTrigger.setTriggerParameter2(data.getStringExtra(ActivityManageRule.intentNameTriggerParameter2));
 				editedTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().set(editIndex, editedTrigger);
 				this.refreshTriggerList();
