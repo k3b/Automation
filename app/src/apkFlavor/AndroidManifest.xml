@@ -122,15 +122,7 @@
         <receiver android:name=".receivers.PackageReplacedReceiver"
             android:enabled="true">
             <intent-filter>
-                <!--<action android:name="android.intent.action.PACKAGE_ADDED"/>
-                <action android:name="android.intent.action.PACKAGE_REPLACED" />
-                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
-                <action android:name="android.intent.action.ACTION_PACKAGE_REPLACED" />-->
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
-
-                <!--<data
-                    android:path="com.jens.automation2"
-                    android:scheme="package" />-->
             </intent-filter>
         </receiver>
         <receiver android:name=".receivers.DateTimeListener" />
