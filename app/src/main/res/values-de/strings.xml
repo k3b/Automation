@@ -356,7 +356,7 @@
 	<string name="selectConnectionOption">Wählen Sie eine Verbindungsoption.</string>
     <string name="triggerHeadsetPlugged">Headset Verbindung</string>
 	<string name="actionPlayMusic">Musikplayer öffnen</string>
-	<string name="headsetConnected">Headset (type: %1$s) verbunden</string>
+	<string name="headsetConnected">Headset (Art: %1$s) verbunden</string>
 	<string name="headsetDisconnected">Headset (type: %1$s) getrennt</string>
 	<string name="headphoneSimple">Kopfhörer</string>
 	<string name="headphoneMicrophone">Mikrofon</string>
@@ -649,4 +649,10 @@
     <string name="profileTriggerCheckSettings">Wenn dieses Häkchen nicht gesetzt ist, wird nur geprüft, ob das ausgewählte Profil zuletzt aktiviert wurde. Es ist egal, ob Audio-Einstellungen von außerhalb verändert wurden.\nWenn das Häkchen aber gesetzt ist, müssen die aktuellen Audio-Einstellungen auch wirklich genau so gesetzt sein, wie im Profil definiert. ACHTUNG: Der Klingelton selbst kann derzeit noch nicht überprüft werden.</string>
     <string name="profileCouldNotBeDeleted">Profil konnte nicht gelöscht werden.</string>
     <string name="ruleXIsUsingProfileY">Dieses Profil kann nicht gelöscht werden. Regel %s$1 verwendet noch Profil %s$2.</string>
+    <string name="noRepetition">keine Wiederholung</string>
+    <string name="usingAuthentication">mit Authentifizierung</string>
+    <string name="toNumber">zu Nummer</string>
+    <string name="message">Nachricht</string>
+    <string name="onDays">an Tagen</string>
+    <string name="notSet">nicht gesetzt</string>
 </resources>

@@ -51,18 +51,19 @@ public class ActivityManageTriggerProfile extends Activity
         if(getIntent().hasExtra(ActivityManageRule.intentNameTriggerParameter2))
         {
             editMode = true;
+
+            boolean active = getIntent().getBooleanExtra(ActivityManageRule.intentNameTriggerParameter1, true);
+            chkProfileActive.setChecked(active);
+
             try
             {
                 String values[] = getIntent().getStringExtra(ActivityManageRule.intentNameTriggerParameter2).split(Trigger.triggerParameter2Split);
                 if(values.length >= 2)
                 {
-                    boolean active = getIntent().getBooleanExtra(ActivityManageRule.intentNameTriggerParameter1, true);
-                    chkProfileActive.setChecked(active);
-
                     boolean checkSettings = Boolean.parseBoolean(values[0]);
                     chkProfileCheckSettings.setChecked(checkSettings);
 
-                    String profileName = values[1];
+                    String profileName = values[0];
 
                     List<Profile> profileList = Profile.getProfileCollection();
                     for(int i = 0; i < profileList.size(); i++)

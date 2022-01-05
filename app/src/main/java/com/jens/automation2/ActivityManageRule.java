@@ -55,30 +55,30 @@ public class ActivityManageRule extends Activity
 	public final static String intentNameActionParameter2 = "actionParameter2";
 
 	public Context context;
-	private Button cmdTriggerAdd, cmdActionAdd, cmdSaveRule;
-	private ListView triggerListView, actionListView;
-	private EditText etRuleName;
-	private CheckBox chkRuleActive, chkRuleToggle;
-	private static ActivityManageRule instance = null;
+	Button cmdTriggerAdd, cmdActionAdd, cmdSaveRule;
+	ListView triggerListView, actionListView;
+	EditText etRuleName;
+	CheckBox chkRuleActive, chkRuleToggle;
+	static ActivityManageRule instance = null;
 	ImageView imageHelpButton;
 	
-	private static ProgressDialog progressDialog = null;
+	static ProgressDialog progressDialog = null;
 	
-	private static Trigger_Enum triggerType;
-	private static boolean triggerParameter;
-	private static PointOfInterest triggerPoi;
-	private static String triggerProcess;
-	private static int triggerBattery;
-	private static double triggerSpeed;
-	private static double triggerNoise;
-	private static TimeFrame triggerTimeFrame;
-	private static String triggerWifiName;
+	static Trigger_Enum triggerType;
+	static boolean triggerParameter;
+	static PointOfInterest triggerPoi;
+	static String triggerProcess;
+	static int triggerBattery;
+	static double triggerSpeed;
+	static double triggerNoise;
+	static TimeFrame triggerTimeFrame;
+	static String triggerWifiName;
 	
-	private static Rule ruleToEdit;
-	private static boolean newRule;
+	static Rule ruleToEdit;
+	static boolean newRule;
 	
-	private static Trigger newTrigger;
-	private static Action newAction;
+	static Trigger newTrigger;
+	static Action newAction;
 
 	ArrayAdapter<Trigger> triggerListViewAdapter;
 	ArrayAdapter<Action> actionListViewAdapter;

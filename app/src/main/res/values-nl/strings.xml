@@ -647,4 +647,10 @@
     <string name="profileTriggerCheckSettings">Als dit selectievakje niet is uitgeschakeld, wordt het alleen aangevinkt als het geselecteerde profiel het laatste is dat is geactiveerd. Het maakt niet uit of audiogerelateerde instellingen extern zijn gewijzigd.\nAls het selectievakje echter is ingeschakeld, moeten de huidige audio-instellingen echt worden gedefinieerd in het profiel. PAS OP: Het controleren van het beltoonbestand wordt momenteel nog niet ondersteund.</string>
     <string name="ruleXIsUsingProfileY">Kan dit profiel niet verwijderen. Regel %s$1 verwijst naar het profiel %s$2.</string>
     <string name="profileCouldNotBeDeleted">Profiel kan niet worden verwijderd.</string>
+    <string name="noRepetition">geen herhaling</string>
+    <string name="usingAuthentication">authenticatie gebruiken</string>
+    <string name="toNumber">naar nummer</string>
+    <string name="message">Bericht</string>
+    <string name="onDays">op dagen</string>
+    <string name="notSet">niet ingesteld</string>
 </resources>

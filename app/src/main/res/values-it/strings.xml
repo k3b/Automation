@@ -649,4 +649,10 @@
     <string name="profileNotActive">profilo %1$s non attivo</string>
     <string name="ruleXIsUsingProfileY">Impossibile eliminare questo profilo. La regola %s$1 fa riferimento al profilo %s$2.</string>
     <string name="profileCouldNotBeDeleted">Impossibile eliminare il profilo.</string>
+    <string name="noRepetition">nessuna ripetizione</string>
+    <string name="usingAuthentication">utilizzo dell\'autenticazione</string>
+    <string name="toNumber">al numero</string>
+    <string name="message">messaggio</string>
+    <string name="onDays">nei giorni</string>
+    <string name="notSet">non impostato</string>
 </resources>

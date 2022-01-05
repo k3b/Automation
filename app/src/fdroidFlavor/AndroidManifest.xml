@@ -51,6 +51,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+<!--    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />-->
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.NFC" />
@@ -144,6 +145,7 @@
         <activity android:name=".ActivityDisplayLongMessage" />
         <activity android:name=".ActivityManageActionSendTextMessage" />
         <activity android:name=".ActivityManageActionPlaySound" />
+        <activity android:name=".ActivityManageTriggerProfile" />
         <activity android:name=".ActivityManageTriggerTimeFrame" />
         <activity android:name=".ActivityMaintenance" />
         <activity android:name=".ActivityManageTriggerPhoneCall" />
@@ -177,6 +179,7 @@
 			</intent-filter>
             -->
 
+
             <!--
                  <meta-data
 		        android:name="android.nfc.action.TECH_DISCOVERED"
@@ -209,7 +212,6 @@
         </service>
 
         <activity android:name=".ActivityPermissions" />
-
 
 <!--        https://developer.android.com/about/versions/pie/android-9.0-changes-28#apache-p-->
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>

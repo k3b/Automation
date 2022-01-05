@@ -139,6 +139,7 @@
         <activity android:name=".ActivityDisplayLongMessage" />
         <activity android:name=".ActivityManageActionSendTextMessage" />
         <activity android:name=".ActivityManageActionPlaySound" />
+        <activity android:name=".ActivityManageTriggerProfile" />
         <activity android:name=".ActivityManageTriggerTimeFrame" />
         <activity android:name=".ActivityMaintenance" />
         <activity android:name=".ActivityManageTriggerPhoneCall" />
@@ -205,7 +206,6 @@
         </service>
 
         <activity android:name=".ActivityPermissions" />
-
 
 <!--        https://developer.android.com/about/versions/pie/android-9.0-changes-28#apache-p-->
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>

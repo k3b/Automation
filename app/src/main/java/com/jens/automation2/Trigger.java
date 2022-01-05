@@ -1282,11 +1282,11 @@ public class Trigger
 				else
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.leaving) + " ");
 
-				String repeat = ", no repetition";
+				String repeat = ", " + Miscellaneous.getAnyContext().getResources().getString(R.string.noRepetition);
 				if(this.getTimeFrame().getRepetition() > 0)
 					repeat = ", " + String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.repeatEveryXsecondsWithVariable), String.valueOf(this.getTimeFrame().getRepetition()));
 
-				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.triggerTimeFrame) + ": " + this.getTimeFrame().getTriggerTimeStart().toString() + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.until) + " " + this.getTimeFrame().getTriggerTimeStop().toString() + " on days " + this.getTimeFrame().getDayList().toString() + repeat);
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.triggerTimeFrame) + ": " + this.getTimeFrame().getTriggerTimeStart().toString() + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.until) + " " + this.getTimeFrame().getTriggerTimeStop().toString() + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.onDays) + " " + this.getTimeFrame().getDayList().toString() + repeat);
 				break;
 			case speed:
 				if(getTriggerParameter())
@@ -1331,11 +1331,11 @@ public class Trigger
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.airplaneMode));
 				break;
 			case roaming:
-				if(getTriggerParameter())
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.activated) + " ");
-				else
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.deactivated) + " ");
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.roaming));
+				if(getTriggerParameter())
+					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.activated));
+				else
+					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.deactivated));
 				break;
 			case phoneCall:
 				String[] elements = triggerParameter2.split(triggerParameter2Split);
@@ -1367,24 +1367,9 @@ public class Trigger
 				else if(elements[0].equals(Trigger.triggerPhoneCallStateStopped))
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.stopped));
 
-//				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.phoneCall));
-//				if(phoneNumber != null && !phoneNumber.equals("any"))
-//					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.with) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.number) + " " + phoneNumber);
-//				else
-//					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.with) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.anyNumber));
-//
-//				if(getTriggerParameter())
-//					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.started));
-//				else
-//					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.stopped));
 				break;
 			case nfcTag:
 				// This type doesn't have an activate/deactivate equivalent
-//				if(getTriggerParameter())
-//					returnString += Miscellaneous.getAnyContext().getResources().getString(R.string.activated) + " ";
-//				else
-//					returnString += Miscellaneous.getAnyContext().getResources().getString(R.string.deactivated) + " ";
-
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.closeTo) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.nfcTag) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.withLabel) + " " + this.getNfcTagId());
 				break;
 			case activityDetection:
@@ -1456,7 +1441,7 @@ public class Trigger
 						type = Miscellaneous.getAnyContext().getResources().getString(R.string.headphoneAny);
 						break;
 					default:
-						type = "not set";
+						type = Miscellaneous.getAnyContext().getResources().getString(R.string.notSet);
 						break;
 				}
 				if(getTriggerParameter())

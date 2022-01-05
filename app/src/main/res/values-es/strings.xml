@@ -648,4 +648,10 @@
     <string name="profileTriggerCheckSettings">Si esta casilla de verificación no está desactivada, solo se marcará si el perfil seleccionado ha sido el último en activarse. No importa si alguna configuración relacionada con el audio se ha cambiado externamente.\nSin embargo, si la casilla de verificación está habilitada, la configuración de audio actual realmente debe ser como se define en el perfil. CUIDADO: La comprobación del archivo de tono de llamada no es compatible actualmente, todavía.</string>
     <string name="ruleXIsUsingProfileY">No se puede eliminar este perfil. La regla %s$1 hace referencia al perfil %s$2.</string>
     <string name="profileCouldNotBeDeleted">No se pudo eliminar el perfil.</string>
+    <string name="noRepetition">sin repetición</string>
+    <string name="usingAuthentication">uso de la autenticación</string>
+    <string name="toNumber">a número</string>
+    <string name="message">mensaje</string>
+    <string name="onDays">en días</string>
+    <string name="notSet">no configurado</string>
 </resources>
