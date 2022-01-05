@@ -630,7 +630,7 @@
     <string name="deviceOrientationTimeAcceptIntervalTitle">Signal Häufigkeit</string>
     <string name="deviceOrientationTimeAcceptIntervalSummary">Neue Signale nur alle x Millisekunden akzeptieren</string>
     <string name="deviceOrientationSettings">Geräteausrichtungseinstellungen</string>
-    <string name="explanationDeviceOrientationDirection">Wenn das Häkchen gesetzt ist, bedeutet das, daß das Geräte in der angegebenen Ausrichtung sein muß. Wenn es nicht gesetzt ist, führt jede andere Ausrichtung zu einem positiven Ergebnis.</string>
+    <string name="explanationDeviceOrientationDirection">Wenn das Häkchen gesetzt ist, bedeutet das, daß das Gerät in der angegebenen Ausrichtung sein muß. Wenn es nicht gesetzt ist, führt jede andere Ausrichtung zu einem positiven Ergebnis.</string>
     <string name="deviceOrientationExplanation">Wenn Sie Ihr Gerät bewegen, werden die Zahlen unten aktualisiert. Was Sie hier sehen können, ist die momentane Ausrichtung Ihres Geräts, gemessen in Grad. Wenn das Gerät in der gewünschten Ausrichtung ist, klicken Sie den \"übernehmen\" Knopf, um die Werte in die \"gewünscht\" Felder zu übertragen.\nWeil es sehr unwahrscheinlich ist, daß Sie diese exakte Ausrichtung jemals wieder erreichen, müssen Sie Toleranzen eingeben. Dies ist der Winkel in Grad, der in jede Richtung noch akzeptiert wird. 15° entsprechen somit einem Gesamtwinkel von 30°, 15 in jede Richtung.\nWenn Ihnen nur eine bestimmte Achse wichtig ist, können Sie eine Toleranz von 180° für die anderen beiden Richtungen angeben.</string>
     <string name="actionSetBluetoothTethering">Bluetooth Tethering</string>
     <string name="actionTurnBluetoothTetheringOn">Bluetooth Tethering einschalten</string>
@@ -640,4 +640,13 @@
     <string name="triggerWrong">Mit diesem Auslöser stimmt etwas nicht. Er konnte nicht korrekt geladen werden.</string>
     <string name="android.permission.BIND_DEVICE_ADMIN">Geräte Administrator</string>
     <string name="deviceAdminNote">Geräte Administrator Rechte werden für mindestens 1 Regel benötigt, die Sie angelegt haben.</string>
+    <string name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS">Von der Akku-Optimierung ausschließen</string>
+    <string name="recommendedForBetterReliability">Empfohlen für bessere Zuverlässigkeit</string>
+    <string name="needsToBeActive">Muß aktiv sein</string>
+    <string name="checkSettings">Einstellungen überprüfen</string>
+    <string name="profileActive">Profil %1$s ist aktiv</string>
+    <string name="profileNotActive">Profil %1$s ist nicht aktiv</string>
+    <string name="profileTriggerCheckSettings">Wenn dieses Häkchen nicht gesetzt ist, wird nur geprüft, ob das ausgewählte Profil zuletzt aktiviert wurde. Es ist egal, ob Audio-Einstellungen von außerhalb verändert wurden.\nWenn das Häkchen aber gesetzt ist, müssen die aktuellen Audio-Einstellungen auch wirklich genau so gesetzt sein, wie im Profil definiert. ACHTUNG: Der Klingelton selbst kann derzeit noch nicht überprüft werden.</string>
+    <string name="profileCouldNotBeDeleted">Profil konnte nicht gelöscht werden.</string>
+    <string name="ruleXIsUsingProfileY">Dieses Profil kann nicht gelöscht werden. Regel %s$1 verwendet noch Profil %s$2.</string>
 </resources>

@@ -640,4 +640,13 @@
     <string name="deviceOrientationSettings">Impostazioni di orientamento del dispositivo</string>
     <string name="android.permission.BIND_DEVICE_ADMIN">Amministrazione dispositivo</string>
     <string name="deviceAdminNote">I permessi di amministratore del dispositivo sono necessari per almeno 1 delle regole che hai creato.</string>
+    <string name="profileTriggerCheckSettings">Se questa casella di controllo non è disabilitata, verrà selezionata solo se il profilo selezionato è stato l\'ultimo ad essere attivato. Non importa se le impostazioni relative all\'audio sono state modificate esternamente.\nTuttavia, se la casella di controllo è abilitata, le impostazioni audio correnti devono essere definite nel profilo. ATTENZIONE: il controllo del file della suoneria non è ancora supportato.</string>
+    <string name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS">Escludere dall\'ottimizzazione della batteria</string>
+    <string name="recommendedForBetterReliability">Consigliato per una migliore affidabilità</string>
+    <string name="needsToBeActive">Deve essere attivo</string>
+    <string name="checkSettings">Controlla le impostazioni</string>
+    <string name="profileActive">profilo %1$s è attivo</string>
+    <string name="profileNotActive">profilo %1$s non attivo</string>
+    <string name="ruleXIsUsingProfileY">Impossibile eliminare questo profilo. La regola %s$1 fa riferimento al profilo %s$2.</string>
+    <string name="profileCouldNotBeDeleted">Impossibile eliminare il profilo.</string>
 </resources>

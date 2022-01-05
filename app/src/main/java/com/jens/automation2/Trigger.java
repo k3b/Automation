@@ -279,31 +279,40 @@ public class Trigger
 
 	boolean checkProfileActive()
 	{
-		try
+		String demandedProfileName = getTriggerParameter2().split(Trigger.triggerParameter2Split)[0];
+		boolean checkSettings = Boolean.parseBoolean(getTriggerParameter2().split(Trigger.triggerParameter2Split)[1]);
+
+		if(checkSettings)
 		{
-			String demandedProfileName = getTriggerParameter2().split(Trigger.triggerParameter2Split)[0];
-			Profile lastProfile = null;
-
-			if(Profile.profileActivationHistory.size() > 0)
-			{
-				lastProfile = Profile.profileActivationHistory.get(Profile.profileActivationHistory.size() - 1);
-
-				if (getTriggerParameter())
-					return demandedProfileName.equals(lastProfile.getName());
-				else
-					return !demandedProfileName.equals(lastProfile.getName());
-			}
-			else
-				return !getTriggerParameter();
+			Profile profile = Profile.getByName(demandedProfileName);
+			return profile.areMySettingsCurrentlyActive(Miscellaneous.getAnyContext());
 		}
-		catch(Exception e)
+		else
 		{
-			Miscellaneous.logEvent("w", "Trigger", "Error checking profile trigger.", 4);
+			try
+			{
+				Profile lastProfile = null;
+
+				if (Profile.profileActivationHistory.size() > 0)
+				{
+					lastProfile = Profile.profileActivationHistory.get(Profile.profileActivationHistory.size() - 1);
+
+					if (getTriggerParameter())
+						return demandedProfileName.equals(lastProfile.getName());
+					else
+						return !demandedProfileName.equals(lastProfile.getName());
+				}
+				else
+					return !getTriggerParameter();
+			}
+			catch (Exception e)
+			{
+				Miscellaneous.logEvent("w", "Trigger", "Error checking profile trigger.", 4);
+			}
 		}
 
 		return false;
 	}
-
 
 	boolean checkDeviceOrientation()
 	{
@@ -320,13 +329,7 @@ public class Trigger
 
 		if(desiredAzimuthTolerance < 180)
 		{
-			if (
-					!(
-							Math.abs(currentAzimuth) <= Math.abs(desiredAzimuth - desiredAzimuthTolerance)
-									||
-							Math.abs(currentAzimuth) <= desiredAzimuth + desiredAzimuthTolerance
-					)
-			)
+			if (!(desiredAzimuth - desiredAzimuthTolerance <= currentAzimuth && currentAzimuth <= desiredAzimuth + desiredAzimuthTolerance))
 			{
 				Miscellaneous.logEvent("i", "DeviceOrientation", "Azimuth outside of tolerance area.", 5);
 				if (getTriggerParameter())
@@ -338,15 +341,7 @@ public class Trigger
 
 		if(desiredPitchTolerance < 180)
 		{
-			if (
-					!(
-						(
-							Math.abs(currentPitch) <= Math.abs(desiredPitch - desiredPitchTolerance)
-										||
-							Math.abs(currentPitch) <= desiredPitch + desiredPitchTolerance
-						)
-			)
-		)
+			if (!(desiredPitch - desiredPitchTolerance <= currentPitch && currentPitch <= desiredPitch + desiredPitchTolerance))
 			{
 				Miscellaneous.logEvent("i", "DeviceOrientation", "Pitch outside of tolerance area.", 5);
 				if (getTriggerParameter())
@@ -358,15 +353,7 @@ public class Trigger
 
 		if(desiredRollTolerance < 180)
 		{
-			if (
-					!(
-						(
-							Math.abs(currentRoll) <= Math.abs(desiredRoll - desiredRollTolerance)
-										||
-							Math.abs(currentRoll) <= desiredRoll + desiredRollTolerance
-						)
-			)
-		)
+			if (!(desiredRoll - desiredRollTolerance <= currentRoll && currentRoll <= desiredRoll + desiredRollTolerance))
 			{
 				Miscellaneous.logEvent("i", "DeviceOrientation", "Roll outside of tolerance area.", 5);
 				if (getTriggerParameter())

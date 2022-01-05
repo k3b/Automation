@@ -1,2 +1,3 @@
-* Exclusion from battery optimization
-* Profiles can be used as trigger
+* New permission requested: Exclusion from battery optimization
+* New trigger: Profiles can be used as trigger
+* Fixed: Bug in orientation trigger

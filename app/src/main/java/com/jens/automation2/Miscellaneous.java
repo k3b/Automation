@@ -216,7 +216,15 @@ public class Miscellaneous extends Service
         return null;
 	}
 
-	@Override
+    public static int boolToInt(boolean input)
+    {
+    	if(input)
+    		return 1;
+    	else
+    		return 0;
+    }
+
+    @Override
 	public IBinder onBind(Intent arg0)
 	{
 		// TODO Auto-generated method stub

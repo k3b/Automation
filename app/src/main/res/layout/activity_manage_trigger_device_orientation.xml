@@ -22,7 +22,14 @@
 
             <TableRow
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical" >
+
+                <ImageView
+                    android:layout_marginRight="@dimen/default_margin"
+                    android:src="@drawable/arrow_azimuth"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content" />
 
                 <TextView
                     android:text="@string/orientationAzimuth"
@@ -39,7 +46,14 @@
 
             <TableRow
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical" >
+
+                <ImageView
+                    android:layout_marginRight="@dimen/default_margin"
+                    android:src="@drawable/arrow_pitch"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content" />
 
                 <TextView
                     android:text="@string/orientationPitch"
@@ -56,7 +70,14 @@
 
             <TableRow
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical" >
+
+                <ImageView
+                    android:layout_marginRight="@dimen/default_margin"
+                    android:src="@drawable/arrow_roll"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content" />
 
                 <TextView
                     android:text="@string/orientationRoll"

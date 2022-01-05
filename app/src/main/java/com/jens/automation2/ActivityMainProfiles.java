@@ -184,8 +184,16 @@ public class ActivityMainProfiles extends ActivityGeneric
 						startActivityForResult(manageSpecificProfileIntent, 2000);
 						break;
 					case 2:
-						if(profile.delete(myAutomationService))
-							updateListView();
+						Rule user = profile.isInUseByRules();
+						if(user == null)
+						{
+							if (profile.delete(ActivityMainProfiles.this))
+								updateListView();
+							else
+								Toast.makeText(ActivityMainProfiles.this, getResources().getString(R.string.profileCouldNotBeDeleted), Toast.LENGTH_LONG).show();
+						}
+						else
+							Toast.makeText(ActivityMainProfiles.this, String.format(getResources().getString(R.string.ruleXIsUsingProfileY), user.getName(), profile.getName()), Toast.LENGTH_LONG).show();
 						break;
 				}
 			}

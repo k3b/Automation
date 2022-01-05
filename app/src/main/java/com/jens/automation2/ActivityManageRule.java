@@ -609,10 +609,18 @@ public class ActivityManageRule extends Activity
 					}
 					else if(triggerType == Trigger_Enum.profileActive)
 					{
-						newTrigger.setTriggerType(Trigger_Enum.profileActive);
-						Intent profileTriggerEditor = new Intent(myContext, ActivityManageTriggerProfile.class);
-						startActivityForResult(profileTriggerEditor, requestCodeTriggerProfileAdd);
-						return;
+						if(Profile.getProfileCollection().size() > 0)
+						{
+							newTrigger.setTriggerType(Trigger_Enum.profileActive);
+							Intent profileTriggerEditor = new Intent(myContext, ActivityManageTriggerProfile.class);
+							startActivityForResult(profileTriggerEditor, requestCodeTriggerProfileAdd);
+							return;
+						}
+						else
+						{
+							Toast.makeText(context, getResources().getString(R.string.noProfilesCreateOneFirst), Toast.LENGTH_LONG).show();
+							return;
+						}
 					}
 					else if(triggerType == Trigger_Enum.activityDetection)
 					{

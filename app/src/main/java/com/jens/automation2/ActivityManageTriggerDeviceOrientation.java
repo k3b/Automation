@@ -43,7 +43,7 @@ public class ActivityManageTriggerDeviceOrientation extends Activity
         {
             desiredAzimuth = Float.parseFloat(etDesiredAzimuth.getText().toString());
             desiredAzimuthTolerance = Float.parseFloat(etDesiredAzimuthTolerance.getText().toString());
-            if (Math.abs(azimuth) <= Math.abs(desiredAzimuth - desiredAzimuthTolerance) || Math.abs(azimuth) <= desiredAzimuth + desiredAzimuthTolerance)
+            if (desiredAzimuthTolerance == 180 || (desiredAzimuth - desiredAzimuthTolerance <= azimuth && azimuth <= desiredAzimuth + desiredAzimuthTolerance))
             {
                 tvAppliesAzimuth.setText(getResources().getString(R.string.yes));
                 tvAppliesAzimuth.setTextColor(Color.GREEN);
@@ -63,7 +63,7 @@ public class ActivityManageTriggerDeviceOrientation extends Activity
         {
             desiredPitch = Float.parseFloat(etDesiredPitch.getText().toString());
             desiredPitchTolerance = Float.parseFloat(etDesiredPitchTolerance.getText().toString());
-            if (Math.abs(pitch) <= Math.abs(desiredPitch - desiredPitchTolerance) || Math.abs(pitch) <= desiredPitch + desiredPitchTolerance)
+            if (desiredPitchTolerance == 180 || (desiredPitch - desiredPitchTolerance <= pitch && pitch <= desiredPitch + desiredPitchTolerance))
             {
                 tvAppliesPitch.setText(getResources().getString(R.string.yes));
                 tvAppliesPitch.setTextColor(Color.GREEN);
@@ -83,7 +83,7 @@ public class ActivityManageTriggerDeviceOrientation extends Activity
         {
             desiredRoll = Float.parseFloat(etDesiredRoll.getText().toString());
             desiredRollTolerance = Float.parseFloat(etDesiredRollTolerance.getText().toString());
-            if (Math.abs(roll) <= Math.abs(desiredRoll - desiredRollTolerance) || Math.abs(roll) <= desiredRoll + desiredRollTolerance)
+            if (desiredRollTolerance == 180 || (desiredRoll - desiredRollTolerance <= roll && roll <= desiredRoll + desiredRollTolerance))
             {
                 tvAppliesRoll.setText(getResources().getString(R.string.yes));
                 tvAppliesRoll.setTextColor(Color.GREEN);
@@ -159,14 +159,16 @@ public class ActivityManageTriggerDeviceOrientation extends Activity
             @Override
             public void onClick(View v)
             {
+                // Round the values. Too long decimals will destroy the layout
+
                 if(!StringUtils.isEmpty(currentAzimuth.getText()))
-                    etDesiredAzimuth.setText(currentAzimuth.getText());
+                    etDesiredAzimuth.setText(String.valueOf(Math.round(Float.parseFloat(currentAzimuth.getText().toString()))));
 
                 if(!StringUtils.isEmpty(currentPitch.getText()))
-                    etDesiredPitch.setText(currentPitch.getText());
+                    etDesiredPitch.setText(String.valueOf(Math.round(Float.parseFloat(currentPitch.getText().toString()))));
 
                 if(!StringUtils.isEmpty(currentRoll.getText()))
-                    etDesiredRoll.setText(currentRoll.getText());
+                    etDesiredRoll.setText(String.valueOf(Math.round(Float.parseFloat(currentRoll.getText().toString()))));
             }
         });
 

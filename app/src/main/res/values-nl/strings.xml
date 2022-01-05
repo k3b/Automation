@@ -638,4 +638,13 @@
     <string name="btTetheringNotice">Deze functie werkt naar verluidt tot Android 8.0. Vanaf een hogere versie werkt het niet meer, maar door een gebrek aan fysieke apparaten kan ik niet zeggen welke dat is. Op Android 11 werkt het absoluut niet meer. Als je een versie tussendoor hebt, laat het me dan weten of het werkt of niet.</string>
     <string name="deviceOrientationExplanation">Wanneer u uw apparaat verplaatst, worden de onderstaande nummers bijgewerkt. Wat je daar kunt zien, is de huidige oriëntatie van je apparaat gemeten in graden. Als het zich in de gewenste richting bevindt, klikt u op de knop Toepassen om de huidige waarden naar de gewenste velden te kopiëren.\nOmdat het zeer onwaarschijnlijk is dat u deze exacte oriëntatie ooit nog bereikt, moet u ook een tolerantie invoeren. Dit is het aantal graden waarin de oriëntatie in beide richtingen kan afwijken. 15° resulteert in een totale hoek van 30°, 15° in elke richting.\nAls u slechts om één specifieke as geeft, geef dan een tolerantie van 180° op voor de twee andere.</string>
     <string name="toleranceOf180OnlyAllowedIn2Fields">Een tolerantie van 180 is alleen toegestaan voor 2 tolerantievelden, niet alle 3. Anders zou de trigger ALTIJD van toepassing zijn.</string>
+    <string name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS">Uitsluiten van batterijoptimalisatie</string>
+    <string name="recommendedForBetterReliability">Aanbevolen voor een betere betrouwbaarheid</string>
+    <string name="needsToBeActive">Moet actief zijn</string>
+    <string name="checkSettings">Instellingen controleren</string>
+    <string name="profileActive">profile %1$s is actief</string>
+    <string name="profileNotActive">profile %1$s is niet actief</string>
+    <string name="profileTriggerCheckSettings">Als dit selectievakje niet is uitgeschakeld, wordt het alleen aangevinkt als het geselecteerde profiel het laatste is dat is geactiveerd. Het maakt niet uit of audiogerelateerde instellingen extern zijn gewijzigd.\nAls het selectievakje echter is ingeschakeld, moeten de huidige audio-instellingen echt worden gedefinieerd in het profiel. PAS OP: Het controleren van het beltoonbestand wordt momenteel nog niet ondersteund.</string>
+    <string name="ruleXIsUsingProfileY">Kan dit profiel niet verwijderen. Regel %s$1 verwijst naar het profiel %s$2.</string>
+    <string name="profileCouldNotBeDeleted">Profiel kan niet worden verwijderd.</string>
 </resources>

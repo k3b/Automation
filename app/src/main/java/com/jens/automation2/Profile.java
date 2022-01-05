@@ -1,5 +1,6 @@
 package com.jens.automation2;
 
+import android.app.NotificationManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.media.AudioManager;
@@ -290,18 +291,12 @@ public class Profile implements Comparable<Profile>
 		
 		return null;
 	}
-
-	public boolean delete(AutomationService myAutomationService)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
 	
 	private boolean applyRingTone(File ringtoneFile, int ringtoneType, Context context)
 	{
 		Miscellaneous.logEvent("i", "Profile", "Request to set ringtone to " + ringtoneFile.getAbsolutePath(), 3);
 
-		if(!ringtoneFile.exists() | !ringtoneFile.canRead())
+		if(!ringtoneFile.exists() || !ringtoneFile.canRead())
 		{
 			String message = "Ringtone file does not exist or cannot read it: " + ringtoneFile.getAbsolutePath();
 			Miscellaneous.logEvent("i", "Profile", message, 3);
@@ -392,7 +387,7 @@ public class Profile implements Comparable<Profile>
 			}
 			
 			// Check if rules reference this profile
-			ArrayList<Rule> rulesThatReferenceMe = Rule.findRuleCandidatesByProfile(this);
+			ArrayList<Rule> rulesThatReferenceMe = Rule.findRuleCandidatesByActionProfile(this);
 			if(rulesThatReferenceMe.size() > 0)
 			{
 				for(Rule oneRule : rulesThatReferenceMe)
@@ -402,7 +397,7 @@ public class Profile implements Comparable<Profile>
 						if(oneTrigger.getTriggerType() == Trigger.Trigger_Enum.profileActive)
 						{
 							String[] parts = oneTrigger.getTriggerParameter2().split(Trigger.triggerParameter2Split);
-							parts[1] = this.name;
+							parts[0] = this.name;
 
 							oneTrigger.setTriggerParameter2(Miscellaneous.explode(Trigger.triggerParameter2Split, parts));
 							// We don't need to save the file. This will happen anyway in PointOfInterest.writePoisToFile() below.
@@ -437,19 +432,50 @@ public class Profile implements Comparable<Profile>
 		return false;
 	}
 
-	public boolean delete()
-	{		
-		for(int i = 0; i< Profile.getProfileCollection().size(); i++)
+	public Rule isInUseByRules()
+	{
+		if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.profileActive))
 		{
-			if(Profile.getProfileCollection().get(i).getName().equals(this.getName()))
+			for (Rule rule : Rule.findRuleCandidatesByTriggerProfile(this))
 			{
-				Profile.getProfileCollection().remove(0);
-				
-				// write to file
-				return XmlFileInterface.writeFile();
+				return rule;
 			}
 		}
-		
+		else if(Rule.isAnyRuleUsing(Action_Enum.changeSoundProfile))
+		{
+			for (Rule rule : Rule.findRuleCandidatesByActionProfile(this))
+			{
+				return rule;
+			}
+		}
+
+		return null;
+	}
+
+	public boolean delete(Context context)
+	{
+		if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.profileActive))
+		{
+			for (Rule rule : Rule.findRuleCandidatesByTriggerProfile(this))
+			{
+				Toast.makeText(context, String.format(context.getResources().getString(R.string.ruleXIsUsingProfileY), rule.getName(), this.getName()), Toast.LENGTH_LONG).show();
+				return false;
+			}
+		}
+		else if(Rule.isAnyRuleUsing(Action_Enum.changeSoundProfile))
+		{
+			for (Rule rule : Rule.findRuleCandidatesByActionProfile(this))
+			{
+				Toast.makeText(context, String.format(context.getResources().getString(R.string.ruleXIsUsingProfileY), rule.getName(), this.getName()), Toast.LENGTH_LONG).show();
+				return false;
+			}
+		}
+		else
+		{
+			profileCollection.remove(this);
+			return XmlFileInterface.writeFile();
+		}
+
 		return false;
 	}
 
@@ -555,6 +581,104 @@ public class Profile implements Comparable<Profile>
 		{
 			Miscellaneous.logEvent("i", "Profile " + this.getName(), context.getResources().getString(R.string.noProfileChangeSoundLocked), 3);
 		}
+	}
+
+	public boolean areMySettingsCurrentlyActive(Context context)
+	{
+		Miscellaneous.logEvent("i", "Profile " + this.getName(), "Checking if profile's settings are currently active.", 3);
+
+		try
+		{
+			AudioManager am = (AudioManager) Miscellaneous.getAnyContext().getSystemService(Context.AUDIO_SERVICE);
+			NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+			if(changeSoundMode)
+			{
+				if(am.getRingerMode() != soundMode)
+					return false;
+			}
+
+			if(changeDndMode && Build.VERSION.SDK_INT >= 23)
+			{
+				if(mNotificationManager.getCurrentInterruptionFilter() != dndMode)
+					return false;
+			}
+
+			if(changeVolumeMusicVideoGameMedia)
+			{
+				if(am.getStreamVolume(AudioManager.STREAM_MUSIC) != volumeMusic)
+					return false;
+			}
+
+			if(changeVolumeNotifications)
+			{
+				if(am.getStreamVolume(AudioManager.STREAM_NOTIFICATION) != volumeNotifications)
+					return false;
+			}
+
+			if(changeVolumeAlarms)
+			{
+				if(am.getStreamVolume(AudioManager.STREAM_ALARM) != volumeAlarms)
+					return false;
+			}
+
+//			if(changeIncomingCallsRingtone)
+//			{
+//				if (incomingCallsRingtone != null)
+//				{
+//					applyRingTone(incomingCallsRingtone, RingtoneManager.TYPE_RINGTONE, context);
+//				}
+//			}
+
+			if(changeVibrateWhenRinging)
+			{
+				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+				{
+					int currentSetting = android.provider.Settings.System.getInt(context.getContentResolver(), "vibrate_when_ringing");
+					if(currentSetting != Miscellaneous.boolToInt(vibrateWhenRinging))
+						return false;
+				}
+				else
+				{
+					int currentSetting = am.getVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER);
+					if(currentSetting != Miscellaneous.boolToInt(vibrateWhenRinging))
+						return false;
+				}
+			}
+
+//			if(changeNotificationRingtone)
+//				if(notificationRingtone != null)
+//					applyRingTone(notificationRingtone, RingtoneManager.TYPE_NOTIFICATION, context);
+
+			if(changeScreenLockUnlockSound)
+			{
+				int currentSetting = android.provider.Settings.System.getInt(context.getContentResolver(), "lockscreen_sounds_enabled");
+				if(currentSetting != Miscellaneous.boolToInt(screenLockUnlockSound))
+					return false;
+			}
+
+			if(changeAudibleSelection)
+			{
+				int currentSetting = android.provider.Settings.System.getInt(context.getContentResolver(), android.provider.Settings.System.SOUND_EFFECTS_ENABLED);
+				if(currentSetting != Miscellaneous.boolToInt(audibleSelection))
+					return false;
+			}
+
+			if(changeHapticFeedback)
+			{
+				int currentSetting = android.provider.Settings.System.getInt(context.getContentResolver(), android.provider.Settings.System.HAPTIC_FEEDBACK_ENABLED);
+				if(currentSetting != Miscellaneous.boolToInt(hapticFeedback))
+					return false;
+			}
+		}
+		catch(Exception e)
+		{
+			Miscellaneous.logEvent("e", "Profile " + this.getName(), "Error while checking if profile settings are currently active. " + Log.getStackTraceString(e), 1);
+		}
+
+		Miscellaneous.logEvent("i", "Profile " + this.getName(), "This profile's settings are currently active.", 4);
+
+		return true;
 	}
 
 	@Override

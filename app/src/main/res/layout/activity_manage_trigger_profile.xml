@@ -54,6 +54,16 @@
 
         </TableRow>
 
+        <TableRow>
+
+            <TextView
+                android:layout_span="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/profileTriggerCheckSettings" />
+
+        </TableRow>
+
     </TableLayout>
 
     <Button

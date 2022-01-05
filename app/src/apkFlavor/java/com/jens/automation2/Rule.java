@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.google.android.gms.location.DetectedActivity;
 import com.jens.automation2.receivers.ActivityDetectionReceiver;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -834,8 +833,32 @@ public class Rule implements Comparable<Rule>
 		
 		return ruleCandidates;
 	}*/
+
+	public static ArrayList<Rule> findRuleCandidatesByTriggerProfile(Profile profile)
+	{
+		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
+
+		for(Rule oneRule : ruleCollection)
+		{
+			innerloop:
+			for(Trigger oneTrigger : oneRule.getTriggerSet())
+			{
+				if(oneTrigger.getTriggerType() == Trigger.Trigger_Enum.profileActive)
+				{
+					String profileName = oneTrigger.getTriggerParameter2().split(triggerParameter2Split)[0];
+					if(profileName.equals(profile.getName()))
+					{
+						ruleCandidates.add(oneRule);
+						break innerloop; //if the profile is found we don't need to search the other triggers in the same rule
+					}
+				}
+			}
+		}
+
+		return ruleCandidates;
+	}
 	
-	public static ArrayList<Rule> findRuleCandidatesByProfile(Profile profile)
+	public static ArrayList<Rule> findRuleCandidatesByActionProfile(Profile profile)
 	{
 		ArrayList<Rule> ruleCandidates = new ArrayList<Rule>();
 		

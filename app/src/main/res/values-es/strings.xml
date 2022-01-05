@@ -639,4 +639,13 @@
     <string name="wifiApi30">Porque Google arruinó otra parte de Android, a partir de API 30 solo se puede mostrar los wifi actualmente visibles, ya no todos que su positivo tiene conectados.</string>
     <string name="smsDialogNotice">Si no ha utilizado una acción de envío de sms en este programa antes, Android puede mostrar un  diálogo de confirmación adicional, pidiéndole que permita el envío de mensajes. Debe seleccionar la casilla de verificación \"permitir siempre\" y confirmar si desea que esta acción funcione en segundo plano. Se recomienda ejecutar esta regla manualmente una vez para provocar este diálogo de confirmación.</string>
     <string name="deviceOrientationExplanation">Cuando mueva su dispositivo, los siguientes números se actualizarán. Lo que puede ver allí, es la orientación actual de su dispositivo medida en grados. Si está en la orientación deseada, haga clic en el botón Aplicar para copiar los valores actuales en los campos deseados. Debido a que alcanzar esta orientación exacta nunca más es muy poco probable, también deba ingresar a una tolerancia. Esta es la cantidad de grados a los que la orientación puede desviarse en cualquier dirección. 15° resultará en un ángulo total de 30°, 15° en todas las direcciones. Si solo le importa un eje específico, especifique una tolerancia de 180° para los otros dos.</string>
+    <string name="profileNotActive">el perfil %1$s no está activo</string>
+    <string name="profileActive">el perfil %1$s está activo</string>
+    <string name="checkSettings">Comprobar la configuración</string>
+    <string name="needsToBeActive">Necesita estar activo</string>
+    <string name="recommendedForBetterReliability">Recomendado para una mejor fiabilidad</string>
+    <string name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS">Excluir de la optimización de la batería</string>
+    <string name="profileTriggerCheckSettings">Si esta casilla de verificación no está desactivada, solo se marcará si el perfil seleccionado ha sido el último en activarse. No importa si alguna configuración relacionada con el audio se ha cambiado externamente.\nSin embargo, si la casilla de verificación está habilitada, la configuración de audio actual realmente debe ser como se define en el perfil. CUIDADO: La comprobación del archivo de tono de llamada no es compatible actualmente, todavía.</string>
+    <string name="ruleXIsUsingProfileY">No se puede eliminar este perfil. La regla %s$1 hace referencia al perfil %s$2.</string>
+    <string name="profileCouldNotBeDeleted">No se pudo eliminar el perfil.</string>
 </resources>
