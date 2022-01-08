@@ -751,4 +751,7 @@
     <string name="message">message</string>
     <string name="onDays">on days</string>
     <string name="notSet">not set</string>
+    <string name="takeLauncherActivity">Find launcher automatically</string>
+    <string name="pickActivityManually">Choose activity manually</string>
+    <string name="launcherOrManualExplanation">Easy mode: Automation can try to identify the launcher activity of the desired program.\nAlternatively you can also pick one of the application\'s activities manually.\nWhat would you like?</string>
 </resources>

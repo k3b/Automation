@@ -230,7 +230,7 @@ public class ActivityManageActionStartActivity extends Activity
 		return null;
 	}
 	
-	private AlertDialog getActionStartActivityDialog1()
+	private AlertDialog getActionStartActivityDialog1Application()
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		alertDialogBuilder.setTitle(getResources().getString(R.string.selectApplication));
@@ -260,8 +260,7 @@ public class ActivityManageActionStartActivity extends Activity
 				@Override
 				public void onClick(DialogInterface dialog, int which)
 				{
-					getActionStartActivityDialog3(packageArray[which]).show();
-					Miscellaneous.messageBox(getResources().getString(R.string.hint), getResources().getString(R.string.chooseActivityHint), ActivityManageActionStartActivity.this).show();
+						getActionStartActivityDialog4ActivityPickMethod(packageArray[which]).show();
 				}
 			});
 			AlertDialog alertDialog = alertDialogBuilder.create();
@@ -269,12 +268,47 @@ public class ActivityManageActionStartActivity extends Activity
 		}
 		else
 		{
-			getActionStartActivityDialog3(packageArray[0]).show();
-			Miscellaneous.messageBox(getResources().getString(R.string.hint), getResources().getString(R.string.chooseActivityHint), ActivityManageActionStartActivity.this).show();
+			getActionStartActivityDialog4ActivityPickMethod(packageArray[0]).show();
 		}
 	}
 
-	private AlertDialog getActionStartActivityDialog3(final String packageName)
+	private AlertDialog getActionStartActivityDialog4ActivityPickMethod(final String packageName)
+	{
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder.setMessage(getResources().getString(R.string.launcherOrManualExplanation));
+//		alertDialogBuilder.setTitle(getResources().getString(R.string.co));
+		alertDialogBuilder.setPositiveButton(getResources().getString(R.string.takeLauncherActivity), new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				// Pick the launcher automatically
+				Intent launchIntent = getPackageManager().getLaunchIntentForPackage(packageName);
+				if (launchIntent != null)
+				{
+					ActivityInfo ai = ActivityManageActionStartActivity.getActivityInfoForPackageNameAndActivityName(packageName, launchIntent.getComponent().getClassName());
+					etPackageName.setText(ai.packageName);
+					etActivityOrActionPath.setText(ai.name);
+				}
+			}
+		});
+		alertDialogBuilder.setNegativeButton(getResources().getString(R.string.pickActivityManually), new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				getActionStartActivityDialog5Activity(packageName).show();
+				Miscellaneous.messageBox(getResources().getString(R.string.hint), getResources().getString(R.string.chooseActivityHint), ActivityManageActionStartActivity.this).show();
+			}
+		});
+
+		final String activityArray[] = ActivityManageActionStartActivity.getActivityListForPackageName(packageName);
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		return alertDialog;
+	}
+
+	private AlertDialog getActionStartActivityDialog5Activity(final String packageName)
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		alertDialogBuilder.setTitle(getResources().getString(R.string.selectActivityToBeStarted));
@@ -290,7 +324,6 @@ public class ActivityManageActionStartActivity extends Activity
 			}
 		});
 		AlertDialog alertDialog = alertDialogBuilder.create();
-		
 		return alertDialog;
 	}
 
@@ -621,7 +654,7 @@ public class ActivityManageActionStartActivity extends Activity
 		protected void onPostExecute(Void result)
 		{
 			progressDialog.dismiss();
-			getActionStartActivityDialog1().show();
+			getActionStartActivityDialog1Application().show();
 		}
 	}
 }
