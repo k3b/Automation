@@ -236,37 +236,44 @@ public class ActivityManageActionStartActivity extends Activity
 		alertDialogBuilder.setTitle(getResources().getString(R.string.selectApplication));
 		final String[] applicationArray = ActivityManageActionStartActivity.getApplicationNameListString(this);
 		alertDialogBuilder.setItems(applicationArray, new DialogInterface.OnClickListener()
-		{			
+		{
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
 				dialog.dismiss();
-				getActionStartActivityDialog2(applicationArray[which]).show();
+				getActionStartActivityDialog2(applicationArray[which]);
 			}
 		});
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		
 		return alertDialog;
 	}
-	private AlertDialog getActionStartActivityDialog2(String applicationName)
+	private void getActionStartActivityDialog2(String applicationName)
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		alertDialogBuilder.setTitle(getResources().getString(R.string.selectPackageOfApplication));
 		final String[] packageArray = ActivityManageActionStartActivity.getPackageListString(this, applicationName);
-		alertDialogBuilder.setItems(packageArray, new DialogInterface.OnClickListener()
-		{			
-			@Override
-			public void onClick(DialogInterface dialog, int which)
+		if(packageArray.length > 1)
+		{
+			alertDialogBuilder.setItems(packageArray, new DialogInterface.OnClickListener()
 			{
-				getActionStartActivityDialog3(packageArray[which]).show();
-				Miscellaneous.messageBox(getResources().getString(R.string.hint), getResources().getString(R.string.chooseActivityHint), ActivityManageActionStartActivity.this).show();
-
-			}
-		});
-		AlertDialog alertDialog = alertDialogBuilder.create();
-		
-		return alertDialog;
+				@Override
+				public void onClick(DialogInterface dialog, int which)
+				{
+					getActionStartActivityDialog3(packageArray[which]).show();
+					Miscellaneous.messageBox(getResources().getString(R.string.hint), getResources().getString(R.string.chooseActivityHint), ActivityManageActionStartActivity.this).show();
+				}
+			});
+			AlertDialog alertDialog = alertDialogBuilder.create();
+			alertDialog.show();
+		}
+		else
+		{
+			getActionStartActivityDialog3(packageArray[0]).show();
+			Miscellaneous.messageBox(getResources().getString(R.string.hint), getResources().getString(R.string.chooseActivityHint), ActivityManageActionStartActivity.this).show();
+		}
 	}
+
 	private AlertDialog getActionStartActivityDialog3(final String packageName)
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -598,7 +605,6 @@ public class ActivityManageActionStartActivity extends Activity
 			}
 		});
 		AlertDialog alertDialog = alertDialogBuilder.create();
-		
 		return alertDialog;
 	}
 	
@@ -617,7 +623,5 @@ public class ActivityManageActionStartActivity extends Activity
 			progressDialog.dismiss();
 			getActionStartActivityDialog1().show();
 		}
-		
-		
 	}
 }
