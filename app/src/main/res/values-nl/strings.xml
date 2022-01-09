@@ -653,4 +653,8 @@
     <string name="message">Bericht</string>
     <string name="onDays">op dagen</string>
     <string name="notSet">niet ingesteld</string>
+    <string name="takeLauncherActivity">Launcher automatisch zoeken</string>
+    <string name="pickActivityManually">Activiteit handmatig kiezen</string>
+    <string name="launcherNotFound">Een launcher-activiteit van deze app kon niet worden geïdentificeerd. U moet er handmatig een kiezen.</string>
+    <string name="launcherOrManualExplanation">Eenvoudige modus: Automatisering kan proberen de opstartactiviteit van het gewenste programma te identificeren. U kunt ook handmatig een van de activiteiten van de toepassing kiezen. Wat wil je?</string>
 </resources>

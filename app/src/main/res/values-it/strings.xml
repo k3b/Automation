@@ -655,4 +655,8 @@
     <string name="message">messaggio</string>
     <string name="onDays">nei giorni</string>
     <string name="notSet">non impostato</string>
+    <string name="takeLauncherActivity">Trova launcher automaticamente</string>
+    <string name="pickActivityManually">Scegli l\'attività manualmente</string>
+    <string name="launcherOrManualExplanation">Modalità semplice: l\'automazione può provare a identificare l\'attività di avvio del programma desiderato. In alternativa puoi anche scegliere manualmente una delle attività dell\'applicazione. Cosa vorresti?</string>
+    <string name="launcherNotFound">Impossibile identificare un\'attività di avvio di questa app. Dovrai sceglierne uno manualmente.</string>
 </resources>
