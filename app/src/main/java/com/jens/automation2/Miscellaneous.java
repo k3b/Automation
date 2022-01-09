@@ -877,7 +877,7 @@ public class Miscellaneous extends Service
 
 	@SuppressLint("NewApi")
 	@SuppressWarnings("deprecation")
-	public static void createDismissableNotificationWithDelay(long delay, String textToDisplay, int notificationId, PendingIntent pendingIntent)
+	public static void createDismissableNotificationWithDelay(long delay, String title, String textToDisplay, int notificationId, PendingIntent pendingIntent)
 	{
 		/*
 			Now what's this about?
@@ -903,7 +903,7 @@ public class Miscellaneous extends Service
 				catch(Exception e)
 				{}
 
-				createDismissableNotification(textToDisplay, notificationId, pendingIntent);
+				createDismissableNotification(title, textToDisplay, notificationId, pendingIntent);
 
 				return null;
 			}
@@ -924,17 +924,23 @@ public class Miscellaneous extends Service
 
 	@SuppressLint("NewApi")
 	@SuppressWarnings("deprecation")
-	public static void createDismissableNotification(String textToDisplay, int notificationId, PendingIntent pendingIntent)
+	public static void createDismissableNotification(String title, String textToDisplay, int notificationId, PendingIntent pendingIntent)
 	{
 		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
 		{
-			createDismissableNotificationSdk26(textToDisplay, notificationId, pendingIntent);
+			createDismissableNotificationSdk26(title, textToDisplay, notificationId, pendingIntent);
 			return;
 		}
 
 		NotificationManager mNotificationManager = (NotificationManager) Miscellaneous.getAnyContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
 		NotificationCompat.Builder dismissableNotificationBuilder = createDismissableNotificationBuilder(pendingIntent);
+
+		if(title == null)
+			dismissableNotificationBuilder.setContentTitle(AutomationService.getInstance().getResources().getString(R.string.app_name));
+		else
+			dismissableNotificationBuilder.setContentTitle(title);
+
 		dismissableNotificationBuilder.setContentText(textToDisplay);
 		dismissableNotificationBuilder.setContentIntent(pendingIntent);
 		dismissableNotificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(textToDisplay));
@@ -957,7 +963,7 @@ public class Miscellaneous extends Service
 				mNotificationManager.notify(0, dismissableNotification);*/
 	}
 
-	static void createDismissableNotificationSdk26(String textToDisplay, int notificationId, PendingIntent pendingIntent)
+	static void createDismissableNotificationSdk26(String title, String textToDisplay, int notificationId, PendingIntent pendingIntent)
 	{
 		NotificationManager mNotificationManager = (NotificationManager) AutomationService.getInstance().getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -983,7 +989,11 @@ public class Miscellaneous extends Service
 		builder.setWhen(System.currentTimeMillis());
 		builder.setContentIntent(pendingIntent);
 
-		builder.setContentTitle(AutomationService.getInstance().getResources().getString(R.string.app_name));
+		if(title == null)
+			builder.setContentTitle(AutomationService.getInstance().getResources().getString(R.string.app_name));
+		else
+			builder.setContentTitle(title);
+
 		builder.setOnlyAlertOnce(true);
 
 		if(Settings.showIconWhenServiceIsRunning)

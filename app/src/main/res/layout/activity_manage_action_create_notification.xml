@@ -39,13 +39,6 @@
 					android:ems="10" />
 
 			</TableRow>
-
-			<ImageView
-				android:layout_width="match_parent"
-				android:layout_height="1dp"
-				android:layout_margin="10dp"
-				android:layout_marginVertical="@dimen/default_margin"
-				android:background="#aa000000" />
 	    
 			<TableRow
 				android:layout_marginBottom="@dimen/activity_vertical_margin">
@@ -62,7 +55,41 @@
 					android:layout_height="wrap_content"
 					android:ems="10" />
 
-			</TableRow>>
+			</TableRow>
+
+			<TableRow
+				android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_vertical"
+					android:text="@string/icon" />
+
+				<EditText
+					android:id="@+id/etNotificationIcon"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:ems="10" />
+
+			</TableRow>
+
+			<TableRow
+				android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_vertical"
+					android:text="@string/sound" />
+
+				<EditText
+					android:id="@+id/etNotificationSound"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:ems="10" />
+
+			</TableRow>
 
 		</TableLayout>
 

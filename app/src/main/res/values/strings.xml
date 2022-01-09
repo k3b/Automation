@@ -758,4 +758,6 @@
     <string name="createNotification">Create notification</string>
     <string name="enterTitle">Enter a title.</string>
     <string name="enterText">Enter a text.</string>
+    <string name="icon">Icon</string>
+    <string name="sound">Sound</string>
 </resources>

@@ -365,9 +365,9 @@ public class AutomationService extends Service implements OnInitListener
 				Miscellaneous.logEvent("w", "Features disabled", "Features disabled because of rule " + rule, 5);
 
 				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
-					Miscellaneous.createDismissableNotificationWithDelay(1010, getResources().getString(R.string.featuresDisabled), ActivityPermissions.notificationIdPermissions, pi);
+					Miscellaneous.createDismissableNotificationWithDelay(1010, null, getResources().getString(R.string.featuresDisabled), ActivityPermissions.notificationIdPermissions, pi);
 				else
-					Miscellaneous.createDismissableNotification(getResources().getString(R.string.featuresDisabled), ActivityPermissions.notificationIdPermissions, pi);
+					Miscellaneous.createDismissableNotification(null, getResources().getString(R.string.featuresDisabled), ActivityPermissions.notificationIdPermissions, pi);
 			}
 		}
 	}
@@ -389,9 +389,9 @@ public class AutomationService extends Service implements OnInitListener
 				Miscellaneous.logEvent("w", "Features disabled", "Background location disabled because Google to blame.", 5);
 
 				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
-					Miscellaneous.createDismissableNotificationWithDelay(3300, getResources().getString(R.string.featuresDisabled), notificationIdRestrictions, pi);
+					Miscellaneous.createDismissableNotificationWithDelay(3300, null, getResources().getString(R.string.featuresDisabled), notificationIdRestrictions, pi);
 				else
-					Miscellaneous.createDismissableNotification(getResources().getString(R.string.featuresDisabled), notificationIdRestrictions, pi);
+					Miscellaneous.createDismissableNotification(null, getResources().getString(R.string.featuresDisabled), notificationIdRestrictions, pi);
 			}
 		}
 	}
@@ -411,9 +411,9 @@ public class AutomationService extends Service implements OnInitListener
 			Miscellaneous.logEvent("w", "Features disabled", "Background location disabled because Google to blame.", 5);
 
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
-				Miscellaneous.createDismissableNotificationWithDelay(2200, getResources().getString(R.string.featuresDisabled), notificationIdLocationRestriction, pi);
+				Miscellaneous.createDismissableNotificationWithDelay(2200, null, getResources().getString(R.string.featuresDisabled), notificationIdLocationRestriction, pi);
 			else
-				Miscellaneous.createDismissableNotification(getResources().getString(R.string.featuresDisabled), notificationIdLocationRestriction, pi);
+				Miscellaneous.createDismissableNotification(null, getResources().getString(R.string.featuresDisabled), notificationIdLocationRestriction, pi);
 		}
 	}
 

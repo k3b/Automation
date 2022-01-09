@@ -240,6 +240,9 @@ public class Action
 			case setScreenBrightness:
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.setScreenBrightness));
 				break;
+			case createNotification:
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.createNotification));
+				break;
 			default:
 				returnString.append(action.toString());
 		}
@@ -284,7 +287,7 @@ public class Action
 		}
 		else
 			if (parameter2 != null && parameter2.length() > 0)
-				returnString.append(": " + parameter2);
+				returnString.append(": " + parameter2.replace(Action.actionParameter2Split, "; "));
 		
 		return returnString.toString();
 	}
@@ -453,6 +456,9 @@ public class Action
 					break;
 				case playSound:
 					Actions.playSound(getParameter1(), getParameter2());
+					break;
+				case createNotification:
+					Actions.createNotification(this);
 					break;
 				default:
 					Miscellaneous.logEvent("w", "Action", context.getResources().getString(R.string.unknownActionSpecified), 3);

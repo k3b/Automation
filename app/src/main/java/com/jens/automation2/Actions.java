@@ -54,6 +54,7 @@ import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.security.KeyStore;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -79,7 +80,27 @@ public class Actions
 	public static final String wireguard_tunnel_down = "com.wireguard.android.action.SET_TUNNEL_DOWN";
 	public static final String wireguard_tunnel_refresh = "com.wireguard.android.action.REFRESH_TUNNEL_STATES";
 
-	public static class WifiStuff
+    public static void createNotification(Action action)
+    {
+		String[] elements = action.getParameter2().split(Action.actionParameter2Split);
+
+		Miscellaneous.logEvent("w", "createNotification", "Creating notification with title " + elements[0] + " and text " + elements[1], 3);
+
+    	int notificationId = Math.round(Calendar.getInstance().getTimeInMillis()/1000);
+
+    	try
+		{
+			String title = Miscellaneous.replaceVariablesInText(elements[0], Miscellaneous.getAnyContext());
+			String text = Miscellaneous.replaceVariablesInText(elements[1], Miscellaneous.getAnyContext());
+			Miscellaneous.createDismissableNotification(title, text, notificationId, null);
+		}
+    	catch (Exception e)
+		{
+			Miscellaneous.logEvent("w", "createNotification", "Error occurred while replacing vars: " + Log.getStackTraceString(e), 3);
+		}
+    }
+
+    public static class WifiStuff
 	{
 		public static Boolean setWifi(Context context, Boolean desiredState, boolean toggleActionIfPossible)
 		{
