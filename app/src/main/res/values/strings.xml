@@ -755,4 +755,7 @@
     <string name="pickActivityManually">Choose activity manually</string>
     <string name="launcherOrManualExplanation">Easy mode: Automation can try to identify the launcher activity of the desired program. Alternatively you can also pick one of the application\'s activities manually. What would you like?</string>
     <string name="launcherNotFound">A launcher activity of this app could not be identified. You will have to pick one manually.</string>
+    <string name="createNotification">Create notification</string>
+    <string name="enterTitle">Enter a title.</string>
+    <string name="enterText">Enter a text.</string>
 </resources>

@@ -44,6 +44,7 @@ public class Action
 								setScreenBrightness,
 								playSound,
 								vibrate,
+								createNotification,
 								sendTextMessage;
 								
 								public String getFullName(Context context)
@@ -108,6 +109,8 @@ public class Action
 											return context.getResources().getString(R.string.sendTextMessage);
 										case setScreenBrightness:
 											return context.getResources().getString(R.string.setScreenBrightness);
+										case createNotification:
+											return context.getResources().getString(R.string.createNotification);
 										default:
 											return "Unknown";
 									}

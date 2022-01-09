@@ -115,6 +115,8 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeActionSendTextMessageEdit = 5002;
 	final static int requestCodeActionVibrateAdd = 801;
 	final static int requestCodeActionVibrateEdit = 802;
+	final static int requestCodeActionCreateNotificationAdd = 803;
+	final static int requestCodeActionCreateNotificationEdit = 804;
 	
 	public static ActivityManageRule getInstance()
 	{
@@ -353,14 +355,21 @@ public class ActivityManageRule extends Activity
 						break;
 					case setScreenBrightness:
 						Intent activityEditScreenBrightnessIntent = new Intent(ActivityManageRule.this, ActivityManageActionBrightnessSetting.class);
-						activityEditScreenBrightnessIntent.putExtra("autoBrightness", a.getParameter1());
-						activityEditScreenBrightnessIntent.putExtra("brightnessValue", Integer.parseInt(a.getParameter2()));
+						activityEditScreenBrightnessIntent.putExtra(ActivityManageActionBrightnessSetting.intentNameAutoBrightness, a.getParameter1());
+						activityEditScreenBrightnessIntent.putExtra(ActivityManageActionBrightnessSetting.intentNameBrightnessValue, Integer.parseInt(a.getParameter2()));
 						startActivityForResult(activityEditScreenBrightnessIntent, requestCodeActionScreenBrightnessEdit);
 						break;
 					case vibrate:
 						Intent activityEditVibrateIntent = new Intent(ActivityManageRule.this, ActivityManageActionVibrate.class);
 						activityEditVibrateIntent.putExtra("vibratePattern", a.getParameter2());
 						startActivityForResult(activityEditVibrateIntent, requestCodeActionVibrateEdit);
+						break;
+					case createNotification:
+						Intent activityEditCreateNotificationIntent = new Intent(ActivityManageRule.this, ActivityManageActionCreateNotification.class);
+						String[] elements = a.getParameter2().split(Action.actionParameter2Split);
+						activityEditCreateNotificationIntent.putExtra(ActivityManageActionCreateNotification.intentNameNotificationTitle, elements[0]);
+						activityEditCreateNotificationIntent.putExtra(ActivityManageActionCreateNotification.intentNameNotificationText, elements[1]);
+						startActivityForResult(activityEditCreateNotificationIntent, requestCodeActionCreateNotificationEdit);
 						break;
 					case playSound:
 						Intent actionPlaySoundIntent = new Intent(context, ActivityManageActionPlaySound.class);
@@ -1336,8 +1345,8 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
-				newAction.setParameter1(data.getBooleanExtra("autoBrightness", false));
-				newAction.setParameter2(String.valueOf(data.getIntExtra("brightnessValue", 0)));
+				newAction.setParameter1(data.getBooleanExtra(ActivityManageActionBrightnessSetting.intentNameAutoBrightness, false));
+				newAction.setParameter2(String.valueOf(data.getIntExtra(ActivityManageActionBrightnessSetting.intentNameBrightnessValue, 0)));
 				newAction.setParentRule(ruleToEdit);
 				ruleToEdit.getActionSet().add(newAction);
 				this.refreshActionList();
@@ -1368,6 +1377,20 @@ public class ActivityManageRule extends Activity
 				this.refreshActionList();
 			}
 		}
+		else if(requestCode == requestCodeActionCreateNotificationAdd)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				newAction.setParentRule(ruleToEdit);
+				newAction.setParameter2(
+											data.getStringExtra(ActivityManageActionCreateNotification.intentNameNotificationTitle)
+												+ Action.actionParameter2Split +
+											data.getStringExtra(ActivityManageActionCreateNotification.intentNameNotificationText)
+										);
+				ruleToEdit.getActionSet().add(newAction);
+				this.refreshActionList();
+			}
+		}
 		else if(requestCode == requestCodeActionVibrateEdit)
 		{
 			if(resultCode == RESULT_OK)
@@ -1376,6 +1399,22 @@ public class ActivityManageRule extends Activity
 
 				if(data.hasExtra("vibratePattern"))
 					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra("vibratePattern"));
+
+				this.refreshActionList();
+			}
+		}
+		else if(requestCode == requestCodeActionCreateNotificationEdit)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				ruleToEdit.getActionSet().get(editIndex).setParentRule(ruleToEdit);
+
+				if(data.hasExtra(ActivityManageActionCreateNotification.intentNameNotificationTitle))
+					ruleToEdit.getActionSet().get(editIndex).setParameter2(
+										data.getStringExtra(ActivityManageActionCreateNotification.intentNameNotificationTitle)
+											+ Action.actionParameter2Split +
+										data.getStringExtra(ActivityManageActionCreateNotification.intentNameNotificationText)
+												);
 
 				this.refreshActionList();
 			}
@@ -1681,6 +1720,12 @@ public class ActivityManageRule extends Activity
 						newAction.setAction(Action_Enum.vibrate);
 						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionVibrate.class);
 						startActivityForResult(intent, requestCodeActionVibrateAdd);
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.createNotification.toString()))
+					{
+						newAction.setAction(Action_Enum.createNotification);
+						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionCreateNotification.class);
+						startActivityForResult(intent, requestCodeActionCreateNotificationAdd);
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setScreenBrightness.toString()))
 					{

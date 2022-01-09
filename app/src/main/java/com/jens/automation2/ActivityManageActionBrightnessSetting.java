@@ -14,6 +14,9 @@ import androidx.annotation.Nullable;
 
 public class ActivityManageActionBrightnessSetting extends Activity
 {
+    public static final String intentNameAutoBrightness = "autoBrightness";
+    public static final String intentNameBrightnessValue = "brightnessValue";
+
     CheckBox chkAutoBrightness;
     SeekBar sbBrightness;
     Button bApplyBrightness;
@@ -32,11 +35,11 @@ public class ActivityManageActionBrightnessSetting extends Activity
 
         Intent input = getIntent();
 
-        if(input.hasExtra("autoBrightness"))
-            chkAutoBrightness.setChecked(input.getBooleanExtra("autoBrightness", false));
+        if(input.hasExtra(intentNameAutoBrightness))
+            chkAutoBrightness.setChecked(input.getBooleanExtra(intentNameAutoBrightness, false));
 
-        if(input.hasExtra("brightnessValue"))
-            sbBrightness.setProgress(input.getIntExtra("brightnessValue", 0));
+        if(input.hasExtra(intentNameBrightnessValue))
+            sbBrightness.setProgress(input.getIntExtra(intentNameBrightnessValue, 0));
 
         bApplyBrightness.setOnClickListener(new View.OnClickListener()
         {
@@ -44,8 +47,8 @@ public class ActivityManageActionBrightnessSetting extends Activity
             public void onClick(View view)
             {
                 Intent answer = new Intent();
-                answer.putExtra("autoBrightness", chkAutoBrightness.isChecked());
-                answer.putExtra("brightnessValue", sbBrightness.getProgress());
+                answer.putExtra(intentNameAutoBrightness, chkAutoBrightness.isChecked());
+                answer.putExtra(intentNameBrightnessValue, sbBrightness.getProgress());
                 setResult(RESULT_OK, answer);
                 finish();
             }
