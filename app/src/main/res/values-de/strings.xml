@@ -655,8 +655,8 @@
     <string name="message">Nachricht</string>
     <string name="onDays">an Tagen</string>
     <string name="notSet">nicht gesetzt</string>
-    <string name="takeLauncherActivity">Start-Activity automatisch auswählen</string>
-    <string name="pickActivityManually">Activity manuell auswählen</string>
-    <string name="launcherOrManualExplanation">Einfacher Modus: Automation kann versuchen, die Start-Activity des Zielprogramms automatisch zu finden. Alternativ können Sie die gewünschte Activity auch manuell auswählen. Welche Variante möchten Sie?</string>
+    <string name="takeLauncherActivity">Automatisch auswählen</string>
+    <string name="pickActivityManually">Manuell auswählen</string>
+    <string name="launcherOrManualExplanation">Einfacher Modus: Automation kann versuchen, die Start-Activity des Zielprogramms automatisch zu finden.\nAlternativ können Sie die gewünschte Activity auch manuell auswählen.\nWelche Variante möchten Sie?</string>
     <string name="launcherNotFound">Eine Start-Activity dieser Anwendung konnte nicht gefunden werden. Sie müssen manuell eine auswählen.</string>
 </resources>

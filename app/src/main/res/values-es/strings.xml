@@ -654,8 +654,8 @@
     <string name="message">mensaje</string>
     <string name="onDays">en días</string>
     <string name="notSet">no configurado</string>
-    <string name="takeLauncherActivity">Buscar launcher activity automaticamente</string>
-    <string name="pickActivityManually">Eligir activity manualmente</string>
-    <string name="launcherOrManualExplanation">Modo facil: Automation puede probar identifcar el launcher activity del programa automaticamente. Alternativamente puede eligir una de las activities del programa manualmente. Cual variante queria?</string>
+    <string name="takeLauncherActivity">Buscar automaticamente</string>
+    <string name="pickActivityManually">Eligir manualmente</string>
+    <string name="launcherOrManualExplanation">Modo facil: Automation puede probar identifcar el launcher activity del programa automaticamente.\nAlternativamente puede eligir una de las activities del programa manualmente.\nCual variante queria?</string>
     <string name="launcherNotFound">No se puede encontrar una launcher activity. Tiene que elegir una manualmente.</string>
 </resources>

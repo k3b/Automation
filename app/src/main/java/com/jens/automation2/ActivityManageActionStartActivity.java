@@ -276,7 +276,6 @@ public class ActivityManageActionStartActivity extends Activity
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		alertDialogBuilder.setMessage(getResources().getString(R.string.launcherOrManualExplanation));
-//		alertDialogBuilder.setTitle(getResources().getString(R.string.co));
 		alertDialogBuilder.setPositiveButton(getResources().getString(R.string.takeLauncherActivity), new DialogInterface.OnClickListener()
 		{
 			@Override
