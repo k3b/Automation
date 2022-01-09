@@ -283,8 +283,8 @@ public class ActivityManageRule extends Activity
 					case wifiConnection:
 						Intent wifiEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerWifi.class);
 						wifiEditor.putExtra("edit", true);
-						wifiEditor.putExtra("wifiState", selectedTrigger.getTriggerParameter());
-						wifiEditor.putExtra("wifiName", selectedTrigger.getTriggerParameter2());
+						wifiEditor.putExtra(ActivityManageTriggerWifi.intentNameWifiState, selectedTrigger.getTriggerParameter());
+						wifiEditor.putExtra(ActivityManageTriggerWifi.intentNameWifiName, selectedTrigger.getTriggerParameter2());
 						startActivityForResult(wifiEditor, requestCodeTriggerWifiEdit);
 						break;
 					case deviceOrientation:
@@ -1051,7 +1051,6 @@ public class ActivityManageRule extends Activity
 		@Override
 		protected String[] doInBackground(ActivityManageRule... params)
 		{
-//			Looper.prepare();
 			final String[] applicationArray = ActivityManageActionStartActivity.getApplicationNameListString(params[0]);
 			return applicationArray;
 		}
@@ -1187,8 +1186,8 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
-				newTrigger.setTriggerParameter(data.getBooleanExtra("wifiState", false));
-				newTrigger.setTriggerParameter2(data.getStringExtra("wifiName"));
+				newTrigger.setTriggerParameter(data.getBooleanExtra(ActivityManageTriggerWifi.intentNameWifiState, false));
+				newTrigger.setTriggerParameter2(data.getStringExtra(ActivityManageTriggerWifi.intentNameWifiName));
 				newTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().add(newTrigger);
 				this.refreshTriggerList();
@@ -1200,8 +1199,8 @@ public class ActivityManageRule extends Activity
 			{
 				Trigger editedTrigger = new Trigger();
 				editedTrigger.setTriggerType(Trigger_Enum.wifiConnection);
-				editedTrigger.setTriggerParameter(data.getBooleanExtra("wifiState", false));
-				editedTrigger.setTriggerParameter2(data.getStringExtra("wifiName"));
+				editedTrigger.setTriggerParameter(data.getBooleanExtra(ActivityManageTriggerWifi.intentNameWifiState, false));
+				editedTrigger.setTriggerParameter2(data.getStringExtra(ActivityManageTriggerWifi.intentNameWifiName));
 				editedTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().set(editIndex, editedTrigger);
 				this.refreshTriggerList();
@@ -1249,13 +1248,13 @@ public class ActivityManageRule extends Activity
 			{
 				ruleToEdit.getTriggerSet().add(newTrigger);
 
-				newTrigger.setTriggerParameter(data.getBooleanExtra("direction", false));
+				newTrigger.setTriggerParameter(data.getBooleanExtra(ActivityManageTriggerNotification.intentNameNotificationDirection, false));
 				newTrigger.setTriggerParameter2(
-													data.getStringExtra("app") + Trigger.triggerParameter2Split +
-													data.getStringExtra("titleDir") + Trigger.triggerParameter2Split +
-													data.getStringExtra("title") + Trigger.triggerParameter2Split +
-													data.getStringExtra("textDir") + Trigger.triggerParameter2Split +
-													data.getStringExtra("text")
+													data.getStringExtra(ActivityManageTriggerNotification.intentNameNotificationApp) + Trigger.triggerParameter2Split +
+													data.getStringExtra(ActivityManageTriggerNotification.intentNameNotificationTitleDir) + Trigger.triggerParameter2Split +
+													data.getStringExtra(ActivityManageTriggerNotification.intentNameNotificationTitle) + Trigger.triggerParameter2Split +
+													data.getStringExtra(ActivityManageTriggerNotification.intentNameNotificationTextDir) + Trigger.triggerParameter2Split +
+													data.getStringExtra(ActivityManageTriggerNotification.intentNameNotificationText)
 												);
 				newTrigger.setParentRule(ruleToEdit);
 				this.refreshTriggerList();

@@ -31,6 +31,13 @@ import static com.jens.automation2.Trigger.triggerParameter2Split;
 
 public class ActivityManageTriggerNotification extends Activity
 {
+	public static final String intentNameNotificationApp = "app";
+	public static final String intentNameNotificationTitleDir = "titleDir";
+	public static final String intentNameNotificationTitle = "title";
+	public static final String intentNameNotificationTextDir = "textDir";
+	public static final String intentNameNotificationText = "text";
+	public static final String intentNameNotificationDirection = "direction";
+
 	public static Trigger editedNotificationTrigger;
 	boolean edit = false;
 	ProgressDialog progressDialog = null;
@@ -323,12 +330,12 @@ public class ActivityManageTriggerNotification extends Activity
 				else
 				{
 					Intent data = new Intent();
-					data.putExtra("direction", chkNotificationDirection.isChecked());
-					data.putExtra("app", app);
-					data.putExtra("titleDir", titleDir);
-					data.putExtra("title", title);
-					data.putExtra("textDir", textDir);
-					data.putExtra("text", text);
+					data.putExtra(intentNameNotificationDirection, chkNotificationDirection.isChecked());
+					data.putExtra(intentNameNotificationApp, app);
+					data.putExtra(intentNameNotificationTitleDir, titleDir);
+					data.putExtra(intentNameNotificationTitle, title);
+					data.putExtra(intentNameNotificationTextDir, textDir);
+					data.putExtra(intentNameNotificationText, text);
 					ActivityManageTriggerNotification.this.setResult(RESULT_OK, data);
 				}
 

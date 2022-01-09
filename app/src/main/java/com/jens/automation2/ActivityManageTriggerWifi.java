@@ -35,6 +35,9 @@ import java.util.List;
 
 public class ActivityManageTriggerWifi extends Activity
 {
+    public final static String intentNameWifiState = "wifiState";
+    public final static String intentNameWifiName = "wifiName";
+
     RadioButton rbTriggerWifiConnected, rbTriggerWifiDisconnected;
     EditText etTriggerWifiName;
     Spinner spinnerWifiList;
