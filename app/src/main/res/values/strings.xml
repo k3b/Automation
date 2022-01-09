@@ -754,4 +754,5 @@
     <string name="takeLauncherActivity">Find launcher automatically</string>
     <string name="pickActivityManually">Choose activity manually</string>
     <string name="launcherOrManualExplanation">Easy mode: Automation can try to identify the launcher activity of the desired program.\nAlternatively you can also pick one of the application\'s activities manually.\nWhat would you like?</string>
+    <string name="launcherNotFound">A launcher activity of this app could not be identified. You will have to pick one manually.</string>
 </resources>

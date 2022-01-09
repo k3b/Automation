@@ -290,6 +290,11 @@ public class ActivityManageActionStartActivity extends Activity
 					etPackageName.setText(ai.packageName);
 					etActivityOrActionPath.setText(ai.name);
 				}
+				else
+				{
+					getActionStartActivityDialog5Activity(packageName).show();
+					Miscellaneous.messageBox(getResources().getString(R.string.hint), getResources().getString(R.string.launcherNotFound) + Miscellaneous.lineSeparator + getResources().getString(R.string.chooseActivityHint), ActivityManageActionStartActivity.this).show();
+				}
 			}
 		});
 		alertDialogBuilder.setNegativeButton(getResources().getString(R.string.pickActivityManually), new DialogInterface.OnClickListener()
