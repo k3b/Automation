@@ -1647,4 +1647,53 @@ public class Miscellaneous extends Service
 
 		return formattedDate;
 	}
+
+	public static boolean arraySearch(String[] haystack, String needle, boolean caseSensitive, boolean matchFullLine)
+	{
+		if(matchFullLine)
+		{
+			if(caseSensitive)
+			{
+				for (String s : haystack)
+				{
+					if (s.equals(needle))
+						return true;
+				}
+			}
+			else
+			{
+				for (String s : haystack)
+				{
+					if (s.toLowerCase().equals(needle.toLowerCase()))
+						return true;
+				}
+			}
+		}
+		else
+		{
+			if(caseSensitive)
+			{
+				for (String s : haystack)
+				{
+					if (s.contains(needle))
+						return true;
+				}
+			}
+			else
+			{
+				for (String s : haystack)
+				{
+					if (s.toLowerCase().contains(needle.toLowerCase()))
+						return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	public static boolean arraySearch(ArrayList<String> requestList, String needle, boolean caseSensitive, boolean matchFullLine)
+	{
+		return arraySearch(requestList.toArray(new String[requestList.size()]), needle, caseSensitive, matchFullLine);
+	}
 }

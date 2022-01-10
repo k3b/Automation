@@ -588,7 +588,7 @@
     <string name="vibrate">Vibrar</string>
     <string name="test">Probar</string>
     <string name="VibrateExplanation">Elija la duración de la vibración, seguido de un coma y una duración de una pausa. Puedes concatenar tantos como quiere. Separelos con comas tambien. Por ejemplo el patrón 100,500,500,1000,100 va a vibrar 100, esperar 500, vibrar 500, esperar 1000, vibrar 100 ms. Si cree que una vibración está perdida, pruebe incrementar la pausa antes de esta vibración.</string>
-    <string name="pleaseEnterValidVibrationPattern">Por favor introduzca un patrón de vibración válido.</string>
+    <string name="pleaseEnterValidVibrationPattern">Por favor inserte un patrón de vibración válido.</string>
     <string name="tabsPlacementSummary">Elija done la barra de tabs está puesto.</string>
     <string name="intentDataComment">Si su parametro es de tipo Uri y especifica \"IntentData\" como nombre (minúscula/mayáscula no es importante), el parametro no está añadido como un parametro normal con puExtra(), pero estará añadido al intent con setData().</string>
     <string name="locationEngineDisabledLong">Desafortunadamente su posición todavia no puede ser determinada. Gratitud va para Google por su sabiduria y amabilidad infinita.\n\nDejenme explicarselo mas. Comenzando con Android 10 un nuevo permiso se introdujo que es necesario para determinar la posición en el fondo (que es necesario para una app como esta). Aunque lo considero una buena idea, conlleva a una chicana para desarolladores.\n\nCuando se esta desarrollando una app se puede intentar calificar para este permiso mientras se sigue un catalogo de condiciones. Desafortunadamente nuevas versiones de mi app fueron rechazadas por un periodo de trés meses. Cumplé todas las condiciones, pero Google\'s mierda servicio para desarolladores afirmó que no. Despues de presentar pruebas, que cumplí con todo, recibí una respuesta de \"No puedo ayudarte mas.\". En algun momento me rendí.\n\nComo consecuencia la version Google Play todavia no sabe usar la locación como una condición. Mi única alternativa fue remover la applicación de Google Play.\n\nLo siento mucho, pero hicé todo lo posible para discutir con un support que no sabe aprobar la prueba de Turing repetidamente.\n\nLa noticia positiva: Usted todavia puede tener todo!\n\nAutomation ahora es open source y se puede encontrar en F-Droid. Es un app store que se preocupa por su privacidad - en vez de solo simular eso. Simplemente guarde su configuración, desinstale la app, instale la de F-Droid, restaure su configuración - terminado.\n\nCliquee aqui para averiguar más:</string>
@@ -626,7 +626,7 @@
     <string name="automationNotificationsIgnored">Si no elige una aplicación específica, sino que elige \"Cualquier aplicación\", las notificaciones de Automatización se ignorarán para evitar bucles.</string>
     <string name="enterRepetitionTime">Debe insertar un valor positivo no decimal para el tiempo de repetición.</string>
     <string name="elementSkipped">No se pudo leer un elemento del archivo de configuración. El archivoo puede haber sido creado por una versión más reciente del programa.</string>
-    <string name="enterValidNumbersIntoAllFields">Introduzca números válidos en todos los campos.</string>
+    <string name="enterValidNumbersIntoAllFields">Inserte números válidos en todos los campos.</string>
     <string name="toleranceOf180OnlyAllowedIn2Fields">Se permite una tolerancia de 180 solo para 2 campos de tolerancia, no para todos los 3. De lo contrario, el disparador SIEMPRE se aplicaría.</string>
     <string name="triggerWrong">Hay algo mal con este condición. No se pudo cargar correctamente.</string>
     <string name="deviceOrientationTimeAcceptIntervalSummary">Aceptar nuevas señales de movimiento cada x milisegundos</string>
@@ -646,7 +646,7 @@
     <string name="recommendedForBetterReliability">Recomendado para una mejor fiabilidad</string>
     <string name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS">Excluir de la optimización de la batería</string>
     <string name="profileTriggerCheckSettings">Si esta casilla de verificación no está desactivada, solo se marcará si el perfil seleccionado ha sido el último en activarse. No importa si alguna configuración relacionada con el audio se ha cambiado externamente.\nSin embargo, si la casilla de verificación está habilitada, la configuración de audio actual realmente debe ser como se define en el perfil. CUIDADO: La comprobación del archivo de tono de llamada no es compatible actualmente, todavía.</string>
-    <string name="ruleXIsUsingProfileY">No se puede eliminar este perfil. La regla %s$1 hace referencia al perfil %s$2.</string>
+    <string name="ruleXIsUsingProfileY">No se puede eliminar este perfil. La regla %1$s hace referencia al perfil %2$s.</string>
     <string name="profileCouldNotBeDeleted">No se pudo eliminar el perfil.</string>
     <string name="noRepetition">sin repetición</string>
     <string name="usingAuthentication">uso de la autenticación</string>
@@ -658,4 +658,9 @@
     <string name="pickActivityManually">Eligir manualmente</string>
     <string name="launcherOrManualExplanation">Modo facil: Automation puede probar identifcar el launcher activity del programa automaticamente.\nAlternativamente puede eligir una de las activities del programa manualmente.\nCual variante queria?</string>
     <string name="launcherNotFound">No se puede encontrar una launcher activity. Tiene que elegir una manualmente.</string>
+    <string name="info">Info</string>
+    <string name="createNotification">Crear notificación</string>
+    <string name="enterTitle">Inserte un título.</string>
+    <string name="enterText">Inserte un texto.</string>
+    <string name="profileWasNotFound">El perfil utilizado en esta regla ya no parece existir. Se ha seleccionado el primero alfabéticamente.</string>
 </resources>

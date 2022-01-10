@@ -647,7 +647,7 @@
     <string name="checkSettings">Controlla le impostazioni</string>
     <string name="profileActive">profilo %1$s è attivo</string>
     <string name="profileNotActive">profilo %1$s non attivo</string>
-    <string name="ruleXIsUsingProfileY">Impossibile eliminare questo profilo. La regola %s$1 fa riferimento al profilo %s$2.</string>
+    <string name="ruleXIsUsingProfileY">Impossibile eliminare questo profilo. La regola %1$s fa riferimento al profilo %2$s.</string>
     <string name="profileCouldNotBeDeleted">Impossibile eliminare il profilo.</string>
     <string name="noRepetition">nessuna ripetizione</string>
     <string name="usingAuthentication">utilizzo dell\'autenticazione</string>
@@ -659,4 +659,9 @@
     <string name="pickActivityManually">Scegli manualmente</string>
     <string name="launcherOrManualExplanation">Modalità semplice: l\'automazione può provare a identificare l\'attività di avvio del programma desiderato.\nIn alternativa puoi anche scegliere manualmente una delle attività dell\'applicazione.\nCosa vorresti?</string>
     <string name="launcherNotFound">Impossibile identificare un\'attività di avvio di questa app. Dovrai sceglierne uno manualmente.</string>
+    <string name="createNotification">Crea notifica</string>
+    <string name="enterTitle">Inserisci un titolo.</string>
+    <string name="enterText">Immettere un testo.</string>
+    <string name="info">Info</string>
+    <string name="profileWasNotFound">Il profilo utilizzato in questa regola non sembra più esistere. Il primo in ordine alfabetico è stato selezionato.</string>
 </resources>

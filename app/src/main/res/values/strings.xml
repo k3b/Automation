@@ -743,7 +743,7 @@
     <string name="profileActive">profile %1$s is active</string>
     <string name="profileNotActive">profile %1$s is not active</string>
     <string name="profileTriggerCheckSettings">If this checkbox is not disabled, it will only be checked if the selected profile has been the last one to be activated. It doesn\'t matter if any audio related settings have been changed externally. However if the checkbox is enabled, the current audio settings really need to be like defined in the profile. BEWARE: Checking the ringtone file is currently not supported, yet.</string>
-    <string name="ruleXIsUsingProfileY">Cannot delete this profile. Rule %s$1 is referencing profile %s$2.</string>
+    <string name="ruleXIsUsingProfileY">Cannot delete this profile. Rule %1$s is referencing profile %2$s.</string>
     <string name="profileCouldNotBeDeleted">Profile could not be deleted.</string>
     <string name="noRepetition">no repetition</string>
     <string name="usingAuthentication">using authentication</string>
@@ -758,6 +758,6 @@
     <string name="createNotification">Create notification</string>
     <string name="enterTitle">Enter a title.</string>
     <string name="enterText">Enter a text.</string>
-    <string name="icon">Icon</string>
-    <string name="sound">Sound</string>
+    <string name="info">Info</string>
+    <string name="profileWasNotFound">The profile used in this rule doesn\'t seem to exist anymore. The alphabetically first one has been selected.</string>
 </resources>

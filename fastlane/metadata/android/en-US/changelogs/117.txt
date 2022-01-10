@@ -1,1 +1,2 @@
 * New action: Create notification
+* Fixed: Translation bug in dutch variables text

@@ -648,7 +648,7 @@
     <string name="profileNotActive">Profil %1$s ist nicht aktiv</string>
     <string name="profileTriggerCheckSettings">Wenn dieses Häkchen nicht gesetzt ist, wird nur geprüft, ob das ausgewählte Profil zuletzt aktiviert wurde. Es ist egal, ob Audio-Einstellungen von außerhalb verändert wurden.\nWenn das Häkchen aber gesetzt ist, müssen die aktuellen Audio-Einstellungen auch wirklich genau so gesetzt sein, wie im Profil definiert. ACHTUNG: Der Klingelton selbst kann derzeit noch nicht überprüft werden.</string>
     <string name="profileCouldNotBeDeleted">Profil konnte nicht gelöscht werden.</string>
-    <string name="ruleXIsUsingProfileY">Dieses Profil kann nicht gelöscht werden. Regel %s$1 verwendet noch Profil %s$2.</string>
+    <string name="ruleXIsUsingProfileY">Dieses Profil kann nicht gelöscht werden. Regel %1$s verwendet noch Profil %2$s.</string>
     <string name="noRepetition">keine Wiederholung</string>
     <string name="usingAuthentication">mit Authentifizierung</string>
     <string name="toNumber">zu Nummer</string>
@@ -659,4 +659,9 @@
     <string name="pickActivityManually">Manuell auswählen</string>
     <string name="launcherOrManualExplanation">Einfacher Modus: Automation kann versuchen, die Start-Activity des Zielprogramms automatisch zu finden.\nAlternativ können Sie die gewünschte Activity auch manuell auswählen.\nWelche Variante möchten Sie?</string>
     <string name="launcherNotFound">Eine Start-Activity dieser Anwendung konnte nicht gefunden werden. Sie müssen manuell eine auswählen.</string>
+    <string name="enterTitle">Geben Sie einen Titel ein.</string>
+    <string name="enterText">Geben Sie einen Text ein.</string>
+    <string name="info">Info</string>
+    <string name="createNotification">Benachrichtigung erstellen</string>
+    <string name="profileWasNotFound">Das Profil, das in dieser Regel referenziert wird, existiert scheinbar nicht mehr. Das alphabetisch erste wurde stattdessen ausgewählt.</string>
 </resources>

@@ -645,7 +645,7 @@
     <string name="profileActive">profile %1$s is actief</string>
     <string name="profileNotActive">profile %1$s is niet actief</string>
     <string name="profileTriggerCheckSettings">Als dit selectievakje niet is uitgeschakeld, wordt het alleen aangevinkt als het geselecteerde profiel het laatste is dat is geactiveerd. Het maakt niet uit of audiogerelateerde instellingen extern zijn gewijzigd.\nAls het selectievakje echter is ingeschakeld, moeten de huidige audio-instellingen echt worden gedefinieerd in het profiel. PAS OP: Het controleren van het beltoonbestand wordt momenteel nog niet ondersteund.</string>
-    <string name="ruleXIsUsingProfileY">Kan dit profiel niet verwijderen. Regel %s$1 verwijst naar het profiel %s$2.</string>
+    <string name="ruleXIsUsingProfileY">Kan dit profiel niet verwijderen. Regel %1$s verwijst naar het profiel %2$s.</string>
     <string name="profileCouldNotBeDeleted">Profiel kan niet worden verwijderd.</string>
     <string name="noRepetition">geen herhaling</string>
     <string name="usingAuthentication">authenticatie gebruiken</string>
@@ -657,4 +657,9 @@
     <string name="pickActivityManually">Handmatig kiezen</string>
     <string name="launcherNotFound">Een launcher-activiteit van deze app kon niet worden geïdentificeerd. U moet er handmatig een kiezen.</string>
     <string name="launcherOrManualExplanation">Eenvoudige modus: Automatisering kan proberen de opstartactiviteit van het gewenste programma te identificeren.\nU kunt ook handmatig een van de activiteiten van de toepassing kiezen.\nWat wil je?</string>
+    <string name="info">Info</string>
+    <string name="profileWasNotFound">Het profiel dat in deze regel wordt gebruikt, lijkt niet meer te bestaan. De alfabetisch eerste is geselecteerd.</string>
+    <string name="enterText">Voer een tekst in.</string>
+    <string name="enterTitle">Voer een titel in.</string>
+    <string name="createNotification">Melding maken</string>
 </resources>

@@ -66,14 +66,21 @@ public class ActivityManageTriggerProfile extends Activity
                     String profileName = values[0];
 
                     List<Profile> profileList = Profile.getProfileCollection();
+
+                    boolean found = false;
+
                     for(int i = 0; i < profileList.size(); i++)
                     {
                         if(profileList.get(i).getName().equals(profileName))
                         {
                             spinnerProfiles.setSelection(i);
+                            found = true;
                             break;
                         }
                     }
+
+                    if(!found)
+                        Miscellaneous.messageBox(getResources().getString(R.string.info), getResources().getString(R.string.profileWasNotFound), ActivityManageTriggerProfile.this).show();
                 }
             }
             catch(Exception e)
