@@ -3,6 +3,7 @@ package com.jens.automation2;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.admin.DevicePolicyManager;
@@ -23,6 +24,7 @@ import android.os.PowerManager.WakeLock;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.MediaStore;
+import android.service.notification.StatusBarNotification;
 import android.telephony.SmsManager;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
@@ -98,7 +100,17 @@ public class Actions
 		}
     }
 
-    public static class WifiStuff
+	@RequiresApi(api = Build.VERSION_CODES.M)
+	public static void closeNotification(Action action)
+	{
+		NotificationManager nm = (NotificationManager) Miscellaneous.getAnyContext().getSystemService(Context.NOTIFICATION_SERVICE);
+		for(StatusBarNotification n : nm.getActiveNotifications())
+		{
+			n.
+		}
+	}
+
+	public static class WifiStuff
 	{
 		public static Boolean setWifi(Context context, Boolean desiredState, boolean toggleActionIfPossible)
 		{

@@ -102,7 +102,7 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeTriggerDeviceOrientationAdd = 301;
 	final static int requestCodeTriggerDeviceOrientationEdit = 302;
 	final static int requestCodeTriggerNotificationAdd = 8000;
-	final static int requestCodeTriggerNfcNotificationEdit = 8001;
+	final static int requestCodeTriggerNotificationEdit = 8001;
 	final static int requestCodeActionPlaySoundAdd = 501;
 	final static int requestCodeActionPlaySoundEdit = 502;
 	final static int requestCodeTriggerPhoneCallAdd = 601;
@@ -117,6 +117,8 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeActionVibrateEdit = 802;
 	final static int requestCodeActionCreateNotificationAdd = 803;
 	final static int requestCodeActionCreateNotificationEdit = 804;
+	final static int requestCodeActionCloseNotificationAdd = 805;
+	final static int requestCodeActionCloseNotificationEdit = 806;
 	
 	public static ActivityManageRule getInstance()
 	{
@@ -268,7 +270,7 @@ public class ActivityManageRule extends Activity
 						ActivityManageTriggerNotification.editedNotificationTrigger = selectedTrigger;
 						Intent notificationEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerNotification.class);
 						notificationEditor.putExtra("edit", true);
-						startActivityForResult(notificationEditor, requestCodeTriggerNfcNotificationEdit);
+						startActivityForResult(notificationEditor, requestCodeTriggerNotificationEdit);
 						break;
 					case phoneCall:
 						ActivityManageTriggerPhoneCall.editedPhoneCallTrigger = selectedTrigger;
@@ -370,6 +372,11 @@ public class ActivityManageRule extends Activity
 						activityEditCreateNotificationIntent.putExtra(ActivityManageActionCreateNotification.intentNameNotificationTitle, elements[0]);
 						activityEditCreateNotificationIntent.putExtra(ActivityManageActionCreateNotification.intentNameNotificationText, elements[1]);
 						startActivityForResult(activityEditCreateNotificationIntent, requestCodeActionCreateNotificationEdit);
+						break;
+					case closeNotification:
+						Intent activityEditCloseNotificationIntent = new Intent(ActivityManageRule.this, ActivityManageActionCloseNotification.class);
+						activityEditCloseNotificationIntent.putExtra(intentNameActionParameter2, a.getParameter2());
+						startActivityForResult(activityEditCloseNotificationIntent, requestCodeActionCloseNotificationEdit);
 						break;
 					case playSound:
 						Intent actionPlaySoundIntent = new Intent(context, ActivityManageActionPlaySound.class);
@@ -1269,7 +1276,7 @@ public class ActivityManageRule extends Activity
 				this.refreshTriggerList();
 			}
 		}
-		else if(requestCode == requestCodeTriggerNfcNotificationEdit)
+		else if(requestCode == requestCodeTriggerNotificationEdit)
 		{
 			if(resultCode == RESULT_OK)
 			{
@@ -1390,6 +1397,16 @@ public class ActivityManageRule extends Activity
 				this.refreshActionList();
 			}
 		}
+		else if(requestCode == requestCodeActionCloseNotificationAdd)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				newAction.setParentRule(ruleToEdit);
+				newAction.setParameter2(data.getStringExtra(intentNameActionParameter2));
+				ruleToEdit.getActionSet().add(newAction);
+				this.refreshActionList();
+			}
+		}
 		else if(requestCode == requestCodeActionVibrateEdit)
 		{
 			if(resultCode == RESULT_OK)
@@ -1414,6 +1431,18 @@ public class ActivityManageRule extends Activity
 											+ Action.actionParameter2Split +
 										data.getStringExtra(ActivityManageActionCreateNotification.intentNameNotificationText)
 												);
+
+				this.refreshActionList();
+			}
+		}
+		else if(requestCode == requestCodeActionCloseNotificationEdit)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				ruleToEdit.getActionSet().get(editIndex).setParentRule(ruleToEdit);
+
+				if(data.hasExtra(intentNameActionParameter2))
+					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra(intentNameActionParameter2));
 
 				this.refreshActionList();
 			}
@@ -1727,6 +1756,12 @@ public class ActivityManageRule extends Activity
 						newAction.setAction(Action_Enum.createNotification);
 						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionCreateNotification.class);
 						startActivityForResult(intent, requestCodeActionCreateNotificationAdd);
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.closeNotification.toString()))
+					{
+						newAction.setAction(Action_Enum.closeNotification);
+						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionCloseNotification.class);
+						startActivityForResult(intent, requestCodeActionCloseNotificationAdd);
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setScreenBrightness.toString()))
 					{

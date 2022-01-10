@@ -45,6 +45,7 @@ public class Action
 								playSound,
 								vibrate,
 								createNotification,
+								closeNotification,
 								sendTextMessage;
 								
 								public String getFullName(Context context)
@@ -242,6 +243,9 @@ public class Action
 				break;
 			case createNotification:
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.createNotification));
+				break;
+			case closeNotification:
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.closeNotifications));
 				break;
 			default:
 				returnString.append(action.toString());
@@ -459,6 +463,9 @@ public class Action
 					break;
 				case createNotification:
 					Actions.createNotification(this);
+					break;
+				case closeNotification:
+					Actions.closeNotification(this);
 					break;
 				default:
 					Miscellaneous.logEvent("w", "Action", context.getResources().getString(R.string.unknownActionSpecified), 3);

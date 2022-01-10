@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/default_margin" >
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/closeNotifications"
+			android:textSize="25dp"
+			android:layout_marginBottom="@dimen/default_margin" />
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/default_margin"
+			android:text="@string/notificationCloseActionExplanation" />
+
+		<TableLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:shrinkColumns="1"
+			android:stretchColumns="1">
+
+			<TableRow
+				android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+				<TextView
+					android:layout_gravity="center_vertical"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/application" />
+
+				<LinearLayout
+					android:orientation="vertical"
+					android:layout_marginHorizontal="@dimen/default_margin"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+
+					<TextView
+						android:id="@+id/etActivityOrActionPath"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/anyApp"
+						android:textAppearance="?android:attr/textAppearanceMedium" />
+
+					<Button
+						android:id="@+id/bSelectApp"
+						android:layout_marginTop="10dp"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/selectApplication" />
+
+				</LinearLayout>
+
+			</TableRow>
+
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:layout_margin="10dp"
+				android:layout_marginVertical="@dimen/default_margin"
+				android:background="#aa000000" />
+
+			<TableRow
+				android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_vertical"
+					android:text="@string/title" />
+
+				<LinearLayout
+					android:orientation="vertical"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
+
+					<Spinner
+						android:id="@+id/spinnerTitleDirection"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content" />
+
+					<EditText
+						android:id="@+id/etNotificationTitle"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:ems="10" />
+
+				</LinearLayout>
+
+			</TableRow>
+
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:layout_margin="10dp"
+				android:layout_marginVertical="@dimen/default_margin"
+				android:background="#aa000000" />
+	    
+			<TableRow
+				android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_vertical"
+					android:text="@string/text" />
+
+				<LinearLayout
+					android:orientation="vertical"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
+
+					<Spinner
+						android:id="@+id/spinnerTextDirection"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content" />
+
+					<EditText
+						android:id="@+id/etNotificationText"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:ems="10" />
+
+				</LinearLayout>
+
+			</TableRow>>
+
+		</TableLayout>
+
+		<Button
+			android:id="@+id/bSaveTriggerNotification"
+			android:layout_marginTop="@dimen/default_margin"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/save" />
+
+	</LinearLayout>
+
+</ScrollView>
