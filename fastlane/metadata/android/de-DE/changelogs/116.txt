@@ -1,0 +1,4 @@
+* Neue Berechtigung: Ausschluss von der Batterieoptimierung
+* Neuer Auslöser: Profile können als Auslöser verwendet werden
+* Behoben: Fehler im Geräteausrichtungs-Auslöser
+* Aktion "App starten" etwas vereinfacht

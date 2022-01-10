@@ -1,0 +1,4 @@
+* Nuevo permiso solicitado: Exclusión de la optimización de la batería
+* Nuevo disparador: los perfiles se pueden utilizar como disparador
+* Corregido: Error en el disparador de orientación
+* La acción "Iniciar aplicación" se simplificó un poco

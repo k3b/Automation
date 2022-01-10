@@ -1,0 +1,4 @@
+* Nieuwe toestemming gevraagd: Uitsluiting van batterij optimalisatie
+* Nieuwe trigger: Profielen kunnen worden gebruikt als trigger
+* Opgelost: Bug in oriëntatie trigger
+* "Start app" actie een beetje vereenvoudigd

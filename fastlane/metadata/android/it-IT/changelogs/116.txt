@@ -1,0 +1,4 @@
+* Nuova autorizzazione richiesta: esclusione dall'ottimizzazione della batteria
+* Nuovo trigger: i profili possono essere utilizzati come trigger
+* Risolto: Bug nel trigger di orientamento
+* Azione "Start app" semplificata un po '

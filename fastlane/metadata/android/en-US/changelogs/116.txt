@@ -1,4 +1,4 @@
 * New permission requested: Exclusion from battery optimization
 * New trigger: Profiles can be used as trigger
 * Fixed: Bug in orientation trigger
-* Start app action simplified a bit
+* "Start app" action simplified a bit
