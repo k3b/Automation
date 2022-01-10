@@ -8,7 +8,6 @@ import android.app.PendingIntent;
 import android.app.admin.DevicePolicyManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -28,7 +27,6 @@ import android.telephony.SmsManager;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -92,7 +90,7 @@ public class Actions
 		{
 			String title = Miscellaneous.replaceVariablesInText(elements[0], Miscellaneous.getAnyContext());
 			String text = Miscellaneous.replaceVariablesInText(elements[1], Miscellaneous.getAnyContext());
-			Miscellaneous.createDismissableNotification(title, text, notificationId, null);
+			Miscellaneous.createDismissibleNotification(title, text, notificationId, false, AutomationService.NOTIFICATION_CHANNEL_ID_RULES, null);
 		}
     	catch (Exception e)
 		{

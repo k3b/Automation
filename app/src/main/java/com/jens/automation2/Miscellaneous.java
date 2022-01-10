@@ -8,7 +8,6 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.ContentProvider;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +15,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
+import android.media.AudioAttributes;
+import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -26,7 +27,6 @@ import android.os.IBinder;
 import android.provider.MediaStore;
 import android.provider.Settings.Secure;
 import android.telephony.PhoneNumberUtils;
-import android.telephony.TelephonyManager;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
@@ -83,6 +83,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -98,12 +99,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.documentfile.provider.DocumentFile;
-
-import static android.provider.CalendarContract.CalendarCache.URI;
-import static com.jens.automation2.AutomationService.NOTIFICATION_CHANNEL_ID;
-import static com.jens.automation2.AutomationService.channelName;
 
 public class Miscellaneous extends Service
 {
@@ -877,7 +875,7 @@ public class Miscellaneous extends Service
 
 	@SuppressLint("NewApi")
 	@SuppressWarnings("deprecation")
-	public static void createDismissableNotificationWithDelay(long delay, String title, String textToDisplay, int notificationId, PendingIntent pendingIntent)
+	public static void createDismissibleNotificationWithDelay(long delay, String title, String textToDisplay, int notificationId, String notificationChannelId, PendingIntent pendingIntent)
 	{
 		/*
 			Now what's this about?
@@ -903,7 +901,7 @@ public class Miscellaneous extends Service
 				catch(Exception e)
 				{}
 
-				createDismissableNotification(title, textToDisplay, notificationId, pendingIntent);
+				createDismissibleNotification(title, textToDisplay, notificationId, true, notificationChannelId, pendingIntent);
 
 				return null;
 			}
@@ -924,46 +922,82 @@ public class Miscellaneous extends Service
 
 	@SuppressLint("NewApi")
 	@SuppressWarnings("deprecation")
-	public static void createDismissableNotification(String title, String textToDisplay, int notificationId, PendingIntent pendingIntent)
+	public static void createDismissibleNotification(String title, String textToDisplay, int notificationId, boolean vibrate, String notificationChannelId, PendingIntent pendingIntent)
 	{
 		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
 		{
-			createDismissableNotificationSdk26(title, textToDisplay, notificationId, pendingIntent);
+			createDismissibleNotificationSdk26(title, textToDisplay, notificationId, vibrate, notificationChannelId, pendingIntent);
 			return;
 		}
 
 		NotificationManager mNotificationManager = (NotificationManager) Miscellaneous.getAnyContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
-		NotificationCompat.Builder dismissableNotificationBuilder = createDismissableNotificationBuilder(pendingIntent);
+		NotificationCompat.Builder dismissibleNotificationBuilder = createDismissibleNotificationBuilder(vibrate, notificationChannelId, pendingIntent);
 
 		if(title == null)
-			dismissableNotificationBuilder.setContentTitle(AutomationService.getInstance().getResources().getString(R.string.app_name));
+			dismissibleNotificationBuilder.setContentTitle(AutomationService.getInstance().getResources().getString(R.string.app_name));
 		else
-			dismissableNotificationBuilder.setContentTitle(title);
+			dismissibleNotificationBuilder.setContentTitle(title);
 
-		dismissableNotificationBuilder.setContentText(textToDisplay);
-		dismissableNotificationBuilder.setContentIntent(pendingIntent);
-		dismissableNotificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(textToDisplay));
-		dismissableNotificationBuilder.setAutoCancel(true);
+		dismissibleNotificationBuilder.setContentText(textToDisplay);
+		dismissibleNotificationBuilder.setContentIntent(pendingIntent);
+		dismissibleNotificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(textToDisplay));
+		dismissibleNotificationBuilder.setAutoCancel(true);
 
-		Notification dismissableNotification = dismissableNotificationBuilder.build();
+		if(notificationChannelId.equals(AutomationService.NOTIFICATION_CHANNEL_ID_RULES))
+			dismissibleNotificationBuilder.setSmallIcon(R.drawable.info);
 
-		mNotificationManager.notify(notificationId, dismissableNotification);
+		Notification dismissibleNotification = dismissibleNotificationBuilder.build();
 
-				/*NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(this)
-						.setSmallIcon(R.drawable.ic_launcher) // notification icon
-						.setContentTitle("Notification!") // title for notification
-						.setContentText("Hello word") // message for notification
-						.setAutoCancel(true); // clear notification after click
-				Intent intent = new Intent(this, MainActivity.class);
-				PendingIntent pi = PendingIntent.getActivity(this,0,intent,Intent.FLAG_ACTIVITY_NEW_TASK);
-				mBuilder.setContentIntent(pi);
-				NotificationManager mNotificationManager =
-						(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-				mNotificationManager.notify(0, dismissableNotification);*/
+		mNotificationManager.notify(notificationId, dismissibleNotification);
 	}
 
-	static void createDismissableNotificationSdk26(String title, String textToDisplay, int notificationId, PendingIntent pendingIntent)
+	@RequiresApi(api = Build.VERSION_CODES.O)
+	static NotificationChannel findExistingChannel(List<NotificationChannel> channels, String channelId)
+	{
+		for(NotificationChannel c : channels)
+		{
+			if(c.getId().equals(channelId))
+				return c;
+		}
+
+		return null;
+	}
+	@RequiresApi(api = Build.VERSION_CODES.O)
+	static NotificationChannel getNotificationChannel(String channelId)
+	{
+		NotificationManager nm = (NotificationManager) Miscellaneous.getAnyContext().getSystemService(Context.NOTIFICATION_SERVICE);
+		List<NotificationChannel> channels = nm.getNotificationChannels();
+		if(channels.size() > 3)
+		{
+			for(NotificationChannel c : channels)
+				nm.deleteNotificationChannel(c.getId());
+		}
+
+		NotificationChannel channel = findExistingChannel(channels, channelId);
+
+		if(channel == null)
+		{
+			switch (channelId)
+			{
+				case AutomationService.NOTIFICATION_CHANNEL_ID_SERVICE:
+					channel = new NotificationChannel(AutomationService.NOTIFICATION_CHANNEL_ID_SERVICE, AutomationService.NOTIFICATION_CHANNEL_NAME_SERVICE, NotificationManager.IMPORTANCE_LOW);
+					break;
+				case AutomationService.NOTIFICATION_CHANNEL_ID_FUNCTIONALITY:
+					channel = new NotificationChannel(AutomationService.NOTIFICATION_CHANNEL_ID_FUNCTIONALITY, AutomationService.NOTIFICATION_CHANNEL_NAME_FUNCTIONALITY, NotificationManager.IMPORTANCE_HIGH);
+					break;
+				case AutomationService.NOTIFICATION_CHANNEL_ID_RULES:
+					channel = new NotificationChannel(AutomationService.NOTIFICATION_CHANNEL_ID_RULES, AutomationService.NOTIFICATION_CHANNEL_NAME_RULES, NotificationManager.IMPORTANCE_HIGH);
+					break;
+				default:
+					break;
+			}
+		}
+
+		return channel;
+	}
+
+	static void createDismissibleNotificationSdk26(String title, String textToDisplay, int notificationId, boolean vibrate, String notificationChannelId, PendingIntent pendingIntent)
 	{
 		NotificationManager mNotificationManager = (NotificationManager) AutomationService.getInstance().getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -971,20 +1005,29 @@ public class Miscellaneous extends Service
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
 		{
-			NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "Functionality warnings", NotificationManager.IMPORTANCE_HIGH);
-//			chan.setLightColor(Color.BLUE);
-			chan.enableVibration(false);
-//			chan.setSound(null, null);
-			chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
-			mNotificationManager.createNotificationChannel(chan);
+			NotificationChannel notificationChannel = getNotificationChannel(notificationChannelId);
+//			notificationChannel.setLightColor(Color.BLUE);
+			notificationChannel.enableVibration(vibrate);
+			try
+			{
+				Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//				Uri notificationSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +mContext.getPackageName()+"/"+R.raw.apple_ring));
+//				Ringtone r = RingtoneManager.getRingtone(Miscellaneous.getAnyContext(), notification);
+				AudioAttributes.Builder b = new AudioAttributes.Builder();
+				b.setContentType(AudioAttributes.CONTENT_TYPE_UNKNOWN);
+				notificationChannel.setSound(notificationSound, b.build());
+			}
+			catch (Exception e)
+			{
+				Miscellaneous.logEvent("i", "Notification", Log.getStackTraceString(e), 2);
+			}
+			notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+			mNotificationManager.createNotificationChannel(notificationChannel);
 
-			builder = new NotificationCompat.Builder(AutomationService.getInstance(), NOTIFICATION_CHANNEL_ID);
+			builder = new NotificationCompat.Builder(AutomationService.getInstance(), notificationChannel.getId());
 		}
 		else
 			builder = new NotificationCompat.Builder(AutomationService.getInstance());
-
-//		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-//			builder.setCategory(Notification.CATEGORY_SERVICE);
 
 		builder.setWhen(System.currentTimeMillis());
 		builder.setContentIntent(pendingIntent);
@@ -996,15 +1039,16 @@ public class Miscellaneous extends Service
 
 		builder.setOnlyAlertOnce(true);
 
-		if(Settings.showIconWhenServiceIsRunning)
+		if(Settings.showIconWhenServiceIsRunning && notificationChannelId.equals(AutomationService.NOTIFICATION_CHANNEL_ID_SERVICE))
 			builder.setSmallIcon(R.drawable.ic_launcher);
+		else if(!notificationChannelId.equals(AutomationService.NOTIFICATION_CHANNEL_ID_SERVICE))
+			builder.setSmallIcon(R.drawable.info);
 
 		builder.setContentText(textToDisplay);
 		builder.setStyle(new NotificationCompat.BigTextStyle().bigText(textToDisplay));
 
 		NotificationManager notificationManager = (NotificationManager) Miscellaneous.getAnyContext().getSystemService(Context.NOTIFICATION_SERVICE);
 		notificationManager.notify(1, builder.build());
-
 
 //		Intent notifyIntent = new Intent(context, notification.class);
 //		notifyIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -1027,7 +1071,7 @@ public class Miscellaneous extends Service
 //		notificationManager.notify(1, notification);
 	}
 
-	protected static NotificationCompat.Builder createDismissableNotificationBuilder(PendingIntent myPendingIntent)
+	protected static NotificationCompat.Builder createDismissibleNotificationBuilder(boolean vibrate, String notificationChannelId, PendingIntent myPendingIntent)
 	{
 		NotificationManager mNotificationManager = (NotificationManager) AutomationService.getInstance().getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -1035,14 +1079,14 @@ public class Miscellaneous extends Service
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
 		{
-			NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_HIGH);
-//			chan.setLightColor(Color.BLUE);
-//			chan.enableVibration(false);
-//			chan.setSound(null, null);
-			chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
-			mNotificationManager.createNotificationChannel(chan);
+			NotificationChannel notificationChannel = getNotificationChannel(notificationChannelId);
+//			notificationChannel.setLightColor(Color.BLUE);
+			notificationChannel.enableVibration(vibrate);
+//			notificationChannel.setSound(null, null);
+			notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+			mNotificationManager.createNotificationChannel(notificationChannel);
 
-			builder = new NotificationCompat.Builder(AutomationService.getInstance(), NOTIFICATION_CHANNEL_ID);
+			builder = new NotificationCompat.Builder(AutomationService.getInstance(), notificationChannelId);
 		}
 		else
 			builder = new NotificationCompat.Builder(AutomationService.getInstance());

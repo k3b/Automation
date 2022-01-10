@@ -20,6 +20,7 @@ Eventi supportati:
 * Chiamata in esecuzione
 * Notificazione di un altra applicazione
 * Orientamento del dispositivo (giroscopio)
+* Profilo attivo o meno
 
 Azioni supportate:
 * Cambia lo stato del wifi
@@ -40,6 +41,7 @@ Azioni supportate:
 * Cambia la luminosità dello schermo
 * Manda un messaggio di testo
 * Esegui un file musicale
+* Creare notifiche
 
 È piuttosto difficile mantere questa applicazione funzionante su tutti gli hardware esistenti ed includendo tutti i cambi che Android riceve fra una versione e l'altra. Posso effettuare tests nell'emulatore, ma non sarà possibile trovare tutti gli errori.
 Pertanto, se una certa funzione non funziona sul tuo dispositivo -  fammelo sapere. Nel corso degli anni ho potuto risolvere tutti gli errori che sono stati riportati in maniera ragionevole. Infatti, per questo, dipendo dalle informazioni condivise.

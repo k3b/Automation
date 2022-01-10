@@ -529,7 +529,7 @@ public class ActivityPermissions extends Activity
                         break;
                     case sendTextMessage:
                         addToArrayListUnique(Manifest.permission.SEND_SMS, requiredPermissions);
-                        checkPermissionsInVariableUse(action.getParameter2(), requiredPermissions);
+                        getPermissionsForVariablesInUse(action.getParameter2(), requiredPermissions);
                         break;
                     case setAirplaneMode:
                         addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
@@ -588,7 +588,7 @@ public class ActivityPermissions extends Activity
 //                            addToArrayListUnique("android.permission.TETHER_PRIVILEGED", requiredPermissions);
                         break;
                     case speakText:
-                        checkPermissionsInVariableUse(action.getParameter2(), requiredPermissions);
+                        getPermissionsForVariablesInUse(action.getParameter2(), requiredPermissions);
                         break;
                     case startOtherActivity:
                         if(
@@ -608,7 +608,7 @@ public class ActivityPermissions extends Activity
                         break;
                     case triggerUrl:
                         addToArrayListUnique(Manifest.permission.INTERNET, requiredPermissions);
-                        checkPermissionsInVariableUse(action.getParameter2(), requiredPermissions);
+                        getPermissionsForVariablesInUse(action.getParameter2(), requiredPermissions);
                         break;
                     case turnBluetoothOff:
                         addToArrayListUnique(Manifest.permission.BLUETOOTH_ADMIN, requiredPermissions);
@@ -1150,7 +1150,7 @@ public class ActivityPermissions extends Activity
         }
     }
 
-    static ArrayList<String> checkPermissionsInVariableUse(String text, ArrayList<String> permsList)
+    static ArrayList<String> getPermissionsForVariablesInUse(String text, ArrayList<String> permsList)
     {
         /*
              [uniqueid]

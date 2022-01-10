@@ -57,40 +57,6 @@
 
 			</TableRow>
 
-			<TableRow
-				android:layout_marginBottom="@dimen/activity_vertical_margin">
-
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="center_vertical"
-					android:text="@string/icon" />
-
-				<EditText
-					android:id="@+id/etNotificationIcon"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:ems="10" />
-
-			</TableRow>
-
-			<TableRow
-				android:layout_marginBottom="@dimen/activity_vertical_margin">
-
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="center_vertical"
-					android:text="@string/sound" />
-
-				<EditText
-					android:id="@+id/etNotificationSound"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:ems="10" />
-
-			</TableRow>
-
 		</TableLayout>
 
 		<ImageView
