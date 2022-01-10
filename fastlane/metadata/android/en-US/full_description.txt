@@ -20,6 +20,7 @@ Supported triggers:
 * Phone call running
 * Notifications of other apps
 * Device orientation (gyroscope)
+* Profile active or not
 
 Supported actions:
 * Change wifi state
@@ -40,6 +41,7 @@ Supported actions:
 * Change screen brightness
 * Send text message
 * Play sound file
+* Create notifications
 
 It's quite hard to keep this app working across the many different hardwares as well as the many changes Android undergoes over the versions. I can test it in the emulator, but that cannot show all bugs.
 So if a certain feature is not working on your device - let me know. Over the years I have fixed almost all bugs that have been reasonably reported to me. But for that I'm dependend on your input.

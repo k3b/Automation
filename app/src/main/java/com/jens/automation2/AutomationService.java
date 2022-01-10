@@ -41,8 +41,16 @@ public class AutomationService extends Service implements OnInitListener
 	protected final static int notificationIdRestrictions = 1005;
 	protected final static int notificationIdLocationRestriction = 1006;
 
-	final static String NOTIFICATION_CHANNEL_ID = "com.jens.automation2";
-	final static String channelName = "Service notification";
+//	final static String NOTIFICATION_CHANNEL_ID = "com.jens.automation2";
+
+	final static String NOTIFICATION_CHANNEL_ID_SERVICE = "com.jens.automation2_service";
+	final static String NOTIFICATION_CHANNEL_NAME_SERVICE = "Service notification";
+
+	final static String NOTIFICATION_CHANNEL_ID_FUNCTIONALITY = "com.jens.automation2_functionality";
+	final static String NOTIFICATION_CHANNEL_NAME_FUNCTIONALITY = "Functionality information";
+
+	final static String NOTIFICATION_CHANNEL_ID_RULES = "com.jens.automation2_rules";
+	final static String NOTIFICATION_CHANNEL_NAME_RULES = "Rule notifications";
 
 	protected static Notification myNotification;
 	protected static NotificationCompat.Builder notificationBuilder = null;
@@ -205,7 +213,7 @@ public class AutomationService extends Service implements OnInitListener
 
 			Intent myIntent = new Intent(this, ActivityMainTabLayout.class);
 			myPendingIntent = PendingIntent.getActivity(this, 0, myIntent, 0);
-			notificationBuilder = createDefaultNotificationBuilder();
+			notificationBuilder = createServiceNotificationBuilder();
 
 			updateNotification();
 
@@ -365,9 +373,9 @@ public class AutomationService extends Service implements OnInitListener
 				Miscellaneous.logEvent("w", "Features disabled", "Features disabled because of rule " + rule, 5);
 
 				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
-					Miscellaneous.createDismissableNotificationWithDelay(1010, getResources().getString(R.string.featuresDisabled), ActivityPermissions.notificationIdPermissions, pi);
+					Miscellaneous.createDismissibleNotificationWithDelay(1010, null, getResources().getString(R.string.featuresDisabled), ActivityPermissions.notificationIdPermissions, AutomationService.NOTIFICATION_CHANNEL_ID_SERVICE, pi);
 				else
-					Miscellaneous.createDismissableNotification(getResources().getString(R.string.featuresDisabled), ActivityPermissions.notificationIdPermissions, pi);
+					Miscellaneous.createDismissibleNotification(null, getResources().getString(R.string.featuresDisabled), ActivityPermissions.notificationIdPermissions, false, AutomationService.NOTIFICATION_CHANNEL_ID_SERVICE, pi);
 			}
 		}
 	}
@@ -389,9 +397,9 @@ public class AutomationService extends Service implements OnInitListener
 				Miscellaneous.logEvent("w", "Features disabled", "Background location disabled because Google to blame.", 5);
 
 				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
-					Miscellaneous.createDismissableNotificationWithDelay(3300, getResources().getString(R.string.featuresDisabled), notificationIdRestrictions, pi);
+					Miscellaneous.createDismissibleNotificationWithDelay(3300, null, getResources().getString(R.string.featuresDisabled), notificationIdRestrictions, AutomationService.NOTIFICATION_CHANNEL_ID_SERVICE, pi);
 				else
-					Miscellaneous.createDismissableNotification(getResources().getString(R.string.featuresDisabled), notificationIdRestrictions, pi);
+					Miscellaneous.createDismissibleNotification(null, getResources().getString(R.string.featuresDisabled), notificationIdRestrictions, false, AutomationService.NOTIFICATION_CHANNEL_ID_SERVICE, pi);
 			}
 		}
 	}
@@ -411,9 +419,9 @@ public class AutomationService extends Service implements OnInitListener
 			Miscellaneous.logEvent("w", "Features disabled", "Background location disabled because Google to blame.", 5);
 
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
-				Miscellaneous.createDismissableNotificationWithDelay(2200, getResources().getString(R.string.featuresDisabled), notificationIdLocationRestriction, pi);
+				Miscellaneous.createDismissibleNotificationWithDelay(2200, null, getResources().getString(R.string.featuresDisabled), notificationIdLocationRestriction, AutomationService.NOTIFICATION_CHANNEL_ID_SERVICE, pi);
 			else
-				Miscellaneous.createDismissableNotification(getResources().getString(R.string.featuresDisabled), notificationIdLocationRestriction, pi);
+				Miscellaneous.createDismissibleNotification(null, getResources().getString(R.string.featuresDisabled), notificationIdLocationRestriction, false, AutomationService.NOTIFICATION_CHANNEL_ID_SERVICE, pi);
 		}
 	}
 
@@ -482,7 +490,7 @@ public class AutomationService extends Service implements OnInitListener
 		return builder;
 	}
 	
-	protected static NotificationCompat.Builder createDefaultNotificationBuilder()
+	protected static NotificationCompat.Builder createServiceNotificationBuilder()
 	{
 		NotificationManager mNotificationManager = (NotificationManager) AutomationService.getInstance().getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -490,14 +498,14 @@ public class AutomationService extends Service implements OnInitListener
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
 		{
-			NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_LOW);
-//			chan.setLightColor(Color.BLUE);
-			chan.enableVibration(false);
-			chan.setSound(null, null);
-			chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
-			mNotificationManager.createNotificationChannel(chan);
+			NotificationChannel channel = Miscellaneous.getNotificationChannel(AutomationService.NOTIFICATION_CHANNEL_ID_SERVICE);
+//			channel.setLightColor(Color.BLUE);
+			channel.enableVibration(false);
+			channel.setSound(null, null);
+			channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+			mNotificationManager.createNotificationChannel(channel);
 
-			builder = new NotificationCompat.Builder(AutomationService.getInstance(), NOTIFICATION_CHANNEL_ID);
+			builder = new NotificationCompat.Builder(AutomationService.getInstance(), NOTIFICATION_CHANNEL_ID_SERVICE);
 		}
 		else
 			builder = new NotificationCompat.Builder(AutomationService.getInstance());
@@ -576,7 +584,7 @@ public class AutomationService extends Service implements OnInitListener
 			String textToDisplay = bodyText + " " + lastRuleString;
 
 			if(notificationBuilder == null)
-					notificationBuilder = createDefaultNotificationBuilder();
+					notificationBuilder = createServiceNotificationBuilder();
 
 			notificationBuilder.setContentText(textToDisplay);
 			notificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(textToDisplay));
