@@ -14,4 +14,6 @@
     <color name="brightScreenTextColor">#FFFFFF</color>
     <color name="darkScreenBackgroundColor">#444444</color>
     <color name="darkScreenTextColor">#eeeeee</color>
+    <color name="red">#FF0000</color>
+    <color name="lightRed">#EC5959</color>
 </resources>

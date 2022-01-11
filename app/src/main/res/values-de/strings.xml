@@ -667,4 +667,5 @@
     <string name="closeNotifications">Benachrichtigung(en) schließen</string>
     <string name="comparisonCaseInsensitive">Groß-/Kleinschreibung ist egal.</string>
     <string name="notificationCloseActionExplanation">Wenn Sie keine Kriterien angeben, werden ALLE Benachrichtigungen geschlossen. Es wird also empfohlen, zumindest eine Anwendung zu spezifizieren und/oder Titel oder Text anzugeben.</string>
+    <string name="profileWarning">Die Einstellungen, die Sie hier vornehmen, können dazu führen, dass Sie bestimmte Dinge auf Ihrem Telefon nicht mehr mitbekommen. Sie können sogar Ihren Wecker zum Schweigen bringen. Was auch immer Sie hier einstellen - es wird empfohlen, es zu testen.</string>
 </resources>

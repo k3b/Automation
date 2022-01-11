@@ -667,4 +667,5 @@
     <string name="comparisonCaseInsensitive">I confronti sono fatti caso-INsensitive</string>
     <string name="closeNotifications">Chiudi notifica(e)</string>
     <string name="notificationCloseActionExplanation">Se non specifichi alcun criterio, questa azione chiuderà TUTTE le notifiche. Quindi si consiglia di specificare almeno i criteri per almeno 1 di applicazione, titolo o testo.</string>
+    <string name="profileWarning">Le impostazioni che fai qui possono far sì che tu non noti più certe cose dal tuo telefono. Possono anche mettere a tacere la sveglia. Quindi, qualunque cosa tu faccia, ti consigliamo di testarlo.</string>
 </resources>
