@@ -51,6 +51,7 @@ public class ReceiverCoordinator
                     HeadphoneJackListener.class,
                     //NfcReceiver.class,
                     NoiseListener.class,
+                    //NotificationListener.class,
                     PhoneStatusListener.class,
                     ProcessListener.class,
                     TimeZoneListener.class
@@ -132,12 +133,6 @@ public class ReceiverCoordinator
             Miscellaneous.logEvent("w", "Error in new model", Log.getStackTraceString(e), 3);
         }
 
-//		if(Settings.useAccelerometerForPositioning && !Miscellaneous.isAndroidEmulator())
-//		{
-//			accelerometerHandler = new AccelerometerHandler();
-//			mySensorActivity = new SensorActivity(this);
-//		}
-
         // startPhoneStateListener
         PhoneStatusListener.startPhoneStatusListener(AutomationService.getInstance());			// also used to mute anouncements during calls
 
@@ -163,7 +158,7 @@ public class ReceiverCoordinator
         if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.noiseLevel))
             NoiseListener.startNoiseListener(AutomationService.getInstance());
 
-        // startNoiseListener
+        // startProcessListener
         if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.process_started_stopped))
             ProcessListener.startProcessListener(AutomationService.getInstance());
 
@@ -241,7 +236,7 @@ public class ReceiverCoordinator
 
         // timeFrame -> too inexpensive to shutdown
 
-        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.charging) | Rule.isAnyRuleUsing(Trigger.Trigger_Enum.usb_host_connection) | Rule.isAnyRuleUsing(Trigger.Trigger_Enum.batteryLevel))
+        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.charging) || Rule.isAnyRuleUsing(Trigger.Trigger_Enum.usb_host_connection) || Rule.isAnyRuleUsing(Trigger.Trigger_Enum.batteryLevel))
         {
             if(BatteryReceiver.haveAllPermission())
                 BatteryReceiver.startBatteryReceiver(AutomationService.getInstance());

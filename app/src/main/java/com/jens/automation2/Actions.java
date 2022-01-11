@@ -1,5 +1,8 @@
 package com.jens.automation2;
 
+import static com.jens.automation2.receivers.NotificationListener.EXTRA_TEXT;
+import static com.jens.automation2.receivers.NotificationListener.EXTRA_TITLE;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -19,6 +22,7 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.os.VibrationEffect;
@@ -37,7 +41,9 @@ import com.jens.automation2.actions.wifi_router.MyOnStartTetheringCallback;
 import com.jens.automation2.actions.wifi_router.MyOreoWifiManager;
 import com.jens.automation2.location.WifiBroadcastReceiver;
 import com.jens.automation2.receivers.ConnectivityReceiver;
+import com.jens.automation2.receivers.NotificationListener;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.Scheme;
@@ -106,7 +112,85 @@ public class Actions
 		NotificationManager nm = (NotificationManager) Miscellaneous.getAnyContext().getSystemService(Context.NOTIFICATION_SERVICE);
 		for(StatusBarNotification n : nm.getActiveNotifications())
 		{
-			n.
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+			{
+				String[] params = action.getParameter2().split(Action.actionParameter2Split);
+
+				String myApp = params[0];
+				String myTitleDir = params[1];
+				String requiredTitle = params[2];
+				String myTextDir = params[3];
+				String requiredText;
+				if (params.length >= 5)
+					requiredText = params[4];
+				else
+					requiredText = "";
+
+				for (StatusBarNotification sbn : NotificationListener.getInstance().getActiveNotifications())
+				{
+					String notificationApp = sbn.getPackageName();
+					String notificationTitle = null;
+					String notificationText = null;
+
+					Miscellaneous.logEvent("i", "NotificationCloseCheck", "Checking if this notification matches our rule " + action.getParentRule().getName() + ". App: " + notificationApp + ", title: " + notificationTitle + ", text: " + notificationText, 5);
+
+					if (!myApp.equals("-1"))
+					{
+						if (!notificationApp.equalsIgnoreCase(myApp))
+						{
+							Miscellaneous.logEvent("i", "NotificationCloseCheck", "Notification app name does not match rule.", 5);
+							continue;
+						}
+					}
+					else
+					{
+						if(myApp.equals(BuildConfig.APPLICATION_ID))
+						{
+							continue;
+						}
+					}
+
+				/*
+					If there are multiple notifications ("stacked") title or text might be null:
+					https://stackoverflow.com/questions/28047767/notificationlistenerservice-not-reading-text-of-stacked-notifications
+				 */
+
+					Bundle extras = sbn.getNotification().extras;
+
+					// T I T L E
+					if (extras.containsKey(EXTRA_TITLE))
+						notificationTitle = sbn.getNotification().extras.getString(EXTRA_TITLE);
+
+					if (!StringUtils.isEmpty(requiredTitle))
+					{
+						if (!Miscellaneous.compare(myTitleDir, requiredTitle, notificationTitle))
+						{
+							Miscellaneous.logEvent("i", "NotificationCloseCheck", "Notification title does not match rule.", 5);
+							continue;
+						}
+					}
+
+					// T E X T
+
+					if (extras.containsKey(EXTRA_TEXT))
+						notificationText = sbn.getNotification().extras.getString(EXTRA_TEXT);
+
+					if (!StringUtils.isEmpty(requiredText))
+					{
+						if (!Miscellaneous.compare(myTextDir, requiredText, notificationText))
+						{
+							Miscellaneous.logEvent("i", "NotificationCloseCheck", "Notification text does not match rule.", 5);
+							continue;
+						}
+					}
+
+					Miscellaneous.logEvent("i", "NotificationCloseCheck", "All criteria matches. Closing notification: " + sbn.getNotification().toString(), 3);
+					if(NotificationListener.getInstance() != null)
+						NotificationListener.getInstance().dismissNotification(sbn);
+					else
+						Miscellaneous.logEvent("i", "NotificationCloseCheck", "NotificationListener instance is null. Can\'t close notification.", 3);
+				}
+			}
 		}
 	}
 

@@ -649,6 +649,9 @@ public class ActivityPermissions extends Activity
                     case playSound:
                         addToArrayListUnique(Manifest.permission.READ_EXTERNAL_STORAGE, requiredPermissions);
                         break;
+                    case closeNotification:
+                        addToArrayListUnique(Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE, requiredPermissions);
+                        break;
                     case turnScreenOnOrOff:
                         if(action.getParameter1())
                             addToArrayListUnique(Manifest.permission.WAKE_LOCK, requiredPermissions);

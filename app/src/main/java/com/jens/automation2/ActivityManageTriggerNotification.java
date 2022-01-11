@@ -263,7 +263,7 @@ public class ActivityManageTriggerNotification extends Activity
 		etNotificationTitle = (EditText)findViewById(R.id.etNotificationTitle);
 		etNotificationText = (EditText)findViewById(R.id.etNotificationText);
 		bSelectApp = (Button)findViewById(R.id.bSelectApp);
-		bSaveTriggerNotification = (Button)findViewById(R.id.bSaveTriggerNotification);
+		bSaveTriggerNotification = (Button)findViewById(R.id.bSaveActionCloseNotification);
 		spinnerTitleDirection = (Spinner)findViewById(R.id.spinnerTitleDirection);
 		spinnerTextDirection = (Spinner)findViewById(R.id.spinnerTextDirection);
 		tvSelectedApplication = (TextView)findViewById(R.id.etActivityOrActionPath);

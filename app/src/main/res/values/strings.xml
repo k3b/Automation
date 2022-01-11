@@ -760,6 +760,7 @@
     <string name="enterText">Enter a text.</string>
     <string name="info">Info</string>
     <string name="profileWasNotFound">The profile used in this rule doesn\'t seem to exist anymore. The alphabetically first one has been selected.</string>
-    <string name="notificationCloseActionExplanation">If you don\'t specify any criteria this action will close ALL applicable notifications. So it\'s advised to at least specify criteria for at least 1 of application, title or text.</string>
+    <string name="notificationCloseActionExplanation">If you don\'t specify any criteria this action will close ALL notifications. So it\'s advised to at least specify criteria for at least 1 of application, title or text.</string>
     <string name="closeNotifications">Close notification(s)</string>
+    <string name="comparisonCaseInsensitive">Comparisons are done case-INsensitive</string>
 </resources>

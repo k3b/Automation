@@ -663,4 +663,7 @@
     <string name="enterTitle">Inserte un título.</string>
     <string name="enterText">Inserte un texto.</string>
     <string name="profileWasNotFound">El perfil utilizado en esta regla ya no parece existir. Se ha seleccionado el primero alfabéticamente.</string>
+    <string name="notificationCloseActionExplanation">Si no especifica ningún criterio, esta acción cerrará TODAS las notificaciones. Por lo tanto, se recomienda al menos especificar criterios para al menos 1 de la aplicación, título o texto.</string>
+    <string name="closeNotifications">Cerrar notificación(es)</string>
+    <string name="comparisonCaseInsensitive">Las comparaciones se realizan sin distinción de mayúsculas y minúsculas</string>
 </resources>

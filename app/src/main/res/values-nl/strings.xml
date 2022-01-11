@@ -662,4 +662,7 @@
     <string name="enterText">Voer een tekst in.</string>
     <string name="enterTitle">Voer een titel in.</string>
     <string name="createNotification">Melding maken</string>
+    <string name="notificationCloseActionExplanation">Als u geen criteria opgeeft, worden met deze actie ALLE meldingen gesloten. Het is dus aan te raden om in ieder geval criteria te specificeren voor minimaal 1 van de toepassing, titel of tekst.</string>
+    <string name="closeNotifications">Melding(en) sluiten</string>
+    <string name="comparisonCaseInsensitive">Vergelijkingen worden gedaan case-INsensitief</string>
 </resources>

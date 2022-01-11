@@ -96,6 +96,13 @@
 				android:layout_margin="10dp"
 				android:layout_marginVertical="@dimen/default_margin"
 				android:background="#aa000000" />
+			<TextView
+				android:gravity="center"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textStyle="bold"
+				android:text="@string/comparisonCaseInsensitive"
+				android:layout_marginBottom="@dimen/default_margin"/>
 
 			<TableRow
 				android:layout_marginBottom="@dimen/activity_vertical_margin">
@@ -165,7 +172,7 @@
 		</TableLayout>
 
 		<Button
-			android:id="@+id/bSaveTriggerNotification"
+			android:id="@+id/bSaveActionCloseNotification"
 			android:layout_marginTop="@dimen/default_margin"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"

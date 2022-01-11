@@ -1589,6 +1589,8 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.vibrate));
 			else if(types[i].toString().equals(Action_Enum.createNotification.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.notification));
+			else if(types[i].toString().equals(Action_Enum.closeNotification.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.notification));
 			else if(types[i].toString().equals(Action_Enum.sendTextMessage.toString()))
 			{
 //			    if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageSpecificRule.this, "android.permission.SEND_SMS") && !Miscellaneous.isGooglePlayInstalled(ActivityManageSpecificRule.this))

@@ -1,9 +1,12 @@
 package com.jens.automation2.receivers;
 
 import android.annotation.SuppressLint;
+import android.bluetooth.BluetoothDevice;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
@@ -19,9 +22,10 @@ import java.util.Calendar;
 
 @SuppressLint("OverrideAbstract")
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
-public class NotificationListener extends NotificationListenerService
+public class NotificationListener extends NotificationListenerService// implements AutomationListenerInterface
 {
     static Calendar lastResponseToNotification = null;
+    static boolean listenerRunning = false;
     static NotificationListener instance;
     static SimpleNotification lastNotification = null;
 
@@ -36,6 +40,8 @@ public class NotificationListener extends NotificationListenerService
 
     //  a bitmap to be used instead of the small icon when showing the notification payload
     public static final String EXTRA_LARGE_ICON = "android.largeIcon";
+
+    protected static IntentFilter notificationReceiverIntentFilter = null;
 
     public static SimpleNotification getLastNotification()
     {
@@ -78,16 +84,7 @@ public class NotificationListener extends NotificationListenerService
     {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT)
         {
-            String app = sbn.getPackageName();
-            String title = sbn.getNotification().extras.getString(EXTRA_TITLE);
-            String text = sbn.getNotification().extras.getString(EXTRA_TEXT);
-
-            lastNotification = new SimpleNotification();
-            lastNotification.publishTime = Miscellaneous.calendarFromLong(sbn.getPostTime());
-            lastNotification.created = created;
-            lastNotification.app = app;
-            lastNotification.title = title;
-            lastNotification.text = text;
+            lastNotification = convertNotificationToSimpleNotification(created, sbn);
 
             ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.notification);
             for (int i = 0; i < ruleCandidates.size(); i++)
@@ -99,6 +96,68 @@ public class NotificationListener extends NotificationListenerService
 
         return false;
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public static SimpleNotification convertNotificationToSimpleNotification(boolean created, StatusBarNotification input)
+    {
+        String app = input.getPackageName();
+        String title = input.getNotification().extras.getString(EXTRA_TITLE);
+        String text = input.getNotification().extras.getString(EXTRA_TEXT);
+
+        SimpleNotification returnNotification = new SimpleNotification();
+        returnNotification.publishTime = Miscellaneous.calendarFromLong(input.getPostTime());
+        returnNotification.created = created;
+        returnNotification.app = app;
+        returnNotification.title = title;
+        returnNotification.text = text;
+
+        return returnNotification;
+    }
+
+    /*@Override
+    public void startListener(AutomationService automationService)
+    {
+        if(instance == null)
+            instance = new NotificationListener();
+
+        if(notificationReceiverIntentFilter == null)
+        {
+            notificationReceiverIntentFilter = new IntentFilter();
+            notificationReceiverIntentFilter.addAction("android.service.notification.NotificationListenerService");
+        }
+
+        try
+        {
+            if(!listenerRunning)
+            {
+                Miscellaneous.logEvent("i", "NotificationListener", "Starting NotificationListener", 4);
+                listenerRunning = true;
+                AutomationService.getInstance().registerReceiver(instance, notificationReceiverIntentFilter);
+            }
+        }
+        catch(Exception ex)
+        {
+            Miscellaneous.logEvent("e", "BluetoothReceiver", "Error starting BluetoothReceiver: " + Log.getStackTraceString(ex), 3);
+        }
+    }
+
+    @Override
+    public void stopListener(AutomationService automationService)
+    {
+
+    }
+
+    @Override
+    public boolean isListenerRunning()
+    {
+        return false;
+    }
+
+    @Override
+    public Trigger.Trigger_Enum[] getMonitoredTrigger()
+    {
+        return new Trigger.Trigger_Enum[0];
+    }*/
 
     public static class SimpleNotification
     {
@@ -167,5 +226,14 @@ public class NotificationListener extends NotificationListenerService
     public void onListenerDisconnected()
     {
         super.onListenerDisconnected();
+    }
+
+    public void dismissNotification(StatusBarNotification sbn)
+    {
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+            cancelNotification(sbn.getPackageName(), sbn.getTag(), sbn.getId());
+        else
+            cancelNotification(sbn.getKey());
+
     }
 }

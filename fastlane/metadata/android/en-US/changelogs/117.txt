@@ -1,2 +1,3 @@
 * New action: Create notification
+* New action: Close notification(s)
 * Fixed: Translation bug in dutch variables text

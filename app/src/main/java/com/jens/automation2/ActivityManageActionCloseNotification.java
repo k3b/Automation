@@ -24,6 +24,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -38,15 +40,13 @@ public class ActivityManageActionCloseNotification extends Activity
 	public static final String intentNameNotificationText = "text";
 	public static final String intentNameNotificationDirection = "direction";
 
-	public static Trigger editedNotificationTrigger;
 	boolean edit = false;
 	ProgressDialog progressDialog = null;
 
 	EditText etNotificationTitle, etNotificationText;
-	Button bSelectApp, bSaveTriggerNotification;
+	Button bSelectApp, bSaveActionCloseNotification;
 	Spinner spinnerTitleDirection, spinnerTextDirection;
 	TextView tvSelectedApplication;
-	CheckBox chkNotificationDirection;
 	
 	private static List<PackageInfo> pInfos = null;
 	public static Trigger resultingTrigger;
@@ -258,16 +258,15 @@ public class ActivityManageActionCloseNotification extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_manage_trigger_notification);
+		setContentView(R.layout.activity_manage_action_close_notification);
 
 		etNotificationTitle = (EditText)findViewById(R.id.etNotificationTitle);
 		etNotificationText = (EditText)findViewById(R.id.etNotificationText);
 		bSelectApp = (Button)findViewById(R.id.bSelectApp);
-		bSaveTriggerNotification = (Button)findViewById(R.id.bSaveTriggerNotification);
+		bSaveActionCloseNotification = (Button)findViewById(R.id.bSaveActionCloseNotification);
 		spinnerTitleDirection = (Spinner)findViewById(R.id.spinnerTitleDirection);
 		spinnerTextDirection = (Spinner)findViewById(R.id.spinnerTextDirection);
 		tvSelectedApplication = (TextView)findViewById(R.id.etActivityOrActionPath);
-		chkNotificationDirection = (CheckBox)findViewById(R.id.chkNotificationDirection);
 
 		directions = new String[] {
 									getResources().getString(R.string.directionStringEquals),
@@ -293,19 +292,7 @@ public class ActivityManageActionCloseNotification extends Activity
 			}
 		});
 
-		chkNotificationDirection.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-		{
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-			{
-				if(isChecked)
-					chkNotificationDirection.setText(getResources().getString(R.string.notificationAppears));
-				else
-					chkNotificationDirection.setText(getResources().getString(R.string.notificationDisappears));
-			}
-		});
-		
-		bSaveTriggerNotification.setOnClickListener(new OnClickListener()
+		bSaveActionCloseNotification.setOnClickListener(new OnClickListener()
 		{		
 			@Override
 			public void onClick(View v)
@@ -321,22 +308,29 @@ public class ActivityManageActionCloseNotification extends Activity
 				String textDir = Trigger.getMatchCode(spinnerTextDirection.getSelectedItem().toString());
 				String text = etNotificationText.getText().toString();
 
+				Intent responseData = new Intent();
 				if(edit)
 				{
-					editedNotificationTrigger.setTriggerParameter(chkNotificationDirection.isChecked());
-					editedNotificationTrigger.setTriggerParameter2(app + triggerParameter2Split + titleDir + triggerParameter2Split + title + triggerParameter2Split + textDir + triggerParameter2Split + text);
-					ActivityManageActionCloseNotification.this.setResult(RESULT_OK);
+//					editedNotificationAction.setTriggerParameter(chkNotificationDirection.isChecked());
+					responseData.putExtra(ActivityManageRule.intentNameActionParameter2, app + Action.actionParameter2Split + titleDir + Action.actionParameter2Split + title + Action.actionParameter2Split + textDir + Action.actionParameter2Split + text);
+					ActivityManageActionCloseNotification.this.setResult(RESULT_OK, responseData);
 				}
 				else
 				{
-					Intent data = new Intent();
-					data.putExtra(intentNameNotificationDirection, chkNotificationDirection.isChecked());
-					data.putExtra(intentNameNotificationApp, app);
-					data.putExtra(intentNameNotificationTitleDir, titleDir);
-					data.putExtra(intentNameNotificationTitle, title);
-					data.putExtra(intentNameNotificationTextDir, textDir);
-					data.putExtra(intentNameNotificationText, text);
-					ActivityManageActionCloseNotification.this.setResult(RESULT_OK, data);
+//					data.putExtra(intentNameNotificationDirection, chkNotificationDirection.isChecked());
+					responseData.putExtra(ActivityManageRule.intentNameActionParameter2,
+													app + Action.actionParameter2Split +
+													titleDir + Action.actionParameter2Split +
+													title + Action.actionParameter2Split +
+													textDir + Action.actionParameter2Split +
+													text
+													);
+//					data.putExtra(intentNameNotificationApp, app);
+//					data.putExtra(intentNameNotificationTitleDir, titleDir);
+//					data.putExtra(intentNameNotificationTitle, title);
+//					data.putExtra(intentNameNotificationTextDir, textDir);
+//					data.putExtra(intentNameNotificationText, text);
+					ActivityManageActionCloseNotification.this.setResult(RESULT_OK, responseData);
 				}
 
 				finish();
@@ -344,18 +338,16 @@ public class ActivityManageActionCloseNotification extends Activity
 		});
 
 		Intent i = getIntent();
-		if(i.getBooleanExtra("edit", false) == true)
+		if(!StringUtils.isBlank(i.getStringExtra(ActivityManageRule.intentNameActionParameter2)))
 		{
 			edit = true;
-			loadValuesIntoGui();
+			loadValuesIntoGui(i.getStringExtra(ActivityManageRule.intentNameActionParameter2));
 		}
 	}
 	
-	private void loadValuesIntoGui()
+	private void loadValuesIntoGui(String param)
 	{
-		chkNotificationDirection.setChecked(editedNotificationTrigger.getTriggerParameter());
-
-		String[] params = editedNotificationTrigger.getTriggerParameter2().split(triggerParameter2Split);
+		String[] params = param.split(Action.actionParameter2Split);
 
 		String app = params[0];
 		String titleDir = params[1];

@@ -629,27 +629,43 @@ public class Miscellaneous extends Service
 
 		if(source.contains("[notificationTitle]"))
 		{
-			String notificationTitle = NotificationListener.getLastNotification().getTitle();
+			if(NotificationListener.getLastNotification() != null)
+			{
+				String notificationTitle = NotificationListener.getLastNotification().getTitle();
 
-			if(notificationTitle != null && notificationTitle.length() > 0)
-				source = source.replace("[notificationTitle]", notificationTitle);
+				if (notificationTitle != null && notificationTitle.length() > 0)
+					source = source.replace("[notificationTitle]", notificationTitle);
+				else
+				{
+					source = source.replace("[notificationTitle]", "notificationTitle unknown");
+					Miscellaneous.logEvent("w", "Variable replacement", "notificationTitle was empty.", 3);
+				}
+			}
 			else
 			{
-				source = source.replace("notificationTitle unknown", notificationTitle);
-				Miscellaneous.logEvent("w", "Variable replacement", "notificationTitle was empty.", 3);
+				source = source.replace("[notificationTitle]", "notificationTitle unknown");
+				Miscellaneous.logEvent("w", "Variable replacement", "lastNotification was empty.", 3);
 			}
 		}
 
 		if(source.contains("[notificationText]"))
 		{
-			String notificationText = NotificationListener.getLastNotification().getText();
+			if(NotificationListener.getLastNotification() != null)
+			{
+				String notificationText = NotificationListener.getLastNotification().getText();
 
-			if(notificationText != null && notificationText.length() > 0)
-				source = source.replace("[notificationText]", notificationText);
+				if (notificationText != null && notificationText.length() > 0)
+					source = source.replace("[notificationText]", notificationText);
+				else
+				{
+					source = source.replace("[notificationText]", "notificationText unknown");
+					Miscellaneous.logEvent("w", "Variable replacement", "notificationText was empty.", 3);
+				}
+			}
 			else
 			{
-				source = source.replace("notificationText unknown", notificationText);
-				Miscellaneous.logEvent("w", "Variable replacement", "notificationText was empty.", 3);
+				source = source.replace("[notificationText]", "notificationText unknown");
+				Miscellaneous.logEvent("w", "Variable replacement", "lastNotification was empty.", 3);
 			}
 		}
 		

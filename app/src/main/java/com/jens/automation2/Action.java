@@ -112,6 +112,8 @@ public class Action
 											return context.getResources().getString(R.string.setScreenBrightness);
 										case createNotification:
 											return context.getResources().getString(R.string.createNotification);
+										case closeNotification:
+											return context.getResources().getString(R.string.closeNotifications);
 										default:
 											return "Unknown";
 									}

@@ -664,4 +664,7 @@
     <string name="info">Info</string>
     <string name="createNotification">Benachrichtigung erstellen</string>
     <string name="profileWasNotFound">Das Profil, das in dieser Regel referenziert wird, existiert scheinbar nicht mehr. Das alphabetisch erste wurde stattdessen ausgewählt.</string>
+    <string name="closeNotifications">Benachrichtigung(en) schließen</string>
+    <string name="comparisonCaseInsensitive">Groß-/Kleinschreibung ist egal.</string>
+    <string name="notificationCloseActionExplanation">Wenn Sie keine Kriterien angeben, werden ALLE Benachrichtigungen geschlossen. Es wird also empfohlen, zumindest eine Anwendung zu spezifizieren und/oder Titel oder Text anzugeben.</string>
 </resources>

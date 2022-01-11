@@ -145,6 +145,7 @@
         <activity android:name=".ActivityDisplayLongMessage" />
         <activity android:name=".ActivityManageActionSendTextMessage" />
         <activity android:name=".ActivityManageActionPlaySound" />
+        <activity android:name=".ActivityManageActionCloseNotification" />
         <activity android:name=".ActivityManageTriggerProfile" />
         <activity android:name=".ActivityManageTriggerTimeFrame" />
         <activity android:name=".ActivityMaintenance" />

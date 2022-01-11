@@ -664,4 +664,7 @@
     <string name="enterText">Immettere un testo.</string>
     <string name="info">Info</string>
     <string name="profileWasNotFound">Il profilo utilizzato in questa regola non sembra più esistere. Il primo in ordine alfabetico è stato selezionato.</string>
+    <string name="comparisonCaseInsensitive">I confronti sono fatti caso-INsensitive</string>
+    <string name="closeNotifications">Chiudi notifica(e)</string>
+    <string name="notificationCloseActionExplanation">Se non specifichi alcun criterio, questa azione chiuderà TUTTE le notifiche. Quindi si consiglia di specificare almeno i criteri per almeno 1 di applicazione, titolo o testo.</string>
 </resources>
