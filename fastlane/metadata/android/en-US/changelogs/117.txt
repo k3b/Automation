@@ -1,1 +1,1 @@
-* New action: Create notification
+* Fixed a bug in setting ring mode

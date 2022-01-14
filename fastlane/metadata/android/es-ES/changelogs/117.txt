@@ -1,0 +1,1 @@
+* Se ha corregido un error en la configuración del modo de anillo
