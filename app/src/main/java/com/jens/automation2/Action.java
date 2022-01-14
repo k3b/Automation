@@ -160,140 +160,164 @@ public class Action
 	{
 		StringBuilder returnString = new StringBuilder();
 
-		switch(getAction())
-		{
-			case setWifi:
-				if (this.getParameter1())
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnWifiOn));
-				else
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnWifiOff));
-				break;
-			case setBluetooth:
-				if (this.getParameter1())
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnBluetoothOn));
-				else
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnBluetoothOff));
-				break;
-			case setUsbTethering:
-				if (this.getParameter1())
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnUsbTetheringOn));
-				else
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnUsbTetheringOff));
-				break;
-			case setWifiTethering:
-				if (this.getParameter1())
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnWifiTetheringOn));
-				else
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnWifiTetheringOff));
-				break;
-			case setBluetoothTethering:
-				if (this.getParameter1())
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnBluetoothTetheringOn));
-				else
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnBluetoothTetheringOff));
-				break;
-			case setDisplayRotation:
-				if (this.getParameter1())
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionEnableScreenRotation));
-				else
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionDisableScreenRotation));
-				break;
-			case setAirplaneMode:
-				if (this.getParameter1())
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnAirplaneModeOn));
-				else
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnAirplaneModeOff));
-				break;
-			case setDataConnection:
-				if (this.getParameter1())
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionSetDataConnectionOn));
-				else
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionSetDataConnectionOff));
-				break;
-			case startOtherActivity:
-				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.startOtherActivity));
-				break;
-			case triggerUrl:
-				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTriggerUrl));
-				break;
-			case speakText:
-				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionSpeakText));
-				break;
-			case playMusic:
-				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionPlayMusic));
-				break;
-			case sendTextMessage:
-				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.sendTextMessage));
-				break;
-			case turnScreenOnOrOff:
-				if (getParameter1())
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.turnScreenOn));
-				else
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.turnScreenOff));
-				break;
-			case playSound:
-				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.playSound));
-				break;
-			case changeSoundProfile:
-				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionChangeSoundProfile));
-				break;
-			case waitBeforeNextAction:
-				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.waitBeforeNextAction));
-				break;
-			case setScreenBrightness:
-				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.setScreenBrightness));
-				break;
-			case createNotification:
-				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.createNotification));
-				break;
-			case closeNotification:
-				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.closeNotifications));
-				break;
-			default:
-				returnString.append(action.toString());
-		}
 
-		if(this.getAction().equals(Action_Enum.triggerUrl))
+		try
 		{
-			String[] components = parameter2.split(";");
-			if(components.length >= 3)
+			switch (getAction())
 			{
-				returnString.append(": " + components[2]);
-				
-				if(parameter1)
-					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.usingAuthentication) + ".");
+				case setWifi:
+					if (this.getParameter1())
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnWifiOn));
+					else
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnWifiOff));
+					break;
+				case setBluetooth:
+					if (this.getParameter1())
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnBluetoothOn));
+					else
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnBluetoothOff));
+					break;
+				case setUsbTethering:
+					if (this.getParameter1())
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnUsbTetheringOn));
+					else
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnUsbTetheringOff));
+					break;
+				case setWifiTethering:
+					if (this.getParameter1())
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnWifiTetheringOn));
+					else
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnWifiTetheringOff));
+					break;
+				case setBluetoothTethering:
+					if (this.getParameter1())
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnBluetoothTetheringOn));
+					else
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnBluetoothTetheringOff));
+					break;
+				case setDisplayRotation:
+					if (this.getParameter1())
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionEnableScreenRotation));
+					else
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionDisableScreenRotation));
+					break;
+				case setAirplaneMode:
+					if (this.getParameter1())
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnAirplaneModeOn));
+					else
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTurnAirplaneModeOff));
+					break;
+				case setDataConnection:
+					if (this.getParameter1())
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionSetDataConnectionOn));
+					else
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionSetDataConnectionOff));
+					break;
+				case startOtherActivity:
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.startOtherActivity));
+					break;
+				case triggerUrl:
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionTriggerUrl));
+					break;
+				case speakText:
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionSpeakText));
+					break;
+				case playMusic:
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionPlayMusic));
+					break;
+				case sendTextMessage:
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.sendTextMessage));
+					break;
+				case turnScreenOnOrOff:
+					if (getParameter1())
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.turnScreenOn));
+					else
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.turnScreenOff));
+					break;
+				case playSound:
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.playSound));
+					break;
+				case changeSoundProfile:
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionChangeSoundProfile));
+					break;
+				case waitBeforeNextAction:
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.waitBeforeNextAction));
+					break;
+				case setScreenBrightness:
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.setScreenBrightness));
+					break;
+				case createNotification:
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.createNotification));
+					break;
+				case closeNotification:
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.closeNotifications));
+					break;
+				default:
+					returnString.append(action.toString());
 			}
-			else
-				returnString.append(": " + components[0]);
-		}
-		else if(this.getAction().equals(Action_Enum.startOtherActivity))
-		{
-			returnString.append(": " + parameter2.replace(Action.intentPairSeperator, "/"));
-		}
-		else if(this.getAction().equals(Action_Enum.sendTextMessage))
-		{
-			String[] components = parameter2.split(Actions.smsSeparator);
-			if(components.length >= 2)
+
+			if (this.getAction().equals(Action_Enum.triggerUrl))
 			{
-				returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.toNumber) + " " + components[0]);
+				String[] components = parameter2.split(";");
+				if (components.length >= 3)
+				{
+					returnString.append(": " + components[2]);
 
-				returnString.append(". " + Miscellaneous.getAnyContext().getResources().getString(R.string.message) + ": " + components[1]);
+					if (parameter1)
+						returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.usingAuthentication) + ".");
+				}
+				else
+					returnString.append(": " + components[0]);
 			}
-		}
-		else if(this.getAction().equals(Action_Enum.setScreenBrightness))
-		{
-			returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.to) + " ");
+			else if (this.getAction().equals(Action_Enum.startOtherActivity))
+			{
+				returnString.append(": " + parameter2.replace(Action.intentPairSeperator, "/"));
+			}
+			else if (this.getAction().equals(Action_Enum.sendTextMessage))
+			{
+				String[] components = parameter2.split(Actions.smsSeparator);
+				if (components.length >= 2)
+				{
+					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.toNumber) + " " + components[0]);
 
-			if(parameter1)
-				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.brightnessAuto));
-			else
-				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.brightnessManual));
+					returnString.append(". " + Miscellaneous.getAnyContext().getResources().getString(R.string.message) + ": " + components[1]);
+				}
+			}
+			else if (this.getAction().equals(Action_Enum.setScreenBrightness))
+			{
+				returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.to) + " ");
 
-			returnString.append(" / " + Integer.parseInt(parameter2) + "%");
-		}
-		else
-			if (parameter2 != null && parameter2.length() > 0)
+				if (parameter1)
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.brightnessAuto));
+				else
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.brightnessManual));
+
+				returnString.append(" / " + Integer.parseInt(parameter2) + "%");
+			}
+			else if (this.getAction().equals(Action_Enum.closeNotification))
+			{
+				returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.from) + " ");
+
+				String parts[] = this.getParameter2().split(Action.actionParameter2Split);
+				if (parts[0].equals("-1"))
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.anyApp));
+				else
+					returnString.append(parts[0]);
+
+				if (!StringUtils.isBlank(parts[2]))
+					returnString.append(", " + Miscellaneous.getAnyContext().getResources().getString(R.string.title) + " " + parts[1] + " " + parts[2]);
+
+				if (!StringUtils.isBlank(parts[3]))
+					returnString.append(", " + Miscellaneous.getAnyContext().getResources().getString(R.string.text) + " " + parts[2] + " " + parts[3]);
+
+			}
+			else if (parameter2 != null && parameter2.length() > 0)
 				returnString.append(": " + parameter2.replace(Action.actionParameter2Split, "; "));
+		}
+		catch (Exception e)
+		{
+			returnString.append(": " + Miscellaneous.getAnyContext().getResources().getString(R.string.error));
+		}
 		
 		return returnString.toString();
 	}
