@@ -312,7 +312,7 @@ public class ActivityManageTriggerNotification extends Activity
 			{
 				String app;
 				if(tvSelectedApplication.getText().toString().equalsIgnoreCase(getResources().getString(R.string.anyApp)))
-					app = "-1";
+					app = Trigger.anyAppString;
 				else
 					app = tvSelectedApplication.getText().toString();
 
@@ -367,7 +367,7 @@ public class ActivityManageTriggerNotification extends Activity
 		else
 			text = "";
 
-		if(!app.equals("-1"))
+		if(!app.equals(Trigger.anyAppString))
 			tvSelectedApplication.setText(app);
 
 		for(int i = 0; i < directions.length; i++)

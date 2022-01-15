@@ -37,6 +37,8 @@ public class Trigger
 	Rule parentRule = null;
 	Calendar lastTimeNotApplied = null;
 
+	final static String anyAppString = "-1";
+
 	public boolean applies(Object triggeringObject, Context context)
     {
 		boolean result = true;
@@ -169,7 +171,7 @@ public class Trigger
 
 						Miscellaneous.logEvent("i", "NotificationCheck", "Checking if this notification matches our rule " + this.getParentRule().getName() + ". App: " + notificationApp + ", title: " + notificationTitle + ", text: " + notificationText, 5);
 
-						if (!myApp.equals("-1"))
+						if (!myApp.equals(anyAppString))
 						{
 							if (!notificationApp.equalsIgnoreCase(myApp))
 							{
@@ -243,7 +245,7 @@ public class Trigger
 						String title = NotificationListener.getLastNotification().getTitle();
 						String text = NotificationListener.getLastNotification().getText();
 
-						if (!myApp.equals("-1"))
+						if (!myApp.equals(anyAppString))
 						{
 							if (!app.equalsIgnoreCase(myApp))
 								return false;
@@ -1466,7 +1468,7 @@ public class Trigger
 					StringBuilder triggerBuilder = new StringBuilder();
 
 					String appString;
-					if (app.equalsIgnoreCase("-1"))
+					if (app.equalsIgnoreCase(anyAppString))
 						appString = Miscellaneous.getAnyContext().getResources().getString(R.string.anyApp);
 					else
 						appString = "app " + app;
@@ -1486,7 +1488,7 @@ public class Trigger
 				}
 				else
 				{
-					setTriggerParameter2("-1" + triggerParameter2Split + directionEquals + triggerParameter2Split + triggerParameter2Split + directionEquals + triggerParameter2Split + triggerParameter2Split);
+					setTriggerParameter2(anyAppString + triggerParameter2Split + directionEquals + triggerParameter2Split + triggerParameter2Split + directionEquals + triggerParameter2Split + triggerParameter2Split);
 				}
 				break;
 			case deviceOrientation:

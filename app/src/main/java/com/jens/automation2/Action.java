@@ -299,16 +299,16 @@ public class Action
 				returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.from) + " ");
 
 				String parts[] = this.getParameter2().split(Action.actionParameter2Split);
-				if (parts[0].equals("-1"))
+				if (parts[0].equals(Trigger.anyAppString))
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.anyApp));
 				else
 					returnString.append(parts[0]);
 
 				if (!StringUtils.isBlank(parts[2]))
-					returnString.append(", " + Miscellaneous.getAnyContext().getResources().getString(R.string.title) + " " + parts[1] + " " + parts[2]);
+					returnString.append(", " + Miscellaneous.getAnyContext().getResources().getString(R.string.ifString) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.title) + " " + Trigger.getMatchString(parts[1]) + " " + parts[2]);
 
-				if (!StringUtils.isBlank(parts[3]))
-					returnString.append(", " + Miscellaneous.getAnyContext().getResources().getString(R.string.text) + " " + parts[2] + " " + parts[3]);
+				if (parts.length > 4 && !StringUtils.isBlank(parts[4]))
+					returnString.append(", " + Miscellaneous.getAnyContext().getResources().getString(R.string.ifString) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.text) + " " + Trigger.getMatchString(parts[3]) + " " + parts[4]);
 
 			}
 			else if (parameter2 != null && parameter2.length() > 0)

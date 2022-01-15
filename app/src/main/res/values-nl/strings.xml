@@ -666,4 +666,5 @@
     <string name="closeNotifications">Melding(en) sluiten</string>
     <string name="comparisonCaseInsensitive">Vergelijkingen worden gedaan case-INsensitief</string>
     <string name="profileWarning">De instellingen die je hier maakt kunnen ervoor zorgen dat je bepaalde dingen niet meer van je telefoon merkt. Ze kunnen zelfs je wekker dempen. Dus wat je ook doet - het wordt aanbevolen om het te testen.</string>
+    <string name="ifString">als</string>
 </resources>

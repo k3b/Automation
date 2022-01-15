@@ -764,4 +764,5 @@
     <string name="closeNotifications">Close notification(s)</string>
     <string name="comparisonCaseInsensitive">Comparisons are done case-INsensitive</string>
     <string name="profileWarning">The settings you can adjust here, can cause that you don\'t notice certain things from your phone anymore. They may even silence your wakeup alarm. So whatever you do - it is recommended you test it.</string>
+    <string name="ifString">if</string>
 </resources>
