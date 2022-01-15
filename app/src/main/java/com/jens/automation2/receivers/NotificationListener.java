@@ -104,8 +104,8 @@ public class NotificationListener extends NotificationListenerService// implemen
     public static SimpleNotification convertNotificationToSimpleNotification(boolean created, StatusBarNotification input)
     {
         String app = input.getPackageName();
-        String title = null;
-        String text = null;
+        String title = "";
+        String text = "";
 
         Bundle extras = input.getNotification().extras;
 
@@ -117,7 +117,9 @@ public class NotificationListener extends NotificationListenerService// implemen
         catch (NullPointerException e)
         {
 //            https://www.b4x.com/android/forum/threads/solved-reading-statusbarnotifications-extras.64416/
-            title = extras.get(EXTRA_TITLE).toString();
+            // Some notifications have an empty title, like KDE connect
+            if(extras.containsKey(EXTRA_TITLE) && extras.get(EXTRA_TITLE) != null)
+                title = extras.get(EXTRA_TITLE).toString();
         }
 
         try
@@ -127,8 +129,9 @@ public class NotificationListener extends NotificationListenerService// implemen
         }
         catch (NullPointerException e)
         {
-//            https://www.b4x.com/android/forum/threads/solved-reading-statusbarnotifications-extras.64416/
-            text = extras.get(EXTRA_TEXT).toString();
+            // in stacked notifications the "surrounding" element has no text, only a title
+            if (extras.containsKey(EXTRA_TEXT) && extras.get(EXTRA_TEXT) != null)
+                text = extras.get(EXTRA_TEXT).toString();
         }
 
         SimpleNotification returnNotification = new SimpleNotification();
