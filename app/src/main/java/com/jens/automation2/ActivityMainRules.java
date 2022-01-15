@@ -135,7 +135,7 @@ public class ActivityMainRules extends ActivityGeneric
 		    else
 		        holder = (RuleHolder) v.getTag();
 		 
-		    System.out.println("Position ["+position+"]");
+//		    System.out.println("Position ["+position+"]");
 		    Rule r = Rule.getRuleCollection().get(position);
 		    holder.tvRuleName.setText(r.getName());	 
 		    if(r.isRuleActive())

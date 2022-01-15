@@ -165,15 +165,13 @@ public class Trigger
 				{
 					if(getParentRule().getLastExecution() == null || sbn.getPostTime() > this.getParentRule().getLastExecution().getTimeInMillis())
 					{
-						String notificationApp = sbn.getPackageName();
-						String notificationTitle = null;
-						String notificationText = null;
+						NotificationListener.SimpleNotification sn = NotificationListener.convertNotificationToSimpleNotification(true, sbn);
 
-						Miscellaneous.logEvent("i", "NotificationCheck", "Checking if this notification matches our rule " + this.getParentRule().getName() + ". App: " + notificationApp + ", title: " + notificationTitle + ", text: " + notificationText, 5);
+						Miscellaneous.logEvent("i", "NotificationCheck", "Checking if this notification matches our rule " + this.getParentRule().getName() + ": " + sn.toString(), 5);
 
 						if (!myApp.equals(anyAppString))
 						{
-							if (!notificationApp.equalsIgnoreCase(myApp))
+							if (!myApp.equalsIgnoreCase(sn.getApp()))
 							{
 								Miscellaneous.logEvent("i", "NotificationCheck", "Notification app name does not match rule.", 5);
 								continue;
@@ -181,6 +179,9 @@ public class Trigger
 						}
 						else
 						{
+						/*
+						 	Notifications from Automation are disregarded to avoid infinite loops.
+						 */
 							if(myApp.equals(BuildConfig.APPLICATION_ID))
 							{
 								return false;
@@ -192,15 +193,10 @@ public class Trigger
 						https://stackoverflow.com/questions/28047767/notificationlistenerservice-not-reading-text-of-stacked-notifications
 					 */
 
-						Bundle extras = sbn.getNotification().extras;
-
 						// T I T L E
-						if (extras.containsKey(EXTRA_TITLE))
-							notificationTitle = sbn.getNotification().extras.getString(EXTRA_TITLE);
-
 						if (!StringUtils.isEmpty(requiredTitle))
 						{
-							if (!Miscellaneous.compare(myTitleDir, requiredTitle, notificationTitle))
+							if (!Miscellaneous.compare(myTitleDir, requiredTitle, sn.getTitle()))
 							{
 								Miscellaneous.logEvent("i", "NotificationCheck", "Notification title does not match rule.", 5);
 								continue;
@@ -210,13 +206,9 @@ public class Trigger
 							Miscellaneous.logEvent("i", "NotificationCheck", "A required title for a notification trigger was not specified.", 5);
 
 						// T E X T
-
-						if (extras.containsKey(EXTRA_TEXT))
-							notificationText = sbn.getNotification().extras.getString(EXTRA_TEXT);
-
 						if (!StringUtils.isEmpty(requiredText))
 						{
-							if (!Miscellaneous.compare(myTextDir, requiredText, notificationText))
+							if (!Miscellaneous.compare(myTextDir, requiredText, sn.getText()))
 							{
 								Miscellaneous.logEvent("i", "NotificationCheck", "Notification text does not match rule.", 5);
 								continue;

@@ -1,9 +1,12 @@
 package com.jens.automation2.receivers;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
 import android.bluetooth.BluetoothDevice;
 import android.content.IntentFilter;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
@@ -101,8 +104,32 @@ public class NotificationListener extends NotificationListenerService// implemen
     public static SimpleNotification convertNotificationToSimpleNotification(boolean created, StatusBarNotification input)
     {
         String app = input.getPackageName();
-        String title = input.getNotification().extras.getString(EXTRA_TITLE);
-        String text = input.getNotification().extras.getString(EXTRA_TEXT);
+        String title = null;
+        String text = null;
+
+        Bundle extras = input.getNotification().extras;
+
+        try
+        {
+            if (extras.containsKey(EXTRA_TITLE))
+                title = extras.getString(EXTRA_TITLE).toString();
+        }
+        catch (NullPointerException e)
+        {
+//            https://www.b4x.com/android/forum/threads/solved-reading-statusbarnotifications-extras.64416/
+            title = extras.get(EXTRA_TITLE).toString();
+        }
+
+        try
+        {
+            if (extras.containsKey(EXTRA_TEXT))
+                text = extras.getString(EXTRA_TEXT).toString();
+        }
+        catch (NullPointerException e)
+        {
+//            https://www.b4x.com/android/forum/threads/solved-reading-statusbarnotifications-extras.64416/
+            text = extras.get(EXTRA_TEXT).toString();
+        }
 
         SimpleNotification returnNotification = new SimpleNotification();
         returnNotification.publishTime = Miscellaneous.calendarFromLong(input.getPostTime());
@@ -213,6 +240,18 @@ public class NotificationListener extends NotificationListenerService// implemen
         public void setText(String text)
         {
             this.text = text;
+        }
+
+        @Override
+        public String toString()
+        {
+            return "SimpleNotification{" +
+                    "created=" + created +
+                    ", publishTime=" + publishTime +
+                    ", app='" + app + '\'' +
+                    ", title='" + title + '\'' +
+                    ", text='" + text + '\'' +
+                    '}';
         }
     }
 

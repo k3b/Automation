@@ -128,15 +128,13 @@ public class Actions
 
 				for (StatusBarNotification sbn : NotificationListener.getInstance().getActiveNotifications())
 				{
-					String notificationApp = sbn.getPackageName();
-					String notificationTitle = null;
-					String notificationText = null;
+					NotificationListener.SimpleNotification sn = NotificationListener.convertNotificationToSimpleNotification(true, sbn);
 
-					Miscellaneous.logEvent("i", "NotificationCloseCheck", "Checking if this notification matches our rule " + action.getParentRule().getName() + ". App: " + notificationApp + ", title: " + notificationTitle + ", text: " + notificationText, 5);
+					Miscellaneous.logEvent("i", "NotificationCloseCheck", "Checking if this notification should be closed in the context of rule " + action.getParentRule().getName() + ": "+ sn.toString(), 5);
 
-					if (!myApp.equals("-1"))
+					if (!myApp.equals(Trigger.anyAppString))
 					{
-						if (!notificationApp.equalsIgnoreCase(myApp))
+						if (!myApp.equalsIgnoreCase(sn.getApp()))
 						{
 							Miscellaneous.logEvent("i", "NotificationCloseCheck", "Notification app name does not match rule.", 5);
 							continue;
@@ -144,6 +142,9 @@ public class Actions
 					}
 					else
 					{
+						/*
+						 	Notifications from Automation are disregarded to avoid infinite loops.
+						 */
 						if(myApp.equals(BuildConfig.APPLICATION_ID))
 						{
 							continue;
@@ -155,15 +156,10 @@ public class Actions
 					https://stackoverflow.com/questions/28047767/notificationlistenerservice-not-reading-text-of-stacked-notifications
 				 */
 
-					Bundle extras = sbn.getNotification().extras;
-
 					// T I T L E
-					if (extras.containsKey(EXTRA_TITLE))
-						notificationTitle = sbn.getNotification().extras.getString(EXTRA_TITLE);
-
 					if (!StringUtils.isEmpty(requiredTitle))
 					{
-						if (!Miscellaneous.compare(myTitleDir, requiredTitle, notificationTitle))
+						if (!Miscellaneous.compare(myTitleDir, requiredTitle, sn.getTitle()))
 						{
 							Miscellaneous.logEvent("i", "NotificationCloseCheck", "Notification title does not match rule.", 5);
 							continue;
@@ -171,13 +167,9 @@ public class Actions
 					}
 
 					// T E X T
-
-					if (extras.containsKey(EXTRA_TEXT))
-						notificationText = sbn.getNotification().extras.getString(EXTRA_TEXT);
-
 					if (!StringUtils.isEmpty(requiredText))
 					{
-						if (!Miscellaneous.compare(myTextDir, requiredText, notificationText))
+						if (!Miscellaneous.compare(myTextDir, requiredText, sn.getText()))
 						{
 							Miscellaneous.logEvent("i", "NotificationCloseCheck", "Notification text does not match rule.", 5);
 							continue;
