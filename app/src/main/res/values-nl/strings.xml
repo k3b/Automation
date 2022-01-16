@@ -401,7 +401,7 @@
     <string name="startNewThreadForRuleExecution">Start nieuw process voor activatie regel.</string>
     <string name="newThreadRules">Nieuw process</string>
     <string name="showIcon">Pictogram tonen</string>
-    <string name="showIconWhenServiceIsRunning">Pictogram tonen als de service draait (verbergen werkt alleen onder Android 7)</string>
+    <string name="showIconWhenServiceIsRunning">Pictogram tonen als de service draait (verbergen werkt alleen onder Android 7). Als u een hogere versie gebruikt, gaat u naar systeeminstellingen, vervolgens automatisering, vervolgens meldingen en schakelt u de \"Service notification\" uit.</string>
     <string name="ruleHistory">Regelgeschiedenis (meest recente eerst):</string>
     <string name="someOptionsNotAvailableYet">Sommige opties zijn uitgeschakeld omdat ze nog niet gebruikt kunnen worden. Ze zullen in een latere programmaversie worden geïntroduceerd.</string>
     <string name="lockSoundChanges">Geluidswijzigingen vergrendelen</string>

@@ -470,7 +470,7 @@
     <string name="noMapsApplicationFound">Parece que no hay una aplicación de mapa en su dispositivo.</string>
     <string name="soundMode">Modo de sonido de llamada.</string>
     <string name="showIcon">Monstrar icono</string>
-    <string name="showIconWhenServiceIsRunning">Monstrar icono cuando el servicio esta activo (ocultando solo funciona antes Android 7)</string>
+    <string name="showIconWhenServiceIsRunning">Monstrar icono cuando el servicio esta activo (ocultando solo funciona antes Android 7). Si está en una versión superior, vaya a configuración del sistema, luego Automatización, luego notificaciones y deshabilite \"Service notification\".</string>
     <string name="currentVolume">Volumen actual</string>
     <string name="volumeTest">Calibrado de volumen</string>
     <string name="permissionsTitle">Permisos necesarios</string>

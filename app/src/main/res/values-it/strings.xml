@@ -459,7 +459,7 @@
     <string name="shareConfigAndLogFilesWithDev">Condividere i file di configurazione e di registro con lo sviluppatore (via e-mail).</string>
     <string name="showHelp">Mostra Aiuto</string>
     <string name="showIcon">Mostra icona</string>
-    <string name="showIconWhenServiceIsRunning">Mostra una icona quando il servizio è attivo (nasconderla funziona solo in versioni inferiori ad Android 7)</string>
+    <string name="showIconWhenServiceIsRunning">Mostra una icona quando il servizio è attivo (nasconderla funziona solo in versioni inferiori ad Android 7). Se hai una versione superiore, vai alle impostazioni di sistema, quindi all\'automazione, quindi alle notifiche e disabilita la \"Service notification\".</string>
     <string name="showOnMap">Mostra sulla mappa</string>
     <string name="someOptionsNotAvailableYet">Alcune opzioni sono disabilitate in quanto non ancora implementate. Saranno introdotte in una versione successiva.</string>
     <string name="soundMode">Modalità sonora</string>

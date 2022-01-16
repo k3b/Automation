@@ -496,7 +496,7 @@
     <string name="startNewThreadForRuleExecution">Start new thread for rule activation.</string>
     <string name="newThreadRules">New thread</string>
     <string name="showIcon">Show icon</string>
-    <string name="showIconWhenServiceIsRunning">Show icon when service is running (hiding it only works below Android 7)</string>
+    <string name="showIconWhenServiceIsRunning">Show icon when service is running (hiding it only works below Android 7). If you\'re on a higher version, go to system settings, then Automation, then notifications and disable the \"Service notification\".</string>
     <string name="ruleHistory">Rule history (most recent first):</string>
     <string name="someOptionsNotAvailableYet">Some options are disabled as they cannot be used, yet. They will be introduced in a later program version.</string>
     <string name="lockSoundChanges">Lock sound changes</string>

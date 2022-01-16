@@ -403,7 +403,7 @@
     <string name="startNewThreadForRuleExecution">Für Regelaktivierung neuen Thread starten.</string>
     <string name="newThreadRules">Neuer Thread</string>
     <string name="showIcon">Symbol</string>
-    <string name="showIconWhenServiceIsRunning">Symbol anzeigen, wenn Dienst läuft (verstecken funktioniert nur unterhalb Android 7)</string>
+    <string name="showIconWhenServiceIsRunning">Symbol anzeigen, wenn Dienst läuft (verstecken funktioniert nur unterhalb Android 7). Wenn Sie auf einer höheren Version sind, gehen Sie in die System Einstellungen, dann Automation und dann Benachrichtigungen. Deaktivieren Sie die \"Service notification\".</string>
     <string name="ruleHistory">Regel Historie (letzte zuerst):</string>
     <string name="someOptionsNotAvailableYet">Manche Optionen sind deaktiviert, da sie noch nicht funktionieren. Sie kommen in einer späteren Programmversion dazu.</string>
     <string name="lockSoundChanges">Tonänderungen sperren</string>
