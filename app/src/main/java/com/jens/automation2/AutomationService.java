@@ -41,8 +41,6 @@ public class AutomationService extends Service implements OnInitListener
 	protected final static int notificationIdRestrictions = 1005;
 	protected final static int notificationIdLocationRestriction = 1006;
 
-//	final static String NOTIFICATION_CHANNEL_ID = "com.jens.automation2";
-
 	final static String NOTIFICATION_CHANNEL_ID_SERVICE = "com.jens.automation2_service";
 	final static String NOTIFICATION_CHANNEL_NAME_SERVICE = "Service notification";
 
@@ -73,7 +71,6 @@ public class AutomationService extends Service implements OnInitListener
 			lockSoundChangesEnd = Calendar.getInstance();
 
 		lockSoundChangesEnd.add(Calendar.MINUTE, Settings.lockSoundChangesInterval);
-//		ActivityMainScreen.getActivityMainScreenInstance().updateMainScreen();
 	}
 
 	public void checkLockSoundChangesTimeElapsed()
@@ -117,18 +114,6 @@ public class AutomationService extends Service implements OnInitListener
 
 	public boolean checkStartupRequirements(Context context, boolean startAtBoot)
 	{
-//		if (!ActivityPermissions.havePermission(ActivityPermissions.writeExternalStoragePermissionName, AutomationService.this))
-//		{
-//			/*
-//				Don't have permission to access external storage. This is a show stopper as
-//				the configuration file is stored on external storage.
-//			 */
-//			Miscellaneous.logEvent("e", "Permission", "Don't have permission to access external storage. Will request it now.", 4);
-////			Toast.makeText(AutomationService.this, getResources().getString(R.string.appRequiresPermissiontoAccessExternalStorage), Toast.LENGTH_LONG).show();
-//			ActivityPermissions.requestSpecificPermission(ActivityPermissions.writeExternalStoragePermissionName);
-//			return false;
-//		}
-
 		if(Build.VERSION.SDK_INT >= 28)
 		{
 			if (!ActivityPermissions.havePermission(Manifest.permission.FOREGROUND_SERVICE, AutomationService.this))
@@ -143,10 +128,15 @@ public class AutomationService extends Service implements OnInitListener
 			}
 		}
 
-		if (PointOfInterest.getPointOfInterestCollection() == null | PointOfInterest.getPointOfInterestCollection().size() == 0
-				|
-				Rule.getRuleCollection() == null | Rule.getRuleCollection().size() == 0
-				)
+		if (
+				PointOfInterest.getPointOfInterestCollection() == null
+							||
+				PointOfInterest.getPointOfInterestCollection().size() == 0
+							||
+				Rule.getRuleCollection() == null
+							||
+				Rule.getRuleCollection().size() == 0
+			)
 		{
 			if (startAtBoot)
 			{
@@ -181,7 +171,7 @@ public class AutomationService extends Service implements OnInitListener
 		}
 
 		//if still no POIs...
-		if (Rule.getRuleCollection() == null | Rule.getRuleCollection().size() == 0)
+		if (Rule.getRuleCollection() == null || Rule.getRuleCollection().size() == 0)
 		{
 			Miscellaneous.logEvent("w", "AutomationService", context.getResources().getString(R.string.serviceWontStart), 1);
 			Toast.makeText(context, context.getResources().getString(R.string.serviceWontStart), Toast.LENGTH_LONG).show();

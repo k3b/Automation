@@ -3,7 +3,6 @@ package com.jens.automation2;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,7 +10,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Xml;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,11 +27,8 @@ import androidx.core.text.HtmlCompat;
 
 import com.jens.automation2.AutomationService.serviceCommands;
 import com.jens.automation2.Trigger.Trigger_Enum;
-import com.jens.automation2.location.CellLocationChangedReceiver;
 import com.jens.automation2.location.LocationProvider;
 
-import java.io.File;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 

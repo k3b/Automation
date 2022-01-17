@@ -85,6 +85,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -984,10 +985,16 @@ public class Miscellaneous extends Service
 	{
 		NotificationManager nm = (NotificationManager) Miscellaneous.getAnyContext().getSystemService(Context.NOTIFICATION_SERVICE);
 		List<NotificationChannel> channels = nm.getNotificationChannels();
-		if(channels.size() > 3)
+
+		if(!Settings.hasBeenDone(Settings.constNotificationChannelCleanupApk118) && BuildConfig.VERSION_CODE < 120)
 		{
+			// Perform a one-time cleanup of notification channels as they have been redesigned.
+
 			for(NotificationChannel c : channels)
 				nm.deleteNotificationChannel(c.getId());
+
+			Settings.considerDone(Settings.constNotificationChannelCleanupApk118);
+			Settings.writeSettings(Miscellaneous.getAnyContext());
 		}
 
 		NotificationChannel channel = findExistingChannel(channels, channelId);

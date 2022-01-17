@@ -20,6 +20,7 @@ public class Settings implements SharedPreferences
 	public static final String zipFileName = "automation.zip";
 
 	public static final String constNewsOptInDone ="newsOptInDone";
+	public static final String constNotificationChannelCleanupApk118 ="notificationChannelCleanupApk118";
 
 	public static long minimumDistanceChangeForGpsUpdate;
 	public static long minimumDistanceChangeForNetworkUpdate;
