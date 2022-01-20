@@ -148,7 +148,7 @@
         <activity android:name=".ActivityManageActionCloseNotification" />
         <activity android:name=".ActivityManageTriggerProfile" />
         <activity android:name=".ActivityManageTriggerTimeFrame" />
-        <activity android:name=".ActivityMaintenance" />
+        <activity android:name=".ActivityControlCenter" />
         <activity android:name=".ActivityManageTriggerPhoneCall" />
         <activity android:name=".ActivityManageActionBrightnessSetting" />
         <activity android:name=".ActivityManageActionCreateNotification" />

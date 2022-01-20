@@ -363,7 +363,7 @@
     <string name="screenRotationAlreadyDisabled">Rotación del monitor todavia esta desactivado.</string>
     <string name="needLocationPermForWifiList">Se puede usar la lista de wifis conocidos para determinar los sitios en los cuales estuvo. Por eso el permiso de localización es necesario para cargar la lista de wifis. Si quiere elegir uno de la lista tiene que conceder el permiso. En caso contrario todavia puede introducir un nombre wifi manualmente.</string>
     <string name="com.wireguard.android.permission.CONTROL_TUNNELS">Controlar conexiones de la app Wireguard</string>
-    <string name="shareConfigAndLogFilesWithDev">Enviar configuración y procotolo al desarollador (vía email).</string>
+    <string name="shareConfigAndLogFilesWithDev">Adjuntar configuración y procotolo.</string>
     <string name="rootExplanation">Necesita permiso root para esta función. Después encienda la función \"ejecutar regla manualmente\" para presentar el permiso superuser dialogo. Es necesario elegir \"siempre permitir root para esta app\". En caso contrario la regla no puede funcionar en segundo plano.</string>
     <string name="helpTextRules">Todas las condiciones están \"Y\"-conectadas. La regla solo va a aplicarse cuando todas las condiciones se aplican. Si quiere \"O\", cree otra regla.</string>
     <string name="timeBetweenNoiseLevelMeasurementsSummary">Segundos entre dos ensayos de nivel de ruido</string>

@@ -35,18 +35,17 @@ import java.util.Calendar;
 @SuppressLint("NewApi")
 public class ActivityMainScreen extends ActivityGeneric
 {
-	private static boolean guiChangeInProgress = false;
+	static boolean guiChangeInProgress = false;
+	static ActivityMainScreen activityMainScreenInstance = null;
+	static boolean updateNoteDisplayed = false;
+	static boolean uiUpdateRunning = false;
 
-	private static ActivityMainScreen activityMainScreenInstance = null;
-	private ToggleButton toggleService, tbLockSound;
-	private Button bShowHelp, bPrivacy, bSettingsErase, bAddSoundLockTIme, bDonate;
-	private TextView tvActivePoi, tvClosestPoi, tvLastRule, tvMainScreenNotePermissions, tvMainScreenNoteFeaturesFromOtherFlavor, tvMainScreenNoteLocationImpossibleBlameGoogle, tvMainScreenNoteNews, tvlockSoundDuration;
-	private static boolean updateNoteDisplayed = false;
+	ToggleButton toggleService, tbLockSound;
+	Button bShowHelp, bPrivacy, bAddSoundLockTIme, bDonate, bControlCenter;
+	TextView tvActivePoi, tvClosestPoi, tvLastRule, tvMainScreenNotePermissions, tvMainScreenNoteFeaturesFromOtherFlavor, tvMainScreenNoteLocationImpossibleBlameGoogle, tvMainScreenNoteNews, tvLockSoundDuration;
 
-	private ListView lvRuleHistory;
-	private ArrayAdapter<Rule> ruleHistoryListViewAdapter;
-
-	private static boolean uiUpdateRunning = false;
+	ListView lvRuleHistory;
+	ArrayAdapter<Rule> ruleHistoryListViewAdapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -74,7 +73,7 @@ public class ActivityMainScreen extends ActivityGeneric
 		tvMainScreenNoteFeaturesFromOtherFlavor = (TextView) findViewById(R.id.tvMainScreenNoteFeaturesFromOtherFlavor);
 		tvMainScreenNoteLocationImpossibleBlameGoogle = (TextView) findViewById(R.id.tvMainScreenNoteLocationImpossibleBlameGoogle);
 		tvMainScreenNoteNews = (TextView) findViewById(R.id.tvMainScreenNoteNews);
-		tvlockSoundDuration = (TextView)findViewById(R.id.tvlockSoundDuration);
+		tvLockSoundDuration = (TextView)findViewById(R.id.tvlockSoundDuration);
 		tbLockSound = (ToggleButton) findViewById(R.id.tbLockSound);
 		toggleService = (ToggleButton) findViewById(R.id.tbArmMastListener);
 
@@ -94,7 +93,8 @@ public class ActivityMainScreen extends ActivityGeneric
 					if (toggleService.isChecked())
 					{
 						startAutomationService(getBaseContext(), false);
-					} else
+					}
+					else
 					{
 						stopAutomationService();
 					}
@@ -142,13 +142,13 @@ public class ActivityMainScreen extends ActivityGeneric
 			}
 		});
 
-		Button bSettings = (Button) findViewById(R.id.bSettings);
-		bSettings.setOnClickListener(new OnClickListener()
+		bControlCenter = (Button) findViewById(R.id.bControlCenter);
+		bControlCenter.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
-				Intent myIntent = new Intent(ActivityMainScreen.this, ActivityMaintenance.class);
+				Intent myIntent = new Intent(ActivityMainScreen.this, ActivityControlCenter.class);
 				startActivity(myIntent);
 			}
 		});
@@ -390,21 +390,21 @@ public class ActivityMainScreen extends ActivityGeneric
 					long millis = end.getTimeInMillis() - now.getTimeInMillis();
 					long minutes = millis/1000/60;
 					if(minutes < 60)
-						activityMainScreenInstance.tvlockSoundDuration.setText(String.valueOf(minutes + " min..."));
+						activityMainScreenInstance.tvLockSoundDuration.setText(String.valueOf(minutes + " min..."));
 					else
 					{
 						double hours = (double)minutes / 60.0;
-						activityMainScreenInstance.tvlockSoundDuration.setText(String.valueOf(Math.round(hours * 100.0) / 100.0) + " h...");
+						activityMainScreenInstance.tvLockSoundDuration.setText(String.valueOf(Math.round(hours * 100.0) / 100.0) + " h...");
 					}
 				}
 				else
-					activityMainScreenInstance.tvlockSoundDuration.setText(String.valueOf(""));
+					activityMainScreenInstance.tvLockSoundDuration.setText(String.valueOf(""));
 			}
 			else
 			{
 				activityMainScreenInstance.tbLockSound.setChecked(false);
 				activityMainScreenInstance.tbLockSound.setEnabled(false);
-				activityMainScreenInstance.tvlockSoundDuration.setText("");
+				activityMainScreenInstance.tvLockSoundDuration.setText("");
 			}
 			Settings.writeSettings(activityMainScreenInstance);
 //			uiUpdateRunning = false;

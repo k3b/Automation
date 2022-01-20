@@ -532,7 +532,7 @@
     <string name="fileDoesNotExist">Datei existiert nicht.</string>
     <string name="noFileManageInstalled">Kein Dateimanager installiert.</string>
     <string name="alwaysPlayExplanation">Wenn diese Einstellung aktiv ist, wird der Ton immer abgespielt. Wenn die Einstellung inaktiv ist, wird der Ton nur dann abgespielt, wenn das Telefon weder auf stumm noch auf Vibration steht, d.h. Klingeltöne aktiv sind. Allerdings hat es keinen Einfluß auf die Medien-Lautstärke. D.h., wenn diese stumm ist, werden Sie so oder so nichts zu hören bekommen.</string>
-    <string name="shareConfigAndLogFilesWithDev">Konfigurations- und Logdatei mit Entwickler teilen (via email).</string>
+    <string name="shareConfigAndLogFilesWithDev">Konfigurations- und Logdateien anhängen</string>
     <string name="shareConfigAndLogExplanation">Dies wird eine neue Email öffnen mit Konfigurations- und Logdateien als Zip-Anhang. Sie wird nicht automatisch versendet. D.h. Sie können so z.B. auch den Adressaten zu sich selbst ändern.</string>
     <string name="notificationTriggerExplanation">Dieser Auslöser reagiert auf Benachrichtigungen anderer Anwendung im Benachrichtigungsbereich von Android (oder wenn diese geschlossen werden). Sie können eine bestimmte Anwendung festlegen, von die Nachricht stammen muß. Wenn nicht, zählt jede Benachrichtigung. Sie können auch Zeichenketten für Titel oder Nachrichteninhalt festlegen, die enthalten sein müssen. Die Groß-/Kleinschreibung wird hierbei nicht berücksichtigt.</string>
     <string name="addParameters">Parameter hinzufügen</string>

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +22,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.File;
 import java.util.ArrayList;
 
-public class ActivityMaintenance extends Activity
+public class ActivityControlCenter extends Activity
 {
     final static int requestCodeImport = 1001;
     final static int requestCodeExport = 1002;
@@ -30,13 +31,14 @@ public class ActivityMaintenance extends Activity
     final static String prefsFileName = "com.jens.automation2_preferences.xml";
 
     TextView tvFileStoreLocation, tvAppVersion;
-    Button bVolumeTest, bMoreSettings, bSettingsSetToDefault, bShareConfigAndLog, bImportConfiguration, bExportConfiguration;
+    Button bVolumeTest, bMoreSettings, bSettingsSetToDefault, bSendEmailToDev, bImportConfiguration, bExportConfiguration;
+    CheckBox chkShareConfigAndLog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maintenance);
+        setContentView(R.layout.activity_control_center);
 
         bVolumeTest = (Button) findViewById(R.id.bVolumeTest);
         bVolumeTest.setOnClickListener(new View.OnClickListener()
@@ -44,18 +46,25 @@ public class ActivityMaintenance extends Activity
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(ActivityMaintenance.this, ActivityVolumeTest.class);
+                Intent intent = new Intent(ActivityControlCenter.this, ActivityVolumeTest.class);
                 startActivity(intent);
             }
         });
 
-        bShareConfigAndLog = (Button) findViewById(R.id.bShareConfigAndLog);
-        bShareConfigAndLog.setOnClickListener(new View.OnClickListener()
+        chkShareConfigAndLog = (CheckBox)findViewById(R.id.chkShareConfigAndLog);
+        bSendEmailToDev = (Button) findViewById(R.id.bSendEmailToDev);
+        bSendEmailToDev.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                getShareConfigAndLogDialogue(ActivityMaintenance.this).show();
+                if(chkShareConfigAndLog.isChecked())
+                    getShareConfigAndLogDialogue(ActivityControlCenter.this).show();
+                else
+                {
+                    String subject = "Automation";
+                    Miscellaneous.sendEmail(ActivityControlCenter.this, "android-development@gmx.de", "Automation logs", getSystemInfo(), null);
+                }
             }
         });
 
@@ -65,17 +74,17 @@ public class ActivityMaintenance extends Activity
             @Override
             public void onClick(View v)
             {
-                getDefaultSettingsDialog(ActivityMaintenance.this).show();
+                getDefaultSettingsDialog(ActivityControlCenter.this).show();
             }
         });
 
-        Button bMoreSettings = (Button) findViewById(R.id.bMoreSettings);
+        bMoreSettings = (Button) findViewById(R.id.bMoreSettings);
         bMoreSettings.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                Intent myIntent = new Intent(ActivityMaintenance.this, ActivitySettings.class);
+                Intent myIntent = new Intent(ActivityControlCenter.this, ActivitySettings.class);
                 startActivityForResult(myIntent, requestCodeMoreSettings);
             }
         });
@@ -123,7 +132,7 @@ public class ActivityMaintenance extends Activity
                 if (AutomationService.isMyServiceRunning(this))
                     AutomationService.getInstance().serviceInterface(AutomationService.serviceCommands.reloadSettings);
 
-                if (AutomationService.isMyServiceRunning(ActivityMaintenance.this))
+                if (AutomationService.isMyServiceRunning(ActivityControlCenter.this))
                     Toast.makeText(this, getResources().getString(R.string.settingsWillTakeTime), Toast.LENGTH_LONG).show();
 
                 break;
@@ -170,7 +179,7 @@ public class ActivityMaintenance extends Activity
                         if (Miscellaneous.copyDocumentFileToFile(file, dstRules))
                             filesImported++;
                         else
-                            Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.rulesImportError), Toast.LENGTH_LONG).show();
+                            Toast.makeText(ActivityControlCenter.this, getResources().getString(R.string.rulesImportError), Toast.LENGTH_LONG).show();
                     }
                 }
                 else if (file.getName().equals(prefsFileName))
@@ -183,7 +192,7 @@ public class ActivityMaintenance extends Activity
                         if (Miscellaneous.copyDocumentFileToFile(file, dstPrefs))
                             filesImported++;
                         else
-                            Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.prefsImportError), Toast.LENGTH_LONG).show();
+                            Toast.makeText(ActivityControlCenter.this, getResources().getString(R.string.prefsImportError), Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -191,12 +200,12 @@ public class ActivityMaintenance extends Activity
             if(applicableFilesFound > 0)
             {
                 if(filesImported == 0)
-                    Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.noFilesImported), Toast.LENGTH_LONG).show();
+                    Toast.makeText(ActivityControlCenter.this, getResources().getString(R.string.noFilesImported), Toast.LENGTH_LONG).show();
                 else if(filesImported < applicableFilesFound)
-                    Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.notAllFilesImported), Toast.LENGTH_LONG).show();
+                    Toast.makeText(ActivityControlCenter.this, getResources().getString(R.string.notAllFilesImported), Toast.LENGTH_LONG).show();
                 else if (filesImported == applicableFilesFound)
                 {
-                    Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.configurationImportedSuccessfully), Toast.LENGTH_LONG).show();
+                    Toast.makeText(ActivityControlCenter.this, getResources().getString(R.string.configurationImportedSuccessfully), Toast.LENGTH_LONG).show();
 
                     try
                     {
@@ -208,19 +217,19 @@ public class ActivityMaintenance extends Activity
                     catch (Exception e)
                     {
                         Miscellaneous.logEvent("e", "Reading import", "Rules re-read failed: " + Log.getStackTraceString(e), 1);
-                        Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.errorReadingPoisAndRulesFromFile), Toast.LENGTH_LONG).show();
+                        Toast.makeText(ActivityControlCenter.this, getResources().getString(R.string.errorReadingPoisAndRulesFromFile), Toast.LENGTH_LONG).show();
                     }
 
-                    Settings.readFromPersistentStorage(ActivityMaintenance.this);
+                    Settings.readFromPersistentStorage(ActivityControlCenter.this);
                 }
                 else
-                    Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.noFilesImported), Toast.LENGTH_LONG).show();
+                    Toast.makeText(ActivityControlCenter.this, getResources().getString(R.string.noFilesImported), Toast.LENGTH_LONG).show();
             }
             else
-                Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.noApplicableFilesFoundInDirectory), Toast.LENGTH_LONG).show();
+                Toast.makeText(ActivityControlCenter.this, getResources().getString(R.string.noApplicableFilesFoundInDirectory), Toast.LENGTH_LONG).show();
         }
         else
-            Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.noApplicableFilesFoundInDirectory), Toast.LENGTH_LONG).show();
+            Toast.makeText(ActivityControlCenter.this, getResources().getString(R.string.noApplicableFilesFoundInDirectory), Toast.LENGTH_LONG).show();
     }
 
     void exportFiles(Uri uriTree)
@@ -252,12 +261,12 @@ public class ActivityMaintenance extends Activity
         if(dstRules.canWrite() && dstPrefs.canWrite())
         {
             if(Miscellaneous.copyFileToDocumentFile(srcRules, dstRules) && Miscellaneous.copyFileToDocumentFile(srcPrefs, dstPrefs))
-                Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.configurationExportedSuccessfully), Toast.LENGTH_LONG).show();
+                Toast.makeText(ActivityControlCenter.this, getResources().getString(R.string.configurationExportedSuccessfully), Toast.LENGTH_LONG).show();
             else
-                Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.ConfigurationExportError), Toast.LENGTH_LONG).show();
+                Toast.makeText(ActivityControlCenter.this, getResources().getString(R.string.ConfigurationExportError), Toast.LENGTH_LONG).show();
         }
         else
-            Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.ConfigurationExportError), Toast.LENGTH_LONG).show();
+            Toast.makeText(ActivityControlCenter.this, getResources().getString(R.string.ConfigurationExportError), Toast.LENGTH_LONG).show();
     }
 
     private static AlertDialog getDefaultSettingsDialog(final Context context)
@@ -296,32 +305,33 @@ public class ActivityMaintenance extends Activity
                 srcFilesList.add(Miscellaneous.getWriteableFolder() + "/../shared_prefs/" + prefsFileName);
 
                 String logFilePath = Miscellaneous.getWriteableFolder() + "/" + Miscellaneous.logFileName;
-                if((new File(logFilePath)).exists())
+                if ((new File(logFilePath)).exists())
                     srcFilesList.add(logFilePath);
 
                 String logFilePathArchive = Miscellaneous.getWriteableFolder() + "/" + Miscellaneous.logFileName + "-old";
-                if((new File(logFilePathArchive)).exists())
+                if ((new File(logFilePathArchive)).exists())
                     srcFilesList.add(logFilePathArchive);
 
                 String[] srcFiles = srcFilesList.toArray(new String[srcFilesList.size()]);
 
-                if(dstZipFile.exists())
+                if (dstZipFile.exists())
                     dstZipFile.delete();
 
                 Miscellaneous.zip(srcFiles, dstZipFile.getAbsolutePath());
 
-				/*
-					Without root the zip file in the cache directory is not directly accessible.
-					But have to route it through this content provider crap.
-				 */
+            /*
+                Without root the zip file in the cache directory is not directly accessible.
+                But have to route it through this content provider crap.
+             */
 
                 String subject = "Automation logs";
 
                 Uri uri = Uri.parse("content://com.jens.automation2/" + Settings.zipFileName);
 
-                Miscellaneous.sendEmail(ActivityMaintenance.this, "android-development@gmx.de", "Automation logs", getSystemInfo(), uri);
+                Miscellaneous.sendEmail(ActivityControlCenter.this, "android-development@gmx.de", "Automation logs", getSystemInfo(), uri);
             }
         });
+
         alertDialogBuilder.setNegativeButton(context.getResources().getString(R.string.no), null);
         AlertDialog alertDialog = alertDialogBuilder.create();
 
@@ -367,7 +377,7 @@ public class ActivityMaintenance extends Activity
                     {
                         // if you reach this place, it means there is no any file
                         // explorer app installed on your device
-                        Toast.makeText(ActivityMaintenance.this, getResources().getString(R.string.noFileManageInstalled), Toast.LENGTH_LONG).show();
+                        Toast.makeText(ActivityControlCenter.this, getResources().getString(R.string.noFileManageInstalled), Toast.LENGTH_LONG).show();
                     }
 
                 }

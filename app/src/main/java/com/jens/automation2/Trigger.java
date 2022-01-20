@@ -999,7 +999,7 @@ public class Trigger
 	 */
 	
 	public enum Trigger_Enum {
-								pointOfInterest, timeFrame, charging, batteryLevel, usb_host_connection, speed, noiseLevel, wifiConnection, process_started_stopped, airplaneMode, roaming, nfcTag, activityDetection, bluetoothConnection, headsetPlugged, notification, deviceOrientation, profileActive, phoneCall; //phoneCall always needs to be at the very end because of Google's shitty so called privacy
+								pointOfInterest, timeFrame, charging, batteryLevel, usb_host_connection, speed, noiseLevel, wifiConnection, process_started_stopped, airplaneMode, roaming, nfcTag, activityDetection, bluetoothConnection, headsetPlugged, notification, deviceOrientation, profileActive, screenState, phoneCall; //phoneCall always needs to be at the very end because of Google's shitty so called privacy
 								
 								public String getFullName(Context context)
 								{

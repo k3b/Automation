@@ -631,7 +631,7 @@
     <string name="selectSoundFile">Select sound file</string>
     <string name="fileDoesNotExist">File does not exist.</string>
     <string name="noFileManageInstalled">No file manager installed.</string>
-    <string name="shareConfigAndLogFilesWithDev">Share config and log files with developer (via email).</string>
+    <string name="shareConfigAndLogFilesWithDev">Attach config and log files.</string>
     <string name="shareConfigAndLogExplanation">This will start a new email with your config and log files attached as zip file. It will not be sent automatically, you still need to hit \"send\". You can also change the recipient to yourself for example.</string>
     <string name="startAppChoiceNote">Here you have 2 general options:\n\n1. You can start a program by selecting an activity. Imagine this like preselecting a specific screen/window of an application. Keep in mind this may not always work. This is because the windows of an app might interact with each other, e.g. pass on parameters. When bluntly starting a specific screen that interaction has not happened and the window might close instantly (therefore it\'s never really shown). Try it nevertheless! You can enter an activity path manually, but it\'s recommended to use the \"Select\" button. If you decide to enter it manually enter the app\'s package name in the upper field and the full path of the activity in the lower one.\n\n2. Selection by action In contrast to selecting a specific window you can also start a program by an action. This is like shouting out \"I\'d would like xyz\" and if there\'s an app installed that can help you with that it will be started. A good example would be start browser - you might even have multiple installed (one is usually the default one). You need to enter this manually, PackageName is optional here. Keep in mind no variables will be resolved. If you want to start the camera for example using \"MediaStore.ACTION_IMAGE_CAPTURE\" will not work. You have to take a look at the Android documentation and use this variable\'s actual value instead which in this example would be \"android.media.action.IMAGE_CAPTURE\".</string>
     <string name="errorRunningRule">There was an error running a rule.</string>
@@ -765,4 +765,7 @@
     <string name="comparisonCaseInsensitive">Comparisons are done case-INsensitive</string>
     <string name="profileWarning">The settings you can adjust here, can cause that you don\'t notice certain things from your phone anymore. They may even silence your wakeup alarm. So whatever you do - it is recommended you test it.</string>
     <string name="ifString">if</string>
+    <string name="emailContactNotice">Email is my preferred method of contact to report bugs, ask questions or make proposals. Go to control center to learn more.</string>
+    <string name="controlCenter">Control center</string>
+    <string name="sendEmailToDev">Send email to developer</string>
 </resources>

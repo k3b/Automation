@@ -16,14 +16,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:text="@string/settings"
+            android:text="@string/controlCenter"
             android:layout_marginBottom="@dimen/default_margin"/>
 
         <Button
             android:id="@+id/bMoreSettings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/moreSettings" />
+            android:text="@string/settings" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -83,11 +83,25 @@
             android:layout_margin="@dimen/default_margin"
             android:background="#aa000000" />
 
+        <CheckBox
+            android:id="@+id/chkShareConfigAndLog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/shareConfigAndLogFilesWithDev" />
+
         <Button
-            android:id="@+id/bShareConfigAndLog"
+            android:id="@+id/bSendEmailToDev"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/shareConfigAndLogFilesWithDev" />
+            android:text="@string/sendEmailToDev" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_span="2"
+            android:layout_height="1dp"
+            android:layout_margin="@dimen/default_margin"
+            android:background="#aa000000" />
 
         <TextView
             android:id="@+id/tvFileStoreLocation"

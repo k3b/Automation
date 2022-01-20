@@ -327,11 +327,11 @@
 				android:text="@string/privacy" />
 
 		    <Button
-		        android:id="@+id/bSettings"
+		        android:id="@+id/bControlCenter"
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 		        android:layout_gravity="top"
-		        android:text="@string/settings" />
+		        android:text="@string/controlCenter" />
 
 			<Button
 				android:id="@+id/bDonate"
@@ -340,7 +340,14 @@
 				android:layout_height="wrap_content"
 				android:layout_gravity="top"
 				android:text="@string/donate" />
-			
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="@dimen/default_margin"
+				android:gravity="center_horizontal"
+				android:text="@string/emailContactNotice" />
+
 		</LinearLayout>
 		
 	</LinearLayout>
