@@ -1074,7 +1074,7 @@ public class Actions
 
 			PendingIntent pi = PendingIntent.getActivity(context, 0, new Intent(context, Actions.class), 0);
 			SmsManager sms = SmsManager.getDefault();
-			sms.sendTextMessage(phoneNumber, null, message, pi, null);
+			sms.sendTextMessage(phoneNumber, null, textToSend, pi, null);
 		}
 		catch (Exception e)
 		{
