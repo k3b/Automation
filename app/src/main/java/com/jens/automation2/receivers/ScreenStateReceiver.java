@@ -68,11 +68,6 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 	{
 		return screenStateReceiverActive;
 	}
-	
-	public static boolean isUsbHostConnected()
-	{
-		return usbHostConnected;
-	}
 
 	public static int getScreenState()
 	{

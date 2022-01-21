@@ -480,7 +480,6 @@ public class ActivityManageRule extends Activity
 		
 		for(int i=0; i<types.length; i++)
 		{			
-			//pointOfInterest, timeFrame, charging, batteryLevel, usb_host_connection, speed, noiseLevel, wifiConnection, process_started_stopped;
 			if(types[i].toString().equals(Trigger_Enum.pointOfInterest.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.compass_small));
 			else if(types[i].toString().equals(Trigger_Enum.timeFrame.toString()))
@@ -505,7 +504,6 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.roaming));
 			else if(types[i].toString().equals(Trigger_Enum.phoneCall.toString()))
             {
-//                if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageSpecificRule.this, "android.permission.SEND_SMS") && !Miscellaneous.isGooglePlayInstalled(ActivityManageSpecificRule.this))
 				if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageRule.this, "android.permission.SEND_SMS"))
                     items.add(new Item(typesLong[i].toString(), R.drawable.phone));
             }
@@ -684,6 +682,12 @@ public class ActivityManageRule extends Activity
 						ActivityManageTriggerBluetooth.editedBluetoothTrigger = newTrigger;
 						Intent bluetoothEditor = new Intent(myContext, ActivityManageTriggerBluetooth.class);
 						startActivityForResult(bluetoothEditor, requestCodeTriggerBluetoothAdd);
+						return;
+					}
+					else if(triggerType == Trigger_Enum.screenState)
+					{
+						newTrigger.setTriggerType(Trigger_Enum.screenState);
+						getTriggerScreenStateDialog().show();
 						return;
 					}
 					else if(triggerType == Trigger_Enum.headsetPlugged)
@@ -1017,6 +1021,33 @@ public class ActivityManageRule extends Activity
 		
 		return alertDialog;
 	}
+
+	private AlertDialog getTriggerScreenStateDialog()
+	{
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+		alertDialog.setTitle(Miscellaneous.getAnyContext().getResources().getString(R.string.selectDesiredState));
+
+		String[] choices = {
+								Miscellaneous.getAnyContext().getResources().getString(R.string.off),
+								Miscellaneous.getAnyContext().getResources().getString(R.string.on),
+								Miscellaneous.getAnyContext().getResources().getString(R.string.unlocked)
+							};
+
+		alertDialog.setItems(choices, new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				newTrigger.setTriggerParameter2(String.valueOf(which));
+				ruleToEdit.getTriggerSet().add(newTrigger);
+				refreshTriggerList();
+			}
+		});
+
+		return alertDialog.create();
+	}
+
 	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
 	private AlertDialog getTriggerActivityDetectionDialog()
 	{

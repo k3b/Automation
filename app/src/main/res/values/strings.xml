@@ -769,4 +769,9 @@
     <string name="controlCenter">Control center</string>
     <string name="sendEmailToDev">Send email to developer</string>
     <string name="screenIs">screen is %1$s</string>
+    <string name="on">on</string>
+    <string name="off">off</string>
+    <string name="unlocked">unlocked</string>
+    <string name="selectDesiredState">Select desired state</string>
+    <string name="screenState">Screen state</string>
 </resources>

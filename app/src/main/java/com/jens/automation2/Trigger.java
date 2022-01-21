@@ -1066,6 +1066,8 @@ public class Trigger
 											return context.getResources().getString(R.string.deviceOrientation);
 										case profileActive:
 											return context.getResources().getString(R.string.profile);
+										case screenState:
+											return context.getResources().getString(R.string.screenState);
 										default:
 											return "Unknown";
 									}
@@ -1516,10 +1518,24 @@ public class Trigger
 					returnString.append(String.format(Miscellaneous.getAnyContext().getString(R.string.profileNotActive), getTriggerParameter2().split(Trigger.triggerParameter2Split)[0]));
 				break;
 			case screenState:
-				if(triggerParameter)
-					returnString.append(String.format(Miscellaneous.getAnyContext().getString(R.string.screenIs), getTriggerParameter2().split(Trigger.triggerParameter2Split)[0]));
-				else
-					returnString.append(String.format(Miscellaneous.getAnyContext().getString(R.string.profileNotActive), getTriggerParameter2().split(Trigger.triggerParameter2Split)[0]));
+				String state;
+				switch(triggerParameter2)
+				{
+					case "0":
+						state = Miscellaneous.getAnyContext().getString(R.string.off);
+						break;
+					case "1":
+						state = Miscellaneous.getAnyContext().getString(R.string.on);
+						break;
+					case "2":
+						state = Miscellaneous.getAnyContext().getString(R.string.unlocked);
+						break;
+					default:
+						state = Miscellaneous.getAnyContext().getString(R.string.unknown);
+				}
+
+				returnString.append(String.format(Miscellaneous.getAnyContext().getString(R.string.screenIs), state));
+
 				break;
 			default:
 				returnString.append("error");
@@ -1573,11 +1589,7 @@ public class Trigger
 	public static String[] getTriggerTypesAsArray()
 	{
 		ArrayList<String> triggerTypesList = new ArrayList<String>();
-		
-		/*for(int i=0; i<Trigger_Enum.values().length; i++)
-		{
-			triggerTypesList.add(Trigger_Enum.values()[i].toString());
-		}*/
+
 		for(Trigger_Enum triggerType : Trigger_Enum.values())
 			triggerTypesList.add(triggerType.name());
 		
