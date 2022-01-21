@@ -768,4 +768,5 @@
     <string name="emailContactNotice">Email is my preferred method of contact to report bugs, ask questions or make proposals. Go to control center to learn more.</string>
     <string name="controlCenter">Control center</string>
     <string name="sendEmailToDev">Send email to developer</string>
+    <string name="screenIs">screen is %1$s</string>
 </resources>

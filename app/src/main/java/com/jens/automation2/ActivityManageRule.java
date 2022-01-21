@@ -523,6 +523,8 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.smartphone));
 			else if(types[i].toString().equals(Trigger_Enum.profileActive.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.sound));
+			else if(types[i].toString().equals(Trigger_Enum.screenState.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.smartphone));
 			else
 				items.add(new Item(typesLong[i].toString(), R.drawable.placeholder));
 		}

@@ -22,6 +22,8 @@ import com.jens.automation2.receivers.NoiseListener;
 import com.jens.automation2.receivers.NotificationListener;
 import com.jens.automation2.receivers.PhoneStatusListener;
 import com.jens.automation2.receivers.ProcessListener;
+import com.jens.automation2.receivers.ScreenStateReceiver;
+
 import static com.jens.automation2.receivers.NotificationListener.EXTRA_TEXT;
 import static com.jens.automation2.receivers.NotificationListener.EXTRA_TITLE;
 
@@ -121,6 +123,10 @@ public class Trigger
 					break;
 				case profileActive:
 					if(!checkProfileActive())
+						result = false;
+					break;
+				case screenState:
+					if(!checkScreenState())
 						result = false;
 					break;
 				default:
@@ -303,6 +309,23 @@ public class Trigger
 			{
 				Miscellaneous.logEvent("w", "Trigger", "Error checking profile trigger.", 4);
 			}
+		}
+
+		return false;
+	}
+
+	boolean checkScreenState()
+	{
+		try
+		{
+			int desiredState = Integer.parseInt(getTriggerParameter2());
+			int currentState = ScreenStateReceiver.getScreenState();
+
+			return desiredState == currentState;
+		}
+		catch (Exception e)
+		{
+			Miscellaneous.logEvent("w", "Trigger", "Error checking profile trigger.", 4);
 		}
 
 		return false;
@@ -1489,6 +1512,12 @@ public class Trigger
 			case profileActive:
 				if(triggerParameter)
 					returnString.append(String.format(Miscellaneous.getAnyContext().getString(R.string.profileActive), getTriggerParameter2().split(Trigger.triggerParameter2Split)[0]));
+				else
+					returnString.append(String.format(Miscellaneous.getAnyContext().getString(R.string.profileNotActive), getTriggerParameter2().split(Trigger.triggerParameter2Split)[0]));
+				break;
+			case screenState:
+				if(triggerParameter)
+					returnString.append(String.format(Miscellaneous.getAnyContext().getString(R.string.screenIs), getTriggerParameter2().split(Trigger.triggerParameter2Split)[0]));
 				else
 					returnString.append(String.format(Miscellaneous.getAnyContext().getString(R.string.profileNotActive), getTriggerParameter2().split(Trigger.triggerParameter2Split)[0]));
 				break;
