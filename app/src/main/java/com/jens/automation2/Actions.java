@@ -801,7 +801,7 @@ public class Actions
 //			am.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
 //		}
 //		else
-//			myAudioManager.setRingerMode(desiredSoundSetting);
+		myAudioManager.setRingerMode(desiredSoundSetting);
 	}
 
 	private static String getIPAddressUsb(final boolean useIPv4)
