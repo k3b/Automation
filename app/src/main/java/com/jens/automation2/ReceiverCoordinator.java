@@ -15,6 +15,7 @@ import com.jens.automation2.receivers.HeadphoneJackListener;
 import com.jens.automation2.receivers.NoiseListener;
 import com.jens.automation2.receivers.PhoneStatusListener;
 import com.jens.automation2.receivers.ProcessListener;
+import com.jens.automation2.receivers.ScreenStateReceiver;
 import com.jens.automation2.receivers.TimeZoneListener;
 
 import androidx.annotation.RequiresApi;
@@ -54,6 +55,7 @@ public class ReceiverCoordinator
                     //NotificationListener.class,
                     PhoneStatusListener.class,
                     ProcessListener.class,
+                    ScreenStateReceiver.class,
                     TimeZoneListener.class
              };
         }
@@ -70,6 +72,7 @@ public class ReceiverCoordinator
                     NoiseListener.class,
                     PhoneStatusListener.class,
                     ProcessListener.class,
+                    ScreenStateReceiver.class,
                     TimeZoneListener.class
             };
         }
@@ -177,13 +180,14 @@ public class ReceiverCoordinator
             // Nothing to do, just not starting this one.
         }
 
-        //startBluetoothReceiver
         if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.bluetoothConnection))
             BluetoothReceiver.startBluetoothReceiver();
 
-        //startHeadsetJackListener
         if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.headsetPlugged))
             HeadphoneJackListener.getInstance().startListener(AutomationService.getInstance());
+
+        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.screenState))
+            ScreenStateReceiver.startScreenStateReceiver(AutomationService.getInstance());
     }
 
     public static void stopAllReceivers()
@@ -266,6 +270,17 @@ public class ReceiverCoordinator
         {
             Miscellaneous.logEvent("i", "LocationProvider", "Shutting down ProcessListener because not used in any rule.", 4);
             ProcessListener.stopProcessListener(AutomationService.getInstance());
+        }
+
+        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.screenState))
+        {
+            Miscellaneous.logEvent("i", "LocationProvider", "Starting ScreenStateListener because used in a new/changed rule.", 4);
+            ScreenStateReceiver.startScreenStateReceiver(AutomationService.getInstance());
+        }
+        else
+        {
+            Miscellaneous.logEvent("i", "LocationProvider", "Shutting down ScreenStateListener because not used in any rule.", 4);
+            ScreenStateReceiver.stopScreenStateReceiver();
         }
 
         if(!BuildConfig.FLAVOR.equalsIgnoreCase("fdroidFlavor"))

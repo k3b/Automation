@@ -1,5 +1,6 @@
 package com.jens.automation2.receivers;
 
+import android.Manifest;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
 import android.app.ActivityManager.RunningServiceInfo;
@@ -8,6 +9,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 
+import com.jens.automation2.Action;
 import com.jens.automation2.ActivityPermissions;
 import com.jens.automation2.AutomationService;
 import com.jens.automation2.Miscellaneous;
@@ -208,12 +210,12 @@ public class ProcessListener implements AutomationListenerInterface
 						workHandler.sendMessage(answer);
 						
 						//activate rule(s)
-						/*ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByProcess();
+						ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.process_started_stopped);
 						for(int i=0; i<ruleCandidates.size(); i++)
 						{
-							if(ruleCandidates.get(i).applies(automationService))
-								ruleCandidates.get(i).activate(automationService);
-						}*/
+							if(ruleCandidates.get(i).getsGreenLight(automationService))
+								ruleCandidates.get(i).activate(automationService, false);
+						}
 						
 						isMonitoringActive = false;
 						
@@ -254,24 +256,6 @@ public class ProcessListener implements AutomationListenerInterface
                 	runningAppsListReference.add(services.get(i).baseActivity.getClassName());
                 }
             }
-
-//            for(String runningApp : runningAppsListReference)
-//            {		                	
-//            	Miscellaneous.logEvent("i", "Running app", runningApp, 5);
-//            }
-            
-//            List<RunningAppProcessInfo> procInfos = activityManager.getRunningAppProcesses();
-//            for(int i = 0; i < procInfos.size(); i++)
-//            {
-//                ArrayList<String> runningPkgs = new ArrayList<String>(Arrays.asList(procInfos.get(i).pkgList));
-//
-//                Collection diff = subtractSets(runningPkgs, stalkList); 
-//
-//                if(diff != null)
-//                {
-//                    stalkList.removeAll(diff);
-//                }
-//           }
             
             // Set marker to the one to be written next.
             if(lastWritten == 1)
@@ -351,7 +335,7 @@ public class ProcessListener implements AutomationListenerInterface
 		    return false;
 		}
 
-		private boolean checkifThisIsActive(RunningAppProcessInfo target)
+		private boolean checkIfThisIsActive(RunningAppProcessInfo target)
 		{
 		    boolean result = false;
 		    RunningTaskInfo info;
@@ -397,7 +381,6 @@ public class ProcessListener implements AutomationListenerInterface
 			
 			Message message = new Message();
 			message.arg1 = 1;
-//			schedulingHandler.sendMessageDelayed(message, Settings.timeBetweenNoiseLevelMeasurements * 1000);
 			schedulingHandler.sendMessageDelayed(message, 10000);
 		}
 		else
@@ -444,7 +427,7 @@ public class ProcessListener implements AutomationListenerInterface
 
 	public static boolean haveAllPermission()
 	{
-		return ActivityPermissions.havePermission("android.permission.GET_TASKS", Miscellaneous.getAnyContext());
+		return ActivityPermissions.havePermission(Manifest.permission.GET_TASKS, Miscellaneous.getAnyContext());
 	}
 
 	@Override
@@ -458,6 +441,4 @@ public class ProcessListener implements AutomationListenerInterface
 	{
 		return new Trigger_Enum[] { Trigger_Enum.process_started_stopped };
 	}
-	
-	
 }

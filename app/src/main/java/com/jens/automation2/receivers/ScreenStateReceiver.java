@@ -27,6 +27,14 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 	private static Intent screenStatusIntent = null;
 	private static BroadcastReceiver screenStateReceiverInstance = null;
 
+	public static BroadcastReceiver getScreenStateReceiverInstance()
+	{
+		if(screenStateReceiverInstance == null)
+			screenStateReceiverInstance = new ScreenStateReceiver();
+
+		return screenStateReceiverInstance;
+	}
+
 	public static void startScreenStateReceiver(final AutomationService automationServiceRef)
 	{
 		if(!screenStateReceiverActive)
@@ -93,13 +101,13 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 
 		try
 		{
-			if(intent.getAction().equals(Intent.ACTION_SCREEN_ON))
-			{
-				ScreenStateReceiver.screenState = 1;
-			}
-			else if(intent.getAction().equals(Intent.ACTION_SCREEN_OFF))
+			if(intent.getAction().equals(Intent.ACTION_SCREEN_OFF))
 			{
 				ScreenStateReceiver.screenState = 0;
+			}
+			else if(intent.getAction().equals(Intent.ACTION_SCREEN_ON))
+			{
+				ScreenStateReceiver.screenState = 1;
 			}
 			else if(intent.getAction().equals(Intent.ACTION_USER_PRESENT))
 			{
@@ -114,10 +122,6 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 		{
 			Miscellaneous.logEvent("e", "ScreenStateReceiver", "Error receiving screen state: " + e.getMessage(), 3);
 		}
-	}
-	
-	private void actionCharging(Context context, int state)
-	{
 
 		ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.screenState);
 		for(int i=0; i<ruleCandidates.size(); i++)

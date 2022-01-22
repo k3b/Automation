@@ -24,6 +24,7 @@ import com.jens.automation2.receivers.PhoneStatusListener;
 import com.jens.automation2.receivers.ProcessListener;
 import com.jens.automation2.receivers.ScreenStateReceiver;
 
+import static com.jens.automation2.Trigger.triggerParameter2Split;
 import static com.jens.automation2.receivers.NotificationListener.EXTRA_TEXT;
 import static com.jens.automation2.receivers.NotificationListener.EXTRA_TITLE;
 
@@ -555,7 +556,19 @@ public class Trigger
 
     boolean checkProcess()
 	{
-		boolean running = ProcessListener.getRunningApps().contains(this.getProcessName());
+		boolean running = false;
+
+		if(getTriggerParameter2().contains(triggerParameter2Split))
+		{
+			String parts[] = triggerParameter2.split(triggerParameter2Split);
+			for(String appName : ProcessListener.getRunningApps())
+			{
+				if(appName.startsWith(parts[0]))
+					running = true;
+			}
+		}
+		else
+			running = ProcessListener.getRunningApps().contains(this.getProcessName());
 
 		if(running)
 			Miscellaneous.logEvent("i", "ProcessMonitoring", "App " + this.getProcessName() + " is currently running.", 4);

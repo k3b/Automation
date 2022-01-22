@@ -263,11 +263,9 @@ public class XmlFileInterface
 		    	            			else if(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerType() == Trigger_Enum.wifiConnection)
 		    	            				serializer.text(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerParameter2());
 		    	            			else if(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerType() == Trigger_Enum.process_started_stopped)
-		    	            				serializer.text(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getProcessName());
+		    	            				serializer.text(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerParameter2());
 		    	            			else if(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerType() == Trigger_Enum.batteryLevel)
 		    	            				serializer.text(String.valueOf(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getBatteryLevel()));
-//		    	            			else if(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerType() == Trigger_Enum.phoneCall)
-//		    	            				serializer.text(String.valueOf(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getPhoneDirection()) + "," + String.valueOf(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getPhoneNumber()));
 		    	            			else if(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerType() == Trigger_Enum.nfcTag)
 		    	            				serializer.text(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getNfcTagId());
 		    	            			else if(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerType() == Trigger_Enum.activityDetection)
@@ -943,8 +941,16 @@ public class XmlFileInterface
             	}
             	else if(newTrigger.getTriggerType() == Trigger_Enum.process_started_stopped)
             	{
-            		newTrigger.setProcessName(triggerParameter2);
 					newTrigger.setTriggerParameter2(triggerParameter2);
+
+            		if(triggerParameter2.contains(triggerParameter2Split))
+					{
+						String[] parts = triggerParameter2.split(triggerParameter2Split);
+						newTrigger.setProcessName(parts[1]);
+					}
+            		else
+            			newTrigger.setProcessName(triggerParameter2);
+
             	}
             	else if(newTrigger.getTriggerType() == Trigger_Enum.phoneCall)
             	{

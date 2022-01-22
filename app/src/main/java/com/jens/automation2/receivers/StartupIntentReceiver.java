@@ -17,7 +17,7 @@ public class StartupIntentReceiver extends BroadcastReceiver
 	{
 		Settings.readFromPersistentStorage(context);
 
-		Miscellaneous.logEvent("i", "Boot event", "Received event: " + intent.getAction(), 5);
+//		Miscellaneous.logEvent("i", "Boot event", "Received event: " + intent.getAction(), 5);
 
 		if(Settings.startServiceAtSystemBoot)
 		{

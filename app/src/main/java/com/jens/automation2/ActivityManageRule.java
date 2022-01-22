@@ -1137,9 +1137,6 @@ public class ActivityManageRule extends Activity
 		});
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		
-//		Log.i("Amount of Applications", String.valueOf(applicationArray.length));
-//		Log.i("Amount of Packages", String.valueOf(ActivityManageStartActivity.getPackageListString(myContext).length));
-		
 		return alertDialog;
 	}
 	
@@ -1176,6 +1173,7 @@ public class ActivityManageRule extends Activity
 				triggerProcess = activityArray[which];
 				newTrigger.setTriggerType(Trigger_Enum.process_started_stopped);
 				newTrigger.setProcessName(triggerProcess);
+				newTrigger.setTriggerParameter2(packageName + Trigger.triggerParameter2Split + triggerProcess);
 				ruleToEdit.getTriggerSet().add(newTrigger);
 				refreshTriggerList();
 			}
