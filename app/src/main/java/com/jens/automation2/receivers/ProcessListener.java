@@ -233,6 +233,7 @@ public class ProcessListener implements AutomationListenerInterface
 			
 			final ActivityManager activityManager  =  (ActivityManager)automationService.getSystemService(Context.ACTIVITY_SERVICE);
             final List<RunningTaskInfo> services  =  activityManager.getRunningTasks(Integer.MAX_VALUE);
+            final List<RunningAppProcessInfo> apps = activityManager.getRunningAppProcesses();
             
             ArrayList<String> runningAppsListReference;
             if(lastWritten == 1)
@@ -248,14 +249,23 @@ public class ProcessListener implements AutomationListenerInterface
             
             runningAppsListReference.clear();
             
-            for (int i = 0; i < services.size(); i++)
+            /*for (int i = 0; i < services.size(); i++)
             {
                 if(!runningAppsListReference.contains(services.get(i).baseActivity.getClassName()))
                 {
                       // you may broadcast a new application launch here.
                 	runningAppsListReference.add(services.get(i).baseActivity.getClassName());
                 }
-            }
+            }*/
+			for (int i = 0; i < apps.size(); i++)
+			{
+				if(!runningAppsListReference.contains(apps.get(i).processName))
+				{
+					// you may broadcast a new application launch here.
+					runningAppsListReference.add(apps.get(i).processName);
+				}
+			}
+
             
             // Set marker to the one to be written next.
             if(lastWritten == 1)
