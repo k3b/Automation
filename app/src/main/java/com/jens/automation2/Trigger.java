@@ -37,6 +37,60 @@ import java.util.Date;
 
 public class Trigger
 {
+	public enum Trigger_Enum {
+		pointOfInterest, timeFrame, charging, batteryLevel, usb_host_connection, speed, noiseLevel, wifiConnection, process_started_stopped, airplaneMode, roaming, nfcTag, activityDetection, bluetoothConnection, headsetPlugged, notification, deviceOrientation, profileActive, screenState, phoneCall; //phoneCall always needs to be at the very end because of Google's shitty so called privacy
+
+		public String getFullName(Context context)
+		{
+			switch(this)
+			{
+				case pointOfInterest:
+					return context.getResources().getString(R.string.triggerPointOfInterest);
+				case timeFrame:
+					return context.getResources().getString(R.string.triggerTimeFrame);
+				case charging:
+					return context.getResources().getString(R.string.triggerCharging);
+				case batteryLevel:
+					return context.getResources().getString(R.string.batteryLevel);
+				case usb_host_connection:
+					return context.getResources().getString(R.string.triggerUsb_host_connection);
+				case speed:
+					return context.getResources().getString(R.string.triggerSpeed);
+				case noiseLevel:
+					return context.getResources().getString(R.string.triggerNoiseLevel);
+				case wifiConnection:
+					return context.getResources().getString(R.string.wifiConnection);
+				case process_started_stopped:
+					return context.getResources().getString(R.string.anotherAppIsRunning);
+				case airplaneMode:
+					return context.getResources().getString(R.string.airplaneMode);
+				case roaming:
+					return context.getResources().getString(R.string.roaming);
+				case phoneCall:
+					return context.getResources().getString(R.string.phoneCall);
+				case nfcTag:
+					return context.getResources().getString(R.string.nfcTag);
+				case activityDetection:
+					return context.getResources().getString(R.string.activityDetection);
+				case bluetoothConnection:
+					return context.getResources().getString(R.string.bluetoothConnection);
+				case headsetPlugged:
+					return context.getResources().getString(R.string.triggerHeadsetPlugged);
+				case notification:
+					return context.getResources().getString(R.string.notification);
+				case deviceOrientation:
+					return context.getResources().getString(R.string.deviceOrientation);
+				case profileActive:
+					return context.getResources().getString(R.string.profile);
+				case screenState:
+					return context.getResources().getString(R.string.screenState);
+				default:
+					return "Unknown";
+			}
+		}
+
+	};
+
 	Rule parentRule = null;
 	Calendar lastTimeNotApplied = null;
 
@@ -974,8 +1028,6 @@ public class Trigger
 			calSet.set(Calendar.SECOND, 0);
 			calSet.set(Calendar.MILLISECOND, 0);
 
-//				if(this.applies(null))
-//				{
 			// If the starting time is a day ahead remove 1 day.
 			if(calSet.getTimeInMillis() > now.getTimeInMillis())
 				calSet.add(Calendar.DAY_OF_MONTH, -1);
@@ -986,15 +1038,7 @@ public class Trigger
 			Calendar calSchedule = Calendar.getInstance();
 			calSchedule.setTimeInMillis(nextScheduleTimestamp * 1000);
 
-			/*
-			 * Das war mal aktiviert. Allerdings: Die ganze Funktion liefert zurück, wenn die Regel NOCH nicht
-			 * zutrifft, aber wir z.B. gleich den zeitlichen Bereich betreten.
-			 */
-//					if(trigger.checkDateTime(calSchedule.getTime(), false))
-//					{
 			return calSchedule;
-//					}
-//				}
 		}
 		else
 			Miscellaneous.logEvent("i", "Trigger", "Trigger " + trigger.toString() + " is not executed repeatedly.", 5);
@@ -1027,75 +1071,14 @@ public class Trigger
 		return false;
 	}
 
-    /*
-	 * Can be several things:
-	 * -PointOfInterest
-	 * -TimeFrame
-	 * -Event (like charging, cable plugged, etc.)
-	 */
-	
-	public enum Trigger_Enum {
-								pointOfInterest, timeFrame, charging, batteryLevel, usb_host_connection, speed, noiseLevel, wifiConnection, process_started_stopped, airplaneMode, roaming, nfcTag, activityDetection, bluetoothConnection, headsetPlugged, notification, deviceOrientation, profileActive, screenState, phoneCall; //phoneCall always needs to be at the very end because of Google's shitty so called privacy
-								
-								public String getFullName(Context context)
-								{
-									switch(this)
-									{
-										case pointOfInterest:
-											return context.getResources().getString(R.string.triggerPointOfInterest);
-										case timeFrame:
-											return context.getResources().getString(R.string.triggerTimeFrame);
-										case charging:
-											return context.getResources().getString(R.string.triggerCharging);
-										case batteryLevel:
-											return context.getResources().getString(R.string.batteryLevel);
-										case usb_host_connection:
-											return context.getResources().getString(R.string.triggerUsb_host_connection);
-										case speed:
-											return context.getResources().getString(R.string.triggerSpeed);
-										case noiseLevel:
-											return context.getResources().getString(R.string.triggerNoiseLevel);
-										case wifiConnection:
-											return context.getResources().getString(R.string.wifiConnection);
-										case process_started_stopped:
-											return context.getResources().getString(R.string.anotherAppIsRunning);
-										case airplaneMode:
-											return context.getResources().getString(R.string.airplaneMode);
-										case roaming:
-											return context.getResources().getString(R.string.roaming);
-										case phoneCall:
-											return context.getResources().getString(R.string.phoneCall);
-										case nfcTag:
-											return context.getResources().getString(R.string.nfcTag);
-										case activityDetection:
-											return context.getResources().getString(R.string.activityDetection);
-										case bluetoothConnection:
-											return context.getResources().getString(R.string.bluetoothConnection);
-										case headsetPlugged:
-											return context.getResources().getString(R.string.triggerHeadsetPlugged);
-										case notification:
-											return context.getResources().getString(R.string.notification);
-										case deviceOrientation:
-											return context.getResources().getString(R.string.deviceOrientation);
-										case profileActive:
-											return context.getResources().getString(R.string.profile);
-										case screenState:
-											return context.getResources().getString(R.string.screenState);
-										default:
-											return "Unknown";
-									}
-								}
-		
-							};
-
-	private boolean triggerParameter; //if true->started event, if false->stopped
-	private String triggerParameter2;
+	boolean triggerParameter; //if true->started event, if false->stopped
+	String triggerParameter2;
 
 	public static final String triggerParameter2Split = "tp2split";
 	
-    private Trigger_Enum triggerType = null;
-    private PointOfInterest pointOfInterest = null;
-    private TimeFrame timeFrame;
+    Trigger_Enum triggerType = null;
+    PointOfInterest pointOfInterest = null;
+    TimeFrame timeFrame;
 
     public static String triggerPhoneCallStateRinging = "ringing";
 	public static String triggerPhoneCallStateStarted = "started";
@@ -1105,17 +1088,17 @@ public class Trigger
 	public static String triggerPhoneCallDirectionAny = "any";
 	public static String triggerPhoneCallNumberAny = "any";
 
-	private double speed; //km/h
-    private long noiseLevelDb;
-	private String processName = null;
-    private int batteryLevel;
-    private int phoneDirection = 0; // 0=any, 1=incoming, 2=outgoing
-    private String phoneNumber = null;
-    private String nfcTagId = null;
-    private String bluetoothEvent = null;
-	private String bluetoothDeviceAddress = null;
-    private int activityDetectionType = -1;
-    private int headphoneType = -1;
+	double speed; //km/h
+    long noiseLevelDb;
+	String processName = null;
+    int batteryLevel;
+    int phoneDirection = 0; // 0=any, 1=incoming, 2=outgoing
+    String phoneNumber = null;
+    String nfcTagId = null;
+    String bluetoothEvent = null;
+	String bluetoothDeviceAddress = null;
+    int activityDetectionType = -1;
+    int headphoneType = -1;
     
 	public int getHeadphoneType()
 	{

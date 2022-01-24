@@ -41,6 +41,7 @@ public class Action
 								setDataConnection,
 								speakText,
 								playMusic,
+		controlMediaPlayback,
 								setScreenBrightness,
 								playSound,
 								vibrate,
@@ -104,6 +105,8 @@ public class Action
 											return context.getResources().getString(R.string.actionSpeakText);
 										case playMusic:
 											return context.getResources().getString(R.string.actionPlayMusic);
+										case controlMediaPlayback:
+											return context.getResources().getString(R.string.actionMediaControl);
 										case playSound:
 											return context.getResources().getString(R.string.playSound);
 										case sendTextMessage:
@@ -159,7 +162,6 @@ public class Action
 	public String toString()
 	{
 		StringBuilder returnString = new StringBuilder();
-
 
 		try
 		{
@@ -224,6 +226,9 @@ public class Action
 					break;
 				case playMusic:
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionPlayMusic));
+					break;
+				case controlMediaPlayback:
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.actionMediaControl));
 					break;
 				case sendTextMessage:
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.sendTextMessage));
@@ -310,6 +315,27 @@ public class Action
 				if (parts.length > 4 && !StringUtils.isBlank(parts[4]))
 					returnString.append(", " + Miscellaneous.getAnyContext().getResources().getString(R.string.ifString) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.text) + " " + Trigger.getMatchString(parts[3]) + " " + parts[4]);
 
+			}
+			else if(this.getAction().equals(Action_Enum.controlMediaPlayback))
+			{
+				switch (this.getParameter2())
+				{
+					case "0":
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.playPause));
+						break;
+					case "1":
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.play));
+						break;
+					case "2":
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.pause));
+						break;
+					case "3":
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.previous));
+						break;
+					case "4":
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.next));
+						break;
+				}
 			}
 			else if (parameter2 != null && parameter2.length() > 0)
 				returnString.append(": " + parameter2.replace(Action.actionParameter2Split, "; "));

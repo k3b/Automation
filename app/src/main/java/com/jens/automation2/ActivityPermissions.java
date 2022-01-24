@@ -358,9 +358,10 @@ public class ActivityPermissions extends Activity
                 for (Rule rule : Rule.getRuleCollection())
                 {
                     for (String singlePermission : getPermissionsForRule(rule))
+                    {
                         if (!havePermission(singlePermission, workingContext))
                         {
-                            if(
+                            if (
 
                                     singlePermission.equalsIgnoreCase(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
                                             ||
@@ -372,14 +373,15 @@ public class ActivityPermissions extends Activity
                                 if (!Miscellaneous.googleToBlameForLocation(true))
                                     addToArrayListUnique(singlePermission, requiredPermissions);
                             }
-                            else if(singlePermission.equalsIgnoreCase(Manifest.permission.ACTIVITY_RECOGNITION) || singlePermission.equalsIgnoreCase(permissionNameGoogleActivityDetection))
+                            else if (singlePermission.equalsIgnoreCase(Manifest.permission.ACTIVITY_RECOGNITION) || singlePermission.equalsIgnoreCase(permissionNameGoogleActivityDetection))
                             {
-                                if(!BuildConfig.FLAVOR.equalsIgnoreCase("fdroidFlavor"))
+                                if (!BuildConfig.FLAVOR.equalsIgnoreCase("fdroidFlavor"))
                                     addToArrayListUnique(singlePermission, requiredPermissions);
                             }
                             else
                                 addToArrayListUnique(singlePermission, requiredPermissions);
                         }
+                    }
                 }
             }
 
@@ -526,6 +528,9 @@ public class ActivityPermissions extends Activity
                         addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
                         break;
                     case playMusic:
+                        break;
+                    case controlMediaPlayback:
+                        addToArrayListUnique(Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE, requiredPermissions);
                         break;
                     case sendTextMessage:
                         addToArrayListUnique(Manifest.permission.SEND_SMS, requiredPermissions);

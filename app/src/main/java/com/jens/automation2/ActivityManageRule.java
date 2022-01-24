@@ -65,14 +65,11 @@ public class ActivityManageRule extends Activity
 	static ProgressDialog progressDialog = null;
 	
 	static Trigger_Enum triggerType;
-	static boolean triggerParameter;
 	static PointOfInterest triggerPoi;
 	static String triggerProcess;
 	static int triggerBattery;
 	static double triggerSpeed;
 	static double triggerNoise;
-	static TimeFrame triggerTimeFrame;
-	static String triggerWifiName;
 	
 	static Rule ruleToEdit;
 	static boolean newRule;
@@ -604,7 +601,9 @@ public class ActivityManageRule extends Activity
 						return;
 					}
 					else if(triggerType == Trigger_Enum.process_started_stopped)
+					{
 						booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
+					}
 					else if(triggerType == Trigger_Enum.notification)
 					{
 						newTrigger.setTriggerType(Trigger_Enum.notification);
@@ -700,6 +699,9 @@ public class ActivityManageRule extends Activity
 					}
 					else
 						getTriggerParameterDialog(context, booleanChoices).show();
+
+					if(triggerType.equals(Trigger_Enum.process_started_stopped))
+						Miscellaneous.messageBox(getResources().getString(R.string.info), String.format(getResources().getString(R.string.featureCeasedToWorkLastWorkingAndroidVersion), "7"), ActivityManageRule.this).show();
 				}
 			});
 
@@ -1612,6 +1614,8 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.talking));
 			else if(types[i].toString().equals(Action_Enum.playMusic.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.tune));
+			else if(types[i].toString().equals(Action_Enum.controlMediaPlayback.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.tune));
 			else if(types[i].toString().equals(Action_Enum.setScreenBrightness.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.brightness));
 			else if(types[i].toString().equals(Action_Enum.playSound.toString()))
@@ -1777,6 +1781,11 @@ public class ActivityManageRule extends Activity
 						newAction.setAction(Action_Enum.playMusic);
 						ruleToEdit.getActionSet().add(newAction);
 						refreshActionList();
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.controlMediaPlayback.toString()))
+					{
+						newAction.setAction(Action_Enum.controlMediaPlayback);
+						getActionControlMediaPlayback(ActivityManageRule.this).show();
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.vibrate.toString()))
 					{
@@ -2019,8 +2028,29 @@ public class ActivityManageRule extends Activity
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		
 		return alertDialog;
-	}	
-	
+	}
+
+	private AlertDialog getActionControlMediaPlayback(final Context myContext)
+	{
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+		alertDialogBuilder.setTitle(myContext.getResources().getString(R.string.selectCommand));
+		final String choices[] = { myContext.getString(R.string.playPause), myContext.getString(R.string.play), myContext.getString(R.string.pause), myContext.getString(R.string.previous), myContext.getString(R.string.next) };
+		alertDialogBuilder.setItems(choices, new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				newAction.setParameter2(String.valueOf(which));
+
+				ruleToEdit.getActionSet().add(newAction);
+				refreshActionList();
+			}
+		});
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		return alertDialog;
+	}
+
 	protected void refreshTriggerList()
 	{
 		Miscellaneous.logEvent("i", "ListView", "Attempting to update TriggerListView", 4);

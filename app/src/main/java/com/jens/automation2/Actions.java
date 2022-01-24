@@ -1452,23 +1452,7 @@ public class Actions
 			playMusicIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			context.startActivity(playMusicIntent);
 
-			//			playMusicIntent = new Intent();
-			//			playMusicIntent.setAction(android.content.Intent.ACTION_VIEW);
-			//			File file = new File(YOUR_SONG_URI);
-			//			playMusicIntent.setDataAndType(Uri.fromFile(file), "audio/*");
-			//			context.startActivity(playMusicIntent);
-
 			return true;
-			//		}
-			//		else
-			//		{
-			//			if(playMusicIntent != null)
-			//			{
-			//				context.stopService(playMusicIntent);
-			//			}
-			//		}
-
-			//		return false;
 		}
 		catch (ActivityNotFoundException e)
 		{
@@ -1481,6 +1465,38 @@ public class Actions
 			Toast.makeText(context, "Error starting music player.", Toast.LENGTH_LONG).show();
 			Miscellaneous.logEvent("e", "Play music", "Error in playerMusic(): " + Log.getStackTraceString(e), 3);
 			return false;
+		}
+	}
+
+	public static boolean controlMediaPlayback(Context context, int command)
+	{
+		AudioManager mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+
+		if (mAudioManager.isMusicActive()) {
+
+			Intent.CATEGORY_APP_MUSIC
+			Intent i = new Intent("com.android.music.musicservicecommand");
+
+			i.putExtra("command", "pause");
+
+			switch(command)
+			{
+				public static final String SERVICECMD = "com.android.music.musicservicecommand";
+				public static final String CMDNAME = "command";
+
+				public static final String CMDSTOP = "stop";
+				public static final String CMDPAUSE = "pause";
+				public static final String CMDPREVIOUS = "previous";
+				public static final String CMDNEXT = "next";
+
+				case 0:
+					i.putExtra("command", "togglepause");
+					break;
+				case 2:
+					i.putExtra("command", "pause");
+					break;
+			}
+			context.this.sendBroadcast(i);
 		}
 	}
 

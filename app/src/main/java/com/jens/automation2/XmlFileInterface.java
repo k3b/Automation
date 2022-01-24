@@ -1160,12 +1160,17 @@ public class XmlFileInterface
 	        		newAction.setAction(Action_Enum.disableScreenRotation);
 				else if(actionNameString.equals("disableScreenRotation"))
 					newAction.setAction(Action_Enum.disableScreenRotation);
+				else if(actionNameString.equals("playMusic"))
+				{
+					newAction.setAction(Action_Enum.controlMediaPlayback);
+					newAction.setParameter2("1");
+				}
 				else if(actionNameString.equals("wakeupDevice"))
 				{
 					newAction.setAction(Action_Enum.turnScreenOnOrOff);
 					newAction.setParameter1(true);
 				}
-						// *** deprecated
+						// *** :deprecated
 
 				else
 					newAction.setAction(Action_Enum.valueOf(actionNameString));

@@ -774,4 +774,12 @@
     <string name="unlocked">unlocked</string>
     <string name="selectDesiredState">Select desired state</string>
     <string name="screenState">Screen state</string>
+    <string name="featureCeasedToWorkLastWorkingAndroidVersion">Because of Google\'s infinite wisdom, the last Android version this feature is known to work on is %1$s. You can configure it, but it probably will not have any effect.</string>
+    <string name="actionMediaControl">Control media playback</string>
+    <string name="selectCommand">Select command</string>
+    <string name="playPause">toggle play/pause</string>
+    <string name="play">play</string>
+    <string name="pause">pause</string>
+    <string name="previous">previous</string>
+    <string name="next">next</string>
 </resources>
