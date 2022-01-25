@@ -14,10 +14,13 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothProfile;
 import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.session.MediaController;
+import android.media.session.MediaSessionManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
@@ -33,6 +36,7 @@ import android.telephony.SmsManager;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -64,6 +68,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import javax.net.ssl.SSLContext;
 
@@ -1472,12 +1477,36 @@ public class Actions
 	{
 		AudioManager mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
-		if (mAudioManager.isMusicActive())
-		{
+//		if (mAudioManager.isMusicActive())
+//		{
+//			KeyEvent keyEvent = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
+			Intent intent = new Intent(Intent.ACTION_MEDIA_BUTTON);
+//			intent.putExtra(Intent.EXTRA_KEY_EVENT, keyEvent);
+			context.sendOrderedBroadcast(intent, null);
+
+//			keyEvent = new KeyEvent(KeyEvent.ACTION_UP, keyCode);
+//			intent = new Intent(Intent.ACTION_MEDIA_BUTTON);
+
+			/*switch (choice)
+			{
+				case play_pause:
+					return KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE;
+				case play:
+					return KeyEvent.KEYCODE_MEDIA_PLAY;
+				case pause:
+					return KeyEvent.KEYCODE_MEDIA_PAUSE;
+				case previous:
+					return KeyEvent.KEYCODE_MEDIA_PREVIOUS;
+				case next:
+					return KeyEvent.KEYCODE_MEDIA_NEXT;
+				default:
+					throw new IllegalAccessError();*/
+//			}
 
 //			Intent.CATEGORY_APP_MUSIC
-			Intent i = new Intent("com.android.music.musicservicecommand");
+//			Intent i = new Intent("com.android.music.musicservicecommand");
 
+			int keyCode = -1;
 			switch(command)
 			{
 //				public static final String SERVICECMD = "com.android.music.musicservicecommand";
@@ -1485,7 +1514,24 @@ public class Actions
 //				public static final String CMDSTOP = "stop";
 //				public static final String CMDPAUSE = "pause";
 
+
 				case 0:
+					keyCode = KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE;
+					break;
+				case 1:
+					keyCode = KeyEvent.KEYCODE_MEDIA_PLAY;
+					break;
+				case 2:
+					keyCode = KeyEvent.KEYCODE_MEDIA_PAUSE;
+					break;
+				case 3:
+					keyCode = KeyEvent.KEYCODE_MEDIA_PREVIOUS;
+					break;
+				case 4:
+					keyCode = KeyEvent.KEYCODE_MEDIA_NEXT;
+					break;
+
+				/*case 0:
 					i.putExtra("command", "togglepause");
 					break;
 				case 1:
@@ -1499,15 +1545,39 @@ public class Actions
 					break;
 				case 4:
 					i.putExtra("command", "next");
-					break;
+					break;*/
 			}
 
-			AutomationService.getInstance().sendBroadcast(i);
+			intent.putExtra(Intent.EXTRA_KEY_EVENT, KeyEvent.KEYCODE_MEDIA_NEXT);
+
+			context.sendOrderedBroadcast(intent, null);
+//			AutomationService.getInstance().sendBroadcast(i);
+
+
 
 			return true;
 		}
 
-		return false;
+//		return false;
+//	}
+
+	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+	boolean controlMediaPlaybackFromApi21(int keyCode)
+	{
+		KeyEvent keyEvent_down = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
+		KeyEvent keyEvent_up = new KeyEvent(KeyEvent.ACTION_UP, keyCode);
+		ComponentName myNotificationListenerComponent = new ComponentName(context, MediaControlHelperNotificationListenerService.class);
+		MediaSessionManager mediaSessionManager = ((MediaSessionManager) context.getSystemService(Context.MEDIA_SESSION_SERVICE));
+		if (mediaSessionManager == null) {
+			Logger.e("MediaSessionManager is null.");
+			return false;
+		}
+		List<MediaController> activeSessions = mediaSessionManager.getActiveSessions(myNotificationListenerComponent);
+		if (activeSessions.size() > 0) {
+			MediaController mediaController = activeSessions.get(0);
+			mediaController.dispatchMediaButtonEvent(keyEvent_down);
+			mediaController.dispatchMediaButtonEvent(keyEvent_up);
+		}
 	}
 
 	private String getTransactionCode()
