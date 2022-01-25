@@ -2,6 +2,7 @@ package com.jens.automation2;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -318,6 +319,8 @@ public class Action
 			}
 			else if(this.getAction().equals(Action_Enum.controlMediaPlayback))
 			{
+				returnString.append(": ");
+
 				switch (this.getParameter2())
 				{
 					case "0":
@@ -335,6 +338,8 @@ public class Action
 					case "4":
 						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.next));
 						break;
+					default:
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.unknown));
 				}
 			}
 			else if (parameter2 != null && parameter2.length() > 0)
@@ -501,6 +506,9 @@ public class Action
 				case playMusic:
 					Actions.playMusic(this.getParameter1(), toggleActionIfPossible);
 					break;
+				case controlMediaPlayback:
+					Actions.controlMediaPlayback(context, Integer.parseInt(getParameter2()));
+					break;
 				case sendTextMessage:
 					Actions.sendTextMessage(context, this.getParameter2().split(Actions.smsSeparator));
 					break;
@@ -517,7 +525,10 @@ public class Action
 					Actions.createNotification(this);
 					break;
 				case closeNotification:
-					Actions.closeNotification(this);
+					if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M)
+						Actions.closeNotification(this);
+					else
+						Miscellaneous.logEvent("w", "Close notification", "Close notification was requested, but OS version is too low: " + String.valueOf(Build.VERSION.SDK_INT), 2);
 					break;
 				default:
 					Miscellaneous.logEvent("w", "Action", context.getResources().getString(R.string.unknownActionSpecified), 3);

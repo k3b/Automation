@@ -1472,32 +1472,42 @@ public class Actions
 	{
 		AudioManager mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
-		if (mAudioManager.isMusicActive()) {
+		if (mAudioManager.isMusicActive())
+		{
 
-			Intent.CATEGORY_APP_MUSIC
+//			Intent.CATEGORY_APP_MUSIC
 			Intent i = new Intent("com.android.music.musicservicecommand");
-
-			i.putExtra("command", "pause");
 
 			switch(command)
 			{
-				public static final String SERVICECMD = "com.android.music.musicservicecommand";
-				public static final String CMDNAME = "command";
+//				public static final String SERVICECMD = "com.android.music.musicservicecommand";
 
-				public static final String CMDSTOP = "stop";
-				public static final String CMDPAUSE = "pause";
-				public static final String CMDPREVIOUS = "previous";
-				public static final String CMDNEXT = "next";
+//				public static final String CMDSTOP = "stop";
+//				public static final String CMDPAUSE = "pause";
 
 				case 0:
 					i.putExtra("command", "togglepause");
 					break;
+				case 1:
+					i.putExtra("command", "play");
+					break;
 				case 2:
 					i.putExtra("command", "pause");
 					break;
+				case 3:
+					i.putExtra("command", "previous");
+					break;
+				case 4:
+					i.putExtra("command", "next");
+					break;
 			}
-			context.this.sendBroadcast(i);
+
+			AutomationService.getInstance().sendBroadcast(i);
+
+			return true;
 		}
+
+		return false;
 	}
 
 	private String getTransactionCode()
