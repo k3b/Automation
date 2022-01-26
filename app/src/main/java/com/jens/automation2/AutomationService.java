@@ -314,7 +314,7 @@ public class AutomationService extends Service implements OnInitListener
 		checkForMissingBackgroundLocationPermission();
 
 		Actions.context = this;
-		Actions.autoMationServerRef = this;
+		Actions.automationServerRef = this;
 
 		startLocationProvider();
 		ReceiverCoordinator.startAllReceivers();

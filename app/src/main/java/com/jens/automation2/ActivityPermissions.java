@@ -531,6 +531,7 @@ public class ActivityPermissions extends Activity
                         break;
                     case controlMediaPlayback:
                         addToArrayListUnique(Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE, requiredPermissions);
+//                        addToArrayListUnique(Manifest.permission.MEDIA_CONTENT_CONTROL, requiredPermissions);
                         break;
                     case sendTextMessage:
                         addToArrayListUnique(Manifest.permission.SEND_SMS, requiredPermissions);

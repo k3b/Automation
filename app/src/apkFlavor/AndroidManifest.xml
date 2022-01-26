@@ -66,6 +66,7 @@
     <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"/>
     <uses-permission android:name="com.wireguard.android.permission.CONTROL_TUNNELS"/>
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+    <uses-permission android:name="android.Manifest.permission.MEDIA_CONTENT_CONTROL" />
 
     <uses-feature
         android:name="android.hardware.telephony"
@@ -141,6 +142,18 @@
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
         </receiver>
+
+
+        <!-- Operation: MediaControl -->
+
+        <service
+            android:name=".Actions$MediaControlHelperNotificationListenerService"
+            android:label="@string/actionMediaControl"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
 
         <activity android:name=".ActivityManageRule" />
         <activity android:name=".ActivityManageActionTriggerUrl" />

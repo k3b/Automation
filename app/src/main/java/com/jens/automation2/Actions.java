@@ -1,12 +1,8 @@
 package com.jens.automation2;
 
-import static com.jens.automation2.receivers.NotificationListener.EXTRA_TEXT;
-import static com.jens.automation2.receivers.NotificationListener.EXTRA_TITLE;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.admin.DevicePolicyManager;
@@ -25,12 +21,12 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.MediaStore;
+import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.telephony.SmsManager;
 import android.telephony.SubscriptionManager;
@@ -68,7 +64,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import javax.net.ssl.SSLContext;
 
@@ -76,9 +71,8 @@ import eu.chainfire.libsuperuser.Shell;
 
 public class Actions
 {
-	public static AutomationService autoMationServerRef;
+	public static AutomationService automationServerRef;
 	public static Context context;
-	public static Context rootetcontext;
 	private static Intent playMusicIntent;
 	private static boolean suAvailable = false;
 	private static String suVersion = null;
@@ -232,7 +226,7 @@ public class Actions
 			Miscellaneous.logEvent("i", "Wifi", "Changing wifi to " + String.valueOf(desiredState), 4);
 
 			if (desiredState && Settings.useWifiForPositioning)
-				WifiBroadcastReceiver.startWifiReceiver(autoMationServerRef.getLocationProvider());
+				WifiBroadcastReceiver.startWifiReceiver(automationServerRef.getLocationProvider());
 
 			WifiManager myWifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 
@@ -1122,14 +1116,14 @@ public class Actions
 			}
 
 			if (params[2].equals(ActivityManageActionStartActivity.startByActivityString))
-				autoMationServerRef.startActivity(externalActivityIntent);
+				automationServerRef.startActivity(externalActivityIntent);
 			else
-				autoMationServerRef.sendBroadcast(externalActivityIntent);
+				automationServerRef.sendBroadcast(externalActivityIntent);
 		}
 		catch (Exception e)
 		{
-			Miscellaneous.logEvent("e", "StartOtherApp", autoMationServerRef.getResources().getString(R.string.errorStartingOtherActivity) + ": " + Log.getStackTraceString(e), 2);
-			Toast.makeText(autoMationServerRef, autoMationServerRef.getResources().getString(R.string.errorStartingOtherActivity) + ": " + e.getMessage(), Toast.LENGTH_LONG).show();
+			Miscellaneous.logEvent("e", "StartOtherApp", automationServerRef.getResources().getString(R.string.errorStartingOtherActivity) + ": " + Log.getStackTraceString(e), 2);
+			Toast.makeText(automationServerRef, automationServerRef.getResources().getString(R.string.errorStartingOtherActivity) + ": " + e.getMessage(), Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -1313,7 +1307,7 @@ public class Actions
 
 		try
 		{
-			boolean isEnabled = ConnectivityReceiver.isAirplaneMode(autoMationServerRef);
+			boolean isEnabled = ConnectivityReceiver.isAirplaneMode(automationServerRef);
 
 			if (isEnabled)
 				Miscellaneous.logEvent("i", "Airplane mode", "Current status is enabled.", 4);
@@ -1427,7 +1421,7 @@ public class Actions
 		try
 		{
 			String textToSpeak = Miscellaneous.replaceVariablesInText(parameter2, context);
-			autoMationServerRef.speak(textToSpeak, true);
+			automationServerRef.speak(textToSpeak, true);
 		}
 		catch (Exception e)
 		{
@@ -1473,16 +1467,36 @@ public class Actions
 		}
 	}
 
+	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
 	public static boolean controlMediaPlayback(Context context, int command)
 	{
+		int keyCode = -1;
+		switch(command)
+		{
+			case 0:
+				keyCode = KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE;
+				break;
+			case 1:
+				keyCode = KeyEvent.KEYCODE_MEDIA_PLAY;
+				break;
+			case 2:
+				keyCode = KeyEvent.KEYCODE_MEDIA_PAUSE;
+				break;
+			case 3:
+				keyCode = KeyEvent.KEYCODE_MEDIA_PREVIOUS;
+				break;
+			case 4:
+				keyCode = KeyEvent.KEYCODE_MEDIA_NEXT;
+				break;
+		}
+
 		AudioManager mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+
+		KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
+		mAudioManager.dispatchMediaKeyEvent(event);
 
 //		if (mAudioManager.isMusicActive())
 //		{
-//			KeyEvent keyEvent = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
-			Intent intent = new Intent(Intent.ACTION_MEDIA_BUTTON);
-//			intent.putExtra(Intent.EXTRA_KEY_EVENT, keyEvent);
-			context.sendOrderedBroadcast(intent, null);
 
 //			keyEvent = new KeyEvent(KeyEvent.ACTION_UP, keyCode);
 //			intent = new Intent(Intent.ACTION_MEDIA_BUTTON);
@@ -1506,77 +1520,71 @@ public class Actions
 //			Intent.CATEGORY_APP_MUSIC
 //			Intent i = new Intent("com.android.music.musicservicecommand");
 
-			int keyCode = -1;
-			switch(command)
-			{
-//				public static final String SERVICECMD = "com.android.music.musicservicecommand";
-
-//				public static final String CMDSTOP = "stop";
-//				public static final String CMDPAUSE = "pause";
 
 
-				case 0:
-					keyCode = KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE;
-					break;
-				case 1:
-					keyCode = KeyEvent.KEYCODE_MEDIA_PLAY;
-					break;
-				case 2:
-					keyCode = KeyEvent.KEYCODE_MEDIA_PAUSE;
-					break;
-				case 3:
-					keyCode = KeyEvent.KEYCODE_MEDIA_PREVIOUS;
-					break;
-				case 4:
-					keyCode = KeyEvent.KEYCODE_MEDIA_NEXT;
-					break;
+//			if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+//				return controlMediaPlaybackFromApi21(keyCode);
+//			else
+//			{
+//				KeyEvent keyEvent = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
+//				Intent intent = new Intent(Intent.ACTION_MEDIA_BUTTON);
+//				intent.putExtra(Intent.EXTRA_KEY_EVENT, keyEvent);
+//				context.sendOrderedBroadcast(intent, null);
+//
+//				keyEvent = new KeyEvent(KeyEvent.ACTION_UP, keyCode);
+//				intent = new Intent(Intent.ACTION_MEDIA_BUTTON);
+//				intent.putExtra(Intent.EXTRA_KEY_EVENT, keyCode);
+//
+//				context.sendOrderedBroadcast(intent, null);
+//	//			AutomationService.getInstance().sendBroadcast(i);
+//
+//
+//				return true;
+//			}
 
-				/*case 0:
-					i.putExtra("command", "togglepause");
-					break;
-				case 1:
-					i.putExtra("command", "play");
-					break;
-				case 2:
-					i.putExtra("command", "pause");
-					break;
-				case 3:
-					i.putExtra("command", "previous");
-					break;
-				case 4:
-					i.putExtra("command", "next");
-					break;*/
-			}
-
-			intent.putExtra(Intent.EXTRA_KEY_EVENT, KeyEvent.KEYCODE_MEDIA_NEXT);
-
-			context.sendOrderedBroadcast(intent, null);
-//			AutomationService.getInstance().sendBroadcast(i);
-
-
-
-			return true;
+		return true;
 		}
 
 //		return false;
 //	}
 
 	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-	boolean controlMediaPlaybackFromApi21(int keyCode)
+	static boolean controlMediaPlaybackFromApi21(int keyCode)
 	{
 		KeyEvent keyEvent_down = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
 		KeyEvent keyEvent_up = new KeyEvent(KeyEvent.ACTION_UP, keyCode);
+
 		ComponentName myNotificationListenerComponent = new ComponentName(context, MediaControlHelperNotificationListenerService.class);
 		MediaSessionManager mediaSessionManager = ((MediaSessionManager) context.getSystemService(Context.MEDIA_SESSION_SERVICE));
-		if (mediaSessionManager == null) {
-			Logger.e("MediaSessionManager is null.");
+
+		if (mediaSessionManager == null)
+		{
+			Log.e("controlMedia", "MediaSessionManager is null.");
 			return false;
 		}
+
 		List<MediaController> activeSessions = mediaSessionManager.getActiveSessions(myNotificationListenerComponent);
-		if (activeSessions.size() > 0) {
+		if (activeSessions.size() > 0)
+		{
 			MediaController mediaController = activeSessions.get(0);
 			mediaController.dispatchMediaButtonEvent(keyEvent_down);
 			mediaController.dispatchMediaButtonEvent(keyEvent_up);
+		}
+
+		return true;
+	}
+
+	@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
+	public static class MediaControlHelperNotificationListenerService extends NotificationListenerService
+	{
+		@Override
+		public void onNotificationPosted(StatusBarNotification sbn) {
+			super.onNotificationPosted(sbn);
+		}
+
+		@Override
+		public void onNotificationRemoved(StatusBarNotification sbn) {
+			super.onNotificationRemoved(sbn);
 		}
 	}
 
@@ -1693,7 +1701,7 @@ public class Actions
 			{
 				if(Build.VERSION.SDK_INT > Build.VERSION_CODES.O_MR1)
 				{
-					if(MobileDataStuff.setMobileNetworkFromAndroid9(desiredState, autoMationServerRef))
+					if(MobileDataStuff.setMobileNetworkFromAndroid9(desiredState, automationServerRef))
 					{
 						Miscellaneous.logEvent("i", "setDataConnectionWithRoot()", Miscellaneous.getAnyContext().getResources().getString(R.string.dataConWithRootSuccess), 2);
 						return true;
@@ -1706,7 +1714,7 @@ public class Actions
 				}
 				else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP)
 				{
-					if (MobileDataStuff.setMobileNetworkTillAndroid5(desiredState, autoMationServerRef))
+					if (MobileDataStuff.setMobileNetworkTillAndroid5(desiredState, automationServerRef))
 					{
 						Miscellaneous.logEvent("i", "setDataConnectionWithRoot()", Miscellaneous.getAnyContext().getResources().getString(R.string.dataConWithRootSuccess), 2);
 						return true;
@@ -1719,7 +1727,7 @@ public class Actions
 				}
 				else
 				{
-					if (MobileDataStuff.setMobileNetworkAndroid6Till8(desiredState, autoMationServerRef))
+					if (MobileDataStuff.setMobileNetworkAndroid6Till8(desiredState, automationServerRef))
 					{
 						Miscellaneous.logEvent("i", "setDataConnectionWithRoot()", Miscellaneous.getAnyContext().getResources().getString(R.string.dataConWithRootSuccess), 2);
 						return true;
