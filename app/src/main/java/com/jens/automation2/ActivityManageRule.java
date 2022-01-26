@@ -2034,7 +2034,14 @@ public class ActivityManageRule extends Activity
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 		alertDialogBuilder.setTitle(myContext.getResources().getString(R.string.selectCommand));
-		final String choices[] = { myContext.getString(R.string.playPause), myContext.getString(R.string.play), myContext.getString(R.string.pause), myContext.getString(R.string.previous), myContext.getString(R.string.next) };
+		final String choices[] = {
+									myContext.getString(R.string.playPause),
+									myContext.getString(R.string.play),
+									myContext.getString(R.string.pause),
+									myContext.getString(R.string.stop),
+									myContext.getString(R.string.previous),
+									myContext.getString(R.string.next)
+								};
 		alertDialogBuilder.setItems(choices, new DialogInterface.OnClickListener()
 		{
 			@Override

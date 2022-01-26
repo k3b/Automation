@@ -333,9 +333,12 @@ public class Action
 						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.pause));
 						break;
 					case "3":
-						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.previous));
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.stop));
 						break;
 					case "4":
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.previous));
+						break;
+					case "5":
 						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.next));
 						break;
 					default:

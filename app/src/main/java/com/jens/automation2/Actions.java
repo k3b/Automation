@@ -1483,70 +1483,54 @@ public class Actions
 				keyCode = KeyEvent.KEYCODE_MEDIA_PAUSE;
 				break;
 			case 3:
-				keyCode = KeyEvent.KEYCODE_MEDIA_PREVIOUS;
+				keyCode = KeyEvent.KEYCODE_MEDIA_STOP;
 				break;
 			case 4:
+				keyCode = KeyEvent.KEYCODE_MEDIA_PREVIOUS;
+				break;
+			case 5:
 				keyCode = KeyEvent.KEYCODE_MEDIA_NEXT;
 				break;
 		}
 
-		AudioManager mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-
-		KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
-		mAudioManager.dispatchMediaKeyEvent(event);
-
+//		AudioManager mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 //		if (mAudioManager.isMusicActive())
 //		{
-
-//			keyEvent = new KeyEvent(KeyEvent.ACTION_UP, keyCode);
-//			intent = new Intent(Intent.ACTION_MEDIA_BUTTON);
-
-			/*switch (choice)
-			{
-				case play_pause:
-					return KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE;
-				case play:
-					return KeyEvent.KEYCODE_MEDIA_PLAY;
-				case pause:
-					return KeyEvent.KEYCODE_MEDIA_PAUSE;
-				case previous:
-					return KeyEvent.KEYCODE_MEDIA_PREVIOUS;
-				case next:
-					return KeyEvent.KEYCODE_MEDIA_NEXT;
-				default:
-					throw new IllegalAccessError();*/
-//			}
-
-//			Intent.CATEGORY_APP_MUSIC
-//			Intent i = new Intent("com.android.music.musicservicecommand");
-
-
-
 //			if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
 //				return controlMediaPlaybackFromApi21(keyCode);
 //			else
 //			{
-//				KeyEvent keyEvent = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
-//				Intent intent = new Intent(Intent.ACTION_MEDIA_BUTTON);
-//				intent.putExtra(Intent.EXTRA_KEY_EVENT, keyEvent);
-//				context.sendOrderedBroadcast(intent, null);
-//
-//				keyEvent = new KeyEvent(KeyEvent.ACTION_UP, keyCode);
-//				intent = new Intent(Intent.ACTION_MEDIA_BUTTON);
-//				intent.putExtra(Intent.EXTRA_KEY_EVENT, keyCode);
-//
-//				context.sendOrderedBroadcast(intent, null);
-//	//			AutomationService.getInstance().sendBroadcast(i);
-//
-//
-//				return true;
+				return controlMediaByDispatch(keyCode);
+//				return controlMediaPlaybackByBroadcast(keyCode);
 //			}
+	}
+
+	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
+	static boolean controlMediaByDispatch(int keyCode)
+	{
+		AudioManager mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+		KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
+		mAudioManager.dispatchMediaKeyEvent(event);
 
 		return true;
-		}
+	}
 
-//		return false;
-//	}
+	static boolean controlMediaPlaybackByBroadcast(int keyCode)
+	{
+		KeyEvent keyEvent = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
+		Intent intent = new Intent(Intent.ACTION_MEDIA_BUTTON);
+		intent.putExtra(Intent.EXTRA_KEY_EVENT, keyEvent);
+		context.sendOrderedBroadcast(intent, null);
+
+		keyEvent = new KeyEvent(KeyEvent.ACTION_UP, keyCode);
+		intent = new Intent(Intent.ACTION_MEDIA_BUTTON);
+		intent.putExtra(Intent.EXTRA_KEY_EVENT, keyCode);
+
+		context.sendOrderedBroadcast(intent, null);
+		AutomationService.getInstance().sendBroadcast(intent);
+
+		return true;
+	}
 
 	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 	static boolean controlMediaPlaybackFromApi21(int keyCode)

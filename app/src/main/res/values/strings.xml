@@ -783,4 +783,5 @@
     <string name="previous">previous</string>
     <string name="next">next</string>
     <string name="android.permission.MEDIA_CONTENT_CONTROL">Control media</string>
+    <string name="stop">stop</string>
 </resources>
