@@ -669,4 +669,25 @@
     <string name="notificationCloseActionExplanation">Se non specifichi alcun criterio, questa azione chiuderà TUTTE le notifiche. Quindi si consiglia di specificare almeno i criteri per almeno 1 di applicazione, titolo o testo.</string>
     <string name="profileWarning">Le impostazioni che fai qui possono far sì che tu non noti più certe cose dal tuo telefono. Possono anche mettere a tacere la sveglia. Quindi, qualunque cosa tu faccia, ti consigliamo di testarlo.</string>
     <string name="ifString">se</string>
+    <string name="actionMediaControlNotice">Tieni presente che questa azione potrebbe non funzionare con TUTTI i giocatori là fuori. E anche se lo fa, non tutti i pulsanti funzionano necessariamente.</string>
+    <string name="pleaseSelectActionValue">Seleziona un\'azione!</string>
+    <string name="stop">fermarsi</string>
+    <string name="android.permission.MEDIA_CONTENT_CONTROL">Controllare la riproduzione multimediale</string>
+    <string name="next">prossimo</string>
+    <string name="previous">precedente</string>
+    <string name="pause">pausa</string>
+    <string name="play">giocare</string>
+    <string name="playPause">attiva/disattiva riproduzione/pausa</string>
+    <string name="selectCommand">Seleziona comando</string>
+    <string name="actionMediaControl">Controllare la riproduzione multimediale</string>
+    <string name="featureCeasedToWorkLastWorkingAndroidVersion">A causa della saggezza infinita di Google, l\'ultima versione di Android su cui questa funzione è nota per funzionare è %1 $s. Puoi configurarlo, ma probabilmente non avrà alcun effetto.</string>
+    <string name="screenState">Stato dello schermo</string>
+    <string name="selectDesiredState">Seleziona lo stato desiderato</string>
+    <string name="unlocked">Sbloccato</string>
+    <string name="off">spento</string>
+    <string name="on">attivo</string>
+    <string name="screenIs">lo schermo è %1$s</string>
+    <string name="sendEmailToDev">Invia email allo sviluppatore</string>
+    <string name="controlCenter">Centro di controllo</string>
+    <string name="emailContactNotice">L\'e-mail è il mio metodo di contatto preferito per segnalare bug, porre domande o fare proposte. Vai al centro di controllo per saperne di più.</string>
 </resources>

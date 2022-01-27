@@ -1036,7 +1036,7 @@ public class Actions
 			// Pack intents
 			for (int i = 3; i < params.length; i++)
 			{
-				String[] singleParam = params[i].split(Action.intentPairSeperator);
+				String[] singleParam = params[i].split(Action.intentPairSeparator);
 
     			/*Class c = Class.forName(singleParam[0]);
 				for(Method m : c.getMethods())
@@ -1493,16 +1493,7 @@ public class Actions
 				break;
 		}
 
-//		AudioManager mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-//		if (mAudioManager.isMusicActive())
-//		{
-//			if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-//				return controlMediaPlaybackFromApi21(keyCode);
-//			else
-//			{
-				return controlMediaByDispatch(keyCode);
-//				return controlMediaPlaybackByBroadcast(keyCode);
-//			}
+		return controlMediaByDispatch(keyCode);
 	}
 
 	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -1513,63 +1504,6 @@ public class Actions
 		mAudioManager.dispatchMediaKeyEvent(event);
 
 		return true;
-	}
-
-	static boolean controlMediaPlaybackByBroadcast(int keyCode)
-	{
-		KeyEvent keyEvent = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
-		Intent intent = new Intent(Intent.ACTION_MEDIA_BUTTON);
-		intent.putExtra(Intent.EXTRA_KEY_EVENT, keyEvent);
-		context.sendOrderedBroadcast(intent, null);
-
-		keyEvent = new KeyEvent(KeyEvent.ACTION_UP, keyCode);
-		intent = new Intent(Intent.ACTION_MEDIA_BUTTON);
-		intent.putExtra(Intent.EXTRA_KEY_EVENT, keyCode);
-
-		context.sendOrderedBroadcast(intent, null);
-		AutomationService.getInstance().sendBroadcast(intent);
-
-		return true;
-	}
-
-	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-	static boolean controlMediaPlaybackFromApi21(int keyCode)
-	{
-		KeyEvent keyEvent_down = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
-		KeyEvent keyEvent_up = new KeyEvent(KeyEvent.ACTION_UP, keyCode);
-
-		ComponentName myNotificationListenerComponent = new ComponentName(context, MediaControlHelperNotificationListenerService.class);
-		MediaSessionManager mediaSessionManager = ((MediaSessionManager) context.getSystemService(Context.MEDIA_SESSION_SERVICE));
-
-		if (mediaSessionManager == null)
-		{
-			Log.e("controlMedia", "MediaSessionManager is null.");
-			return false;
-		}
-
-		List<MediaController> activeSessions = mediaSessionManager.getActiveSessions(myNotificationListenerComponent);
-		if (activeSessions.size() > 0)
-		{
-			MediaController mediaController = activeSessions.get(0);
-			mediaController.dispatchMediaButtonEvent(keyEvent_down);
-			mediaController.dispatchMediaButtonEvent(keyEvent_up);
-		}
-
-		return true;
-	}
-
-	@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
-	public static class MediaControlHelperNotificationListenerService extends NotificationListenerService
-	{
-		@Override
-		public void onNotificationPosted(StatusBarNotification sbn) {
-			super.onNotificationPosted(sbn);
-		}
-
-		@Override
-		public void onNotificationRemoved(StatusBarNotification sbn) {
-			super.onNotificationRemoved(sbn);
-		}
 	}
 
 	private String getTransactionCode()

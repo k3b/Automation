@@ -116,6 +116,8 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeActionCreateNotificationEdit = 804;
 	final static int requestCodeActionCloseNotificationAdd = 805;
 	final static int requestCodeActionCloseNotificationEdit = 806;
+	final static int requestCodeActionControlMediaAdd = 807;
+	final static int requestCodeActionControlMediaEdit = 808;
 	
 	public static ActivityManageRule getInstance()
 	{
@@ -362,6 +364,11 @@ public class ActivityManageRule extends Activity
 						Intent activityEditVibrateIntent = new Intent(ActivityManageRule.this, ActivityManageActionVibrate.class);
 						activityEditVibrateIntent.putExtra("vibratePattern", a.getParameter2());
 						startActivityForResult(activityEditVibrateIntent, requestCodeActionVibrateEdit);
+						break;
+					case controlMediaPlayback:
+						Intent activityEditControlMediaIntent = new Intent(ActivityManageRule.this, ActivityManageActionControlMedia.class);
+						activityEditControlMediaIntent.putExtra(ActivityManageRule.intentNameActionParameter2, a.getParameter2());
+						startActivityForResult(activityEditControlMediaIntent, requestCodeActionControlMediaEdit);
 						break;
 					case createNotification:
 						Intent activityEditCreateNotificationIntent = new Intent(ActivityManageRule.this, ActivityManageActionCreateNotification.class);
@@ -1416,6 +1423,16 @@ public class ActivityManageRule extends Activity
 				this.refreshActionList();
 			}
 		}
+		else if(requestCode == requestCodeActionControlMediaAdd)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				newAction.setParentRule(ruleToEdit);
+				newAction.setParameter2(data.getStringExtra(ActivityManageRule.intentNameActionParameter2));
+				ruleToEdit.getActionSet().add(newAction);
+				this.refreshActionList();
+			}
+		}
 		else if(requestCode == requestCodeActionCreateNotificationAdd)
 		{
 			if(resultCode == RESULT_OK)
@@ -1448,6 +1465,18 @@ public class ActivityManageRule extends Activity
 
 				if(data.hasExtra("vibratePattern"))
 					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra("vibratePattern"));
+
+				this.refreshActionList();
+			}
+		}
+		else if(requestCode == requestCodeActionControlMediaEdit)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				ruleToEdit.getActionSet().get(editIndex).setParentRule(ruleToEdit);
+
+				if(data.hasExtra(intentNameActionParameter2))
+					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra(intentNameActionParameter2));
 
 				this.refreshActionList();
 			}
@@ -1782,16 +1811,17 @@ public class ActivityManageRule extends Activity
 						ruleToEdit.getActionSet().add(newAction);
 						refreshActionList();
 					}
-					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.controlMediaPlayback.toString()))
-					{
-						newAction.setAction(Action_Enum.controlMediaPlayback);
-						getActionControlMediaPlayback(ActivityManageRule.this).show();
-					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.vibrate.toString()))
 					{
 						newAction.setAction(Action_Enum.vibrate);
 						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionVibrate.class);
 						startActivityForResult(intent, requestCodeActionVibrateAdd);
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.controlMediaPlayback.toString()))
+					{
+						newAction.setAction(Action_Enum.controlMediaPlayback);
+						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionControlMedia.class);
+						startActivityForResult(intent, requestCodeActionControlMediaAdd);
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.createNotification.toString()))
 					{
@@ -2027,34 +2057,6 @@ public class ActivityManageRule extends Activity
 		});
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		
-		return alertDialog;
-	}
-
-	private AlertDialog getActionControlMediaPlayback(final Context myContext)
-	{
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-		alertDialogBuilder.setTitle(myContext.getResources().getString(R.string.selectCommand));
-		final String choices[] = {
-									myContext.getString(R.string.playPause),
-									myContext.getString(R.string.play),
-									myContext.getString(R.string.pause),
-									myContext.getString(R.string.stop),
-									myContext.getString(R.string.previous),
-									myContext.getString(R.string.next)
-								};
-		alertDialogBuilder.setItems(choices, new DialogInterface.OnClickListener()
-		{
-			@Override
-			public void onClick(DialogInterface dialog, int which)
-			{
-				newAction.setParameter2(String.valueOf(which));
-
-				ruleToEdit.getActionSet().add(newAction);
-				refreshActionList();
-			}
-		});
-		AlertDialog alertDialog = alertDialogBuilder.create();
-
 		return alertDialog;
 	}
 

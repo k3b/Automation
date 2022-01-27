@@ -387,9 +387,9 @@ public class ActivityManageActionStartActivity extends Activity
 					Toast.makeText(ActivityManageActionStartActivity.this, getResources().getString(R.string.enterNameForIntentPair), Toast.LENGTH_LONG).show();
 					return;
 				}
-				else if(etParameterName.getText().toString().contains(Action.intentPairSeperator))
+				else if(etParameterName.getText().toString().contains(Action.intentPairSeparator))
 				{
-					Toast.makeText(ActivityManageActionStartActivity.this, String.format(getResources().getString(R.string.stringNotAllowed), Action.intentPairSeperator), Toast.LENGTH_LONG).show();
+					Toast.makeText(ActivityManageActionStartActivity.this, String.format(getResources().getString(R.string.stringNotAllowed), Action.intentPairSeparator), Toast.LENGTH_LONG).show();
 					return;
 				}
 				else if(etParameterName.getText().toString().contains(";"))
@@ -403,9 +403,9 @@ public class ActivityManageActionStartActivity extends Activity
 					Toast.makeText(ActivityManageActionStartActivity.this, getResources().getString(R.string.enterValueForIntentPair), Toast.LENGTH_LONG).show();
 					return;
 				}
-				else if(etParameterValue.getText().toString().contains(Action.intentPairSeperator))
+				else if(etParameterValue.getText().toString().contains(Action.intentPairSeparator))
 				{
-					Toast.makeText(ActivityManageActionStartActivity.this, String.format(getResources().getString(R.string.stringNotAllowed), Action.intentPairSeperator), Toast.LENGTH_LONG).show();
+					Toast.makeText(ActivityManageActionStartActivity.this, String.format(getResources().getString(R.string.stringNotAllowed), Action.intentPairSeparator), Toast.LENGTH_LONG).show();
 					return;
 				}
 				else if(etParameterValue.getText().toString().contains(";"))
@@ -414,7 +414,7 @@ public class ActivityManageActionStartActivity extends Activity
 					return;
 				}
 				
-				String param = supportedIntentTypes[spinnerParameterType.getSelectedItemPosition()] + Action.intentPairSeperator + etParameterName.getText().toString() + Action.intentPairSeperator + etParameterValue.getText().toString();
+				String param = supportedIntentTypes[spinnerParameterType.getSelectedItemPosition()] + Action.intentPairSeparator + etParameterName.getText().toString() + Action.intentPairSeparator + etParameterValue.getText().toString();
 				intentPairList.add(param);
 				
 				spinnerParameterType.setSelection(0);

@@ -18,7 +18,7 @@ public class Action
 	Rule parentRule = null;
 
 	public static final String actionParameter2Split = "ap2split";
-	public static final String intentPairSeperator = "intPairSplit";
+	public static final String intentPairSeparator = "intPairSplit";
 	public static final String vibrateSeparator = ",";
 
 	public enum Action_Enum {	
@@ -42,7 +42,7 @@ public class Action
 								setDataConnection,
 								speakText,
 								playMusic,
-		controlMediaPlayback,
+								controlMediaPlayback,
 								setScreenBrightness,
 								playSound,
 								vibrate,
@@ -277,7 +277,7 @@ public class Action
 			}
 			else if (this.getAction().equals(Action_Enum.startOtherActivity))
 			{
-				returnString.append(": " + parameter2.replace(Action.intentPairSeperator, "/"));
+				returnString.append(": " + parameter2.replace(Action.intentPairSeparator, "/"));
 			}
 			else if (this.getAction().equals(Action_Enum.sendTextMessage))
 			{

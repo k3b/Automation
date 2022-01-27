@@ -669,4 +669,25 @@
     <string name="notificationCloseActionExplanation">Wenn Sie keine Kriterien angeben, werden ALLE Benachrichtigungen geschlossen. Es wird also empfohlen, zumindest eine Anwendung zu spezifizieren und/oder Titel oder Text anzugeben.</string>
     <string name="profileWarning">Die Einstellungen, die Sie hier vornehmen, können dazu führen, dass Sie bestimmte Dinge auf Ihrem Telefon nicht mehr mitbekommen. Sie können sogar Ihren Wecker zum Schweigen bringen. Was auch immer Sie hier einstellen - es wird empfohlen, es zu testen.</string>
     <string name="ifString">falls</string>
+    <string name="pleaseSelectActionValue">Bitte wählen Sie eine Aktion!</string>
+    <string name="android.permission.MEDIA_CONTENT_CONTROL">Medien steuern</string>
+    <string name="play">abspielen</string>
+    <string name="stop">stop</string>
+    <string name="next">nächster</string>
+    <string name="previous">vorheriger</string>
+    <string name="pause">pausieren</string>
+    <string name="playPause">abspielen/pause umschalten</string>
+    <string name="selectCommand">Kommando auswählen</string>
+    <string name="unlocked">entsperrt</string>
+    <string name="on">an</string>
+    <string name="off">aus</string>
+    <string name="actionMediaControlNotice">Bedenken Sie, daß diese Aktion nicht notwendigerweise mit allen Playern funktioniert. Und selbst, wenn es mit einem grundsätzlich funktioniert, müssen auch nicht alle der u.g. Kommandos funktionieren.</string>
+    <string name="screenState">Bildschirm Status</string>
+    <string name="actionMediaControl">Medien steuern</string>
+    <string name="selectDesiredState">Bitte gewünschten Zustand wählen</string>
+    <string name="screenIs">Bildschirm ist %1$s</string>
+    <string name="sendEmailToDev">Email an Entwickler schicken</string>
+    <string name="controlCenter">Steuerungszentrale</string>
+    <string name="emailContactNotice">Email ist mein bevorzugtes Kommunikationsmittel, um Fehler zu melden, Fragen zu stellen or Vorschläge zu machen. Bitte gehen Sie für weitere Infos in die Steuerungszentrale.</string>
+    <string name="featureCeasedToWorkLastWorkingAndroidVersion">Aufgrund Google\'s unendlicher Weisheit, ist die letzte Android Version, mit der diese Funktion noch funktioniert, die Version %1$s. Sie können es hier einrichten, aber vermutlich wird es keine Auswirkung haben.</string>
 </resources>

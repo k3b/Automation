@@ -667,4 +667,25 @@
     <string name="comparisonCaseInsensitive">Vergelijkingen worden gedaan case-INsensitief</string>
     <string name="profileWarning">De instellingen die je hier maakt kunnen ervoor zorgen dat je bepaalde dingen niet meer van je telefoon merkt. Ze kunnen zelfs je wekker dempen. Dus wat je ook doet - het wordt aanbevolen om het te testen.</string>
     <string name="ifString">als</string>
+    <string name="emailContactNotice">E-mail is mijn favoriete contactmethode om bugs te melden, vragen te stellen of voorstellen te doen. Ga naar het controlecentrum voor meer informatie.</string>
+    <string name="controlCenter">Controlecentrum</string>
+    <string name="sendEmailToDev">Stuur een e-mail naar de ontwikkelaar</string>
+    <string name="screenIs">scherm is %1$s</string>
+    <string name="on">op</string>
+    <string name="off">af</string>
+    <string name="unlocked">ontgrendeld</string>
+    <string name="selectDesiredState">Selecteer de gewenste status</string>
+    <string name="screenState">Schermstatus</string>
+    <string name="featureCeasedToWorkLastWorkingAndroidVersion">Vanwege de oneindige wijsheid van Google is de laatste Android-versie waarvan bekend is dat deze functie werkt% 1 $ s. U kunt het configureren, maar het zal waarschijnlijk geen effect hebben.</string>
+    <string name="actionMediaControl">Het afspelen van media regelen</string>
+    <string name="selectCommand">Opdracht Selecteren</string>
+    <string name="playPause">schakelaar afspelen/pauzeren</string>
+    <string name="play">afspelen</string>
+    <string name="pause">pauzeren</string>
+    <string name="previous">vorig</string>
+    <string name="next">volgend</string>
+    <string name="android.permission.MEDIA_CONTENT_CONTROL">Het afspelen van media regelen</string>
+    <string name="stop">stoppen</string>
+    <string name="pleaseSelectActionValue">Selecteer een actie!</string>
+    <string name="actionMediaControlNotice">Houd er rekening mee dat deze actie mogelijk niet werkt met ALLE spelers die er zijn. En zelfs als dat zo is, werkt niet elke knop noodzakelijkerwijs.</string>
 </resources>

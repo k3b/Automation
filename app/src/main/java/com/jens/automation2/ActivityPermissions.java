@@ -530,7 +530,7 @@ public class ActivityPermissions extends Activity
                     case playMusic:
                         break;
                     case controlMediaPlayback:
-                        addToArrayListUnique(Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE, requiredPermissions);
+//                        addToArrayListUnique(Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE, requiredPermissions);
 //                        addToArrayListUnique(Manifest.permission.MEDIA_CONTENT_CONTROL, requiredPermissions);
                         break;
                     case sendTextMessage:

@@ -155,6 +155,7 @@
         <activity android:name=".ActivityManageTriggerDeviceOrientation" />
         <activity android:name=".ActivityHelp" />
         <activity android:name=".ActivityManageActionVibrate" />
+        <activity android:name=".ActivityManageActionControlMedia" />
         <activity
             android:name=".ActivityMainTabLayout"
             android:launchMode="singleTask">

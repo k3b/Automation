@@ -1284,14 +1284,14 @@ public class XmlFileInterface
 				{
 					String newTag;
 
-					if(tag.contains(Action.intentPairSeperator))	// already has new format
+					if(tag.contains(Action.intentPairSeparator))	// already has new format
 						newTag = tag;
 					else
-						newTag = tag.replace("/", Action.intentPairSeperator);
+						newTag = tag.replace("/", Action.intentPairSeparator);
 
 					String[] newTagPieces = newTag.split(";");
 
-					if(newTagPieces.length < 2 || (!newTagPieces[0].contains(Actions.dummyPackageString) && newTagPieces[1].contains(Action.intentPairSeperator)))
+					if(newTagPieces.length < 2 || (!newTagPieces[0].contains(Actions.dummyPackageString) && newTagPieces[1].contains(Action.intentPairSeparator)))
 					{
 						newTag = Actions.dummyPackageString + ";" + newTag;
 						newTagPieces = newTag.split(";");
@@ -1301,7 +1301,7 @@ public class XmlFileInterface
 						newTag += ";" + ActivityManageActionStartActivity.startByActivityString;
 					else if(newTagPieces.length >= 3)
 					{
-						if(newTagPieces[2].contains(Action.intentPairSeperator))
+						if(newTagPieces[2].contains(Action.intentPairSeparator))
 							newTag = newTagPieces[0] + ";" + newTagPieces[1] + ";" + ActivityManageActionStartActivity.startByActivityString + ";" + newTagPieces[2];
 					}
 

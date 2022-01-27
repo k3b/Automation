@@ -21,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ActivityControlCenter extends Activity
 {
@@ -347,7 +348,24 @@ public class ActivityControlCenter extends Activity
         systemInfoText.append("Device: " + android.os.Build.DEVICE + Miscellaneous.lineSeparator);
         systemInfoText.append("Model: " + android.os.Build.MODEL + Miscellaneous.lineSeparator);
         systemInfoText.append("Product: " + android.os.Build.PRODUCT + Miscellaneous.lineSeparator);
-        systemInfoText.append("Flavor: " + BuildConfig.FLAVOR);
+        systemInfoText.append("Flavor: " + BuildConfig.FLAVOR + Miscellaneous.lineSeparator);
+        systemInfoText.append("Country: " + Miscellaneous.getUserCountry(Miscellaneous.getAnyContext()) + Miscellaneous.lineSeparator);
+        systemInfoText.append("OS language: " + Locale.getDefault().getDisplayName());
+
+        /*
+            I've checked the Locale methods on my Android 4.1.2 device, and the results:
+
+            Locale.getDefault().getLanguage()       ---> en
+            Locale.getDefault().getISO3Language()   ---> eng
+            Locale.getDefault().getCountry()        ---> US
+            Locale.getDefault().getISO3Country()    ---> USA
+            Locale.getDefault().getDisplayCountry() ---> United States
+            Locale.getDefault().getDisplayName()    ---> English (United States)
+            Locale.getDefault().toString()          ---> en_US
+            Locale.getDefault().getDisplayLanguage()---> English
+            Locale.getDefault().toLanguageTag()     ---> en-US
+         */
+
         return systemInfoText.toString();
     }
 

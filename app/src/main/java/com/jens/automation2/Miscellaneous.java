@@ -27,6 +27,7 @@ import android.os.IBinder;
 import android.provider.MediaStore;
 import android.provider.Settings.Secure;
 import android.telephony.PhoneNumberUtils;
+import android.telephony.TelephonyManager;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
@@ -84,6 +85,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.zip.ZipEntry;
@@ -1718,5 +1720,38 @@ public class Miscellaneous extends Service
 	public static boolean arraySearch(ArrayList<String> requestList, String needle, boolean caseSensitive, boolean matchFullLine)
 	{
 		return arraySearch(requestList.toArray(new String[requestList.size()]), needle, caseSensitive, matchFullLine);
+	}
+
+	/**
+	 * Get ISO 3166-1 alpha-2 country code for this device (or null if not available)
+	 * @param context Context reference to get the TelephonyManager instance from
+	 * @return country code or null
+	 */
+	public static String getUserCountry(Context context) {
+		try
+		{
+			final TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+			final String simCountry = tm.getSimCountryIso();
+			if (simCountry != null && simCountry.length() == 2)
+			{ // SIM country code is available
+				return simCountry.toLowerCase(Locale.US);
+			}
+			else if (tm.getPhoneType() != TelephonyManager.PHONE_TYPE_CDMA)
+			{ // device is not 3G (would be unreliable)
+				String networkCountry = tm.getNetworkCountryIso();
+				if (networkCountry != null && networkCountry.length() == 2)
+				{ // network country code is available
+					return networkCountry.toLowerCase(Locale.US);
+				}
+			}
+		}
+		catch (SecurityException se)
+		{
+			return "unknown";
+		}
+		catch (Exception e)
+		{ }
+
+		return null;
 	}
 }

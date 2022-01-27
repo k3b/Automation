@@ -1,6 +1,7 @@
 * New trigger: screen state (on/off)
 * New action: Create notification
 * New action: Close notification(s)
+* New action: Control media playback
 * Fixed: Translation bug in dutch variables text
 * Fixed: Variables were not replaced when sending text messages
-* Fixed: Service wouldn't always start after device is powered on
+* Fixed: Service wouldn't always start after device has been powered on

@@ -668,4 +668,25 @@
     <string name="comparisonCaseInsensitive">Las comparaciones se realizan sin distinción de mayúsculas y minúsculas</string>
     <string name="profileWarning">La configuración que realice aquí puede hacer que ya no note ciertas cosas de su teléfono. Incluso puede silenciar su alarma de despertar. Así que hagas lo que hagas, se recomienda que lo pruebes.</string>
     <string name="ifString">si</string>
+    <string name="on">encendido</string>
+    <string name="off">apagado</string>
+    <string name="unlocked">desbloqueado</string>
+    <string name="play">reproducir</string>
+    <string name="pause">pausar</string>
+    <string name="previous">ultimo</string>
+    <string name="next">proximo</string>
+    <string name="stop">parar</string>
+    <string name="android.permission.MEDIA_CONTENT_CONTROL">Controlar la reproducción de medios</string>
+    <string name="actionMediaControl">Controlar la reproducción de medios</string>
+    <string name="pleaseSelectActionValue">Por favor elije una acción!</string>
+    <string name="playPause">alternar reproducir/pausar</string>
+    <string name="selectCommand">Elije el comando</string>
+    <string name="screenState">Estado de la pantalla</string>
+    <string name="selectDesiredState">Elije el estado deseado</string>
+    <string name="controlCenter">Centro de control</string>
+    <string name="screenIs">pantalla esta %1$s</string>
+    <string name="sendEmailToDev">Enviar email al desrollador</string>
+    <string name="featureCeasedToWorkLastWorkingAndroidVersion">Debido a la infinita sabiduría de Google, la última versión de Android en la que se sabe que funciona esta función es %1$s. Puede configurarlo, pero probablemente no tendrá ningún efecto.</string>
+    <string name="emailContactNotice">El correo electrónico es mi método preferido de contacto para informar errores, hacer preguntas o hacer propuestas. Vaya al centro de control para obtener más información.</string>
+    <string name="actionMediaControlNotice">Ten en cuenta que esta acción puede no funcionar con TODOS los jugadores. E incluso si lo hace, no todos los botones funcionan necesariamente.</string>
 </resources>
