@@ -525,6 +525,8 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.smartphone));
 			else if(types[i].toString().equals(Trigger_Enum.profileActive.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.sound));
+			else if(types[i].toString().equals(Trigger_Enum.musicPlaying.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.sound));
 			else if(types[i].toString().equals(Trigger_Enum.screenState.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.smartphone));
 			else
@@ -587,7 +589,7 @@ public class ActivityManageRule extends Activity
 						startActivityForResult(timeFrameEditor, requestCodeTriggerTimeframeAdd);
 						return;
 					}
-					else if(triggerType == Trigger_Enum.charging)
+					else if(triggerType == Trigger_Enum.charging || triggerType == Trigger_Enum.musicPlaying)
 						booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
 					else if(triggerType == Trigger_Enum.usb_host_connection)
 						booleanChoices = new String[]{getResources().getString(R.string.connected), getResources().getString(R.string.disconnected)};
@@ -718,7 +720,7 @@ public class ActivityManageRule extends Activity
 	private AlertDialog getTriggerParameterDialog(final Context myContext, final String[] choices)
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-		alertDialogBuilder.setTitle(getResources().getString(R.string.selectTypeOfTrigger));
+		alertDialogBuilder.setTitle(getResources().getString(R.string.selectParameters));
 		alertDialogBuilder.setItems(choices, new DialogInterface.OnClickListener()
 		{			
 			@Override

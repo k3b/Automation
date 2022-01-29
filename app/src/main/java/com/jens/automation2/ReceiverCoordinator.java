@@ -12,6 +12,7 @@ import com.jens.automation2.receivers.BluetoothReceiver;
 import com.jens.automation2.receivers.ConnectivityReceiver;
 import com.jens.automation2.receivers.DeviceOrientationListener;
 import com.jens.automation2.receivers.HeadphoneJackListener;
+import com.jens.automation2.receivers.MediaPlayerListener;
 import com.jens.automation2.receivers.NoiseListener;
 import com.jens.automation2.receivers.PhoneStatusListener;
 import com.jens.automation2.receivers.ProcessListener;
@@ -55,6 +56,7 @@ public class ReceiverCoordinator
                     //NotificationListener.class,
                     PhoneStatusListener.class,
                     ProcessListener.class,
+                    MediaPlayerListener.class,
                     ScreenStateReceiver.class,
                     TimeZoneListener.class
              };
@@ -186,6 +188,9 @@ public class ReceiverCoordinator
         if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.headsetPlugged))
             HeadphoneJackListener.getInstance().startListener(AutomationService.getInstance());
 
+        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.musicPlaying))
+            MediaPlayerListener.getInstance().startListener(AutomationService.getInstance());
+
         if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.screenState))
             ScreenStateReceiver.startScreenStateReceiver(AutomationService.getInstance());
     }
@@ -202,6 +207,7 @@ public class ReceiverCoordinator
             DateTimeListener.stopAlarmListener(AutomationService.getInstance());
             NoiseListener.stopNoiseListener();
             ProcessListener.stopProcessListener(AutomationService.getInstance());
+            MediaPlayerListener.getInstance().stopListener(AutomationService.getInstance());
             DeviceOrientationListener.getInstance().stopListener(AutomationService.getInstance());
 
             try
@@ -281,6 +287,17 @@ public class ReceiverCoordinator
         {
             Miscellaneous.logEvent("i", "LocationProvider", "Shutting down ScreenStateListener because not used in any rule.", 4);
             ScreenStateReceiver.stopScreenStateReceiver();
+        }
+
+        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.musicPlaying))
+        {
+            Miscellaneous.logEvent("i", "LocationProvider", "Starting MediaPlayerListener because used in a new/changed rule.", 4);
+            MediaPlayerListener.getInstance().startListener(AutomationService.getInstance());
+        }
+        else
+        {
+            Miscellaneous.logEvent("i", "LocationProvider", "Shutting down MediaPlayerListener because not used in any rule.", 4);
+            MediaPlayerListener.getInstance().stopListener(AutomationService.getInstance());
         }
 
         if(!BuildConfig.FLAVOR.equalsIgnoreCase("fdroidFlavor"))

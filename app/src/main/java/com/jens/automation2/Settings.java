@@ -66,6 +66,7 @@ public class Settings implements SharedPreferences
 	public static boolean executeRulesAndProfilesWithSingleClick;
 	public static boolean displayNewsOnMainScreen;
 	public static boolean automaticUpdateCheck;
+	public static long musicCheckFrequency = 5;
 
 	public static boolean lockSoundChanges;
 	public static boolean noticeAndroid9MicrophoneShown;

@@ -17,6 +17,7 @@ import com.jens.automation2.receivers.BluetoothReceiver;
 import com.jens.automation2.receivers.ConnectivityReceiver;
 import com.jens.automation2.receivers.DeviceOrientationListener;
 import com.jens.automation2.receivers.HeadphoneJackListener;
+import com.jens.automation2.receivers.MediaPlayerListener;
 import com.jens.automation2.receivers.NfcReceiver;
 import com.jens.automation2.receivers.NoiseListener;
 import com.jens.automation2.receivers.NotificationListener;
@@ -38,7 +39,7 @@ import java.util.Date;
 public class Trigger
 {
 	public enum Trigger_Enum {
-		pointOfInterest, timeFrame, charging, batteryLevel, usb_host_connection, speed, noiseLevel, wifiConnection, process_started_stopped, airplaneMode, roaming, nfcTag, activityDetection, bluetoothConnection, headsetPlugged, notification, deviceOrientation, profileActive, screenState, phoneCall; //phoneCall always needs to be at the very end because of Google's shitty so called privacy
+		pointOfInterest, timeFrame, charging, batteryLevel, usb_host_connection, speed, noiseLevel, wifiConnection, process_started_stopped, airplaneMode, roaming, nfcTag, activityDetection, bluetoothConnection, headsetPlugged, notification, deviceOrientation, profileActive, screenState, musicPlaying, phoneCall; //phoneCall always needs to be at the very end because of Google's shitty so called privacy
 
 		public String getFullName(Context context)
 		{
@@ -82,13 +83,14 @@ public class Trigger
 					return context.getResources().getString(R.string.deviceOrientation);
 				case profileActive:
 					return context.getResources().getString(R.string.profile);
+				case musicPlaying:
+					return context.getResources().getString(R.string.musicPlaying);
 				case screenState:
 					return context.getResources().getString(R.string.screenState);
 				default:
 					return "Unknown";
 			}
 		}
-
 	};
 
 	Rule parentRule = null;
@@ -178,6 +180,10 @@ public class Trigger
 					break;
 				case profileActive:
 					if(!checkProfileActive())
+						result = false;
+					break;
+				case musicPlaying:
+					if(!checkMusicPlaying())
 						result = false;
 					break;
 				case screenState:
@@ -330,6 +336,11 @@ public class Trigger
 		}
 
 		return true;
+	}
+
+	boolean checkMusicPlaying()
+	{
+		return triggerParameter == MediaPlayerListener.isAudioPlaying(Miscellaneous.getAnyContext());
 	}
 
 	boolean checkProfileActive()
@@ -1512,6 +1523,12 @@ public class Trigger
 					returnString.append(String.format(Miscellaneous.getAnyContext().getString(R.string.profileActive), getTriggerParameter2().split(Trigger.triggerParameter2Split)[0]));
 				else
 					returnString.append(String.format(Miscellaneous.getAnyContext().getString(R.string.profileNotActive), getTriggerParameter2().split(Trigger.triggerParameter2Split)[0]));
+				break;
+			case musicPlaying:
+				if(triggerParameter)
+					returnString.append(Miscellaneous.getAnyContext().getString(R.string.musicIsPlaying));
+				else
+					returnString.append(Miscellaneous.getAnyContext().getString(R.string.musicIsNotPlaying));
 				break;
 			case screenState:
 				String state;
