@@ -688,4 +688,11 @@
     <string name="stop">stoppen</string>
     <string name="pleaseSelectActionValue">Selecteer een actie!</string>
     <string name="actionMediaControlNotice">Houd er rekening mee dat deze actie mogelijk niet werkt met ALLE spelers die er zijn. En zelfs als dat zo is, werkt niet elke knop noodzakelijkerwijs.</string>
+    <string name="musicPlaying">Er wordt muziek afgespeeld</string>
+    <string name="selectParameters">Selecteer parameters</string>
+    <string name="musicIsPlaying">er wordt muziek afgespeeld</string>
+    <string name="musicIsNotPlaying">muziek wordt niet afgespeeld</string>
+    <string name="musicCheckFrequencyTitle">Controleer frequentie [ms]</string>
+    <string name="musicCheckFrequencySummary">Milliseconden tussen controles</string>
+    <string name="musicPlayingDetection">Detectie van het afspelen van muziek</string>
 </resources>

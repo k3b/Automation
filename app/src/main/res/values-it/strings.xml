@@ -690,4 +690,11 @@
     <string name="sendEmailToDev">Invia email allo sviluppatore</string>
     <string name="controlCenter">Centro di controllo</string>
     <string name="emailContactNotice">L\'e-mail è il mio metodo di contatto preferito per segnalare bug, porre domande o fare proposte. Vai al centro di controllo per saperne di più.</string>
+    <string name="musicPlaying">La musica è in riproduzione</string>
+    <string name="musicIsPlaying">la musica è in riproduzione</string>
+    <string name="musicIsNotPlaying">la musica non viene riprodotta</string>
+    <string name="selectParameters">Selezionare i parametri</string>
+    <string name="musicCheckFrequencyTitle">Frequenza dei controlli [ms]</string>
+    <string name="musicCheckFrequencySummary">Millisecondi tra i controlli</string>
+    <string name="musicPlayingDetection">Rilevamento della riproduzione musicale</string>
 </resources>

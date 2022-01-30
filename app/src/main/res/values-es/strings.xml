@@ -689,4 +689,11 @@
     <string name="featureCeasedToWorkLastWorkingAndroidVersion">Debido a la infinita sabiduría de Google, la última versión de Android en la que se sabe que funciona esta función es %1$s. Puede configurarlo, pero probablemente no tendrá ningún efecto.</string>
     <string name="emailContactNotice">El correo electrónico es mi método preferido de contacto para informar errores, hacer preguntas o hacer propuestas. Vaya al centro de control para obtener más información.</string>
     <string name="actionMediaControlNotice">Ten en cuenta que esta acción puede no funcionar con TODOS los jugadores. E incluso si lo hace, no todos los botones funcionan necesariamente.</string>
+    <string name="musicPlaying">Musica esta reproduciendo</string>
+    <string name="selectParameters">Elije parametros</string>
+    <string name="musicIsPlaying">musica esta reproduciendo</string>
+    <string name="musicIsNotPlaying">musica no esta reproduciendo</string>
+    <string name="musicCheckFrequencyTitle">Frecuencia de los controles</string>
+    <string name="musicCheckFrequencySummary">Millisegundos entre controles</string>
+    <string name="musicPlayingDetection">Musica tocando deteción</string>
 </resources>
