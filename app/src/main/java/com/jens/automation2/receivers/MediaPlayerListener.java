@@ -2,7 +2,6 @@ package com.jens.automation2.receivers;
 
 import android.content.Context;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 
 import com.jens.automation2.AutomationService;
 import com.jens.automation2.Miscellaneous;
@@ -11,7 +10,6 @@ import com.jens.automation2.Settings;
 import com.jens.automation2.Trigger;
 
 import java.util.ArrayList;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 

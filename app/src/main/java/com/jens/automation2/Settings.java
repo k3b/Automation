@@ -263,6 +263,8 @@ public class Settings implements SharedPreferences
 			startScreen = Integer.parseInt(prefs.getString("startScreen", String.valueOf(default_startScreen)));
 			tabsPlacement = Integer.parseInt(prefs.getString("tabsPlacement", String.valueOf(default_tabsPlacement)));
 
+			musicCheckFrequency = Long.parseLong(prefs.getString("musicCheckFrequency", String.valueOf(default_musicCheckFrequency)));
+
 			executeRulesAndProfilesWithSingleClick = prefs.getBoolean("executeRulesAndProfilesWithSingleClick", default_executeRulesAndProfilesWithSingleClick);
 			automaticUpdateCheck = prefs.getBoolean("automaticUpdateCheck", default_automaticUpdateCheck);
 			displayNewsOnMainScreen = prefs.getBoolean("displayNewsOnMainScreen", default_displayNewsOnMainScreen);
@@ -273,8 +275,6 @@ public class Settings implements SharedPreferences
 
 			lastNewsPolltime = prefs.getLong("lastNewsPolltime", default_lastNewsPolltime);
 			lastUpdateCheck = prefs.getLong("lastUpdateCheck", default_lastUpdateCheck);
-			
-			musicCheckFrequency = prefs.getLong("musicCheckFrequency", default_musicCheckFrequency);
 
 			String whbdString = prefs.getString("whatHasBeenDone", "");
 			if(whbdString != null && whbdString.length() > 0)
@@ -336,9 +336,6 @@ public class Settings implements SharedPreferences
 			
 			if(!prefs.contains("writeLogFile") || force)
 				editor.putBoolean("writeLogFile", default_writeLogFile);
-			
-//			if(!prefs.contains("useTextToSpeech") || force)
-//				editor.putBoolean("useTextToSpeech", default_useTextToSpeech);
 			
 			if(!prefs.contains("useTextToSpeechOnNormal") || force)
 				editor.putBoolean("useTextToSpeechOnNormal", default_useTextToSpeechOnNormal);
@@ -549,6 +546,7 @@ public class Settings implements SharedPreferences
 				editor.putBoolean("executeRulesAndProfilesWithSingleClick", executeRulesAndProfilesWithSingleClick);
 				editor.putBoolean("automaticUpdateCheck", automaticUpdateCheck);
 				editor.putBoolean("displayNewsOnMainScreen", displayNewsOnMainScreen);
+				editor.putString("musicCheckFrequency", String.valueOf(musicCheckFrequency));
 
 				editor.putBoolean("lockSoundChanges", lockSoundChanges);
 				editor.putBoolean("noticeAndroid9MicrophoneShown", noticeAndroid9MicrophoneShown);
@@ -556,8 +554,6 @@ public class Settings implements SharedPreferences
 
 				editor.putLong("lastNewsPolltime", lastNewsPolltime);
 				editor.putLong("lastUpdateCheck", lastUpdateCheck);
-				
-				editor.putLong("musicCheckFrequency", musicCheckFrequency);
 
 				editor.putString("whatHasBeenDone", Miscellaneous.explode(";", whatHasBeenDone));
 
