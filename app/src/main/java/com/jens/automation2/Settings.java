@@ -66,7 +66,7 @@ public class Settings implements SharedPreferences
 	public static boolean executeRulesAndProfilesWithSingleClick;
 	public static boolean displayNewsOnMainScreen;
 	public static boolean automaticUpdateCheck;
-	public static long musicCheckFrequency = 5;
+	public static long musicCheckFrequency;
 
 	public static boolean lockSoundChanges;
 	public static boolean noticeAndroid9MicrophoneShown;
@@ -128,6 +128,7 @@ public class Settings implements SharedPreferences
 	protected static final boolean default_lockSoundChanges = false;
 	protected static final long default_lastNewsPolltime = -1;
 	protected static final long default_lastUpdateCheck = -1;
+	protected static final long default_musicCheckFrequency = 2500;
 
     @Override
 	public boolean contains(String arg0)
@@ -272,6 +273,8 @@ public class Settings implements SharedPreferences
 
 			lastNewsPolltime = prefs.getLong("lastNewsPolltime", default_lastNewsPolltime);
 			lastUpdateCheck = prefs.getLong("lastUpdateCheck", default_lastUpdateCheck);
+			
+			musicCheckFrequency = prefs.getLong("musicCheckFrequency", default_musicCheckFrequency);
 
 			String whbdString = prefs.getString("whatHasBeenDone", "");
 			if(whbdString != null && whbdString.length() > 0)
@@ -328,154 +331,157 @@ public class Settings implements SharedPreferences
 			
 			Editor editor = prefs.edit();
 
-			if(!prefs.contains("startServiceAtSystemBoot") | force)
+			if(!prefs.contains("startServiceAtSystemBoot") || force)
 				editor.putBoolean("startServiceAtSystemBoot", default_startServiceAtSystemBoot);
 			
-			if(!prefs.contains("writeLogFile") | force)
+			if(!prefs.contains("writeLogFile") || force)
 				editor.putBoolean("writeLogFile", default_writeLogFile);
 			
-//			if(!prefs.contains("useTextToSpeech") | force)
+//			if(!prefs.contains("useTextToSpeech") || force)
 //				editor.putBoolean("useTextToSpeech", default_useTextToSpeech);
 			
-			if(!prefs.contains("useTextToSpeechOnNormal") | force)
+			if(!prefs.contains("useTextToSpeechOnNormal") || force)
 				editor.putBoolean("useTextToSpeechOnNormal", default_useTextToSpeechOnNormal);
 			
-			if(!prefs.contains("useTextToSpeechOnVibrate") | force)
+			if(!prefs.contains("useTextToSpeechOnVibrate") || force)
 				editor.putBoolean("useTextToSpeechOnVibrate", default_useTextToSpeechOnVibrate);
 			
-			if(!prefs.contains("useTextToSpeechOnSilent") | force)
+			if(!prefs.contains("useTextToSpeechOnSilent") || force)
 				editor.putBoolean("useTextToSpeechOnSilent", default_useTextToSpeechOnSilent);
 			
-			if(!prefs.contains("muteTextToSpeechDuringCalls") | force)
+			if(!prefs.contains("muteTextToSpeechDuringCalls") || force)
 				editor.putBoolean("muteTextToSpeechDuringCalls", default_muteTextToSpeechDuringCalls);
 
-			if(!prefs.contains("positioningEngine") | force)
+			if(!prefs.contains("positioningEngine") || force)
 				editor.putString("positioningEngine", String.valueOf(default_positioningEngine));
 
-			if(!prefs.contains("useWifiForPositioning") | force)
+			if(!prefs.contains("useWifiForPositioning") || force)
 				editor.putBoolean("useWifiForPositioning", default_useWifiForPositioning);
 			
-			if(!prefs.contains("hasServiceBeenRunning") | force)
+			if(!prefs.contains("hasServiceBeenRunning") || force)
 				editor.putBoolean("hasServiceBeenRunning", default_hasServiceBeenRunning);
 			
-			if(!prefs.contains("startServiceAfterAppUpdate") | force)
+			if(!prefs.contains("startServiceAfterAppUpdate") || force)
 				editor.putBoolean("startServiceAfterAppUpdate", default_startServiceAfterAppUpdate);
 			
-			if(!prefs.contains("startNewThreadForRuleActivation") | force)
+			if(!prefs.contains("startNewThreadForRuleActivation") || force)
 				editor.putBoolean("startNewThreadForRuleActivation", default_startNewThreadForRuleActivation);
 			
-			if(!prefs.contains("showIconWhenServiceIsRunning") | force)
+			if(!prefs.contains("showIconWhenServiceIsRunning") || force)
 				editor.putBoolean("showIconWhenServiceIsRunning", default_showIconWhenServiceIsRunning);
 			
-			if(!prefs.contains("useAccelerometerForPositioning") | force)
+			if(!prefs.contains("useAccelerometerForPositioning") || force)
 				editor.putBoolean("useAccelerometerForPositioning", default_useAccelerometerForPositioning);
 			
-			if(!prefs.contains("useAccelerometerAfterIdleTime") | force)
+			if(!prefs.contains("useAccelerometerAfterIdleTime") || force)
 				editor.putString("useAccelerometerAfterIdleTime", String.valueOf(default_useAccelerometerAfterIdleTime));
 			
-			if(!prefs.contains("accelerometerMovementThreshold") | force)
+			if(!prefs.contains("accelerometerMovementThreshold") || force)
 				editor.putString("accelerometerMovementThreshold", String.valueOf(default_accelerometerMovementThreshold));
 			
-			if(!prefs.contains("speedMaximumTimeBetweenLocations") | force)
+			if(!prefs.contains("speedMaximumTimeBetweenLocations") || force)
 				editor.putString("speedMaximumTimeBetweenLocations", String.valueOf(default_speedMaximumTimeBetweenLocations));
 			
-			if(!prefs.contains("MINIMUM_DISTANCE_CHANGE_FOR_GPS_UPDATE") | force)
+			if(!prefs.contains("MINIMUM_DISTANCE_CHANGE_FOR_GPS_UPDATE") || force)
 				editor.putString("MINIMUM_DISTANCE_CHANGE_FOR_GPS_UPDATE", String.valueOf(default_minimumDistanceChangeForGpsUpdate));
 			
-			if(!prefs.contains("MINIMUM_DISTANCE_CHANGE_FOR_NETWORK_UPDATE") | force)
+			if(!prefs.contains("MINIMUM_DISTANCE_CHANGE_FOR_NETWORK_UPDATE") || force)
 				editor.putString("MINIMUM_DISTANCE_CHANGE_FOR_NETWORK_UPDATE", String.valueOf(default_minimumDistanceChangeForNetworkUpdate));
 			
-			if(!prefs.contains("SATISFACTORY_ACCURACY_GPS") | force)
+			if(!prefs.contains("SATISFACTORY_ACCURACY_GPS") || force)
 				editor.putString("SATISFACTORY_ACCURACY_GPS", String.valueOf(default_satisfactoryAccuracyGps));
 			
-			if(!prefs.contains("SATISFACTORY_ACCURACY_NETWORK") | force)
+			if(!prefs.contains("SATISFACTORY_ACCURACY_NETWORK") || force)
 				editor.putString("SATISFACTORY_ACCURACY_NETWORK", String.valueOf(default_satisfactoryAccuracyNetwork));
 			
-			if(!prefs.contains("gpsTimeout") | force)
+			if(!prefs.contains("gpsTimeout") || force)
 				editor.putString("gpsTimeout", String.valueOf(default_gpsTimeout));
 			
-			if(!prefs.contains("MINIMUM_TIME_BETWEEN_UPDATE") | force)
+			if(!prefs.contains("MINIMUM_TIME_BETWEEN_UPDATE") || force)
 				editor.putString("MINIMUM_TIME_BETWEEN_UPDATE", String.valueOf(default_minimumTimeBetweenUpdate));
 			
-			if(!prefs.contains("timeBetweenNoiseLevelMeasurements") | force)
+			if(!prefs.contains("timeBetweenNoiseLevelMeasurements") || force)
 				editor.putString("timeBetweenNoiseLevelMeasurements", String.valueOf(default_timeBetweenNoiseLevelMeasurements));
 			
-			if(!prefs.contains("lengthOfNoiseLevelMeasurements") | force)
+			if(!prefs.contains("lengthOfNoiseLevelMeasurements") || force)
 				editor.putString("lengthOfNoiseLevelMeasurements", String.valueOf(default_lengthOfNoiseLevelMeasurements));
 			
-			if(!prefs.contains("referenceValueForNoiseLevelMeasurements") | force)
+			if(!prefs.contains("referenceValueForNoiseLevelMeasurements") || force)
 				editor.putString("referenceValueForNoiseLevelMeasurements", String.valueOf(default_referenceValueForNoiseLevelMeasurements));
 			
-			if(!prefs.contains("logLevel") | force)
+			if(!prefs.contains("logLevel") || force)
 				editor.putString("logLevel", String.valueOf(default_logLevel));
 
-			if(!prefs.contains("logFileMaxSize") | force)
+			if(!prefs.contains("logFileMaxSize") || force)
 				editor.putString("logFileMaxSize", String.valueOf(default_logFileMaxSize));
 			
-			if(!prefs.contains("httpAcceptAllCertificates") | force)
+			if(!prefs.contains("httpAcceptAllCertificates") || force)
 				editor.putBoolean("httpAcceptAllCertificates", default_httpAcceptAllCertificates);
 			
-			if(!prefs.contains("httpAttempts") | force)
+			if(!prefs.contains("httpAttempts") || force)
 				editor.putString("httpAttempts", String.valueOf(default_httpAttempts));
 			
-			if(!prefs.contains("httpAttemptsTimeout") | force)
+			if(!prefs.contains("httpAttemptsTimeout") || force)
 				editor.putString("httpAttemptsTimeout", String.valueOf(default_httpAttemptsTimeout));
 			
-			if(!prefs.contains("httpAttemptGap") | force)
+			if(!prefs.contains("httpAttemptGap") || force)
 				editor.putString("httpAttemptGap", String.valueOf(default_httpAttemptGap));
 			
-			if(!prefs.contains("lastActivePoi") | force)
+			if(!prefs.contains("lastActivePoi") || force)
 				editor.putString("lastActivePoi", "null");
 			
-			if(!prefs.contains("rememberLastActivePoi") | force)
+			if(!prefs.contains("rememberLastActivePoi") || force)
 				editor.putBoolean("rememberLastActivePoi", default_rememberLastActivePoi);
 			
-			if(!prefs.contains("locationRingBufferSize") | force)
+			if(!prefs.contains("locationRingBufferSize") || force)
 				editor.putString("locationRingBufferSize", String.valueOf(default_locationRingBufferSize));
 			
-			if(!prefs.contains("timeBetweenProcessMonitorings") | force)
+			if(!prefs.contains("timeBetweenProcessMonitorings") || force)
 				editor.putString("timeBetweenProcessMonitorings", String.valueOf(default_timeBetweenProcessMonitorings));
 
-			if(!prefs.contains("acceptDevicePositionSignalEveryX_MilliSeconds") | force)
+			if(!prefs.contains("acceptDevicePositionSignalEveryX_MilliSeconds") || force)
 				editor.putString("acceptDevicePositionSignalEveryX_MilliSeconds", String.valueOf(default_acceptDevicePositionSignalEveryX_MilliSeconds));
 
-			if(!prefs.contains("activityDetectionFrequency") | force)
+			if(!prefs.contains("activityDetectionFrequency") || force)
 				editor.putString("activityDetectionFrequency", String.valueOf(default_activityDetectionFrequency));
 
-			if(!prefs.contains("activityDetectionRequiredProbability") | force)
+			if(!prefs.contains("activityDetectionRequiredProbability") || force)
 				editor.putString("activityDetectionRequiredProbability", String.valueOf(default_activityDetectionRequiredProbability));
 
-			if(!prefs.contains("privacyLocationing") | force)
+			if(!prefs.contains("privacyLocationing") || force)
 				editor.putBoolean("privacyLocationing", default_privacyLocationing);
 
-			if(!prefs.contains("startScreen") | force)
+			if(!prefs.contains("startScreen") || force)
 				editor.putString("startScreen", String.valueOf(default_startScreen));
 
-			if(!prefs.contains("tabsPlacement") | force)
+			if(!prefs.contains("tabsPlacement") || force)
 				editor.putString("tabsPlacement", String.valueOf(default_tabsPlacement));
 
-			if(!prefs.contains("executeRulesAndProfilesWithSingleClick") | force)
+			if(!prefs.contains("executeRulesAndProfilesWithSingleClick") || force)
 				editor.putBoolean("executeRulesAndProfilesWithSingleClick", default_executeRulesAndProfilesWithSingleClick);
 
-			if(!prefs.contains("automaticUpdateCheck") | force)
+			if(!prefs.contains("automaticUpdateCheck") || force)
 				editor.putBoolean("automaticUpdateCheck", default_automaticUpdateCheck);
 
-			if(!prefs.contains("displayNewsOnMainScreen") | force)
+			if(!prefs.contains("displayNewsOnMainScreen") || force)
 				editor.putBoolean("displayNewsOnMainScreen", default_displayNewsOnMainScreen);
 
-			if(!prefs.contains("lockSoundChanges") | force)
+			if(!prefs.contains("musicCheckFrequency") || force)
+				editor.putLong("musicCheckFrequency", default_musicCheckFrequency);
+
+			if(!prefs.contains("lockSoundChanges") || force)
 				editor.putBoolean("lockSoundChanges", default_lockSoundChanges);
 
-			if(!prefs.contains("noticeAndroid9MicrophoneShown") | force)
+			if(!prefs.contains("noticeAndroid9MicrophoneShown") || force)
 				editor.putBoolean("noticeAndroid9MicrophoneShown", false);
 
-			if(!prefs.contains("lastNewsPolltime") | force)
+			if(!prefs.contains("lastNewsPolltime") || force)
 				editor.putLong("lastNewsPolltime", default_lastNewsPolltime);
 
-			if(!prefs.contains("lastUpdateCheck") | force)
+			if(!prefs.contains("lastUpdateCheck") || force)
 				editor.putLong("lastUpdateCheck", default_lastUpdateCheck);
 
-			if(!prefs.contains("whatHasBeenDone") | force)
+			if(!prefs.contains("whatHasBeenDone") || force)
 				editor.putString("whatHasBeenDone", "");
 			
 			editor.commit();
@@ -550,6 +556,8 @@ public class Settings implements SharedPreferences
 
 				editor.putLong("lastNewsPolltime", lastNewsPolltime);
 				editor.putLong("lastUpdateCheck", lastUpdateCheck);
+				
+				editor.putLong("musicCheckFrequency", musicCheckFrequency);
 
 				editor.putString("whatHasBeenDone", Miscellaneous.explode(";", whatHasBeenDone));
 

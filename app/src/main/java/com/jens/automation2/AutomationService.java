@@ -218,7 +218,14 @@ public class AutomationService extends Service implements OnInitListener
 //			Actions.setData(true);
 			// ********** Test area **********
 
-			return START_STICKY;
+			/*
+				On normal phones the app is supposed to automatically restart in case of any problems.
+				In the emulator we want it to stop to be able to better pinpoint the root cause.
+			 */
+			if(Miscellaneous.isAndroidEmulator())
+				return START_NOT_STICKY;
+			else
+				return START_STICKY;
 		}
 		else
 		{

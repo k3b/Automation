@@ -52,7 +52,7 @@ public class MediaPlayerListener implements AutomationListenerInterface
             }
             else
             {
-                timer.cancel();
+                task.cancel();
                 timer.purge();
             }
 
@@ -61,16 +61,19 @@ public class MediaPlayerListener implements AutomationListenerInterface
                 @Override
                 public void run()
                 {
-                    ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.musicPlaying);
-                    for(int i=0; i<ruleCandidates.size(); i++)
+                    synchronized(this)
                     {
-                        if(ruleCandidates.get(i).getsGreenLight(AutomationService.getInstance()))
-                            ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
+                        ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.musicPlaying);
+                        for (int i = 0; i < ruleCandidates.size(); i++)
+                        {
+                            if (ruleCandidates.get(i).getsGreenLight(AutomationService.getInstance()))
+                                ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
+                        }
                     }
                 }
             };
 
-            timer.scheduleAtFixedRate(task, 0, Settings.musicCheckFrequency * 1000);
+            timer.scheduleAtFixedRate(task, 0, Settings.musicCheckFrequency);
         }
     }
 

@@ -292,6 +292,18 @@
 	        android:inputType="number"></EditTextPreference>
         
     </PreferenceCategory>
+
+	<PreferenceCategory
+		android:summary="@string/musicPlayingDetection"
+		android:title="@string/musicPlayingDetection">
+
+		<EditTextPreference
+			android:key="musicCheckFrequency"
+			android:summary="@string/musicCheckFrequencySummary"
+			android:title="@string/musicCheckFrequencyTitle"
+			android:inputType="number"></EditTextPreference>
+
+	</PreferenceCategory>
     
     
 </PreferenceScreen>

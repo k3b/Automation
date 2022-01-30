@@ -790,4 +790,7 @@
     <string name="selectParameters">Select parameters</string>
     <string name="musicIsPlaying">music is playing</string>
     <string name="musicIsNotPlaying">music is not playing</string>
+    <string name="musicCheckFrequencyTitle">Frequency to check if music is playing [milliseconds]</string>
+    <string name="musicCheckFrequencySummary">Milliseconds between checks</string>
+    <string name="musicPlayingDetection">Music playing detection</string>
 </resources>
