@@ -12,6 +12,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.View;
@@ -83,17 +84,17 @@ public class ActivityManagePoi extends Activity
 		bSavePoi = (Button)findViewById(R.id.bSavePoi);
 		bSavePoi.setOnClickListener(new OnClickListener()
 		{
-        @Override
-        public void onClick(View v)
-        {
-			hideKeyboard();
+			@Override
+			public void onClick(View v)
+			{
+				hideKeyboard();
 
-            if(ActivityMainPoi.poiToEdit == null)
-				createPoi();
-            else
-				changePoi();
-        }
-    });
+				if(ActivityMainPoi.poiToEdit == null)
+					createPoi();
+				else
+					changePoi();
+			}
+		});
 		
 		ibShowOnMap.setOnClickListener(new OnClickListener()
 		{			
@@ -136,42 +137,45 @@ public class ActivityManagePoi extends Activity
 	
 	private void getLocation()
 	{
-		Criteria critNetwork = new Criteria();
-		critNetwork.setPowerRequirement(Criteria.POWER_LOW);
-		critNetwork.setAltitudeRequired(false);
-		critNetwork.setSpeedRequired(false);
-		critNetwork.setBearingRequired(false);
-		critNetwork.setCostAllowed(false);
-		critNetwork.setAccuracy(Criteria.ACCURACY_COARSE);
+		Criteria criteriaNetwork = new Criteria();
+		criteriaNetwork.setPowerRequirement(Criteria.POWER_LOW);
+		criteriaNetwork.setAltitudeRequired(false);
+		criteriaNetwork.setSpeedRequired(false);
+		criteriaNetwork.setBearingRequired(false);
+		criteriaNetwork.setCostAllowed(false);
+		criteriaNetwork.setAccuracy(Criteria.ACCURACY_COARSE);
+
+		Criteria criteriaGps = new Criteria();
+		criteriaGps.setAltitudeRequired(false);
+		criteriaGps.setSpeedRequired(false);
+		criteriaGps.setBearingRequired(false);
+		criteriaGps.setCostAllowed(true);
+		criteriaGps.setAccuracy(Criteria.ACCURACY_FINE);
 		
-		Criteria critGps = new Criteria();
-		critGps.setAltitudeRequired(false);
-		critGps.setSpeedRequired(false);
-		critGps.setBearingRequired(false);
-		critGps.setCostAllowed(true);
-		critGps.setAccuracy(Criteria.ACCURACY_FINE);
-		
-		String provider1 = myLocationManager.getBestProvider(critNetwork, true);
-		String provider2 = myLocationManager.getBestProvider(critGps, true);
+		String provider1 = myLocationManager.getBestProvider(criteriaNetwork, true);
+		String provider2 = myLocationManager.getBestProvider(criteriaGps, true);
 //		String provider3 = myLocationManager.getProvider("wifi");
 		
-		if(provider1 == null | provider2 == null)
+		if(provider1 == null || provider2 == null)
 		{
 			Toast.makeText(this, getResources().getString(R.string.logNoSuitableProvider), Toast.LENGTH_LONG).show();
 			return;
 		}
 		else
 		{
+			if(provider1.equals(provider2))
+				Miscellaneous.logEvent("i", "POI Manager", "Both location providers are equal. Only one will be used.", 4);
+
 			locationSearchStart = Calendar.getInstance();
 			startTimeout();
 
-			if(!Settings.privacyLocationing || !ConnectivityReceiver.isDataConnectionAvailable(AutomationService.getInstance()))
+			if(!Settings.privacyLocationing && !ConnectivityReceiver.isDataConnectionAvailable(Miscellaneous.getAnyContext()) && !provider1.equals(provider2))
 			{
 				Miscellaneous.logEvent("i", "POI Manager", getResources().getString(R.string.logGettingPositionWithProvider) + " " + provider1, 3);
 				myLocationManager.requestLocationUpdates(provider1, 500, Settings.satisfactoryAccuracyNetwork, myLocationListenerNetwork);
 			}
 			else
-				Miscellaneous.logEvent("i", "POI Manager", "Skipping network location query because private locationing is active.", 4);
+				Miscellaneous.logEvent("i", "POI Manager", "Skipping network location.", 4);
 
 			Miscellaneous.logEvent("i", "POI Manager", getResources().getString(R.string.logGettingPositionWithProvider) + " " + provider2, 3);
 			myLocationManager.requestLocationUpdates(provider2, 500, Settings.satisfactoryAccuracyGps, myLocationListenerGps);
@@ -310,7 +314,21 @@ public class ActivityManagePoi extends Activity
 			public void onClick(DialogInterface dialog, int which)
 			{
 				progressDialog = ProgressDialog.show(ActivityManagePoi.this, "", getResources().getString(R.string.gettingPosition), true, true);
-				getLocation();
+				if(Build.VERSION.SDK_INT >= 31)
+				{
+					AlertDialog dia = Miscellaneous.messageBox(getResources().getString(R.string.info), getResources().getString(R.string.locationNotWorkingOn12), ActivityManagePoi.this);
+					dia.setOnDismissListener(new DialogInterface.OnDismissListener()
+					{
+						@Override
+						public void onDismiss(DialogInterface dialogInterface)
+						{
+							getLocation();
+						}
+					});
+					dia.show();
+				}
+				else
+					getLocation();
 			}
 		};
 		alertDialogBuilder.setMessage(text).setPositiveButton("Ok", dialogClickListener);

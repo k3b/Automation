@@ -10,6 +10,7 @@ import com.jens.automation2.Settings;
 import com.jens.automation2.Trigger;
 
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 

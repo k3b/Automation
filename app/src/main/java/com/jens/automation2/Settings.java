@@ -81,54 +81,54 @@ public class Settings implements SharedPreferences
 	 */
 	public static final String dateFormat = "E dd.MM.yyyy HH:mm:ss:ssss";
 
-	protected static final int default_positioningEngine = 0;
-	protected static final long default_minimumDistanceChangeForGpsUpdate = 100;
-	protected static final long default_minimumDistanceChangeForNetworkUpdate = 500; // in Meters
-	protected static final long default_satisfactoryAccuracyGps = 50;	
-	protected static final long default_satisfactoryAccuracyNetwork = 1000;
-	protected static final int default_gpsTimeout = 300;	// seconds
-	protected static final long default_minimumTimeBetweenUpdate = 30000; // in Milliseconds
-	protected static final boolean default_startServiceAtSystemBoot = false;
-	protected static final boolean default_writeLogFile = false;
-	protected static final long default_logLevel = 2;
-	protected static final int default_logFileMaxSize = 10;
-	protected static final boolean default_useTextToSpeechOnNormal = false;
-	protected static final boolean default_useTextToSpeechOnVibrate = false;
-	protected static final boolean default_useTextToSpeechOnSilent = false;
-	protected static final boolean default_muteTextToSpeechDuringCalls = true;
-	protected static final boolean default_useWifiForPositioning = true;
-	protected static final boolean default_useAccelerometerForPositioning = true;
-	protected static final long default_useAccelerometerAfterIdleTime = 5;
-	protected static final long default_accelerometerMovementThreshold = 2;
-	protected static final long default_speedMaximumTimeBetweenLocations = 4;
-	protected static final long default_timeBetweenNoiseLevelMeasurements = 60;
-	protected static final long default_lengthOfNoiseLevelMeasurements = 5;
-	protected static final long default_referenceValueForNoiseLevelMeasurements = 20;
-	protected static final boolean default_hasServiceBeenRunning = false;
-	protected static final boolean default_startServiceAfterAppUpdate = true;
-	protected static final boolean default_startNewThreadForRuleActivation = true;
-	protected static final boolean default_showIconWhenServiceIsRunning = true;
-	protected static final boolean default_httpAcceptAllCertificates = false;
-	protected static final int default_httpAttempts = 3;
-	protected static final int default_httpAttemptsTimeout = 60;
-	protected static final int default_httpAttemptGap = 2;
-	protected static final PointOfInterest default_lastActivePoi = null;
-	protected static final boolean default_rememberLastActivePoi = true;
-	protected static final int default_locationRingBufferSize=3;
-	protected static final long default_timeBetweenProcessMonitorings = 60;
-	protected static final long default_acceptDevicePositionSignalEveryX_MilliSeconds = 1000;
-	protected static final int default_activityDetectionFrequency = 60;
-	protected static final int default_activityDetectionRequiredProbability = 75;
-	protected static final boolean default_privacyLocationing = false;
-	protected static final int default_startScreen = 0;
-	protected static final int default_tabsPlacement = 0;
-	protected static final boolean default_executeRulesAndProfilesWithSingleClick = false;
-	protected static final boolean default_displayNewsOnMainScreen = false;
-	protected static final boolean default_automaticUpdateCheck = false;
-	protected static final boolean default_lockSoundChanges = false;
-	protected static final long default_lastNewsPolltime = -1;
-	protected static final long default_lastUpdateCheck = -1;
-	protected static final long default_musicCheckFrequency = 2500;
+	public static final int default_positioningEngine = 0;
+	public static final long default_minimumDistanceChangeForGpsUpdate = 100;
+	public static final long default_minimumDistanceChangeForNetworkUpdate = 500; // in Meters
+	public static final long default_satisfactoryAccuracyGps = 50;	
+	public static final long default_satisfactoryAccuracyNetwork = 1000;
+	public static final int default_gpsTimeout = 300;	// seconds
+	public static final long default_minimumTimeBetweenUpdate = 30000; // in Milliseconds
+	public static final boolean default_startServiceAtSystemBoot = false;
+	public static final boolean default_writeLogFile = false;
+	public static final long default_logLevel = 2;
+	public static final int default_logFileMaxSize = 10;
+	public static final boolean default_useTextToSpeechOnNormal = false;
+	public static final boolean default_useTextToSpeechOnVibrate = false;
+	public static final boolean default_useTextToSpeechOnSilent = false;
+	public static final boolean default_muteTextToSpeechDuringCalls = true;
+	public static final boolean default_useWifiForPositioning = true;
+	public static final boolean default_useAccelerometerForPositioning = true;
+	public static final long default_useAccelerometerAfterIdleTime = 5;
+	public static final long default_accelerometerMovementThreshold = 2;
+	public static final long default_speedMaximumTimeBetweenLocations = 4;
+	public static final long default_timeBetweenNoiseLevelMeasurements = 60;
+	public static final long default_lengthOfNoiseLevelMeasurements = 5;
+	public static final long default_referenceValueForNoiseLevelMeasurements = 20;
+	public static final boolean default_hasServiceBeenRunning = false;
+	public static final boolean default_startServiceAfterAppUpdate = true;
+	public static final boolean default_startNewThreadForRuleActivation = true;
+	public static final boolean default_showIconWhenServiceIsRunning = true;
+	public static final boolean default_httpAcceptAllCertificates = false;
+	public static final int default_httpAttempts = 3;
+	public static final int default_httpAttemptsTimeout = 60;
+	public static final int default_httpAttemptGap = 2;
+	public static final PointOfInterest default_lastActivePoi = null;
+	public static final boolean default_rememberLastActivePoi = true;
+	public static final int default_locationRingBufferSize=3;
+	public static final long default_timeBetweenProcessMonitorings = 60;
+	public static final long default_acceptDevicePositionSignalEveryX_MilliSeconds = 1000;
+	public static final int default_activityDetectionFrequency = 60;
+	public static final int default_activityDetectionRequiredProbability = 75;
+	public static final boolean default_privacyLocationing = false;
+	public static final int default_startScreen = 0;
+	public static final int default_tabsPlacement = 0;
+	public static final boolean default_executeRulesAndProfilesWithSingleClick = false;
+	public static final boolean default_displayNewsOnMainScreen = false;
+	public static final boolean default_automaticUpdateCheck = false;
+	public static final boolean default_lockSoundChanges = false;
+	public static final long default_lastNewsPolltime = -1;
+	public static final long default_lastUpdateCheck = -1;
+	public static final long default_musicCheckFrequency = 2500;
 
     @Override
 	public boolean contains(String arg0)
@@ -264,6 +264,9 @@ public class Settings implements SharedPreferences
 			tabsPlacement = Integer.parseInt(prefs.getString("tabsPlacement", String.valueOf(default_tabsPlacement)));
 
 			musicCheckFrequency = Long.parseLong(prefs.getString("musicCheckFrequency", String.valueOf(default_musicCheckFrequency)));
+
+			if(Settings.musicCheckFrequency == 0)
+				Settings.musicCheckFrequency = Settings.default_musicCheckFrequency;
 
 			executeRulesAndProfilesWithSingleClick = prefs.getBoolean("executeRulesAndProfilesWithSingleClick", default_executeRulesAndProfilesWithSingleClick);
 			automaticUpdateCheck = prefs.getBoolean("automaticUpdateCheck", default_automaticUpdateCheck);
@@ -546,6 +549,9 @@ public class Settings implements SharedPreferences
 				editor.putBoolean("executeRulesAndProfilesWithSingleClick", executeRulesAndProfilesWithSingleClick);
 				editor.putBoolean("automaticUpdateCheck", automaticUpdateCheck);
 				editor.putBoolean("displayNewsOnMainScreen", displayNewsOnMainScreen);
+
+				if(Settings.musicCheckFrequency == 0)
+					Settings.musicCheckFrequency = Settings.default_musicCheckFrequency;
 				editor.putString("musicCheckFrequency", String.valueOf(musicCheckFrequency));
 
 				editor.putBoolean("lockSoundChanges", lockSoundChanges);

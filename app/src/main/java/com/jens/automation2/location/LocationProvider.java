@@ -162,7 +162,7 @@ public class LocationProvider
 								(
 										(locationList.get(i).getProvider().equals(LocationManager.GPS_PROVIDER) && locationList.get(i).getAccuracy() > Settings.satisfactoryAccuracyGps)
 												||
-												(locationList.get(i).getProvider().equals(LocationManager.NETWORK_PROVIDER) && locationList.get(i).getAccuracy() > Settings.satisfactoryAccuracyNetwork)
+										(locationList.get(i).getProvider().equals(LocationManager.NETWORK_PROVIDER) && locationList.get(i).getAccuracy() > Settings.satisfactoryAccuracyNetwork)
 								)
 								{
 									Miscellaneous.logEvent("i", "Speed", "Not using 2 most recent locations for speed calculation because at least one does not have a satisfactory accuracy: " + locationList.get(i).toString(), 4);
@@ -232,12 +232,6 @@ public class LocationProvider
 
 	public void startLocationService()
 	{
-//		if(Settings.useAccelerometerForPositioning && !Miscellaneous.isAndroidEmulator())
-//		{
-//			accelerometerHandler = new AccelerometerHandler();
-//			mySensorActivity = new SensorActivity(this);
-//		}
-
 		// startPhoneStateListener
 			PhoneStatusListener.startPhoneStatusListener(parentService);			// also used to mute anouncements during calls
 
@@ -248,8 +242,6 @@ public class LocationProvider
 		{
 			if(Rule.isAnyRuleUsing(Trigger_Enum.pointOfInterest) | Rule.isAnyRuleUsing(Trigger_Enum.speed))
 			{
-//				TelephonyManager telephonyManager = (TelephonyManager) AutomationService.getInstance().getSystemService(Context.TELEPHONY_SERVICE);
-
 				// startCellLocationChangedReceiver
 				if (CellLocationChangedReceiver.isCellLocationChangedReceiverPossible())
 				{
@@ -514,7 +506,6 @@ public class LocationProvider
 			Message msg = new Message();
 			msg.what = 1;
 			speedHandler.sendMessageAtTime(msg, timeOfForcedLocationCheck.getTimeInMillis());
-//			speedHandler.sendMessageDelayed(msg, delayTime);
 			speedTimerActive = true;
 		}
 		else
@@ -531,7 +522,7 @@ public class LocationProvider
 			if(msg.what == 1)
 			{
 				// time is up, no cell location updates since x minutes, start accelerometer
-				String text = "Timer triggered. Based on the last location and speed we may be at a POI. Forcing location update in case CellLocationChangedReceiver didn\'t fire.";
+				Miscellaneous.logEvent("i", "LocationProvider", "Timer triggered. Based on the last location and speed we may be at a POI. Forcing location update in case CellLocationChangedReceiver didn\'t fire.", 5);
 
 				Location currentLocation = CellLocationChangedReceiver.getInstance().getLocation("coarse");
 				AutomationService.getInstance().getLocationProvider().setCurrentLocation(currentLocation, false);

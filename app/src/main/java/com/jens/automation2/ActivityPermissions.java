@@ -520,6 +520,9 @@ public class ActivityPermissions extends Activity
                         addToArrayListUnique(Manifest.permission.MODIFY_AUDIO_SETTINGS, requiredPermissions);
                         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                             addToArrayListUnique(Manifest.permission.ACCESS_NOTIFICATION_POLICY, requiredPermissions);
+                        Profile targetProfile = Profile.getByName(action.getParameter2());
+                        if(targetProfile.changeIncomingCallsRingtone || targetProfile.changeNotificationRingtone)
+                            addToArrayListUnique(Manifest.permission.READ_EXTERNAL_STORAGE, requiredPermissions);
                         break;
                     case disableScreenRotation:
                         addToArrayListUnique(Manifest.permission.WRITE_SETTINGS, requiredPermissions);
@@ -860,6 +863,8 @@ public class ActivityPermissions extends Activity
                 break;
             case Manifest.permission.READ_EXTERNAL_STORAGE:
                 for(String ruleName : getRulesUsing(Action.Action_Enum.playSound))
+                    usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
+                for(String ruleName : getRulesUsing(Action.Action_Enum.changeSoundProfile))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
             case Manifest.permission.BIND_DEVICE_ADMIN:

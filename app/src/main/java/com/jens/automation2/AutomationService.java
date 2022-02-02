@@ -327,6 +327,12 @@ public class AutomationService extends Service implements OnInitListener
 		ReceiverCoordinator.startAllReceivers();
 
 		PackageReplacedReceiver.setHasServiceBeenRunning(true, this);
+
+		for(Rule r : Rule.getRuleCollection())
+		{
+			if(r.getsGreenLight(AutomationService.this))
+				r.activate(AutomationService.this, false);
+		}
 	}
 
 	protected void startLocationProvider()

@@ -4,10 +4,12 @@ import android.app.NotificationManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.media.AudioManager;
+import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -604,65 +606,107 @@ public class Profile implements Comparable<Profile>
 		try
 		{
 			AudioManager am = (AudioManager) Miscellaneous.getAnyContext().getSystemService(Context.AUDIO_SERVICE);
-			NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+			NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-			if(changeSoundMode)
+			if (changeSoundMode)
 			{
-				if(am.getRingerMode() != soundMode)
+				if (am.getRingerMode() != soundMode)
 					return false;
 			}
 
-			if(changeDndMode && Build.VERSION.SDK_INT >= 23)
+			if (changeDndMode && Build.VERSION.SDK_INT >= 23)
 			{
-				if(mNotificationManager.getCurrentInterruptionFilter() != dndMode)
+				if (mNotificationManager.getCurrentInterruptionFilter() != dndMode)
 					return false;
 			}
 
-			if(changeVolumeMusicVideoGameMedia)
+			if (changeVolumeMusicVideoGameMedia)
 			{
-				if(am.getStreamVolume(AudioManager.STREAM_MUSIC) != volumeMusic)
+				if (am.getStreamVolume(AudioManager.STREAM_MUSIC) != volumeMusic)
 					return false;
 			}
 
-			if(changeVolumeNotifications)
+			if (changeVolumeNotifications)
 			{
-				if(am.getStreamVolume(AudioManager.STREAM_NOTIFICATION) != volumeNotifications)
+				if (am.getStreamVolume(AudioManager.STREAM_NOTIFICATION) != volumeNotifications)
 					return false;
 			}
 
-			if(changeVolumeAlarms)
+			if (changeVolumeAlarms)
 			{
-				if(am.getStreamVolume(AudioManager.STREAM_ALARM) != volumeAlarms)
+				if (am.getStreamVolume(AudioManager.STREAM_ALARM) != volumeAlarms)
 					return false;
 			}
 
-//			if(changeIncomingCallsRingtone)
-//			{
-//				if (incomingCallsRingtone != null)
-//				{
-//					applyRingTone(incomingCallsRingtone, RingtoneManager.TYPE_RINGTONE, context);
-//				}
-//			}
-
-			if(changeVibrateWhenRinging)
+			/*if (changeIncomingCallsRingtone)
 			{
-				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+				if (incomingCallsRingtone != null)
+				{
+					Uri ringtone_uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
+
+					if (ringtone_uri != null)
+					{
+						// if ringtone_uri is null get Default Ringtone
+						ringtone_uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+
+						Ringtone currentRingtone = RingtoneManager.getRingtone(context, ringtone_uri);
+						String title = currentRingtone.getTitle(context);
+*//*						Ringtone desiredRingtone = RingtoneManager.getRingtone(context, Uri.fromFile(notificationRingtone));
+						boolean result = currentRingtone.equals(desiredRingtone);*//*
+
+						Uri desired_ringtone = MediaStore.Audio.Media.getContentUriForPath(incomingCallsRingtone.getAbsolutePath());
+
+//						File currentRingtoneFile = new File(Miscellaneous.getRealPathFromURI(context, ringtone_uri));
+						String currentChecksum = Miscellaneous.checksumSha(ringtone_uri.getPath());
+						String desiredChecksum = Miscellaneous.checksumSha(incomingCallsRingtone.getAbsolutePath());
+
+						if (!currentChecksum.equals(desiredChecksum))
+							return false;
+					}
+				}
+			}*/
+
+			if (changeVibrateWhenRinging)
+			{
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
 				{
 					int currentSetting = android.provider.Settings.System.getInt(context.getContentResolver(), "vibrate_when_ringing");
-					if(currentSetting != Miscellaneous.boolToInt(vibrateWhenRinging))
+					if (currentSetting != Miscellaneous.boolToInt(vibrateWhenRinging))
 						return false;
 				}
 				else
 				{
 					int currentSetting = am.getVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER);
-					if(currentSetting != Miscellaneous.boolToInt(vibrateWhenRinging))
+					if (currentSetting != Miscellaneous.boolToInt(vibrateWhenRinging))
 						return false;
 				}
 			}
 
-//			if(changeNotificationRingtone)
-//				if(notificationRingtone != null)
-//					applyRingTone(notificationRingtone, RingtoneManager.TYPE_NOTIFICATION, context);
+			/*if (changeNotificationRingtone)
+			{
+				if (notificationRingtone != null)
+				{
+					Uri ringtone_uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION);
+
+					if (ringtone_uri == null)
+					{
+						// if ringtone_uri is null get Default Ringtone
+						ringtone_uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+
+						File currentRingtone = new File(Settings.System.DEFAULT_NOTIFICATION_URI.getPath());
+
+//						File currentRingtone = new File(Miscellaneous.getRealPathFromURI(context, ringtone_uri));
+
+						String currentChecksum = Miscellaneous.checksumSha(currentRingtone.getAbsolutePath());
+						String desiredChecksum = Miscellaneous.checksumSha(notificationRingtone.getAbsolutePath());
+
+						if(!currentChecksum.equals(desiredChecksum))
+							return false;
+					}
+					else
+						return false;
+				}
+			}*/
 
 			if(changeScreenLockUnlockSound)
 			{
