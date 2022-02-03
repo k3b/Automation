@@ -5,3 +5,5 @@
 * Fixed: Translation bug in dutch variables text
 * Fixed: Variables were not replaced when sending text messages
 * Fixed: Service wouldn't always start after device has been powered on
+* Fixed: Set ringtones on Android 11 and above
+* Fixed: Permission read storage required for changing ringtones

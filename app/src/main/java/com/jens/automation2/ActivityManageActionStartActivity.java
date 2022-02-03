@@ -1,5 +1,6 @@
 package com.jens.automation2;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -12,6 +13,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.MotionEvent;
@@ -29,6 +31,8 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.jens.automation2.Action.Action_Enum;
 
@@ -54,6 +58,8 @@ public class ActivityManageActionStartActivity extends Activity
 	final String urlShowExamples = "https://server47.de/automation/examples_startProgram.html";
 	final static String startByActivityString = "0";
 	final static String startByBroadcastString = "1";
+
+	final static int requestCodeForRequestQueryAllPackagesPermission = 4711;
 	
 	private class CustomPackageInfo extends PackageInfo implements Comparable<CustomPackageInfo>
 	{
@@ -331,6 +337,13 @@ public class ActivityManageActionStartActivity extends Activity
 		return alertDialog;
 	}
 
+	void getAppList()
+	{
+		GetActivityListTask getActivityListTask = new GetActivityListTask();
+		getActivityListTask.execute();
+		progressDialog = ProgressDialog.show(ActivityManageActionStartActivity.this, "", ActivityManageActionStartActivity.this.getResources().getString(R.string.gettingListOfInstalledApplications));
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -364,9 +377,13 @@ public class ActivityManageActionStartActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				GetActivityListTask getActivityListTask = new GetActivityListTask();
-				getActivityListTask.execute();
-				progressDialog = ProgressDialog.show(ActivityManageActionStartActivity.this, "", ActivityManageActionStartActivity.this.getResources().getString(R.string.gettingListOfInstalledApplications));
+				int targetSdkVersion = getApplicationContext().getApplicationInfo().targetSdkVersion;
+				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && targetSdkVersion >= 30)
+				{
+					requestPermissions(new String[] {Manifest.permission.QUERY_ALL_PACKAGES}, requestCodeForRequestQueryAllPackagesPermission);
+				}
+				else
+					getAppList();
 			}
 		});
 		
@@ -659,6 +676,24 @@ public class ActivityManageActionStartActivity extends Activity
 		{
 			progressDialog.dismiss();
 			getActionStartActivityDialog1Application().show();
+		}
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+	{
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+		if(requestCode == requestCodeForRequestQueryAllPackagesPermission)
+		{
+			for(int i = 0; i < permissions.length; i++)
+			{
+				if(permissions[i].equals(Manifest.permission.QUERY_ALL_PACKAGES) && grantResults[i] == PackageManager.PERMISSION_GRANTED)
+				{
+					getAppList();
+					break;
+				}
+			}
 		}
 	}
 }

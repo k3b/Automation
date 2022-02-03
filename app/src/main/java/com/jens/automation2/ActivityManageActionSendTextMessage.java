@@ -1,5 +1,6 @@
 package com.jens.automation2;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -123,7 +124,7 @@ public class ActivityManageActionSendTextMessage extends Activity
 		{
 			for(int i=0; i<permissions.length; i++)
 			{
-				if(permissions[i].equals("android.permission.READ_CONTACTS"))
+				if(permissions[i].equals(Manifest.permission.READ_CONTACTS))
 				{
 					if(grantResults[i] == PackageManager.PERMISSION_GRANTED)
 					{

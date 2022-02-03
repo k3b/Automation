@@ -353,6 +353,12 @@ public class ActivityPermissions extends Activity
             if(!havePermission(Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, workingContext))
                 addToArrayListUnique(Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, requiredPermissions);
 
+            for(Profile p : Profile.getProfileCollection())
+            {
+                if(p.changeIncomingCallsRingtone || p.changeNotificationRingtone)
+                    addToArrayListUnique(Manifest.permission.READ_EXTERNAL_STORAGE, requiredPermissions);
+            }
+
             if (!onlyGeneral)
             {
                 for (Rule rule : Rule.getRuleCollection())
@@ -864,8 +870,32 @@ public class ActivityPermissions extends Activity
             case Manifest.permission.READ_EXTERNAL_STORAGE:
                 for(String ruleName : getRulesUsing(Action.Action_Enum.playSound))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
+
                 for(String ruleName : getRulesUsing(Action.Action_Enum.changeSoundProfile))
-                    usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
+                {
+                    Rule tempRule = Rule.getByName(ruleName);
+                    if(tempRule != null)
+                    {
+                        for (Action a : tempRule.getActionSet())
+                        {
+                            if (a.getAction().equals(Action.Action_Enum.changeSoundProfile))
+                            {
+                                Profile p = Profile.getByName(a.getParameter2());
+                                if (p.changeIncomingCallsRingtone || p.changeNotificationRingtone)
+                                    usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
+                            }
+                        }
+                    }
+                }
+
+                for(Profile p : Profile.getProfileCollection())
+                {
+                    if(p.changeIncomingCallsRingtone || p.changeNotificationRingtone)
+                    {
+                        usingElements.add(String.format(getResources().getString(R.string.profileXrequiresThis), p.getName()));
+                    }
+                }
+
                 break;
             case Manifest.permission.BIND_DEVICE_ADMIN:
                 for(String ruleName : getRulesUsing(Action.Action_Enum.turnScreenOnOrOff))

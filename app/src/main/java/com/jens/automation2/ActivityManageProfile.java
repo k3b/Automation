@@ -44,6 +44,8 @@ public class ActivityManageProfile extends Activity
 	Button bChangeSoundIncomingCalls, bChangeSoundNotifications, bSaveProfile;
 	TextView tvIncomingCallsRingtone, tvNotificationsRingtone;
 	EditText etName;
+
+	boolean guiUpdate = false;
 	
 	File incomingCallsRingtone = null, notificationsRingtone = null;
 	
@@ -368,6 +370,8 @@ public class ActivityManageProfile extends Activity
 	
 	public void editProfile(Profile profileToEdit)
 	{
+		guiUpdate = true;
+
 		etName.setText(ActivityMainProfiles.profileToEdit.getName());
 		checkBoxChangeSoundMode.setChecked(ActivityMainProfiles.profileToEdit.getChangeSoundMode());
 		checkBoxChangeDnd.setChecked(ActivityMainProfiles.profileToEdit.getChangeDndMode());
@@ -393,6 +397,8 @@ public class ActivityManageProfile extends Activity
 		
 		setIncomingCallsRingtone(ActivityMainProfiles.profileToEdit.getIncomingCallsRingtone());		
 		setNotificationsRingtone(ActivityMainProfiles.profileToEdit.getNotificationRingtone());
+
+		guiUpdate = false;
 	}
 	
 	private boolean loadFormValuesToVariable()

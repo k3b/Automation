@@ -695,4 +695,6 @@
     <string name="musicCheckFrequencyTitle">Controleer frequentie [ms]</string>
     <string name="musicCheckFrequencySummary">Milliseconden tussen controles</string>
     <string name="musicPlayingDetection">Detectie van het afspelen van muziek</string>
+    <string name="locationNotWorkingOn12">Het verkrijgen van de locatie lijkt momenteel niet te werken op Android 12-apparaten. Als het niet voor je werkt, spijt het me. Ik zal proberen dit op te lossen zodra ik de oorzaak ken. Dus als de donut niet stopt met draaien, weet je waarom.</string>
+    <string name="profileXrequiresThis">Profiel \"%1$s\" vereist dit.</string>
 </resources>

@@ -567,6 +567,7 @@
     <string name="android.permission.ACCESS_NOTIFICATION_POLICY">Override do not disturb policy</string>
     <string name="theseAreThePermissionsRequired">These are the permissions required:</string>
     <string name="ruleXrequiresThis">Rule \"%1$s\" requires this.</string>
+    <string name="profileXrequiresThis">Profile \"%1$s\" requires this.</string>
     <string name="helpTextActivityDetection">This feature can detect if you\'re currently on the go and if it is on foot or in which type of vehicle (to a certain extent). The feature is not fully built into Automation, but is provided by Google Play Services. Technically it does not give a yes/no result, but return a percentage to which level it is sure it detected you\'re status. You can setup the percentage value from which Automation will accept a result. Two remarks: 1) More than 1 status could occur at the same time. For example you might be WALKING inside a driving bus. 2) This sensor is relatively expensive in terms of battery usage. If it is possible you might consider using alternatives, e.g. require your car\'s handsfree device to be connected to detect you\'re driving.</string>
     <string name="sendTextMessage">Send text message</string>
     <string name="textToSend">Text to send</string>

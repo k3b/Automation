@@ -748,4 +748,15 @@ public class Rule implements Comparable<Rule>
 	{
 		return ActivityPermissions.havePermissionsForRule(this, Miscellaneous.getAnyContext());
 	}
+
+	public static Rule getByName(String ruleName)
+	{
+		for(Rule r : Rule.getRuleCollection())
+		{
+			if(r.getName().equals(ruleName))
+				return r;
+		}
+
+		return null;
+	}
 }

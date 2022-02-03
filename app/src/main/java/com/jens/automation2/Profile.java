@@ -308,29 +308,31 @@ public class Profile implements Comparable<Profile>
 
 		ContentValues values = new ContentValues();
 		values.put(MediaStore.MediaColumns.DATA, ringtoneFile.getAbsolutePath());
-//		values.put(MediaStore.MediaColumns.TITLE, context.getResources().getString(R.string.app_name) + " ringtone");
-//		values.put(MediaStore.MediaColumns.TITLE, ringtoneFile.getName().replace(".mp3", "").replace(".", ""));
 		values.put(MediaStore.MediaColumns.TITLE, ringtoneFile.getName());
-//		values.put(MediaStore.MediaColumns.MIME_TYPE, "audio/*");
 		values.put(MediaStore.MediaColumns.MIME_TYPE, "audio/mp3");
 		values.put(MediaStore.MediaColumns.SIZE, ringtoneFile.length());
-//		values.put(MediaStore.Audio.Media.ARTIST, R.string.app_name);
 		values.put(MediaStore.Audio.Media.IS_RINGTONE, ringtoneType == RingtoneManager.TYPE_RINGTONE);
 		values.put(MediaStore.Audio.Media.IS_NOTIFICATION, ringtoneType == RingtoneManager.TYPE_NOTIFICATION);
 		values.put(MediaStore.Audio.Media.IS_ALARM, false);
 		values.put(MediaStore.Audio.Media.IS_MUSIC, false);
 
-		Uri existingRingTone = MediaStore.Audio.Media.getContentUriForPath(ringtoneFile.getAbsolutePath());
-		if(existingRingTone != null)
-			context.getContentResolver().delete(existingRingTone, MediaStore.MediaColumns.DATA + "=\"" + ringtoneFile.getAbsolutePath() + "\"", null);
-		Uri newRingTone = context.getContentResolver().insert(existingRingTone, values);
-
 		try
 		{
+			Uri newRingTone = null;
+
+			//TODO: This part needs to be made compatible with Android 11 and above.
+			if(Build.VERSION.SDK_INT > 30)
+			{
+				Uri existingRingTone = MediaStore.Audio.Media.getContentUriForPath(ringtoneFile.getAbsolutePath());
+
+				if (existingRingTone != null)
+					context.getContentResolver().delete(existingRingTone, MediaStore.MediaColumns.DATA + "=\"" + ringtoneFile.getAbsolutePath() + "\"", null);
+
+				newRingTone = context.getContentResolver().insert(existingRingTone, values);
+			}
+
 			RingtoneManager.setActualDefaultRingtoneUri(context, ringtoneType, newRingTone);
 			Miscellaneous.logEvent("i", "Profile", "Ringtone set to: " + newRingTone.toString(), 1);
-//			Ringtone tone = RingtoneManager.getRingtone(context, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE));
-//			tone.play();
 			return true;
 		}
 		catch (Throwable t)
