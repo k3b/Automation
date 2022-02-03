@@ -699,4 +699,5 @@
     <string name="musicPlayingDetection">Rilevamento della riproduzione musicale</string>
     <string name="profileXrequiresThis">Il profilo \"%1$s\" lo richiede.</string>
     <string name="locationNotWorkingOn12">Ottenere la posizione non sembra funzionare su dispositivi Android 12 al momento. Se non funziona per te, mi dispiace. Cercherò di risolvere questo problema non appena conoscerò la causa. Quindi, se la ciambella non smette di girare, sai perché.</string>
+    <string name="lastProfile">Ultimo profilo:</string>
 </resources>
