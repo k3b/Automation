@@ -51,7 +51,7 @@
 	    android:background="@color/barBackgroundColor" >
 	
 	    <TextView
-	        android:id="@+id/tvTimeFrameHelpText"
+	        android:id="@+id/tvLastRule"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="@string/ruleList"

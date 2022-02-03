@@ -42,7 +42,7 @@ public class ActivityMainScreen extends ActivityGeneric
 
 	ToggleButton toggleService, tbLockSound;
 	Button bShowHelp, bPrivacy, bAddSoundLockTIme, bDonate, bControlCenter;
-	TextView tvActivePoi, tvClosestPoi, tvLastRule, tvMainScreenNotePermissions, tvMainScreenNoteFeaturesFromOtherFlavor, tvMainScreenNoteLocationImpossibleBlameGoogle, tvMainScreenNoteNews, tvLockSoundDuration;
+	TextView tvActivePoi, tvClosestPoi, tvLastRule, tvLastProfile, tvMainScreenNotePermissions, tvMainScreenNoteFeaturesFromOtherFlavor, tvMainScreenNoteLocationImpossibleBlameGoogle, tvMainScreenNoteNews, tvLockSoundDuration;
 
 	ListView lvRuleHistory;
 	ArrayAdapter<Rule> ruleHistoryListViewAdapter;
@@ -68,7 +68,8 @@ public class ActivityMainScreen extends ActivityGeneric
 		tvActivePoi = (TextView) findViewById(R.id.tvActivePoi);
 		tvClosestPoi = (TextView) findViewById(R.id.tvClosestPoi);
 		lvRuleHistory = (ListView) findViewById(R.id.lvRuleHistory);
-		tvLastRule = (TextView) findViewById(R.id.tvTimeFrameHelpText);
+		tvLastRule = (TextView) findViewById(R.id.tvLastRule);
+		tvLastProfile = (TextView)findViewById(R.id.tvLastProfile);
 		tvMainScreenNotePermissions = (TextView) findViewById(R.id.tvMainScreenNotePermissions);
 		tvMainScreenNoteFeaturesFromOtherFlavor = (TextView) findViewById(R.id.tvMainScreenNoteFeaturesFromOtherFlavor);
 		tvMainScreenNoteLocationImpossibleBlameGoogle = (TextView) findViewById(R.id.tvMainScreenNoteLocationImpossibleBlameGoogle);
@@ -365,6 +366,16 @@ public class ActivityMainScreen extends ActivityGeneric
 				{
 					activityMainScreenInstance.tvLastRule.setText("n./a.");
 				}
+
+				try
+				{
+					activityMainScreenInstance.tvLastProfile.setText(Profile.getLastActivatedProfile().getName());
+					activityMainScreenInstance.updateListView();
+				}
+				catch (Exception e)
+				{
+					activityMainScreenInstance.tvLastRule.setText("n./a.");
+				}
 			}
 			else
 			{
@@ -373,6 +384,7 @@ public class ActivityMainScreen extends ActivityGeneric
 				activityMainScreenInstance.tvActivePoi.setText(activityMainScreenInstance.getResources().getString(R.string.serviceNotRunning));
 				activityMainScreenInstance.tvClosestPoi.setText("");
 				activityMainScreenInstance.tvLastRule.setText("");
+				activityMainScreenInstance.tvLastProfile.setText("");
 			}
 
 //			uiUpdateRunning = true;

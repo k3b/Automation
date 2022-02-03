@@ -776,4 +776,11 @@ public class Profile implements Comparable<Profile>
 		return this.oldName;
 	}
 
+	public static Profile getLastActivatedProfile()
+	{
+		if(Profile.profileActivationHistory != null && Profile.profileActivationHistory.size() > 0)
+			return Profile.profileActivationHistory.get(Profile.profileActivationHistory.size() - 1);
+		else
+			return null;
+	}
 }
