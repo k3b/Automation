@@ -529,6 +529,10 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.sound));
 			else if(types[i].toString().equals(Trigger_Enum.screenState.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.smartphone));
+			else if(types[i].toString().equals(Trigger_Enum.deviceStarts.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.alarm));
+			else if(types[i].toString().equals(Trigger_Enum.serviceStarts.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.alarm));
 			else
 				items.add(new Item(typesLong[i].toString(), R.drawable.placeholder));
 		}
@@ -593,7 +597,7 @@ public class ActivityManageRule extends Activity
 						booleanChoices = new String[]{getResources().getString(R.string.started), getResources().getString(R.string.stopped)};
 					else if(triggerType == Trigger_Enum.usb_host_connection)
 						booleanChoices = new String[]{getResources().getString(R.string.connected), getResources().getString(R.string.disconnected)};
-					else if(triggerType == Trigger_Enum.speed | triggerType == Trigger_Enum.noiseLevel | triggerType == Trigger_Enum.batteryLevel)
+					else if(triggerType == Trigger_Enum.speed || triggerType == Trigger_Enum.noiseLevel || triggerType == Trigger_Enum.batteryLevel)
 						booleanChoices = new String[]{getResources().getString(R.string.exceeds), getResources().getString(R.string.dropsBelow)};
 					else if(triggerType == Trigger_Enum.wifiConnection)
 					{
@@ -696,6 +700,20 @@ public class ActivityManageRule extends Activity
 					{
 						newTrigger.setTriggerType(Trigger_Enum.screenState);
 						getTriggerScreenStateDialog().show();
+						return;
+					}
+					else if(triggerType == Trigger_Enum.deviceStarts)
+					{
+						newTrigger.setTriggerType(Trigger_Enum.deviceStarts);
+						ruleToEdit.getTriggerSet().add(newTrigger);
+						refreshTriggerList();
+						return;
+					}
+					else if(triggerType == Trigger_Enum.serviceStarts)
+					{
+						newTrigger.setTriggerType(Trigger_Enum.serviceStarts);
+						ruleToEdit.getTriggerSet().add(newTrigger);
+						refreshTriggerList();
 						return;
 					}
 					else if(triggerType == Trigger_Enum.headsetPlugged)

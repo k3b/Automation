@@ -215,7 +215,7 @@ public class ReceiverCoordinator
                 Class testClass = Class.forName(ActivityManageRule.activityDetectionClassPath);
                 Miscellaneous.runMethodReflective("ActivityDetectionReceiver", "stopActivityDetectionReceiver", null);
             }
-            catch(ClassNotFoundException e)
+            catch(Exception e)
             {
                 // Nothing to do, just not stopping this one.
             }

@@ -3,7 +3,7 @@ package com.jens.automation2;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.os.Build;
-import android.os.Bundle;
+import android.os.SystemClock;
 import android.service.notification.StatusBarNotification;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -25,10 +25,6 @@ import com.jens.automation2.receivers.PhoneStatusListener;
 import com.jens.automation2.receivers.ProcessListener;
 import com.jens.automation2.receivers.ScreenStateReceiver;
 
-import static com.jens.automation2.Trigger.triggerParameter2Split;
-import static com.jens.automation2.receivers.NotificationListener.EXTRA_TEXT;
-import static com.jens.automation2.receivers.NotificationListener.EXTRA_TITLE;
-
 import org.apache.commons.lang3.StringUtils;
 
 import java.sql.Time;
@@ -38,8 +34,31 @@ import java.util.Date;
 
 public class Trigger
 {
-	public enum Trigger_Enum {
-		pointOfInterest, timeFrame, charging, batteryLevel, usb_host_connection, speed, noiseLevel, wifiConnection, process_started_stopped, airplaneMode, roaming, nfcTag, activityDetection, bluetoothConnection, headsetPlugged, notification, deviceOrientation, profileActive, screenState, musicPlaying, phoneCall; //phoneCall always needs to be at the very end because of Google's shitty so called privacy
+	public enum Trigger_Enum
+	{
+		pointOfInterest,
+		timeFrame,
+		charging,
+		batteryLevel,
+		usb_host_connection,
+		speed,
+		noiseLevel,
+		wifiConnection,
+		process_started_stopped,
+		airplaneMode,
+		roaming,
+		nfcTag,
+		activityDetection,
+		bluetoothConnection,
+		headsetPlugged,
+		notification,
+		deviceOrientation,
+		profileActive,
+		screenState,
+		musicPlaying,
+		deviceStarts,
+		serviceStarts,
+		phoneCall; //phoneCall always needs to be at the very end because of Google's shitty so called privacy
 
 		public String getFullName(Context context)
 		{
@@ -87,6 +106,10 @@ public class Trigger
 					return context.getResources().getString(R.string.musicPlaying);
 				case screenState:
 					return context.getResources().getString(R.string.screenState);
+				case deviceStarts:
+					return context.getResources().getString(R.string.deviceStarts);
+				case serviceStarts:
+					return context.getResources().getString(R.string.serviceStarts);
 				default:
 					return "Unknown";
 			}
@@ -188,6 +211,14 @@ public class Trigger
 					break;
 				case screenState:
 					if(!checkScreenState())
+						result = false;
+					break;
+				case deviceStarts:
+					if(!checkDeviceStarts())
+						result = false;
+					break;
+				case serviceStarts:
+					if(!checkServiceStarts())
 						result = false;
 					break;
 				default:
@@ -341,6 +372,16 @@ public class Trigger
 	boolean checkMusicPlaying()
 	{
 		return triggerParameter == MediaPlayerListener.isAudioPlaying(Miscellaneous.getAnyContext());
+	}
+
+	boolean checkDeviceStarts()
+	{
+		return checkServiceStarts() && !Settings.deviceStartDone;
+	}
+
+	boolean checkServiceStarts()
+	{
+		return !Settings.serviceStartDone;
 	}
 
 	boolean checkProfileActive()
@@ -1546,9 +1587,13 @@ public class Trigger
 					default:
 						state = Miscellaneous.getAnyContext().getString(R.string.unknown);
 				}
-
-				returnString.append(String.format(Miscellaneous.getAnyContext().getString(R.string.screenIs), state));
-
+			case deviceStarts:
+				// This type doesn't have an activate/deactivate equivalent
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.deviceHasJustStarted));
+				break;
+			case serviceStarts:
+				// This type doesn't have an activate/deactivate equivalent
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.serviceHasJustStarted));
 				break;
 			default:
 				returnString.append("error");

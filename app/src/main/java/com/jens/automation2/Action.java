@@ -21,108 +21,109 @@ public class Action
 	public static final String intentPairSeparator = "intPairSplit";
 	public static final String vibrateSeparator = ",";
 
-	public enum Action_Enum {	
-								setWifi,
-								setBluetooth,
-								setUsbTethering,
-								setWifiTethering,
-								setBluetoothTethering,
-								setDisplayRotation,
-								turnWifiOn,turnWifiOff,
-								turnBluetoothOn,turnBluetoothOff,
-								triggerUrl,
-								changeSoundProfile,
-								turnUsbTetheringOn,turnUsbTetheringOff,
-								turnWifiTetheringOn,turnWifiTetheringOff,
-								enableScreenRotation,disableScreenRotation,
-								startOtherActivity,
-								waitBeforeNextAction,
-								turnScreenOnOrOff,
-								setAirplaneMode,
-								setDataConnection,
-								speakText,
-								playMusic,
-								controlMediaPlayback,
-								setScreenBrightness,
-								playSound,
-								vibrate,
-								createNotification,
-								closeNotification,
-								sendTextMessage;
-								
-								public String getFullName(Context context)
-								{
-									switch(this)
-									{
-										case setWifi:
-											return context.getResources().getString(R.string.actionSetWifi);
-										case setBluetooth:
-											return context.getResources().getString(R.string.actionSetBluetooth);
-										case setWifiTethering:
-											return context.getResources().getString(R.string.actionSetWifiTethering);
-										case setBluetoothTethering:
-											return context.getResources().getString(R.string.actionSetBluetoothTethering);
-										case setUsbTethering:
-											return context.getResources().getString(R.string.actionSetUsbTethering);
-										case setDisplayRotation:
-											return context.getResources().getString(R.string.actionSetDisplayRotation);
-										case turnWifiOn:
-											return context.getResources().getString(R.string.actionTurnWifiOn);
-										case turnWifiOff:
-											return context.getResources().getString(R.string.actionTurnWifiOff);
-										case turnBluetoothOn:
-											return context.getResources().getString(R.string.actionTurnBluetoothOn);
-										case turnBluetoothOff:
-											return context.getResources().getString(R.string.actionTurnBluetoothOff);
-										case triggerUrl:
-											return context.getResources().getString(R.string.actionTriggerUrl);
-										case changeSoundProfile:
-											return context.getResources().getString(R.string.actionChangeSoundProfile);
-										case turnUsbTetheringOn:
-											return context.getResources().getString(R.string.actionTurnUsbTetheringOn);
-										case turnUsbTetheringOff:
-											return context.getResources().getString(R.string.actionTurnUsbTetheringOff);
-										case turnWifiTetheringOn:
-											return context.getResources().getString(R.string.actionTurnWifiTetheringOn);
-										case turnWifiTetheringOff:
-											return context.getResources().getString(R.string.actionTurnWifiTetheringOff);
-										case enableScreenRotation:
-											return context.getResources().getString(R.string.actionEnableScreenRotation);
-										case disableScreenRotation:
-											return context.getResources().getString(R.string.actionDisableScreenRotation);
-										case startOtherActivity:
-											return context.getResources().getString(R.string.startOtherActivity);
-										case waitBeforeNextAction:
-											return context.getResources().getString(R.string.waitBeforeNextAction);
-										case turnScreenOnOrOff:
-											return context.getResources().getString(R.string.turnScreenOnOrOff);
-										case vibrate:
-											return context.getResources().getString(R.string.vibrate);
-										case setAirplaneMode:
-											return context.getResources().getString(R.string.airplaneMode);
-										case setDataConnection:
-											return context.getResources().getString(R.string.actionDataConnection);
-										case speakText:
-											return context.getResources().getString(R.string.actionSpeakText);
-										case playMusic:
-											return context.getResources().getString(R.string.actionPlayMusic);
-										case controlMediaPlayback:
-											return context.getResources().getString(R.string.actionMediaControl);
-										case playSound:
-											return context.getResources().getString(R.string.playSound);
-										case sendTextMessage:
-											return context.getResources().getString(R.string.sendTextMessage);
-										case setScreenBrightness:
-											return context.getResources().getString(R.string.setScreenBrightness);
-										case createNotification:
-											return context.getResources().getString(R.string.createNotification);
-										case closeNotification:
-											return context.getResources().getString(R.string.closeNotifications);
-										default:
-											return "Unknown";
-									}
-								}
-							};
+	public enum Action_Enum
+	{
+		setWifi,
+		setBluetooth,
+		setUsbTethering,
+		setWifiTethering,
+		setBluetoothTethering,
+		setDisplayRotation,
+		turnWifiOn,turnWifiOff,
+		turnBluetoothOn,turnBluetoothOff,
+		triggerUrl,
+		changeSoundProfile,
+		turnUsbTetheringOn,turnUsbTetheringOff,
+		turnWifiTetheringOn,turnWifiTetheringOff,
+		enableScreenRotation,disableScreenRotation,
+		startOtherActivity,
+		waitBeforeNextAction,
+		turnScreenOnOrOff,
+		setAirplaneMode,
+		setDataConnection,
+		speakText,
+		playMusic,
+		controlMediaPlayback,
+		setScreenBrightness,
+		playSound,
+		vibrate,
+		createNotification,
+		closeNotification,
+		sendTextMessage;
+
+		public String getFullName(Context context)
+		{
+			switch(this)
+			{
+				case setWifi:
+					return context.getResources().getString(R.string.actionSetWifi);
+				case setBluetooth:
+					return context.getResources().getString(R.string.actionSetBluetooth);
+				case setWifiTethering:
+					return context.getResources().getString(R.string.actionSetWifiTethering);
+				case setBluetoothTethering:
+					return context.getResources().getString(R.string.actionSetBluetoothTethering);
+				case setUsbTethering:
+					return context.getResources().getString(R.string.actionSetUsbTethering);
+				case setDisplayRotation:
+					return context.getResources().getString(R.string.actionSetDisplayRotation);
+				case turnWifiOn:
+					return context.getResources().getString(R.string.actionTurnWifiOn);
+				case turnWifiOff:
+					return context.getResources().getString(R.string.actionTurnWifiOff);
+				case turnBluetoothOn:
+					return context.getResources().getString(R.string.actionTurnBluetoothOn);
+				case turnBluetoothOff:
+					return context.getResources().getString(R.string.actionTurnBluetoothOff);
+				case triggerUrl:
+					return context.getResources().getString(R.string.actionTriggerUrl);
+				case changeSoundProfile:
+					return context.getResources().getString(R.string.actionChangeSoundProfile);
+				case turnUsbTetheringOn:
+					return context.getResources().getString(R.string.actionTurnUsbTetheringOn);
+				case turnUsbTetheringOff:
+					return context.getResources().getString(R.string.actionTurnUsbTetheringOff);
+				case turnWifiTetheringOn:
+					return context.getResources().getString(R.string.actionTurnWifiTetheringOn);
+				case turnWifiTetheringOff:
+					return context.getResources().getString(R.string.actionTurnWifiTetheringOff);
+				case enableScreenRotation:
+					return context.getResources().getString(R.string.actionEnableScreenRotation);
+				case disableScreenRotation:
+					return context.getResources().getString(R.string.actionDisableScreenRotation);
+				case startOtherActivity:
+					return context.getResources().getString(R.string.startOtherActivity);
+				case waitBeforeNextAction:
+					return context.getResources().getString(R.string.waitBeforeNextAction);
+				case turnScreenOnOrOff:
+					return context.getResources().getString(R.string.turnScreenOnOrOff);
+				case vibrate:
+					return context.getResources().getString(R.string.vibrate);
+				case setAirplaneMode:
+					return context.getResources().getString(R.string.airplaneMode);
+				case setDataConnection:
+					return context.getResources().getString(R.string.actionDataConnection);
+				case speakText:
+					return context.getResources().getString(R.string.actionSpeakText);
+				case playMusic:
+					return context.getResources().getString(R.string.actionPlayMusic);
+				case controlMediaPlayback:
+					return context.getResources().getString(R.string.actionMediaControl);
+				case playSound:
+					return context.getResources().getString(R.string.playSound);
+				case sendTextMessage:
+					return context.getResources().getString(R.string.sendTextMessage);
+				case setScreenBrightness:
+					return context.getResources().getString(R.string.setScreenBrightness);
+				case createNotification:
+					return context.getResources().getString(R.string.createNotification);
+				case closeNotification:
+					return context.getResources().getString(R.string.closeNotifications);
+				default:
+					return "Unknown";
+			}
+		}
+	};
 	
 	private Action_Enum action;
 	private boolean parameter1 = false;

@@ -32,6 +32,7 @@ import com.jens.automation2.receivers.PackageReplacedReceiver;
 import com.jens.automation2.receivers.PhoneStatusListener;
 
 import java.util.Calendar;
+import java.util.Set;
 
 @SuppressLint("NewApi")
 public class AutomationService extends Service implements OnInitListener
@@ -192,6 +193,9 @@ public class AutomationService extends Service implements OnInitListener
 		{
 			Bundle b = intent.getExtras();
 			startAtBoot = b.getBoolean("startAtBoot", false);
+
+			if(startAtBoot)
+				Settings.deviceStartDone = false;
 		}
 
 		if (checkStartupRequirements(this, startAtBoot))
@@ -211,12 +215,9 @@ public class AutomationService extends Service implements OnInitListener
 				ActivityMainScreen.updateMainScreen();
 
             this.isRunning = true;
+
 			Miscellaneous.logEvent("i", "Service", this.getResources().getString(R.string.serviceStarted) + " VERSION_CODE: " + BuildConfig.VERSION_CODE + ", VERSION_NAME: " + BuildConfig.VERSION_NAME + ", flavor: " + BuildConfig.FLAVOR, 1);
 			Toast.makeText(this, this.getResources().getString(R.string.serviceStarted), Toast.LENGTH_LONG).show();
-			// ********** Test area **********
-//			Miscellaneous.logEvent("i", "setNetworkType", "bin hier.", 3);
-//			Actions.setData(true);
-			// ********** Test area **********
 
 			/*
 				On normal phones the app is supposed to automatically restart in case of any problems.
@@ -315,6 +316,8 @@ public class AutomationService extends Service implements OnInitListener
 
 	private void startUpRoutine()
 	{
+		Settings.serviceStartDone = false;
+
 		checkForTtsEngine();
 		checkForPermissions();
 		checkForRestrictedFeatures();
@@ -333,6 +336,9 @@ public class AutomationService extends Service implements OnInitListener
 			if(r.getsGreenLight(AutomationService.this))
 				r.activate(AutomationService.this, false);
 		}
+
+		Settings.serviceStartDone = true;
+		Settings.deviceStartDone = true;
 	}
 
 	protected void startLocationProvider()

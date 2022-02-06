@@ -12,7 +12,7 @@ import java.util.Set;
 public class Settings implements SharedPreferences
 {
 	public static final int rulesThatHaveBeenRanHistorySize = 10;
-	public final static int lockSoundChangesInterval = 15;
+	public static final int lockSoundChangesInterval = 15;
 	public static final int newsPollEveryXDays = 3;
 	public static final int newsDisplayForXDays = 3;
 	public static final int updateCheckFrequencyDays = 7;
@@ -77,7 +77,13 @@ public class Settings implements SharedPreferences
 	public static ArrayList<String> whatHasBeenDone;
 
 	/*
-		Generic settings valid for all installations and not changable
+		Not saved permanently.
+	 */
+	public static boolean deviceStartDone = true;	// by default assume device has not just been started
+	public static boolean serviceStartDone = false;
+
+	/*
+		Generic settings valid for all installations and not changeable
 	 */
 	public static final String dateFormat = "E dd.MM.yyyy HH:mm:ss:ssss";
 
@@ -600,5 +606,4 @@ public class Settings implements SharedPreferences
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 }
