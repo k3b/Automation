@@ -698,4 +698,8 @@
     <string name="locationNotWorkingOn12">Het verkrijgen van de locatie lijkt momenteel niet te werken op Android 12-apparaten. Als het niet voor je werkt, spijt het me. Ik zal proberen dit op te lossen zodra ik de oorzaak ken. Dus als de donut niet stopt met draaien, weet je waarom.</string>
     <string name="profileXrequiresThis">Profiel \"%1$s\" vereist dit.</string>
     <string name="lastProfile">Laatste profiel:</string>
+    <string name="deviceHasJustStarted">apparaat is net gestart</string>
+    <string name="serviceHasJustStarted">service is net begonnen</string>
+    <string name="serviceStarts">Service start</string>
+    <string name="deviceStarts">Apparaat start</string>
 </resources>

@@ -700,4 +700,8 @@
     <string name="profileXrequiresThis">Questo è richiesto dal profilo \"%1$s\".</string>
     <string name="locationNotWorkingOn12">Ottenere la posizione non sembra funzionare su dispositivi Android 12 al momento. Se non funziona per te, mi dispiace. Cercherò di risolvere questo problema non appena conoscerò la causa. Quindi, se cerchio rotante non smette di girare, sai perché.</string>
     <string name="lastProfile">Ultimo profilo:</string>
+    <string name="deviceStarts">Device starts</string>
+    <string name="serviceStarts">Avvio del servizio</string>
+    <string name="deviceHasJustStarted">Il dispositivo è appena stato avviato</string>
+    <string name="serviceHasJustStarted">il servizio è appena iniziato</string>
 </resources>

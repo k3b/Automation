@@ -700,4 +700,8 @@
     <string name="locationNotWorkingOn12">Das Abrufen des Standorts scheint unter Android 12 derzeit nicht zu funktionieren. Wenn es bei Ihnen nicht klappt, tut mir das leid. Ich werde versuchen die Ursache zu beheben, sobald mir die Ursache bekannt ist. Wenn der Donut bei Ihnen also nicht aufhört sich zu drehen, wissen Sie warum.</string>
     <string name="profileXrequiresThis">Profil \"%1$s\" benötigt dies.</string>
     <string name="lastProfile">Letztes Profil:</string>
+    <string name="serviceStarts">Dienst startet</string>
+    <string name="deviceStarts">Gerät startet</string>
+    <string name="deviceHasJustStarted">Gerät ist gerade gestartet</string>
+    <string name="serviceHasJustStarted">Dienst ist gerade gestartet</string>
 </resources>

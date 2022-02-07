@@ -1,0 +1,2 @@
+* New trigger: device has just started
+* New trigger: service has just started
