@@ -89,6 +89,11 @@ public class NotificationListener extends NotificationListenerService// implemen
         {
             lastNotification = convertNotificationToSimpleNotification(created, sbn);
 
+            if(created)
+                Miscellaneous.logEvent("i", "New notification", lastNotification.toString(), 5);
+            else
+                Miscellaneous.logEvent("i", "Notification removed", lastNotification.toString(), 5);
+
             ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.notification);
             for (int i = 0; i < ruleCandidates.size(); i++)
             {

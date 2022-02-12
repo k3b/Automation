@@ -376,7 +376,8 @@ public class Rule implements Comparable<Rule>
 				if (!oneTrigger.applies(null, context))
 					return false;
 			}
-			
+
+			Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), String.format("Rule %1$s generally applies currently. Checking if it's really due, yet will be done separately.", this.getName()), 3);
 			return true;
 		}
 		
