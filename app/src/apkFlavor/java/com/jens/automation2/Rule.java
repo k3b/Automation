@@ -351,7 +351,10 @@ public class Rule implements Comparable<Rule>
 		if(applies(context))
 		{
 			if(hasNotAppliedSinceLastExecution())
+			{
+				Miscellaneous.logEvent("i", "getsGreenLight()", "Rule " + getName() + " applies and has flipped since its last execution.", 4);
 				return true;
+			}
 			else
 				Miscellaneous.logEvent("i", "getsGreenLight()", "Rule " + getName() + " has not flipped since its last execution.", 4);
 		}
