@@ -199,6 +199,7 @@ public class ActivityMainRules extends ActivityGeneric
 							AutomationService runContext = AutomationService.getInstance();
 							if(runContext != null)
 							{
+								Miscellaneous.logEvent("i", "ActivityMainRules", "Initiating manual execution of rule " + ruleThisIsAbout.getName(), 3);
 								ruleThisIsAbout.activate(runContext, true);
 								break;
 							}

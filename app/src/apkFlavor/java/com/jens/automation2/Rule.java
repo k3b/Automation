@@ -351,7 +351,10 @@ public class Rule implements Comparable<Rule>
 		if(applies(context))
 		{
 			if(hasNotAppliedSinceLastExecution())
+			{
+				Miscellaneous.logEvent("i", "getsGreenLight()", "Rule " + getName() + " applies and has flipped since its last execution.", 4);
 				return true;
+			}
 			else
 				Miscellaneous.logEvent("i", "getsGreenLight()", "Rule " + getName() + " has not flipped since its last execution.", 4);
 		}
@@ -434,7 +437,7 @@ public class Rule implements Comparable<Rule>
 			
 			Thread.setDefaultUncaughtExceptionHandler(Miscellaneous.uncaughtExceptionHandler);
 
-			// without this line debugger will - for some reason - skip all breakpoints in this class
+			// without this line the debugger will - for some reason - skip all breakpoints in this class
 			if(android.os.Debug.isDebuggerConnected())
 				android.os.Debug.waitForDebugger();
 			
@@ -442,7 +445,7 @@ public class Rule implements Comparable<Rule>
 	        	Looper.prepare();
 
 			setLastExecution(Calendar.getInstance());
-			wasActivated = activateInternally((AutomationService)params[0], (Boolean)params[1]);
+			wasActivated = activateInternally((AutomationService)params[0]);
 
 			return null;
 		}
@@ -477,66 +480,57 @@ public class Rule implements Comparable<Rule>
 		 * Will activate the rule. Should be called by a separate execution thread
 		 * @param automationService
 		 */
-		protected boolean activateInternally(AutomationService automationService, boolean force)
+		protected boolean activateInternally(AutomationService automationService)
 		{
-			boolean isActuallyToggable = isActuallyToggable();
+			boolean isActuallyToggleable = isActuallyToggable();
 
 			boolean notLastActive = getLastActivatedRule() == null || !getLastActivatedRule().equals(Rule.this);
-			boolean doToggle = ruleToggle && isActuallyToggable;
+			boolean doToggle = ruleToggle && isActuallyToggleable;
 
-			//if(notLastActive || force || doToggle)
-//			if(force || doToggle)
-//			{
-				String message;
-				if(!doToggle)
-					message = String.format(automationService.getResources().getString(R.string.ruleActivate), Rule.this.getName());
-				else
-					message = String.format(automationService.getResources().getString(R.string.ruleActivateToggle), Rule.this.getName());
-				Miscellaneous.logEvent("i", "Rule", message, 2);
-//				automationService.speak(message);
-//				Toast.makeText(automationService, message, Toast.LENGTH_LONG).show();
-				if(Settings.startNewThreadForRuleActivation)
-					publishProgress(message);
+			String message;
+			if(!doToggle)
+				message = String.format(automationService.getResources().getString(R.string.ruleActivate), Rule.this.getName());
+			else
+				message = String.format(automationService.getResources().getString(R.string.ruleActivateToggle), Rule.this.getName());
 
-				for(int i = 0; i< Rule.this.getActionSet().size(); i++)
-				{
-					try
-					{
-						Rule.this.getActionSet().get(i).run(automationService, doToggle);
-					}
-					catch(Exception e)
-					{
-						Miscellaneous.logEvent("e", "RuleExecution", "Error running action of rule " + Rule.this.getName() + ": " + Log.getStackTraceString(e), 1);
-					}
-				}
+			Miscellaneous.logEvent("i", "Rule", message, 2);
 
-				// Keep log of last x rule activations (Settings)
+			if(Settings.startNewThreadForRuleActivation)
+				publishProgress(message);
+
+			for(int i = 0; i< Rule.this.getActionSet().size(); i++)
+			{
 				try
 				{
-					Rule.ruleRunHistory.add(0, Rule.this);		// add at beginning for better visualization
-					Rule.lastActivatedRuleActivationTime = new Date();
-
-					while(ruleRunHistory.size() > Settings.rulesThatHaveBeenRanHistorySize)
-						ruleRunHistory.remove(ruleRunHistory.size()-1);
-					String history = "";
-					for(Rule rule : ruleRunHistory)
-						history += rule.getName() + ", ";
-					if(history.length() > 0)
-						history = history.substring(0, history.length()-2);
-					Miscellaneous.logEvent("i", "Rule history", "Most recent first: " + history, 4);
+					Rule.this.getActionSet().get(i).run(automationService, doToggle);
 				}
 				catch(Exception e)
 				{
-					Miscellaneous.logEvent("e", "Rule history error", Log.getStackTraceString(e), 3);
+					Miscellaneous.logEvent("e", "RuleExecution", "Error running action of rule " + Rule.this.getName() + ": " + Log.getStackTraceString(e), 1);
 				}
+			}
 
-				Miscellaneous.logEvent("i", "Rule", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleActivationComplete), Rule.this.getName()), 2);
-//			}
-//			else
-//			{
-//				Miscellaneous.logEvent("i", "Rule", "Request to activate rule " + Rule.this.getName() + ", but it is the last one that was activated. Won't do it again.", 3);
-//				return false;
-//			}
+			// Keep log of last x rule activations (Settings)
+			try
+			{
+				Rule.ruleRunHistory.add(0, Rule.this);		// add at beginning for better visualization
+				Rule.lastActivatedRuleActivationTime = new Date();
+
+				while(ruleRunHistory.size() > Settings.rulesThatHaveBeenRanHistorySize)
+					ruleRunHistory.remove(ruleRunHistory.size()-1);
+				String history = "";
+				for(Rule rule : ruleRunHistory)
+					history += rule.getName() + ", ";
+				if(history.length() > 0)
+					history = history.substring(0, history.length()-2);
+				Miscellaneous.logEvent("i", "Rule history", "Most recent first: " + history, 4);
+			}
+			catch(Exception e)
+			{
+				Miscellaneous.logEvent("e", "Rule history error", Log.getStackTraceString(e), 3);
+			}
+
+			Miscellaneous.logEvent("i", "Rule", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleActivationComplete), Rule.this.getName()), 2);
 
 			return true;
 		}
