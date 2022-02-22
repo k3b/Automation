@@ -189,7 +189,7 @@ public class LocationProvider
                             /*
                                 Due to strange factors the time difference might be 0 resulting in mathematical error.
                              */
-								if (Double.isInfinite(currentSpeed) | Double.isNaN(currentSpeed))
+								if (Double.isInfinite(currentSpeed) || Double.isNaN(currentSpeed))
 									Miscellaneous.logEvent("i", "Speed", "Error while calculating speed.", 4);
 								else
 								{
@@ -240,7 +240,7 @@ public class LocationProvider
 
 		if(Settings.positioningEngine == 0)
 		{
-			if(Rule.isAnyRuleUsing(Trigger_Enum.pointOfInterest) | Rule.isAnyRuleUsing(Trigger_Enum.speed))
+			if(Rule.isAnyRuleUsing(Trigger_Enum.pointOfInterest) || Rule.isAnyRuleUsing(Trigger_Enum.speed))
 			{
 				// startCellLocationChangedReceiver
 				if (CellLocationChangedReceiver.isCellLocationChangedReceiverPossible())
@@ -424,7 +424,7 @@ public class LocationProvider
 		}
 
 		// *********** RULE CHANGES ***********
-		if(!CellLocationChangedReceiver.isCellLocationListenerActive() && (Rule.isAnyRuleUsing(Trigger_Enum.pointOfInterest) | Rule.isAnyRuleUsing(Trigger_Enum.speed)))
+		if(!CellLocationChangedReceiver.isCellLocationListenerActive() && (Rule.isAnyRuleUsing(Trigger_Enum.pointOfInterest) || Rule.isAnyRuleUsing(Trigger_Enum.speed)))
 		{
 			Miscellaneous.logEvent("i", "LocationProvider", "Starting NoiseListener CellLocationChangedReceiver because used in a new/changed rule.", 4);
 			if(CellLocationChangedReceiver.haveAllPermission())
