@@ -11,7 +11,7 @@
     <string name="pleaseSpecifiyTrigger">Bitte geben Sie mindestens einen Auslöser an.</string>
     <string name="pleaseSpecifiyAction">Bitte geben Sie mindestens eine Aktion an.</string>
     <string name="serviceWontStart">Weder Orte noch Regeln sind definitiv. Dienst wird nicht starten.</string>
-    <string name="serviceStarted">Automations-Dienst gestarted.</string>
+    <string name="serviceStarted">Automations-Dienst gestartet.</string>
     <string name="version">Version %1$s.</string>
     <string name="distanceBetween">Der Abstand zwischen GPS- und Mobilfunk-Position beträgt %1$d m. Dies +1 sollte der minimale Radius sein.</string>
     <string name="positioningWindowNotice">Falls Sie in einem Gebäude sind, wird empfohlen das Gerät in die Nähe eines Fensters zu bringen bis eine Position ermittelt werden konnte. Andernfalls kann es sehr lange dauern oder es funktioniert gar nicht.</string>

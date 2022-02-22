@@ -1548,7 +1548,6 @@ public class Trigger
 				}
 
 				returnString.append(String.format(Miscellaneous.getAnyContext().getString(R.string.screenIs), state));
-
 				break;
 			default:
 				returnString.append("error");
