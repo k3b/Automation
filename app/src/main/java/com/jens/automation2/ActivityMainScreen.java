@@ -374,7 +374,7 @@ public class ActivityMainScreen extends ActivityGeneric
 				}
 				catch (Exception e)
 				{
-					activityMainScreenInstance.tvLastRule.setText("n./a.");
+					activityMainScreenInstance.tvLastProfile.setText("n./a.");
 				}
 			}
 			else
