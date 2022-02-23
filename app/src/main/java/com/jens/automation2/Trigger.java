@@ -1579,7 +1579,7 @@ public class Trigger
 						state = Miscellaneous.getAnyContext().getString(R.string.off);
 						break;
 					case "1":
-						state = Miscellaneous.getAnyContext().getString(R.string.on);
+								state = Miscellaneous.getAnyContext().getString(R.string.on);
 						break;
 					case "2":
 						state = Miscellaneous.getAnyContext().getString(R.string.unlocked);
@@ -1587,6 +1587,8 @@ public class Trigger
 					default:
 						state = Miscellaneous.getAnyContext().getString(R.string.unknown);
 				}
+				returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.screenIs), state));
+				break;
 			case deviceStarts:
 				// This type doesn't have an activate/deactivate equivalent
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.deviceHasJustStarted));
