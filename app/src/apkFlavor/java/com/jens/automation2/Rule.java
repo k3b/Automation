@@ -5,6 +5,7 @@ import static com.jens.automation2.Trigger.triggerParameter2Split;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
@@ -21,8 +22,7 @@ import java.util.List;
 public class Rule implements Comparable<Rule>
 {
 	private static ArrayList<Rule> ruleCollection = new ArrayList<Rule>();
-	public static boolean isAnyRuleActive = false;
-	
+
 	private static List<Rule> ruleRunHistory = new ArrayList<Rule>();
 	
 	public static List<Rule> getRuleRunHistory()
@@ -538,7 +538,10 @@ public class Rule implements Comparable<Rule>
 	public void activate(AutomationService automationService, boolean force)
 	{
 		ActivateRuleTask task = new ActivateRuleTask();
-		task.execute(automationService, force);
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+			task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, automationService, force);
+		else
+			task.execute(automationService, force);
 	}
 
 	public static ArrayList<Rule> findRuleCandidates(Trigger.Trigger_Enum triggerType)
@@ -547,13 +550,13 @@ public class Rule implements Comparable<Rule>
 
 		for(Rule oneRule : ruleCollection)
 		{
-			innerloop:
+			innerLoop:
 			for(Trigger oneTrigger : oneRule.getTriggerSet())
 			{
 				if(oneTrigger.getTriggerType().equals(triggerType))
 				{
 					ruleCandidates.add(oneRule);
-					break innerloop; // we don't need to check the other triggers in the same rule
+					break innerLoop; // we don't need to check the other triggers in the same rule
 				}
 			}
 		}
