@@ -458,29 +458,17 @@ public class Profile implements Comparable<Profile>
 
 	public boolean delete(Context context)
 	{
-		if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.profileActive))
+		Rule usingRule = this.isInUseByRules();
+		if(usingRule != null)
 		{
-			for (Rule rule : Rule.findRuleCandidatesByTriggerProfile(this))
-			{
-				Toast.makeText(context, String.format(context.getResources().getString(R.string.ruleXIsUsingProfileY), rule.getName(), this.getName()), Toast.LENGTH_LONG).show();
-				return false;
-			}
-		}
-		else if(Rule.isAnyRuleUsing(Action_Enum.changeSoundProfile))
-		{
-			for (Rule rule : Rule.findRuleCandidatesByActionProfile(this))
-			{
-				Toast.makeText(context, String.format(context.getResources().getString(R.string.ruleXIsUsingProfileY), rule.getName(), this.getName()), Toast.LENGTH_LONG).show();
-				return false;
-			}
+			Toast.makeText(context, String.format(context.getResources().getString(R.string.ruleXIsUsingProfileY), usingRule.getName(), this.getName()), Toast.LENGTH_LONG).show();
+			return false;
 		}
 		else
 		{
 			profileCollection.remove(this);
 			return XmlFileInterface.writeFile();
 		}
-
-		return false;
 	}
 
 	private boolean plausibilityCheck()
