@@ -34,17 +34,18 @@ public class DeviceOrientationListener implements SensorEventListener, Automatio
     static int sensorValueCounter = 0;
 
     // Gravity rotational data
-    private float gravity[];
+    float gravity[];
     // Magnetic rotational data
-    private float magnetic[]; //for magnetic rotational data
-    private float accels[] = new float[3];
-    private float mags[] = new float[3];
-    private float[] values = new float[3];
+    float magnetic[]; //for magnetic rotational data
+    float accels[] = new float[3];
+    float mags[] = new float[3];
+    float[] values = new float[3];
+    boolean hasMagneticSensor=false;
 
     // azimuth, pitch and roll
-    private float azimuth;
-    private float pitch;
-    private float roll;
+    float azimuth;
+    float pitch;
+    float roll;
 
     boolean applies = false;
     boolean flipped = false;
@@ -91,7 +92,10 @@ public class DeviceOrientationListener implements SensorEventListener, Automatio
             isRunning = true;
 
             sManager.registerListener(this, sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
-            sManager.registerListener(this, sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_NORMAL);
+            hasMagneticSensor = sManager.registerListener(this, sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_NORMAL);
+
+            if(!hasMagneticSensor)
+                sManager.registerListener(this, sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_NORMAL);
         }
     }
 
@@ -128,6 +132,9 @@ public class DeviceOrientationListener implements SensorEventListener, Automatio
                 accels = event.values.clone();
                 break;
         }
+
+        if (!hasMagneticSensor)
+            mags=new float[]{1f,1f,1f};
 
         if (mags != null && accels != null)
         {
