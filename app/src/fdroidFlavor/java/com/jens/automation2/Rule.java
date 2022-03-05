@@ -309,19 +309,12 @@ public class Rule implements Comparable<Rule>
 			switch(action.getAction())
 			{
 				case setAirplaneMode:
-					return true;
 				case setBluetooth:
-					return true;
 				case setDataConnection:
-					return true;
 				case setDisplayRotation:
-					return true;
 				case setUsbTethering:
-					return true;
 				case setWifi:
-					return true;
 				case setWifiTethering:
-					return true;
 				case setBluetoothTethering:
 					return true;
 				default:
