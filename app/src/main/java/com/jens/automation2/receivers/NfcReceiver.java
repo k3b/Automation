@@ -216,23 +216,26 @@ public class NfcReceiver
         }
  
         NdefMessage ndefMessage = ndef.getCachedNdefMessage();
- 
-        NdefRecord[] records = ndefMessage.getRecords();
-        for (NdefRecord ndefRecord : records)
-        {
-            if (ndefRecord.getTnf() == NdefRecord.TNF_WELL_KNOWN && Arrays.equals(ndefRecord.getType(), NdefRecord.RTD_TEXT))
-            {
-                try
-                {
-                    return readText(ndefRecord);
-                }
-                catch (UnsupportedEncodingException e)
-                {
-                    Miscellaneous.logEvent("w", "NFC", "Unsupported Encoding: " +  Log.getStackTraceString(e), 3);
-                }
-            }
-        }
- 
+
+        if(ndefMessage != null)
+		{
+			NdefRecord[] records = ndefMessage.getRecords();
+			for (NdefRecord ndefRecord : records)
+			{
+				if (ndefRecord.getTnf() == NdefRecord.TNF_WELL_KNOWN && Arrays.equals(ndefRecord.getType(), NdefRecord.RTD_TEXT))
+				{
+					try
+					{
+						return readText(ndefRecord);
+					}
+					catch (UnsupportedEncodingException e)
+					{
+						Miscellaneous.logEvent("w", "NFC", "Unsupported Encoding: " + Log.getStackTraceString(e), 3);
+					}
+				}
+			}
+		}
+
         return null;
 	}
 	
