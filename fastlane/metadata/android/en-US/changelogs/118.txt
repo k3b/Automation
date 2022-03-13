@@ -8,3 +8,4 @@
 * Fixed: Set ringtones on Android 11 and above
 * Fixed: Permission read storage required for changing ringtones
 * Fixed: Profile that were not in use, could not be deleted.
+* Fixed: Orientation sensor on devices that have no magnetic sensor.

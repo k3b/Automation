@@ -1,0 +1,14 @@
+Neuer Auslöser:
+* Bildschirmstatus (ein/aus)
+Neue Aktionen:
+* Benachrichtigung erstellen
+* Benachrichtigung(en) schließen
+* Medienwiedergabe steuern
+Fehler behoben:
+* Übersetzungsfehler im niederländischen Variablentext
+* Variablen wurden beim Senden von Textnachrichten nicht ersetzt
+* Der Dienst startete nicht immer, nachdem das Gerät eingeschaltet wurde
+* Setzen von Klingeltönen auf Android 11 und höher
+* Für das Ändern von Klingeltönen ist die Speicher-lesen-Berechtigung nötig
+* Profil, das nicht verwendet wurde, konnte nicht gelöscht werden
+* Orientierungssensor an Geräten ohne Magnet-Sensor
