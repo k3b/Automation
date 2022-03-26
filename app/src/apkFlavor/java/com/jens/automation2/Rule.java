@@ -334,6 +334,15 @@ public class Rule implements Comparable<Rule>
 		{
 			if (oneTrigger.hasStateNotAppliedSinceLastRuleExecution())
 				return true;
+
+			/*
+				Workaround for repetition in TimeFrame triggers
+			 */
+			if(oneTrigger.getTriggerType().equals(Trigger.Trigger_Enum.timeFrame))
+			{
+				if(oneTrigger.getTimeFrame().repetition > 0)
+					return true;
+			}
 		}
 
 		return false;

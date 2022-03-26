@@ -266,7 +266,6 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 		Intent alarmIntent = new Intent(automationServiceRef, DateTimeListener.class);
 		PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(automationServiceRef, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		centralAlarmManagerInstance.set(AlarmManager.RTC_WAKEUP, scheduleCandidate.time.getTimeInMillis(), alarmPendingIntent);
-		
 
 		SimpleDateFormat sdf = new SimpleDateFormat("E dd.MM.yyyy HH:mm");
 		Calendar calendar = Calendar.getInstance();
