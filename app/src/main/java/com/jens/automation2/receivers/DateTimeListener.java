@@ -27,8 +27,6 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 {
 	private static AutomationService automationServiceRef;
 	private static AlarmManager centralAlarmManagerInstance;
-//	private static Intent alarmIntent;
-//	private static PendingIntent alarmPendingIntent;
 	private static boolean alarmListenerActive=false;
 	private static ArrayList<ScheduleElement> alarmCandidates = new ArrayList<>();
 	
@@ -77,23 +75,7 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 		
 		clearAlarms();
 		
-		int i=0;	
-
-//		// get a Calendar object with current time
-//		Calendar cal = Calendar.getInstance();
-//		// add 5 minutes to the calendar object
-//		cal.add(Calendar.SECOND, 10);
-//		String calSetWorkingCopyString2 = null;
-//		SimpleDateFormat sdf2 = new SimpleDateFormat("E dd.MM.yyyy HH:mm");
-//		if (cal != null)
-//		{
-//			calSetWorkingCopyString2 = sdf2.format(cal.getTime());
-//		}
-//		Miscellaneous.logEvent("i", "AlarmManager", "Setting repeating alarm because of hardcoded test: beginning at " + calSetWorkingCopyString2);
-//		Intent alarmIntent2 = new Intent(automationServiceRef, AlarmListener.class);
-//		PendingIntent alarmPendingIntent2 = PendingIntent.getBroadcast(automationServiceRef, 0, alarmIntent2, 0);
-//		centralAlarmManagerInstance.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 5000, alarmPendingIntent2);
-//		requestCodeList.add(0);
+		int i=0;
 				 
 		ArrayList<Rule> allRulesWithTimeFrames = new ArrayList<Rule>();
 		allRulesWithTimeFrames = Rule.findRuleCandidates(Trigger_Enum.timeFrame);
@@ -282,6 +264,7 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 			PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(automationServiceRef, requestCode, alarmIntent, 0);
 //			Miscellaneous.logEvent("i", "AlarmManager", "Clearing alarm with request code: " + String.valueOf(requestCode));
 			centralAlarmManagerInstance.cancel(alarmPendingIntent);
+			centralAlarmManagerInstance.
 		}
 		requestCodeList.clear();
 	}
