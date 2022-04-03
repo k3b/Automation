@@ -233,20 +233,24 @@ public class Rule implements Comparable<Rule>
 		}
 		
 		if(!changeExistingRule)
-			for(Rule rule : Rule.ruleCollection)
-				if(rule.getName().equals(this.getName()))
+		{
+			for (Rule rule : Rule.ruleCollection)
+			{
+				if (rule.getName().equals(this.getName()))
 				{
 					Toast.makeText(context, context.getResources().getString(R.string.anotherRuleByThatName), Toast.LENGTH_LONG).show();
 					return false;
 				}
-		
-		if(this.getTriggerSet().size()==0)
+			}
+		}
+
+		if(this.getTriggerSet().size() == 0)
 		{
 			Toast.makeText(context, context.getResources().getString(R.string.pleaseSpecifiyTrigger), Toast.LENGTH_LONG).show();
 			return false;
 		}
 		
-		if(this.getActionSet().size()==0)
+		if(this.getActionSet().size() == 0)
 		{
 			Toast.makeText(context, context.getResources().getString(R.string.pleaseSpecifiyAction), Toast.LENGTH_LONG).show();
 			return false;

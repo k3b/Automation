@@ -70,7 +70,7 @@ public class ActivityManageRule extends Activity
 	static int triggerBattery;
 	static double triggerSpeed;
 	static double triggerNoise;
-	
+
 	static Rule ruleToEdit;
 	static boolean newRule;
 	
@@ -225,6 +225,11 @@ public class ActivityManageRule extends Activity
 					loadFormValuesToVariable();
 					if(ruleToEdit.change(context))
 					{
+						for(Rule r : Rule.ruleCollection)
+						{
+							r.get
+						}
+
 						ActivityPermissions.getRequiredPermissions(false);
 						finish();
 					}
