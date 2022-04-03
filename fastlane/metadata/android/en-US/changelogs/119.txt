@@ -1,0 +1,3 @@
+* Fixed: Management of DateTimeTrigger was sometimes releaded incorrectly while service was running
+* Fixed: DateTimeTrigger: Repeated executions sometimes not working
+* Fixed: DateTimeTrigger: Repeated executions continued to run after service was stopped

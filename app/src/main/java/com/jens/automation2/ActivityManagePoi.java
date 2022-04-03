@@ -34,7 +34,6 @@ public class ActivityManagePoi extends Activity
 	public LocationManager myLocationManager;
 	MyLocationListenerGps myLocationListenerGps = new MyLocationListenerGps();
 	Location locationGps = null, locationNetwork = null;
-//	Location locationWifi = null;
 	MyLocationListenerNetwork myLocationListenerNetwork = new MyLocationListenerNetwork();
 	Button bGetPosition, bSavePoi;
 	ImageButton ibShowOnMap;

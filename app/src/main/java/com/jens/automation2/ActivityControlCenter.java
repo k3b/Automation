@@ -222,6 +222,10 @@ public class ActivityControlCenter extends Activity
                     }
 
                     Settings.readFromPersistentStorage(ActivityControlCenter.this);
+
+                    AutomationService service = AutomationService.getInstance();
+                    if(service != null)
+                        service.applySettingsAndRules();
                 }
                 else
                     Toast.makeText(ActivityControlCenter.this, getResources().getString(R.string.noFilesImported), Toast.LENGTH_LONG).show();

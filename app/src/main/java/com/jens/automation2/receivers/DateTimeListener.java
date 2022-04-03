@@ -50,12 +50,8 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 	public void onReceive(Context context, Intent intent)
 	{
 		Miscellaneous.logEvent("i", "AlarmListener", "Alarm received", 2);
-		Date now = new Date();
-		String timeString = String.valueOf(now.getHours()) + ":" + String.valueOf(now.getMinutes()) + ":" + String.valueOf(now.getSeconds());
-		Time passTime = Time.valueOf(timeString);
 
 		ArrayList<Rule> allRulesWithNowInTimeFrame = Rule.findRuleCandidates(Trigger_Enum.timeFrame);
-//		ArrayList<Rule> allRulesWithNowInTimeFrame = Rule.findRuleCandidatesByTime(passTime);
 		for(int i=0; i<allRulesWithNowInTimeFrame.size(); i++)
 		{
 			if(allRulesWithNowInTimeFrame.get(i).getsGreenLight(context))
@@ -385,8 +381,6 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 			calSet.set(Calendar.SECOND, 0);
 			calSet.set(Calendar.MILLISECOND, 0);
 
-//				if(this.applies(null))
-//				{
 			// If the starting time is a day ahead remove 1 day.
 			if(calSet.getTimeInMillis() > now.getTimeInMillis())
 				calSet.add(Calendar.DAY_OF_MONTH, -1);
@@ -401,11 +395,8 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 			 * Das war mal aktiviert. Allerdings: Die ganze Funktion liefert zurück, wenn die Regel NOCH nicht
 			 * zutrifft, aber wir z.B. gleich den zeitlichen Bereich betreten.
 			 */
-//					if(trigger.checkDateTime(calSchedule.getTime(), false))
-//					{
+
 			return calSchedule;
-//					}
-//				}
 		}
 		else
 			Miscellaneous.logEvent("i", "DateTimeListener", "Trigger " + trigger.toString() + " is not executed repeatedly.", 5);
