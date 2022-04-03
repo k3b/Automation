@@ -29,8 +29,8 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 	private static AlarmManager centralAlarmManagerInstance;
 	private static boolean alarmListenerActive=false;
 	private static ArrayList<ScheduleElement> alarmCandidates = new ArrayList<>();
-	
 	private static ArrayList<Integer> requestCodeList = new ArrayList<Integer>();
+	static PendingIntent alarmPendingIntent = null;
 
 	public static void startAlarmListener(final AutomationService automationServiceRef)
 	{		
@@ -246,7 +246,7 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 		}
 		
 		Intent alarmIntent = new Intent(automationServiceRef, DateTimeListener.class);
-		PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(automationServiceRef, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		alarmPendingIntent = PendingIntent.getBroadcast(automationServiceRef, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		centralAlarmManagerInstance.set(AlarmManager.RTC_WAKEUP, scheduleCandidate.time.getTimeInMillis(), alarmPendingIntent);
 
 		SimpleDateFormat sdf = new SimpleDateFormat("E dd.MM.yyyy HH:mm");
@@ -261,10 +261,10 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 		for(int requestCode : requestCodeList)
 		{
 			Intent alarmIntent = new Intent(automationServiceRef, DateTimeListener.class);
-			PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(automationServiceRef, requestCode, alarmIntent, 0);
+			if(alarmPendingIntent == null)
+				alarmPendingIntent = PendingIntent.getBroadcast(automationServiceRef, requestCode, alarmIntent, 0);
 //			Miscellaneous.logEvent("i", "AlarmManager", "Clearing alarm with request code: " + String.valueOf(requestCode));
 			centralAlarmManagerInstance.cancel(alarmPendingIntent);
-			centralAlarmManagerInstance.
 		}
 		requestCodeList.clear();
 	}
@@ -298,7 +298,7 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 		{
 			Miscellaneous.logEvent("i", "AlarmListener", "Stopping alarm listener.", 4);
 			clearAlarms();
-//			centralAlarmManagerInstance.cancel(alarmPendingIntent);
+			centralAlarmManagerInstance.cancel(alarmPendingIntent);
 			alarmListenerActive = false;
 		}
 		else

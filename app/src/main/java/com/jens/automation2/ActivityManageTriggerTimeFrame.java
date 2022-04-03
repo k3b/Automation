@@ -1,6 +1,7 @@
 package com.jens.automation2;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,7 +28,7 @@ public class ActivityManageTriggerTimeFrame extends Activity
 	RadioButton radioTimeFrameEntering, radioTimeFrameLeaving;
 	EditText etRepeatEvery;
 
-	public static Trigger editedTimeFrameTrigger = null;
+	static Trigger editedTimeFrameTrigger = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -152,8 +153,13 @@ public class ActivityManageTriggerTimeFrame extends Activity
 				}
 				
 				editedTimeFrameTrigger.setTriggerParameter(radioTimeFrameEntering.isChecked());
-				
-				setResult(RESULT_OK);
+				editedTimeFrameTrigger.setTriggerParameter2(editedTimeFrameTrigger.getTimeFrame().toTriggerParameter2String());
+
+				Intent response = new Intent();
+				response.putExtra(ActivityManageRule.intentNameTriggerParameter1, editedTimeFrameTrigger.getTriggerParameter());
+				response.putExtra(ActivityManageRule.intentNameTriggerParameter2, editedTimeFrameTrigger.getTriggerParameter2());
+
+				setResult(RESULT_OK, response);
 				finish();
 			}
 		});
@@ -166,9 +172,15 @@ public class ActivityManageTriggerTimeFrame extends Activity
 				etRepeatEvery.setEnabled(isChecked);
 			}
 		});
-		
-		if(editedTimeFrameTrigger.getTimeFrame() != null)
+
+		if(getIntent().hasExtra(ActivityManageRule.intentNameTriggerParameter2))
+		{
+			editedTimeFrameTrigger = new Trigger();
+			editedTimeFrameTrigger.setTriggerParameter(getIntent().getBooleanExtra(ActivityManageRule.intentNameTriggerParameter1, true));
+			editedTimeFrameTrigger.setTriggerParameter2(getIntent().getStringExtra(ActivityManageRule.intentNameTriggerParameter2));
+			editedTimeFrameTrigger.setTimeFrame(new TimeFrame(editedTimeFrameTrigger.getTriggerParameter2()));
 			loadVariableIntoGui();
+		}
 	}
 
 	private void loadVariableIntoGui()
@@ -219,5 +231,4 @@ public class ActivityManageTriggerTimeFrame extends Activity
 			etRepeatEvery.setText(String.valueOf(editedTimeFrameTrigger.getTimeFrame().getRepetition()));
 		}
 	}
-
 }

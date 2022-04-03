@@ -256,8 +256,10 @@ public class ActivityManageRule extends Activity
 				switch(selectedTrigger.getTriggerType())
 				{
 					case timeFrame:
-						ActivityManageTriggerTimeFrame.editedTimeFrameTrigger = selectedTrigger;
+//						ActivityManageTriggerTimeFrame.editedTimeFrameTrigger = selectedTrigger;
 						Intent timeFrameEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerTimeFrame.class);
+						timeFrameEditor.putExtra(intentNameTriggerParameter1, selectedTrigger.getTriggerParameter());
+						timeFrameEditor.putExtra(intentNameTriggerParameter2, selectedTrigger.getTriggerParameter2());
 						startActivityForResult(timeFrameEditor, requestCodeTriggerTimeframeEdit);
 						break;
 					case bluetoothConnection:
@@ -1232,9 +1234,15 @@ public class ActivityManageRule extends Activity
 		else if(requestCode == requestCodeTriggerTimeframeEdit)
 		{
 			//edit TimeFrame
-			if(resultCode == RESULT_OK && ActivityManageTriggerTimeFrame.editedTimeFrameTrigger != null)
+			if(resultCode == RESULT_OK && data.hasExtra(intentNameTriggerParameter2))
 			{
-				ActivityManageTriggerTimeFrame.editedTimeFrameTrigger.setParentRule(ruleToEdit);
+				Trigger responseTimeFrame = new Trigger();
+				responseTimeFrame.setTriggerType(Trigger_Enum.timeFrame);
+				responseTimeFrame.setTriggerParameter(data.getBooleanExtra(intentNameTriggerParameter1, true));
+				responseTimeFrame.setTriggerParameter2(data.getStringExtra(intentNameTriggerParameter2));
+				responseTimeFrame.setTimeFrame(new TimeFrame(data.getStringExtra(intentNameTriggerParameter2)));
+				responseTimeFrame.setParentRule(ruleToEdit);
+				ruleToEdit.getTriggerSet().set(editIndex, responseTimeFrame);
 				this.refreshTriggerList();
 			}
 			else

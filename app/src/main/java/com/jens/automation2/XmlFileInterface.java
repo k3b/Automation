@@ -254,8 +254,6 @@ public class XmlFileInterface
 		    	            				else
 		    	            					serializer.text("null");
 		    	            			}
-		    	            			else if(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerType() == Trigger_Enum.timeFrame)
-		    	            				serializer.text(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTimeFrame().toString());
 		    	            			else if(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerType() == Trigger_Enum.speed)
 		    	            				serializer.text(String.valueOf(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getSpeed()));
 		    	            			else if(Rule.getRuleCollection().get(i).getTriggerSet().get(j).getTriggerType() == Trigger_Enum.noiseLevel)
@@ -838,7 +836,6 @@ public class XmlFileInterface
 
 	private static Trigger readTrigger(XmlPullParser parser) throws IOException, XmlPullParserException
 	{
-		
     	/* FILE EXAMPE:
     	 * *****************
 		 * <Automation>
