@@ -52,7 +52,7 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 		Miscellaneous.logEvent("i", "AlarmListener", "Alarm received", 2);
 
 		ArrayList<Rule> allRulesWithNowInTimeFrame = Rule.findRuleCandidates(Trigger_Enum.timeFrame);
-		for(int i=0; i<allRulesWithNowInTimeFrame.size(); i++)
+		for(int i=0; i < allRulesWithNowInTimeFrame.size(); i++)
 		{
 			if(allRulesWithNowInTimeFrame.get(i).getsGreenLight(context))
 				allRulesWithNowInTimeFrame.get(i).activate(automationServiceRef, false);
@@ -139,7 +139,7 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 								}
 
 								i++;
-								i=(int)System.currentTimeMillis();
+								i = (int)System.currentTimeMillis();
 								sdf.format(calSetWorkingCopy.getTime());
 								String.valueOf(i);
 

@@ -40,8 +40,9 @@ public class WifiBroadcastReceiver extends BroadcastReceiver
 	{
 		if(newWifiSsid.startsWith("\"") && newWifiSsid.endsWith("\""))
 			newWifiSsid = newWifiSsid.substring(1, newWifiSsid.length()-1);
-		
-		WifiBroadcastReceiver.lastWifiSsid = newWifiSsid;
+
+		if(newWifiSsid.length() > 0)
+			WifiBroadcastReceiver.lastWifiSsid = newWifiSsid;
 	}
 
 	public static boolean isWifiListenerActive()
