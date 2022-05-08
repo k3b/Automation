@@ -252,15 +252,5 @@ public class ActivityMainRules extends ActivityGeneric
 		}
 		catch(NullPointerException e)
 		{}
-		
-		try
-		{
-			if(AutomationService.isMyServiceRunning(this))
-				DateTimeListener.reloadAlarms();
-		}
-		catch(NullPointerException e)
-		{
-			// AlarmManager instance not prepared, yet.
-		}
 	}
 }
