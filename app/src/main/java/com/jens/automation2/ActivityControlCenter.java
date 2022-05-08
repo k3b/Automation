@@ -224,7 +224,7 @@ public class ActivityControlCenter extends Activity
                     Settings.readFromPersistentStorage(ActivityControlCenter.this);
 
                     AutomationService service = AutomationService.getInstance();
-                    if(service != null)
+                    if(service != null && service.isRunning)
                         service.applySettingsAndRules();
                 }
                 else
