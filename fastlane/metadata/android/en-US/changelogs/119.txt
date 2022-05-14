@@ -1,3 +1,5 @@
-* Fixed: Management of DateTimeTrigger was sometimes releaded incorrectly while service was running
+* Fixed: Management of DateTimeTrigger was sometimes reloaded incorrectly while service was running
 * Fixed: DateTimeTrigger: Repeated executions sometimes not working
 * Fixed: DateTimeTrigger: Repeated executions continued to run after service was stopped
+* Fixed: App did not memorize the most recent wifi name connected to
+* Fixed: No app list displayed when trying to pick which app to start

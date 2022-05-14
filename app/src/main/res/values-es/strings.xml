@@ -699,4 +699,5 @@
     <string name="locationNotWorkingOn12">Obtener la locación no parece estar funcionando en dispositivos Android 12 actualmente. Si no está funcionando para ti, lo siento. Intentaré arreglar esto tan pronto como conozca la causa. Así que si la rosquilla no deja de girar, ya sabes por qué.</string>
     <string name="profileXrequiresThis">El perfil \"%1$s\" requiere esto.</string>
     <string name="lastProfile">Último perfil:</string>
+    <string name="queryAllPackages">Obtener una lista de las aplicaciones instaladas</string>
 </resources>

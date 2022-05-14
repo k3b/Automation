@@ -1,0 +1,5 @@
+* Opgelost: beheer van DateTimeTrigger werd soms onjuist opnieuw geladen terwijl de service werd uitgevoerd
+* Opgelost: DateTimeTrigger: Herhaalde uitvoeringen soms niet werken
+* Opgelost: DateTimeTrigger: Herhaalde uitvoeringen bleven lopen nadat de service was gestopt
+* Opgelost: app heeft de meest recente wifi-naam die is verbonden met
+* Opgelost: er wordt geen app-lijst weergegeven wanneer u probeert te kiezen welke app u wilt starten

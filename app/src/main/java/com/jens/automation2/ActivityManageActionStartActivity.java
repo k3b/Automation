@@ -378,7 +378,7 @@ public class ActivityManageActionStartActivity extends Activity
 			public void onClick(View v)
 			{
 				int targetSdkVersion = getApplicationContext().getApplicationInfo().targetSdkVersion;
-				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && targetSdkVersion >= 30 && shouldShowRequestPermissionRationale(Manifest.permission.QUERY_ALL_PACKAGES))
+				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && targetSdkVersion >= 30 && !ActivityPermissions.havePermission(Manifest.permission.QUERY_ALL_PACKAGES, ActivityManageActionStartActivity.this))// && shouldShowRequestPermissionRationale(Manifest.permission.QUERY_ALL_PACKAGES))
 				{
 					requestPermissions(new String[] {Manifest.permission.QUERY_ALL_PACKAGES}, requestCodeForRequestQueryAllPackagesPermission);
 				}

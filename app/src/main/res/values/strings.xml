@@ -796,4 +796,5 @@
     <string name="musicCheckFrequencySummary">Milliseconds between checks</string>
     <string name="locationNotWorkingOn12">Getting the location does not seem to be working on Android 12 devices currently. If it isn\'t working for you, I\'m sorry. I\'ll try to fix this as soon as I know the cause. So if the donut doesn\'t stop spinning, you know why.</string>
     <string name="lastProfile">Last profile:</string>
+    <string name="queryAllPackages">Get a list of installed applications</string>
 </resources>

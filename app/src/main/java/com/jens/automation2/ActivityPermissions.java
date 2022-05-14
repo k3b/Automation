@@ -904,6 +904,9 @@ public class ActivityPermissions extends Activity
             case Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS:
                 usingElements.add(getResources().getString(R.string.recommendedForBetterReliability));
                 break;
+            case Manifest.permission.QUERY_ALL_PACKAGES:
+                usingElements.add(getResources().getString(R.string.queryAllPackages));
+                break;
         }
 
         return usingElements;
