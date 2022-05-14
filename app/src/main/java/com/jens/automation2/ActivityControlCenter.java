@@ -222,6 +222,10 @@ public class ActivityControlCenter extends Activity
                     }
 
                     Settings.readFromPersistentStorage(ActivityControlCenter.this);
+
+                    AutomationService service = AutomationService.getInstance();
+                    if(service != null && service.isRunning)
+                        service.applySettingsAndRules();
                 }
                 else
                     Toast.makeText(ActivityControlCenter.this, getResources().getString(R.string.noFilesImported), Toast.LENGTH_LONG).show();
@@ -342,13 +346,16 @@ public class ActivityControlCenter extends Activity
     public static String getSystemInfo()
     {
         StringBuilder systemInfoText = new StringBuilder();
+        systemInfoText.append("App details" + Miscellaneous.lineSeparator);
+        systemInfoText.append("Version name: " + BuildConfig.VERSION_NAME + Miscellaneous.lineSeparator);
+        systemInfoText.append("Version code: " + BuildConfig.VERSION_CODE + Miscellaneous.lineSeparator);
+        systemInfoText.append("Flavor: " + BuildConfig.FLAVOR + Miscellaneous.lineSeparator);
         systemInfoText.append("Device details" + Miscellaneous.lineSeparator);
         systemInfoText.append("OS version: " + System.getProperty("os.version") + Miscellaneous.lineSeparator);
         systemInfoText.append("API Level: " + android.os.Build.VERSION.SDK + Miscellaneous.lineSeparator);
         systemInfoText.append("Device: " + android.os.Build.DEVICE + Miscellaneous.lineSeparator);
         systemInfoText.append("Model: " + android.os.Build.MODEL + Miscellaneous.lineSeparator);
         systemInfoText.append("Product: " + android.os.Build.PRODUCT + Miscellaneous.lineSeparator);
-        systemInfoText.append("Flavor: " + BuildConfig.FLAVOR + Miscellaneous.lineSeparator);
         systemInfoText.append("Country: " + Miscellaneous.getUserCountry(Miscellaneous.getAnyContext()) + Miscellaneous.lineSeparator);
         systemInfoText.append("OS language: " + Locale.getDefault().getDisplayName());
 

@@ -1,0 +1,5 @@
+* Fehlerbehebung: Verwaltung von Zeitraum-Auslösern wurde manchmal falsch geladen, während der Dienst lief.
+* Fehlerbehebung: Zeitraum-Auslöser: Wiederholte Ausführungen haben manchmal nicht funktioniert
+* Fehlerbehebung: Zeitraum-Auslöser: Wiederholte Ausführungen liefen weiter, nachdem der Dienst bereits gestoppt wurde.
+* Fehlerbehebung: Die Anwendung hatte sich nicht das zuletzt verbundene WLAN gemerkt.
+* Fehlerbehebung: Programm starten: Liste zum Auswählen einer Anwendung konnte nicht erzeugt werden.

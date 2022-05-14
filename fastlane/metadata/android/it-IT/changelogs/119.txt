@@ -1,0 +1,5 @@
+* Risolto: la gestione di DateTimeTrigger a volte veniva ricaricata in modo errato durante l'esecuzione del servizio
+* Risolto: DateTimeTrigger: esecuzioni ripetute a volte non funzionano
+* Risolto: DateTimeTrigger: esecuzioni ripetute hanno continuato a funzionare dopo l'arresto del servizio
+* Risolto: l'app non memorizzava il nome wifi più recente collegato a
+* Risolto: nessun elenco di app visualizzato quando si tenta di scegliere quale app avviare

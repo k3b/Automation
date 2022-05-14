@@ -935,7 +935,7 @@ public class Trigger
 										Miscellaneous.compareTimes(tf.getTriggerTimeStart(), tf.getTriggerTimeStop()) < 0
 												&&
 										(Miscellaneous.compareTimes(tf.getTriggerTimeStart(), nowTime) >= 0
-														|
+														||
 										Miscellaneous.compareTimes(nowTime, tf.getTriggerTimeStop()) > 0)
 								)
 

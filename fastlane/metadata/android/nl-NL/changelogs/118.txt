@@ -1,0 +1,11 @@
+* Nieuwe trigger: schermstatus (aan / uit)
+* Nieuwe actie: Melding maken
+* Nieuwe actie: Sluit melding (en)
+* Nieuwe actie: Bedien het afspelen van media
+* Fixed: Vertaling bug in Nederlandse variabelen tekst
+* Opgelost: Variabelen zijn niet vervangen bij het verzenden van sms-berichten
+* Opgelost: service start niet altijd nadat het apparaat is ingeschakeld
+* Opgelost: stel beltonen in op Android 11 en hoger
+* Opgelost: Toestemming leesopslag vereist voor het wijzigen van beltonen
+* Opgelost: Profiel dat niet in gebruik was, kon niet worden verwijderd.
+* Vast: Oriëntatiesensor op apparaten die geen magnetische sensor hebben.

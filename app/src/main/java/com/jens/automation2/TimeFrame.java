@@ -80,6 +80,29 @@ public class TimeFrame
 			this.setRepetition(Long.parseLong(dateArray[3]));
 	}
 
+	public String toTriggerParameter2String()
+	{
+		StringBuilder response = new StringBuilder();
+		response.append(this.getTriggerTimeStart().getHours() + ":" + this.getTriggerTimeStart().getMinutes() + ":0");
+		response.append(separator);
+		response.append(this.getTriggerTimeStop().getHours() + ":" + this.getTriggerTimeStop().getMinutes() + ":0");
+		response.append(separator);
+
+		StringBuilder days = new StringBuilder();
+
+		for(int day : dayList)
+			days.append(String.valueOf(day));
+
+		response.append(days.toString());
+
+		if(this.repetition > 0)
+		{
+			response.append(separator + this.getRepetition());
+		}
+
+		return response.toString();
+	}
+
 	@Override
 	public String toString()
 	{

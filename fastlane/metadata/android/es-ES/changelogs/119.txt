@@ -1,0 +1,5 @@
+* Corregido: La administración de DateTimeTrigger a veces se recargaba incorrectamente mientras se ejecutaba el servicio
+* Corregido: DateTimeTrigger: Ejecuciones repetidas a veces no funcionaban
+* Corregido: DateTimeTrigger: Las ejecuciones repetidas continuaron ejecutándose después de que se detuvo el servicio
+* Corregido: la aplicación no memorizó el nombre wifi más reciente conectado a
+* Corregido: No se muestra ninguna lista de aplicaciones al intentar elegir qué aplicación iniciar

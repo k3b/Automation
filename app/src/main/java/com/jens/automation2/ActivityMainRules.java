@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 public class ActivityMainRules extends ActivityGeneric
 {
+	public static final String intentNameRuleName = "ruleName";
 	private ListView ruleListView;
 	ArrayList<Rule> ruleList = new ArrayList<>();
 	private ArrayAdapter<Rule> ruleListViewAdapter;
@@ -207,8 +208,8 @@ public class ActivityMainRules extends ActivityGeneric
 						Toast.makeText(ActivityMainRules.this, getResources().getString(R.string.serviceHasToRunForThat), Toast.LENGTH_LONG).show();
 						break;
 					case 1:
-						ruleToEdit = ruleThisIsAbout;
 						Intent manageSpecificRuleIntent = new Intent (ActivityMainRules.this, ActivityManageRule.class);
+						manageSpecificRuleIntent.putExtra(intentNameRuleName, ruleThisIsAbout.getName());
 						startActivityForResult(manageSpecificRuleIntent, requestCodeChangeRule);
 						break;
 					case 2:
@@ -251,15 +252,5 @@ public class ActivityMainRules extends ActivityGeneric
 		}
 		catch(NullPointerException e)
 		{}
-		
-		try
-		{
-			if(AutomationService.isMyServiceRunning(this))
-				DateTimeListener.reloadAlarms();
-		}
-		catch(NullPointerException e)
-		{
-			// AlarmManager instance not prepared, yet.
-		}
 	}
 }

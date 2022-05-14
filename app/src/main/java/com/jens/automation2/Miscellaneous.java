@@ -1840,7 +1840,8 @@ public class Miscellaneous extends Service
 	 * @param context Context reference to get the TelephonyManager instance from
 	 * @return country code or null
 	 */
-	public static String getUserCountry(Context context) {
+	public static String getUserCountry(Context context)
+	{
 		try
 		{
 			final TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);

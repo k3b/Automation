@@ -1,0 +1,14 @@
+Nuevo disparador:
+* estado de la pantalla (encendido / apagado)
+Nuevas acciones:
+* Crear notificación
+* Cerrar notificación(es)
+* Controlar la reproducción de medios
+Corregido:
+* Error de traducción en texto de variables holandesas
+* Las variables no fueron reemplazadas al enviar mensajes de texto
+* El servicio no siempre se iniciaría después de que el dispositivo se haya encendido
+* Establecer tonos de llamada en Android 11 y superior
+* Se requiere almacenamiento de lectura de permisos para cambiar los tonos de llamada
+* Perfil que no estaba en uso, no se pudo eliminar
+* Sensor de orientación en dispositivos que no tienen sensor magnético

@@ -1,0 +1,14 @@
+Nuovo trigger:
+* stato dello schermo (on / off)
+Nuove azioni:
+* Crea notifica
+* Chiudi notifica (s)
+* Controlla la riproduzione multimediale
+Fissato:
+* Bug di traduzione nel testo delle variabili olandesi
+* Le variabili non sono state sostituite durante l'invio di messaggi di testo
+* Il servizio non si avvia sempre dopo l'accensione del dispositivo
+* Imposta suonerie su Android 11 e versioni successive
+* Autorizzazione di lettura necessaria per cambiare le suonerie
+* Profilo che non era in uso, non poteva essere eliminato
+* Sensore di orientamento su dispositivi che non hanno sensore mag.

@@ -21,23 +21,23 @@ import java.util.List;
 
 public class Rule implements Comparable<Rule>
 {
-	private static ArrayList<Rule> ruleCollection = new ArrayList<Rule>();
+	protected static ArrayList<Rule> ruleCollection = new ArrayList<Rule>();
 
-	private static List<Rule> ruleRunHistory = new ArrayList<Rule>();
+	protected static List<Rule> ruleRunHistory = new ArrayList<Rule>();
 	
 	public static List<Rule> getRuleRunHistory()
 	{
 		return ruleRunHistory;
 	}
 	
-	private ArrayList<Trigger> triggerSet;
-	private ArrayList<Action> actionSet;
-	private String name;
-	private boolean ruleActive = true;		// rules can be deactivated, so they won't fire if you don't want them temporarily
-	private boolean ruleToggle = false;		// rule will run again and do the opposite of its actions if applicable
-	private Calendar lastExecution;
-	
-	private static Date lastActivatedRuleActivationTime;
+	protected ArrayList<Trigger> triggerSet;
+	protected ArrayList<Action> actionSet;
+	protected String name;
+	protected boolean ruleActive = true;		// rules can be deactivated, so they won't fire if you don't want them temporarily
+	protected boolean ruleToggle = false;		// rule will run again and do the opposite of its actions if applicable
+	protected Calendar lastExecution;
+
+	protected static Date lastActivatedRuleActivationTime;
 
 	public Calendar getLastExecution()
 	{
@@ -185,6 +185,7 @@ public class Rule implements Comparable<Rule>
 		if(this.checkBeforeSaving(context, true))
 		{
 			Miscellaneous.logEvent("i", "Rule", "Changing rule: " + this.toString(), 3);
+
 			boolean returnValue = XmlFileInterface.writeFile();
 			
 			if(returnValue)
@@ -233,20 +234,24 @@ public class Rule implements Comparable<Rule>
 		}
 		
 		if(!changeExistingRule)
-			for(Rule rule : Rule.ruleCollection)
-				if(rule.getName().equals(this.getName()))
+		{
+			for (Rule rule : Rule.ruleCollection)
+			{
+				if (rule.getName().equals(this.getName()))
 				{
 					Toast.makeText(context, context.getResources().getString(R.string.anotherRuleByThatName), Toast.LENGTH_LONG).show();
 					return false;
 				}
-		
-		if(this.getTriggerSet().size()==0)
+			}
+		}
+
+		if(this.getTriggerSet().size() == 0)
 		{
 			Toast.makeText(context, context.getResources().getString(R.string.pleaseSpecifiyTrigger), Toast.LENGTH_LONG).show();
 			return false;
 		}
 		
-		if(this.getActionSet().size()==0)
+		if(this.getActionSet().size() == 0)
 		{
 			Toast.makeText(context, context.getResources().getString(R.string.pleaseSpecifiyAction), Toast.LENGTH_LONG).show();
 			return false;
@@ -334,6 +339,15 @@ public class Rule implements Comparable<Rule>
 		{
 			if (oneTrigger.hasStateNotAppliedSinceLastRuleExecution())
 				return true;
+
+			/*
+				Workaround for repetition in TimeFrame triggers
+			 */
+			if(oneTrigger.getTriggerType().equals(Trigger.Trigger_Enum.timeFrame))
+			{
+				if(oneTrigger.getTimeFrame().repetition > 0)
+					return true;
+			}
 		}
 
 		return false;

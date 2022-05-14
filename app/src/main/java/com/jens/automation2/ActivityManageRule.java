@@ -70,12 +70,13 @@ public class ActivityManageRule extends Activity
 	static int triggerBattery;
 	static double triggerSpeed;
 	static double triggerNoise;
-	
-	static Rule ruleToEdit;
+
 	static boolean newRule;
 	
 	static Trigger newTrigger;
 	static Action newAction;
+	
+	Rule ruleToEdit = null;
 
 	ArrayAdapter<Trigger> triggerListViewAdapter;
 	ArrayAdapter<Action> actionListViewAdapter;
@@ -130,10 +131,10 @@ public class ActivityManageRule extends Activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		context = this;
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_manage_specific_rule);
-		
+
+		context = this;
 		instance = this;
 		
 		cmdTriggerAdd = (Button)findViewById(R.id.cmdTriggerAdd);
@@ -147,7 +148,17 @@ public class ActivityManageRule extends Activity
 		imageHelpButton = (ImageView)findViewById(R.id.imageHelpButton);
 		
 		//decide if it will be created anew or loaded to edit an existing one
-		if(ActivityMainRules.ruleToEdit == null)
+		if(getIntent().hasExtra(ActivityMainRules.intentNameRuleName))
+		{
+			// change existing rule
+			Miscellaneous.logEvent("i", "Rule", "Cache not empty, assuming change request.", 3);
+			newRule = false;
+			ruleToEdit = Rule.getByName(getIntent().getStringExtra(ActivityMainRules.intentNameRuleName));
+			triggerListViewAdapter = new ArrayAdapter<Trigger>(this, R.layout.text_view_for_poi_listview_mediumtextsize, ruleToEdit.getTriggerSet());
+			actionListViewAdapter = new ArrayAdapter<Action>(this, R.layout.text_view_for_poi_listview_mediumtextsize, ruleToEdit.getActionSet());
+			loadVariablesIntoGui();
+		}
+		else
 		{
 			// new rule
 			Miscellaneous.logEvent("i", "Rule", "Cache empty, assuming create request.", 3);
@@ -157,16 +168,6 @@ public class ActivityManageRule extends Activity
 			ruleToEdit.setActionSet(new ArrayList<Action>());
 			triggerListViewAdapter = new ArrayAdapter<Trigger>(this, R.layout.text_view_for_poi_listview_mediumtextsize, ruleToEdit.getTriggerSet());
 			actionListViewAdapter = new ArrayAdapter<Action>(this, R.layout.text_view_for_poi_listview_mediumtextsize, ruleToEdit.getActionSet());
-		}
-		else
-		{
-			// change existing rule
-			Miscellaneous.logEvent("i", "Rule", "Cache not empty, assuming change request.", 3);
-			newRule = false;
-			ruleToEdit = ActivityMainRules.ruleToEdit;
-			triggerListViewAdapter = new ArrayAdapter<Trigger>(this, R.layout.text_view_for_poi_listview_mediumtextsize, ruleToEdit.getTriggerSet());
-			actionListViewAdapter = new ArrayAdapter<Action>(this, R.layout.text_view_for_poi_listview_mediumtextsize, ruleToEdit.getActionSet());
-			loadVariablesIntoGui();
 		}
 		
 		cmdTriggerAdd.setOnClickListener(new OnClickListener()
@@ -256,8 +257,9 @@ public class ActivityManageRule extends Activity
 				switch(selectedTrigger.getTriggerType())
 				{
 					case timeFrame:
-						ActivityManageTriggerTimeFrame.editedTimeFrameTrigger = selectedTrigger;
 						Intent timeFrameEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerTimeFrame.class);
+						timeFrameEditor.putExtra(intentNameTriggerParameter1, selectedTrigger.getTriggerParameter());
+						timeFrameEditor.putExtra(intentNameTriggerParameter2, selectedTrigger.getTriggerParameter2());
 						startActivityForResult(timeFrameEditor, requestCodeTriggerTimeframeEdit);
 						break;
 					case bluetoothConnection:
@@ -1250,9 +1252,15 @@ public class ActivityManageRule extends Activity
 		else if(requestCode == requestCodeTriggerTimeframeEdit)
 		{
 			//edit TimeFrame
-			if(resultCode == RESULT_OK && ActivityManageTriggerTimeFrame.editedTimeFrameTrigger != null)
+			if(resultCode == RESULT_OK && data.hasExtra(intentNameTriggerParameter2))
 			{
-				ActivityManageTriggerTimeFrame.editedTimeFrameTrigger.setParentRule(ruleToEdit);
+				Trigger responseTimeFrame = new Trigger();
+				responseTimeFrame.setTriggerType(Trigger_Enum.timeFrame);
+				responseTimeFrame.setTriggerParameter(data.getBooleanExtra(intentNameTriggerParameter1, true));
+				responseTimeFrame.setTriggerParameter2(data.getStringExtra(intentNameTriggerParameter2));
+				responseTimeFrame.setTimeFrame(new TimeFrame(data.getStringExtra(intentNameTriggerParameter2)));
+				responseTimeFrame.setParentRule(ruleToEdit);
+				ruleToEdit.getTriggerSet().set(editIndex, responseTimeFrame);
 				this.refreshTriggerList();
 			}
 			else

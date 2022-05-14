@@ -28,6 +28,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.jens.automation2.Trigger.Trigger_Enum;
 import com.jens.automation2.location.LocationProvider;
+import com.jens.automation2.receivers.DateTimeListener;
 import com.jens.automation2.receivers.PackageReplacedReceiver;
 import com.jens.automation2.receivers.PhoneStatusListener;
 
@@ -57,6 +58,8 @@ public class AutomationService extends Service implements OnInitListener
 
 	protected Calendar lockSoundChangesEnd = null;
     protected boolean isRunning;
+
+	protected static AutomationService centralInstance = null;
 
     public void nullLockSoundChangesEnd()
 	{
@@ -94,8 +97,6 @@ public class AutomationService extends Service implements OnInitListener
 	{
 		return myLocationProvider;
 	}
-
-	protected static AutomationService centralInstance = null;
 
 	public static AutomationService getInstance()
 	{
@@ -288,6 +289,8 @@ public class AutomationService extends Service implements OnInitListener
 			myLocationProvider.applySettingsAndRules();
 
 		ReceiverCoordinator.applySettingsAndRules();
+
+		DateTimeListener.reloadAlarms();
 	}
 
 	@Override
@@ -466,6 +469,8 @@ public class AutomationService extends Service implements OnInitListener
 			ttsEngine.shutdown();
 		
 		PackageReplacedReceiver.setHasServiceBeenRunning(false, this);
+
+		centralInstance = null;
 	}
 
 	protected static Builder createDefaultNotificationBuilderOld()

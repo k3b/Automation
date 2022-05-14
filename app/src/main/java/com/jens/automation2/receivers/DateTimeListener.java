@@ -27,12 +27,10 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 {
 	private static AutomationService automationServiceRef;
 	private static AlarmManager centralAlarmManagerInstance;
-//	private static Intent alarmIntent;
-//	private static PendingIntent alarmPendingIntent;
 	private static boolean alarmListenerActive=false;
 	private static ArrayList<ScheduleElement> alarmCandidates = new ArrayList<>();
-	
 	private static ArrayList<Integer> requestCodeList = new ArrayList<Integer>();
+	static PendingIntent alarmPendingIntent = null;
 
 	public static void startAlarmListener(final AutomationService automationServiceRef)
 	{		
@@ -52,13 +50,9 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 	public void onReceive(Context context, Intent intent)
 	{
 		Miscellaneous.logEvent("i", "AlarmListener", "Alarm received", 2);
-		Date now = new Date();
-		String timeString = String.valueOf(now.getHours()) + ":" + String.valueOf(now.getMinutes()) + ":" + String.valueOf(now.getSeconds());
-		Time passTime = Time.valueOf(timeString);
 
 		ArrayList<Rule> allRulesWithNowInTimeFrame = Rule.findRuleCandidates(Trigger_Enum.timeFrame);
-//		ArrayList<Rule> allRulesWithNowInTimeFrame = Rule.findRuleCandidatesByTime(passTime);
-		for(int i=0; i<allRulesWithNowInTimeFrame.size(); i++)
+		for(int i=0; i < allRulesWithNowInTimeFrame.size(); i++)
 		{
 			if(allRulesWithNowInTimeFrame.get(i).getsGreenLight(context))
 				allRulesWithNowInTimeFrame.get(i).activate(automationServiceRef, false);
@@ -77,23 +71,7 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 		
 		clearAlarms();
 		
-		int i=0;	
-
-//		// get a Calendar object with current time
-//		Calendar cal = Calendar.getInstance();
-//		// add 5 minutes to the calendar object
-//		cal.add(Calendar.SECOND, 10);
-//		String calSetWorkingCopyString2 = null;
-//		SimpleDateFormat sdf2 = new SimpleDateFormat("E dd.MM.yyyy HH:mm");
-//		if (cal != null)
-//		{
-//			calSetWorkingCopyString2 = sdf2.format(cal.getTime());
-//		}
-//		Miscellaneous.logEvent("i", "AlarmManager", "Setting repeating alarm because of hardcoded test: beginning at " + calSetWorkingCopyString2);
-//		Intent alarmIntent2 = new Intent(automationServiceRef, AlarmListener.class);
-//		PendingIntent alarmPendingIntent2 = PendingIntent.getBroadcast(automationServiceRef, 0, alarmIntent2, 0);
-//		centralAlarmManagerInstance.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 5000, alarmPendingIntent2);
-//		requestCodeList.add(0);
+		int i=0;
 				 
 		ArrayList<Rule> allRulesWithTimeFrames = new ArrayList<Rule>();
 		allRulesWithTimeFrames = Rule.findRuleCandidates(Trigger_Enum.timeFrame);
@@ -161,7 +139,7 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 								}
 
 								i++;
-								i=(int)System.currentTimeMillis();
+								i = (int)System.currentTimeMillis();
 								sdf.format(calSetWorkingCopy.getTime());
 								String.valueOf(i);
 
@@ -264,11 +242,10 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 		}
 		
 		Intent alarmIntent = new Intent(automationServiceRef, DateTimeListener.class);
-		PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(automationServiceRef, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		alarmPendingIntent = PendingIntent.getBroadcast(automationServiceRef, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		centralAlarmManagerInstance.set(AlarmManager.RTC_WAKEUP, scheduleCandidate.time.getTimeInMillis(), alarmPendingIntent);
-		
 
-		SimpleDateFormat sdf = new SimpleDateFormat("E dd.MM.yyyy HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("E dd.MM.yyyy HH:mm:ss");
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(scheduleCandidate.time.getTimeInMillis());
         Miscellaneous.logEvent("i", "AlarmManager", "Chose " + sdf.format(calendar.getTime()) + " as next scheduled alarm.", 4);
@@ -280,7 +257,8 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 		for(int requestCode : requestCodeList)
 		{
 			Intent alarmIntent = new Intent(automationServiceRef, DateTimeListener.class);
-			PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(automationServiceRef, requestCode, alarmIntent, 0);
+			if(alarmPendingIntent == null)
+				alarmPendingIntent = PendingIntent.getBroadcast(automationServiceRef, requestCode, alarmIntent, 0);
 //			Miscellaneous.logEvent("i", "AlarmManager", "Clearing alarm with request code: " + String.valueOf(requestCode));
 			centralAlarmManagerInstance.cancel(alarmPendingIntent);
 		}
@@ -316,7 +294,7 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 		{
 			Miscellaneous.logEvent("i", "AlarmListener", "Stopping alarm listener.", 4);
 			clearAlarms();
-//			centralAlarmManagerInstance.cancel(alarmPendingIntent);
+			centralAlarmManagerInstance.cancel(alarmPendingIntent);
 			alarmListenerActive = false;
 		}
 		else
@@ -403,8 +381,6 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 			calSet.set(Calendar.SECOND, 0);
 			calSet.set(Calendar.MILLISECOND, 0);
 
-//				if(this.applies(null))
-//				{
 			// If the starting time is a day ahead remove 1 day.
 			if(calSet.getTimeInMillis() > now.getTimeInMillis())
 				calSet.add(Calendar.DAY_OF_MONTH, -1);
@@ -419,11 +395,8 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 			 * Das war mal aktiviert. Allerdings: Die ganze Funktion liefert zurück, wenn die Regel NOCH nicht
 			 * zutrifft, aber wir z.B. gleich den zeitlichen Bereich betreten.
 			 */
-//					if(trigger.checkDateTime(calSchedule.getTime(), false))
-//					{
+
 			return calSchedule;
-//					}
-//				}
 		}
 		else
 			Miscellaneous.logEvent("i", "DateTimeListener", "Trigger " + trigger.toString() + " is not executed repeatedly.", 5);

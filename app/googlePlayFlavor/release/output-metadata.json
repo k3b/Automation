@@ -11,8 +11,8 @@
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 116,
-      "versionName": "1.7.2-googlePlay",
+      "versionCode": 119,
+      "versionName": "1.7.5-googlePlay",
       "outputFile": "app-googlePlayFlavor-release.apk"
     }
   ],
