@@ -701,4 +701,5 @@
     <string name="locationNotWorkingOn12">Ottenere la posizione non sembra funzionare su dispositivi Android 12 al momento. Se non funziona per te, mi dispiace. Cercherò di risolvere questo problema non appena conoscerò la causa. Quindi, se cerchio rotante non smette di girare, sai perché.</string>
     <string name="lastProfile">Ultimo profilo:</string>
     <string name="queryAllPackages">Ottenere un elenco delle applicazioni installate</string>
+    <string name="timeFrameDaysHint">Se si utilizza un intervallo di tempo che si estende oltre la mezzanotte, è necessario selezionare anche il giorno successivo se si desidera che il trigger venga applicato dopo la mezzanotte.</string>
 </resources>

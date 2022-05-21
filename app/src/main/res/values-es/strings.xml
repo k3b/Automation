@@ -700,4 +700,5 @@
     <string name="profileXrequiresThis">El perfil \"%1$s\" requiere esto.</string>
     <string name="lastProfile">Último perfil:</string>
     <string name="queryAllPackages">Obtener una lista de las aplicaciones instaladas</string>
+    <string name="timeFrameDaysHint">Si utiliza un marco de tiempo que se extiende más allá de la medianoche, también debe seleccionar el día siguiente si desea que la condición se aplique después de la medianoche.</string>
 </resources>
