@@ -380,7 +380,13 @@ public class ActivityManageActionStartActivity extends Activity
 				int targetSdkVersion = getApplicationContext().getApplicationInfo().targetSdkVersion;
 				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && targetSdkVersion >= 30 && !ActivityPermissions.havePermission(Manifest.permission.QUERY_ALL_PACKAGES, ActivityManageActionStartActivity.this))// && shouldShowRequestPermissionRationale(Manifest.permission.QUERY_ALL_PACKAGES))
 				{
-					requestPermissions(new String[] {Manifest.permission.QUERY_ALL_PACKAGES}, requestCodeForRequestQueryAllPackagesPermission);
+					if(BuildConfig.FLAVOR.equals("googlePlayFlavor"))
+					{
+						// This ain't possible anymore.
+						Miscellaneous.messageBox(getResources().getString(R.string.info), getResources().getString(R.string.featureNotInGooglePlayVersion) + Miscellaneous.lineSeparator + Miscellaneous.lineSeparator + getResources().getString(R.string.startActivityInsertManually), ActivityManageActionStartActivity.this).show();
+					}
+					else
+						requestPermissions(new String[] {Manifest.permission.QUERY_ALL_PACKAGES}, requestCodeForRequestQueryAllPackagesPermission);
 				}
 				else
 					getAppList();

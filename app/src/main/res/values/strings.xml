@@ -798,4 +798,6 @@
     <string name="lastProfile">Last profile:</string>
     <string name="queryAllPackages">Get a list of installed applications</string>
     <string name="timeFrameDaysHint">If you use a timeframe that stretches over midnight you need to select the following day as well if you want the trigger to apply after midnight.</string>
+    <string name="featureNotInGooglePlayVersion">This feature is not available in the Google Play version anymore.\n\nEvery now and then Google bullies developers. If you want to keep using certain features you have to file paperwork. Unfortunately there\'s a 99% chance that the paperwork gets rejected. It\'s pretty much like in the Asterix comic/movie.\n\nI\'ve spent weeks arguing with them about cases like that in the past, but I kept getting rejections - either by bots or people who are about as intelligent as bots. In the I can decide between the app being removed from the Play Store entirely or remove the feature.\nPlease consider using the APK version from my website or the one from F-Droid if you need those features.</string>
+    <string name="startActivityInsertManually">This limitation concerns only the selection of an app, not the actual start. So you can still enter the name of an application manually if you know it.</string>
 </resources>
