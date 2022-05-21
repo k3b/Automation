@@ -702,6 +702,8 @@
     <string name="lastProfile">Letztes Profil:</string>
     <string name="queryAllPackages">Liste von installierten Anwendungen auslesen</string>
     <string name="timeFrameDaysHint">Wenn Sie ein Zeitfenster verwenden, das sich über Mitternacht erstreckt, müssen Sie auch den Folgetag auswählen, wenn der Auslöser auch nach Mitternacht noch auslösen soll.</string>
+    <string name="featureNotInGooglePlayVersion">Diese Funktion ist in der Google Play-Version nicht mehr verfügbar.\n\nHin und wieder schikaniert Google Entwickler. Wenn Sie bestimmte Funktionen weiterhin verwenden möchten, müssen Sie Unterlagen einreichen. Leider besteht eine 99% ige Chance, dass der Papierkram abgelehnt wird. Es ist so ziemlich wie im Asterix-Comic/Film.\n\nIch habe in der Vergangenheit Wochen damit verbracht, mit ihnen über solche Fälle zu streiten, aber ich bekam immer wieder Ablehnungen - entweder von Bots oder von Leuten, die ungefähr so intelligent sind wie Bots. Ich kann mich dann nur entscheiden, ob die App vollständig aus dem Play Store fliegen soll oder die Funktion aus der Play Store Version entfernen.\n\nBitte erwägen Sie, die APK-Version von meiner Website oder die von F-Droid zu verwenden, wenn Sie diese Funktionen benötigen.</string>
+    <string name="startActivityInsertManually">Diese Einschränkung betrifft nur die Auswahl einer App, nicht den eigentlichen Start. So können Sie den Namen einer Anwendung immer noch manuell eingeben, falls Sie ihn kennen.</string>
     <string name="serviceStarts">Dienst startet</string>
     <string name="deviceStarts">Gerät startet</string>
     <string name="deviceHasJustStarted">Gerät ist gerade gestartet</string>

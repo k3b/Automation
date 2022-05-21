@@ -702,6 +702,8 @@
     <string name="lastProfile">Ultimo profilo:</string>
     <string name="queryAllPackages">Ottenere un elenco delle applicazioni installate</string>
     <string name="timeFrameDaysHint">Se si utilizza un intervallo di tempo che si estende oltre la mezzanotte, è necessario selezionare anche il giorno successivo se si desidera che il trigger venga applicato dopo la mezzanotte.</string>
+    <string name="featureNotInGooglePlayVersion">Questa funzione non è più disponibile nella versione di Google Play.\\n\\nOltre di tanto in tanto Google bullizza gli sviluppatori. Se si desidera continuare a utilizzare determinate funzionalità, è necessario archiviare i documenti. Sfortunatamente c\'è una probabilità del 99% che i documenti vengano rifiutati. È più o meno come nel fumetto / film di Asterix.\\n\\nHo passato settimane a discutere con loro su casi del genere in passato, ma ho continuato a ricevere rifiuti - sia da bot che da persone che sono intelligenti come i bot. Nella sezione Posso decidere se l\'app viene rimossa completamente dal Play Store o rimuovere la funzione.\\nConsigliare l\'utilizzo della versione APK dal mio sito Web o quella di F-Droid se sono necessarie tali funzionalità.</string>
+    <string name="startActivityInsertManually">Questa limitazione riguarda solo la selezione di un\'app, non l\'avvio effettivo. Quindi puoi comunque inserire manualmente il nome di un\'applicazione se lo conosci.</string>
     <string name="deviceStarts">Device starts</string>
     <string name="serviceStarts">Avvio del servizio</string>
     <string name="deviceHasJustStarted">Il dispositivo è appena stato avviato</string>
