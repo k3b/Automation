@@ -10,13 +10,13 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
 
 import java.sql.Time;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -27,6 +27,7 @@ public class ActivityManageTriggerTimeFrame extends Activity
 	CheckBox checkMonday, checkTuesday, checkWednesday, checkThursday, checkFriday, checkSaturday, checkSunday, chkRepeat;
 	RadioButton radioTimeFrameEntering, radioTimeFrameLeaving;
 	EditText etRepeatEvery;
+	TextView tvDaysHint;
 
 	static Trigger editedTimeFrameTrigger = null;
 	
@@ -53,6 +54,7 @@ public class ActivityManageTriggerTimeFrame extends Activity
 		radioTimeFrameLeaving = (RadioButton)findViewById(R.id.radioTimeFrameLeaving);
 		chkRepeat = (CheckBox)findViewById(R.id.chkRepeat);
 		etRepeatEvery = (EditText)findViewById(R.id.etRepeatEvery);
+		tvDaysHint = (TextView)findViewById(R.id.tvDaysHint);
 
 		bSaveTimeFrame.setOnClickListener(new OnClickListener()
 		{			
@@ -181,6 +183,31 @@ public class ActivityManageTriggerTimeFrame extends Activity
 			editedTimeFrameTrigger.setTimeFrame(new TimeFrame(editedTimeFrameTrigger.getTriggerParameter2()));
 			loadVariableIntoGui();
 		}
+
+		TimePicker.OnTimeChangedListener pickerListener = new TimePicker.OnTimeChangedListener()
+		{
+			@Override
+			public void onTimeChanged(TimePicker timePicker, int i, int i1)
+			{
+				if(
+						startPicker.getCurrentHour() > stopPicker.getCurrentHour()
+								||
+						(
+							startPicker.getCurrentHour() == stopPicker.getCurrentHour()
+								&&
+							startPicker.getCurrentMinute() >= stopPicker.getCurrentMinute()
+						)
+				)
+					tvDaysHint.setText(getResources().getString(R.string.timeFrameDaysHint));
+				else
+					tvDaysHint.setText("");
+			}
+		};
+		startPicker.setOnTimeChangedListener(pickerListener);
+		stopPicker.setOnTimeChangedListener(pickerListener);
+
+		// Perform check once
+		pickerListener.onTimeChanged(null, 0, 0);
 	}
 
 	private void loadVariableIntoGui()

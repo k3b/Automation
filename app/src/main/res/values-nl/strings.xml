@@ -699,6 +699,7 @@
     <string name="profileXrequiresThis">Profiel \"%1$s\" vereist dit.</string>
     <string name="lastProfile">Laatste profiel:</string>
     <string name="queryAllPackages">Een lijst met geïnstalleerde toepassingen ophalen</string>
+    <string name="timeFrameDaysHint">Als u een tijdsbestek gebruikt dat zich uitstrekt over middernacht, moet u ook de volgende dag selecteren als u wilt dat de trigger na middernacht van toepassing is.</string>
     <string name="deviceHasJustStarted">apparaat is net gestart</string>
     <string name="serviceHasJustStarted">service is net begonnen</string>
     <string name="serviceStarts">Service start</string>

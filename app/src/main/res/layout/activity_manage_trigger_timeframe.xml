@@ -71,13 +71,20 @@
 			android:layout_margin="10dp"
 			android:background="#aa000000" />
 
-			<TextView
-				android:id="@+id/tvCurrentNfcIdValue"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/timeFrameWhichDays"
-				android:textAppearance="?android:attr/textAppearanceLarge" />
-			
+		<TextView
+			android:id="@+id/tvCurrentNfcIdValue"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/timeFrameWhichDays"
+			android:textAppearance="?android:attr/textAppearanceLarge" />
+
+		<TextView
+			android:id="@+id/tvDaysHint"
+			android:layout_marginVertical="@dimen/default_margin"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:textColor="@color/red" />
+
 	    <CheckBox
 	        android:id="@+id/checkMonday"
 	        android:layout_width="wrap_content"

@@ -925,20 +925,24 @@ public class Trigger
 				if(
 					// Regular case, start time is lower than end time
 						(
-								Miscellaneous.compareTimes(tf.getTriggerTimeStart(), nowTime) >= 0
-										&&
-								Miscellaneous.compareTimes(nowTime, tf.getTriggerTimeStop()) > 0
+							Miscellaneous.compareTimes(tf.getTriggerTimeStart(), nowTime) >= 0
+									&&
+							Miscellaneous.compareTimes(nowTime, tf.getTriggerTimeStop()) > 0
 						)
-								|
-								// Other case, start time higher than end time, timeframe goes over midnight
-								(
-										Miscellaneous.compareTimes(tf.getTriggerTimeStart(), tf.getTriggerTimeStop()) < 0
-												&&
-										(Miscellaneous.compareTimes(tf.getTriggerTimeStart(), nowTime) >= 0
-														||
-										Miscellaneous.compareTimes(nowTime, tf.getTriggerTimeStop()) > 0)
-								)
-
+								||
+						// Other case, start time higher than end time, timeframe goes over midnight
+						(
+							Miscellaneous.compareTimes(tf.getTriggerTimeStart(), tf.getTriggerTimeStop()) < 0
+									&&
+							(Miscellaneous.compareTimes(tf.getTriggerTimeStart(), nowTime) >= 0
+											||
+							Miscellaneous.compareTimes(nowTime, tf.getTriggerTimeStop()) > 0)
+						)
+								||
+						// further case: start and end times are identical, meaning a 24h window
+						(
+							Miscellaneous.compareTimes(tf.getTriggerTimeStart(), tf.getTriggerTimeStop()) == 0
+						)
 				)
 				{
 					// We are in the timeframe

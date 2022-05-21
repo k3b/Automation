@@ -701,6 +701,7 @@
     <string name="profileXrequiresThis">Profil \"%1$s\" benötigt dies.</string>
     <string name="lastProfile">Letztes Profil:</string>
     <string name="queryAllPackages">Liste von installierten Anwendungen auslesen</string>
+    <string name="timeFrameDaysHint">Wenn Sie ein Zeitfenster verwenden, das sich über Mitternacht erstreckt, müssen Sie auch den Folgetag auswählen, wenn der Auslöser auch nach Mitternacht noch auslösen soll.</string>
     <string name="serviceStarts">Dienst startet</string>
     <string name="deviceStarts">Gerät startet</string>
     <string name="deviceHasJustStarted">Gerät ist gerade gestartet</string>
