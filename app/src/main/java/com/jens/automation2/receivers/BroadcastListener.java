@@ -12,11 +12,12 @@ import com.jens.automation2.Rule;
 import com.jens.automation2.Trigger;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class BroadcastListener extends android.content.BroadcastReceiver implements AutomationListenerInterface
 {
-    ArrayList<String> broadcastsCollection = new ArrayList<>();
+    ArrayList<EventOccurrence> broadcastsCollection = new ArrayList<>();
     public static AutomationService automationServiceRef = null;
     private static boolean broadcastReceiverActive = false;
     private static BroadcastListener broadcastReceiverInstance = null;
@@ -31,10 +32,22 @@ public class BroadcastListener extends android.content.BroadcastReceiver impleme
         return broadcastReceiverInstance;
     }
 
+    public static class EventOccurrence
+    {
+        Calendar time;
+        String event;
+
+        public EventOccurrence(Calendar time, String event)
+        {
+            this.time = time;
+            this.event = event;
+        }
+    }
+
     @Override
     public void onReceive(Context context, Intent intent)
     {
-        broadcastsCollection.add(intent.getAction());
+        broadcastsCollection.add(new EventOccurrence(Calendar.getInstance(), intent.getAction()));
 
         ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.broadcastReceived);
         for(int i=0; i<ruleCandidates.size(); i++)
@@ -44,14 +57,20 @@ public class BroadcastListener extends android.content.BroadcastReceiver impleme
         }
     }
 
-    public ArrayList<String> getBroadcastsCollection()
+    public ArrayList<EventOccurrence> getBroadcastsCollection()
     {
         return broadcastsCollection;
     }
 
-    public boolean broadcastsCollectionContains(String event)
+    public boolean hasBroadcastOccurredSince(String event, Calendar timeLimit)
     {
-        return broadcastsCollection.contains(event);
+        for(EventOccurrence eo : broadcastsCollection)
+        {
+            if(eo.time.getTimeInMillis() > timeLimit.getTimeInMillis() && eo.event.equalsIgnoreCase(event))
+                return true;
+        }
+
+        return false;
     }
 
     @Override

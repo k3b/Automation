@@ -253,7 +253,7 @@ public class Trigger
 			it contains the specific event of this trigger.
 		 */
 
-		return triggerParameter == BroadcastListener.getInstance().broadcastsCollectionContains(triggerParameter2);
+		return triggerParameter == BroadcastListener.getInstance().hasBroadcastOccurredSince(triggerParameter2, getParentRule().getLastExecution());
 	}
 
 	boolean checkNotification()
