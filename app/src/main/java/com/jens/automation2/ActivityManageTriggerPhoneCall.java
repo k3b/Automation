@@ -86,8 +86,8 @@ public class ActivityManageTriggerPhoneCall extends Activity
                 else
                 {
                     Intent data = new Intent();
-                    data.putExtra("triggerParameter", false);
-                    data.putExtra("triggerParameter2", tp2Result);
+                    data.putExtra(ActivityManageRule.intentNameTriggerParameter1, false);
+                    data.putExtra(ActivityManageRule.intentNameTriggerParameter2, tp2Result);
                     ActivityManageTriggerPhoneCall.this.setResult(RESULT_OK, data);
                 }
 

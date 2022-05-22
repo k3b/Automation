@@ -804,4 +804,12 @@
     <string name="serviceStarts">Service starts</string>
     <string name="deviceHasJustStarted">device has just started</string>
     <string name="serviceHasJustStarted">service has just started</string>
+    <string name="broadcastReceived">broadcast received</string>
+    <string name="broadcastNotReceived">broadcast not received</string>
+    <string name="explanationBroadcastTrigger">Most events on your phone will be \"published\" by broadcasting them throughout the operating system.\nFor example turning on/off airplane mode will trigger such a broadcast. Those broadcasts are not automatically visible/audible, but if an application (like Automation) is interested it can hook up to them. When they occur it will get notified and can react.\n\nYou can define a broadcast event here for which the application will wait. You may enter it manually, copy &amp; paste it from somewhere or pick one from the list of suggestions. As this trigger is meant to be and remain very flexible I cannot provide you with explanations for the items.\n\nThe list of suggestions does not claim to be complete. Please visit the below URL to have a look at the Android documentation.\nAlso any app can send custom events which will not appear in the Android documentation of course.\n\nMany broadcasts require specific permissions in order to work. I try to request permissions where I know they will be required. If you think a permission is required for the action you entered, please let me know.\n\nNot received means there has not been such a broadcast ever since the service has been started. Responding to certain parameters is in development.</string>
+    <string name="broadcastListUrl">https://developer.android.com/reference/android/content/Intent.html</string>
+    <string name="broadcastReceivedTitle">Broadcast received</string>
+    <string name="logsExplanation">To avoid unnecessary wearing of your storage, logs are not saved by default. So if you have a problem please activate logging in settings first and set log level to 5. Then reproduce the problem. Only then logs can be attached.</string>
+    <string name="broadcastsShowSuggestions">Show suggestions</string>
+    <string name="selectBroadcast">Select broadcast</string>
 </resources>

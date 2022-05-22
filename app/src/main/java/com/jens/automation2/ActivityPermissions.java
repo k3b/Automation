@@ -224,7 +224,7 @@ public class ActivityPermissions extends Activity
         }
     }
 
-    protected static void addToArrayListUnique(String value, ArrayList<String> list)
+    public static void addToArrayListUnique(String value, List<String> list)
     {
         if (!list.contains(value))
             list.add(value);

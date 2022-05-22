@@ -57,6 +57,7 @@ android {
         abortOnError false
         checkReleaseBuilds false
     }
+    namespace 'com.jens.automation2'
 }
 
 dependencies {

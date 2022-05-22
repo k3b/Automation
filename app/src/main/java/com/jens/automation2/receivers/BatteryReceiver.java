@@ -99,54 +99,48 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 
 		if(intent.getAction().equals(Intent.ACTION_BATTERY_LOW))
 		{
-			Log.i("Battery", "Low battery event");
+			Miscellaneous.logEvent("i", "Battery", "Low battery event", 5);
 		}
 		else
 		{
 			try
 			{
-	//			Miscellaneous.logEvent("i", "BatteryReceiver", "Received battery event.");
-	//			if(intent.getAction().equals(Intent.ACTION_BATTERY_CHANGED))
-	//			{
-					batteryLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-			//		int scale = -1;
-			//	    int voltage = -1;
-			//	    int temp = -1;
-			//      scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-			//      temp = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1);
-			//      voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
-			        Log.i("Battery", "Level: " + String.valueOf(batteryLevel));
-					this.actionBatteryLevel(context);
-					
-					int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-					int statusPlugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-	//				Miscellaneous.logEvent("i", "BatteryReceiver", "Status: " + String.valueOf(statusPlugged));
-					
-					switch(statusPlugged)
-					{
-						case BatteryManager.BATTERY_PLUGGED_AC:
-		//					Toast.makeText(context, "Regular charging", Toast.LENGTH_LONG).show();
-	//						Miscellaneous.logEvent("i", "BatteryReceiver", "Regular charging.");
-							this.actionCharging(context);
-							break;
-						case BatteryManager.BATTERY_PLUGGED_USB:
-							this.actionUsbConnected(context);
-							break;
-					}
-					
-					switch(status)
-					{
-		//				case BatteryManager.BATTERY_STATUS_CHARGING:
-		//					break;
-						case BatteryManager.BATTERY_STATUS_FULL:
-		//					Toast.makeText(context, "Regular charging full", Toast.LENGTH_LONG).show();
-	//						Miscellaneous.logEvent("i", "BatteryReceiver", "Device has been fully charged.");
-							this.actionCharging(context);
-							break;
-						case BatteryManager.BATTERY_STATUS_DISCHARGING:
-							this.actionDischarging(context);
-							break;
-					}
+				batteryLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+		//		int scale = -1;
+		//	    int voltage = -1;
+		//	    int temp = -1;
+		//      scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+		//      temp = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1);
+		//      voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
+				Log.i("Battery", "Level: " + String.valueOf(batteryLevel));
+				this.actionBatteryLevel(context);
+
+				int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+				int statusPlugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+				Miscellaneous.logEvent("i", "BatteryReceiver", "Status: " + String.valueOf(statusPlugged), 5);
+
+				switch(statusPlugged)
+				{
+					case BatteryManager.BATTERY_PLUGGED_AC:
+	//					Toast.makeText(context, "Regular charging", Toast.LENGTH_LONG).show();
+						Miscellaneous.logEvent("i", "BatteryReceiver", "Regular charging.", 5);
+						this.actionCharging(context);
+						break;
+					case BatteryManager.BATTERY_PLUGGED_USB:
+						this.actionUsbConnected(context);
+						break;
+				}
+
+				switch(status)
+				{
+					case BatteryManager.BATTERY_STATUS_FULL:
+						Miscellaneous.logEvent("i", "BatteryReceiver", "Device has been fully charged.", 5);
+						this.actionCharging(context);
+						break;
+					case BatteryManager.BATTERY_STATUS_DISCHARGING:
+						this.actionDischarging(context);
+						break;
+				}
 			}
 			catch(Exception e)
 			{
@@ -264,11 +258,13 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 			}
 		}
 	}
+
 	@Override
 	public void startListener(AutomationService automationService)
 	{
 		BatteryReceiver.startBatteryReceiver(automationService);
 	}
+
 	@Override
 	public void stopListener(AutomationService automationService)
 	{

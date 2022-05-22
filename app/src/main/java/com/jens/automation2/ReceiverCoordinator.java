@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.jens.automation2.location.CellLocationChangedReceiver;
 import com.jens.automation2.location.WifiBroadcastReceiver;
+import com.jens.automation2.receivers.BroadcastListener;
 import com.jens.automation2.receivers.DateTimeListener;
 import com.jens.automation2.receivers.AutomationListenerInterface;
 import com.jens.automation2.receivers.BatteryReceiver;
@@ -67,6 +68,7 @@ public class ReceiverCoordinator
                     DateTimeListener.class,
                     BatteryReceiver.class,
                     BluetoothReceiver.class,
+                    BroadcastListener.class,
                     ConnectivityReceiver.class,
                     DeviceOrientationListener.class,
                     HeadphoneJackListener.class,
@@ -163,6 +165,10 @@ public class ReceiverCoordinator
         if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.noiseLevel))
             NoiseListener.startNoiseListener(AutomationService.getInstance());
 
+        // startBroadcastListener
+        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.broadcastReceived))
+            BroadcastListener.getInstance().startListener(AutomationService.getInstance());
+
         // startProcessListener
         if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.process_started_stopped))
             ProcessListener.startProcessListener(AutomationService.getInstance());
@@ -206,6 +212,7 @@ public class ReceiverCoordinator
             TimeZoneListener.stopTimeZoneListener();
             DateTimeListener.stopAlarmListener(AutomationService.getInstance());
             NoiseListener.stopNoiseListener();
+            BroadcastListener.getInstance().stopListener(AutomationService.getInstance());
             ProcessListener.stopProcessListener(AutomationService.getInstance());
             MediaPlayerListener.getInstance().stopListener(AutomationService.getInstance());
             DeviceOrientationListener.getInstance().stopListener(AutomationService.getInstance());
@@ -264,6 +271,17 @@ public class ReceiverCoordinator
         {
             Miscellaneous.logEvent("i", "LocationProvider", "Shutting down NoiseListener because not used in any rule.", 4);
             NoiseListener.stopNoiseListener();
+        }
+
+        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.broadcastReceived))
+        {
+            Miscellaneous.logEvent("i", "LocationProvider", "Starting BroadcastReceiver because used in a new/changed rule.", 4);
+            BroadcastListener.getInstance().startListener(AutomationService.getInstance());
+        }
+        else
+        {
+            Miscellaneous.logEvent("i", "LocationProvider", "Shutting down BroadcastReceiver because not used in any rule.", 4);
+            BroadcastListener.getInstance().stopListener(AutomationService.getInstance());
         }
 
         if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.process_started_stopped))

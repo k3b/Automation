@@ -3,7 +3,6 @@ package com.jens.automation2;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.os.Build;
-import android.os.SystemClock;
 import android.service.notification.StatusBarNotification;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -14,6 +13,7 @@ import com.jens.automation2.location.LocationProvider;
 import com.jens.automation2.location.WifiBroadcastReceiver;
 import com.jens.automation2.receivers.BatteryReceiver;
 import com.jens.automation2.receivers.BluetoothReceiver;
+import com.jens.automation2.receivers.BroadcastListener;
 import com.jens.automation2.receivers.ConnectivityReceiver;
 import com.jens.automation2.receivers.DeviceOrientationListener;
 import com.jens.automation2.receivers.HeadphoneJackListener;
@@ -58,6 +58,7 @@ public class Trigger
 		musicPlaying,
 		deviceStarts,
 		serviceStarts,
+		broadcastReceived,
 		phoneCall; //phoneCall always needs to be at the very end because of Google's shitty so called privacy
 
 		public String getFullName(Context context)
@@ -110,6 +111,8 @@ public class Trigger
 					return context.getResources().getString(R.string.deviceStarts);
 				case serviceStarts:
 					return context.getResources().getString(R.string.serviceStarts);
+				case broadcastReceived:
+					return context.getResources().getString(R.string.broadcastReceivedTitle);
 				default:
 					return "Unknown";
 			}
@@ -221,6 +224,10 @@ public class Trigger
 					if(!checkServiceStarts())
 						result = false;
 					break;
+				case broadcastReceived:
+					if(!checkBroadcastReceived())
+						result = false;
+					break;
 				default:
 					break;
 			}
@@ -237,7 +244,19 @@ public class Trigger
 		return result;
     }
 
-    boolean checkNotification()
+	boolean checkBroadcastReceived()
+	{
+		/*
+			We cannot reasonably check the current state for every broadcast event.
+			We can only hope that when starting the receiver we get an initial broadcast
+			for every current state. That collection of states will be saved and checked if
+			it contains the specific event of this trigger.
+		 */
+
+		return triggerParameter == BroadcastListener.getInstance().broadcastsCollectionContains(triggerParameter2);
+	}
+
+	boolean checkNotification()
 	{
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
 		{
@@ -1262,9 +1281,9 @@ public class Trigger
 		return triggerType;
 	}
 
-	public void setTriggerType(Trigger_Enum settriggerType)
+	public void setTriggerType(Trigger_Enum setTriggerType)
 	{
-		this.triggerType = settriggerType;
+		this.triggerType = setTriggerType;
 	}
 
 	public boolean getTriggerParameter()
@@ -1601,6 +1620,14 @@ public class Trigger
 				// This type doesn't have an activate/deactivate equivalent
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.serviceHasJustStarted));
 				break;
+			case broadcastReceived:
+				if(triggerParameter)
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.broadcastReceived));
+				else
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.broadcastNotReceived));
+
+				returnString.append(": " + triggerParameter2);
+				break;
 			default:
 				returnString.append("error");
 				break;
@@ -1664,11 +1691,7 @@ public class Trigger
 	public static String[] getTriggerTypesStringAsArray(Context context)
 	{
 		ArrayList<String> triggerTypesList = new ArrayList<String>();
-		
-		/*for(int i=0; i<Trigger_Enum.values().length; i++)
-		{
-			triggerTypesList.add(Trigger_Enum.values()[i].getFullName(context));
-		}*/
+
 		for(Trigger_Enum triggerType : Trigger_Enum.values())
 			triggerTypesList.add(triggerType.getFullName(context));
 		

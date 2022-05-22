@@ -248,8 +248,6 @@ public class AutomationService extends Service implements OnInitListener
 		reloadSettings, reloadPointsOfInterest, reloadRules, updateNotification
 	}
 
-	;
-
 	public void serviceInterface(serviceCommands command)
 	{
 		Miscellaneous.logEvent("i", "Bind", "Ahhhh, customers... How can I help you?", 5);

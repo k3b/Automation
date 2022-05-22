@@ -119,6 +119,8 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeActionCloseNotificationEdit = 806;
 	final static int requestCodeActionControlMediaAdd = 807;
 	final static int requestCodeActionControlMediaEdit = 808;
+	final static int requestCodeTriggerBroadcastReceivedAdd = 809;
+	final static int requestCodeTriggerBroadcastReceivedEdit = 810;
 	
 	public static ActivityManageRule getInstance()
 	{
@@ -297,6 +299,12 @@ public class ActivityManageRule extends Activity
 						devicePositionEditor.putExtra(ActivityManageRule.intentNameTriggerParameter1, selectedTrigger.getTriggerParameter());
 						devicePositionEditor.putExtra(ActivityManageTriggerDeviceOrientation.vectorFieldName, selectedTrigger.getTriggerParameter2());
 						startActivityForResult(devicePositionEditor, requestCodeTriggerDeviceOrientationEdit);
+						break;
+					case broadcastReceived:
+						Intent broadcastEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerBroadcast.class);
+						broadcastEditor.putExtra(intentNameTriggerParameter1, selectedTrigger.getTriggerParameter());
+						broadcastEditor.putExtra(intentNameTriggerParameter2, selectedTrigger.getTriggerParameter2());
+						startActivityForResult(broadcastEditor, requestCodeTriggerBroadcastReceivedEdit);
 						break;
 					default:
 						break;
@@ -508,6 +516,8 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.plane));
 			else if(types[i].toString().equals(Trigger_Enum.roaming.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.roaming));
+			else if(types[i].toString().equals(Trigger_Enum.broadcastReceived.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.satellite));
 			else if(types[i].toString().equals(Trigger_Enum.phoneCall.toString()))
             {
 				if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageRule.this, "android.permission.SEND_SMS"))
@@ -725,6 +735,13 @@ public class ActivityManageRule extends Activity
 					{
 						if (NfcReceiver.checkNfcRequirements(ActivityManageRule.this, true))
 							getTriggerParameterDialog(context, booleanChoices).show();
+					}
+					else if(triggerType == Trigger_Enum.broadcastReceived)
+					{
+						newTrigger.setTriggerType(Trigger_Enum.broadcastReceived);
+						Intent broadcastTriggerEditor = new Intent(myContext, ActivityManageTriggerBroadcast.class);
+						startActivityForResult(broadcastTriggerEditor, requestCodeTriggerBroadcastReceivedAdd);
+						return;
 					}
 					else
 						getTriggerParameterDialog(context, booleanChoices).show();
@@ -1359,7 +1376,7 @@ public class ActivityManageRule extends Activity
 			{
 				newTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().add(newTrigger);
-				newTrigger.setTriggerParameter2(data.getStringExtra("triggerParameter2"));
+				newTrigger.setTriggerParameter2(data.getStringExtra(intentNameTriggerParameter2));
 				this.refreshTriggerList();
 			}
 		}
@@ -1623,6 +1640,30 @@ public class ActivityManageRule extends Activity
 			{
 				Trigger editedTrigger = new Trigger();
 				editedTrigger.setTriggerType(Trigger_Enum.profileActive);
+				editedTrigger.setTriggerParameter(data.getBooleanExtra(ActivityManageRule.intentNameTriggerParameter1, true));
+				editedTrigger.setTriggerParameter2(data.getStringExtra(ActivityManageRule.intentNameTriggerParameter2));
+				editedTrigger.setParentRule(ruleToEdit);
+				ruleToEdit.getTriggerSet().set(editIndex, editedTrigger);
+				this.refreshTriggerList();
+			}
+		}
+		else if(requestCode == requestCodeTriggerBroadcastReceivedAdd)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				newTrigger.setTriggerParameter(data.getBooleanExtra(ActivityManageRule.intentNameTriggerParameter1, true));
+				newTrigger.setTriggerParameter2(data.getStringExtra(ActivityManageRule.intentNameTriggerParameter2));
+				newTrigger.setParentRule(ruleToEdit);
+				ruleToEdit.getTriggerSet().add(newTrigger);
+				this.refreshTriggerList();
+			}
+		}
+		else if(requestCode == requestCodeTriggerBroadcastReceivedEdit)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				Trigger editedTrigger = new Trigger();
+				editedTrigger.setTriggerType(Trigger_Enum.broadcastReceived);
 				editedTrigger.setTriggerParameter(data.getBooleanExtra(ActivityManageRule.intentNameTriggerParameter1, true));
 				editedTrigger.setTriggerParameter2(data.getStringExtra(ActivityManageRule.intentNameTriggerParameter2));
 				editedTrigger.setParentRule(ruleToEdit);

@@ -96,6 +96,11 @@
             android:layout_height="wrap_content"
             android:text="@string/sendEmailToDev" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/logsExplanation" />
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_span="2"
