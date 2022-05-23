@@ -1607,6 +1607,9 @@ public class Trigger
 					case "2":
 						state = Miscellaneous.getAnyContext().getString(R.string.unlocked);
 						break;
+					case "3":
+						state = Miscellaneous.getAnyContext().getString(R.string.locked);
+						break;
 					default:
 						state = Miscellaneous.getAnyContext().getString(R.string.unknown);
 				}
