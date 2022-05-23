@@ -3,6 +3,7 @@ package com.jens.automation2.receivers;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.jens.automation2.ActivityPermissions;
@@ -49,6 +50,13 @@ public class BroadcastListener extends android.content.BroadcastReceiver impleme
     {
         broadcastsCollection.add(new EventOccurrence(Calendar.getInstance(), intent.getAction()));
 
+        for(String key : intent.getExtras().keySet())
+        {
+            Miscellaneous.logEvent("i", "Broadcast extra", "Broadcast " + intent.getAction() + " has extra " + key + " and type " + intent.getExtras().get(key).getClass().getName(), 4);
+//            Object ob = intent.getExtras().get(key);
+//            Miscellaneous.logEvent("i", "Broadcast extra", "Broadcast " + intent.getAction() + " has extra " + key + " and type " + intent.getExtras().get(key).getClass().getName(), 4);
+        }
+
         ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.broadcastReceived);
         for(int i=0; i<ruleCandidates.size(); i++)
         {
@@ -62,11 +70,22 @@ public class BroadcastListener extends android.content.BroadcastReceiver impleme
         return broadcastsCollection;
     }
 
+    public boolean hasBroadcastOccurred(String event)
+    {
+        for(EventOccurrence eo : broadcastsCollection)
+        {
+            if(eo.event.equalsIgnoreCase(event))
+                return true;
+        }
+
+        return false;
+    }
+
     public boolean hasBroadcastOccurredSince(String event, Calendar timeLimit)
     {
         for(EventOccurrence eo : broadcastsCollection)
         {
-            if(eo.time.getTimeInMillis() > timeLimit.getTimeInMillis() && eo.event.equalsIgnoreCase(event))
+            if(eo.event.equalsIgnoreCase(event) && (timeLimit == null || eo.time.getTimeInMillis() > timeLimit.getTimeInMillis()))
                 return true;
         }
 

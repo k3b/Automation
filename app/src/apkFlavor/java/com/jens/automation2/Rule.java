@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.DetectedActivity;
 import com.jens.automation2.receivers.ActivityDetectionReceiver;
+import com.jens.automation2.receivers.BroadcastListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -347,6 +348,10 @@ public class Rule implements Comparable<Rule>
 			{
 				if(oneTrigger.getTimeFrame().repetition > 0)
 					return true;
+			}
+			else if(oneTrigger.getTriggerType().equals(Trigger.Trigger_Enum.broadcastReceived))
+			{
+				return oneTrigger.getTriggerParameter() == BroadcastListener.getInstance().hasBroadcastOccurredSince(oneTrigger.getTriggerParameter2(), getLastExecution());
 			}
 		}
 
