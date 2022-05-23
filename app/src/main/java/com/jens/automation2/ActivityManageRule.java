@@ -1079,7 +1079,8 @@ public class ActivityManageRule extends Activity
 		String[] choices = {
 								Miscellaneous.getAnyContext().getResources().getString(R.string.off),
 								Miscellaneous.getAnyContext().getResources().getString(R.string.on),
-								Miscellaneous.getAnyContext().getResources().getString(R.string.unlocked)
+								Miscellaneous.getAnyContext().getResources().getString(R.string.unlocked),
+								Miscellaneous.getAnyContext().getResources().getString(R.string.locked)
 							};
 
 		alertDialog.setItems(choices, new DialogInterface.OnClickListener()

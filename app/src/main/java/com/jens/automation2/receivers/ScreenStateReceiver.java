@@ -30,6 +30,8 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 	private static Intent screenStatusIntent = null;
 	private static BroadcastReceiver screenStateReceiverInstance = null;
 
+	public final static String broadcastScreenLocked = "automation.system.screen_locked";
+
 	public static BroadcastReceiver getScreenStateReceiverInstance()
 	{
 		if(screenStateReceiverInstance == null)
@@ -53,6 +55,7 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 				screenStateIntentFilter.addAction(Intent.ACTION_SCREEN_OFF);
 				screenStateIntentFilter.addAction(Intent.ACTION_SCREEN_ON);
 				screenStateIntentFilter.addAction(Intent.ACTION_USER_PRESENT);	// also fired when device is unlocked
+				screenStateIntentFilter.addAction(broadcastScreenLocked);
 //				Intent.ACTION_USER_UNLOCKED
 			}
 			
@@ -120,8 +123,12 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 
 				KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
 				boolean unlocked = kgMgr.inKeyguardRestrictedInputMode();
-
-		Automat
+				if(!unlocked)
+				{
+					Intent lockedBroadcastIntent = new Intent();
+					lockedBroadcastIntent.setAction(broadcastScreenLocked);
+					context.sendBroadcast(lockedBroadcastIntent);
+				}
 			}
 			else if(intent.getAction().equals(Intent.ACTION_SCREEN_ON))
 			{
@@ -130,6 +137,10 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 			else if(intent.getAction().equals(Intent.ACTION_USER_PRESENT))
 			{
 				ScreenStateReceiver.screenState = 2;
+			}
+			else if(intent.getAction().equals(broadcastScreenLocked))
+			{
+				ScreenStateReceiver.screenState = 3;
 			}
 			else
 			{

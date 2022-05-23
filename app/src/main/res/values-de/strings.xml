@@ -413,7 +413,7 @@
     <string name="volumeTest">Lautstärkekalibrierung</string>
     <string name="volumeCalibrationExplanation">Um einen dB Wert für die Lautstärkemessung zu berechnen müssen Sie einen sogenannten physikalischen Referenzwert angeben. Bitte lesen Sie bei Wikipedia nach, um mehr zu erfahren. Dieser Wert wird höchstwahrscheinlich für jedes Smartphone oder Tablet anders sein, deshalb diese Testanwendung. Verschieben Sie den Regler, um den gegenwärtig definierten Wert zu ändern. Je höher der Referenzwert desto niedriger wird der dB Wert. Es werden alle paar %1$s Sekunden neue Messungen vorgenommen und das Ergebnis unten angezeigt. Drücken Sie den zurück-Button, wenn Sie einen passenden Wert gefunden haben.</string>
     <string name="settingsWillTakeTime">Manche Einstellungen können nicht übernommen werden bevor der Dienst neu gestartet wird.</string>
-    <string name="rootExplanation">Sie müssen Ihr Telefon rooten, damit diese Funktion funktionieren kann. Danach müssen Sie "Regel manuell ausführen", um den SuperUser Berechtigungsdialog zu zeigen. Wenn dieser erscheint, müssen Sie den Haken setzen, der es immer erlaubt. Ansonsten kann die Regel nicht funktionieren, wenn Sie das Telefon gerade nicht benutzen und demnach den nächsten Dialog nicht genehmigen können.</string>
+    <string name="rootExplanation">Sie müssen Ihr Telefon rooten, damit diese Funktion funktionieren kann. Danach müssen Sie die Regel manuell ausführen, um den SuperUser Berechtigungsdialog zu zeigen. Wenn dieser erscheint, müssen Sie den Haken "immer erlauben" setzen. Ansonsten wird die Regel nicht funktionieren, wenn Sie das Telefon gerade nicht benutzen.</string>
     <string name="errorWritingConfig">Fehler beim Schreiben der Konfiguration. Gibt es einen beschreibbaren Speicher, und wurde alle Berechtigungen gegeben?</string>
     <string name="phoneNrReplacementError">Die letzte Telefonnummer konnte nicht in die Variable integriert werden. Sie liegt mir nicht vor.</string>
     <string name="username">Benutzername</string>
@@ -708,4 +708,10 @@
     <string name="deviceStarts">Gerät startet</string>
     <string name="deviceHasJustStarted">Gerät ist gerade gestartet</string>
     <string name="serviceHasJustStarted">Dienst ist gerade gestartet</string>
+    <string name="broadcastReceived">Broadcast empfangen</string>
+    <string name="broadcastNotReceived">Broadcast nicht empfangen</string>
+    <string name="broadcastReceivedTitle">Broadcast empfangen</string>
+    <string name="broadcastsShowSuggestions">Vorschläge anzeigen</string>
+    <string name="selectBroadcast">Broadcast auswählen</string>
+    <string name="locked">gesperrt</string>
 </resources>
