@@ -138,9 +138,6 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 				Miscellaneous.logEvent("i", "ScreenStateReceiver", "Method 3: " + String.valueOf(kgMgr.inKeyguardRestrictedInputMode()), 4);
 				if(!unlocked)
 				{
-					Intent lockedBroadcastIntent = new Intent();
-					lockedBroadcastIntent.setAction(broadcastScreenLocked);
-					context.sendBroadcast(lockedBroadcastIntent);
 				}
 			}
 			else if(intent.getAction().equals(Intent.ACTION_SCREEN_ON))
