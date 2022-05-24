@@ -357,7 +357,9 @@ public class ActivityControlCenter extends Activity
         systemInfoText.append("Model: " + android.os.Build.MODEL + Miscellaneous.lineSeparator);
         systemInfoText.append("Product: " + android.os.Build.PRODUCT + Miscellaneous.lineSeparator);
         systemInfoText.append("Country: " + Miscellaneous.getUserCountry(Miscellaneous.getAnyContext()) + Miscellaneous.lineSeparator);
-        systemInfoText.append("OS language: " + Locale.getDefault().getDisplayName());
+        systemInfoText.append("OS language: " + Locale.getDefault().getDisplayName() + Miscellaneous.lineSeparator);
+        systemInfoText.append("Logfile written: " + String.valueOf(Settings.writeLogFile) + Miscellaneous.lineSeparator);
+        systemInfoText.append("Log level: " + String.valueOf(Settings.logLevel));
 
         /*
             I've checked the Locale methods on my Android 4.1.2 device, and the results:

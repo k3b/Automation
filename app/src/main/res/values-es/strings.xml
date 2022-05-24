@@ -127,10 +127,10 @@
     <string name="actionTurnWifiTetheringOff">desactivar enrutador wifi</string>
     <string name="actionTurnAirplaneModeOn">encender modo de vuelo</string>
     <string name="actionTurnAirplaneModeOff">desactivar modo de vuelo</string>
-    <string name="activePoi">sitio activo</string>
+    <string name="activePoi">Sitio activo:</string>
     <string name="closestPoi">sitio mas cerca</string>
     <string name="poi">Posición</string>
-    <string name="pois">posiciónes</string>
+    <string name="pois">Posiciones</string>
     <string name="serviceNotRunning">Servicio no está activo</string>
     <string name="general">General</string>
     <string name="startServiceAfterAppUpdate">Encender servicio después de un update si estuvo activado.</string>

@@ -562,11 +562,11 @@ public class AutomationService extends Service implements OnInitListener
 					if(activePoi == null)
 					{
 						PointOfInterest closestPoi = PointOfInterest.getClosestPOI(instance.getLocationProvider().getCurrentLocation());
-						bodyText = AutomationService.getInstance().getResources().getString(R.string.activePoi) + ": " + AutomationService.getInstance().getResources().getString(R.string.none) + "\n" + AutomationService.getInstance().getResources().getString(R.string.closestPoi) + ": " + closestPoi.getName() + lastRuleString;
+						bodyText = AutomationService.getInstance().getResources().getString(R.string.activePoi) + " " + AutomationService.getInstance().getResources().getString(R.string.none) + "\n" + AutomationService.getInstance().getResources().getString(R.string.closestPoi) + ": " + closestPoi.getName() + lastRuleString;
 					}
 					else
 					{
-						bodyText = AutomationService.getInstance().getResources().getString(R.string.activePoi) + ": " + activePoi.getName() + lastRuleString;
+						bodyText = AutomationService.getInstance().getResources().getString(R.string.activePoi) + " " + activePoi.getName() + lastRuleString;
 					}
 				}
 				catch(NullPointerException e)

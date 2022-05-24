@@ -12,6 +12,8 @@ import android.os.PowerManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+
 import com.jens.automation2.ActivityPermissions;
 import com.jens.automation2.AutomationService;
 import com.jens.automation2.Miscellaneous;
@@ -95,6 +97,7 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 		return currentChargingState;
 	}
 
+	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
@@ -111,18 +114,28 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 			{
 				ScreenStateReceiver.screenState = 0;
 
-//				if(LockScreenHelper.isScreenUnlocked(context))
-//					;
+//				Method 1
+				Miscellaneous.logEvent("i", "ScreenStateReceiver", "Method 1: " + String.valueOf(LockScreenHelper.isScreenUnlocked(context)), 4);
+				if(!LockScreenHelper.isScreenUnlocked(context))
+				{
+					Intent lockedBroadcastIntent = new Intent();
+					lockedBroadcastIntent.setAction(broadcastScreenLocked);
+					context.sendBroadcast(lockedBroadcastIntent);
+				}
 
-//				PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-//				KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-//				if (pm.isInteractive() && pm.isScreenOn() && keyguardManager.isKeyguardLocked() && keyguardManager.isDeviceLocked())
-//				{
-//					//do your stuff
-//				}
+//				Method 2
+				PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+				KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+				Miscellaneous.logEvent("i", "ScreenStateReceiver", "Method 2: " + String.valueOf(pm.isInteractive() && pm.isScreenOn() && keyguardManager.isKeyguardLocked() && keyguardManager.isDeviceLocked()), 4);
+				if (pm.isInteractive() && pm.isScreenOn() && keyguardManager.isKeyguardLocked() && keyguardManager.isDeviceLocked())
+				{
 
+				}
+
+//				Method 3
 				KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
 				boolean unlocked = kgMgr.inKeyguardRestrictedInputMode();
+				Miscellaneous.logEvent("i", "ScreenStateReceiver", "Method 3: " + String.valueOf(kgMgr.inKeyguardRestrictedInputMode()), 4);
 				if(!unlocked)
 				{
 					Intent lockedBroadcastIntent = new Intent();
