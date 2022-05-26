@@ -61,11 +61,11 @@ public class ActivityManageTriggerTimeFrame extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				Time startTime = new Time(0);
+				TimeObject startTime = new TimeObject();
 				startTime.setHours(startPicker.getCurrentHour());
 				startTime.setMinutes(startPicker.getCurrentMinute());
 
-				Time stopTime = new Time(0);
+				TimeObject stopTime = new TimeObject();
 				stopTime.setHours(stopPicker.getCurrentHour());
 				stopTime.setMinutes(stopPicker.getCurrentMinute());
 				

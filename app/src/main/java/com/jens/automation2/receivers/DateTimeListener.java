@@ -14,6 +14,7 @@ import com.jens.automation2.AutomationService;
 import com.jens.automation2.Miscellaneous;
 import com.jens.automation2.Rule;
 import com.jens.automation2.TimeFrame;
+import com.jens.automation2.TimeObject;
 import com.jens.automation2.Trigger;
 import com.jens.automation2.Trigger.Trigger_Enum;
 
@@ -96,7 +97,7 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 							TimeFrame tf = new TimeFrame(oneTrigger.getTriggerParameter2());
 
 							Calendar calSet;
-							Time setTime;
+							TimeObject setTime;
 
 							if(oneTrigger.getTriggerParameter())
 								setTime = tf.getTriggerTimeStart();
@@ -365,7 +366,7 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 	public static Calendar getNextRepeatedExecutionAfter(Trigger trigger, Calendar now)
 	{
 		Calendar calSet;
-		Time setTime;
+		TimeObject setTime;
 		TimeFrame tf = new TimeFrame(trigger.getTriggerParameter2());
 
 		if(tf.getRepetition() > 0)
@@ -402,27 +403,5 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 			Miscellaneous.logEvent("i", "DateTimeListener", "Trigger " + trigger.toString() + " is not executed repeatedly.", 5);
 
 		return null;
-	}
-
-	public class TimeObject
-	{
-		int hours, minutes, seconds;
-
-		public int getHours()
-		{
-			return hours;
-		}
-
-		public void setHours(int hours)
-		{
-			this.hours = hours;
-		}
-
-		public TimeObject(int hours, int minutes, int seconds)
-		{
-			this.hours = hours;
-			this.minutes = minutes;
-			this.seconds = seconds;
-		}
 	}
 }

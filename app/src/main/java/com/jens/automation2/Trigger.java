@@ -934,7 +934,7 @@ public class Trigger
 			triggeringTime = new Date();
 
 		String timeString = String.valueOf(triggeringTime.getHours()) + ":" + String.valueOf(triggeringTime.getMinutes()) + ":" + String.valueOf(triggeringTime.getSeconds());
-		Time nowTime = Time.valueOf(timeString);
+		TimeObject nowTime = TimeObject.valueOf(timeString);
 		Calendar calNow = Calendar.getInstance();
 
 		try
@@ -1089,7 +1089,7 @@ public class Trigger
 	public static Calendar getNextRepeatedExecutionAfter(Trigger trigger, Calendar now)
 	{
 		Calendar calSet;
-		Time setTime;
+		TimeObject setTime;
 		TimeFrame tf = new TimeFrame(trigger.getTriggerParameter2());
 
 		if(tf.getRepetition() > 0)

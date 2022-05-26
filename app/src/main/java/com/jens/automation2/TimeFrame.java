@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class TimeFrame
 {
 	// Defines a timeframe
-	protected Time triggerTimeStart;
-	protected Time triggerTimeStop;
+	protected TimeObject triggerTimeStart;
+	protected TimeObject triggerTimeStop;
 	protected long repetition;
 
 	protected final static String separator = "/";
@@ -34,20 +34,20 @@ public class TimeFrame
 		}
 	}
 		
-	public Time getTriggerTimeStart()
+	public TimeObject getTriggerTimeStart()
 	{
 		return triggerTimeStart;
 	}
-	public void setTriggerTimeStart(Time triggerTimeStart)
+	public void setTriggerTimeStart(TimeObject triggerTimeStart)
 	{
 		this.triggerTimeStart = triggerTimeStart;
 	}
 
-	public Time getTriggerTimeStop()
+	public TimeObject getTriggerTimeStop()
 	{
 		return triggerTimeStop;
 	}
-	public void setTriggerTimeStop(Time triggerTimeStop)
+	public void setTriggerTimeStop(TimeObject triggerTimeStop)
 	{
 		this.triggerTimeStop = triggerTimeStop;
 	}
@@ -62,7 +62,7 @@ public class TimeFrame
 		this.repetition = repetition;
 	}
 
-	public TimeFrame (Time timeStart, Time timeEnd, ArrayList<Integer> dayList2, long repetition)
+	public TimeFrame (TimeObject timeStart, TimeObject timeEnd, ArrayList<Integer> dayList2, long repetition)
 	{
 		this.setTriggerTimeStart(timeStart);
 		this.setTriggerTimeStop(timeEnd);
@@ -73,8 +73,8 @@ public class TimeFrame
 	public TimeFrame (String fileContent)
 	{
 		String[] dateArray = fileContent.split(separator); // example: timestart/timestop/days[int]/repetition
-		this.setTriggerTimeStart(Time.valueOf(dateArray[0]));
-		this.setTriggerTimeStop(Time.valueOf(dateArray[1]));
+		this.setTriggerTimeStart(TimeObject.valueOf(dateArray[0]));
+		this.setTriggerTimeStop(TimeObject.valueOf(dateArray[1]));
 		this.setDayListFromString(dateArray[2]);
 		if(dateArray.length > 3)	// may not exist in old config files
 			this.setRepetition(Long.parseLong(dateArray[3]));

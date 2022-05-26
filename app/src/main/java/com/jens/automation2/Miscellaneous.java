@@ -490,7 +490,7 @@ public class Miscellaneous extends Service
 		}
 	}
 	
-	public static int compareTimes(Time time1, Time time2)
+	public static int compareTimes(TimeObject time1, TimeObject time2)
 	{
 //		Miscellaneous.logEvent("i", "TimeCompare", "To compare: " + time1.toString() + " / " + time2.toString());
 		
