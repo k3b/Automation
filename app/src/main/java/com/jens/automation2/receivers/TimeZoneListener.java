@@ -14,14 +14,13 @@ import com.jens.automation2.Trigger.Trigger_Enum;
 public class TimeZoneListener extends BroadcastReceiver implements AutomationListenerInterface
 {		
 	private static TimeZoneListener timeZoneListenerInstance = null;
-	protected static boolean timeZoneListenerActive = false;
+	protected static boolean timezoneListenerActive = false;
 	protected static AutomationService automationServiceRef = null;
-	protected static IntentFilter timeZoneListenerIntentFilter = null;
-
+	protected static IntentFilter timezoneListenerIntentFilter = null;
 	
-	public static boolean isTimeZoneListenerActive()
+	public static boolean isTimezoneListenerActive()
 	{
-		return timeZoneListenerActive;
+		return timezoneListenerActive;
 	}
 	
 	public static void startTimeZoneListener(AutomationService automationService)
@@ -33,19 +32,19 @@ public class TimeZoneListener extends BroadcastReceiver implements AutomationLis
 		
 		try
 		{
-			if(!timeZoneListenerActive && Rule.isAnyRuleUsing(Trigger_Enum.timeFrame))
+			if(!timezoneListenerActive && Rule.isAnyRuleUsing(Trigger_Enum.timeFrame))
 			{
 				Miscellaneous.logEvent("i", "TimeZoneListener", "Starting TimeZoneListener", 4);
-				timeZoneListenerActive = true;
+				timezoneListenerActive = true;
 
-				if(timeZoneListenerIntentFilter == null)
+				if(timezoneListenerIntentFilter == null)
 				{
-					timeZoneListenerIntentFilter = new IntentFilter();
-					timeZoneListenerIntentFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-					timeZoneListenerIntentFilter.addAction(Intent.ACTION_TIME_CHANGED);
+					timezoneListenerIntentFilter = new IntentFilter();
+					timezoneListenerIntentFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+					timezoneListenerIntentFilter.addAction(Intent.ACTION_TIME_CHANGED);
 				}
 				
-				automationService.registerReceiver(timeZoneListenerInstance, timeZoneListenerIntentFilter);
+				automationService.registerReceiver(timeZoneListenerInstance, timezoneListenerIntentFilter);
 			}
 		}
 		catch(Exception ex)
@@ -57,11 +56,11 @@ public class TimeZoneListener extends BroadcastReceiver implements AutomationLis
 	{
 		try
 		{
-			if(timeZoneListenerActive)
+			if(timezoneListenerActive)
 			{
 				Miscellaneous.logEvent("i", "TimeZoneListener", "Stopping TimeZoneListener", 4);
 				automationServiceRef.unregisterReceiver(timeZoneListenerInstance);
-				timeZoneListenerActive = false;
+				timezoneListenerActive = false;
 			}
 		}
 		catch(Exception ex)
@@ -81,7 +80,7 @@ public class TimeZoneListener extends BroadcastReceiver implements AutomationLis
 		}
 		else if(action.equals(Intent.ACTION_TIME_CHANGED))
 		{
-			Miscellaneous.logEvent("i", "TimeZoneListener", "Device time changed. Reloading alarms.", 4);
+			Miscellaneous.logEvent("i", "TimeZoneListener", "Device time changed. Reloading alarms.", 3);
 			DateTimeListener.reloadAlarms();
 		}		
 	}
@@ -104,7 +103,7 @@ public class TimeZoneListener extends BroadcastReceiver implements AutomationLis
 	@Override
 	public boolean isListenerRunning()
 	{
-		return TimeZoneListener.isTimeZoneListenerActive();
+		return TimeZoneListener.isTimezoneListenerActive();
 	}
 	@Override
 	public Trigger_Enum[] getMonitoredTrigger()

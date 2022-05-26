@@ -355,7 +355,7 @@
     <string name="phoneDirection">Seleziona se\nentrante o uscente</string>
     <string name="phoneNrReplacementError">Non ho l\'ultimo numero di telefono e quindi non posso inserirlo nella variabile.</string>
     <string name="phoneNumber">Numero di telefono</string>
-    <string name="phoneNumberExplanation">È possibile inserire un numero di telefono specifico, ma non è necessario. Se vuoi specificarne uno, puoi sceglierlo dalla tua rubrica o inserirlo manualmente. Inoltre puoi usare espressioni regolari. Per testare un\'espressione regolare mi piace questa pagina:</string>
+    <string name="phoneNumberExplanation">È possibile inserire un numero di telefono remoto specifico, ma non è necessario. Se vuoi specificarne uno, puoi sceglierlo dalla tua rubrica o inserirlo manualmente. Inoltre puoi usare espressioni regolari. Per testare un\'espressione regolare mi piace questa pagina:</string>
     <string name="playSound">Esegui suono</string>
     <string name="pleaseEnterValidLatitude">Inserisci una latitudine valida.</string>
     <string name="pleaseEnterValidLongitude">Inserisci una longitudine valida.</string>

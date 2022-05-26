@@ -7,12 +7,8 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.BatteryManager;
 import android.os.Build;
-import android.os.PowerManager;
 import android.provider.Settings;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -23,13 +19,13 @@ import com.jens.automation2.Rule;
 import com.jens.automation2.Trigger.Trigger_Enum;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class ScreenStateReceiver extends BroadcastReceiver implements AutomationListenerInterface
 {
-	static int screenState = -1;    // initialize with a better value than this
+	static int screenPowerState = -1;    // initialize with a better value than this
+	static int screenLockState = -1;    // initialize with a better value than this
 	public static AutomationService automationServiceRef = null;
 
 	private static boolean screenStateReceiverActive = false;
@@ -37,7 +33,14 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 	private static Intent screenStatusIntent = null;
 	private static BroadcastReceiver screenStateReceiverInstance = null;
 
-	public final static String broadcastScreenLocked = "automation.system.screen_locked";
+	public final static String broadcastScreenLockedWithoutSecurity = "automation.system.screen_locked_without_security";
+	public final static String broadcastScreenLockedWithSecurity = "automation.system.screen_locked_with_security";
+
+	public final static int SCREEN_STATE_OFF = 0;
+	public final static int SCREEN_STATE_ON = 1;
+	public final static int SCREEN_STATE_UNLOCKED = 2;
+	public final static int SCREEN_STATE_LOCKED_WITHOUT_SECURITY = 3;
+	public final static int SCREEN_STATE_LOCKED_WITH_SECURITY = 4;
 
 	public static BroadcastReceiver getScreenStateReceiverInstance()
 	{
@@ -62,7 +65,7 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 				screenStateIntentFilter.addAction(Intent.ACTION_SCREEN_OFF);
 				screenStateIntentFilter.addAction(Intent.ACTION_SCREEN_ON);
 				screenStateIntentFilter.addAction(Intent.ACTION_USER_PRESENT);    // also fired when device is unlocked
-				screenStateIntentFilter.addAction(broadcastScreenLocked);
+				screenStateIntentFilter.addAction(broadcastScreenLockedWithSecurity);
 //				Intent.ACTION_USER_UNLOCKED
 			}
 
@@ -91,16 +94,14 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 		return screenStateReceiverActive;
 	}
 
-	public static int getScreenState()
+	public static int getScreenPowerState()
 	{
-		return screenState;
+		return screenPowerState;
 	}
 
-	private static int currentChargingState = 0; //0=unknown, 1=no, 2=yes
-
-	public static int getCurrentChargingState()
+	public static int getScreenLockState()
 	{
-		return currentChargingState;
+		return screenLockState;
 	}
 
 	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
@@ -118,7 +119,7 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 		{
 			if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF))
 			{
-				ScreenStateReceiver.screenState = 0;
+				ScreenStateReceiver.screenPowerState = SCREEN_STATE_OFF;
 
 //				Method 2
 //				PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
@@ -134,10 +135,13 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 				Miscellaneous.logEvent("i", "ScreenStateReceiver", "keyguardManager.isKeyguardLocked(): " + String.valueOf(keyguardManager.isKeyguardLocked()), 4);
 				Miscellaneous.logEvent("i", "ScreenStateReceiver", "keyguardManager.isDeviceLocked(): " + String.valueOf(keyguardManager.isDeviceLocked()), 4);
 
-				boolean locked = keyguardManager.isKeyguardLocked() && keyguardManager.isDeviceLocked();
-				if (locked)
+				if(keyguardManager.isKeyguardLocked() && !keyguardManager.isDeviceLocked())
 				{
-					sendLockBroadcast(context);
+					sendLockBroadcast(Miscellaneous.getAnyContext(), broadcastScreenLockedWithoutSecurity);
+				}
+				else if(keyguardManager.isDeviceLocked())
+				{
+					sendLockBroadcast(Miscellaneous.getAnyContext(), broadcastScreenLockedWithSecurity);
 				}
 				else
 				{
@@ -148,15 +152,19 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 			}
 			else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON))
 			{
-				ScreenStateReceiver.screenState = 1;
+				ScreenStateReceiver.screenPowerState = SCREEN_STATE_ON;
 			}
 			else if (intent.getAction().equals(Intent.ACTION_USER_PRESENT))
 			{
-				ScreenStateReceiver.screenState = 2;
+				ScreenStateReceiver.screenLockState = SCREEN_STATE_UNLOCKED;
 			}
-			else if (intent.getAction().equals(broadcastScreenLocked))
+			else if (intent.getAction().equals(broadcastScreenLockedWithoutSecurity))
 			{
-				ScreenStateReceiver.screenState = 3;
+				ScreenStateReceiver.screenLockState = SCREEN_STATE_LOCKED_WITHOUT_SECURITY;
+			}
+			else if (intent.getAction().equals(broadcastScreenLockedWithSecurity))
+			{
+				ScreenStateReceiver.screenLockState = SCREEN_STATE_LOCKED_WITH_SECURITY;
 			}
 			else
 			{
@@ -222,10 +230,18 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 			{
 				KeyguardManager keyguardManager = (KeyguardManager) Miscellaneous.getAnyContext().getSystemService(Context.KEYGUARD_SERVICE);
 
-				boolean locked = keyguardManager.isKeyguardLocked() && keyguardManager.isDeviceLocked();
-				if (locked)
+				Miscellaneous.logEvent("i", "ScreenStateReceiver", "keyguardManager.isKeyguardLocked(): " + String.valueOf(keyguardManager.isKeyguardLocked()), 4);
+				Miscellaneous.logEvent("i", "ScreenStateReceiver", "keyguardManager.isDeviceLocked(): " + String.valueOf(keyguardManager.isDeviceLocked()), 4);
+
+				if(keyguardManager.isKeyguardLocked() && !keyguardManager.isDeviceLocked())
 				{
-					sendLockBroadcast(Miscellaneous.getAnyContext());
+					sendLockBroadcast(Miscellaneous.getAnyContext(), broadcastScreenLockedWithoutSecurity);
+					timer.purge();
+					timer.cancel();
+				}
+				else if(keyguardManager.isDeviceLocked())
+				{
+					sendLockBroadcast(Miscellaneous.getAnyContext(), broadcastScreenLockedWithSecurity);
 					timer.purge();
 					timer.cancel();
 				}
@@ -258,10 +274,10 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 		}
 	}
 
-	static void sendLockBroadcast(Context context)
+	static void sendLockBroadcast(Context context, String lockType)
 	{
 		Intent lockedBroadcastIntent = new Intent();
-		lockedBroadcastIntent.setAction(broadcastScreenLocked);
+		lockedBroadcastIntent.setAction(lockType);
 		context.sendBroadcast(lockedBroadcastIntent);
 	}
 }

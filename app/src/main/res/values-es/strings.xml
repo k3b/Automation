@@ -294,7 +294,7 @@
     <string name="parameterValue">Valor del parámetro</string>
     <string name="addIntentValue">Añadir pareja intento</string>
     <string name="parameterType">Tipo del parámetro</string>
-    <string name="phoneNumberExplanation">Puedes introducir un número, pero es opciónal. Si quieres usar uno puedes elegir uno de su directorio o introducir uno manualmente. Adiciónalmente puedes usar expresiónes regulares. Para probar esos me gusta la pagina:</string>
+    <string name="phoneNumberExplanation">Puedes introducir un número remoto, pero es opciónal. Si quieres usar uno puedes elegir uno de su directorio o introducir uno manualmente. Adiciónalmente puedes usar expresiónes regulares. Para probar esos me gusta la pagina:</string>
     <string name="screenRotationEnabled">Rotación del monitor activado.</string>
     <string name="screenRotationDisabled">Rotación del monitor desactivado.</string>
     <string name="noPoisDefinedShort">No hay sitios.</string>

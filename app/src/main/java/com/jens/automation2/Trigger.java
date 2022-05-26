@@ -445,13 +445,15 @@ public class Trigger
 		try
 		{
 			int desiredState = Integer.parseInt(getTriggerParameter2());
-			int currentState = ScreenStateReceiver.getScreenState();
 
-			return desiredState == currentState;
+			if(desiredState == ScreenStateReceiver.SCREEN_STATE_OFF || desiredState == ScreenStateReceiver.SCREEN_STATE_ON)
+				return desiredState == ScreenStateReceiver.getScreenPowerState();
+			else
+				return desiredState == ScreenStateReceiver.getScreenLockState();
 		}
 		catch (Exception e)
 		{
-			Miscellaneous.logEvent("w", "Trigger", "Error checking profile trigger.", 4);
+			Miscellaneous.logEvent("w", "Trigger", "Error checking screen state trigger.", 4);
 		}
 
 		return false;
@@ -1608,7 +1610,10 @@ public class Trigger
 						state = Miscellaneous.getAnyContext().getString(R.string.unlocked);
 						break;
 					case "3":
-						state = Miscellaneous.getAnyContext().getString(R.string.locked);
+						state = Miscellaneous.getAnyContext().getString(R.string.lockedWithoutSecurity);
+						break;
+					case "4":
+						state = Miscellaneous.getAnyContext().getString(R.string.lockedWithSecurity);
 						break;
 					default:
 						state = Miscellaneous.getAnyContext().getString(R.string.unknown);

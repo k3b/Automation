@@ -403,4 +403,26 @@ public class DateTimeListener extends BroadcastReceiver implements AutomationLis
 
 		return null;
 	}
+
+	public class TimeObject
+	{
+		int hours, minutes, seconds;
+
+		public int getHours()
+		{
+			return hours;
+		}
+
+		public void setHours(int hours)
+		{
+			this.hours = hours;
+		}
+
+		public TimeObject(int hours, int minutes, int seconds)
+		{
+			this.hours = hours;
+			this.minutes = minutes;
+			this.seconds = seconds;
+		}
+	}
 }

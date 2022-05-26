@@ -645,7 +645,7 @@
     <string name="enterValidAction">Enter a valid action</string>
     <string name="enterPackageName">Enter a valid package name.</string>
     <string name="state">State</string>
-    <string name="phoneNumberExplanation">You can enter a specific phone number, but you don\'t have to. If you want to specify one you can either pick one from your address book or enter it manually. In addition you may use regular expressions. To test a regular expression I like this page:</string>
+    <string name="phoneNumberExplanation">You can enter a specific remote phone number, but you don\'t have to. If you want to specify one you can either pick one from your address book or enter it manually. In addition you may use regular expressions. To test a regular expression I like this page:</string>
     <string name="importConfiguration">Import configuration</string>
     <string name="exportConfiguration">Export configuration</string>
     <string name="moreSettings">More settings</string>
@@ -812,5 +812,7 @@
     <string name="logsExplanation">To avoid unnecessary wearing of your storage, logs are not saved by default. So if you have a problem please activate logging in settings first and set log level to 5. Then reproduce the problem. Only then logs can be attached.</string>
     <string name="broadcastsShowSuggestions">Show suggestions</string>
     <string name="selectBroadcast">Select broadcast</string>
-    <string name="locked">locked</string>
+    <string name="lockedWithoutSecurity">locked (swipe only, no PIN)</string>
+    <string name="lockedWithSecurity">locked (with PIN, etc.)</string>
+    <string name="lockedCommentScreenMustBeOff">Any state of locked will only be detected if the screen is off.</string>
 </resources>

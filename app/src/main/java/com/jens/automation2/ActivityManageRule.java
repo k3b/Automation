@@ -712,6 +712,7 @@ public class ActivityManageRule extends Activity
 					{
 						newTrigger.setTriggerType(Trigger_Enum.screenState);
 						getTriggerScreenStateDialog().show();
+						Miscellaneous.messageBox(getResources().getString(R.string.info), getResources().getString(R.string.lockedCommentScreenMustBeOff), ActivityManageRule.this).show();
 						return;
 					}
 					else if(triggerType == Trigger_Enum.deviceStarts)
@@ -1080,7 +1081,8 @@ public class ActivityManageRule extends Activity
 								Miscellaneous.getAnyContext().getResources().getString(R.string.off),
 								Miscellaneous.getAnyContext().getResources().getString(R.string.on),
 								Miscellaneous.getAnyContext().getResources().getString(R.string.unlocked),
-								Miscellaneous.getAnyContext().getResources().getString(R.string.locked)
+								Miscellaneous.getAnyContext().getResources().getString(R.string.lockedWithoutSecurity),
+								Miscellaneous.getAnyContext().getResources().getString(R.string.lockedWithSecurity)
 							};
 
 		alertDialog.setItems(choices, new DialogInterface.OnClickListener()

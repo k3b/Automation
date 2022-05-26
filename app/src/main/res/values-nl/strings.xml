@@ -543,7 +543,7 @@
     <string name="enterValidAction">Voer een geldige actie in</string>
     <string name="enterPackageName">Voer een geldige pakketnaam in.</string>
     <string name="state">Staat</string>
-    <string name="phoneNumberExplanation">U kunt een specifiek telefoonnummer opgeven, maar dat hoeft niet. Als u er een wilt opgeven, kunt u er een uit uw adresboek kiezen of het handmatig invoeren. Daarnaast kun je reguliere expressies gebruiken. Om een reguliere expressie te testen is deze pagina behulpzaam:</string>
+    <string name="phoneNumberExplanation">U kunt een specifiek telefoonnummer opgeven (van de bellende partner), maar dat hoeft niet. Als u er een wilt opgeven, kunt u er een uit uw adresboek kiezen of het handmatig invoeren. Daarnaast kun je reguliere expressies gebruiken. Om een reguliere expressie te testen is deze pagina behulpzaam:</string>
     <string name="importConfiguration">Import configuration</string>
     <string name="exportConfiguration">Export configuration</string>
     <string name="moreSettings">Meer instellingen</string>
