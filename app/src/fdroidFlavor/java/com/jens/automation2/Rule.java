@@ -10,6 +10,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.jens.automation2.receivers.BroadcastListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -345,6 +346,10 @@ public class Rule implements Comparable<Rule>
 				if(oneTrigger.getTimeFrame().repetition > 0)
 					return true;
 			}
+			else if(oneTrigger.getTriggerType().equals(Trigger.Trigger_Enum.broadcastReceived))
+			{
+				return oneTrigger.getTriggerParameter() == BroadcastListener.getInstance().hasBroadcastOccurredSince(oneTrigger.getTriggerParameter2(), getLastExecution());
+			}
 		}
 
 		return false;
@@ -383,7 +388,8 @@ public class Rule implements Comparable<Rule>
 				if (!oneTrigger.applies(null, context))
 					return false;
 			}
-			
+
+			Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), String.format("Rule %1$s generally applies currently. Checking if it's really due, yet will be done separately.", this.getName()), 3);
 			return true;
 		}
 		

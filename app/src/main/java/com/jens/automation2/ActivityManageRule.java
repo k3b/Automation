@@ -1090,6 +1090,7 @@ public class ActivityManageRule extends Activity
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
+				newTrigger.setTriggerParameter(true);
 				newTrigger.setTriggerParameter2(String.valueOf(which));
 				ruleToEdit.getTriggerSet().add(newTrigger);
 				refreshTriggerList();

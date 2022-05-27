@@ -65,6 +65,7 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 				screenStateIntentFilter.addAction(Intent.ACTION_SCREEN_OFF);
 				screenStateIntentFilter.addAction(Intent.ACTION_SCREEN_ON);
 				screenStateIntentFilter.addAction(Intent.ACTION_USER_PRESENT);    // also fired when device is unlocked
+				screenStateIntentFilter.addAction(broadcastScreenLockedWithoutSecurity);
 				screenStateIntentFilter.addAction(broadcastScreenLockedWithSecurity);
 //				Intent.ACTION_USER_UNLOCKED
 			}
@@ -121,15 +122,11 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 			{
 				ScreenStateReceiver.screenPowerState = SCREEN_STATE_OFF;
 
-//				Method 2
-//				PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 				KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+
+//				PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 //				Miscellaneous.logEvent("i", "ScreenStateReceiver", "Method 2: " + String.valueOf(pm.isInteractive() && pm.isScreenOn() && keyguardManager.isKeyguardLocked() && keyguardManager.isDeviceLocked()), 4);
 //				if (pm.isInteractive() && pm.isScreenOn() && keyguardManager.isKeyguardLocked() && keyguardManager.isDeviceLocked())
-//				{
-//
-//				}
-
 //				Miscellaneous.logEvent("i", "ScreenStateReceiver", "pm.isInteractive(): " + String.valueOf(pm.isInteractive()), 4);
 //				Miscellaneous.logEvent("i", "ScreenStateReceiver", "pm.isScreenOn(): " + String.valueOf(pm.isScreenOn()), 4);
 				Miscellaneous.logEvent("i", "ScreenStateReceiver", "keyguardManager.isKeyguardLocked(): " + String.valueOf(keyguardManager.isKeyguardLocked()), 4);
