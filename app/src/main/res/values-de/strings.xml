@@ -713,5 +713,10 @@
     <string name="broadcastReceivedTitle">Broadcast empfangen</string>
     <string name="broadcastsShowSuggestions">Vorschläge anzeigen</string>
     <string name="selectBroadcast">Broadcast auswählen</string>
-    <string name="lockedWithoutSecurity">gesperrt</string>
+    <string name="lockedWithoutSecurity">gesperrt (nur wischen, keine PIN, etc.)</string>
+    <string name="lockedWithSecurity">gesperrt (mit PIN, etc.)</string>
+    <string name="lockedCommentScreenMustBeOff">Jeglicher Sperrzustand wird nur erkannt werden, wenn gleichzeitig der Bildschirm aus ist.</string>
+    <string name="lockedCommentScreenMustBeOff">J</string>
+    <string name="emailPretext">Wenn Sie ein Problem, einen Vorschlag oder eine Frage haben, schreiben Sie bitte auch etwas in die Email. Senden Sie mir nicht einfach die Dateien mit dem Standard-Mailtext. Ich werde solche Nachrichten ignorieren, sollten wir nicht bereits in einer Konversation sein.</string>
+    <string name="emailPretext">W</string>
 </resources>

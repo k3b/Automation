@@ -708,4 +708,13 @@
     <string name="serviceStarts">Avvio del servizio</string>
     <string name="deviceHasJustStarted">Il dispositivo è appena stato avviato</string>
     <string name="serviceHasJustStarted">il servizio è appena iniziato</string>
+    <string name="broadcastReceived">broadcast non ricevuta</string>
+    <string name="broadcastNotReceived">broadcast ricevuta</string>
+    <string name="broadcastReceivedTitle">Broadcast ricevuta</string>
+    <string name="broadcastsShowSuggestions">Mostra suggerimenti</string>
+    <string name="selectBroadcast">Seleziona trasmissione</string>
+    <string name="lockedWithoutSecurity">bloccato (solo scorrimento rapido, nessun PIN)</string>
+    <string name="lockedWithSecurity">bloccato (con PIN, ecc.)</string>
+    <string name="lockedCommentScreenMustBeOff">Qualsiasi stato di blocco verrà rilevato solo se lo schermo è spento.</string>
+    <string name="emailPretext">Se hai un problema, suggerimenti o domande, scrivi qualcosa nell\'e-mail. Non inviarmi semplicemente i file con il corpo di posta predefinito. Ignorerò tutto ciò che li riguarda a meno che non siamo già in una conversazione.</string>
 </resources>

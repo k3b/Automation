@@ -706,4 +706,13 @@
     <string name="serviceHasJustStarted">service is net begonnen</string>
     <string name="serviceStarts">Service start</string>
     <string name="deviceStarts">Apparaat start</string>
+    <string name="emailPretext">Als je een probleem, suggesties of vraag hebt, schrijf dan iets in de e-mail. Stuur me niet alleen de bestanden met de standaard e-mailtekst. Ik zal alles negeren, tenzij we al in gesprek zijn.</string>
+    <string name="lockedCommentScreenMustBeOff">Elke vergrendelde status wordt alleen gedetecteerd als het scherm is uitgeschakeld.</string>
+    <string name="lockedWithSecurity">vergrendeld (met PINCODE, enz.)</string>
+    <string name="lockedWithoutSecurity">vergrendeld (alleen vegen, geen pincode)</string>
+    <string name="selectBroadcast">Selecteer broadcast</string>
+    <string name="broadcastsShowSuggestions">Toon suggesties</string>
+    <string name="broadcastReceivedTitle">Broadcast ontvangen</string>
+    <string name="broadcastNotReceived">broadcast niet ontvangen</string>
+    <string name="broadcastReceived">broadcast ontvangen</string>
 </resources>

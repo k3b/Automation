@@ -815,4 +815,5 @@
     <string name="lockedWithoutSecurity">locked (swipe only, no PIN)</string>
     <string name="lockedWithSecurity">locked (with PIN, etc.)</string>
     <string name="lockedCommentScreenMustBeOff">Any state of locked will only be detected if the screen is off.</string>
+    <string name="emailPretext">If you have a problem, suggestions or question, please write something in the email. Do not just send me the files with the default mail body. I will ignore everything those unless we\'re already in a conversation.</string>
 </resources>

@@ -707,4 +707,13 @@
     <string name="serviceStarts">Servicio esta enciendo</string>
     <string name="deviceHasJustStarted">el dispositivo justamente ha encendido</string>
     <string name="serviceHasJustStarted">el servicio justamente ha encendido</string>
+    <string name="emailPretext">Si tiene un problema, sugerencia o pregunta, escriba algo en el correo electrónico. No solo envíeme los archivos con el cuerpo de correo predeterminado. Ignoraré todo eso a menos que ya estemos en una conversación.</string>
+    <string name="lockedCommentScreenMustBeOff">Cualquier estado de bloqueo solo se detectará si la pantalla está apagada.</string>
+    <string name="lockedWithSecurity">bloqueado (con PIN, etc.)</string>
+    <string name="lockedWithoutSecurity">bloqueado (solo deslizar, sin PIN)</string>
+    <string name="selectBroadcast">Seleccionar broadcast</string>
+    <string name="broadcastsShowSuggestions">Mostrar sugerencias</string>
+    <string name="broadcastReceivedTitle">Broadcast recibido</string>
+    <string name="broadcastReceived">broadcast recibido</string>
+    <string name="broadcastNotReceived">broadcast no recibido</string>
 </resources>
