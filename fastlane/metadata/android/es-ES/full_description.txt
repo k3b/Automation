@@ -21,6 +21,7 @@ Disparadores:
 * Notificaciónes de otras apps
 * Orientación del dispositivo (giroscopio)
 * Perfil activado o no
+* Broadcasts de otras apps
 
 Aciónes:
 * Pasar de wifi
@@ -54,4 +55,4 @@ Donaciónes seguramente son una buena, pero no la unica posibilidad de apoyarme 
 * Si quiere apoyarme puedes escribir un buena revisión en Google Play (https://play.google.com/store/apps/details?id=com.jens.automation2).
 * Además siempre necesito ayuda en traduciendo la app. Ingles, Aleman y Español  estan en mis habilidades. Per todo lo demás es bienvenido.
 
-Puedes leer una explicación de los permisos aqui: https://server47.de/automation/permissions_en.html
+Puedes leer una explicación de los permisos aqui: https://server47.de/automation/permissions.php

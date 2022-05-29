@@ -21,6 +21,7 @@ Supported triggers:
 * Notifications of other apps
 * Device orientation (gyroscope)
 * Profile active or not
+* Broadcasts of other apps
 
 Supported actions:
 * Change wifi state
@@ -54,4 +55,4 @@ Donations are certainly a good, but not the only way to motivate me :-)
 * If you'd like to support me, you can also leave a positive review for the app on Google Play (https://play.google.com/store/apps/details?id=com.jens.automation2).
 * Furthermore I can always use help in translating the app. English, German and some Spanish are among my own skills. But everything else is more than welcome.
 
-Explanation of the many permissions can be found here: https://server47.de/automation/permissions_en.html
+Explanation of the many permissions can be found here: https://server47.de/automation/permissions.php

@@ -49,6 +49,7 @@ public class Action
 		vibrate,
 		createNotification,
 		closeNotification,
+		sendBroadcast,
 		sendTextMessage;
 
 		public String getFullName(Context context)
@@ -119,6 +120,8 @@ public class Action
 					return context.getResources().getString(R.string.createNotification);
 				case closeNotification:
 					return context.getResources().getString(R.string.closeNotifications);
+				case sendBroadcast:
+					return context.getResources().getString(R.string.sendBroadcast);
 				default:
 					return "Unknown";
 			}
@@ -258,6 +261,9 @@ public class Action
 					break;
 				case closeNotification:
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.closeNotifications));
+					break;
+				case sendBroadcast:
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.sendBroadcast));
 					break;
 				default:
 					returnString.append(action.toString());
@@ -534,6 +540,9 @@ public class Action
 					else
 						Miscellaneous.logEvent("w", "Close notification", "Close notification was requested, but OS version is too low: " + String.valueOf(Build.VERSION.SDK_INT), 2);
 					break;
+				case sendBroadcast:
+					Actions.sendBroadcast(context, this.getParameter2());
+					break;
 				default:
 					Miscellaneous.logEvent("w", "Action", context.getResources().getString(R.string.unknownActionSpecified), 3);
 					break;
@@ -637,7 +646,7 @@ public class Action
 	        //Do something with result
 	    	//Toast.makeText(context, text, duration) result;
 	    	Miscellaneous.logEvent("i", "HTTP RESULT", result, 3);
-	    	Actions myAction=new Actions();
+	    	Actions myAction = new Actions();
 	    	myAction.useDownloadedWebpage(result);
 	    }
 	}

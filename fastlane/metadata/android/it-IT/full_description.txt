@@ -21,6 +21,7 @@ Eventi supportati:
 * Notificazione di un altra applicazione
 * Orientamento del dispositivo (giroscopio)
 * Profilo attivo o meno
+* Broadcasts di altre app
 
 Azioni supportate:
 * Cambia lo stato del wifi
@@ -56,8 +57,7 @@ Donativi sono sicuramente una buona forma di motivarmi, ma non l'unica :-)
 Inglese, Tedesco e un po' di Spagnolo son parte delle mie abilità. Ma per tutte le altre, apprezzo molto ogni aiuto.
 
 Una spiegazione di tutti i permessi si trova qui:
-https://server47.de/automation/permissions_en.html
-
+https://server47.de/automation/permissions.php
 
 
 

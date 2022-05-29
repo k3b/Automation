@@ -185,7 +185,15 @@ public class Actions
 		}
 	}
 
-	public static class WifiStuff
+    public static void sendBroadcast(Context context, String action)
+    {
+		Miscellaneous.logEvent("i", "sendBroadcast", "Sending broadcast with action " + action, 5);
+		Intent broadcastIntent = new Intent();
+		broadcastIntent.setAction(action);
+		context.sendBroadcast(broadcastIntent);
+    }
+
+    public static class WifiStuff
 	{
 		public static Boolean setWifi(Context context, Boolean desiredState, boolean toggleActionIfPossible)
 		{

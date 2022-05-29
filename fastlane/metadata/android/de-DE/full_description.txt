@@ -21,6 +21,7 @@ Mögliche Auslöser:
 * Benachrichtigungen anderer Anwendungen
 * Geräteausrichtung (Gyroskop)
 * Profile aktiv oder nicht
+* Broadcasts anderer Anwendungen
 
 Mögliche Aktionen:
 * WLAN ein-/ausschalten
@@ -54,4 +55,4 @@ Spenden sind sicher eine gute, aber nicht die einzige Möglichkeit mich zu motiv
 * Wer mir etwas Gutes tun will, kann die Anwendung auch im Play Store bewerten (https://play.google.com/store/apps/details?id=com.jens.automation2).
 * Außerdem ist Hilfe bei der Übersetzung willkommen. Englisch, Spanisch und Deutsch kann ich selbst. Aber sonst ist alles gern gesehen.
 
-Erklärungen zu den vielen Berechtigungen können hier abgerufen werden: https://server47.de/automation/permissions_de.html
+Erklärungen zu den vielen Berechtigungen können hier abgerufen werden: https://server47.de/automation/permissions.php

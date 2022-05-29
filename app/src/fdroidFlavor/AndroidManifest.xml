@@ -163,6 +163,7 @@
         <activity android:name=".ActivityHelp" />
         <activity android:name=".ActivityManageActionVibrate" />
         <activity android:name=".ActivityManageActionControlMedia" />
+        <activity android:name=".ActivityManageActionSendBroadcast" />
         <activity
             android:name=".ActivityMainTabLayout"
             android:launchMode="singleTask">

@@ -23,6 +23,7 @@ Ondersteunde triggers:
 * Meldingen van andere apps
 * Apparaat oriëntatie (gyroscoop)
 * Profiel actief of niet
+* Broadcasts van andere apps
 
 Ondersteunde acties:
 * Wijzig wifi status
@@ -57,4 +58,4 @@ Donaties zijn zeker een goede, maar niet de enige manier om mij te motiveren :-)
 * Als je me wilt steunen, kun je ook een positieve review voor de app achterlaten op Google Play ( https://play.google.com/store/apps/details?id=com.jens.automation2 ).
 * Verder kan ik altijd hulp gebruiken bij het vertalen van de app. Engels, Duits en wat Spaans behoren tot mijn eigen vaardigheden. Maar al het andere is meer dan welkom.
 
-Uitleg van de vele permissies vind je hier (Engels) : https://server47.de/automation/permissions_en.html
+Uitleg van de vele permissies vind je hier (Engels) : https://server47.de/automation/permissions.php

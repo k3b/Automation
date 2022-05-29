@@ -96,7 +96,7 @@ public class ActivityManageTriggerBroadcast extends Activity
         });
     }
 
-    String[] broadcastSuggestions = {
+    public static String[] broadcastSuggestions = {
             "android.accounts.LOGIN_ACCOUNTS_CHANGED",
             "android.accounts.action.ACCOUNT_REMOVED",
             "android.app.action.ACTION_PASSWORD_CHANGED",

@@ -12,6 +12,7 @@ import android.provider.Settings;
 
 import androidx.annotation.RequiresApi;
 
+import com.jens.automation2.Actions;
 import com.jens.automation2.ActivityPermissions;
 import com.jens.automation2.AutomationService;
 import com.jens.automation2.Miscellaneous;
@@ -134,11 +135,11 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 
 				if(keyguardManager.isKeyguardLocked() && !keyguardManager.isDeviceLocked())
 				{
-					sendLockBroadcast(Miscellaneous.getAnyContext(), broadcastScreenLockedWithoutSecurity);
+					Actions.sendBroadcast(Miscellaneous.getAnyContext(), broadcastScreenLockedWithoutSecurity);
 				}
 				else if(keyguardManager.isDeviceLocked())
 				{
-					sendLockBroadcast(Miscellaneous.getAnyContext(), broadcastScreenLockedWithSecurity);
+					Actions.sendBroadcast(Miscellaneous.getAnyContext(), broadcastScreenLockedWithSecurity);
 				}
 				else
 				{
@@ -232,13 +233,13 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 
 				if(keyguardManager.isKeyguardLocked() && !keyguardManager.isDeviceLocked())
 				{
-					sendLockBroadcast(Miscellaneous.getAnyContext(), broadcastScreenLockedWithoutSecurity);
+					Actions.sendBroadcast(Miscellaneous.getAnyContext(), broadcastScreenLockedWithoutSecurity);
 					timer.purge();
 					timer.cancel();
 				}
 				else if(keyguardManager.isDeviceLocked())
 				{
-					sendLockBroadcast(Miscellaneous.getAnyContext(), broadcastScreenLockedWithSecurity);
+					Actions.sendBroadcast(Miscellaneous.getAnyContext(), broadcastScreenLockedWithSecurity);
 					timer.purge();
 					timer.cancel();
 				}
@@ -269,12 +270,5 @@ public class ScreenStateReceiver extends BroadcastReceiver implements Automation
 			else
 				timer.scheduleAtFixedRate(task, 0, interval);
 		}
-	}
-
-	static void sendLockBroadcast(Context context, String lockType)
-	{
-		Intent lockedBroadcastIntent = new Intent();
-		lockedBroadcastIntent.setAction(lockType);
-		context.sendBroadcast(lockedBroadcastIntent);
 	}
 }
