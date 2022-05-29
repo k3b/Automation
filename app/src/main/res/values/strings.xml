@@ -820,4 +820,11 @@
     <string name="enterBroadcast">Enter a broadcast action.</string>
     <string name="broadcastExplanation">This action allows to send a broadcast across the Android OS messaging system. This is not user-visible, but apps who listen for that specific broadcast can respond to it being sent.</string>
     <string name="directionStringDoesNotContain">does not contain</string>
+    <string name="runExecutable">Run executable</string>
+    <string name="path">Path</string>
+    <string name="parameters">Parameters</string>
+    <string name="chooseExecutable">Choose executable</string>
+    <string name="runAsRoot">Run as root</string>
+    <string name="selectValidExecutable">Select a valid executable file.</string>
+    <string name="fileNotExecutable">The file is not executable.</string>
 </resources>

@@ -52,6 +52,7 @@ public class Action
 		createNotification,
 		closeNotification,
 		sendBroadcast,
+		runExecutable,
 		sendTextMessage;
 
 		public String getFullName(Context context)
@@ -124,6 +125,8 @@ public class Action
 					return context.getResources().getString(R.string.closeNotifications);
 				case sendBroadcast:
 					return context.getResources().getString(R.string.sendBroadcast);
+				case runExecutable:
+					return context.getResources().getString(R.string.runExecutable);
 				default:
 					return "Unknown";
 			}
@@ -266,6 +269,9 @@ public class Action
 					break;
 				case sendBroadcast:
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.sendBroadcast));
+					break;
+				case runExecutable:
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.runExecutable));
 					break;
 				default:
 					returnString.append(action.toString());
@@ -544,6 +550,9 @@ public class Action
 					break;
 				case sendBroadcast:
 					Actions.sendBroadcast(context, this.getParameter2());
+					break;
+				case runExecutable:
+					Actions.runExecutable(context, this.getParameter1(), this.getParameter2());
 					break;
 				default:
 					Miscellaneous.logEvent("w", "Action", context.getResources().getString(R.string.unknownActionSpecified), 3);

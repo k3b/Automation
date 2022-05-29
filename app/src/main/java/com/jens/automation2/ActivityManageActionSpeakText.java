@@ -15,8 +15,6 @@ public class ActivityManageActionSpeakText extends Activity
 	private Button bSaveSpeakText;
 	private EditText etSpeakText;
 	
-//	private String existingUrl = "";
-	
 	public static boolean edit = false;
 	public static Action resultingAction = null;
 	
@@ -27,7 +25,7 @@ public class ActivityManageActionSpeakText extends Activity
 		this.setContentView(R.layout.activity_manage_action_speak_text);
 		
 		etSpeakText = (EditText)findViewById(R.id.etTextToSpeak);
-		bSaveSpeakText = (Button)findViewById(R.id.bSaveTriggerUrl);
+		bSaveSpeakText = (Button)findViewById(R.id.bSaveSpeakText);
 		bSaveSpeakText.setOnClickListener(new OnClickListener()
 		{			
 			@Override

@@ -1907,4 +1907,9 @@ public class Actions
 			return android.provider.Settings.Global.getInt(context.getContentResolver(), android.provider.Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
 		}
 	}
+
+	public static boolean runExecutable(Context context, boolean runAsRoot, String pathAndParams)
+	{
+		return false;
+	}
 }

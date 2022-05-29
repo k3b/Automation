@@ -47,7 +47,7 @@ public class ActivityManageActionTriggerUrl extends Activity
 		chkTriggerUrlUseAuthentication = (CheckBox)findViewById(R.id.chkTriggerUrlUseAuthentication);
 		lvTriggerUrlPostParameters = (ListView)findViewById(R.id.lvTriggerUrlPostParameters);
 		tlTriggerUrlAuthentication = (TableLayout)findViewById(R.id.tlTriggerUrlAuthentication);
-		bSaveTriggerUrl = (Button)findViewById(R.id.bSaveTriggerUrl);
+		bSaveTriggerUrl = (Button)findViewById(R.id.bSaveSpeakText);
 		bSaveTriggerUrl.setOnClickListener(new OnClickListener()
 		{			
 			@Override
