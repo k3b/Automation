@@ -322,23 +322,14 @@ public class ActivityManageTriggerNotification extends Activity
 				String textDir = Trigger.getMatchCode(spinnerTextDirection.getSelectedItem().toString());
 				String text = etNotificationText.getText().toString();
 
-				if(edit)
-				{
-					editedNotificationTrigger.setTriggerParameter(chkNotificationDirection.isChecked());
-					editedNotificationTrigger.setTriggerParameter2(app + triggerParameter2Split + titleDir + triggerParameter2Split + title + triggerParameter2Split + textDir + triggerParameter2Split + text);
-					ActivityManageTriggerNotification.this.setResult(RESULT_OK);
-				}
-				else
-				{
-					Intent data = new Intent();
-					data.putExtra(intentNameNotificationDirection, chkNotificationDirection.isChecked());
-					data.putExtra(intentNameNotificationApp, app);
-					data.putExtra(intentNameNotificationTitleDir, titleDir);
-					data.putExtra(intentNameNotificationTitle, title);
-					data.putExtra(intentNameNotificationTextDir, textDir);
-					data.putExtra(intentNameNotificationText, text);
-					ActivityManageTriggerNotification.this.setResult(RESULT_OK, data);
-				}
+				Intent data = new Intent();
+				data.putExtra(intentNameNotificationDirection, chkNotificationDirection.isChecked());
+				data.putExtra(intentNameNotificationApp, app);
+				data.putExtra(intentNameNotificationTitleDir, titleDir);
+				data.putExtra(intentNameNotificationTitle, title);
+				data.putExtra(intentNameNotificationTextDir, textDir);
+				data.putExtra(intentNameNotificationText, text);
+				ActivityManageTriggerNotification.this.setResult(RESULT_OK, data);
 
 				finish();
 			}

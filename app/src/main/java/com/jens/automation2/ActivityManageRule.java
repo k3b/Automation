@@ -1384,8 +1384,18 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
-				newTrigger = ActivityManageTriggerNotification.resultingTrigger;
-				newTrigger.setParentRule(ruleToEdit);
+				Trigger editedTrigger = new Trigger();
+				editedTrigger.setTriggerType(Trigger_Enum.notification);
+				editedTrigger.setTriggerParameter(data.getBooleanExtra(ActivityManageTriggerNotification.intentNameNotificationDirection, false));
+				editedTrigger.setTriggerParameter2(
+						data.getStringExtra(ActivityManageTriggerNotification.intentNameNotificationApp) + Trigger.triggerParameter2Split +
+						data.getStringExtra(ActivityManageTriggerNotification.intentNameNotificationTitleDir) + Trigger.triggerParameter2Split +
+						data.getStringExtra(ActivityManageTriggerNotification.intentNameNotificationTitle) + Trigger.triggerParameter2Split +
+						data.getStringExtra(ActivityManageTriggerNotification.intentNameNotificationTextDir) + Trigger.triggerParameter2Split +
+						data.getStringExtra(ActivityManageTriggerNotification.intentNameNotificationText)
+				);
+				editedTrigger.setParentRule(ruleToEdit);
+				ruleToEdit.getTriggerSet().set(editIndex, editedTrigger);
 				this.refreshTriggerList();
 			}
 		}
@@ -1846,7 +1856,7 @@ public class ActivityManageRule extends Activity
 						newAction.setAction(Action_Enum.setWifi);
 						getActionParameter1Dialog(ActivityManageRule.this).show();
 
-						if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+						if(context.getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.Q)
 							Miscellaneous.messageBox(context.getResources().getString(R.string.app_name), context.getResources().getString(R.string.android10WifiToggleNotice), context).show();
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setBluetooth.toString()))
