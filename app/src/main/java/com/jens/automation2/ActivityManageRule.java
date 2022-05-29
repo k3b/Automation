@@ -1820,7 +1820,7 @@ public class ActivityManageRule extends Activity
 						newAction.setAction(Action_Enum.setWifi);
 						getActionParameter1Dialog(ActivityManageRule.this).show();
 
-						if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+						if(context.getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.Q)
 							Miscellaneous.messageBox(context.getResources().getString(R.string.app_name), context.getResources().getString(R.string.android10WifiToggleNotice), context).show();
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setBluetooth.toString()))
