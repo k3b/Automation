@@ -819,4 +819,5 @@
     <string name="sendBroadcast">Send broadcast</string>
     <string name="enterBroadcast">Enter a broadcast action.</string>
     <string name="broadcastExplanation">This action allows to send a broadcast across the Android OS messaging system. This is not user-visible, but apps who listen for that specific broadcast can respond to it being sent.</string>
+    <string name="directionStringDoesNotContain">does not contain</string>
 </resources>

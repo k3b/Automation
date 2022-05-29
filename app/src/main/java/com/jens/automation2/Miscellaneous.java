@@ -481,6 +481,8 @@ public class Miscellaneous extends Service
 				return !haystack.equalsIgnoreCase(needle);
 			case Trigger.directionContains:
 				return haystack.toLowerCase().contains(needle.toLowerCase());
+			case Trigger.directionNotContains:
+				return !haystack.toLowerCase().contains(needle.toLowerCase());
 			case Trigger.directionStartsWith:
 				return haystack.toLowerCase().startsWith(needle.toLowerCase());
 			case Trigger.directionEndsWith:
@@ -709,14 +711,6 @@ public class Miscellaneous extends Service
 				dialog.dismiss();
 			}
 		});
-
-//		alertDialog.setNegativeButton(context.getResources().getString(R.string.cancel), new DialogInterface.OnClickListener()
-//		{
-//			public void onClick(DialogInterface dialog, int whichButton)
-//			{
-//				// Canceled.
-//			}
-//		});
 
 		return alertDialog.create();
 	}

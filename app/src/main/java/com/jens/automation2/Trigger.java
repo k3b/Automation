@@ -1646,6 +1646,7 @@ public class Trigger
 
 	public static final String directionEquals = "eq";
 	public static final String directionContains = "ct";
+	public static final String directionNotContains = "nc";
 	public static final String directionStartsWith = "sw";
 	public static final String directionEndsWith = "ew";
 	public static final String directionNotEquals = "ne";
@@ -1675,6 +1676,8 @@ public class Trigger
 			return directionEquals;
 		else if(direction.equalsIgnoreCase(Miscellaneous.getAnyContext().getString(R.string.directionStringContains)))
 			return directionContains;
+		else if(direction.equalsIgnoreCase(Miscellaneous.getAnyContext().getString(R.string.directionStringDoesNotContain)))
+			return directionNotContains;
 		else if(direction.equalsIgnoreCase(Miscellaneous.getAnyContext().getString(R.string.directionStringStartsWith)))
 			return directionStartsWith;
 		else if(direction.equalsIgnoreCase(Miscellaneous.getAnyContext().getString(R.string.directionStringEndsWith)))

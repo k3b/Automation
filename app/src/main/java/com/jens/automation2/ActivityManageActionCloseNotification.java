@@ -1,7 +1,5 @@
 package com.jens.automation2;
 
-import static com.jens.automation2.Trigger.triggerParameter2Split;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -18,8 +16,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -49,7 +45,6 @@ public class ActivityManageActionCloseNotification extends Activity
 	TextView tvSelectedApplication;
 	
 	private static List<PackageInfo> pInfos = null;
-	public static Trigger resultingTrigger;
 
 	private static String[] directions;
 
@@ -271,6 +266,7 @@ public class ActivityManageActionCloseNotification extends Activity
 		directions = new String[] {
 									getResources().getString(R.string.directionStringEquals),
 									getResources().getString(R.string.directionStringContains),
+									getResources().getString(R.string.directionStringDoesNotContain),
 									getResources().getString(R.string.directionStringStartsWith),
 									getResources().getString(R.string.directionStringEndsWith),
 									getResources().getString(R.string.directionStringNotEquals)
