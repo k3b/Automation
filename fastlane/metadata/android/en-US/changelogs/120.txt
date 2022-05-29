@@ -1,2 +1,5 @@
 * New trigger: device has just started
 * New trigger: service has just started
+* New parameter for trigger Screen state: New state "locked"
+* New trigger: Respond to customizable broadcasts
+* New action: Send broadcasts
