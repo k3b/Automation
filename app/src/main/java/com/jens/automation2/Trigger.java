@@ -1659,6 +1659,8 @@ public class Trigger
 				return Miscellaneous.getAnyContext().getString(R.string.directionStringEquals);
 			case directionContains:
 				return Miscellaneous.getAnyContext().getString(R.string.directionStringContains);
+			case directionNotContains:
+				return Miscellaneous.getAnyContext().getString(R.string.directionStringDoesNotContain);
 			case directionStartsWith:
 				return Miscellaneous.getAnyContext().getString(R.string.directionStringStartsWith);
 			case directionEndsWith:

@@ -6,6 +6,8 @@ import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.HttpGet;
 
@@ -437,7 +439,7 @@ public class Action
 		
 		return (String[])actionTypesList.toArray(new String[actionTypesList.size()]);
 	}
-	
+
 	public void run(Context context, boolean toggleActionIfPossible)
 	{
 		try

@@ -272,6 +272,7 @@ public class ActivityManageTriggerNotification extends Activity
 		directions = new String[] {
 									getResources().getString(R.string.directionStringEquals),
 									getResources().getString(R.string.directionStringContains),
+									getResources().getString(R.string.directionStringDoesNotContain),
 									getResources().getString(R.string.directionStringStartsWith),
 									getResources().getString(R.string.directionStringEndsWith),
 									getResources().getString(R.string.directionStringNotEquals)
