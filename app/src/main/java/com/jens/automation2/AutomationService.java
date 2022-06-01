@@ -43,6 +43,10 @@ public class AutomationService extends Service implements OnInitListener
 	protected final static int notificationIdRestrictions = 1005;
 	protected final static int notificationIdLocationRestriction = 1006;
 
+	public static final String flavor_name_apk = "apkFlavor";
+	public static final String flavor_name_fdroid = "fdroidFlavor";
+	public static final String flavor_name_googleplay = "googlePlayFlavor";
+
 	final static String NOTIFICATION_CHANNEL_ID_SERVICE = "com.jens.automation2_service";
 	final static String NOTIFICATION_CHANNEL_NAME_SERVICE = "Service notification";
 

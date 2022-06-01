@@ -318,7 +318,7 @@ public class ReceiverCoordinator
             MediaPlayerListener.getInstance().stopListener(AutomationService.getInstance());
         }
 
-        if(!BuildConfig.FLAVOR.equalsIgnoreCase("fdroidFlavor"))
+        if(!BuildConfig.FLAVOR.equalsIgnoreCase(AutomationService.flavor_name_fdroid))
         {
             if (Rule.isAnyRuleUsing(Trigger.Trigger_Enum.activityDetection))
             {

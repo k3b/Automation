@@ -76,7 +76,7 @@ public class ActivityManageActionRunExecutable extends Activity
             }
             else
             {
-                if(!chkRunExecAsRoot.isChecked() && !executableFile.canExecute())
+                if(false)//!chkRunExecAsRoot.isChecked() && !executableFile.canExecute())
                 {
                     Toast.makeText(ActivityManageActionRunExecutable.this, getResources().getString(R.string.fileNotExecutable), Toast.LENGTH_LONG).show();
                     return;
@@ -85,12 +85,12 @@ public class ActivityManageActionRunExecutable extends Activity
         }
 
         Intent returnData = new Intent();
-        returnData.putExtra("actionParameter1", chkRunExecAsRoot.isChecked());
+        returnData.putExtra(ActivityManageRule.intentNameActionParameter1, chkRunExecAsRoot.isChecked());
 
         if(etRunExecutableParameters.getText() != null && !StringUtils.isEmpty(etRunExecutableParameters.getText().toString()))
-            returnData.putExtra("actionParameter2", etRunExecutablePath.getText().toString() + Action.actionParameter2Split + etRunExecutableParameters.getText().toString());
+            returnData.putExtra(ActivityManageRule.intentNameActionParameter2, etRunExecutablePath.getText().toString() + Action.actionParameter2Split + etRunExecutableParameters.getText().toString());
         else
-            returnData.putExtra("actionParameter2", etRunExecutablePath.getText().toString());
+            returnData.putExtra(ActivityManageRule.intentNameActionParameter2, etRunExecutablePath.getText().toString());
 
         setResult(RESULT_OK, returnData);
         finish();

@@ -52,7 +52,12 @@ import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.conn.util.InetAddressUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -63,7 +68,9 @@ import java.security.KeyStore;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.SSLContext;
 
@@ -1908,8 +1915,156 @@ public class Actions
 		}
 	}
 
-	public static boolean runExecutable(Context context, boolean runAsRoot, String pathAndParams)
+	public static boolean runExecutable(Context context, boolean runAsRoot, String path, String parameters)
 	{
-		return false;
+		if(runAsRoot)
+		{
+			if(!StringUtils.isEmpty(parameters))
+				return executeCommandViaSu(new String[] { path + " " + parameters });
+			else
+				return executeCommandViaSu(new String[] { path });
+		}
+		else
+		{
+			Object[] result;
+
+			File executable = new File(path);
+			File workingDir = new File(executable.getParent());
+
+			if(!StringUtils.isEmpty(parameters))
+				result = runExternalApplication(path, 0, workingDir, parameters);
+			else
+				result = runExternalApplication(path, 0, workingDir, null);
+
+			boolean execResult = (boolean) result[0];
+
+			return execResult;
+		}
+	}
+
+	/**
+	 *
+	 * @param commandToExecute
+	 * @param timeout
+	 * @param params
+	 * @return Returns an array: 0=exit code, 1=cmdline output
+	 */
+	public static Object[] runExternalApplication(String commandToExecute, long timeout, File workingDirectory, String params)
+	{
+		/*
+		 * Classes stolen from https://github.com/stleary/JSON-java
+		 */
+
+		String fullCommand;
+
+		if(!StringUtils.isEmpty(params))
+			fullCommand = commandToExecute + " " + params;
+		else
+			fullCommand = commandToExecute;
+
+		Miscellaneous.logEvent("i", "Running executable", "Running external application " + fullCommand, 4);
+
+		Object[] returnObject = new Object[2];
+
+		StringBuilder output = new StringBuilder();
+		String line = null;
+		OutputStream stdin = null;
+		InputStream stderr = null;
+		InputStream stdout = null;
+
+		try
+		{
+			Process process = null;
+
+			if(workingDirectory != null)
+				process = Runtime.getRuntime().exec(fullCommand, null, workingDirectory);
+			else
+				process = Runtime.getRuntime().exec(fullCommand);
+			stdin = process.getOutputStream ();
+			stderr = process.getErrorStream ();
+			stdout = process.getInputStream ();
+
+			// "write" the parms into stdin
+			/*line = "param1" + "\n";
+			stdin.write(line.getBytes() );
+			stdin.flush();
+
+			line = "param2" + "\n";
+			stdin.write(line.getBytes() );
+			stdin.flush();
+
+			line = "param3" + "\n";
+			stdin.write(line.getBytes() );
+			stdin.flush();*/
+
+			stdin.close();
+
+			// clean up if any output in stdout
+			BufferedReader brCleanUp = new BufferedReader (new InputStreamReader (stdout));
+			while ((line = brCleanUp.readLine ()) != null)
+			{
+				Miscellaneous.logEvent ("i", "Running executable", "[Stdout] " + line, 4);
+				output.append(line);
+			}
+			brCleanUp.close();
+
+			// clean up if any output in stderr
+			brCleanUp = new BufferedReader (new InputStreamReader(stderr));
+			while ((line = brCleanUp.readLine ()) != null)
+			{
+				Miscellaneous.logEvent ("i", "Running executable", "[Stderr] " + line, 4);
+				output.append(line);
+			}
+			brCleanUp.close();
+
+			try
+			{
+				// Wait for the process to exit, we want the return code
+				if(timeout > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+				{
+					try
+					{
+						if(!process.waitFor(timeout, TimeUnit.MILLISECONDS))
+						{
+							Miscellaneous.logEvent("i", "Running executable", "Timeout of " + String.valueOf(timeout) + " ms reached. Killing check attempt.", 3);
+							process.destroyForcibly();
+						}
+					}
+					catch(NoSuchMethodError e)
+					{
+						process.waitFor();
+					}
+				}
+				else
+					process.waitFor();
+			}
+			catch (InterruptedException e)
+			{
+				Miscellaneous.logEvent("i", "Running executable", "Waiting for process failed: " + Log.getStackTraceString(e), 4);
+				Miscellaneous.logEvent("i", "Running executable", Log.getStackTraceString(e), 1);
+			}
+
+			if(process.exitValue() == 0)
+				Miscellaneous.logEvent("i", "Running executable", "ReturnCode: " + String.valueOf(process.exitValue()), 4);
+			else
+				Miscellaneous.logEvent("i", "Running executable", "External execution (RC=" + String.valueOf(process.exitValue()) + ") returned error: " + output.toString(), 3);
+
+			returnObject[0] = process.exitValue();
+			returnObject[1] = output.toString();
+
+			return returnObject;
+		}
+		catch (IOException e)
+		{
+			Miscellaneous.logEvent("e", "Running executable", Log.getStackTraceString(e), 1);
+		}
+
+		Miscellaneous.logEvent("i", "Running executable", "Error running external application.", 1);
+
+//		if(slotMap != null)
+//			for(String key : slotMap.keySet())
+//				System.clearProperty(key);
+
+		return null;
 	}
 }

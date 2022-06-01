@@ -80,7 +80,7 @@ public class ActivityMainScreen extends ActivityGeneric
 
 		bDonate = (Button)findViewById(R.id.bDonate);
 
-		if(!BuildConfig.FLAVOR.equalsIgnoreCase("googlePlayFlavor"))
+		if(!BuildConfig.FLAVOR.equalsIgnoreCase(AutomationService.flavor_name_googleplay))
 			bDonate.setVisibility(View.VISIBLE);
 
 		toggleService.setChecked(AutomationService.isMyServiceRunning(this));

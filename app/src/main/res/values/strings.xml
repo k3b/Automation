@@ -827,4 +827,7 @@
     <string name="runAsRoot">Run as root</string>
     <string name="selectValidExecutable">Select a valid executable file.</string>
     <string name="fileNotExecutable">The file is not executable.</string>
+    <string name="wifiExplanation1">If you downloaded Automation from Google Play Store unfortunately it cannot be turn wifi on or off anymore. Please blame Google for that restriction, not me.\n\nYou can bypass that restriction by rooting your device and activating the checkbox below. Alternatively download this application from F-Droid or my website.</string>
+    <string name="wifiExplanation2">While airplane mode is activated, wifi can only be toggled from applications when using root permissions for that.</string>
+    <string name="usingRoot">using root</string>
 </resources>

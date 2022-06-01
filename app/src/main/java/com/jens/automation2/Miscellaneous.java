@@ -1620,7 +1620,7 @@ public class Miscellaneous extends Service
 	{
 		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
 		{
-			if (BuildConfig.FLAVOR.equalsIgnoreCase("googlePlayFlavor"))
+			if (BuildConfig.FLAVOR.equalsIgnoreCase(AutomationService.flavor_name_googleplay))
 			{
 				if(checkExistingRules)
 				{

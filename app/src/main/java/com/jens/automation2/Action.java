@@ -330,7 +330,15 @@ public class Action
 
 				if (parts.length > 4 && !StringUtils.isBlank(parts[4]))
 					returnString.append(", " + Miscellaneous.getAnyContext().getResources().getString(R.string.ifString) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.text) + " " + Trigger.getMatchString(parts[3]) + " " + parts[4]);
-
+			}
+			else if(this.getAction().equals(Action_Enum.setWifi))
+			{
+				if(!StringUtils.isEmpty(this.parameter2))
+				{
+					boolean useRoot = Boolean.parseBoolean(this.parameter2);
+					if(useRoot)
+						returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.usingRoot));
+				}
 			}
 			else if(this.getAction().equals(Action_Enum.controlMediaPlayback))
 			{
@@ -552,7 +560,11 @@ public class Action
 					Actions.sendBroadcast(context, this.getParameter2());
 					break;
 				case runExecutable:
-					Actions.runExecutable(context, this.getParameter1(), this.getParameter2());
+					String[] execParts = this.getParameter2().split(Action.actionParameter2Split);
+					if(execParts.length == 1)
+						Actions.runExecutable(context, this.getParameter1(), execParts[0], null);
+					else if(execParts.length == 2)
+						Actions.runExecutable(context, this.getParameter1(), execParts[0], execParts[1]);
 					break;
 				default:
 					Miscellaneous.logEvent("w", "Action", context.getResources().getString(R.string.unknownActionSpecified), 3);

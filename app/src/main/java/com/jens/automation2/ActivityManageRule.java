@@ -125,6 +125,8 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeActionSendBroadcastEdit = 812;
 	final static int requestCodeActionRunExecutableAdd = 813;
 	final static int requestCodeActionRunExecutableEdit = 814;
+	final static int requestCodeActionSetWifiAdd = 815;
+	final static int requestCodeActionSetWifiEdit = 816;
 	
 	public static ActivityManageRule getInstance()
 	{
@@ -389,6 +391,12 @@ public class ActivityManageRule extends Activity
 						activityEditRunExecutableIntent.putExtra(intentNameActionParameter1, a.getParameter1());
 						activityEditRunExecutableIntent.putExtra(intentNameActionParameter2, a.getParameter2());
 						startActivityForResult(activityEditRunExecutableIntent, requestCodeActionRunExecutableEdit);
+						break;
+					case setWifi:
+						Intent activityEditSetWifiIntent = new Intent(ActivityManageRule.this, ActivityManageActionWifi.class);
+						activityEditSetWifiIntent.putExtra(intentNameActionParameter1, a.getParameter1());
+						activityEditSetWifiIntent.putExtra(intentNameActionParameter2, a.getParameter2());
+						startActivityForResult(activityEditSetWifiIntent, requestCodeActionSetWifiEdit);
 						break;
 					case controlMediaPlayback:
 						Intent activityEditControlMediaIntent = new Intent(ActivityManageRule.this, ActivityManageActionControlMedia.class);
@@ -1518,6 +1526,17 @@ public class ActivityManageRule extends Activity
 				this.refreshActionList();
 			}
 		}
+		else if(requestCode == requestCodeActionSetWifiAdd)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				newAction.setParentRule(ruleToEdit);
+				newAction.setParameter1(data.getBooleanExtra(ActivityManageRule.intentNameActionParameter1, true));
+				newAction.setParameter2(data.getStringExtra(ActivityManageRule.intentNameActionParameter2));
+				ruleToEdit.getActionSet().add(newAction);
+				this.refreshActionList();
+			}
+		}
 		else if(requestCode == requestCodeActionCreateNotificationAdd)
 		{
 			if(resultCode == RESULT_OK)
@@ -1567,6 +1586,21 @@ public class ActivityManageRule extends Activity
 			}
 		}
 		else if(requestCode == requestCodeActionRunExecutableEdit)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				ruleToEdit.getActionSet().get(editIndex).setParentRule(ruleToEdit);
+
+				if(data.hasExtra(intentNameActionParameter1) && data.hasExtra(intentNameActionParameter2))
+				{
+					ruleToEdit.getActionSet().get(editIndex).setParameter1(data.getBooleanExtra(intentNameActionParameter1, false));
+					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra(intentNameActionParameter2));
+				}
+
+				this.refreshActionList();
+			}
+		}
+		else if(requestCode == requestCodeActionSetWifiEdit)
 		{
 			if(resultCode == RESULT_OK)
 			{
@@ -1844,10 +1878,8 @@ public class ActivityManageRule extends Activity
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setWifi.toString()))
 					{
 						newAction.setAction(Action_Enum.setWifi);
-						getActionParameter1Dialog(ActivityManageRule.this).show();
-
-						if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-							Miscellaneous.messageBox(context.getResources().getString(R.string.app_name), context.getResources().getString(R.string.android10WifiToggleNotice), context).show();
+						Intent editSetWifiIntent = new Intent(context, ActivityManageActionWifi.class);
+						startActivityForResult(editSetWifiIntent, requestCodeActionSetWifiAdd);
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setBluetooth.toString()))
 					{

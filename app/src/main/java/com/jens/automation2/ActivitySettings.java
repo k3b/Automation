@@ -18,7 +18,7 @@ public class ActivitySettings extends PreferenceActivity
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(layout.activity_settings);
 
-		if(BuildConfig.FLAVOR.equals("apkFlavor"))
+		if(BuildConfig.FLAVOR.equals(AutomationService.flavor_name_apk))
 		{
 			chkPrefUpdateCheck = (CheckBoxPreference) findPreference("automaticUpdateCheck");
 			chkPrefUpdateCheck.setEnabled(true);
