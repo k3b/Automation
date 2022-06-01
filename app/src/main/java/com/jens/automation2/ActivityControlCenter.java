@@ -353,6 +353,7 @@ public class ActivityControlCenter extends Activity
         systemInfoText.append("Device details" + Miscellaneous.lineSeparator);
         systemInfoText.append("OS version: " + System.getProperty("os.version") + Miscellaneous.lineSeparator);
         systemInfoText.append("API Level: " + android.os.Build.VERSION.SDK + Miscellaneous.lineSeparator);
+        systemInfoText.append("Target SDK: " + Miscellaneous.getAnyContext().getApplicationInfo().targetSdkVersion + Miscellaneous.lineSeparator);
         systemInfoText.append("Device: " + android.os.Build.DEVICE + Miscellaneous.lineSeparator);
         systemInfoText.append("Model: " + android.os.Build.MODEL + Miscellaneous.lineSeparator);
         systemInfoText.append("Product: " + android.os.Build.PRODUCT + Miscellaneous.lineSeparator);

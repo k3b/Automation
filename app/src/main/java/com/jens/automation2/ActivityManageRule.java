@@ -127,7 +127,7 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeActionRunExecutableEdit = 814;
 	final static int requestCodeActionSetWifiAdd = 815;
 	final static int requestCodeActionSetWifiEdit = 816;
-	
+
 	public static ActivityManageRule getInstance()
 	{
 		if(instance == null)
@@ -1392,8 +1392,18 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
-				newTrigger = ActivityManageTriggerNotification.resultingTrigger;
-				newTrigger.setParentRule(ruleToEdit);
+				Trigger editedTrigger = new Trigger();
+				editedTrigger.setTriggerType(Trigger_Enum.notification);
+				editedTrigger.setTriggerParameter(data.getBooleanExtra(ActivityManageTriggerNotification.intentNameNotificationDirection, false));
+				editedTrigger.setTriggerParameter2(
+						data.getStringExtra(ActivityManageTriggerNotification.intentNameNotificationApp) + Trigger.triggerParameter2Split +
+						data.getStringExtra(ActivityManageTriggerNotification.intentNameNotificationTitleDir) + Trigger.triggerParameter2Split +
+						data.getStringExtra(ActivityManageTriggerNotification.intentNameNotificationTitle) + Trigger.triggerParameter2Split +
+						data.getStringExtra(ActivityManageTriggerNotification.intentNameNotificationTextDir) + Trigger.triggerParameter2Split +
+						data.getStringExtra(ActivityManageTriggerNotification.intentNameNotificationText)
+				);
+				editedTrigger.setParentRule(ruleToEdit);
+				ruleToEdit.getTriggerSet().set(editIndex, editedTrigger);
 				this.refreshTriggerList();
 			}
 		}
