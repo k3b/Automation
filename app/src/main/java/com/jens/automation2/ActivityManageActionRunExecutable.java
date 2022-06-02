@@ -76,7 +76,7 @@ public class ActivityManageActionRunExecutable extends Activity
             }
             else
             {
-                if(false)//!chkRunExecAsRoot.isChecked() && !executableFile.canExecute())
+                if(!chkRunExecAsRoot.isChecked() && !executableFile.canExecute())
                 {
                     Toast.makeText(ActivityManageActionRunExecutable.this, getResources().getString(R.string.fileNotExecutable), Toast.LENGTH_LONG).show();
                     return;

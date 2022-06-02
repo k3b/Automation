@@ -357,7 +357,7 @@ public class ActivityControlCenter extends Activity
         systemInfoText.append("Device: " + android.os.Build.DEVICE + Miscellaneous.lineSeparator);
         systemInfoText.append("Model: " + android.os.Build.MODEL + Miscellaneous.lineSeparator);
         systemInfoText.append("Product: " + android.os.Build.PRODUCT + Miscellaneous.lineSeparator);
-        systemInfoText.append("Rooted: " + String.valueOf(Miscellaneous.isPhoneRooted()));
+        systemInfoText.append("Rooted: " + String.valueOf(Miscellaneous.isPhoneRooted()) + Miscellaneous.lineSeparator);
         systemInfoText.append("Country: " + Miscellaneous.getUserCountry(Miscellaneous.getAnyContext()) + Miscellaneous.lineSeparator);
         systemInfoText.append("OS language: " + Locale.getDefault().getDisplayName() + Miscellaneous.lineSeparator);
         systemInfoText.append("Logfile written: " + String.valueOf(Settings.writeLogFile) + Miscellaneous.lineSeparator);

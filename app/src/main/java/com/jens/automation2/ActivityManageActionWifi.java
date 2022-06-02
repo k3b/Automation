@@ -42,7 +42,7 @@ public class ActivityManageActionWifi extends Activity
 //        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
 //            Miscellaneous.messageBox(getResources().getString(R.string.app_name), getResources().getString(R.string.android10WifiToggleNotice), ActivityManageActionWifi.this).show();
 
-        if(BuildConfig.FLAVOR.equals(AutomationService.flavor_name_googleplay))
+        if(getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.Q)
             tvWifiExplanation1.setVisibility(View.VISIBLE);
         else
             tvWifiExplanation1.setVisibility(View.GONE);

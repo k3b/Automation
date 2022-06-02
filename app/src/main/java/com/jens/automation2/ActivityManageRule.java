@@ -540,7 +540,7 @@ public class ActivityManageRule extends Activity
 			else if(types[i].toString().equals(Trigger_Enum.roaming.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.roaming));
 			else if(types[i].toString().equals(Trigger_Enum.broadcastReceived.toString()))
-				items.add(new Item(typesLong[i].toString(), R.drawable.satellite));
+				items.add(new Item(typesLong[i].toString(), R.drawable.megaphone));
 			else if(types[i].toString().equals(Trigger_Enum.phoneCall.toString()))
             {
 				if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageRule.this, "android.permission.SEND_SMS"))
@@ -1836,7 +1836,7 @@ public class ActivityManageRule extends Activity
 			else if(types[i].toString().equals(Action_Enum.closeNotification.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.notification));
 			else if(types[i].toString().equals(Action_Enum.sendBroadcast.toString()))
-				items.add(new Item(typesLong[i].toString(), R.drawable.satellite));
+				items.add(new Item(typesLong[i].toString(), R.drawable.megaphone));
 			else if(types[i].toString().equals(Action_Enum.runExecutable.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.script));
 			else if(types[i].toString().equals(Action_Enum.sendTextMessage.toString()))
