@@ -4,4 +4,4 @@
 * New parameter for trigger Screen state: New state "locked"
 * New action: Send broadcasts
 * Fixed: Crash when editing notification trigger
-* Fixed: TimeFrame trigger - time may have changed when crossing timezones
+* Fixed: TimeFrame trigger - time may have changed when crossing timezones or daylight saving changes
