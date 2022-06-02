@@ -26,7 +26,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver
 	public static Boolean wasConnected = false;
 	protected static String lastWifiSsid = "";
 	public static boolean lastConnectedState = false;
-	protected static boolean mayCellLocationChangedReceiverBeActivatedFromWifiPointOfWifi = true;
+	protected static boolean mayCellLocationChangedReceiverBeActivatedFromWifiPointOfView = true;
 	protected static WifiBroadcastReceiver wifiBrInstance;
 	protected static IntentFilter wifiListenerIntentFilter;
 	protected static boolean wifiListenerActive=false;
@@ -52,7 +52,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver
 
 	public static boolean mayCellLocationReceiverBeActivated()
 	{
-		return mayCellLocationChangedReceiverBeActivatedFromWifiPointOfWifi;
+		return mayCellLocationChangedReceiverBeActivatedFromWifiPointOfView;
 	}
 
 	@Override
@@ -63,18 +63,12 @@ public class WifiBroadcastReceiver extends BroadcastReceiver
 	//		int state = -1;
 			NetworkInfo myWifi = null;
 			
-	//		if(intent.getAction().equals(WifiManager.RSSI_CHANGED_ACTION)) //gefeuert bei Verbindung
-	//		{
-	//			Miscellaneous.logEvent("i", "WifiReceiver", "RSSI_CHANGED_ACTION: " + String.valueOf(intent.getIntExtra(WifiManager.RSSI_CHANGED_ACTION, -1)));
-	//		}
-	//		else 
 			if(intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) //gefeuert bei Trennung
 			{
 	//			state = intent.getIntExtra(WifiManager.NETWORK_STATE_CHANGED_ACTION, -1);
 	//			Miscellaneous.logEvent("i", "WifiReceiver", "NETWORK_STATE_CHANGED_ACTION: " + String.valueOf(state));
 				myWifi = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
 			}
-				
 			
 			WifiManager myWifiManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
 	//		ConnectivityManager connManager = (ConnectivityManager)context.getSystemService(context.CONNECTIVITY_SERVICE);
@@ -95,8 +89,14 @@ public class WifiBroadcastReceiver extends BroadcastReceiver
 				if(Settings.useWifiForPositioning && PointOfInterest.reachedPoiWithActivateWifiRule())	// Poi has wifi
 				{
 					Miscellaneous.logEvent("i", "WifiReceiver", context.getResources().getString(R.string.poiHasWifiStoppingCellLocationListener), 2);
-					mayCellLocationChangedReceiverBeActivatedFromWifiPointOfWifi = false;
+					mayCellLocationChangedReceiverBeActivatedFromWifiPointOfView = false;
 					CellLocationChangedReceiver.stopCellLocationChangedReceiver();
+
+					/*
+						TODO: Every time the screen is turned on, we receiver a "wifi has been connected"-event.
+						This is technically wrong and not really any changed to when the screen was off. It has
+						to be filtered.
+					 */
 				}
 				else
 				{
@@ -110,7 +110,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver
 			{
 				wasConnected = true;
 				Miscellaneous.logEvent("i", "WifiReceiver", "WifiReceiver just activated. Wifi already connected. Stopping CellLocationReceiver", 3);
-				mayCellLocationChangedReceiverBeActivatedFromWifiPointOfWifi = false;
+				mayCellLocationChangedReceiverBeActivatedFromWifiPointOfView = false;
 				CellLocationChangedReceiver.stopCellLocationChangedReceiver();
 				SensorActivity.stopAccelerometerTimer();
 				String ssid = myWifiManager.getConnectionInfo().getSSID();
@@ -126,7 +126,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver
 					{
 						wasConnected = false;
 						Miscellaneous.logEvent("i", "WifiReceiver", String.format(context.getResources().getString(R.string.disconnectedFromWifi), getLastWifiSsid()) + " Switching to CellLocationChangedReceiver.", 3);
-						mayCellLocationChangedReceiverBeActivatedFromWifiPointOfWifi = true;
+						mayCellLocationChangedReceiverBeActivatedFromWifiPointOfView = true;
 						CellLocationChangedReceiver.startCellLocationChangedReceiver();
 						lastConnectedState = false;
 						findRules(AutomationService.getInstance());
