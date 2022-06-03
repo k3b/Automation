@@ -340,6 +340,12 @@
 	  		android:gravity="center_horizontal" >
 
 			<Button
+				android:id="@+id/bTethering"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/test" />
+
+			<Button
 				android:id="@+id/bShowHelp"
 				android:layout_gravity="center_vertical"
 				android:layout_width="fill_parent"

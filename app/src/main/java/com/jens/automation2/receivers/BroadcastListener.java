@@ -3,6 +3,7 @@ package com.jens.automation2.receivers;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -53,8 +54,22 @@ public class BroadcastListener extends android.content.BroadcastReceiver impleme
         for(String key : intent.getExtras().keySet())
         {
             Miscellaneous.logEvent("i", "Broadcast extra", "Broadcast " + intent.getAction() + " has extra " + key + " and type " + intent.getExtras().get(key).getClass().getName(), 4);
-//            Object ob = intent.getExtras().get(key);
-//            Miscellaneous.logEvent("i", "Broadcast extra", "Broadcast " + intent.getAction() + " has extra " + key + " and type " + intent.getExtras().get(key).getClass().getName(), 4);
+            Object ob = intent.getExtras().get(key);
+
+            String target = null;
+
+            if(Build.VERSION.SDK_INT >= 26)
+                target = "tetherArray";
+            else
+                target = "activeArray";
+
+            if(key.equals(target) && ob instanceof ArrayList)
+            {
+                if(((ArrayList<String>)ob).size() > 0)
+                    ;
+            }
+
+            Miscellaneous.logEvent("i", "Broadcast extra", "Broadcast " + intent.getAction() + " has extra " + key + " and type " + intent.getExtras().get(key).getClass().getName(), 4);
         }
 
         ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.broadcastReceived);

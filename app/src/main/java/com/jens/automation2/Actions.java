@@ -67,6 +67,7 @@ import java.net.NetworkInterface;
 import java.security.KeyStore;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -2066,5 +2067,35 @@ public class Actions
 //				System.clearProperty(key);
 
 		return null;
+	}
+
+	public static boolean isTetheringActive1(Context context)
+	{
+		try
+		{
+			for(Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();)
+			{
+				NetworkInterface intf = en.nextElement();
+
+				for(Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();)
+				{
+					InetAddress inetAddress = enumIpAddr.nextElement();
+
+					if(!intf.isLoopback())
+					{
+						if(intf.getName().contains("rndis"))
+						{
+							return true;
+						}
+					}
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			Miscellaneous.logEvent("e", "isTetheringActive()", Log.getStackTraceString(e), 3);
+		}
+
+		return false;
 	}
 }
