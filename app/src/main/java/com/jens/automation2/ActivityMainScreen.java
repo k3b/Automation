@@ -77,17 +77,6 @@ public class ActivityMainScreen extends ActivityGeneric
 		tvLockSoundDuration = (TextView)findViewById(R.id.tvlockSoundDuration);
 		tbLockSound = (ToggleButton) findViewById(R.id.tbLockSound);
 		toggleService = (ToggleButton) findViewById(R.id.tbArmMastListener);
-
-		Button bTether = (Button)findViewById(R.id.bTethering);
-		bTether.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(View view)
-			{
-				Toast.makeText(ActivityMainScreen.this, "Tethering active: " + String.valueOf(Actions.isTetheringActive1(ActivityMainScreen.this)), Toast.LENGTH_LONG).show();
-			}
-		});
-
 		bDonate = (Button)findViewById(R.id.bDonate);
 
 		if(!BuildConfig.FLAVOR.equalsIgnoreCase(AutomationService.flavor_name_googleplay))

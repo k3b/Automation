@@ -17,20 +17,7 @@
             android:textSize="25dp"
             android:textStyle="bold"
             android:layout_marginBottom="@dimen/default_margin"
-            android:text="@string/actionSetWifi"/>
-
-        <TextView
-            android:id="@+id/tvWifiExplanation1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/wifiExplanation1" />
-
-        <TextView
-            android:id="@+id/tvWifiExplanation2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/default_margin"
-            android:text="@string/wifiExplanation2" />
+            android:text="@string/tetheringState"/>
 
         <TableLayout
             android:layout_width="match_parent"
@@ -38,21 +25,6 @@
             android:layout_marginTop="@dimen/default_margin"
             android:stretchColumns="1"
             android:shrinkColumns="1" >
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/runAsRoot" />
-
-                <CheckBox
-                    android:id="@+id/chkWifiRunAsRoot"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/runAsRoot" />
-
-            </TableRow>
 
             <TableRow
                 android:layout_marginTop="@dimen/default_margin">
@@ -70,14 +42,14 @@
                     android:layout_height="wrap_content" >
 
                     <RadioButton
-                        android:id="@+id/rbActionWifiOn"
+                        android:id="@+id/rbTetheringOn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
                         android:text="@string/on" />
 
                     <RadioButton
-                        android:id="@+id/rbActionWifiOff"
+                        android:id="@+id/rTetheringOff"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/off" />
@@ -89,7 +61,7 @@
         </TableLayout>
 
         <Button
-            android:id="@+id/bActionWifiSave"
+            android:id="@+id/bTriggerTetheringSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_margin"

@@ -18,6 +18,7 @@ import com.jens.automation2.receivers.NoiseListener;
 import com.jens.automation2.receivers.PhoneStatusListener;
 import com.jens.automation2.receivers.ProcessListener;
 import com.jens.automation2.receivers.ScreenStateReceiver;
+import com.jens.automation2.receivers.TetheringReceiver;
 import com.jens.automation2.receivers.TimeZoneListener;
 
 import androidx.annotation.RequiresApi;
@@ -59,7 +60,8 @@ public class ReceiverCoordinator
                     ProcessListener.class,
                     MediaPlayerListener.class,
                     ScreenStateReceiver.class,
-                    TimeZoneListener.class
+                    TimeZoneListener.class,
+                    TetheringReceiver.class
              };
         }
         catch (ClassNotFoundException e)
@@ -77,7 +79,8 @@ public class ReceiverCoordinator
                     PhoneStatusListener.class,
                     ProcessListener.class,
                     ScreenStateReceiver.class,
-                    TimeZoneListener.class
+                    TimeZoneListener.class,
+                    TetheringReceiver.class
             };
         }
     }
@@ -176,6 +179,9 @@ public class ReceiverCoordinator
         if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.deviceOrientation))
             DeviceOrientationListener.getInstance().startListener(AutomationService.getInstance());
 
+        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.tethering))
+            TetheringReceiver.getInstance().startListener(AutomationService.getInstance());
+
         try
         {
             Class testClass = Class.forName(ActivityManageRule.activityDetectionClassPath);
@@ -216,6 +222,7 @@ public class ReceiverCoordinator
             ProcessListener.stopProcessListener(AutomationService.getInstance());
             MediaPlayerListener.getInstance().stopListener(AutomationService.getInstance());
             DeviceOrientationListener.getInstance().stopListener(AutomationService.getInstance());
+            TetheringReceiver.getInstance().stopListener(AutomationService.getInstance());
 
             try
             {
@@ -412,6 +419,24 @@ public class ReceiverCoordinator
             {
                 Miscellaneous.logEvent("i", "DevicePositionListener", "Shutting down DevicePositionListener because not used in any rule.", 4);
                 DeviceOrientationListener.getInstance().stopListener(AutomationService.getInstance());
+            }
+        }
+
+        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.tethering))
+        {
+            if(!TetheringReceiver.getInstance().isListenerRunning())
+            {
+                Miscellaneous.logEvent("i", "TetheringReceiver", "Starting TetheringReceiver because used in a new/changed rule.", 4);
+//                if(DevicePositionListener.getInstance().haveAllPermission())
+                TetheringReceiver.getInstance().startListener(AutomationService.getInstance());
+            }
+        }
+        else
+        {
+            if(TetheringReceiver.getInstance().isListenerRunning())
+            {
+                Miscellaneous.logEvent("i", "TetheringReceiver", "Shutting down TetheringReceiver because not used in any rule.", 4);
+                TetheringReceiver.getInstance().stopListener(AutomationService.getInstance());
             }
         }
 

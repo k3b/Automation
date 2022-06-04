@@ -24,10 +24,10 @@ import com.jens.automation2.receivers.NotificationListener;
 import com.jens.automation2.receivers.PhoneStatusListener;
 import com.jens.automation2.receivers.ProcessListener;
 import com.jens.automation2.receivers.ScreenStateReceiver;
+import com.jens.automation2.receivers.TetheringReceiver;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -59,6 +59,7 @@ public class Trigger
 		deviceStarts,
 		serviceStarts,
 		broadcastReceived,
+		tethering,
 		phoneCall; //phoneCall always needs to be at the very end because of Google's shitty so called privacy
 
 		public String getFullName(Context context)
@@ -113,6 +114,8 @@ public class Trigger
 					return context.getResources().getString(R.string.serviceStarts);
 				case broadcastReceived:
 					return context.getResources().getString(R.string.broadcastReceivedTitle);
+				case tethering:
+					return context.getResources().getString(R.string.tetheringState);
 				default:
 					return "Unknown";
 			}
@@ -226,6 +229,10 @@ public class Trigger
 					break;
 				case broadcastReceived:
 					if(!checkBroadcastReceived())
+						result = false;
+					break;
+				case tethering:
+					if(!checkTetheringActive())
 						result = false;
 					break;
 				default:
@@ -917,6 +924,11 @@ public class Trigger
 		}
 
 		return true;
+	}
+
+	boolean checkTetheringActive()
+	{
+		return TetheringReceiver.isTetheringActive() == triggerParameter;
 	}
 
 	public boolean checkDateTime(Object triggeringObject, boolean checkifStateChangedSinceLastRuleExecution)
@@ -1635,6 +1647,12 @@ public class Trigger
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.broadcastNotReceived));
 
 				returnString.append(": " + triggerParameter2);
+				break;
+			case tethering:
+				if(triggerParameter)
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.tetheringActive));
+				else
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.tetheringNotActive));
 				break;
 			default:
 				returnString.append("error");

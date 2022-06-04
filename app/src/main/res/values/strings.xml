@@ -831,4 +831,7 @@
     <string name="wifiExplanation2">While airplane mode is activated, wifi can only be toggled from applications when using root permissions for that.</string>
     <string name="usingRoot">using root</string>
     <string name="runExecutableExplanation">You can select a script or an executable file here that will be executed as an action.\n\nBut there are some prerequisites which you have to deal with on your own. Google has made it very hard to run anything other than regular Android applications.\n\n1.\nThe file must be marked as executable in the file system. On a regular Android system (without root) this is actually the hard part.\n\n2.\nThat also means Automation must be able to execute the file, not just the owner or the group.\n\n3.\nIf it is a script, a valid shell be specified in the script\'s header.</string>
+    <string name="tetheringActive">tethering is active</string>
+    <string name="tetheringNotActive">tethering is not active</string>
+    <string name="tetheringState">Tethering state</string>
 </resources>

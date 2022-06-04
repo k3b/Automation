@@ -153,6 +153,7 @@
         <activity android:name=".ActivityManageActionSendBroadcast" />
         <activity android:name=".ActivityManageActionRunExecutable" />
         <activity android:name=".ActivityManageActionWifi" />
+        <activity android:name=".ActivityManageTriggerTethering" />
         <activity
             android:name=".ActivityMainTabLayout"
             android:launchMode="singleTask">
