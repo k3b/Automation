@@ -53,6 +53,9 @@ Wenn Sie ein Problem mit der Anwendung haben und mich dazu kontaktieren möchten
 
 Spenden sind sicher eine gute, aber nicht die einzige Möglichkeit mich zu motivieren :-)
 * Wer mir etwas Gutes tun will, kann die Anwendung auch im Play Store bewerten (https://play.google.com/store/apps/details?id=com.jens.automation2).
-* Außerdem ist Hilfe bei der Übersetzung willkommen. Englisch, Spanisch und Deutsch kann ich selbst. Aber sonst ist alles gern gesehen.
+* Wenn Ihnen die Anwendung gefällt, freue ich mich auch einfach nur über eine Email mit ein paar netten Worten.
+* Außerdem ist immer Hilfe bei der Übersetzung willkommen. Englisch, Spanisch und Deutsch kann ich selbst, Italienisch ist bereits abgedeckt. Aber sonst ist alles gern gesehen.
+* Wenn Sie ein Talent/Erfahrung auf dem Gebiet Grafikdesign haben und Ideen für hübschere Symbole haben, lassen Sie es mich wissen.
+* Falls Sie einen interessanten Anwendungsfall haben oder einen Weg gefunden haben, Auslöser und Aktionen so zu kombinieren, um etwas Besonderes umzusetzen und Sie denken, daß man das auf die Beispielseite (https://server47.de/automation/examples.html) setzen sollte, kontaktieren Sie mich doch.
 
 Erklärungen zu den vielen Berechtigungen können hier abgerufen werden: https://server47.de/automation/permissions.php
