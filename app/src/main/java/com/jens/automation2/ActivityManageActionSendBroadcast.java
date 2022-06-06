@@ -51,6 +51,7 @@ public class ActivityManageActionSendBroadcast extends Activity
         intentTypeSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, ActivityManageActionSendBroadcast.supportedIntentTypes);
         spinnerParameterType.setAdapter(intentTypeSpinnerAdapter);
         intentTypeSpinnerAdapter.notifyDataSetChanged();
+        intentPairAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, intentPairList);
 
         bSaveSendBroadcast.setOnClickListener(new View.OnClickListener()
         {
@@ -61,7 +62,19 @@ public class ActivityManageActionSendBroadcast extends Activity
                 {
                     Intent answer = new Intent();
 
-                    answer.putExtra(ActivityManageRule.intentNameActionParameter2, etBroadcastToSend.getText().toString());
+                    String param2 = etBroadcastToSend.getText().toString();
+
+                    if(intentPairList.size() > 0)
+                    {
+                        param2 += Action.actionParameter2Split;
+
+                        for (String s : intentPairList)
+                            param2 += s + ";";
+
+                        param2 = param2.substring(0, param2.length() - 1);
+                    }
+
+                    answer.putExtra(ActivityManageRule.intentNameActionParameter2, param2);
                     setResult(RESULT_OK, answer);
                     finish();
                 }
@@ -101,20 +114,17 @@ public class ActivityManageActionSendBroadcast extends Activity
 
                 String[] params = param2Parts[1].split(";");
 
-                if(startIndex > -1 && params.length > startIndex)
+                intentPairList.clear();
+
+                for(int i = 0; i < params.length; i++)
                 {
-                    intentPairList.clear();
+                    if(lvIntentPairs.getVisibility() != View.VISIBLE)
+                        lvIntentPairs.setVisibility(View.VISIBLE);
 
-                    for(int i=startIndex; i<params.length; i++)
-                    {
-                        if(lvIntentPairs.getVisibility() != View.VISIBLE)
-                            lvIntentPairs.setVisibility(View.VISIBLE);
-
-                        intentPairList.add(params[i]);
-                    }
-
-                    updateIntentPairList();
+                    intentPairList.add(params[i]);
                 }
+
+                updateIntentPairList();
             }
         }
 

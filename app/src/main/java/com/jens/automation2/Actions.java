@@ -197,7 +197,16 @@ public class Actions
     {
 		Miscellaneous.logEvent("i", "sendBroadcast", "Sending broadcast with action " + action, 5);
 		Intent broadcastIntent = new Intent();
-		broadcastIntent.setAction(action);
+
+		if(action.contains(Action.actionParameter2Split))
+		{
+			String[] parts = action.split(Action.actionParameter2Split);
+			broadcastIntent.setAction(parts[0]);
+			add params
+		}
+		else
+			broadcastIntent.setAction(action);
+
 		context.sendBroadcast(broadcastIntent);
     }
 
