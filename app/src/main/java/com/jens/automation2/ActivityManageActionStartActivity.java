@@ -60,6 +60,202 @@ public class ActivityManageActionStartActivity extends Activity
 	final static String startByBroadcastString = "1";
 
 	final static int requestCodeForRequestQueryAllPackagesPermission = 4711;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_manage_action_start_activity);
+
+		lvIntentPairs = (ListView)findViewById(R.id.lvIntentPairs);
+		etParameterName = (EditText)findViewById(R.id.etParameterName);
+		etParameterValue = (EditText)findViewById(R.id.etParameterValue);
+		bSelectApp = (Button)findViewById(R.id.bSelectApp);
+		bAddIntentPair = (Button)findViewById(R.id.bAddIntentPair);
+		bSaveActionStartOtherActivity = (Button)findViewById(R.id.bSaveActionStartOtherActivity);
+		spinnerParameterType = (Spinner)findViewById(R.id.spinnerParameterType);
+		etPackageName = (EditText) findViewById(R.id.etPackageName);
+		etActivityOrActionPath = (EditText) findViewById(R.id.etActivityOrActionPath);
+		rbStartAppSelectByActivity = (RadioButton)findViewById(R.id.rbStartAppSelectByActivity);
+		rbStartAppSelectByAction = (RadioButton)findViewById(R.id.rbStartAppSelectByAction);
+		showStartProgramExamples = (Button)findViewById(R.id.showStartProgramExamples);
+		rbStartAppByActivity = (RadioButton)findViewById(R.id.rbStartAppByActivity);
+		rbStartAppByBroadcast = (RadioButton)findViewById(R.id.rbStartAppByBroadcast);
+
+		intentTypeSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, ActivityManageActionStartActivity.supportedIntentTypes);
+		spinnerParameterType.setAdapter(intentTypeSpinnerAdapter);
+		intentTypeSpinnerAdapter.notifyDataSetChanged();
+
+		intentPairAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, intentPairList);
+
+		bSelectApp.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				int targetSdkVersion = getApplicationContext().getApplicationInfo().targetSdkVersion;
+				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && targetSdkVersion >= 30 && !ActivityPermissions.havePermission(Manifest.permission.QUERY_ALL_PACKAGES, ActivityManageActionStartActivity.this))// && shouldShowRequestPermissionRationale(Manifest.permission.QUERY_ALL_PACKAGES))
+				{
+					if(BuildConfig.FLAVOR.equals(AutomationService.flavor_name_googleplay))
+					{
+						// This ain't possible anymore.
+						Miscellaneous.messageBox(getResources().getString(R.string.info), getResources().getString(R.string.featureNotInGooglePlayVersion) + Miscellaneous.lineSeparator + Miscellaneous.lineSeparator + getResources().getString(R.string.startActivityInsertManually), ActivityManageActionStartActivity.this).show();
+					}
+					else
+						requestPermissions(new String[] {Manifest.permission.QUERY_ALL_PACKAGES}, requestCodeForRequestQueryAllPackagesPermission);
+				}
+				else
+					getAppList();
+			}
+		});
+
+		bAddIntentPair.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				// type;name;value
+				if(spinnerParameterType.getSelectedItem().toString().length() == 0)
+				{
+					Toast.makeText(ActivityManageActionStartActivity.this, getResources().getString(R.string.selectTypeOfIntentPair), Toast.LENGTH_LONG).show();
+					return;
+				}
+
+				if(etParameterName.getText().toString().length() == 0)
+				{
+					Toast.makeText(ActivityManageActionStartActivity.this, getResources().getString(R.string.enterNameForIntentPair), Toast.LENGTH_LONG).show();
+					return;
+				}
+				else if(etParameterName.getText().toString().contains(Action.intentPairSeparator))
+				{
+					Toast.makeText(ActivityManageActionStartActivity.this, String.format(getResources().getString(R.string.stringNotAllowed), Action.intentPairSeparator), Toast.LENGTH_LONG).show();
+					return;
+				}
+				else if(etParameterName.getText().toString().contains(";"))
+				{
+					Toast.makeText(ActivityManageActionStartActivity.this, String.format(getResources().getString(R.string.stringNotAllowed), ";"), Toast.LENGTH_LONG).show();
+					return;
+				}
+
+				if(etParameterValue.getText().toString().length() == 0)
+				{
+					Toast.makeText(ActivityManageActionStartActivity.this, getResources().getString(R.string.enterValueForIntentPair), Toast.LENGTH_LONG).show();
+					return;
+				}
+				else if(etParameterValue.getText().toString().contains(Action.intentPairSeparator))
+				{
+					Toast.makeText(ActivityManageActionStartActivity.this, String.format(getResources().getString(R.string.stringNotAllowed), Action.intentPairSeparator), Toast.LENGTH_LONG).show();
+					return;
+				}
+				else if(etParameterValue.getText().toString().contains(";"))
+				{
+					Toast.makeText(ActivityManageActionStartActivity.this, String.format(getResources().getString(R.string.stringNotAllowed), ";"), Toast.LENGTH_LONG).show();
+					return;
+				}
+
+				String param = supportedIntentTypes[spinnerParameterType.getSelectedItemPosition()] + Action.intentPairSeparator + etParameterName.getText().toString() + Action.intentPairSeparator + etParameterValue.getText().toString();
+				intentPairList.add(param);
+
+				spinnerParameterType.setSelection(0);
+				etParameterName.setText("");
+				etParameterValue.setText("");
+
+				updateIntentPairList();
+
+				if(lvIntentPairs.getVisibility() != View.VISIBLE)
+					lvIntentPairs.setVisibility(View.VISIBLE);
+			}
+		});
+
+		showStartProgramExamples.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlShowExamples));
+				startActivity(browserIntent);
+			}
+		});
+
+		lvIntentPairs.setOnItemLongClickListener(new OnItemLongClickListener()
+		{
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
+			{
+				getIntentPairDialog(arg2).show();
+				return false;
+			}
+		});
+
+		bSaveActionStartOtherActivity.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				if(saveAction())
+				{
+					ActivityManageActionStartActivity.this.setResult(RESULT_OK);
+					finish();
+				}
+			}
+		});
+
+		lvIntentPairs.setOnTouchListener(new OnTouchListener()
+		{
+			@Override
+			public boolean onTouch(View v, MotionEvent event)
+			{
+				v.getParent().requestDisallowInterceptTouchEvent(true);
+				return false;
+			}
+		});
+
+		spinnerParameterType.setOnItemSelectedListener(new OnItemSelectedListener()
+		{
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3)
+			{
+				if(supportedIntentTypes[arg2].equals("double") | supportedIntentTypes[arg2].equals("float") | supportedIntentTypes[arg2].equals("int") | supportedIntentTypes[arg2].equals("long") | supportedIntentTypes[arg2].equals("short"))
+					ActivityManageActionStartActivity.this.etParameterValue.setInputType(InputType.TYPE_CLASS_NUMBER);
+				else
+					ActivityManageActionStartActivity.this.etParameterValue.setInputType(InputType.TYPE_CLASS_TEXT);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0)
+			{
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		rbStartAppSelectByActivity.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+			{
+				if(isChecked)
+					bSelectApp.setEnabled(isChecked);
+			}
+		});
+
+		rbStartAppSelectByAction.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+			{
+				if(isChecked)
+					bSelectApp.setEnabled(!isChecked);
+			}
+		});
+
+		Intent i = getIntent();
+		if(i.getBooleanExtra("edit", false) == true)
+		{
+			edit = true;
+			loadValuesIntoGui();
+		}
+	}
 	
 	private class CustomPackageInfo extends PackageInfo implements Comparable<CustomPackageInfo>
 	{
@@ -82,7 +278,6 @@ public class ActivityManageActionStartActivity extends Activity
 					
 			return name1.compareTo(name2);
 		}
-		
 	}
 	
 	private static List<PackageInfo> pInfos = null;
@@ -342,203 +537,6 @@ public class ActivityManageActionStartActivity extends Activity
 		GetActivityListTask getActivityListTask = new GetActivityListTask();
 		getActivityListTask.execute();
 		progressDialog = ProgressDialog.show(ActivityManageActionStartActivity.this, "", ActivityManageActionStartActivity.this.getResources().getString(R.string.gettingListOfInstalledApplications));
-	}
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_manage_action_start_activity);
-		
-		lvIntentPairs = (ListView)findViewById(R.id.lvIntentPairs);
-		etParameterName = (EditText)findViewById(R.id.etParameterName);
-		etParameterValue = (EditText)findViewById(R.id.etParameterValue);
-		bSelectApp = (Button)findViewById(R.id.bSelectApp);
-		bAddIntentPair = (Button)findViewById(R.id.bAddIntentPair);
-		bSaveActionStartOtherActivity = (Button)findViewById(R.id.bSaveActionStartOtherActivity);
-		spinnerParameterType = (Spinner)findViewById(R.id.spinnerParameterType);
-		etPackageName = (EditText) findViewById(R.id.etPackageName);
-		etActivityOrActionPath = (EditText) findViewById(R.id.etActivityOrActionPath);
-		rbStartAppSelectByActivity = (RadioButton)findViewById(R.id.rbStartAppSelectByActivity);
-		rbStartAppSelectByAction = (RadioButton)findViewById(R.id.rbStartAppSelectByAction);
-		showStartProgramExamples = (Button)findViewById(R.id.showStartProgramExamples);
-
-		rbStartAppByActivity = (RadioButton)findViewById(R.id.rbStartAppByActivity);
-		rbStartAppByBroadcast = (RadioButton)findViewById(R.id.rbStartAppByBroadcast);
-		
-		intentTypeSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, ActivityManageActionStartActivity.supportedIntentTypes);
-		spinnerParameterType.setAdapter(intentTypeSpinnerAdapter);
-		intentTypeSpinnerAdapter.notifyDataSetChanged();
-		
-		intentPairAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, intentPairList);
-		
-		bSelectApp.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				int targetSdkVersion = getApplicationContext().getApplicationInfo().targetSdkVersion;
-				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && targetSdkVersion >= 30 && !ActivityPermissions.havePermission(Manifest.permission.QUERY_ALL_PACKAGES, ActivityManageActionStartActivity.this))// && shouldShowRequestPermissionRationale(Manifest.permission.QUERY_ALL_PACKAGES))
-				{
-					if(BuildConfig.FLAVOR.equals("googlePlayFlavor"))
-					{
-						// This ain't possible anymore.
-						Miscellaneous.messageBox(getResources().getString(R.string.info), getResources().getString(R.string.featureNotInGooglePlayVersion) + Miscellaneous.lineSeparator + Miscellaneous.lineSeparator + getResources().getString(R.string.startActivityInsertManually), ActivityManageActionStartActivity.this).show();
-					}
-					else
-						requestPermissions(new String[] {Manifest.permission.QUERY_ALL_PACKAGES}, requestCodeForRequestQueryAllPackagesPermission);
-				}
-				else
-					getAppList();
-			}
-		});
-		
-		bAddIntentPair.setOnClickListener(new OnClickListener()
-		{			
-			@Override
-			public void onClick(View v)
-			{
-				// type;name;value
-				if(spinnerParameterType.getSelectedItem().toString().length() == 0)
-				{
-					Toast.makeText(ActivityManageActionStartActivity.this, getResources().getString(R.string.selectTypeOfIntentPair), Toast.LENGTH_LONG).show();
-					return;
-				}
-					
-				if(etParameterName.getText().toString().length() == 0)
-				{
-					Toast.makeText(ActivityManageActionStartActivity.this, getResources().getString(R.string.enterNameForIntentPair), Toast.LENGTH_LONG).show();
-					return;
-				}
-				else if(etParameterName.getText().toString().contains(Action.intentPairSeparator))
-				{
-					Toast.makeText(ActivityManageActionStartActivity.this, String.format(getResources().getString(R.string.stringNotAllowed), Action.intentPairSeparator), Toast.LENGTH_LONG).show();
-					return;
-				}
-				else if(etParameterName.getText().toString().contains(";"))
-				{
-					Toast.makeText(ActivityManageActionStartActivity.this, String.format(getResources().getString(R.string.stringNotAllowed), ";"), Toast.LENGTH_LONG).show();
-					return;
-				}
-				
-				if(etParameterValue.getText().toString().length() == 0)
-				{
-					Toast.makeText(ActivityManageActionStartActivity.this, getResources().getString(R.string.enterValueForIntentPair), Toast.LENGTH_LONG).show();
-					return;
-				}
-				else if(etParameterValue.getText().toString().contains(Action.intentPairSeparator))
-				{
-					Toast.makeText(ActivityManageActionStartActivity.this, String.format(getResources().getString(R.string.stringNotAllowed), Action.intentPairSeparator), Toast.LENGTH_LONG).show();
-					return;
-				}
-				else if(etParameterValue.getText().toString().contains(";"))
-				{
-					Toast.makeText(ActivityManageActionStartActivity.this, String.format(getResources().getString(R.string.stringNotAllowed), ";"), Toast.LENGTH_LONG).show();
-					return;
-				}
-				
-				String param = supportedIntentTypes[spinnerParameterType.getSelectedItemPosition()] + Action.intentPairSeparator + etParameterName.getText().toString() + Action.intentPairSeparator + etParameterValue.getText().toString();
-				intentPairList.add(param);
-				
-				spinnerParameterType.setSelection(0);
-				etParameterName.setText("");
-				etParameterValue.setText("");
-				
-				updateIntentPairList();
-
-				if(lvIntentPairs.getVisibility() != View.VISIBLE)
-					lvIntentPairs.setVisibility(View.VISIBLE);
-			}
-		});
-
-		showStartProgramExamples.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlShowExamples));
-				startActivity(browserIntent);
-			}
-		});
-		
-		lvIntentPairs.setOnItemLongClickListener(new OnItemLongClickListener()
-		{
-			@Override
-			public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
-			{
-				getIntentPairDialog(arg2).show();
-				return false;
-			}
-		});
-		
-		bSaveActionStartOtherActivity.setOnClickListener(new OnClickListener()
-		{		
-			@Override
-			public void onClick(View v)
-			{
-				if(saveAction())
-				{
-					ActivityManageActionStartActivity.this.setResult(RESULT_OK);
-					finish();
-				}
-			}
-		});
-
-		lvIntentPairs.setOnTouchListener(new OnTouchListener()
-		{			
-			@Override
-			public boolean onTouch(View v, MotionEvent event)
-			{
-				v.getParent().requestDisallowInterceptTouchEvent(true);
-				return false;
-			}
-		});
-		
-		spinnerParameterType.setOnItemSelectedListener(new OnItemSelectedListener()
-		{
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3)
-			{
-				if(supportedIntentTypes[arg2].equals("double") | supportedIntentTypes[arg2].equals("float") | supportedIntentTypes[arg2].equals("int") | supportedIntentTypes[arg2].equals("long") | supportedIntentTypes[arg2].equals("short"))
-					ActivityManageActionStartActivity.this.etParameterValue.setInputType(InputType.TYPE_CLASS_NUMBER);
-				else
-					ActivityManageActionStartActivity.this.etParameterValue.setInputType(InputType.TYPE_CLASS_TEXT);
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0)
-			{
-				// TODO Auto-generated method stub
-				
-			}
-		});
-
-		rbStartAppSelectByActivity.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-		{
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-			{
-				if(isChecked)
-					bSelectApp.setEnabled(isChecked);
-			}
-		});
-
-		rbStartAppSelectByAction.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-		{
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-			{
-				if(isChecked)
-					bSelectApp.setEnabled(!isChecked);
-			}
-		});
-		
-		Intent i = getIntent();
-		if(i.getBooleanExtra("edit", false) == true)
-		{
-			edit = true;
-			loadValuesIntoGui();
-		}
 	}
 	
 	private void loadValuesIntoGui()

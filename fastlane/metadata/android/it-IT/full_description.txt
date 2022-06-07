@@ -53,8 +53,10 @@ Se hai un problema e stai pensando di contattarmi, per favore:
 
 Donativi sono sicuramente una buona forma di motivarmi, ma non l'unica :-)
 * Se vuoi darmi il tuo supporto, puoi anche lasciare una rassegna positiva su Google Play (https://play.google.com/store/apps/details?id=com.jens.automation2).
-* Inoltre, ho sempre bisogno di aiuto per tradurre l'applicazione.
-Inglese, Tedesco e un po' di Spagnolo son parte delle mie abilità. Ma per tutte le altre, apprezzo molto ogni aiuto.
+* Se l'applicazione vi piace, sono sempre gradite alcune parole affettuose via e-mail.
+* Inoltre, ho sempre bisogno di aiuto per tradurre l'applicazione. Inglese, Tedesco e un po' di Spagnolo son parte delle mie abilità. L'italiano è già coperto da qualcuno. Ma per tutte le altre, apprezzo molto ogni aiuto.
+* Se avete talento/esperienza nel design grafico e avete qualche idea per icone più belle fatemelo sapere.
+* Se avete un caso d'uso interessante o avete trovato un modo per combinare trigger e azioni per ottenere qualcosa di intrigante e pensate che valga la pena inserirlo nella pagina degli esempi (https://server47.de/automation/examples.html), fatemelo sapere.
 
 Una spiegazione di tutti i permessi si trova qui:
 https://server47.de/automation/permissions.php

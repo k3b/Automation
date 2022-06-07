@@ -52,7 +52,12 @@ import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.conn.util.InetAddressUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -62,8 +67,11 @@ import java.net.NetworkInterface;
 import java.security.KeyStore;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.SSLContext;
 
@@ -189,7 +197,18 @@ public class Actions
     {
 		Miscellaneous.logEvent("i", "sendBroadcast", "Sending broadcast with action " + action, 5);
 		Intent broadcastIntent = new Intent();
-		broadcastIntent.setAction(action);
+
+		if(action.contains(Action.actionParameter2Split))
+		{
+			String[] parts = action.split(Action.actionParameter2Split);
+			broadcastIntent.setAction(parts[0]);
+
+			String[] intentparts = parts[1].split(";");
+			broadcastIntent = packParametersIntoIntent(broadcastIntent, intentparts, 0);
+		}
+		else
+			broadcastIntent.setAction(action);
+
 		context.sendBroadcast(broadcastIntent);
     }
 
@@ -1000,8 +1019,6 @@ public class Actions
 		{
 			Intent externalActivityIntent;
 
-			int paramsStartIndex;
-
 			if (!startByAction)
 			{
 				// selected by activity
@@ -1012,8 +1029,6 @@ public class Actions
 				className = params[1];
 
 				Miscellaneous.logEvent("i", "StartOtherApp", "Starting app by activity: " + packageName + " " + className, 3);
-
-				paramsStartIndex = 2;
 
 				externalActivityIntent = new Intent(Intent.ACTION_MAIN);
 				externalActivityIntent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -1042,86 +1057,7 @@ public class Actions
 			externalActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 			// Pack intents
-			for (int i = 3; i < params.length; i++)
-			{
-				String[] singleParam = params[i].split(Action.intentPairSeparator);
-
-    			/*Class c = Class.forName(singleParam[0]);
-				for(Method m : c.getMethods())
-				{
-					if(m.getName().startsWith("parse"))
-					{
-						Object o = m.invoke(null, singleParam[0]);
-						externalActivityIntent.putExtra(singleParam[1], o);
-					}
-				}*/
-
-				if (singleParam[0].equals("boolean"))
-				{
-					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-					externalActivityIntent.putExtra(singleParam[1], Boolean.parseBoolean(singleParam[2]));
-				}
-				else if (singleParam[0].equals("byte"))
-				{
-					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-					externalActivityIntent.putExtra(singleParam[1], Byte.parseByte(singleParam[2]));
-				}
-				else if (singleParam[0].equals("char"))
-				{
-					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-					externalActivityIntent.putExtra(singleParam[1], singleParam[2].charAt(0));
-				}
-				else if (singleParam[0].equals("CharSequence"))
-				{
-					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-					externalActivityIntent.putExtra(singleParam[1], (CharSequence) singleParam[2]);
-				}
-				else if (singleParam[0].equals("double"))
-				{
-					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-					externalActivityIntent.putExtra(singleParam[1], Double.parseDouble(singleParam[2]));
-				}
-				else if (singleParam[0].equals("float"))
-				{
-					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-					externalActivityIntent.putExtra(singleParam[1], Float.parseFloat(singleParam[2]));
-				}
-				else if (singleParam[0].equals("int"))
-				{
-					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-					externalActivityIntent.putExtra(singleParam[1], Integer.parseInt(singleParam[2]));
-				}
-				else if (singleParam[0].equals("long"))
-				{
-					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-					externalActivityIntent.putExtra(singleParam[1], Long.parseLong(singleParam[2]));
-				}
-				else if (singleParam[0].equals("short"))
-				{
-					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-					externalActivityIntent.putExtra(singleParam[1], Short.parseShort(singleParam[2]));
-				}
-				else if (singleParam[0].equals("Uri"))
-				{
-					if (singleParam[1].equalsIgnoreCase("IntentData"))
-					{
-						Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with value " + singleParam[2] + " as standard data parameter.", 3);
-						externalActivityIntent.setData(Uri.parse(singleParam[2]));
-					}
-					else
-					{
-						Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-						externalActivityIntent.putExtra(singleParam[1], Uri.parse(singleParam[2]));
-					}
-				}
-				else if (singleParam[0].equals("String"))
-				{
-					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-					externalActivityIntent.putExtra(singleParam[1], singleParam[2]);
-				}
-				else
-					Miscellaneous.logEvent("w", "StartOtherApp", "Unknown type of parameter " + singleParam[0] + " found.  Name " + singleParam[1] + " and value " + singleParam[2], 3);
-			}
+			externalActivityIntent = packParametersIntoIntent(externalActivityIntent, params, 3);
 
 			if (params[2].equals(ActivityManageActionStartActivity.startByActivityString))
 				automationServerRef.startActivity(externalActivityIntent);
@@ -1133,6 +1069,92 @@ public class Actions
 			Miscellaneous.logEvent("e", "StartOtherApp", automationServerRef.getResources().getString(R.string.errorStartingOtherActivity) + ": " + Log.getStackTraceString(e), 2);
 			Toast.makeText(automationServerRef, automationServerRef.getResources().getString(R.string.errorStartingOtherActivity) + ": " + e.getMessage(), Toast.LENGTH_LONG).show();
 		}
+	}
+
+	public static Intent packParametersIntoIntent(Intent intent, String[] params, int startIndex)
+	{
+		for (int i = startIndex; i < params.length; i++)
+		{
+			String[] singleParam = params[i].split(Action.intentPairSeparator);
+
+    			/*Class c = Class.forName(singleParam[0]);
+				for(Method m : c.getMethods())
+				{
+					if(m.getName().startsWith("parse"))
+					{
+						Object o = m.invoke(null, singleParam[0]);
+						externalActivityIntent.putExtra(singleParam[1], o);
+					}
+				}*/
+
+			if (singleParam[0].equals("boolean"))
+			{
+				Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+				intent.putExtra(singleParam[1], Boolean.parseBoolean(singleParam[2]));
+			}
+			else if (singleParam[0].equals("byte"))
+			{
+				Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+				intent.putExtra(singleParam[1], Byte.parseByte(singleParam[2]));
+			}
+			else if (singleParam[0].equals("char"))
+			{
+				Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+				intent.putExtra(singleParam[1], singleParam[2].charAt(0));
+			}
+			else if (singleParam[0].equals("CharSequence"))
+			{
+				Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+				intent.putExtra(singleParam[1], (CharSequence) singleParam[2]);
+			}
+			else if (singleParam[0].equals("double"))
+			{
+				Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+				intent.putExtra(singleParam[1], Double.parseDouble(singleParam[2]));
+			}
+			else if (singleParam[0].equals("float"))
+			{
+				Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+				intent.putExtra(singleParam[1], Float.parseFloat(singleParam[2]));
+			}
+			else if (singleParam[0].equals("int"))
+			{
+				Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+				intent.putExtra(singleParam[1], Integer.parseInt(singleParam[2]));
+			}
+			else if (singleParam[0].equals("long"))
+			{
+				Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+				intent.putExtra(singleParam[1], Long.parseLong(singleParam[2]));
+			}
+			else if (singleParam[0].equals("short"))
+			{
+				Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+				intent.putExtra(singleParam[1], Short.parseShort(singleParam[2]));
+			}
+			else if (singleParam[0].equals("Uri"))
+			{
+				if (singleParam[1].equalsIgnoreCase("IntentData"))
+				{
+					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with value " + singleParam[2] + " as standard data parameter.", 3);
+					intent.setData(Uri.parse(singleParam[2]));
+				}
+				else
+				{
+					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+					intent.putExtra(singleParam[1], Uri.parse(singleParam[2]));
+				}
+			}
+			else if (singleParam[0].equals("String"))
+			{
+				Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+				intent.putExtra(singleParam[1], singleParam[2]);
+			}
+			else
+				Miscellaneous.logEvent("w", "StartOtherApp", "Unknown type of parameter " + singleParam[0] + " found.  Name " + singleParam[1] + " and value " + singleParam[2], 3);
+		}
+
+		return intent;
 	}
 
 	public static void waitBeforeNextAction(Long waitTime)
@@ -1906,5 +1928,188 @@ public class Actions
 		{
 			return android.provider.Settings.Global.getInt(context.getContentResolver(), android.provider.Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
 		}
+	}
+
+	public static boolean runExecutable(Context context, boolean runAsRoot, String path, String parameters)
+	{
+		if(runAsRoot)
+		{
+			if(!StringUtils.isEmpty(parameters))
+				return executeCommandViaSu(new String[] { path + " " + parameters });
+			else
+				return executeCommandViaSu(new String[] { path });
+		}
+		else
+		{
+			Object[] result;
+
+			File executable = new File(path);
+			File workingDir = new File(executable.getParent());
+
+			if(!StringUtils.isEmpty(parameters))
+				result = runExternalApplication(path, 0, workingDir, parameters);
+			else
+				result = runExternalApplication(path, 0, workingDir, null);
+
+			boolean execResult = (boolean) result[0];
+
+			return execResult;
+		}
+	}
+
+	/**
+	 *
+	 * @param commandToExecute
+	 * @param timeout
+	 * @param params
+	 * @return Returns an array: 0=exit code, 1=cmdline output
+	 */
+	public static Object[] runExternalApplication(String commandToExecute, long timeout, File workingDirectory, String params)
+	{
+		/*
+		 * Classes stolen from https://github.com/stleary/JSON-java
+		 */
+
+		String fullCommand;
+
+		if(!StringUtils.isEmpty(params))
+			fullCommand = commandToExecute + " " + params;
+		else
+			fullCommand = commandToExecute;
+
+		Miscellaneous.logEvent("i", "Running executable", "Running external application " + fullCommand, 4);
+
+		Object[] returnObject = new Object[2];
+
+		StringBuilder output = new StringBuilder();
+		String line = null;
+		OutputStream stdin = null;
+		InputStream stderr = null;
+		InputStream stdout = null;
+
+		try
+		{
+			Process process = null;
+
+			if(workingDirectory != null)
+				process = Runtime.getRuntime().exec(fullCommand, null, workingDirectory);
+			else
+				process = Runtime.getRuntime().exec(fullCommand);
+			stdin = process.getOutputStream ();
+			stderr = process.getErrorStream ();
+			stdout = process.getInputStream ();
+
+			// "write" the parms into stdin
+			/*line = "param1" + "\n";
+			stdin.write(line.getBytes() );
+			stdin.flush();
+
+			line = "param2" + "\n";
+			stdin.write(line.getBytes() );
+			stdin.flush();
+
+			line = "param3" + "\n";
+			stdin.write(line.getBytes() );
+			stdin.flush();*/
+
+			stdin.close();
+
+			// clean up if any output in stdout
+			BufferedReader brCleanUp = new BufferedReader (new InputStreamReader (stdout));
+			while ((line = brCleanUp.readLine ()) != null)
+			{
+				Miscellaneous.logEvent ("i", "Running executable", "[Stdout] " + line, 4);
+				output.append(line);
+			}
+			brCleanUp.close();
+
+			// clean up if any output in stderr
+			brCleanUp = new BufferedReader (new InputStreamReader(stderr));
+			while ((line = brCleanUp.readLine ()) != null)
+			{
+				Miscellaneous.logEvent ("i", "Running executable", "[Stderr] " + line, 4);
+				output.append(line);
+			}
+			brCleanUp.close();
+
+			try
+			{
+				// Wait for the process to exit, we want the return code
+				if(timeout > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+				{
+					try
+					{
+						if(!process.waitFor(timeout, TimeUnit.MILLISECONDS))
+						{
+							Miscellaneous.logEvent("i", "Running executable", "Timeout of " + String.valueOf(timeout) + " ms reached. Killing check attempt.", 3);
+							process.destroyForcibly();
+						}
+					}
+					catch(NoSuchMethodError e)
+					{
+						process.waitFor();
+					}
+				}
+				else
+					process.waitFor();
+			}
+			catch (InterruptedException e)
+			{
+				Miscellaneous.logEvent("i", "Running executable", "Waiting for process failed: " + Log.getStackTraceString(e), 4);
+				Miscellaneous.logEvent("i", "Running executable", Log.getStackTraceString(e), 1);
+			}
+
+			if(process.exitValue() == 0)
+				Miscellaneous.logEvent("i", "Running executable", "ReturnCode: " + String.valueOf(process.exitValue()), 4);
+			else
+				Miscellaneous.logEvent("i", "Running executable", "External execution (RC=" + String.valueOf(process.exitValue()) + ") returned error: " + output.toString(), 3);
+
+			returnObject[0] = process.exitValue();
+			returnObject[1] = output.toString();
+
+			return returnObject;
+		}
+		catch (IOException e)
+		{
+			Miscellaneous.logEvent("e", "Running executable", Log.getStackTraceString(e), 1);
+		}
+
+		Miscellaneous.logEvent("i", "Running executable", "Error running external application.", 1);
+
+//		if(slotMap != null)
+//			for(String key : slotMap.keySet())
+//				System.clearProperty(key);
+
+		return null;
+	}
+
+	public static boolean isTetheringActive1(Context context)
+	{
+		try
+		{
+			for(Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();)
+			{
+				NetworkInterface intf = en.nextElement();
+
+				for(Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();)
+				{
+					InetAddress inetAddress = enumIpAddr.nextElement();
+
+					if(!intf.isLoopback())
+					{
+						if(intf.getName().contains("rndis"))
+						{
+							return true;
+						}
+					}
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			Miscellaneous.logEvent("e", "isTetheringActive()", Log.getStackTraceString(e), 3);
+		}
+
+		return false;
 	}
 }

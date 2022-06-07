@@ -77,10 +77,9 @@ public class ActivityMainScreen extends ActivityGeneric
 		tvLockSoundDuration = (TextView)findViewById(R.id.tvlockSoundDuration);
 		tbLockSound = (ToggleButton) findViewById(R.id.tbLockSound);
 		toggleService = (ToggleButton) findViewById(R.id.tbArmMastListener);
-
 		bDonate = (Button)findViewById(R.id.bDonate);
 
-		if(!BuildConfig.FLAVOR.equalsIgnoreCase("googlePlayFlavor"))
+		if(!BuildConfig.FLAVOR.equalsIgnoreCase(AutomationService.flavor_name_googleplay))
 			bDonate.setVisibility(View.VISIBLE);
 
 		toggleService.setChecked(AutomationService.isMyServiceRunning(this));

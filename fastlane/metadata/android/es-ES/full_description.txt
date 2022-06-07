@@ -53,6 +53,9 @@ Si tiene un problema y considera contactarme
 
 Donaciónes seguramente son una buena, pero no la unica posibilidad de apoyarme :-)
 * Si quiere apoyarme puedes escribir un buena revisión en Google Play (https://play.google.com/store/apps/details?id=com.jens.automation2).
-* Además siempre necesito ayuda en traduciendo la app. Ingles, Aleman y Español  estan en mis habilidades. Per todo lo demás es bienvenido.
+* Si le gusta la aplicación, simplemente algunas palabras cálidas por correo electrónico siempre son apreciadas.
+* Además siempre necesito ayuda en traduciendo la app. Ingles, Aleman y Español estan en mis habilidades. Todavia tengo ayuda con Italiono. Per todo lo demás es bienvenido.
+* Si tiene talento/experiencia en el campo del diseño gráfico y tienes ideas para crear iconos más bonitos, házmelo saber.
+* Si tiene un caso de uso interesante o ha encontrado una forma de combinar condiciones y acciones para lograr algo intrigante y cree que vale la pena ponerlo en la página de ejemplos (https://server47.de/automation/examples.html), házmelo saber.
 
 Puedes leer una explicación de los permisos aqui: https://server47.de/automation/permissions.php

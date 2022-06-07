@@ -738,8 +738,8 @@ public class Miscellaneous extends Service
 	   *
 	   * @return <code>true</code> if the device is rooted, <code>false</code> otherwise.
 	   */
-	  public static boolean isPhoneRooted()
-	  {
+	public static boolean isPhoneRooted()
+	{
 //	  	if(true)
 //	  		return true;
 
@@ -747,30 +747,30 @@ public class Miscellaneous extends Service
 	    String buildTags = Build.TAGS;
 	    if (buildTags != null && buildTags.contains("test-keys"))
 	    {
-	      return true;
+			return true;
 	    }
 
 	    // check if /system/app/Superuser.apk is present
-	    try
-	    {
-	      File file = new File("/system/app/Superuser.apk");
-	      if (file.exists())
-	      {
-	        return true;
-	      }
-	    }
-	    catch (Exception e1)
-	    {
+		try
+		{
+	    	File file = new File("/system/app/Superuser.apk");
+			if (file.exists())
+			{
+				return true;
+			}
+		}
+		catch (Exception e1)
+		{
 	      // ignore
-	    }
+		}
 
 	    // try executing commands
-	    return 	canExecuteCommand("/system/xbin/which su")
+		return 	canExecuteCommand("/system/xbin/which su")
 	    			||
 	    		canExecuteCommand("/system/bin/which su")
 	    			||
 	    		canExecuteCommand("which su");
-	  }
+	}
 
 	  // executes a command on the system
 	  private static boolean canExecuteCommand(String command)
@@ -798,9 +798,9 @@ public class Miscellaneous extends Service
      * Disables the SSL certificate checking for new instances of {@link HttpsURLConnection} This has been created to
      * aid testing on a local box, not for use on production.
      */
-	    private static void disableSSLCertificateChecking()
-	    {
-	        try
+	private static void disableSSLCertificateChecking()
+	{
+		try
 	        {	            
 	        	SSLSocketFactory ssf = null;
 	        	
@@ -1620,7 +1620,7 @@ public class Miscellaneous extends Service
 	{
 		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
 		{
-			if (BuildConfig.FLAVOR.equalsIgnoreCase("googlePlayFlavor"))
+			if (BuildConfig.FLAVOR.equalsIgnoreCase(AutomationService.flavor_name_googleplay))
 			{
 				if(checkExistingRules)
 				{

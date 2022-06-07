@@ -123,7 +123,13 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeTriggerBroadcastReceivedEdit = 810;
 	final static int requestCodeActionSendBroadcastAdd = 811;
 	final static int requestCodeActionSendBroadcastEdit = 812;
-	
+	final static int requestCodeActionRunExecutableAdd = 813;
+	final static int requestCodeActionRunExecutableEdit = 814;
+	final static int requestCodeActionSetWifiAdd = 815;
+	final static int requestCodeActionSetWifiEdit = 816;
+	final static int requestCodeTriggerTetheringAdd = 817;
+	final static int requestCodeTriggerTetheringEdit = 818;
+
 	public static ActivityManageRule getInstance()
 	{
 		if(instance == null)
@@ -308,6 +314,11 @@ public class ActivityManageRule extends Activity
 						broadcastEditor.putExtra(intentNameTriggerParameter2, selectedTrigger.getTriggerParameter2());
 						startActivityForResult(broadcastEditor, requestCodeTriggerBroadcastReceivedEdit);
 						break;
+					case tethering:
+						Intent tetheringEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerTethering.class);
+						tetheringEditor.putExtra(intentNameTriggerParameter1, selectedTrigger.getTriggerParameter());
+						startActivityForResult(tetheringEditor, requestCodeTriggerTetheringEdit);
+						break;
 					default:
 						break;
 				}
@@ -381,6 +392,18 @@ public class ActivityManageRule extends Activity
 						Intent activityEditSendBroadcastIntent = new Intent(ActivityManageRule.this, ActivityManageActionSendBroadcast.class);
 						activityEditSendBroadcastIntent.putExtra(intentNameActionParameter2, a.getParameter2());
 						startActivityForResult(activityEditSendBroadcastIntent, requestCodeActionSendBroadcastEdit);
+						break;
+					case runExecutable:
+						Intent activityEditRunExecutableIntent = new Intent(ActivityManageRule.this, ActivityManageActionRunExecutable.class);
+						activityEditRunExecutableIntent.putExtra(intentNameActionParameter1, a.getParameter1());
+						activityEditRunExecutableIntent.putExtra(intentNameActionParameter2, a.getParameter2());
+						startActivityForResult(activityEditRunExecutableIntent, requestCodeActionRunExecutableEdit);
+						break;
+					case setWifi:
+						Intent activityEditSetWifiIntent = new Intent(ActivityManageRule.this, ActivityManageActionWifi.class);
+						activityEditSetWifiIntent.putExtra(intentNameActionParameter1, a.getParameter1());
+						activityEditSetWifiIntent.putExtra(intentNameActionParameter2, a.getParameter2());
+						startActivityForResult(activityEditSetWifiIntent, requestCodeActionSetWifiEdit);
 						break;
 					case controlMediaPlayback:
 						Intent activityEditControlMediaIntent = new Intent(ActivityManageRule.this, ActivityManageActionControlMedia.class);
@@ -524,7 +547,7 @@ public class ActivityManageRule extends Activity
 			else if(types[i].toString().equals(Trigger_Enum.roaming.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.roaming));
 			else if(types[i].toString().equals(Trigger_Enum.broadcastReceived.toString()))
-				items.add(new Item(typesLong[i].toString(), R.drawable.satellite));
+				items.add(new Item(typesLong[i].toString(), R.drawable.megaphone));
 			else if(types[i].toString().equals(Trigger_Enum.phoneCall.toString()))
             {
 				if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageRule.this, "android.permission.SEND_SMS"))
@@ -552,6 +575,8 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.alarm));
 			else if(types[i].toString().equals(Trigger_Enum.serviceStarts.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.alarm));
+			else if(types[i].toString().equals(Trigger_Enum.tethering.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.router));
 			else
 				items.add(new Item(typesLong[i].toString(), R.drawable.placeholder));
 		}
@@ -749,6 +774,13 @@ public class ActivityManageRule extends Activity
 						newTrigger.setTriggerType(Trigger_Enum.broadcastReceived);
 						Intent broadcastTriggerEditor = new Intent(myContext, ActivityManageTriggerBroadcast.class);
 						startActivityForResult(broadcastTriggerEditor, requestCodeTriggerBroadcastReceivedAdd);
+						return;
+					}
+					else if(triggerType == Trigger_Enum.tethering)
+					{
+						newTrigger.setTriggerType(Trigger_Enum.tethering);
+						Intent tetheringTriggerEditor = new Intent(myContext, ActivityManageTriggerTethering.class);
+						startActivityForResult(tetheringTriggerEditor, requestCodeTriggerTetheringAdd);
 						return;
 					}
 					else
@@ -1499,11 +1531,33 @@ public class ActivityManageRule extends Activity
 				this.refreshActionList();
 			}
 		}
+		else if(requestCode == requestCodeActionRunExecutableAdd)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				newAction.setParentRule(ruleToEdit);
+				newAction.setParameter1(data.getBooleanExtra(intentNameActionParameter1, false));
+				newAction.setParameter2(data.getStringExtra(intentNameActionParameter2));
+				ruleToEdit.getActionSet().add(newAction);
+				this.refreshActionList();
+			}
+		}
 		else if(requestCode == requestCodeActionControlMediaAdd)
 		{
 			if(resultCode == RESULT_OK)
 			{
 				newAction.setParentRule(ruleToEdit);
+				newAction.setParameter2(data.getStringExtra(ActivityManageRule.intentNameActionParameter2));
+				ruleToEdit.getActionSet().add(newAction);
+				this.refreshActionList();
+			}
+		}
+		else if(requestCode == requestCodeActionSetWifiAdd)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				newAction.setParentRule(ruleToEdit);
+				newAction.setParameter1(data.getBooleanExtra(ActivityManageRule.intentNameActionParameter1, true));
 				newAction.setParameter2(data.getStringExtra(ActivityManageRule.intentNameActionParameter2));
 				ruleToEdit.getActionSet().add(newAction);
 				this.refreshActionList();
@@ -1553,6 +1607,36 @@ public class ActivityManageRule extends Activity
 
 				if(data.hasExtra(intentNameActionParameter2))
 					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra(intentNameActionParameter2));
+
+				this.refreshActionList();
+			}
+		}
+		else if(requestCode == requestCodeActionRunExecutableEdit)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				ruleToEdit.getActionSet().get(editIndex).setParentRule(ruleToEdit);
+
+				if(data.hasExtra(intentNameActionParameter1) && data.hasExtra(intentNameActionParameter2))
+				{
+					ruleToEdit.getActionSet().get(editIndex).setParameter1(data.getBooleanExtra(intentNameActionParameter1, false));
+					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra(intentNameActionParameter2));
+				}
+
+				this.refreshActionList();
+			}
+		}
+		else if(requestCode == requestCodeActionSetWifiEdit)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				ruleToEdit.getActionSet().get(editIndex).setParentRule(ruleToEdit);
+
+				if(data.hasExtra(intentNameActionParameter1) && data.hasExtra(intentNameActionParameter2))
+				{
+					ruleToEdit.getActionSet().get(editIndex).setParameter1(data.getBooleanExtra(intentNameActionParameter1, false));
+					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra(intentNameActionParameter2));
+				}
 
 				this.refreshActionList();
 			}
@@ -1714,6 +1798,28 @@ public class ActivityManageRule extends Activity
 				this.refreshTriggerList();
 			}
 		}
+		else if(requestCode == requestCodeTriggerTetheringAdd)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				newTrigger.setTriggerParameter(data.getBooleanExtra(intentNameTriggerParameter1, true));
+				newTrigger.setParentRule(ruleToEdit);
+				ruleToEdit.getTriggerSet().add(newTrigger);
+				this.refreshTriggerList();
+			}
+		}
+		else if(requestCode == requestCodeTriggerTetheringEdit)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				Trigger editedTrigger = new Trigger();
+				editedTrigger.setTriggerType(Trigger_Enum.tethering);
+				editedTrigger.setTriggerParameter(data.getBooleanExtra(intentNameTriggerParameter1, true));
+				editedTrigger.setParentRule(ruleToEdit);
+				ruleToEdit.getTriggerSet().set(editIndex, editedTrigger);
+				this.refreshTriggerList();
+			}
+		}
 	}
 
 	protected AlertDialog getActionTypeDialog()
@@ -1768,7 +1874,9 @@ public class ActivityManageRule extends Activity
 			else if(types[i].toString().equals(Action_Enum.closeNotification.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.notification));
 			else if(types[i].toString().equals(Action_Enum.sendBroadcast.toString()))
-				items.add(new Item(typesLong[i].toString(), R.drawable.satellite));
+				items.add(new Item(typesLong[i].toString(), R.drawable.megaphone));
+			else if(types[i].toString().equals(Action_Enum.runExecutable.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.script));
 			else if(types[i].toString().equals(Action_Enum.sendTextMessage.toString()))
 			{
 //			    if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageSpecificRule.this, "android.permission.SEND_SMS") && !Miscellaneous.isGooglePlayInstalled(ActivityManageSpecificRule.this))
@@ -1818,10 +1926,8 @@ public class ActivityManageRule extends Activity
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setWifi.toString()))
 					{
 						newAction.setAction(Action_Enum.setWifi);
-						getActionParameter1Dialog(ActivityManageRule.this).show();
-
-						if(context.getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.Q)
-							Miscellaneous.messageBox(context.getResources().getString(R.string.app_name), context.getResources().getString(R.string.android10WifiToggleNotice), context).show();
+						Intent editSetWifiIntent = new Intent(context, ActivityManageActionWifi.class);
+						startActivityForResult(editSetWifiIntent, requestCodeActionSetWifiAdd);
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setBluetooth.toString()))
 					{
@@ -1936,6 +2042,12 @@ public class ActivityManageRule extends Activity
 						newAction.setAction(Action_Enum.sendBroadcast);
 						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionSendBroadcast.class);
 						startActivityForResult(intent, requestCodeActionSendBroadcastAdd);
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.runExecutable.toString()))
+					{
+						newAction.setAction(Action_Enum.runExecutable);
+						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionRunExecutable.class);
+						startActivityForResult(intent, requestCodeActionRunExecutableAdd);
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.controlMediaPlayback.toString()))
 					{

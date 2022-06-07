@@ -250,7 +250,7 @@ public class ActivityPermissions extends Activity
                 }
                 else if(s.equalsIgnoreCase(Manifest.permission.ACTIVITY_RECOGNITION) || s.equalsIgnoreCase(permissionNameGoogleActivityDetection))
                 {
-                    if(!BuildConfig.FLAVOR.equalsIgnoreCase("fdroidFlavor"))
+                    if(!BuildConfig.FLAVOR.equalsIgnoreCase(AutomationService.flavor_name_fdroid))
                         if (!havePermission(s, context))
                             return true;
                 }
@@ -381,7 +381,7 @@ public class ActivityPermissions extends Activity
                             }
                             else if (singlePermission.equalsIgnoreCase(Manifest.permission.ACTIVITY_RECOGNITION) || singlePermission.equalsIgnoreCase(permissionNameGoogleActivityDetection))
                             {
-                                if (!BuildConfig.FLAVOR.equalsIgnoreCase("fdroidFlavor"))
+                                if (!BuildConfig.FLAVOR.equalsIgnoreCase(AutomationService.flavor_name_fdroid))
                                     addToArrayListUnique(singlePermission, requiredPermissions);
                             }
                             else
