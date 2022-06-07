@@ -368,6 +368,10 @@ public class Action
 						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.unknown));
 				}
 			}
+			else if(this.getAction().equals(Action_Enum.sendBroadcast))
+			{
+				returnString.append(": " + parameter2.replace(Action.actionParameter2Split, "; ").replace(Action.intentPairSeparator, "/"));
+			}
 			else if (parameter2 != null && parameter2.length() > 0)
 				returnString.append(": " + parameter2.replace(Action.actionParameter2Split, "; "));
 		}
