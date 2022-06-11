@@ -484,7 +484,6 @@ public class LocationProvider
 		}
 	}
 
-
 	public static void resetSpeedTimer(Calendar timeOfForcedLocationCheck)
 	{
 		if(speedTimerActive)
