@@ -2,6 +2,7 @@ package com.jens.automation2;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jens.automation2.receivers.BluetoothReceiver;
@@ -22,6 +24,7 @@ public class ActivityManageTriggerBluetooth extends Activity
 	RadioButton radioAnyBluetoothDevice, radioNoDevice, radioDeviceFromList, radioBluetoothConnected, radioBluetoothDisconnected, radioBluetoothInRange, radioBluetoothOutRange;
 	Button bSaveBluetoothTrigger;
 	Spinner spinnerBluetoothDevices;
+	TextView tvBluetoothNotPresentNotice;
 	
 	ArrayAdapter<String> bluetoothDevicesSpinnerAdapter;
 
@@ -40,9 +43,15 @@ public class ActivityManageTriggerBluetooth extends Activity
 		radioBluetoothOutRange = (RadioButton)findViewById(R.id.radioBluetoothOutRange);
 		bSaveBluetoothTrigger = (Button)findViewById(R.id.bSaveBluetoothTrigger);
 		spinnerBluetoothDevices = (Spinner)findViewById(R.id.spinnerBluetoothDevices);
+		tvBluetoothNotPresentNotice = (TextView)findViewById(R.id.tvBluetoothNotPresentNotice);
 		
 		bluetoothDevicesSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, BluetoothReceiver.getAllPairedBluetoothDevicesStrings());
-		
+
+		if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
+			tvBluetoothNotPresentNotice.setVisibility(View.VISIBLE);
+		else
+			tvBluetoothNotPresentNotice.setVisibility(View.GONE);
+
 		radioDeviceFromList.setOnCheckedChangeListener(new OnCheckedChangeListener()
 		{			
 			@Override

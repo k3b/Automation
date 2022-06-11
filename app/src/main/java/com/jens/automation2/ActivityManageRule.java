@@ -731,13 +731,15 @@ public class ActivityManageRule extends Activity
 					}
 					else if(triggerType == Trigger_Enum.bluetoothConnection)
 					{
-						if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
-							Miscellaneous.messageBox("Bluetooth", getResources().getString(R.string.deviceDoesNotHaveBluetooth), ActivityManageRule.this).show();;
+//						if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
+//							//Miscellaneous.messageBox("Bluetooth", getResources().getString(R.string.deviceDoesNotHaveBluetooth), ActivityManageRule.this).show();
+//							Toast.makeText(ActivityManageRule.this, getResources().getString(R.string.deviceDoesNotHaveBluetooth), Toast.LENGTH_LONG).show();
 
 						newTrigger.setTriggerType(Trigger_Enum.bluetoothConnection);
 						ActivityManageTriggerBluetooth.editedBluetoothTrigger = newTrigger;
 						Intent bluetoothEditor = new Intent(myContext, ActivityManageTriggerBluetooth.class);
 						startActivityForResult(bluetoothEditor, requestCodeTriggerBluetoothAdd);
+
 						return;
 					}
 					else if(triggerType == Trigger_Enum.screenState)

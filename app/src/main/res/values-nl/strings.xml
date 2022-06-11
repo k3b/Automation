@@ -665,7 +665,7 @@
     <string name="notificationCloseActionExplanation">Als u geen criteria opgeeft, worden met deze actie ALLE meldingen gesloten. Het is dus aan te raden om in ieder geval criteria te specificeren voor minimaal 1 van de toepassing, titel of tekst.</string>
     <string name="closeNotifications">Melding(en) sluiten</string>
     <string name="comparisonCaseInsensitive">Vergelijkingen worden gedaan case-INsensitief</string>
-    <string name="profileWarning">De instellingen die je hier maakt kunnen ervoor zorgen dat je bepaalde dingen niet meer van je telefoon merkt. Ze kunnen zelfs je wekker dempen. Dus wat je ook doet - het wordt aanbevolen om het te testen.</string>
+    <string name="profileWarning">De instellingen die je hier maakt kunnen ervoor zorgen dat je bepaalde dingen niet meer van je telefoon merkt. Ze kunnen zelfs je wekker dempen. Dus wat je ook doet - het wordt aanbevolen om het te testen - ook na Android upgrades.</string>
     <string name="ifString">als</string>
     <string name="emailContactNotice">E-mail is mijn favoriete contactmethode om bugs te melden, vragen te stellen of voorstellen te doen. Ga naar het controlecentrum voor meer informatie.</string>
     <string name="controlCenter">Controlecentrum</string>

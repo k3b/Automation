@@ -667,7 +667,7 @@
     <string name="comparisonCaseInsensitive">I confronti non distinguono fra maiuscole e minuscole</string>
     <string name="closeNotifications">Chiudi notifica(e)</string>
     <string name="notificationCloseActionExplanation">Se non specifichi alcun criterio, questa azione chiuderà TUTTE le notifiche. Quindi si consiglia di specificare almeno i criteri per almeno una applicazione, titolo o testo.</string>
-    <string name="profileWarning">Le impostazioni che modifichi in questa sezione possono far sì che tu non possa più notare certe cose dal tuo telefono. Possono perfino silenziare la sveglia. Quindi, qualunque cosa tu faccia, ti consigliamo di provarlo.</string>
+    <string name="profileWarning">Le impostazioni che modifichi in questa sezione possono far sì che tu non possa più notare certe cose dal tuo telefono. Possono perfino silenziare la sveglia. Quindi, qualunque cosa tu faccia, ti consigliamo di provarlo - anche dopo gli aggiornamenti di Android.</string>
     <string name="ifString">se</string>
     <string name="actionMediaControlNotice">Tieni presente che questa azione potrebbe non funzionare con TUTTI i lettori là fuori. E anche se lo facesse, non tutti i pulsanti funzionerebbero necessariamente.</string>
     <string name="pleaseSelectActionValue">Si prega di selezionare un\'azione!</string>

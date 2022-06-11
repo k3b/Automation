@@ -666,7 +666,7 @@
     <string name="notificationCloseActionExplanation">Si no especifica ningún criterio, esta acción cerrará TODAS las notificaciones. Por lo tanto, se recomienda al menos especificar criterios para al menos 1 de la aplicación, título o texto.</string>
     <string name="closeNotifications">Cerrar notificación(es)</string>
     <string name="comparisonCaseInsensitive">Las comparaciones se realizan sin distinción de mayúsculas y minúsculas</string>
-    <string name="profileWarning">La configuración que realice aquí puede hacer que ya no note ciertas cosas de su teléfono. Incluso puede silenciar su alarma de despertar. Así que hagas lo que hagas, se recomienda que lo pruebes.</string>
+    <string name="profileWarning">La configuración que realice aquí puede hacer que ya no note ciertas cosas de su teléfono. Incluso puede silenciar su alarma de despertar. Así que hagas lo que hagas, se recomienda que lo pruebe - tambien despues upgrades de Android.</string>
     <string name="ifString">si</string>
     <string name="on">encendido</string>
     <string name="off">apagado</string>
