@@ -30,7 +30,7 @@
     <string name="logServiceStopping">Service stoppen.</string>
     <string name="stillGettingPosition">Nog steeds positie aan het verkrijgen.</string>
     <string name="lastRule">Laatste regel:</string>
-    <string name="at">Bij</string>
+    <string name="at">bij</string>
     <string name="service">Service:</string>
     <string name="getCurrentPosition">Huidige locatie ophalen</string>
     <string name="savePoi">Sla locatie op</string>
@@ -627,14 +627,14 @@
     <string name="orientationRoll">Rollen:</string>
     <string name="enterValidNumbersIntoAllFields">Voer geldige nummers in alle velden in.</string>
     <string name="deviceOrientation">Apparaat oriëntatie</string>
-    <string name="notice">Bemerken</string>
+    <string name="notice">Opmerking</string>
     <string name="tolerance">Tolerantie (0-180)</string>
     <string name="actionSetBluetoothTethering">Bluetooth Tethering</string>
     <string name="enterPhoneNumberAndText">Voer een telefoonnummer en een sms in.</string>
     <string name="actionTurnBluetoothTetheringOn">Schakel Bluetooth Tethering in</string>
     <string name="actionTurnBluetoothTetheringOff">Schakel Bluetooth Tethering uit</string>
-    <string name="deviceIsInCertainOrientation">het apparaat zich in een bepaalde richting bevindt</string>
-    <string name="wouldCurrentlyApply">Zou momenteel van toepassing zijn?</string>
+    <string name="deviceIsInCertainOrientation">het apparaat bevindt zich in een bepaalde richting</string>
+    <string name="wouldCurrentlyApply">Is de huidige van toepassing?</string>
     <string name="btTetheringNotice">Deze functie werkt naar verluidt tot Android 8.0. Vanaf een hogere versie werkt het niet meer, maar door een gebrek aan fysieke apparaten kan ik niet zeggen welke dat is. Op Android 11 werkt het absoluut niet meer. Als je een versie tussendoor hebt, laat het me dan weten of het werkt of niet.</string>
     <string name="deviceOrientationExplanation">Wanneer u uw apparaat verplaatst, worden de onderstaande nummers bijgewerkt. Wat je daar kunt zien, is de huidige oriëntatie van je apparaat gemeten in graden. Als het zich in de gewenste richting bevindt, klikt u op de knop Toepassen om de huidige waarden naar de gewenste velden te kopiëren.\nOmdat het zeer onwaarschijnlijk is dat u deze exacte oriëntatie ooit nog bereikt, moet u ook een tolerantie invoeren. Dit is het aantal graden waarin de oriëntatie in beide richtingen kan afwijken. 15° resulteert in een totale hoek van 30°, 15° in elke richting.\nAls u slechts om één specifieke as geeft, geef dan een tolerantie van 180° op voor de twee andere.</string>
     <string name="toleranceOf180OnlyAllowedIn2Fields">Een tolerantie van 180 is alleen toegestaan voor 2 tolerantievelden, niet alle 3. Anders zou de trigger ALTIJD van toepassing zijn.</string>
