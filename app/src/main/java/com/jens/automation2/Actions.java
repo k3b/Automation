@@ -782,31 +782,6 @@ public class Actions
 	}
 
 	@RequiresApi(api = Build.VERSION_CODES.M)
-	public static void setDoNotDisturb(Context context, int desiredSetting)
-	{
-		NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-		// Check if the notification policy access has been granted for the app.
-/*		if (!notificationManager.isNotificationPolicyAccessGranted())
-		{
-			Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-			startActivity(intent);
-			return;
-		}*/
-
-		notificationManager.setInterruptionFilter(desiredSetting);
-
-		/*if (notificationManager.getCurrentInterruptionFilter() == NotificationManager.INTERRUPTION_FILTER_ALL)
-		{
-			notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE);
-		}
-		else
-		{
-			notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);
-		}*/
-	}
-
-	@RequiresApi(api = Build.VERSION_CODES.M)
 	public static boolean isDoNotDisturbActive(Context context)
 	{
 		NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
