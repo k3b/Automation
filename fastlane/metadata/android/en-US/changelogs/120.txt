@@ -5,3 +5,4 @@
 * New action: Send broadcasts
 * Fixed: Crash when editing notification trigger
 * Fixed: TimeFrame trigger - time may have changed when crossing timezones or daylight saving changes
+* Fixed: Bug when adding more than one startOtherActivity action

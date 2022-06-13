@@ -192,9 +192,34 @@ public class ActivityManageActionStartActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				if(saveAction())
+				if(checkInput())
 				{
-					ActivityManageActionStartActivity.this.setResult(RESULT_OK);
+					Intent returnData = new Intent();
+
+					returnData.putExtra(ActivityManageRule.intentNameActionParameter1, rbStartAppSelectByAction.isChecked());
+
+					String parameter2 = "";
+
+					if (rbStartAppSelectByActivity.isChecked())
+						parameter2 += etPackageName.getText().toString() + ";" + etActivityOrActionPath.getText().toString();
+					else {
+						if (etPackageName.getText().toString() != null && etPackageName.getText().toString().length() > 0)
+							parameter2 += etPackageName.getText().toString() + ";" + etActivityOrActionPath.getText().toString();
+						else
+							parameter2 += Actions.dummyPackageString + ";" + etActivityOrActionPath.getText().toString();
+					}
+
+					if (rbStartAppByActivity.isChecked())
+						parameter2 += ";" + startByActivityString;
+					else
+						parameter2 += ";" + startByBroadcastString;
+
+					for (String s : intentPairList)
+						parameter2 += ";" + s;
+
+					returnData.putExtra(ActivityManageRule.intentNameActionParameter2, parameter2);
+
+					setResult(RESULT_OK, returnData);
 					finish();
 				}
 			}
@@ -250,11 +275,8 @@ public class ActivityManageActionStartActivity extends Activity
 		});
 
 		Intent i = getIntent();
-		if(i.getBooleanExtra("edit", false) == true)
-		{
-			edit = true;
-			loadValuesIntoGui();
-		}
+		if(i.hasExtra(ActivityManageRule.intentNameActionParameter1))
+			loadValuesIntoGui(i);
 	}
 	
 	private class CustomPackageInfo extends PackageInfo implements Comparable<CustomPackageInfo>
@@ -281,7 +303,6 @@ public class ActivityManageActionStartActivity extends Activity
 	}
 	
 	private static List<PackageInfo> pInfos = null;
-	public static Action resultingAction;
 
 	private static final String[] supportedIntentTypes = { "boolean", "byte", "char", "double", "float", "int", "long", "short", "String", "Uri" };
 	private ArrayList<String> intentPairList = new ArrayList<String>();
@@ -539,13 +560,13 @@ public class ActivityManageActionStartActivity extends Activity
 		progressDialog = ProgressDialog.show(ActivityManageActionStartActivity.this, "", ActivityManageActionStartActivity.this.getResources().getString(R.string.gettingListOfInstalledApplications));
 	}
 	
-	private void loadValuesIntoGui()
+	private void loadValuesIntoGui(Intent input)
 	{
-		boolean selectionByAction = resultingAction.getParameter1();
+		boolean selectionByAction = input.getBooleanExtra(ActivityManageRule.intentNameActionParameter1, true);
 		rbStartAppSelectByActivity.setChecked(!selectionByAction);
 		rbStartAppSelectByAction.setChecked(selectionByAction);
 
-		String[] params = resultingAction.getParameter2().split(";");
+		String[] params = input.getStringExtra(ActivityManageRule.intentNameActionParameter2).split(";");
 
 		rbStartAppByActivity.setChecked(params[2].equals(startByActivityString));
 		rbStartAppByBroadcast.setChecked(params[2].equals(startByBroadcastString));
@@ -591,8 +612,8 @@ public class ActivityManageActionStartActivity extends Activity
 		
 		intentPairAdapter.notifyDataSetChanged();
 	}
-	
-	private boolean saveAction()
+
+	boolean checkInput()
 	{
 		if(rbStartAppSelectByActivity.isChecked())
 		{
@@ -615,36 +636,7 @@ public class ActivityManageActionStartActivity extends Activity
 				return false;
 			}
 		}
-		
-		if(resultingAction == null)
-			resultingAction = new Action();
 
-		resultingAction.setParameter1(rbStartAppSelectByAction.isChecked());
-		
-		resultingAction.setAction(Action_Enum.startOtherActivity);
-		
-		String parameter2 = "";
-
-		if(rbStartAppSelectByActivity.isChecked())
-			parameter2 += etPackageName.getText().toString() + ";" + etActivityOrActionPath.getText().toString();
-		else
-		{
-			if(etPackageName.getText().toString() != null && etPackageName.getText().toString().length() > 0)
-				parameter2 += etPackageName.getText().toString() + ";" + etActivityOrActionPath.getText().toString();
-			else
-				parameter2 += Actions.dummyPackageString + ";" + etActivityOrActionPath.getText().toString();
-		}
-
-		if(rbStartAppByActivity.isChecked())
-			parameter2 += ";" + startByActivityString;
-		else
-			parameter2 += ";" + startByBroadcastString;
-
-		for(String s : intentPairList)
-			parameter2 += ";" + s;
-		
-		resultingAction.setParameter2(parameter2);
-		
 		return true;
 	}
 	

@@ -354,8 +354,8 @@ public class ActivityManageRule extends Activity
 				{
 					case startOtherActivity:
 						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionStartActivity.class);
-						ActivityManageActionStartActivity.resultingAction = a;
-						intent.putExtra("edit", true);
+						intent.putExtra(intentNameActionParameter1, a.getParameter1());
+						intent.putExtra(intentNameActionParameter2, a.getParameter2());
 						startActivityForResult(intent, requestCodeActionStartActivityEdit);
 						break;
 					case triggerUrl:
@@ -1357,8 +1357,10 @@ public class ActivityManageRule extends Activity
 			// manage start of other activity
 			if(resultCode == RESULT_OK)
 			{
-				newAction = ActivityManageActionStartActivity.resultingAction;
 				newAction.setParentRule(ruleToEdit);
+				newAction.setAction(Action_Enum.startOtherActivity);
+				newAction.setParameter1(data.getBooleanExtra(intentNameActionParameter1, true));
+				newAction.setParameter2(data.getStringExtra(intentNameActionParameter2));
 				ruleToEdit.getActionSet().add(newAction);
 				this.refreshActionList();
 			}
@@ -1368,9 +1370,14 @@ public class ActivityManageRule extends Activity
 			// manage start of other activity
 			if(resultCode == RESULT_OK)
 			{
-				newAction = ActivityManageActionStartActivity.resultingAction;
-				newAction.setParentRule(ruleToEdit);
-//				ruleToEdit.getActionSet().add(newAction);
+				ruleToEdit.getActionSet().get(editIndex).setParentRule(ruleToEdit);
+
+				if(data.hasExtra(intentNameActionParameter1))
+					ruleToEdit.getActionSet().get(editIndex).setParameter1(data.getBooleanExtra(intentNameActionParameter1, true));
+
+				if(data.hasExtra(intentNameActionParameter2))
+					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra(intentNameActionParameter2));
+
 				this.refreshActionList();
 			}
 		}
@@ -1502,11 +1509,11 @@ public class ActivityManageRule extends Activity
 		{
 			if(resultCode == RESULT_OK)
 			{
-				if(data.hasExtra("autoBrightness"))
-					ruleToEdit.getActionSet().get(editIndex).setParameter1(data.getBooleanExtra("autoBrightness", false));
+				if(data.hasExtra(ActivityManageActionBrightnessSetting.intentNameAutoBrightness))
+					ruleToEdit.getActionSet().get(editIndex).setParameter1(data.getBooleanExtra(ActivityManageActionBrightnessSetting.intentNameAutoBrightness, false));
 
-				if(data.hasExtra("brightnessValue"))
-					ruleToEdit.getActionSet().get(editIndex).setParameter2(String.valueOf(data.getIntExtra("brightnessValue", 0)));
+				if(data.hasExtra(ActivityManageActionBrightnessSetting.intentNameBrightnessValue))
+					ruleToEdit.getActionSet().get(editIndex).setParameter2(String.valueOf(data.getIntExtra(ActivityManageActionBrightnessSetting.intentNameBrightnessValue, 0)));
 
 				ruleToEdit.getActionSet().get(editIndex).setParentRule(ruleToEdit);
 
