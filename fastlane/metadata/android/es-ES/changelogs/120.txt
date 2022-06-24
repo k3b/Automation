@@ -1,0 +1,9 @@
+* Nuevo condición: el dispositivo acaba de comenzar
+* Nuevo condición: el servicio acaba de comenzar
+* Nuevo condición: Responder a transmisiones personalizables
+* Nuevo parámetro para el estado de la pantalla del disparador: Nuevo estado "bloqueado"
+* Nueva acción: Enviar transmisiones
+* Nueva traducción: ruso
+* Traducciones actualizadas
+* Corregido: Bloqueo al editar el condición de notificación
+* Corregido: disparador de marco de tiempo: el tiempo puede haber cambiado al cruzar zonas horarias

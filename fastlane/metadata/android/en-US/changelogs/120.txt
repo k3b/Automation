@@ -3,5 +3,7 @@
 * New trigger: Respond to customizable broadcasts
 * New parameter for trigger Screen state: New state "locked"
 * New action: Send broadcasts
+* New translation: Russian
+* Translations updated
 * Fixed: Crash when editing notification trigger
 * Fixed: TimeFrame trigger - time may have changed when crossing timezones
