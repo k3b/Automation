@@ -1,0 +1,9 @@
+* Neuer Auslöser: Gerät hat gerade gestartet
+* Neuer Auslöser: Dienst wurde gerade gestartet
+* Neuer Auslöser: Auf Broadcasts reagieren
+* Neuer Parameter für Auslöser Bildschirmstatus: Neuer Status "gesperrt"
+* Neue Aktion: Broadcasts verschicken
+* Neue Übersetzung: Russisch
+* Übersetzungen aktualisiert
+* Behoben: Absturz beim Editieren von Benachrichtigungs-Auslösern
+* Behoben: Zeitraum Auslöser - Zeit konnte sich beim Durchqueren von Zeitzonen ändern

@@ -1,0 +1,9 @@
+* Nieuwe trigger: apparaat is net gestart
+* Nieuwe trigger: service is net begonnen
+* Nieuwe trigger: Reageer op aanpasbare uitzendingen
+* Nieuwe parameter voor trigger Schermstatus: Nieuwe status "vergrendeld"
+* Nieuwe actie: Stuur uitzendingen
+* Nieuwe vertaling: Russisch
+* Vertalingen bijgewerkt
+* Opgelost: Crash bij het bewerken van melding trigger
+* Fixed: TimeFrame trigger - tijd kan zijn veranderd bij het overschrijden van tijdzones

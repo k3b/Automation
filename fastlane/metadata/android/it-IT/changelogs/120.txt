@@ -1,0 +1,9 @@
+* Nuovo trigger: il dispositivo è appena iniziato
+* Nuovo trigger: il servizio è appena iniziato
+* Nuovo trigger: rispondi alle trasmissioni personalizzabili
+* Nuovo parametro per lo stato dello schermo del trigger: nuovo stato "bloccato"
+* Nuova azione: Invia trasmissioni
+* Nuova traduzione: Russo
+* Traduzioni aggiornate
+* Risolto: Crash durante la modifica del trigger di notifica
+* Risolto: trigger TimeFrame - l'ora potrebbe essere cambiata quando si attraversano i fusi orari

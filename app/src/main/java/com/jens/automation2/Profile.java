@@ -4,12 +4,10 @@ import android.app.NotificationManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.media.AudioManager;
-import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -509,7 +507,7 @@ public class Profile implements Comparable<Profile>
 			    	Actions.setSound(context, soundMode);
 
 				if(changeDndMode)
-					Actions.setDND(context, dndMode);
+					Actions.setDoNotDisturb(context, dndMode);
 		
 			    if(changeVolumeMusicVideoGameMedia)
 			    	am.setStreamVolume(AudioManager.STREAM_MUSIC, volumeMusic, AudioManager.FLAG_PLAY_SOUND);

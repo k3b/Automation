@@ -1,5 +1,7 @@
 package com.jens.automation2;
 
+import androidx.annotation.NonNull;
+
 import java.sql.Time;
 
 public class TimeObject
@@ -64,5 +66,13 @@ public class TimeObject
         }
 
         return ro;
+    }
+
+    @NonNull
+    @Override
+    public String toString()
+    {
+        Time time = Time.valueOf(this.getHours() + ":" + this.getMinutes() + ":" + this.getSeconds());
+        return time.toString();
     }
 }

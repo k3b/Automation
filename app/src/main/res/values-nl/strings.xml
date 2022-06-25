@@ -30,7 +30,7 @@
     <string name="logServiceStopping">Service stoppen.</string>
     <string name="stillGettingPosition">Nog steeds positie aan het verkrijgen.</string>
     <string name="lastRule">Laatste regel:</string>
-    <string name="at">Bij</string>
+    <string name="at">bij</string>
     <string name="service">Service:</string>
     <string name="getCurrentPosition">Huidige locatie ophalen</string>
     <string name="savePoi">Sla locatie op</string>
@@ -627,14 +627,14 @@
     <string name="orientationRoll">Rollen:</string>
     <string name="enterValidNumbersIntoAllFields">Voer geldige nummers in alle velden in.</string>
     <string name="deviceOrientation">Apparaat oriëntatie</string>
-    <string name="notice">Bemerken</string>
+    <string name="notice">Opmerking</string>
     <string name="tolerance">Tolerantie (0-180)</string>
     <string name="actionSetBluetoothTethering">Bluetooth Tethering</string>
     <string name="enterPhoneNumberAndText">Voer een telefoonnummer en een sms in.</string>
     <string name="actionTurnBluetoothTetheringOn">Schakel Bluetooth Tethering in</string>
     <string name="actionTurnBluetoothTetheringOff">Schakel Bluetooth Tethering uit</string>
-    <string name="deviceIsInCertainOrientation">het apparaat zich in een bepaalde richting bevindt</string>
-    <string name="wouldCurrentlyApply">Zou momenteel van toepassing zijn?</string>
+    <string name="deviceIsInCertainOrientation">het apparaat bevindt zich in een bepaalde richting</string>
+    <string name="wouldCurrentlyApply">Is de huidige van toepassing?</string>
     <string name="btTetheringNotice">Deze functie werkt naar verluidt tot Android 8.0. Vanaf een hogere versie werkt het niet meer, maar door een gebrek aan fysieke apparaten kan ik niet zeggen welke dat is. Op Android 11 werkt het absoluut niet meer. Als je een versie tussendoor hebt, laat het me dan weten of het werkt of niet.</string>
     <string name="deviceOrientationExplanation">Wanneer u uw apparaat verplaatst, worden de onderstaande nummers bijgewerkt. Wat je daar kunt zien, is de huidige oriëntatie van je apparaat gemeten in graden. Als het zich in de gewenste richting bevindt, klikt u op de knop Toepassen om de huidige waarden naar de gewenste velden te kopiëren.\nOmdat het zeer onwaarschijnlijk is dat u deze exacte oriëntatie ooit nog bereikt, moet u ook een tolerantie invoeren. Dit is het aantal graden waarin de oriëntatie in beide richtingen kan afwijken. 15° resulteert in een totale hoek van 30°, 15° in elke richting.\nAls u slechts om één specifieke as geeft, geef dan een tolerantie van 180° op voor de twee andere.</string>
     <string name="toleranceOf180OnlyAllowedIn2Fields">Een tolerantie van 180 is alleen toegestaan voor 2 tolerantievelden, niet alle 3. Anders zou de trigger ALTIJD van toepassing zijn.</string>
@@ -721,4 +721,19 @@
     <string name="explanationBroadcastTrigger">De meeste gebeurtenissen op uw telefoon worden \"gepubliceerd\" door ze uit te zenden in het hele besturingssysteem.\nHet in- en uitschakelen van de vliegtuigmodus zal bijvoorbeeld een dergelijke uitzending activeren. Die uitzendingen zijn niet automatisch zichtbaar/hoorbaar, maar als een applicatie (zoals Automation) geïnteresseerd is, kan deze erop aansluiten. Wanneer ze zich voordoen, wordt het een melding gegeven en kan het reageren.\n\nU kunt hier een uitzendgebeurtenis definiëren waarop de toepassing zal wachten. U kunt het handmatig invoeren, ergens vandaan kopiëren en plakken of er een kiezen uit de lijst met suggesties. Omdat deze trigger bedoeld is en zeer flexibel is, kan ik u geen uitleg geven voor de items.\n\nDe lijst met suggesties beweert niet volledig te zijn. Ga naar de onderstaande URL om de Android-documentatie te bekijken.\nOok kan elke app aangepaste gebeurtenissen verzenden die natuurlijk niet in de Android-documentatie worden weergegeven.\n\nVeel uitzendingen vereisen specifieke machtigingen om te kunnen werken. Ik probeer toestemmingen te vragen waarvan ik weet dat ze nodig zijn. Als u denkt dat er een toestemming vereist is voor de actie die u hebt ingevoerd, laat het me dan weten.\n\nNiet ontvangen betekent dat er sinds de service is gestart niet meer zo\'n uitzending is geweest. Inspelen op bepaalde parameters is in ontwikkeling.</string>
     <string name="logsExplanation">Om onnodige slijtage van uw opslag te voorkomen, worden logboeken niet standaard opgeslagen. Dus als u een probleem hebt, activeer dan eerst de inloginstellingen en stel het logniveau in op 5. Reproduceer vervolgens het probleem. Alleen dan kunnen logs worden bijgevoegd.</string>
     <string name="directionStringDoesNotContain">bevat geen</string>
+    <string name="runExecutable">Script of programma uitvoeren</string>
+    <string name="path">Pad</string>
+    <string name="parameters">Parameters</string>
+    <string name="chooseExecutable">Kies programma</string>
+    <string name="runAsRoot">Uitvoeren als Root</string>
+    <string name="selectValidExecutable">Selecteer een geldig programma.</string>
+    <string name="fileNotExecutable">Het programma kan niet worden uitgevoerd.</string>
+    <string name="wifiExplanation1">Apps voor Android Q of hoger kunnen helaas WIFI niet meer aan- of uitzetten. Dat is niet mijn schuld, het was een  beslissing van Google om dit te beperken. U kunt deze beperking omzeilen door uw apparaat te rooten en het onderstaande selectievakje te activeren. Als alternatief kunt u deze applicatie downloaden van F-Droid of mijn website, omdat ik niet gedwongen ben om de nieuwste API-niveau in die versies te richten.</string>
+    <string name="wifiExplanation2">Wanneer vliegtuigmodus is geactiveerd, kan wifi alleen worden omgeschakeld vanuit toepassingen wanneer u root-permissies voor that.</string>
+    <string name="usingRoot">gebruik Root</string>
+    <string name="runExecutableExplanation">Je kunt hier een script of programma selecteren dat als actie wordt uitgevoerd.\n\nMaar er zijn wel een aantal vereisten waar je zelf mee aan de slag moet. Google heeft het erg moeilijk gemaakt om iets anders dan gewone Android applicaties uit te voeren.\n1.\nHet bestand moet in het bestandssysteem gemarkeerd zijn als uitvoerbaar. Op een gewoon Android systeem (zonder root) is dit eigenlijk het moeilijkste.\n2.\nDat betekent ook dat Automation het bestand moet kunnen uitvoeren, niet alleen de eigenaar of de groep.\n3.\nAls het een script is, moet een geldige shell worden opgegeven in de header van het script.</string>
+    <string name="tetheringActive">tethering is actief</string>
+    <string name="tetheringNotActive">tethering is niet actief</string>
+    <string name="tetheringState">Tethering-status</string>
+
 </resources>

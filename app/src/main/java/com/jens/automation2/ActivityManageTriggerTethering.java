@@ -2,19 +2,16 @@ package com.jens.automation2;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
 public class ActivityManageTriggerTethering extends Activity
 {
-    RadioButton rbTetheringOn, rTetheringOff;
+    RadioButton rbTetheringOn, rbTetheringOff;
     Button bTriggerTetheringSave;
 
     @Override
@@ -24,12 +21,15 @@ public class ActivityManageTriggerTethering extends Activity
         setContentView(R.layout.activity_manage_trigger_tethering);
 
         rbTetheringOn = (RadioButton) findViewById(R.id.rbTetheringOn);
-        rTetheringOff = (RadioButton)findViewById(R.id.rTetheringOff);
+        rbTetheringOff = (RadioButton)findViewById(R.id.rbTetheringOff);
         bTriggerTetheringSave = (Button) findViewById(R.id.bTriggerTetheringSave);
 
         Intent input = getIntent();
         if(input.hasExtra(ActivityManageRule.intentNameTriggerParameter1))
+        {
             rbTetheringOn.setChecked(input.getBooleanExtra(ActivityManageRule.intentNameTriggerParameter1, true));
+            rbTetheringOff.setChecked(!input.getBooleanExtra(ActivityManageRule.intentNameTriggerParameter1, false));
+        }
 
         bTriggerTetheringSave.setOnClickListener(new View.OnClickListener()
         {
