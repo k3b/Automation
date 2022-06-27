@@ -834,4 +834,5 @@
     <string name="tetheringActive">tethering is active</string>
     <string name="tetheringNotActive">tethering is not active</string>
     <string name="tetheringState">Tethering state</string>
+    <string name="regularExpressionsIfEquals">If \"equals\" is selected, you may enter a regular expression.</string>
 </resources>

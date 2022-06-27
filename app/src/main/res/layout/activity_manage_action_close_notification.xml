@@ -76,6 +76,14 @@
 				android:text="@string/comparisonCaseInsensitive"
 				android:layout_marginBottom="@dimen/default_margin"/>
 
+			<TextView
+				android:gravity="center"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textStyle="bold"
+				android:text="@string/regularExpressionsIfEquals"
+				android:layout_marginBottom="@dimen/default_margin"/>
+
 			<TableRow
 				android:layout_marginBottom="@dimen/activity_vertical_margin">
 

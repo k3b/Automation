@@ -476,7 +476,10 @@ public class Miscellaneous extends Service
 		switch(direction)
 		{
 			case Trigger.directionEquals:
-				return haystack.equalsIgnoreCase(needle);
+				if(Miscellaneous.isRegularExpression(needle))
+					return haystack.matches(needle);
+				else
+					return haystack.equalsIgnoreCase(needle);
 			case Trigger.directionNotEquals:
 				return !haystack.equalsIgnoreCase(needle);
 			case Trigger.directionContains:
@@ -1753,13 +1756,12 @@ public class Miscellaneous extends Service
 
 	public static boolean comparePhoneNumbers(String number1, String number2)
 	{
-		/* To be activated when Android S SDK comes out
-		if(Build.VERSION.SDK_INT > Build.VERSION_CODES.Q)
+		if(Build.VERSION.SDK_INT > Build.VERSION_CODES.S)
 		{
 			TelephonyManager tm = (TelephonyManager)Miscellaneous.getAnyContext().getSystemService(Context.TELEPHONY_SERVICE);
 			return PhoneNumberUtils.areSamePhoneNumber(number1, number2, tm.getNetworkCountryIso());
 		}
-		else*/
+		else
 			return PhoneNumberUtils.compare(number1, number2);
 	}
 

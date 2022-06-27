@@ -22,8 +22,6 @@ import java.util.ArrayList;
 
 public class PhoneStatusListener implements AutomationListenerInterface
 {
-//	protected static int currentStateIncoming = -1;
-//	protected static int currentStateOutgoing = -1;
 	protected static String lastPhoneNumber="";
 	protected static int lastPhoneDirection = -1; //0=incoming, 1=outgoing
 	protected static int currentState = -1;
@@ -120,8 +118,6 @@ public class PhoneStatusListener implements AutomationListenerInterface
 			}
 			else
 			{
-//				state != TelephonyManager.CALL_STATE_IDLE &&
-
 				setCurrentState(state);
 				setLastPhoneDirection(1);
 
@@ -175,12 +171,12 @@ public class PhoneStatusListener implements AutomationListenerInterface
 			Miscellaneous.logEvent("i", "Call state", String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.outgoingCallTo), getLastPhoneNumber()), 4);
 
 			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.phoneCall);
-			for(int i=0; i<ruleCandidates.size(); i++)
+			for(int i = 0; i < ruleCandidates.size(); i++)
 			{
 				AutomationService asInstance = AutomationService.getInstance();
 				if(asInstance != null)
 				if(ruleCandidates.get(i).getsGreenLight(asInstance))
-						ruleCandidates.get(i).activate(asInstance, false);
+					ruleCandidates.get(i).activate(asInstance, false);
 			}
         }		
 	}

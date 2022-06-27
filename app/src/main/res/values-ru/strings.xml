@@ -671,7 +671,6 @@
   <string name="from">от</string>
   <string name="to">к</string>
   <string name="matching">совпадает</string>
-  <string name="urlRegex" translatable="false">https://regex101.com/</string>
   <string name="loadWifiList">Загрузить список Wi-Fi</string>
   <string name="needLocationPermForWifiList">Список Wi-Fi, к которому было подключено ваше устройство. Можно использовать для определения того, в каких местах вы были. Вот почему для загрузки списка Wi-Fi требуется разрешение на доступ к местоположению. Если вы хотите выбрать один из из списка, вам необходимо предоставить это разрешение. Если вы этого не хотите, вы все равно можете ввести свое имя Wi-Fi вручную.</string>
   <string name="noKnownWifis">На вашем устройстве нет известных Wi-Fi.</string>
