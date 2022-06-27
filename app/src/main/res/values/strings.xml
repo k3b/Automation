@@ -835,4 +835,5 @@
     <string name="tetheringNotActive">tethering is not active</string>
     <string name="tetheringState">Tethering state</string>
     <string name="regularExpressionsIfEquals">If \"equals\" is selected, you may enter a regular expression.</string>
+    <string name="enter_a_number">Enter a number.</string>
 </resources>

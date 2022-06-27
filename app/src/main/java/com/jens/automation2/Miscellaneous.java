@@ -791,11 +791,27 @@ public class Miscellaneous extends Service
 
 	    return executedSuccesfully;
 	  }
+	public static boolean isNumericDecimal(String strNum)
+	{
+		if (strNum == null)
+		{
+			return false;
+		}
+		try
+		{
+			double d = Double.parseDouble(strNum);
+		}
+		catch (NumberFormatException nfe)
+		{
+			return false;
+		}
+		return true;
+	}
 	  
-	  public static boolean isNumeric(String str)
-	  {
-	    return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
-	  }
+	public static boolean isNumeric(String str)
+	{
+		return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+	}
 	  
 	  /**
      * Disables the SSL certificate checking for new instances of {@link HttpsURLConnection} This has been created to

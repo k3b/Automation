@@ -832,4 +832,5 @@
   <string name="tetheringActive">раздача интернета активна</string>
   <string name="tetheringNotActive">раздача интернета не активна</string>
   <string name="tetheringState">Раздача интернета</string>
+    <string name="enter_a_number">Введите число.</string>
 </resources>
