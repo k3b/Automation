@@ -158,12 +158,19 @@ public class ActivityManageActionStartActivity extends Activity
 					case "int":
 					case "long":
 					case "short":
-						ActivityManageActionStartActivity.this.etParameterValue.setInputType(InputType.TYPE_CLASS_NUMBER);
-						if(etParameterValue.getText().toString())
+						if(!Miscellaneous.isNumeric(etParameterValue.getText().toString()))
+						{
+							Toast.makeText(ActivityManageActionStartActivity.this, getResources().getString(R.string.enter_a_number), Toast.LENGTH_LONG).show();
+							return;
+						}
 						break;
 					case "double":
 					case "float":
-						ActivityManageActionStartActivity.this.etParameterValue.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+						if(!Miscellaneous.isNumericDecimal(etParameterValue.getText().toString()))
+						{
+							Toast.makeText(ActivityManageActionStartActivity.this, getResources().getString(R.string.enter_a_number), Toast.LENGTH_LONG).show();
+							return;
+						}
 						break;
 					default:
 						ActivityManageActionStartActivity.this.etParameterValue.setInputType(InputType.TYPE_CLASS_TEXT);

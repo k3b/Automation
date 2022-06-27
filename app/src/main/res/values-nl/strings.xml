@@ -735,5 +735,6 @@
     <string name="tetheringActive">tethering is actief</string>
     <string name="tetheringNotActive">tethering is niet actief</string>
     <string name="tetheringState">Tethering-status</string>
+    <string name="enter_a_number">Voer een getal in.</string>
 
 </resources>
