@@ -153,6 +153,22 @@ public class ActivityManageActionStartActivity extends Activity
 					return;
 				}
 
+				switch(supportedIntentTypes[spinnerParameterType.getSelectedItemPosition()])
+				{
+					case "int":
+					case "long":
+					case "short":
+						ActivityManageActionStartActivity.this.etParameterValue.setInputType(InputType.TYPE_CLASS_NUMBER);
+						if(etParameterValue.getText().toString())
+						break;
+					case "double":
+					case "float":
+						ActivityManageActionStartActivity.this.etParameterValue.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+						break;
+					default:
+						ActivityManageActionStartActivity.this.etParameterValue.setInputType(InputType.TYPE_CLASS_TEXT);
+				}
+
 				String param = supportedIntentTypes[spinnerParameterType.getSelectedItemPosition()] + Action.intentPairSeparator + etParameterName.getText().toString() + Action.intentPairSeparator + etParameterValue.getText().toString();
 				intentPairList.add(param);
 
@@ -240,8 +256,10 @@ public class ActivityManageActionStartActivity extends Activity
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3)
 			{
-				if(supportedIntentTypes[arg2].equals("double") | supportedIntentTypes[arg2].equals("float") | supportedIntentTypes[arg2].equals("int") | supportedIntentTypes[arg2].equals("long") | supportedIntentTypes[arg2].equals("short"))
+				if(supportedIntentTypes[arg2].equals("int") || supportedIntentTypes[arg2].equals("long") || supportedIntentTypes[arg2].equals("short"))
 					ActivityManageActionStartActivity.this.etParameterValue.setInputType(InputType.TYPE_CLASS_NUMBER);
+				else if(supportedIntentTypes[arg2].equals("double") || supportedIntentTypes[arg2].equals("float"))
+					ActivityManageActionStartActivity.this.etParameterValue.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
 				else
 					ActivityManageActionStartActivity.this.etParameterValue.setInputType(InputType.TYPE_CLASS_TEXT);
 			}
