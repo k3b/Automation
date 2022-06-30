@@ -687,7 +687,7 @@
     <string name="screenIs">pantalla esta %1$s</string>
     <string name="sendEmailToDev">Enviar email al desrollador</string>
     <string name="featureCeasedToWorkLastWorkingAndroidVersion">Debido a la infinita sabiduría de Google, la última versión de Android en la que se sabe que funciona esta función es %1$s. Puede configurarlo, pero probablemente no tendrá ningún efecto.</string>
-    <string name="emailContactNotice">El correo electrónico es mi método preferido de contacto para informar errores, hacer preguntas o hacer propuestas. Vaya al centro de control para obtener más información.</string>
+    <string name="emailContactNotice">El correo electrónico es mi método preferido de contacto para informar errores, hacer preguntas o hacer propuestas. Vaya al centro de control para obtener más información.\nMuchas preguntas no se pueden responder de inmediato, pero requieren cierta investigación técnica. Así que, por favor, tengan un poco de paciencia.</string>
     <string name="actionMediaControlNotice">Ten en cuenta que esta acción puede no funcionar con TODOS los jugadores. E incluso si lo hace, no todos los botones funcionan necesariamente.</string>
     <string name="musicPlaying">Musica esta reproduciendo</string>
     <string name="selectParameters">Elije parametros</string>

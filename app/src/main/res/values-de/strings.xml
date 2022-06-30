@@ -688,7 +688,7 @@
     <string name="screenIs">Bildschirm ist %1$s</string>
     <string name="sendEmailToDev">Email an Entwickler schicken</string>
     <string name="controlCenter">Steuerungszentrale</string>
-    <string name="emailContactNotice">Email ist mein bevorzugtes Kommunikationsmittel, um Fehler zu melden, Fragen zu stellen or Vorschläge zu machen. Bitte gehen Sie für weitere Infos in die Steuerungszentrale.</string>
+    <string name="emailContactNotice">Email ist mein bevorzugtes Kommunikationsmittel, um Fehler zu melden, Fragen zu stellen or Vorschläge zu machen. Bitte gehen Sie für weitere Infos in die Steuerungszentrale.\nViele Fragen können nicht einfach gleich beantwortet werden, sondern erfordern eine technische Prüfung. Haben Sie also bitte etwas Geduld.</string>
     <string name="featureCeasedToWorkLastWorkingAndroidVersion">Aufgrund Google\'s unendlicher Weisheit, ist die letzte Android Version, mit der diese Funktion noch funktioniert, die Version %1$s. Sie können es hier einrichten, aber vermutlich wird es keine Auswirkung haben.</string>
     <string name="musicPlaying">Musik läuft</string>
     <string name="selectParameters">Wählen Sie die Parameter</string>

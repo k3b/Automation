@@ -667,7 +667,7 @@
     <string name="comparisonCaseInsensitive">Vergelijkingen worden gedaan case-INsensitief</string>
     <string name="profileWarning">De instellingen die je hier maakt kunnen ervoor zorgen dat je bepaalde dingen niet meer van je telefoon merkt. Ze kunnen zelfs je wekker dempen. Dus wat je ook doet - het wordt aanbevolen om het te testen - ook na Android upgrades.</string>
     <string name="ifString">als</string>
-    <string name="emailContactNotice">E-mail is mijn favoriete contactmethode om bugs te melden, vragen te stellen of voorstellen te doen. Ga naar het controlecentrum voor meer informatie.</string>
+    <string name="emailContactNotice">E-mail is mijn favoriete contactmethode om bugs te melden, vragen te stellen of voorstellen te doen. Ga naar het controlecentrum voor meer informatie.\nVeel vragen kunnen niet meteen worden beantwoord, maar vereisen wel wat technisch onderzoek. Dus heb alsjeblieft wat geduld.</string>
     <string name="controlCenter">Controlecentrum</string>
     <string name="sendEmailToDev">Stuur een e-mail naar de ontwikkelaar</string>
     <string name="screenIs">scherm is %1$s</string>

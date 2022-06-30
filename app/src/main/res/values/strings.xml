@@ -766,7 +766,7 @@
     <string name="comparisonCaseInsensitive">Comparisons are done case-INsensitive</string>
     <string name="profileWarning">The settings you can adjust here, can cause that you don\'t notice certain things from your phone anymore. They may even silence your wakeup alarm. So whatever you do - it is highly recommended that you test it - also after Android updates.</string>
     <string name="ifString">if</string>
-    <string name="emailContactNotice">Email is my preferred method of contact to report bugs, ask questions or make proposals. Go to control center to learn more.</string>
+    <string name="emailContactNotice">Email is my preferred method of contact to report bugs, ask questions or make proposals. Go to control center to learn more.\nMany questions cannot be answered straight away, but require some technical research. So please have some patience.</string>
     <string name="controlCenter">Control center</string>
     <string name="sendEmailToDev">Send email to developer</string>
     <string name="screenIs">screen is %1$s</string>

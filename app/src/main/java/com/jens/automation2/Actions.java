@@ -1141,6 +1141,8 @@ public class Actions
 	{
 		Miscellaneous.logEvent("i", "waitBeforeNextAction", "waitBeforeNextAction for " + String.valueOf(waitTime) + " milliseconds.", 4);
 
+
+
 		try
 		{
 			Thread.sleep(waitTime);
