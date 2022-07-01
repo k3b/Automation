@@ -36,6 +36,7 @@ import android.view.KeyEvent;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.legacy.content.WakefulBroadcastReceiver;
 
 import com.jens.automation2.actions.wifi_router.MyOnStartTetheringCallback;
 import com.jens.automation2.actions.wifi_router.MyOreoWifiManager;
@@ -1141,7 +1142,24 @@ public class Actions
 	{
 		Miscellaneous.logEvent("i", "waitBeforeNextAction", "waitBeforeNextAction for " + String.valueOf(waitTime) + " milliseconds.", 4);
 
-
+		try
+		{
+			PowerManager powerManager = (PowerManager) Miscellaneous.getAnyContext().getSystemService(Context.POWER_SERVICE);
+			PowerManager.WakeLock fullWakeLock = powerManager.newWakeLock((PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "Loneworker - FULL WAKE LOCK");
+			fullWakeLock.acquire(); // turn on
+			try
+			{
+				Thread.sleep(60000); // turn on duration
+			}
+			catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+			fullWakeLock.release();
+		}
+		catch (Exception e)
+		{
+		}
 
 		try
 		{
