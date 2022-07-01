@@ -53,6 +53,7 @@ public class Action
 		closeNotification,
 		sendBroadcast,
 		runExecutable,
+		wakelock,
 		sendTextMessage;
 
 		public String getFullName(Context context)
@@ -127,6 +128,8 @@ public class Action
 					return context.getResources().getString(R.string.sendBroadcast);
 				case runExecutable:
 					return context.getResources().getString(R.string.runExecutable);
+				case wakelock:
+					return context.getResources().getString(R.string.keepDeviceAwake);
 				default:
 					return "Unknown";
 			}
@@ -272,6 +275,9 @@ public class Action
 					break;
 				case runExecutable:
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.runExecutable));
+					break;
+				case wakelock:
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.keepDeviceAwake) + " (" + String.valueOf(getParameter1()) + ")");
 					break;
 				default:
 					returnString.append(action.toString());

@@ -154,6 +154,7 @@
         <activity android:name=".ActivityManageActionRunExecutable" />
         <activity android:name=".ActivityManageActionWifi" />
         <activity android:name=".ActivityManageTriggerTethering" />
+        <activity android:name=".ActivityManageActionWakeLock" />
         <activity
             android:name=".ActivityMainTabLayout"
             android:launchMode="singleTask">

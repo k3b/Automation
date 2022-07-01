@@ -129,6 +129,8 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeActionSetWifiEdit = 816;
 	final static int requestCodeTriggerTetheringAdd = 817;
 	final static int requestCodeTriggerTetheringEdit = 818;
+	final static int requestCodeActionWakeLockAdd = 819;
+	final static int requestCodeActionWakeLockEdit = 820;
 
 	public static ActivityManageRule getInstance()
 	{
@@ -392,6 +394,12 @@ public class ActivityManageRule extends Activity
 						Intent activityEditSendBroadcastIntent = new Intent(ActivityManageRule.this, ActivityManageActionSendBroadcast.class);
 						activityEditSendBroadcastIntent.putExtra(intentNameActionParameter2, a.getParameter2());
 						startActivityForResult(activityEditSendBroadcastIntent, requestCodeActionSendBroadcastEdit);
+						break;
+					case wakelock:
+						Intent activityEditWakeLockIntent = new Intent(ActivityManageRule.this, ActivityManageActionWakeLock.class);
+						activityEditWakeLockIntent.putExtra(intentNameActionParameter1, a.getParameter1());
+						activityEditWakeLockIntent.putExtra(intentNameActionParameter2, a.getParameter2());
+						startActivityForResult(activityEditWakeLockIntent, requestCodeActionWakeLockEdit);
 						break;
 					case runExecutable:
 						Intent activityEditRunExecutableIntent = new Intent(ActivityManageRule.this, ActivityManageActionRunExecutable.class);
@@ -1551,6 +1559,17 @@ public class ActivityManageRule extends Activity
 				this.refreshActionList();
 			}
 		}
+		else if(requestCode == requestCodeActionWakeLockAdd)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				newAction.setParentRule(ruleToEdit);
+				newAction.setParameter1(data.getBooleanExtra(intentNameActionParameter1, false));
+				newAction.setParameter2(data.getStringExtra(intentNameActionParameter2));
+				ruleToEdit.getActionSet().add(newAction);
+				this.refreshActionList();
+			}
+		}
 		else if(requestCode == requestCodeActionControlMediaAdd)
 		{
 			if(resultCode == RESULT_OK)
@@ -1613,6 +1632,21 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK)
 			{
 				ruleToEdit.getActionSet().get(editIndex).setParentRule(ruleToEdit);
+
+				if(data.hasExtra(intentNameActionParameter2))
+					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra(intentNameActionParameter2));
+
+				this.refreshActionList();
+			}
+		}
+		else if(requestCode == requestCodeActionWakeLockEdit)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				ruleToEdit.getActionSet().get(editIndex).setParentRule(ruleToEdit);
+
+				if(data.hasExtra(intentNameActionParameter1))
+					ruleToEdit.getActionSet().get(editIndex).setParameter1(data.getBooleanExtra(intentNameActionParameter1, true));
 
 				if(data.hasExtra(intentNameActionParameter2))
 					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra(intentNameActionParameter2));
@@ -1884,6 +1918,8 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.notification));
 			else if(types[i].toString().equals(Action_Enum.sendBroadcast.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.megaphone));
+			else if(types[i].toString().equals(Action_Enum.wakelock.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.coffee));
 			else if(types[i].toString().equals(Action_Enum.runExecutable.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.script));
 			else if(types[i].toString().equals(Action_Enum.sendTextMessage.toString()))
@@ -2057,6 +2093,12 @@ public class ActivityManageRule extends Activity
 						newAction.setAction(Action_Enum.runExecutable);
 						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionRunExecutable.class);
 						startActivityForResult(intent, requestCodeActionRunExecutableAdd);
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.wakelock.toString()))
+					{
+						newAction.setAction(Action_Enum.wakelock);
+						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionWakeLock.class);
+						startActivityForResult(intent, requestCodeActionWakeLockAdd);
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.controlMediaPlayback.toString()))
 					{

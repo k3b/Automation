@@ -1142,25 +1142,7 @@ public class Actions
 	{
 		Miscellaneous.logEvent("i", "waitBeforeNextAction", "waitBeforeNextAction for " + String.valueOf(waitTime) + " milliseconds.", 4);
 
-		try
-		{
-			PowerManager powerManager = (PowerManager) Miscellaneous.getAnyContext().getSystemService(Context.POWER_SERVICE);
-			PowerManager.WakeLock fullWakeLock = powerManager.newWakeLock((PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "Loneworker - FULL WAKE LOCK");
-			fullWakeLock.acquire(); // turn on
-			try
-			{
-				Thread.sleep(60000); // turn on duration
-			}
-			catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
-			fullWakeLock.release();
-		}
-		catch (Exception e)
-		{
-		}
-
+		wakeLockStart(60000);
 		try
 		{
 			Thread.sleep(waitTime);
@@ -2111,5 +2093,57 @@ public class Actions
 		}
 
 		return false;
+	}
+
+	public final static int wakeLockTimeoutDisabled = -1;
+	static boolean wakeLockStopRequested = false;
+	public static void wakeLockStart(long duration)
+	{
+		long waited = 0;
+		int step = 1000;
+
+		if(duration < 0)
+			step = 99999;
+
+		try
+		{
+			PowerManager powerManager = (PowerManager) Miscellaneous.getAnyContext().getSystemService(Context.POWER_SERVICE);
+			PowerManager.WakeLock fullWakeLock = powerManager.newWakeLock((PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "Loneworker - FULL WAKE LOCK");
+			fullWakeLock.acquire(); // turn on
+
+			do
+			{
+
+				try
+				{
+					Thread.sleep(step); // turn on duration
+				}
+				catch (InterruptedException e)
+				{
+					e.printStackTrace();
+				}
+
+				waited += step;
+
+				if(false) //stop requested
+				{
+					Miscellaneous.logEvent("i", "WakeLockStart", "Stop requested.", 4);
+					wakeLockStopRequested = false;
+					break;
+				}
+			}
+			while(waited <= duration);
+
+			fullWakeLock.release();
+		}
+		catch (Exception e)
+		{
+		}
+	}
+
+	public static void wakeLockStop()
+	{
+		Miscellaneous.logEvent("i", "WakeLockStart", "Requesting stop.", 4);
+		wakeLockStopRequested = true;
 	}
 }

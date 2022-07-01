@@ -836,4 +836,7 @@
     <string name="tetheringState">Tethering state</string>
     <string name="regularExpressionsIfEquals">If \"equals\" is selected, you may enter a regular expression.</string>
     <string name="enter_a_number">Enter a number.</string>
+    <string name="duration">Duration [ms]</string>
+    <string name="keepDeviceAwake">Keep device awake</string>
+    <string name="wakeLockTimeout">Specify timeout</string>
 </resources>
