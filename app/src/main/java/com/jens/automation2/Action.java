@@ -576,6 +576,12 @@ public class Action
 					else if(execParts.length == 2)
 						Actions.runExecutable(context, this.getParameter1(), execParts[0], execParts[1]);
 					break;
+				case wakelock:
+					if(this.getParameter1())
+						Actions.wakeLockStart(context, Long.parseLong(this.getParameter2()));
+					else
+						Actions.wakeLockStop();
+					break;
 				default:
 					Miscellaneous.logEvent("w", "Action", context.getResources().getString(R.string.unknownActionSpecified), 3);
 					break;

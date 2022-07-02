@@ -1142,7 +1142,6 @@ public class Actions
 	{
 		Miscellaneous.logEvent("i", "waitBeforeNextAction", "waitBeforeNextAction for " + String.valueOf(waitTime) + " milliseconds.", 4);
 
-		wakeLockStart(60000);
 		try
 		{
 			Thread.sleep(waitTime);
@@ -2097,48 +2096,53 @@ public class Actions
 
 	public final static int wakeLockTimeoutDisabled = -1;
 	static boolean wakeLockStopRequested = false;
-	public static void wakeLockStart(long duration)
+	public static void wakeLockStart(Context context, long duration)
 	{
-		long waited = 0;
-		int step = 1000;
-
-		if(duration < 0)
-			step = 99999;
-
-		try
+		Thread lockThread = new Thread(new Runnable()
 		{
-			PowerManager powerManager = (PowerManager) Miscellaneous.getAnyContext().getSystemService(Context.POWER_SERVICE);
-			PowerManager.WakeLock fullWakeLock = powerManager.newWakeLock((PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "Loneworker - FULL WAKE LOCK");
-			fullWakeLock.acquire(); // turn on
-
-			do
+			@Override
+			public void run()
 			{
+				wakeLockStopRequested = false;
+
+				long waited = 0;
+				int step = 2000;
 
 				try
 				{
-					Thread.sleep(step); // turn on duration
-				}
-				catch (InterruptedException e)
-				{
-					e.printStackTrace();
-				}
+					PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+					PowerManager.WakeLock fullWakeLock = powerManager.newWakeLock((PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "Loneworker - FULL WAKE LOCK");
+					fullWakeLock.acquire(); // turn on
 
-				waited += step;
+					do
+					{
 
-				if(false) //stop requested
+						try
+						{
+							Thread.sleep(step); // turn on duration
+						}
+						catch (InterruptedException e)
+						{
+							e.printStackTrace();
+						}
+
+						if(duration > 0)
+							waited += step;
+
+						if(wakeLockStopRequested) //stop requested
+							Miscellaneous.logEvent("i", "WakeLockStart", "Stop requested.", 4);
+					}
+					while(!wakeLockStopRequested && (duration < 0 || waited <= duration));
+
+					fullWakeLock.release();
+				}
+				catch (Exception e)
 				{
-					Miscellaneous.logEvent("i", "WakeLockStart", "Stop requested.", 4);
-					wakeLockStopRequested = false;
-					break;
 				}
 			}
-			while(waited <= duration);
+		});
 
-			fullWakeLock.release();
-		}
-		catch (Exception e)
-		{
-		}
+		lockThread.start();
 	}
 
 	public static void wakeLockStop()
