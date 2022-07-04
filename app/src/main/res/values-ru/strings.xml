@@ -833,4 +833,8 @@
   <string name="tetheringNotActive">раздача интернета не активна</string>
   <string name="tetheringState">Раздача интернета</string>
     <string name="enter_a_number">Введите число.</string>
+    <string name="regularExpressionsIfEquals">Если выбрано значение \"равно\", можно ввести регулярное выражение.</string>
+  <string name="duration">продолжительность [мс]</string>
+  <string name="keepDeviceAwake">Держите устройство в режиме сна</string>
+  <string name="wakeLockTimeout">указать время ожидания</string>
 </resources>

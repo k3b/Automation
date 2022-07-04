@@ -736,5 +736,9 @@
     <string name="tetheringNotActive">tethering is niet actief</string>
     <string name="tetheringState">Tethering-status</string>
     <string name="enter_a_number">Voer een getal in.</string>
+    <string name="regularExpressionsIfEquals">Als \'gelijk aan\' is geselecteerd, kunt u een reguliere expressie invoeren.</string>
+    <string name="duration">Duur [ms]</string>
+    <string name="keepDeviceAwake">Houd het apparaat wakker</string>
+    <string name="wakeLockTimeout">Time-out opgeven</string>
 
 </resources>

@@ -723,4 +723,8 @@
     <string name="logsExplanation">Para evitar el uso innecesario del almacenamiento, los registros no se guardan de forma predeterminada. Entonces, si tiene un problema, active primero la configuración de inicio de sesión y establezca el nivel de registro en 5. A continuación, reproduzca el problema. Solo entonces se pueden adjuntar registros.</string>
     <string name="directionStringDoesNotContain">no contiene</string>
     <string name="enter_a_number">Introduzca un número.</string>
+    <string name="regularExpressionsIfEquals">Si se selecciona \"igual\", puede introducir una expresión regular.</string>
+    <string name="duration">Duración [ms]</string>
+    <string name="keepDeviceAwake">Mantenga el dispositivo despierto</string>
+    <string name="wakeLockTimeout">Especificar el tiempo de espera</string>
 </resources>
