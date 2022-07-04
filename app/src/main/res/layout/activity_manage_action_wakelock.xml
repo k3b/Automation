@@ -50,6 +50,17 @@
         <TableRow>
 
             <TextView
+                android:text="@string/wakeLockExplanation"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_span="2"
+                android:layout_marginVertical="@dimen/default_margin" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
                 android:text="@string/wakeLockTimeout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

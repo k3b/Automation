@@ -839,4 +839,5 @@
     <string name="duration">Duration [ms]</string>
     <string name="keepDeviceAwake">Keep device awake</string>
     <string name="wakeLockTimeout">Specify timeout</string>
+    <string name="wakeLockExplanation">Activate will keep the screen on while deactivate will let it turn off. For keeping it on you can either enter a duration after which it may turn off again or you can keep it on indefinitely. In the latter case you would need to create another keep-awake action (in this or another rule) in which you select deactivate.</string>
 </resources>
