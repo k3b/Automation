@@ -1,0 +1,3 @@
+* New action: Keep phone turned on
+* New: Regular expressions enabled where comparisons apply (one has to use "equals")
+* Fixed: Changed input type for decimal numbers when adding intent data

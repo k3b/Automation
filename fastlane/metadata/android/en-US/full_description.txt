@@ -54,7 +54,7 @@ If you have a problem and think about contacting me please
 Donations are certainly a good, but not the only way to motivate me :-)
 * If you'd like to support me, you can also leave a positive review for the app on Google Play (https://play.google.com/store/apps/details?id=com.jens.automation2).
 * If you like the app, simply some warm words via email are always appreciated.
-* Furthermore I can always use help in translating the app. English, German and some Spanish are among my own skills. Italian is covered by somebody already. But everything else is more than welcome.
+* Furthermore I can always use help in translating the app. English, German and some Spanish are among my own skills. Italiano e russo sono già coperti. But everything else is more than welcome.
 * If you have a talent/experience in graphics design and have some ideas for nicer icons let me know.
 * If you have an interesting use-case or found a way to combine triggers and actions to achieve something intriguing and you think it's worth putting it on the examples page (https://server47.de/automation/examples.html), let me know.
 

@@ -57,7 +57,7 @@ Als je een probleem hebt en erover denkt om contact met me op te nemen
 Donaties zijn zeker een goede, maar niet de enige manier om mij te motiveren :-)
 * Als je me wilt steunen, kun je ook een positieve review voor de app achterlaten op Google Play ( https://play.google.com/store/apps/details?id=com.jens.automation2 ).
 * Als de app u bevalt, worden enkele warme woorden via e-mail altijd op prijs gesteld.
-* Verder kan ik altijd hulp gebruiken bij het vertalen van de app. Engels, Duits en wat Spaans behoren tot mijn eigen vaardigheden. Italiaans wordt al door iemand gedekt. Maar al het andere is meer dan welkom.
+* Verder kan ik altijd hulp gebruiken bij het vertalen van de app. Engels, Duits en wat Spaans behoren tot mijn eigen vaardigheden. Italiaans en Russisch zijn al gedekt. Maar al het andere is meer dan welkom.
 * Als je talent/ervaring hebt in grafische vormgeving en ideeën hebt voor mooiere iconen, laat het me weten.
 * Als u een interessante use-case heeft of een manier om triggers en acties te combineren om iets intrigerends te bereiken en u denkt dat het de moeite waard is om het op de voorbeelden pagina te zetten (https://server47.de/automation/examples.html), laat het me weten.
 
