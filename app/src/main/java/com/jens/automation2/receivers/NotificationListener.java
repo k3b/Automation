@@ -2,6 +2,7 @@ package com.jens.automation2.receivers;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.bluetooth.BluetoothDevice;
 import android.content.IntentFilter;
 import android.os.Build;
@@ -149,51 +150,6 @@ public class NotificationListener extends NotificationListenerService// implemen
         return returnNotification;
     }
 
-    /*@Override
-    public void startListener(AutomationService automationService)
-    {
-        if(instance == null)
-            instance = new NotificationListener();
-
-        if(notificationReceiverIntentFilter == null)
-        {
-            notificationReceiverIntentFilter = new IntentFilter();
-            notificationReceiverIntentFilter.addAction("android.service.notification.NotificationListenerService");
-        }
-
-        try
-        {
-            if(!listenerRunning)
-            {
-                Miscellaneous.logEvent("i", "NotificationListener", "Starting NotificationListener", 4);
-                listenerRunning = true;
-                AutomationService.getInstance().registerReceiver(instance, notificationReceiverIntentFilter);
-            }
-        }
-        catch(Exception ex)
-        {
-            Miscellaneous.logEvent("e", "BluetoothReceiver", "Error starting BluetoothReceiver: " + Log.getStackTraceString(ex), 3);
-        }
-    }
-
-    @Override
-    public void stopListener(AutomationService automationService)
-    {
-
-    }
-
-    @Override
-    public boolean isListenerRunning()
-    {
-        return false;
-    }
-
-    @Override
-    public Trigger.Trigger_Enum[] getMonitoredTrigger()
-    {
-        return new Trigger.Trigger_Enum[0];
-    }*/
-
     public static class SimpleNotification
     {
         boolean created;
@@ -282,5 +238,33 @@ public class NotificationListener extends NotificationListenerService// implemen
         else
             cancelNotification(sbn.getKey());
 
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public void clickNotificationButton(StatusBarNotification sbn, String buttonText)
+    {
+        boolean buttonFound = false;
+
+        for (Notification.Action a : sbn.getNotification().actions)
+        {
+            if(a.toString().equalsIgnoreCase(buttonText))
+            {
+                if(!buttonFound)
+                    buttonFound = true;
+
+                try
+                {
+                    Miscellaneous.logEvent("w", "clickNotificationButton()", "Pressing button with text \"" + a.title.toString() + "\".", 2);
+                    a.actionIntent.send();
+                }
+                catch (PendingIntent.CanceledException e)
+                {
+                    Miscellaneous.logEvent("w", "clickNotificationButton()", Log.getStackTraceString(e), 2);
+                }
+            }
+        }
+
+        if(!buttonFound)
+            Miscellaneous.logEvent("w", "clickNotificationButton()", "Button with text \n" + buttonText + "\n could not found.", 2);
     }
 }

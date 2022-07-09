@@ -145,7 +145,7 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/androidstudio
 
-
+output-metadata.json
 /app/app-release.apk
 Automation_settings.xml
 /app/googlePlayFlavor/
