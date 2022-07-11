@@ -794,9 +794,15 @@ public class Trigger
 
     boolean checkBatteryLevel()
 	{
+		/*
+			-1 means value is not known, yet.
+		 */
+		if(BatteryReceiver.getBatteryLevel() == -1)
+			return false;
+
 		if(this.getTriggerParameter())
 		{
-			if(BatteryReceiver.getBatteryLevel() <= this.getBatteryLevel())
+			if(BatteryReceiver.getBatteryLevel() < this.getBatteryLevel())
 			{
 				Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyBatteryLowerThan) + " " + String.valueOf(this.getBatteryLevel()), this.getParentRule().getName()), 3);
 				return false;
@@ -804,7 +810,7 @@ public class Trigger
 		}
 		else
 		{
-			if(this.getBatteryLevel() >= this.getBatteryLevel())
+			if(BatteryReceiver.getBatteryLevel() >= this.getBatteryLevel())
 			{
 				Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyBatteryHigherThan) + " " + String.valueOf(this.getBatteryLevel()), this.getParentRule().getName()), 3);
 				return false;

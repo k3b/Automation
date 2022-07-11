@@ -884,6 +884,7 @@ public class ActivityManageRule extends Activity
 		
 		return alertDialog;
 	}
+
 	private AlertDialog getTriggerBatteryDialog(final Context myContext, final String[] choices)
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
@@ -898,6 +899,7 @@ public class ActivityManageRule extends Activity
 					triggerBattery = (which+1);
 					newTrigger.setTriggerType(Trigger_Enum.batteryLevel);
 					newTrigger.setBatteryLevel(triggerBattery);
+					newTrigger.setTriggerParameter2(String.valueOf(triggerBattery));
 //					Log.i("test", newTrigger.toString());
 //					Log.i("test", String.valueOf(newTrigger.getBatteryLevel()));
 					ruleToEdit.getTriggerSet().add(newTrigger);
