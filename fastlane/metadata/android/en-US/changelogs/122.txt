@@ -2,3 +2,4 @@
 * New: Regular expressions enabled where comparisons apply (one has to use "equals")
 * Fixed: Changed input type for decimal numbers when adding intent data
 * Fixed: Battery level trigger not working when using direction falling-below
+* New: Wifi trigger can now use Regex for SSID

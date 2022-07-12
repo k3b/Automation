@@ -26,9 +26,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 
-import com.jens.automation2.receivers.BluetoothReceiver;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -41,7 +38,7 @@ public class ActivityManageTriggerWifi extends Activity
     RadioButton rbTriggerWifiConnected, rbTriggerWifiDisconnected;
     EditText etTriggerWifiName;
     Spinner spinnerWifiList;
-    Button btriggerWifiSave, bLoadWifiList;
+    Button bTriggerWifiSave, bLoadWifiList;
     List<String> wifiList = new ArrayList<>();
     ArrayAdapter<String> wifiSpinnerAdapter;
     private final static int requestCodeLocationPermission = 124;
@@ -56,7 +53,7 @@ public class ActivityManageTriggerWifi extends Activity
         rbTriggerWifiDisconnected = (RadioButton) findViewById(R.id.rbTriggerWifiDisconnected);
         etTriggerWifiName = (EditText) findViewById(R.id.etTriggerWifiName);
         spinnerWifiList = (Spinner) findViewById(R.id.spinnerWifiList);
-        btriggerWifiSave = (Button) findViewById(R.id.btriggerWifiSave);
+        bTriggerWifiSave = (Button) findViewById(R.id.bTriggerWifiSave);
         bLoadWifiList = (Button) findViewById(R.id.bLoadWifiList);
 
         wifiSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, wifiList);
@@ -74,7 +71,7 @@ public class ActivityManageTriggerWifi extends Activity
             etTriggerWifiName.setText(wifiName);
         }
 
-        btriggerWifiSave.setOnClickListener(new View.OnClickListener()
+        bTriggerWifiSave.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)

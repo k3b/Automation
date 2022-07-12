@@ -64,6 +64,16 @@
 
         <TableRow>
 
+            <TextView />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/mayUseRegularExpressions"/>
+
+        </TableRow>
+
+        <TableRow>
+
             <Button
                 android:id="@+id/bLoadWifiList"
                 android:layout_width="wrap_content"
@@ -81,7 +91,7 @@
     </TableLayout>
 
     <Button
-        android:id="@+id/btriggerWifiSave"
+        android:id="@+id/bTriggerWifiSave"
         android:layout_marginTop="@dimen/default_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
