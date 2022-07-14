@@ -83,10 +83,6 @@ public class Actions
 	public static AutomationService automationServerRef;
 	public static Context context;
 	private static Intent playMusicIntent;
-	private static boolean suAvailable = false;
-	private static String suVersion = null;
-	private static String suVersionInternal = null;
-	private static List<String> suResult = null;
 	public final static String smsSeparator = "&sms&";
 	public final static String dummyPackageString = "dummyPkg239asd";
 
@@ -1865,6 +1861,12 @@ public class Actions
 
 	protected static boolean executeCommandViaSu(String[] commands)
 	{
+		boolean suAvailable = false;
+		String suVersion = null;
+		String suVersionInternal = null;
+//		List<String> suResult = null;
+		int suResult;
+
 		boolean success = false;
 
 		try
@@ -1874,16 +1876,29 @@ public class Actions
 			{
 				suVersion = Shell.SU.version(false);
 				suVersionInternal = Shell.SU.version(true);
-				suResult = Shell.SU.run(commands);
 
-				if (suResult != null)
+				Miscellaneous.logEvent("i", "executeCommandViaSu()", "suVersion: " + suVersion + ", suVersionInternal: " + suVersionInternal, 5);
+
+//				suResult = Shell.SU.run(commands);
+				suResult = Shell.Pool.SU.run(commands);
+
+//				if (suResult != null)
+//					success = true;
+
+				Miscellaneous.logEvent("i", "executeCommandViaSu()", "RC=" + String.valueOf(suResult), 3);
+
+				if(suResult == 0)
 					success = true;
 			}
+			else
+				Miscellaneous.logEvent("w", "executeCommandViaSu()", "su not available.", 4);
 		}
 		catch (Exception e)
 		{
 			success = false;
 		}
+
+		Miscellaneous.logEvent("i", "executeCommandViaSu()", "Returning " + String.valueOf(success), 4);
 
 		return success;
 	}
