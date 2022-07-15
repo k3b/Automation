@@ -44,6 +44,7 @@ import com.jens.automation2.location.WifiBroadcastReceiver;
 import com.jens.automation2.receivers.ConnectivityReceiver;
 import com.jens.automation2.receivers.NotificationListener;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ClientConnectionManager;
@@ -211,9 +212,20 @@ public class Actions
 
     public static class WifiStuff
 	{
-		public static Boolean setWifi(Context context, Boolean desiredState, boolean toggleActionIfPossible)
+		public static Boolean setWifi(Context context, Boolean desiredState, String parameter2, boolean toggleActionIfPossible)
 		{
-			if(context.getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.Q)
+			boolean forceUseRoot = false;
+
+			try
+			{
+				forceUseRoot = Boolean.parseBoolean(parameter2);
+			}
+			catch(Exception e)
+			{
+
+			}
+
+			if(context.getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.Q || forceUseRoot)
 				return setWifiWithRoot(context, desiredState, toggleActionIfPossible);
 			else
 				return setWifiOldFashioned(context, desiredState, toggleActionIfPossible);
@@ -249,8 +261,15 @@ public class Actions
 		{
 			Miscellaneous.logEvent("i", "Wifi", "Changing wifi to " + String.valueOf(desiredState), 4);
 
-			if (desiredState && Settings.useWifiForPositioning)
-				WifiBroadcastReceiver.startWifiReceiver(automationServerRef.getLocationProvider());
+			try
+			{
+				if (desiredState && Settings.useWifiForPositioning)
+					WifiBroadcastReceiver.startWifiReceiver(automationServerRef.getLocationProvider());
+			}
+			catch(Exception e)
+			{
+				Miscellaneous.logEvent("w", "setWifiOldFashioned()", Log.getStackTraceString(e), 4);
+			}
 
 			WifiManager myWifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 

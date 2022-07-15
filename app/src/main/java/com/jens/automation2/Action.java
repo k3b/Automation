@@ -491,7 +491,7 @@ public class Action
 					Actions.setUsbTethering(context, getParameter1(), toggleActionIfPossible);
 					break;
 				case setWifi:
-					Actions.WifiStuff.setWifi(context, getParameter1(), toggleActionIfPossible);
+					Actions.WifiStuff.setWifi(context, getParameter1(), getParameter2(), toggleActionIfPossible);
 					break;
 				case setWifiTethering:
 					Actions.setWifiTethering(context, getParameter1(), toggleActionIfPossible);
