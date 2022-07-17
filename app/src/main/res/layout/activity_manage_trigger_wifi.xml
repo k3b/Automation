@@ -48,6 +48,19 @@
         </TableRow>
 
         <TableRow>
+            <TextView
+                android:id="@+id/tvWifiTriggerNameLocationNotice"
+                android:layout_span="2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textColor="@color/red"
+                android:text="@string/locationRequiredToDetermineWifiName"
+                android:layout_marginVertical="@dimen/default_margin"
+                android:visibility="gone" />
+
+        </TableRow>
+
+        <TableRow>
 
             <TextView
                 android:layout_height="wrap_content"
