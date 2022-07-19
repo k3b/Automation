@@ -841,4 +841,6 @@
     <string name="wakeLockTimeout">Specify timeout</string>
     <string name="wakeLockExplanation">Activate will keep the screen on while deactivate will let it turn off. For keeping it on you can either enter a duration after which it may turn off again or you can keep it on indefinitely. In the latter case you would need to create another keep-awake action (in this or another rule) in which you select deactivate.</string>
     <string name="mayUseRegularExpressions">You may also enter a regular expression here.</string>
+    <string name="simplyDismissNotification">Simply dismiss</string>
+    <string name="clickNotificationButton">Click a button</string>
 </resources>

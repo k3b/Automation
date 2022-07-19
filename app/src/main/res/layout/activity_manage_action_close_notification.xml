@@ -149,6 +149,41 @@
 
 			</TableRow>>
 
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:layout_margin="10dp"
+				android:layout_marginVertical="@dimen/default_margin"
+				android:background="#aa000000" />
+
+			<TableRow>
+
+				<RadioGroup>
+
+					<RadioButton
+						android:id="@+id/rbNotificationDismissSimple"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/simplyDismissNotification" />
+
+					<RadioButton
+						android:id="@+id/rbNotificationDismissButton"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/clickNotificationButton" />
+
+				</RadioGroup>
+
+				<EditText
+					android:layout_gravity="bottom"
+					android:id="@+id/etNotificationDismissalButtonText"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:enabled="false"
+					android:inputType="text" />
+
+			</TableRow>
+
 		</TableLayout>
 
 		<Button

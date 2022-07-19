@@ -16,7 +16,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -39,10 +41,11 @@ public class ActivityManageActionCloseNotification extends Activity
 	boolean edit = false;
 	ProgressDialog progressDialog = null;
 
-	EditText etNotificationTitle, etNotificationText;
+	EditText etNotificationTitle, etNotificationText, etNotificationDismissalButtonText;
 	Button bSelectApp, bSaveActionCloseNotification;
 	Spinner spinnerTitleDirection, spinnerTextDirection;
 	TextView tvSelectedApplication;
+	RadioButton rbNotificationDismissSimple, rbNotificationDismissButton;
 	
 	private static List<PackageInfo> pInfos = null;
 
@@ -262,6 +265,10 @@ public class ActivityManageActionCloseNotification extends Activity
 		spinnerTitleDirection = (Spinner)findViewById(R.id.spinnerTitleDirection);
 		spinnerTextDirection = (Spinner)findViewById(R.id.spinnerTextDirection);
 		tvSelectedApplication = (TextView)findViewById(R.id.etActivityOrActionPath);
+		etNotificationDismissalButtonText = (EditText)findViewById(R.id.etNotificationDismissalButtonText);
+		rbNotificationDismissSimple = (RadioButton)findViewById(R.id.rbNotificationDismissSimple);
+		rbNotificationDismissButton = (RadioButton)findViewById(R.id.rbNotificationDismissButton);
+
 
 		directions = new String[] {
 									getResources().getString(R.string.directionStringEquals),
@@ -330,6 +337,15 @@ public class ActivityManageActionCloseNotification extends Activity
 				}
 
 				finish();
+			}
+		});
+
+		rbNotificationDismissSimple.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(CompoundButton compoundButton, boolean b)
+			{
+				etNotificationDismissalButtonText.setEnabled(!b);
 			}
 		});
 
