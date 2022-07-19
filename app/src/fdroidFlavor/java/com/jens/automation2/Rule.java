@@ -393,7 +393,7 @@ public class Rule implements Comparable<Rule>
 			return true;
 		}
 		
-		Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), String.format(context.getResources().getString(R.string.ruleIsDeactivatedCantApply), this.getName()), 3);
+		Miscellaneous.logEvent("i", String.format(context.getResources().getString(R.string.ruleCheckOf), this.getName()), String.format(context.getResources().getString(R.string.ruleIsDeactivatedCantApply), this.getName()), 4);
 		return false;
 	}
 

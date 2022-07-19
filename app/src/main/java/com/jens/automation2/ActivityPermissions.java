@@ -509,6 +509,12 @@ public class ActivityPermissions extends Activity
                     case wifiConnection:
                         addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
                         addToArrayListUnique(Manifest.permission.ACCESS_WIFI_STATE, requiredPermissions);
+                        if(
+                                Miscellaneous.getTargetSDK(Miscellaneous.getAnyContext()) >= 29
+                                        &&
+                                isPermissionDeclaratedInManifest(Miscellaneous.getAnyContext(), Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+                        )
+                            addToArrayListUnique(Manifest.permission.ACCESS_BACKGROUND_LOCATION, requiredPermissions);
                         break;
                     case notification:
                         addToArrayListUnique(Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE, requiredPermissions);

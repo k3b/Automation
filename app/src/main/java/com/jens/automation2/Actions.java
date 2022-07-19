@@ -44,6 +44,7 @@ import com.jens.automation2.location.WifiBroadcastReceiver;
 import com.jens.automation2.receivers.ConnectivityReceiver;
 import com.jens.automation2.receivers.NotificationListener;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ClientConnectionManager;
@@ -83,10 +84,6 @@ public class Actions
 	public static AutomationService automationServerRef;
 	public static Context context;
 	private static Intent playMusicIntent;
-	private static boolean suAvailable = false;
-	private static String suVersion = null;
-	private static String suVersionInternal = null;
-	private static List<String> suResult = null;
 	public final static String smsSeparator = "&sms&";
 	public final static String dummyPackageString = "dummyPkg239asd";
 
@@ -215,9 +212,20 @@ public class Actions
 
     public static class WifiStuff
 	{
-		public static Boolean setWifi(Context context, Boolean desiredState, boolean toggleActionIfPossible)
+		public static Boolean setWifi(Context context, Boolean desiredState, String parameter2, boolean toggleActionIfPossible)
 		{
-			if(context.getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.Q)
+			boolean forceUseRoot = false;
+
+			try
+			{
+				forceUseRoot = Boolean.parseBoolean(parameter2);
+			}
+			catch(Exception e)
+			{
+
+			}
+
+			if(context.getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.Q || forceUseRoot)
 				return setWifiWithRoot(context, desiredState, toggleActionIfPossible);
 			else
 				return setWifiOldFashioned(context, desiredState, toggleActionIfPossible);
@@ -253,8 +261,15 @@ public class Actions
 		{
 			Miscellaneous.logEvent("i", "Wifi", "Changing wifi to " + String.valueOf(desiredState), 4);
 
-			if (desiredState && Settings.useWifiForPositioning)
-				WifiBroadcastReceiver.startWifiReceiver(automationServerRef.getLocationProvider());
+			try
+			{
+				if (desiredState && Settings.useWifiForPositioning)
+					WifiBroadcastReceiver.startWifiReceiver(automationServerRef.getLocationProvider());
+			}
+			catch(Exception e)
+			{
+				Miscellaneous.logEvent("w", "setWifiOldFashioned()", Log.getStackTraceString(e), 4);
+			}
 
 			WifiManager myWifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 
@@ -1865,6 +1880,12 @@ public class Actions
 
 	protected static boolean executeCommandViaSu(String[] commands)
 	{
+		boolean suAvailable = false;
+		String suVersion = null;
+		String suVersionInternal = null;
+//		List<String> suResult = null;
+		int suResult;
+
 		boolean success = false;
 
 		try
@@ -1874,16 +1895,29 @@ public class Actions
 			{
 				suVersion = Shell.SU.version(false);
 				suVersionInternal = Shell.SU.version(true);
-				suResult = Shell.SU.run(commands);
 
-				if (suResult != null)
+				Miscellaneous.logEvent("i", "executeCommandViaSu()", "suVersion: " + suVersion + ", suVersionInternal: " + suVersionInternal, 5);
+
+//				suResult = Shell.SU.run(commands);
+				suResult = Shell.Pool.SU.run(commands);
+
+//				if (suResult != null)
+//					success = true;
+
+				Miscellaneous.logEvent("i", "executeCommandViaSu()", "RC=" + String.valueOf(suResult), 3);
+
+				if(suResult == 0)
 					success = true;
 			}
+			else
+				Miscellaneous.logEvent("w", "executeCommandViaSu()", "su not available.", 4);
 		}
 		catch (Exception e)
 		{
 			success = false;
 		}
+
+		Miscellaneous.logEvent("i", "executeCommandViaSu()", "Returning " + String.valueOf(success), 4);
 
 		return success;
 	}

@@ -100,6 +100,7 @@
             android:id="@+id/bSendEmailToDev"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_margin"
             android:text="@string/sendEmailToDev" />
 
         <TextView

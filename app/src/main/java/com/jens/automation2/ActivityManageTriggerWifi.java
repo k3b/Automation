@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -42,6 +43,7 @@ public class ActivityManageTriggerWifi extends Activity
     List<String> wifiList = new ArrayList<>();
     ArrayAdapter<String> wifiSpinnerAdapter;
     private final static int requestCodeLocationPermission = 124;
+    TextView tvWifiTriggerNameLocationNotice;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -55,10 +57,18 @@ public class ActivityManageTriggerWifi extends Activity
         spinnerWifiList = (Spinner) findViewById(R.id.spinnerWifiList);
         bTriggerWifiSave = (Button) findViewById(R.id.bTriggerWifiSave);
         bLoadWifiList = (Button) findViewById(R.id.bLoadWifiList);
+        tvWifiTriggerNameLocationNotice = (TextView)findViewById(R.id.tvWifiTriggerNameLocationNotice);
 
         wifiSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, wifiList);
         spinnerWifiList.setAdapter(wifiSpinnerAdapter);
         spinnerWifiList.setEnabled(false);  // bug in Android; this only works when done in code, not in xml
+
+        if(
+                Miscellaneous.getTargetSDK(Miscellaneous.getAnyContext()) >= 29
+                        &&
+                !ActivityPermissions.isPermissionDeclaratedInManifest(Miscellaneous.getAnyContext(), Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+        )
+            tvWifiTriggerNameLocationNotice.setVisibility(View.VISIBLE);
 
         if (getIntent().hasExtra("edit"))
         {

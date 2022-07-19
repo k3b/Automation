@@ -1911,4 +1911,9 @@ public class Miscellaneous extends Service
 
 		return null;
 	}
+
+	public static int getTargetSDK(Context context)
+	{
+		return context.getApplicationContext().getApplicationInfo().targetSdkVersion;
+	}
 }

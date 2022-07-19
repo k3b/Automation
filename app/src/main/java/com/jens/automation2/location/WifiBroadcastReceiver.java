@@ -63,7 +63,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver
 	//		int state = -1;
 			NetworkInfo myWifi = null;
 			
-			if(intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) //gefeuert bei Trennung
+			if(intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) // fired upon disconnection
 			{
 	//			state = intent.getIntExtra(WifiManager.NETWORK_STATE_CHANGED_ACTION, -1);
 	//			Miscellaneous.logEvent("i", "WifiReceiver", "NETWORK_STATE_CHANGED_ACTION: " + String.valueOf(state));
