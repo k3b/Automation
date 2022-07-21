@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -48,6 +49,8 @@ public class ActivityManageActionCloseNotification extends Activity
 	RadioButton rbNotificationDismissSimple, rbNotificationDismissButton;
 	
 	private static List<PackageInfo> pInfos = null;
+
+	final static String dismissRegularString = "p0815DismissString";
 
 	private static String[] directions;
 
@@ -269,7 +272,6 @@ public class ActivityManageActionCloseNotification extends Activity
 		rbNotificationDismissSimple = (RadioButton)findViewById(R.id.rbNotificationDismissSimple);
 		rbNotificationDismissButton = (RadioButton)findViewById(R.id.rbNotificationDismissButton);
 
-
 		directions = new String[] {
 									getResources().getString(R.string.directionStringEquals),
 									getResources().getString(R.string.directionStringContains),
@@ -301,7 +303,7 @@ public class ActivityManageActionCloseNotification extends Activity
 			public void onClick(View v)
 			{
 				String app;
-				if(tvSelectedApplication.getText().toString().equalsIgnoreCase(getResources().getString(R.string.anyApp)))
+				if (tvSelectedApplication.getText().toString().equalsIgnoreCase(getResources().getString(R.string.anyApp)))
 					app = Trigger.anyAppString;
 				else
 					app = tvSelectedApplication.getText().toString();
@@ -312,29 +314,38 @@ public class ActivityManageActionCloseNotification extends Activity
 				String text = etNotificationText.getText().toString();
 
 				Intent responseData = new Intent();
-				if(edit)
-				{
-//					editedNotificationAction.setTriggerParameter(chkNotificationDirection.isChecked());
-					responseData.putExtra(ActivityManageRule.intentNameActionParameter2, app + Action.actionParameter2Split + titleDir + Action.actionParameter2Split + title + Action.actionParameter2Split + textDir + Action.actionParameter2Split + text);
-					ActivityManageActionCloseNotification.this.setResult(RESULT_OK, responseData);
-				}
+//				if(edit)
+//				{
+//					responseData.putExtra(ActivityManageRule.intentNameActionParameter2, app + Action.actionParameter2Split + titleDir + Action.actionParameter2Split + title + Action.actionParameter2Split + textDir + Action.actionParameter2Split + text);
+//					ActivityManageActionCloseNotification.this.setResult(RESULT_OK, responseData);
+//				}
+//				else
+//				{
+
+				String dismissMethod;
+				if (rbNotificationDismissSimple.isChecked())
+					dismissMethod = dismissRegularString;
 				else
 				{
-//					data.putExtra(intentNameNotificationDirection, chkNotificationDirection.isChecked());
+					if(StringUtils.isEmpty(etNotificationDismissalButtonText.getText().toString()))
+					{
+						Toast.makeText(ActivityManageActionCloseNotification.this, getResources().getString(R.string.enterText), Toast.LENGTH_LONG).show();
+						return;
+					}
+					else
+						dismissMethod = etNotificationDismissalButtonText.getText().toString();
+				}
+
 					responseData.putExtra(ActivityManageRule.intentNameActionParameter2,
 													app + Action.actionParameter2Split +
 													titleDir + Action.actionParameter2Split +
 													title + Action.actionParameter2Split +
 													textDir + Action.actionParameter2Split +
-													text
+													text + Action.actionParameter2Split +
+													dismissMethod
 													);
-//					data.putExtra(intentNameNotificationApp, app);
-//					data.putExtra(intentNameNotificationTitleDir, titleDir);
-//					data.putExtra(intentNameNotificationTitle, title);
-//					data.putExtra(intentNameNotificationTextDir, textDir);
-//					data.putExtra(intentNameNotificationText, text);
 					ActivityManageActionCloseNotification.this.setResult(RESULT_OK, responseData);
-				}
+//				}
 
 				finish();
 			}
@@ -370,6 +381,21 @@ public class ActivityManageActionCloseNotification extends Activity
 			text = params[4];
 		else
 			text = "";
+
+		/*
+			That's not reliable, yet. Last parameter may be empty, hence the method might
+			be incorrectly interpreted as a text notification text.
+		 */
+
+		if (params.length >= 6)
+		{
+			rbNotificationDismissButton.setChecked(true);
+			etNotificationDismissalButtonText.setText(params[5]);
+		}
+		else
+		{
+			rbNotificationDismissSimple.setChecked(true);
+		}
 
 		if(!app.equals(Trigger.anyAppString))
 			tvSelectedApplication.setText(app);
