@@ -411,12 +411,17 @@ public class Trigger
 
 	boolean checkDeviceStarts()
 	{
-		return checkServiceStarts() && !Settings.deviceStartDone;
+		if(triggerParameter && checkServiceStarts() && !Settings.deviceStartDone)
+			return true;
+		else if(!triggerParameter && !checkServiceStarts() && Settings.deviceStartDone)
+			return true;
+		else
+			return false;
+//		return checkServiceStarts() && !Settings.deviceStartDone && triggerParameter;
 	}
 
 	boolean checkServiceStarts()
 	{
-boolean result = !Settings.serviceStartDone == getTriggerParameter();
 		return !Settings.serviceStartDone == getTriggerParameter();
 //		return !Settings.serviceStartDone;
 	}
