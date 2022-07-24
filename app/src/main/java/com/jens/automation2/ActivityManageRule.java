@@ -131,6 +131,8 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeTriggerTetheringEdit = 818;
 	final static int requestCodeActionWakeLockAdd = 819;
 	final static int requestCodeActionWakeLockEdit = 820;
+	final static int requestCodeTriggerSubSystemStateAdd = 821;
+	final static int requestCodeTriggerSubSystemStateEdit = 822;
 
 	public static ActivityManageRule getInstance()
 	{
@@ -320,6 +322,12 @@ public class ActivityManageRule extends Activity
 						Intent tetheringEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerTethering.class);
 						tetheringEditor.putExtra(intentNameTriggerParameter1, selectedTrigger.getTriggerParameter());
 						startActivityForResult(tetheringEditor, requestCodeTriggerTetheringEdit);
+						break;
+					case subSystemState:
+						Intent subSystemStateEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerSubSystemState.class);
+						subSystemStateEditor.putExtra(intentNameTriggerParameter1, selectedTrigger.getTriggerParameter());
+						subSystemStateEditor.putExtra(intentNameTriggerParameter2, selectedTrigger.getTriggerParameter2());
+						startActivityForResult(subSystemStateEditor, requestCodeTriggerSubSystemStateEdit);
 						break;
 					default:
 						break;
@@ -585,6 +593,8 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.alarm));
 			else if(types[i].toString().equals(Trigger_Enum.tethering.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.router));
+			else if(types[i].toString().equals(Trigger_Enum.subSystemState.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.subsystemstate));
 			else
 				items.add(new Item(typesLong[i].toString(), R.drawable.placeholder));
 		}
@@ -757,19 +767,22 @@ public class ActivityManageRule extends Activity
 						Miscellaneous.messageBox(getResources().getString(R.string.info), getResources().getString(R.string.lockedCommentScreenMustBeOff), ActivityManageRule.this).show();
 						return;
 					}
-					else if(triggerType == Trigger_Enum.deviceStarts)
+					/*else if(triggerType == Trigger_Enum.deviceStarts)
 					{
 						newTrigger.setTriggerType(Trigger_Enum.deviceStarts);
 						ruleToEdit.getTriggerSet().add(newTrigger);
 						refreshTriggerList();
 						return;
-					}
-					else if(triggerType == Trigger_Enum.serviceStarts)
+					}*/
+					else if(triggerType == Trigger_Enum.deviceStarts || triggerType == Trigger_Enum.serviceStarts)
 					{
-						newTrigger.setTriggerType(Trigger_Enum.serviceStarts);
-						ruleToEdit.getTriggerSet().add(newTrigger);
-						refreshTriggerList();
-						return;
+//						newTrigger.setTriggerType(Trigger_Enum.serviceStarts);
+//						ruleToEdit.getTriggerSet().add(newTrigger);
+
+						booleanChoices = new String[]{getResources().getString(R.string.yes), getResources().getString(R.string.no)};
+
+//						refreshTriggerList();
+//						return;
 					}
 					else if(triggerType == Trigger_Enum.headsetPlugged)
 						booleanChoices = new String[]{getResources().getString(R.string.connected), getResources().getString(R.string.disconnected)};
@@ -791,6 +804,13 @@ public class ActivityManageRule extends Activity
 						newTrigger.setTriggerType(Trigger_Enum.tethering);
 						Intent tetheringTriggerEditor = new Intent(myContext, ActivityManageTriggerTethering.class);
 						startActivityForResult(tetheringTriggerEditor, requestCodeTriggerTetheringAdd);
+						return;
+					}
+					else if(triggerType == Trigger_Enum.subSystemState)
+					{
+						newTrigger.setTriggerType(Trigger_Enum.subSystemState);
+						Intent subSystemStateTriggerEditor = new Intent(myContext, ActivityManageTriggerSubSystemState.class);
+						startActivityForResult(subSystemStateTriggerEditor, requestCodeTriggerSubSystemStateAdd);
 						return;
 					}
 					else
@@ -1853,6 +1873,17 @@ public class ActivityManageRule extends Activity
 				this.refreshTriggerList();
 			}
 		}
+		else if(requestCode == requestCodeTriggerSubSystemStateAdd)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				newTrigger.setTriggerParameter(data.getBooleanExtra(intentNameTriggerParameter1, true));
+				newTrigger.setTriggerParameter2(data.getStringExtra(intentNameTriggerParameter2));
+				newTrigger.setParentRule(ruleToEdit);
+				ruleToEdit.getTriggerSet().add(newTrigger);
+				this.refreshTriggerList();
+			}
+		}
 		else if(requestCode == requestCodeTriggerTetheringEdit)
 		{
 			if(resultCode == RESULT_OK)
@@ -1860,6 +1891,19 @@ public class ActivityManageRule extends Activity
 				Trigger editedTrigger = new Trigger();
 				editedTrigger.setTriggerType(Trigger_Enum.tethering);
 				editedTrigger.setTriggerParameter(data.getBooleanExtra(intentNameTriggerParameter1, true));
+				editedTrigger.setParentRule(ruleToEdit);
+				ruleToEdit.getTriggerSet().set(editIndex, editedTrigger);
+				this.refreshTriggerList();
+			}
+		}
+		else if(requestCode == requestCodeTriggerSubSystemStateEdit)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				Trigger editedTrigger = new Trigger();
+				editedTrigger.setTriggerType(Trigger_Enum.subSystemState);
+				editedTrigger.setTriggerParameter(data.getBooleanExtra(intentNameTriggerParameter1, true));
+				editedTrigger.setTriggerParameter2(data.getStringExtra(intentNameTriggerParameter2));
 				editedTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().set(editIndex, editedTrigger);
 				this.refreshTriggerList();

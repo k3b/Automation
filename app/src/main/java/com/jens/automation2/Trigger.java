@@ -1,7 +1,6 @@
 package com.jens.automation2;
 
 import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.os.Build;
 import android.service.notification.StatusBarNotification;
@@ -61,6 +60,7 @@ public class Trigger
 		serviceStarts,
 		broadcastReceived,
 		tethering,
+		subSystemState,
 		phoneCall; //phoneCall always needs to be at the very end because of Google's shitty so called privacy
 
 		public String getFullName(Context context)
@@ -117,11 +117,15 @@ public class Trigger
 					return context.getResources().getString(R.string.broadcastReceivedTitle);
 				case tethering:
 					return context.getResources().getString(R.string.tetheringState);
+				case subSystemState:
+					return context.getResources().getString(R.string.subSystemState);
 				default:
 					return "Unknown";
 			}
 		}
 	};
+
+	public static enum subSystemStates { wifi, bluetooth };
 
 	Rule parentRule = null;
 	Calendar lastTimeNotApplied = null;
@@ -234,6 +238,10 @@ public class Trigger
 					break;
 				case tethering:
 					if(!checkTetheringActive())
+						result = false;
+					break;
+				case subSystemState:
+					if(!checkSubSystemState())
 						result = false;
 					break;
 				default:
@@ -408,7 +416,9 @@ public class Trigger
 
 	boolean checkServiceStarts()
 	{
-		return !Settings.serviceStartDone;
+boolean result = !Settings.serviceStartDone == getTriggerParameter();
+		return !Settings.serviceStartDone == getTriggerParameter();
+//		return !Settings.serviceStartDone;
 	}
 
 	boolean checkProfileActive()
@@ -534,6 +544,31 @@ public class Trigger
 		}
 
 		return true;
+	}
+
+	boolean checkSubSystemState()
+	{
+		try
+		{
+			subSystemStates state = subSystemStates.valueOf(triggerParameter2);
+
+			switch (state)
+			{
+				case wifi:
+					return WifiBroadcastReceiver.isWifiEnabled(Miscellaneous.getAnyContext()) == triggerParameter;
+				case bluetooth:
+					return BluetoothReceiver.isBluetoothEnabled() == triggerParameter;
+				default:
+					Miscellaneous.logEvent("w", "checkSubSystemState()", "Invalid subSystemState: " + state.name(), 3);
+					return false;
+			}
+		}
+		catch(Exception e)
+		{
+			Miscellaneous.logEvent("e", "checkSubSystemState()", Log.getStackTraceString(e), 1);
+		}
+
+		return false;
 	}
 
     boolean checkBluetooth()
@@ -812,7 +847,10 @@ public class Trigger
 		}
 		else
 		{
-			if(BatteryReceiver.getBatteryLevel() >= this.getBatteryLevel())
+			if(BatteryReceiver.getBatteryLevel() < 100 && BatteryReceiver.getBatteryLevel() >= this.getBatteryLevel()
+						||
+				BatteryReceiver.getBatteryLevel() > this.getBatteryLevel()
+			)
 			{
 				Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyBatteryHigherThan) + " " + String.valueOf(this.getBatteryLevel()), this.getParentRule().getName()), 3);
 				return false;
@@ -1642,11 +1680,11 @@ public class Trigger
 				break;
 			case deviceStarts:
 				// This type doesn't have an activate/deactivate equivalent
-				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.deviceHasJustStarted));
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.deviceIsStarting) + ": " + String.valueOf(triggerParameter));
 				break;
 			case serviceStarts:
 				// This type doesn't have an activate/deactivate equivalent
-				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.serviceHasJustStarted));
+				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.serviceIsStarting) + ": " + String.valueOf(triggerParameter));
 				break;
 			case broadcastReceived:
 				if(triggerParameter)
@@ -1661,6 +1699,25 @@ public class Trigger
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.tetheringActive));
 				else
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.tetheringNotActive));
+				break;
+			case subSystemState:
+				Trigger.subSystemStates desiredState = subSystemStates.valueOf(triggerParameter2);
+				switch(desiredState)
+				{
+					case wifi:
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.wifi));
+						break;
+					case bluetooth:
+						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetooth));
+						break;
+				}
+
+				returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.is) + " ");
+
+				if(triggerParameter)
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.activated));
+				else
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.deactivated));
 				break;
 			default:
 				returnString.append("error");

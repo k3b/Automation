@@ -706,8 +706,8 @@
     <string name="startActivityInsertManually">Diese Einschränkung betrifft nur die Auswahl einer App, nicht den eigentlichen Start. So können Sie den Namen einer Anwendung immer noch manuell eingeben, falls Sie ihn kennen.</string>
     <string name="serviceStarts">Dienst startet</string>
     <string name="deviceStarts">Gerät startet</string>
-    <string name="deviceHasJustStarted">Gerät ist gerade gestartet</string>
-    <string name="serviceHasJustStarted">Dienst ist gerade gestartet</string>
+    <string name="deviceIsStarting">Gerät startet gerade</string>
+    <string name="serviceIsStarting">Dienst startet gerade</string>
     <string name="broadcastReceived">Broadcast empfangen</string>
     <string name="broadcastNotReceived">Broadcast nicht empfangen</string>
     <string name="broadcastReceivedTitle">Broadcast empfangen</string>

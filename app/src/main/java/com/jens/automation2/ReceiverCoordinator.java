@@ -18,6 +18,7 @@ import com.jens.automation2.receivers.NoiseListener;
 import com.jens.automation2.receivers.PhoneStatusListener;
 import com.jens.automation2.receivers.ProcessListener;
 import com.jens.automation2.receivers.ScreenStateReceiver;
+import com.jens.automation2.receivers.SubSystemStateReceiver;
 import com.jens.automation2.receivers.TetheringReceiver;
 import com.jens.automation2.receivers.TimeZoneListener;
 
@@ -182,6 +183,9 @@ public class ReceiverCoordinator
         if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.tethering))
             TetheringReceiver.getInstance().startListener(AutomationService.getInstance());
 
+        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.subSystemState))
+            SubSystemStateReceiver.getInstance().startListener(AutomationService.getInstance());
+
         try
         {
             Class testClass = Class.forName(ActivityManageRule.activityDetectionClassPath);
@@ -223,6 +227,7 @@ public class ReceiverCoordinator
             MediaPlayerListener.getInstance().stopListener(AutomationService.getInstance());
             DeviceOrientationListener.getInstance().stopListener(AutomationService.getInstance());
             TetheringReceiver.getInstance().stopListener(AutomationService.getInstance());
+            SubSystemStateReceiver.getInstance().stopListener(AutomationService.getInstance());
 
             try
             {
@@ -437,6 +442,24 @@ public class ReceiverCoordinator
             {
                 Miscellaneous.logEvent("i", "TetheringReceiver", "Shutting down TetheringReceiver because not used in any rule.", 4);
                 TetheringReceiver.getInstance().stopListener(AutomationService.getInstance());
+            }
+        }
+
+        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.subSystemState))
+        {
+            if(!SubSystemStateReceiver.getInstance().isListenerRunning())
+            {
+                Miscellaneous.logEvent("i", "SubSystemStateReceiver", "Starting SubSystemStateReceiver because used in a new/changed rule.", 4);
+//                if(DevicePositionListener.getInstance().haveAllPermission())
+                TetheringReceiver.getInstance().startListener(AutomationService.getInstance());
+            }
+        }
+        else
+        {
+            if(SubSystemStateReceiver.getInstance().isListenerRunning())
+            {
+                Miscellaneous.logEvent("i", "SubSystemStateReceiver", "Shutting down SubSystemStateReceiver because not used in any rule.", 4);
+                SubSystemStateReceiver.getInstance().stopListener(AutomationService.getInstance());
             }
         }
 

@@ -300,4 +300,16 @@ public class BluetoothReceiver extends BroadcastReceiver implements AutomationLi
 	{
 		return new Trigger_Enum[] { Trigger_Enum.bluetoothConnection };
 	}
+
+	/**
+	 * Check for Bluetooth.
+	 *
+	 * @return true if Bluetooth is available.
+	 */
+	public static boolean isBluetoothEnabled()
+	{
+		final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+		return bluetoothAdapter != null && bluetoothAdapter.isEnabled() && bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON;
+	}
 }

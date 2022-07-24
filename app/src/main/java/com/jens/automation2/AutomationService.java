@@ -473,6 +473,7 @@ public class AutomationService extends Service implements OnInitListener
 		PackageReplacedReceiver.setHasServiceBeenRunning(false, this);
 
 		centralInstance = null;
+		Settings.serviceStartDone = false;
 	}
 
 	protected static Builder createDefaultNotificationBuilderOld()

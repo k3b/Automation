@@ -705,8 +705,8 @@
     <string name="startActivityInsertManually">Esta limitación se refiere solo a la selección de una aplicación, no al inicio real. Por lo tanto, aún puede ingresar el nombre de una aplicación manualmente si lo conoce.</string>
     <string name="deviceStarts">Dispositivo esta enciendo</string>
     <string name="serviceStarts">Servicio esta enciendo</string>
-    <string name="deviceHasJustStarted">el dispositivo justamente ha encendido</string>
-    <string name="serviceHasJustStarted">el servicio justamente ha encendido</string>
+    <string name="deviceIsStarting">el dispositivo justamente esta encendido</string>
+    <string name="serviceIsStarting">el servicio justamente esta encendido</string>
     <string name="emailPretext">Si tiene un problema, sugerencia o pregunta, escriba algo en el correo electrónico. No solo envíeme los archivos con el cuerpo de correo predeterminado. Ignoraré todo eso a menos que ya estemos en una conversación.</string>
     <string name="lockedCommentScreenMustBeOff">Cualquier estado de bloqueo solo se detectará si la pantalla está apagada.</string>
     <string name="lockedWithSecurity">bloqueado (con PIN, etc.)</string>

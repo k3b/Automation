@@ -706,8 +706,8 @@
     <string name="startActivityInsertManually">Questa limitazione riguarda solo la selezione di un\'app, non l\'avvio effettivo. Quindi puoi comunque inserire manualmente il nome di un\'applicazione se lo conosci.</string>
     <string name="deviceStarts">Device starts</string>
     <string name="serviceStarts">Avvio del servizio</string>
-    <string name="deviceHasJustStarted">il dispositivo è appena stato avviato</string>
-    <string name="serviceHasJustStarted">il servizio è appena stato avviato</string>
+    <string name="deviceIsStarting">Il dispositivo si sta avviando</string>
+    <string name="serviceIsStarting">il servizio è in fase di avvio</string>
     <string name="broadcastReceived">broadcast ricevuto</string>
     <string name="broadcastNotReceived">broadcast non ricevuto</string>
     <string name="broadcastReceivedTitle">Broadcast ricevuto</string>
