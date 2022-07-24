@@ -314,13 +314,6 @@ public class ActivityManageActionCloseNotification extends Activity
 				String text = etNotificationText.getText().toString();
 
 				Intent responseData = new Intent();
-//				if(edit)
-//				{
-//					responseData.putExtra(ActivityManageRule.intentNameActionParameter2, app + Action.actionParameter2Split + titleDir + Action.actionParameter2Split + title + Action.actionParameter2Split + textDir + Action.actionParameter2Split + text);
-//					ActivityManageActionCloseNotification.this.setResult(RESULT_OK, responseData);
-//				}
-//				else
-//				{
 
 				String dismissMethod;
 				if (rbNotificationDismissSimple.isChecked())
@@ -336,17 +329,16 @@ public class ActivityManageActionCloseNotification extends Activity
 						dismissMethod = etNotificationDismissalButtonText.getText().toString();
 				}
 
-					responseData.putExtra(ActivityManageRule.intentNameActionParameter2,
-													app + Action.actionParameter2Split +
-													titleDir + Action.actionParameter2Split +
-													title + Action.actionParameter2Split +
-													textDir + Action.actionParameter2Split +
-													text + Action.actionParameter2Split +
-													dismissMethod
-													);
-					ActivityManageActionCloseNotification.this.setResult(RESULT_OK, responseData);
-//				}
+				responseData.putExtra(ActivityManageRule.intentNameActionParameter2,
+												app + Action.actionParameter2Split +
+												titleDir + Action.actionParameter2Split +
+												title + Action.actionParameter2Split +
+												textDir + Action.actionParameter2Split +
+												text + Action.actionParameter2Split +
+												dismissMethod
+												);
 
+				ActivityManageActionCloseNotification.this.setResult(RESULT_OK, responseData);
 				finish();
 			}
 		});
@@ -387,14 +379,17 @@ public class ActivityManageActionCloseNotification extends Activity
 			be incorrectly interpreted as a text notification text.
 		 */
 
-		if (params.length >= 6)
+		if (params.length >= 6 && !params[5].equals(dismissRegularString))
 		{
 			rbNotificationDismissButton.setChecked(true);
 			etNotificationDismissalButtonText.setText(params[5]);
+			etNotificationDismissalButtonText.setEnabled(true);
 		}
 		else
 		{
 			rbNotificationDismissSimple.setChecked(true);
+			etNotificationDismissalButtonText.setText("");
+			etNotificationDismissalButtonText.setEnabled(false);
 		}
 
 		if(!app.equals(Trigger.anyAppString))

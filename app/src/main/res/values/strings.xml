@@ -618,7 +618,7 @@
     <string name="directionStringStartsWith">starts with</string>
     <string name="directionStringEndsWith">ends with</string>
     <string name="directionStringNotEquals">not equals</string>
-    <string name="anyApp">Any app</string>
+    <string name="anyApp">any app</string>
     <string name="notificationTriggerExplanation">This trigger will respond to other applications opening notifications in the notification area (or such being closed). You can specify another application from which the notification has to come from. If you don\'t the notifications from any other application will count. You can also specify strings that must be or must not be in their title or notification body. The comparison is done case-INsensitive.</string>
     <string name="postsNotification">%1$s posts notification</string>
     <string name="removedNotification">notification from %1$s removed</string>
@@ -844,4 +844,5 @@
     <string name="locationRequiredToDetermineWifiName">To get the wifi SSID, the app requires location permissions. Because the Google version cannot get that, you can only use this trigger if you do not specify an SSID. So it can only be used to detect if wifi is connected or not.</string>
     <string name="simplyDismissNotification">Simply dismiss</string>
     <string name="clickNotificationButton">Click a button</string>
+    <string name="withButton">with button %1$s</string>
 </resources>

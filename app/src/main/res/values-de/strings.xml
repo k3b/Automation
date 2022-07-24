@@ -519,7 +519,7 @@
     <string name="notification">Benachrichtigung</string>
     <string name="title">Titel</string>
     <string name="text">Text</string>
-    <string name="anyApp">Irgendeine Anwendung</string>
+    <string name="anyApp">irgendeine Anwendung</string>
     <string name="postsNotification">%1$s zeigt eine Benachrichtung an</string>
     <string name="removedNotification">Benachrichtigung von %1$s wurde entfernt</string>
     <string name="notificationAppears">Benachrichtigung wird angezeigt</string>

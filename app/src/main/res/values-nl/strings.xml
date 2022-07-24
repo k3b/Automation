@@ -516,7 +516,7 @@
     <string name="directionStringStartsWith">begint met</string>
     <string name="directionStringEndsWith">eindigt met</string>
     <string name="directionStringNotEquals">is niet gelijk aan</string>
-    <string name="anyApp">Elke app</string>
+    <string name="anyApp">elke app</string>
     <string name="notificationTriggerExplanation">Deze trigger zal reageren op andere applicaties die meldingen openen in het meldingsgebied (of die worden gesloten). Je kunt een andere applicatie specificeren waar de melding vandaan moet komen. Als je dat niet doet, tellen de meldingen van een andere toepassing mee. U kunt ook tekenreeksen opgeven die wel of niet in de titel of de body van de melding moeten voorkomen. De vergelijking gebeurt hoofdletter-IN-sensitief.</string>
     <string name="postsNotification">%1$s berichten notificatie</string>
     <string name="removedNotification">kennisgeving van %1$s verwijderd</string>

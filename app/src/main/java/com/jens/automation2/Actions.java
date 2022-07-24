@@ -125,11 +125,14 @@ public class Actions
 				String myTitleDir = params[1];
 				String requiredTitle = params[2];
 				String myTextDir = params[3];
-				String requiredText;
-				if (params.length >= 5)
+				String requiredText = "";
+				String method = ActivityManageActionCloseNotification.dismissRegularString;
+
+				if(params.length >= 5)
 					requiredText = params[4];
-				else
-					requiredText = "";
+
+				if(params.length >= 6 && !params[5].equals(ActivityManageActionCloseNotification.dismissRegularString))
+					method = params[5];
 
 				for (StatusBarNotification sbn : NotificationListener.getInstance().getActiveNotifications())
 				{
@@ -183,7 +186,12 @@ public class Actions
 
 					Miscellaneous.logEvent("i", "NotificationCloseCheck", "All criteria matches. Closing notification: " + sbn.getNotification().toString(), 3);
 					if(NotificationListener.getInstance() != null)
-						NotificationListener.getInstance().dismissNotification(sbn);
+					{
+						if(method == ActivityManageActionCloseNotification.dismissRegularString)
+							NotificationListener.getInstance().dismissNotification(sbn);
+						else
+							NotificationListener.getInstance().clickNotificationButton(sbn, method);
+					}
 					else
 						Miscellaneous.logEvent("i", "NotificationCloseCheck", "NotificationListener instance is null. Can\'t close notification.", 3);
 				}

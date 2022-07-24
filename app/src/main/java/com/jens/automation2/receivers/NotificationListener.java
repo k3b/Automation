@@ -245,21 +245,24 @@ public class NotificationListener extends NotificationListenerService// implemen
     {
         boolean buttonFound = false;
 
-        for (Notification.Action a : sbn.getNotification().actions)
+        if(sbn.getNotification().actions != null)
         {
-            if(a.toString().equalsIgnoreCase(buttonText))
+            for (Notification.Action a : sbn.getNotification().actions)
             {
-                if(!buttonFound)
-                    buttonFound = true;
+                if((Miscellaneous.isRegularExpression(buttonText) && a.title.toString().matches(buttonText)) || a.title.toString().equalsIgnoreCase(buttonText))
+                {
+                    if (!buttonFound)
+                        buttonFound = true;
 
-                try
-                {
-                    Miscellaneous.logEvent("w", "clickNotificationButton()", "Pressing button with text \"" + a.title.toString() + "\".", 2);
-                    a.actionIntent.send();
-                }
-                catch (PendingIntent.CanceledException e)
-                {
-                    Miscellaneous.logEvent("w", "clickNotificationButton()", Log.getStackTraceString(e), 2);
+                    try
+                    {
+                        Miscellaneous.logEvent("w", "clickNotificationButton()", "Pressing button with text \"" + a.title.toString() + "\".", 2);
+                        a.actionIntent.send();
+                    }
+                    catch (PendingIntent.CanceledException e)
+                    {
+                        Miscellaneous.logEvent("w", "clickNotificationButton()", Log.getStackTraceString(e), 2);
+                    }
                 }
             }
         }

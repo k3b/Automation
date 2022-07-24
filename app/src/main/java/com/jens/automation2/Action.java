@@ -336,6 +336,14 @@ public class Action
 
 				if (parts.length > 4 && !StringUtils.isBlank(parts[4]))
 					returnString.append(", " + Miscellaneous.getAnyContext().getResources().getString(R.string.ifString) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.text) + " " + Trigger.getMatchString(parts[3]) + " " + parts[4]);
+
+				if(parts.length >= 6)
+				{
+					if(!parts[5].equals(ActivityManageActionCloseNotification.dismissRegularString))
+					{
+						returnString.append(" " + String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.withButton), parts[5]));
+					}
+				}
 			}
 			else if(this.getAction().equals(Action_Enum.setWifi))
 			{

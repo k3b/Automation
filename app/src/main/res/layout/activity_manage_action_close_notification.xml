@@ -119,6 +119,22 @@
 				android:layout_margin="10dp"
 				android:layout_marginVertical="@dimen/default_margin"
 				android:background="#aa000000" />
+
+			<TextView
+				android:gravity="center"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textStyle="bold"
+				android:text="@string/comparisonCaseInsensitive"
+				android:layout_marginBottom="@dimen/default_margin"/>
+
+			<TextView
+				android:gravity="center"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textStyle="bold"
+				android:text="@string/regularExpressionsIfEquals"
+				android:layout_marginBottom="@dimen/default_margin"/>
 	    
 			<TableRow
 				android:layout_marginBottom="@dimen/activity_vertical_margin">
@@ -177,10 +193,38 @@
 				<EditText
 					android:layout_gravity="bottom"
 					android:id="@+id/etNotificationDismissalButtonText"
-					android:layout_width="wrap_content"
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:enabled="false"
 					android:inputType="text" />
+
+			</TableRow>
+
+			<TableRow>
+
+				<TextView />
+
+				<TextView
+					android:gravity="center"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textStyle="bold"
+					android:text="@string/comparisonCaseInsensitive"
+					android:layout_marginBottom="@dimen/default_margin"/>
+
+			</TableRow>
+
+			<TableRow>
+
+				<TextView />
+
+				<TextView
+					android:gravity="center"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textStyle="bold"
+					android:text="@string/mayUseRegularExpressions"
+					android:layout_marginBottom="@dimen/default_margin"/>
 
 			</TableRow>
 
