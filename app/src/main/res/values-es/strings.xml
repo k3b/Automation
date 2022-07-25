@@ -727,4 +727,27 @@
     <string name="duration">Duración [ms]</string>
     <string name="keepDeviceAwake">Mantenga el dispositivo despierto</string>
     <string name="wakeLockTimeout">Especificar el tiempo de espera</string>
+    <string name="runAsRoot">Ejecutar con root</string>
+    <string name="path">Ruta de acceso</string>
+    <string name="runExecutable">Ejecutar script o ejecutable</string>
+    <string name="parameters">Parámetros</string>
+    <string name="chooseExecutable">Elegir ejecutable</string>
+    <string name="selectValidExecutable">Elija valido archivo ejecutable.</string>
+    <string name="fileNotExecutable">Este archivo no es ejecutable.</string>
+    <string name="usingRoot">con root</string>
+    <string name="tetheringActive">tethering esta activo</string>
+    <string name="tetheringNotActive">tethering no esta activo</string>
+    <string name="tetheringState">Estado de tethering</string>
+    <string name="wifiExplanation2">Mientras modo vuelo esta activo, solo aplicaciones que tienen el permiso root pueden encender/desactivar wifi.</string>
+    <string name="wifiExplanation1">Las aplicaciones dirigidas a Android Q o superior ya no pueden activar o desactivar el wifi. Por favor, culpe a Google por esta restricción, no a mí. Puede omitir esta restricción rooteando su dispositivo y activando la casilla de verificación a continuación. Alternativamente, descargue esta aplicación de F-Droid o mi sitio web, ya que no estoy obligado a apuntar al último nivel de API en esas versiones.</string>
+    <string name="runExecutableExplanation">Puede seleccionar un script o un archivo ejecutable aquí que se ejecutará como una acción. Pero hay algunos requisitos previos con los que tienes que lidiar por tu cuenta. Google ha hecho que sea muy difícil ejecutar cualquier otra cosa que no sean aplicaciones normales de Android. 1. El archivo debe estar marcado como ejecutable en el sistema de archivos. En un sistema Android normal (sin root) esta es en realidad la parte difícil. 2. Eso también significa que la automatización debe poder ejecutar el archivo, no solo el propietario o el grupo. 3. Si se trata de un script, se especificará un shell válido en el encabezado del script.</string>
+    <string name="runExecutableExplanation">Puede seleccionar un script o un archivo ejecutable aquí que se ejecutará como una acción. Pero hay algunos requisitos previos con los que tienes que lidiar por tu cuenta. Google ha hecho que sea muy difícil ejecutar cualquier otra cosa que no sean aplicaciones normales de Android. 1. El archivo debe estar marcado como ejecutable en el sistema de archivos. En un sistema Android normal (sin root) esta es en realidad la parte difícil. 2. Eso también significa que la automatización debe poder ejecutar el archivo, no solo el propietario o el grupo. 3. Si se trata de un script, se especificará un shell válido en el encabezado del script.</string>
+    <string name="wakeLockExplanation">Activar mantendrá la pantalla encendida mientras desactiva la dejará apagarla. Para mantenerlo encendido, puede ingresar una duración después de la cual puede apagarse nuevamente o puede mantenerlo encendido indefinidamente. En este último caso, deberá crear otra acción de mantenerse despierto (en esta u otra regla) en la que seleccione desactivar.</string>
+    <string name="mayUseRegularExpressions">Aqui tambien puede insertar expressiones regulares.</string>
+    <string name="locationRequiredToDetermineWifiName">Para obtener el SSID wifi, la aplicación requiere permisos de ubicación. Debido a que la versión de Google no puede obtener eso, solo puede usar este desencadenador si no especifica un SSID. Por lo tanto, solo se puede usar para detectar si wifi está conectado o no.</string>
+    <string name="withButton">con botón %1$s</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="subSystemState">Estado del subsystema</string>
+    <string name="clickNotificationButton">Cliquar un botón</string>
+    <string name="simplyDismissNotification">Simplemente desestimar</string>
 </resources>

@@ -742,4 +742,12 @@
     <string name="duration">Durata [ms]</string>
     <string name="keepDeviceAwake">Mantieni il dispositivo attivo</string>
     <string name="wakeLockTimeout">Specificare il timeout</string>
+    <string name="wakeLockExplanation">Attiva manterrà lo schermo acceso mentre disattivato lo lascerà spegnere. Per tenerlo acceso puoi inserire una durata dopo la quale potrebbe spegnersi di nuovo o puoi tenerlo acceso a tempo indeterminato. In quest\'ultimo caso è necessario creare un\'altra azione keep-awake (in questa o in un\'altra regola) in cui selezionare disattiva.</string>
+    <string name="mayUseRegularExpressions">Puoi anche inserire un\'espressione regolare qui.</string>
+    <string name="locationRequiredToDetermineWifiName">Per ottenere l\'SSID wifi, l\'app richiede autorizzazioni di posizione. Poiché la versione di Google non è in grado di ottenerlo, è possibile utilizzare questo trigger solo se non si specifica un SSID. Quindi può essere utilizzato solo per rilevare se il wifi è connesso o meno.</string>
+    <string name="simplyDismissNotification">Semplicemente licenziare</string>
+    <string name="clickNotificationButton">Fai clic su un pulsante</string>
+    <string name="withButton">con pulsante %1$s</string>
+    <string name="subSystemState">Stato del sottosistema</string>
+    <string name="bluetooth">Bluetooth</string>
 </resources>

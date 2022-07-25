@@ -740,5 +740,13 @@
     <string name="duration">Duur [ms]</string>
     <string name="keepDeviceAwake">Houd het apparaat wakker</string>
     <string name="wakeLockTimeout">Time-out opgeven</string>
+    <string name="wakeLockExplanation">Activeren houdt het scherm aan terwijl deactiveren het uitschakelt. Om het aan te houden, kunt u een duur invoeren waarna het weer kan worden uitgeschakeld of u kunt het voor onbepaalde tijd aanhouden. In het laatste geval zou je nog een keep-awake actie moeten maken (in deze of een andere regel) waarin je deactiveren selecteert.</string>
+    <string name="mayUseRegularExpressions">U kunt hier ook een reguliere expressie invoeren.</string>
+    <string name="locationRequiredToDetermineWifiName">Om de wifi-SSID te krijgen, heeft de app locatiemachtigingen nodig. Omdat de Google-versie dat niet kan krijgen, kun je deze trigger alleen gebruiken als je geen SSID opgeeft. Het kan dus alleen worden gebruikt om te detecteren of wifi is verbonden of niet.</string>
+    <string name="simplyDismissNotification">Gewoon negeren</string>
+    <string name="clickNotificationButton">Klik op een knop</string>
+    <string name="withButton">met knop %1$s</string>
+    <string name="subSystemState">Status van het subsysteem</string>
+    <string name="bluetooth">Bluetooth</string>
 
 </resources>
