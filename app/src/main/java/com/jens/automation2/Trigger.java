@@ -417,13 +417,11 @@ public class Trigger
 			return true;
 		else
 			return false;
-//		return checkServiceStarts() && !Settings.deviceStartDone && triggerParameter;
 	}
 
 	boolean checkServiceStarts()
 	{
 		return !Settings.serviceStartDone == getTriggerParameter();
-//		return !Settings.serviceStartDone;
 	}
 
 	boolean checkProfileActive()
