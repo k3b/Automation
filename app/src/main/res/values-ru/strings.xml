@@ -837,4 +837,13 @@
   <string name="duration">продолжительность [мс]</string>
   <string name="keepDeviceAwake">Держите устройство в режиме сна</string>
   <string name="wakeLockTimeout">указать время ожидания</string>
+    <string name="wakeLockExplanation">Activate будет держать экран включенным, в то время как деактивация позволит ему выключиться. Для поддержания его включенным вы можете либо ввести продолжительность, после которой он может снова отключиться, либо вы можете держать его включенным на неопределенный срок. В последнем случае вам нужно будет создать еще одно действие keep-awake (в том или ином правиле), в котором вы выберете деактивировать.</string>
+  <string name="mayUseRegularExpressions">Здесь также можно ввести регулярное выражение.</string>
+  <string name="locationRequiredToDetermineWifiName">Чтобы получить SSID Wi-Fi, приложению требуются разрешения на местоположение. Поскольку версия Google не может получить его, вы можете использовать этот триггер только в том случае, если вы не указали SSID. Таким образом, его можно использовать только для определения того, подключен ли Wi-Fi или нет.</string>
+  <string name="locationRequiredToDetermineWifiName">Чтобы получить SSID Wi-Fi, приложению требуются разрешения на местоположение. Поскольку версия Google не может получить его, вы можете использовать этот триггер только в том случае, если вы не указали SSID. Таким образом, его можно использовать только для определения того, подключен ли Wi-Fi или нет.</string>
+  <string name="withButton">с кнопкой %1$s</string>
+  <string name="bluetooth">Bluetooth</string>
+  <string name="subSystemState">Состояние подсистемы</string>
+  <string name="clickNotificationButton">Нажмите кнопку</string>
+  <string name="simplyDismissNotification">Просто уволить</string>
 </resources>
