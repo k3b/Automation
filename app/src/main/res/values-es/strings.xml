@@ -117,7 +117,7 @@
     <string name="actionSetUsbTethering">Enrutador USB</string>
     <string name="actionTurnBluetoothOn">encender Bluetooth</string>
     <string name="actionTurnWifiOn">encender wifi</string>
-    <string name="actionTurnWifiOff">desactivar Bluetooth</string>
+    <string name="actionTurnWifiOff">desactivar wifi</string>
     <string name="actionTurnBluetoothOff">desactivar Bluetooth</string>
     <string name="actionTriggerUrl">Abrir URL en antecedentes</string>
     <string name="actionChangeSoundProfile">Cambiar perfil sonido</string>
@@ -740,7 +740,6 @@
     <string name="tetheringState">Estado de tethering</string>
     <string name="wifiExplanation2">Mientras modo vuelo esta activo, solo aplicaciones que tienen el permiso root pueden encender/desactivar wifi.</string>
     <string name="wifiExplanation1">Las aplicaciones dirigidas a Android Q o superior ya no pueden activar o desactivar el wifi. Por favor, culpe a Google por esta restricción, no a mí. Puede omitir esta restricción rooteando su dispositivo y activando la casilla de verificación a continuación. Alternativamente, descargue esta aplicación de F-Droid o mi sitio web, ya que no estoy obligado a apuntar al último nivel de API en esas versiones.</string>
-    <string name="runExecutableExplanation">Puede seleccionar un script o un archivo ejecutable aquí que se ejecutará como una acción. Pero hay algunos requisitos previos con los que tienes que lidiar por tu cuenta. Google ha hecho que sea muy difícil ejecutar cualquier otra cosa que no sean aplicaciones normales de Android. 1. El archivo debe estar marcado como ejecutable en el sistema de archivos. En un sistema Android normal (sin root) esta es en realidad la parte difícil. 2. Eso también significa que la automatización debe poder ejecutar el archivo, no solo el propietario o el grupo. 3. Si se trata de un script, se especificará un shell válido en el encabezado del script.</string>
     <string name="runExecutableExplanation">Puede seleccionar un script o un archivo ejecutable aquí que se ejecutará como una acción. Pero hay algunos requisitos previos con los que tienes que lidiar por tu cuenta. Google ha hecho que sea muy difícil ejecutar cualquier otra cosa que no sean aplicaciones normales de Android. 1. El archivo debe estar marcado como ejecutable en el sistema de archivos. En un sistema Android normal (sin root) esta es en realidad la parte difícil. 2. Eso también significa que la automatización debe poder ejecutar el archivo, no solo el propietario o el grupo. 3. Si se trata de un script, se especificará un shell válido en el encabezado del script.</string>
     <string name="wakeLockExplanation">Activar mantendrá la pantalla encendida mientras desactiva la dejará apagarla. Para mantenerlo encendido, puede ingresar una duración después de la cual puede apagarse nuevamente o puede mantenerlo encendido indefinidamente. En este último caso, deberá crear otra acción de mantenerse despierto (en esta u otra regla) en la que seleccione desactivar.</string>
     <string name="mayUseRegularExpressions">Aqui tambien puede insertar expressiones regulares.</string>

@@ -743,12 +743,9 @@
     <string name="keepDeviceAwake">Gerät wach halten</string>
     <string name="wakeLockTimeout">Zeitlimit angeben</string>
     <string name="wakeLockExplanation">Aktivieren wird den Bildschirm anbehalten, während deaktivieren dem Bildschirm erlaubt, auszugehen. Um ihn anzubehalten, können Sie entweder eine Dauer angeben, nach der er ausgehen darf, oder Sie können Sie unendlich lange anlassen. Im letzteren Fall müßten Sie eine neue Gerät wach halten-Aktion definieren, in der Sie \"deaktivieren\" auswählen.</string>
-    <string name="wakeLockExplanation">A</string>
     <string name="mayUseRegularExpressions">Sie können hier auch einen regulären Ausdruck eingeben.</string>
     <string name="locationRequiredToDetermineWifiName">Um die SSID auslesen zu können, benötigt die Anwendung das Recht Ihren Standort zu erkennen. Weil die Google-Version das nicht kann, können Sie in diesem Auslöser keine SSID spezifizieren. Sie können ihn nur wenden, um zu erkennen, ob WLAN verbunden ist oder nicht.</string>
-    <string name="locationRequiredToDetermineWifiName">Um die SSID auslesen zu können, benötigt die Anwendung das Recht Ihren Standort zu erkennen. Weil die Google-Version das nicht kann, können Sie in diesem Auslöser keine SSID spezifizieren. Sie können ihn nur wenden, um zu erkennen, ob WLAN verbunden ist oder nicht.</string>
     <string name="withButton">mit der Schaltfläche %1$s</string>
-    <string name="withButton">with button %1$s</string>
     <string name="bluetooth">Bluetooth</string>
     <string name="subSystemState">Subsystem Status</string>
     <string name="clickNotificationButton">Eine Schaltfläche klicken</string>
