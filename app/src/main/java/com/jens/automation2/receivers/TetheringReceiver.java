@@ -12,6 +12,7 @@ import com.jens.automation2.Rule;
 import com.jens.automation2.Trigger;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TetheringReceiver extends android.content.BroadcastReceiver implements AutomationListenerInterface
 {
@@ -20,7 +21,13 @@ public class TetheringReceiver extends android.content.BroadcastReceiver impleme
     private static TetheringReceiver receiverInstance = null;
     private static IntentFilter intentFilter = null;
 
+    private static List<String> lastTetheringTypes = null;
     private static boolean tetheringActive = false;
+
+    public static List<String> getLastTetheringTypes()
+    {
+        return lastTetheringTypes;
+    }
 
     public static TetheringReceiver getInstance()
     {
@@ -53,7 +60,14 @@ public class TetheringReceiver extends android.content.BroadcastReceiver impleme
             if(key.equals(target) && ob instanceof ArrayList)
             {
                 if(((ArrayList<String>)ob).size() > 0)
+                {
                     tetheringActive = true;
+
+                    for(String adapterName : (ArrayList<String>)ob)
+                    {
+                        String test = adapterName;
+                    }
+                }
                 else
                     tetheringActive = false;
             }

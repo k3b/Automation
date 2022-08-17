@@ -977,7 +977,19 @@ public class Trigger
 
 	boolean checkTetheringActive()
 	{
-		return TetheringReceiver.isTetheringActive() == triggerParameter;
+		if(TetheringReceiver.isTetheringActive() == triggerParameter)
+		{
+			if(getTriggerParameter2().equals(ActivityManageTriggerTethering.tetheringTypeAny))
+				return true;
+
+			for(String oneOfLastTypes : TetheringReceiver.getLastTetheringTypes())
+			{
+				if(oneOfLastTypes.equals(getTriggerParameter2()))
+					return true;
+			}
+		}
+
+		return false;
 	}
 
 	public boolean checkDateTime(Object triggeringObject, boolean checkifStateChangedSinceLastRuleExecution)
