@@ -13,7 +13,6 @@ android {
         useLibrary  'org.apache.http.legacy'
         versionCode 121
         versionName "1.7.6"
-        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -58,20 +57,12 @@ android {
         checkReleaseBuilds false
     }
     namespace 'com.jens.automation2'
-    buildFeatures {
-        viewBinding true
-    }
 }
 
 dependencies {
     implementation 'org.jetbrains:annotations:15.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     googlePlayFlavorImplementation 'com.google.firebase:firebase-appindexing:20.0.0'
     googlePlayFlavorImplementation 'com.google.android.gms:play-services-location:18.0.0'
-    implementation 'com.android.support:multidex:1.0.3'
-    implementation 'androidx.preference:preference:1.2.0'
 
     apkFlavorImplementation 'com.google.firebase:firebase-appindexing:20.0.0'
     apkFlavorImplementation 'com.google.android.gms:play-services-location:18.0.0'
