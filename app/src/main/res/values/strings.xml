@@ -815,7 +815,7 @@
     <string name="lockedWithoutSecurity">locked (swipe only, no PIN)</string>
     <string name="lockedWithSecurity">locked (with PIN, etc.)</string>
     <string name="lockedCommentScreenMustBeOff">Any state of locked will only be detected if the screen is off.</string>
-    <string name="emailPretext">If you have a problem, suggestions or question, please write something in the email. Do not just send me the files with the default mail body. I will ignore everything those unless we\'re already in a conversation.</string>
+    <string name="emailPretext">If you have a problem, suggestions or question, please write something in the email. Do not just send me the files with the default mail body. I will ignore those unless we\'re already in a conversation.</string>
     <string name="sendBroadcast">Send broadcast</string>
     <string name="enterBroadcast">Enter a broadcast action.</string>
     <string name="broadcastExplanation">This action allows to send a broadcast across the Android OS messaging system. This is not user-visible, but apps who listen for that specific broadcast can respond to it being sent.</string>
@@ -847,4 +847,10 @@
     <string name="subSystemState">Subsystem state</string>
     <string name="bluetooth">Bluetooth</string>
     <string name="locationRequiredToDetermineWifiName">To get the wifi SSID, the app requires location permissions. Because the Google version cannot get that, you can only use this trigger if you do not specify an SSID. So it can only be used to detect if wifi is connected or not.</string>
+    <string name="title_activity_main_tabs">MainActivityTabs</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="usb">USB</string>
+    <string name="type">Type</string>
+    <string name="cable">Cable</string>
 </resources>

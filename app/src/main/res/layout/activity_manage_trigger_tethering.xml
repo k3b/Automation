@@ -58,6 +58,58 @@
 
             </TableRow>
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="#aa000000" />
+
+            <TableRow>
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/default_margin"
+                    android:text="@string/type" />
+
+                <RadioGroup>
+
+                    <RadioButton
+                        android:id="@+id/rbTetheringTypeAny"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/any" />
+
+                    <RadioButton
+                        android:id="@+id/rbTetheringTypeWifi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wifi" />
+
+                    <RadioButton
+                        android:id="@+id/rbTetheringTypeBluetooth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/bluetooth" />
+
+                    <RadioButton
+                        android:id="@+id/rbTetheringTypeUsb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/usb" />
+
+                    <RadioButton
+                        android:id="@+id/rbTetheringTypeCable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cable" />
+
+                </RadioGroup>
+
+            </TableRow>
+
         </TableLayout>
 
         <Button
