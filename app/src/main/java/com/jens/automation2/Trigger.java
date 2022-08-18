@@ -1714,6 +1714,8 @@ public class Trigger
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.tetheringActive));
 				else
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.tetheringNotActive));
+
+				returnString.append(" (" + Miscellaneous.getAnyContext().getResources().getString(R.string.type) + ": " + triggerParameter2 + ")");
 				break;
 			case subSystemState:
 				Trigger.subSystemStates desiredState = subSystemStates.valueOf(triggerParameter2);

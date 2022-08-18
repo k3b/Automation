@@ -54,14 +54,19 @@ public class ActivityManageTriggerTethering extends Activity
                 {
                     case tetheringTypeAny:
                         rbTetheringTypeAny.setChecked(true);
+                        break;
                     case tetheringTypeWifi:
                         rbTetheringTypeWifi.setChecked(true);
+                        break;
                     case tetheringTypeBluetooth:
                         rbTetheringTypeBluetooth.setChecked(true);
+                        break;
                     case tetheringTypeUsb:
                         rbTetheringTypeUsb.setChecked(true);
+                        break;
                     case tetheringTypeCable:
                         rbTetheringTypeCable.setChecked(true);
+                        break;
                     default:
                 }
             }

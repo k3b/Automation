@@ -321,6 +321,7 @@ public class ActivityManageRule extends Activity
 					case tethering:
 						Intent tetheringEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerTethering.class);
 						tetheringEditor.putExtra(intentNameTriggerParameter1, selectedTrigger.getTriggerParameter());
+						tetheringEditor.putExtra(intentNameTriggerParameter2, selectedTrigger.getTriggerParameter2());
 						startActivityForResult(tetheringEditor, requestCodeTriggerTetheringEdit);
 						break;
 					case subSystemState:
@@ -1868,6 +1869,7 @@ public class ActivityManageRule extends Activity
 			if(resultCode == RESULT_OK)
 			{
 				newTrigger.setTriggerParameter(data.getBooleanExtra(intentNameTriggerParameter1, true));
+				newTrigger.setTriggerParameter2(data.getStringExtra(intentNameTriggerParameter2));
 				newTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().add(newTrigger);
 				this.refreshTriggerList();
@@ -1891,6 +1893,7 @@ public class ActivityManageRule extends Activity
 				Trigger editedTrigger = new Trigger();
 				editedTrigger.setTriggerType(Trigger_Enum.tethering);
 				editedTrigger.setTriggerParameter(data.getBooleanExtra(intentNameTriggerParameter1, true));
+				editedTrigger.setTriggerParameter2(data.getStringExtra(intentNameTriggerParameter2));
 				editedTrigger.setParentRule(ruleToEdit);
 				ruleToEdit.getTriggerSet().set(editIndex, editedTrigger);
 				this.refreshTriggerList();

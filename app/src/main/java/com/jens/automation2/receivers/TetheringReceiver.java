@@ -6,6 +6,7 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.util.Log;
 
+import com.jens.automation2.ActivityManageTriggerTethering;
 import com.jens.automation2.AutomationService;
 import com.jens.automation2.Miscellaneous;
 import com.jens.automation2.Rule;
@@ -62,10 +63,21 @@ public class TetheringReceiver extends android.content.BroadcastReceiver impleme
                 if(((ArrayList<String>)ob).size() > 0)
                 {
                     tetheringActive = true;
+                    if(lastTetheringTypes == null)
+                        lastTetheringTypes = new ArrayList<>();
+                    else
+                        lastTetheringTypes.clear();
 
                     for(String adapterName : (ArrayList<String>)ob)
                     {
-                        String test = adapterName;
+                        if(adapterName.contains("wlan"))
+                            lastTetheringTypes.add(ActivityManageTriggerTethering.tetheringTypeWifi);
+                        else if(adapterName.contains("bluetooth"))
+                            lastTetheringTypes.add(ActivityManageTriggerTethering.tetheringTypeBluetooth);
+                        else if(adapterName.contains("usb"))
+                            lastTetheringTypes.add(ActivityManageTriggerTethering.tetheringTypeUsb);
+                        else if(adapterName.contains("ndis"))
+                            lastTetheringTypes.add(ActivityManageTriggerTethering.tetheringTypeCable);
                     }
                 }
                 else
