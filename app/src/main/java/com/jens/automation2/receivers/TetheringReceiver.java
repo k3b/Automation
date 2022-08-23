@@ -74,7 +74,7 @@ public class TetheringReceiver extends android.content.BroadcastReceiver impleme
                             lastTetheringTypes.add(ActivityManageTriggerTethering.tetheringTypeWifi);
                         else if(adapterName.contains("bluetooth"))
                             lastTetheringTypes.add(ActivityManageTriggerTethering.tetheringTypeBluetooth);
-                        else if(adapterName.contains("usb"))
+                        else if(adapterName.contains("rndis"))
                             lastTetheringTypes.add(ActivityManageTriggerTethering.tetheringTypeUsb);
                         else if(adapterName.contains("ndis"))
                             lastTetheringTypes.add(ActivityManageTriggerTethering.tetheringTypeCable);

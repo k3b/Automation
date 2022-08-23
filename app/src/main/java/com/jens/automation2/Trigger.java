@@ -985,7 +985,12 @@ public class Trigger
 			for(String oneOfLastTypes : TetheringReceiver.getLastTetheringTypes())
 			{
 				if(oneOfLastTypes.equals(getTriggerParameter2()))
-					return true;
+				{
+					if(triggerParameter)
+						return true;
+					else
+						return false;
+				}
 			}
 		}
 
