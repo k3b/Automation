@@ -12,7 +12,10 @@ import com.jens.automation2.Miscellaneous;
 import com.jens.automation2.Rule;
 import com.jens.automation2.Trigger;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 public class TetheringReceiver extends android.content.BroadcastReceiver implements AutomationListenerInterface
@@ -46,19 +49,21 @@ public class TetheringReceiver extends android.content.BroadcastReceiver impleme
     @Override
     public void onReceive(Context context, Intent intent)
     {
+        Miscellaneous.logEvent("i", "TetheringReceiver", "Received " + intent.getAction(), 5);
+
+        String searchArray = null;
+
+        if(Build.VERSION.SDK_INT >= 26)
+            searchArray = "tetherArray";
+        else
+            searchArray = "activeArray";
+
         for(String key : intent.getExtras().keySet())
         {
 //            Miscellaneous.logEvent("i", "Broadcast extra", "Broadcast " + intent.getAction() + " has extra " + key + " and type " + intent.getExtras().get(key).getClass().getName(), 4);
             Object ob = intent.getExtras().get(key);
 
-            String target = null;
-
-            if(Build.VERSION.SDK_INT >= 26)
-                target = "tetherArray";
-            else
-                target = "activeArray";
-
-            if(key.equals(target) && ob instanceof ArrayList)
+            if(key.equals(searchArray) && ob instanceof ArrayList)
             {
                 if(((ArrayList<String>)ob).size() > 0)
                 {
@@ -85,6 +90,29 @@ public class TetheringReceiver extends android.content.BroadcastReceiver impleme
             }
 
 //            Miscellaneous.logEvent("i", "Broadcast extra", "Broadcast " + intent.getAction() + " has extra " + key + " and type " + intent.getExtras().get(key).getClass().getName(), 4);
+        }
+
+        try
+        {
+            for(Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();)
+            {
+                NetworkInterface intf = en.nextElement();
+                for(Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();)
+                {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    if(!intf.isLoopback())
+                    {
+                        if(intf.getName().contains("rndis"))
+                        {
+                            tetheringActive = true;
+                        }
+                    }
+                }
+            }
+        }
+        catch(Exception e)
+        {
+            Miscellaneous.logEvent("e", "TetheringReceiver", Log.getStackTraceString(e), 1);
         }
 
         ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.tethering);
