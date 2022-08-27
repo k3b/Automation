@@ -51,69 +51,89 @@ public class TetheringReceiver extends android.content.BroadcastReceiver impleme
     {
         Miscellaneous.logEvent("i", "TetheringReceiver", "Received " + intent.getAction(), 5);
 
-        String searchArray = null;
+        /*
+            DETECT BY DATA DELIVERED IN INTENT
+         */
 
-        if(Build.VERSION.SDK_INT >= 26)
-            searchArray = "tetherArray";
-        else
-            searchArray = "activeArray";
+//        if(intent.getAction().equals("android.net.conn.TETHER_STATE_CHANGED"))
+//        {
+            String searchArray = null;
 
-        for(String key : intent.getExtras().keySet())
-        {
-//            Miscellaneous.logEvent("i", "Broadcast extra", "Broadcast " + intent.getAction() + " has extra " + key + " and type " + intent.getExtras().get(key).getClass().getName(), 4);
-            Object ob = intent.getExtras().get(key);
+            if (Build.VERSION.SDK_INT >= 26)
+                searchArray = "tetherArray";
+            else
+                searchArray = "activeArray";
 
-            if(key.equals(searchArray) && ob instanceof ArrayList)
+            for (String key : intent.getExtras().keySet())
             {
-                if(((ArrayList<String>)ob).size() > 0)
-                {
-                    tetheringActive = true;
-                    if(lastTetheringTypes == null)
-                        lastTetheringTypes = new ArrayList<>();
-                    else
-                        lastTetheringTypes.clear();
-
-                    for(String adapterName : (ArrayList<String>)ob)
-                    {
-                        if(adapterName.contains("wlan"))
-                            lastTetheringTypes.add(ActivityManageTriggerTethering.tetheringTypeWifi);
-                        else if(adapterName.contains("bluetooth"))
-                            lastTetheringTypes.add(ActivityManageTriggerTethering.tetheringTypeBluetooth);
-                        else if(adapterName.contains("rndis"))
-                            lastTetheringTypes.add(ActivityManageTriggerTethering.tetheringTypeUsb);
-                        else if(adapterName.contains("ndis"))
-                            lastTetheringTypes.add(ActivityManageTriggerTethering.tetheringTypeCable);
-                    }
-                }
-                else
-                    tetheringActive = false;
-            }
-
 //            Miscellaneous.logEvent("i", "Broadcast extra", "Broadcast " + intent.getAction() + " has extra " + key + " and type " + intent.getExtras().get(key).getClass().getName(), 4);
-        }
+                Object ob = intent.getExtras().get(key);
 
-        try
-        {
-            for(Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();)
-            {
-                NetworkInterface intf = en.nextElement();
-                for(Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();)
+                if (key.equals(searchArray) && ob instanceof ArrayList)
                 {
-                    InetAddress inetAddress = enumIpAddr.nextElement();
-                    if(!intf.isLoopback())
+                    if (((ArrayList<String>) ob).size() > 0)
                     {
-                        if(intf.getName().contains("rndis"))
+                        tetheringActive = true;
+                        if (lastTetheringTypes == null)
+                            lastTetheringTypes = new ArrayList<>();
+                        else
+                            lastTetheringTypes.clear();
+
+                        for (String adapterName : (ArrayList<String>) ob)
                         {
-                            tetheringActive = true;
+                            if (adapterName.contains("wlan"))
+                                lastTetheringTypes.add(ActivityManageTriggerTethering.tetheringTypeWifi);
+                            else if (adapterName.contains("bluetooth"))
+                                lastTetheringTypes.add(ActivityManageTriggerTethering.tetheringTypeBluetooth);
+                            else if (adapterName.contains("rndis"))
+                                lastTetheringTypes.add(ActivityManageTriggerTethering.tetheringTypeUsb);
+                            else if (adapterName.contains("ndis"))
+                                lastTetheringTypes.add(ActivityManageTriggerTethering.tetheringTypeCable);
+                        }
+                    }
+                    else
+                        tetheringActive = false;
+                }
+
+//            Miscellaneous.logEvent("i", "Broadcast extra", "Broadcast " + intent.getAction() + " has extra " + key + " and type " + intent.getExtras().get(key).getClass().getName(), 4);
+            }
+//        }
+//        else if(intent.getAction().equals("android.net.conn.CONNECTIVITY_CHANGE"))
+        /*
+            DETECT BY CHECKING ALL NETWORK INTERFACES
+         */
+//        {
+            /*try
+            {
+                for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); )
+                {
+                    NetworkInterface intf = en.nextElement();
+                    for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); )
+                    {
+                        InetAddress inetAddress = enumIpAddr.nextElement();
+                        if (!intf.isLoopback())
+                        {
+                            if (intf.getName().contains("rndis"))
+                            {
+                                Miscellaneous.logEvent("i", "TetheringReceiver", "Tethering on interface " + intf.getName() + " seems to be active.", 4);
+                                lastTetheringTypes.add(ActivityManageTriggerTethering.tetheringTypeUsb);
+                                tetheringActive = true;
+                            }
+                            else if (intf.getName().contains("ndis"))
+                            {
+                                Miscellaneous.logEvent("i", "TetheringReceiver", "Tethering on interface " + intf.getName() + " seems to be active.", 4);
+                                lastTetheringTypes.add(ActivityManageTriggerTethering.tetheringTypeCable);
+                                tetheringActive = true;
+                            }
                         }
                     }
                 }
             }
-        }
-        catch(Exception e)
-        {
-            Miscellaneous.logEvent("e", "TetheringReceiver", Log.getStackTraceString(e), 1);
-        }
+            catch (Exception e)
+            {
+                Miscellaneous.logEvent("e", "TetheringReceiver", Log.getStackTraceString(e), 1);
+            }*/
+//        }
 
         ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.tethering);
         for(int i=0; i<ruleCandidates.size(); i++)
@@ -137,6 +157,7 @@ public class TetheringReceiver extends android.content.BroadcastReceiver impleme
             {
                 intentFilter = new IntentFilter();
                 intentFilter.addAction("android.net.conn.TETHER_STATE_CHANGED");
+//                intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
             }
 
             try
