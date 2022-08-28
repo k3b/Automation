@@ -1,0 +1,8 @@
+* Nueva acción: Mantenga el teléfono encendido
+* Nuevo: Expresiones regulares habilitadas donde se aplican comparaciones (uno tiene que usar "iguales")
+* Nuevo: El cierre de la notificación ahora también se puede lograr haciendo clic en un botón de la notificación de destino.
+* Nuevo: traducción al francés (gracias a Thama)
+* Nuevo: Wifi trigger ahora puede usar Regex para SSID
+* Corregido: Se ha cambiado el tipo de entrada para los números decimales al agregar datos de intención
+* Corregido: el disparador de nivel de batería no funciona cuando se usa la dirección que cae por debajo
+* Corregido: El receptor de la batería se activaría a 100 si se especifica arriba de 100

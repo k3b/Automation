@@ -750,4 +750,8 @@
     <string name="withButton">con pulsante %1$s</string>
     <string name="subSystemState">Stato del sottosistema</string>
     <string name="bluetooth">Bluetooth</string>
+    <string name="usb">USB</string>
+    <string name="cable">Cavo</string>
+    <string name="tetheringBluetoothNotPossible">Il tethering Bluetooth al momento non può essere rilevato. Solo gli altri mezzi di connessione attiveranno questo trigger.</string>
+    <string name="type">Digitare</string>
 </resources>

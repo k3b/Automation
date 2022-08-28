@@ -750,4 +750,8 @@
     <string name="subSystemState">Subsystem Status</string>
     <string name="clickNotificationButton">Eine Schaltfläche klicken</string>
     <string name="simplyDismissNotification">Regulär schließen</string>
+    <string name="usb">USB</string>
+    <string name="cable">Kabel</string>
+    <string name="tetheringBluetoothNotPossible">Bluetooth tethering kann gegenwärtig nicht detektiert werden. Nur die anderen Verbindungsarten werden diesen Auslöser aktivieren.</string>
+    <string name="type">Art</string>
 </resources>

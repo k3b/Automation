@@ -1,0 +1,8 @@
+* Nouvelle action: Gardez le téléphone allumé
+* Nouveau : Expressions régulières activées lorsque des comparaisons s'appliquent (il faut utiliser « égal »)
+* Nouveau: La fermeture de la notification peut désormais également être réalisée en cliquant sur un bouton de la notification cible.
+* Nouveau : traduction Français (merci à Thama)
+* Nouveau: Le déclencheur Wifi peut maintenant utiliser Regex pour SSID
+* Correction : Modification du type d'entrée pour les nombres décimaux lors de l'ajout de données d'intention
+* Fixe: La gâchette de niveau de la batterie ne fonctionne pas lors de l'utilisation de la direction descendante en dessous
+* Fixe: Le récepteur de batterie se déclencherait à 100 si spécifié au-dessus de 100

@@ -847,10 +847,8 @@
     <string name="subSystemState">Subsystem state</string>
     <string name="bluetooth">Bluetooth</string>
     <string name="locationRequiredToDetermineWifiName">To get the wifi SSID, the app requires location permissions. Because the Google version cannot get that, you can only use this trigger if you do not specify an SSID. So it can only be used to detect if wifi is connected or not.</string>
-    <string name="title_activity_main_tabs">MainActivityTabs</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
     <string name="usb">USB</string>
     <string name="type">Type</string>
     <string name="cable">Cable</string>
+    <string name="tetheringBluetoothNotPossible">Bluetooth tethering can currently not be detected. Only the other means of connection will activate this trigger.</string>
 </resources>

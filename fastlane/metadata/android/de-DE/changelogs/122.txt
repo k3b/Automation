@@ -1,0 +1,8 @@
+* Neue Aktion: Gerät aktiv halten
+* Neu: Reguläre Ausdrücke sind jetzt an vielen Stellen möglich, wo es Sinn macht ("ist gleich" muß verwendet werden)
+* Neu: Benachrichtigungen können nun auch geschlossen werden, indem ein bestimmter Button in ihnen geklickt wird
+* Neu: Französisch Übersetzung (vielen Dank an Thama)
+* Neu: WLAN Auslöser kann nun reguläre Ausdrücke für die SSID verwenden
+* Behoben: Eingabetyp für Dezimalzahlen korrigiert, wenn man Intent-Daten eingibt
+* Behoben: Akkustand Auslöser hatte nicht ausgelöst, wenn die man die Richtigung "fällt unter" verwendet hat
+* Behoben: Akkustand Auslöser hat bei 100% ausgelöst, wenn "oberhalb 100%" spezifiziert war

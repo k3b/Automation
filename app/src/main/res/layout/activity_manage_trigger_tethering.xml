@@ -113,6 +113,13 @@
 
         </TableLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="@string/tetheringBluetoothNotPossible" />
+
         <Button
             android:id="@+id/bTriggerTetheringSave"
             android:layout_width="wrap_content"

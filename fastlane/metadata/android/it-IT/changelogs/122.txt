@@ -1,0 +1,8 @@
+* Nuova azione: mantieni il telefono acceso
+* Nuovo: espressioni regolari abilitate dove si applicano i confronti (si deve usare "uguale")
+* Novità: la chiusura della notifica può ora essere ottenuta anche facendo clic su un pulsante della notifica di destinazione.
+* Nuovo: traduzione francese (grazie a Thama)
+* Nuovo: il trigger Wifi può ora utilizzare Regex per SSID
+* Risolto: modificato il tipo di input per i numeri decimali quando si aggiungono i dati di intento
+* Risolto: il trigger del livello della batteria non funziona quando si utilizza la direzione che scende al di sotto
+* Risolto: il ricevitore della batteria si attiverebbe a 100 se specificato sopra 100

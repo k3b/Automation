@@ -749,4 +749,8 @@
     <string name="subSystemState">Estado del subsystema</string>
     <string name="clickNotificationButton">Cliquar un botón</string>
     <string name="simplyDismissNotification">Simplemente desestimar</string>
+    <string name="usb">USB</string>
+    <string name="cable">Cable</string>
+    <string name="tetheringBluetoothNotPossible">Actualmente no se puede detectar Bluetooth tethering. Solo los otros tipos de connection van a activar este condición.</string>
+    <string name="type">Tipo</string>
 </resources>

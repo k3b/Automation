@@ -1,0 +1,8 @@
+* Nieuwe actie: Houd de telefoon ingeschakeld
+* Nieuw: Reguliere expressies ingeschakeld waar vergelijkingen van toepassing zijn (men moet "gelijken" gebruiken)
+* Nieuw: Het sluiten van meldingen kan nu ook worden bereikt door op een knop van de doelmelding te klikken.
+* Nieuw: Franse vertaling (met dank aan Thama)
+* Nieuw: Wifi trigger kan nu Regex gebruiken voor SSID
+* Opgelost: gewijzigd invoertype voor decimale getallen bij het toevoegen van intentiegegevens
+* Opgelost: Batterijniveau trigger werkt niet bij het gebruik van richting die onder valt
+* Opgelost: Batterij-ontvanger zou activeren op 100 indien gespecificeerd boven 100

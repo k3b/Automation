@@ -748,5 +748,9 @@
     <string name="withButton">met knop %1$s</string>
     <string name="subSystemState">Status van het subsysteem</string>
     <string name="bluetooth">Bluetooth</string>
+    <string name="usb">USB</string>
+    <string name="cable">Kabel</string>
+    <string name="tetheringBluetoothNotPossible">Bluetooth-tethering kan momenteel niet worden gedetecteerd. Alleen de andere verbindingsmiddelen activeren deze trigger.</string>
+    <string name="type">Type</string>
 
 </resources>
