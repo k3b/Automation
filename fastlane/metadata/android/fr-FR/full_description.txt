@@ -1,15 +1,14 @@
-Ce programme peut vous aider à automatiser des choses sur votre appareil. Spécifiez des règles qui déclenchent des événements dans certaines conditions. Il existe d'autres applications qui le font déjà, mais celui-ci a des caractéristiques différentes.
+Ce programme peut vous aider à automatiser votre téléphone. Spécifiez des règles qui déclenchent des événements sous certaines conditions. Il existe d'autres applications qui le font déjà, mais celui-ci a des caractéristiques différentes.
 
-Si vous avez des demandes de fonctionnalités, des problèmes ou des questions, veuillez m'envoyer un e-mail. Si vous trouvez un bogue, veuillez utiliser la fonction de rapport d'erreurs et me donner une chance de corriger le bogue avant de publier une mauvaise critique.
+Si vous avez des demandes de fonctionnalités, des problèmes ou des questions, veuillez m'envoyer un e-mail. Si vous trouvez un bogue, veuillez utiliser la fonction de rapport d'erreurs et me donner la possibilité de corriger le bogue avant de publier une mauvaise critique.
 
-En raison des restrictions de Google, j'ai dû supprimer de plus en plus de fonctionnalités de l'application. Si vous n'aimez pas cela, jetez un coup d'œil à mon site Web.
-
-Déclenche:
-* Emplacement (en raison des restrictions Google supprimées pour les appareils plus récents)
-* Heure * Vitesse (en raison des restrictions Google supprimées pour les appareils plus récents)
-* Niveau de bruit (à quel point votre environnement est fort) (en raison des restrictions Google supprimées pour les appareils plus récents)
+Déclencheurs :
+* Emplacement (supprimé des appareils plus récents en raison des restrictions Google)
+* Heure
+* Vitesse (supprimé des appareils plus récents en raison des restrictions Google)
+* Niveau de bruit (à quel point votre environnement est bruyant) (supprimé des appareils plus récents en raison des restrictions Google)
 * État de charge de l'appareil
-* Connexion USB à l'ordinateur
+* Connexion USB à un ordinateur
 * Connexion Wifi connectée / déconnectée
 * Autre application démarrée/arrêtée
 * Mode avion
@@ -27,17 +26,17 @@ Déclenche:
 * Appareil démarré
 * Service démarré
 
-Actions:
-* ToggleWifi (en raison des restrictions Google supprimées pour les appareils plus récents)
+Actions :
+* Basculer Wifi (supprimé des appareils plus récents en raison des restrictions Google)
 * Basculer Bluetooth
 * Basculer le partage de connexion Wifi ou le partage de connexion USB
-* URL de déclenchement (n'ouvre pas le navigateur, mais émet une opération d'obtention sur un serveur Web; Je l'utilise pour la maison automatisation)
-* Modifier les paramètres sonores
+* URL de déclenchement (n'ouvre pas le navigateur, mais émet une opération d'obtention sur un serveur Web; je l'utilise pour la maison automatisation)
+* Modifier les paramètres audio
 * Basculer la rotation de l'écran
 * Démarrer une autre application (et éventuellement fournir des intentions)
-* Appareil de réveil
+* Réveil
 * Attendre (a du sens avant certaines autres actions)
-* Basculer AirplaneMode (uniquement jusqu'à Android 4.1)
+* Basculer en mode avion (uniquement jusqu'à Android 4.1)
 * Démarrer le lecteur de musique
 * Synthèse vocale
 * Changer la luminosité de l'écran
