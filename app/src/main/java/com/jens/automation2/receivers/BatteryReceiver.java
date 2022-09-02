@@ -19,14 +19,13 @@ import java.util.ArrayList;
 
 public class BatteryReceiver extends BroadcastReceiver implements AutomationListenerInterface
 {
-	private static int batteryLevel = -1;	// initialize with a better value than this
 	public static AutomationService automationServiceRef = null;
-	private static boolean usbHostConnected = false;
-
-	private static boolean batteryReceiverActive = false;
-	private static IntentFilter batteryIntentFilter = null;
-	private static Intent batteryStatus = null;
-	private static BroadcastReceiver batteryInfoReceiverInstance = null;
+	static int batteryLevel = -1;	// initialize with a better value than this
+	static boolean usbHostConnected = false;
+	static boolean batteryReceiverActive = false;
+	static IntentFilter batteryIntentFilter = null;
+	static Intent batteryStatus = null;
+	static BroadcastReceiver batteryInfoReceiverInstance = null;
 
 	public static void startBatteryReceiver(final AutomationService automationServiceRef)
 	{
@@ -90,7 +89,7 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
-//		Log.i("Battery", "Some battery event");
+		Miscellaneous.logEvent("i", "BatteryReceiver", "Received event " + intent.getAction(), 5);
 		
 		if (intent == null)
 			return;
