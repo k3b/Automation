@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.jens.automation2.AutomationService.serviceCommands;
 import com.jens.automation2.receivers.DateTimeListener;
 
@@ -213,11 +214,30 @@ public class ActivityMainRules extends ActivityGeneric
 						startActivityForResult(manageSpecificRuleIntent, requestCodeChangeRule);
 						break;
 					case 2:
-						if(ruleThisIsAbout.delete())
+						AlertDialog.Builder deleteDialog = new AlertDialog.Builder(ActivityMainRules.this);
+						deleteDialog.setMessage(getResources().getString(R.string.areYouSure));
+						deleteDialog.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener()
 						{
-							ruleToEdit = null; //clear cache
-							updateListView();
-						}
+							@Override
+							public void onClick(DialogInterface dialogInterface, int i)
+							{
+								if(ruleThisIsAbout.delete())
+								{
+									ruleToEdit = null; //clear cache
+									updateListView();
+								}
+							}
+						});
+						deleteDialog.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener()
+						{
+							@Override
+							public void onClick(DialogInterface dialogInterface, int i)
+							{
+
+							}
+						});
+
+						deleteDialog.show();
 						break;
 					case 3:
 						ruleToEdit = ruleThisIsAbout;

@@ -1,0 +1,1 @@
+* New: Confirmation dialog before deleting locations, rules and profile

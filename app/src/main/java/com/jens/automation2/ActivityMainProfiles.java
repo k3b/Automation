@@ -187,10 +187,29 @@ public class ActivityMainProfiles extends ActivityGeneric
 						Rule user = profile.isInUseByRules();
 						if(user == null)
 						{
-							if (profile.delete(ActivityMainProfiles.this))
-								updateListView();
-							else
-								Toast.makeText(ActivityMainProfiles.this, getResources().getString(R.string.profileCouldNotBeDeleted), Toast.LENGTH_LONG).show();
+							AlertDialog.Builder deleteDialog = new AlertDialog.Builder(ActivityMainProfiles.this);
+							deleteDialog.setMessage(getResources().getString(R.string.areYouSure));
+							deleteDialog.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener()
+							{
+								@Override
+								public void onClick(DialogInterface dialogInterface, int i)
+								{
+									if (profile.delete(ActivityMainProfiles.this))
+										updateListView();
+									else
+										Toast.makeText(ActivityMainProfiles.this, getResources().getString(R.string.profileCouldNotBeDeleted), Toast.LENGTH_LONG).show();
+								}
+							});
+							deleteDialog.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener()
+							{
+								@Override
+								public void onClick(DialogInterface dialogInterface, int i)
+								{
+
+								}
+							});
+
+							deleteDialog.show();
 						}
 						else
 							Toast.makeText(ActivityMainProfiles.this, String.format(getResources().getString(R.string.ruleXIsUsingProfileY), user.getName(), profile.getName()), Toast.LENGTH_LONG).show();
