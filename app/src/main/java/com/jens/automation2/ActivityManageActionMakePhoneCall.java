@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class ActivityManageMakePhoneCall extends Activity
+public class ActivityManageActionMakePhoneCall extends Activity
 {
     EditText etTargetPhoneNumber;
     Button bActionMakePhoneCallSave;
@@ -47,7 +47,7 @@ public class ActivityManageMakePhoneCall extends Activity
                     finish();
                 }
                 else
-                    Toast.makeText(ActivityManageMakePhoneCall.this, getResources().getText(R.string.enterPhoneNumber), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityManageActionMakePhoneCall.this, getResources().getText(R.string.enterPhoneNumber), Toast.LENGTH_SHORT).show();
             }
         });
     }

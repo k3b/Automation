@@ -281,7 +281,7 @@ public class Action
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.keepDeviceAwake) + " (" + String.valueOf(getParameter1()) + ")");
 					break;
 				case makePhoneCall:
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.makePhoneCall) + " (" + String.valueOf(getParameter2()) + ")");
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.makePhoneCall));
 					break;
 				default:
 					returnString.append(action.toString());

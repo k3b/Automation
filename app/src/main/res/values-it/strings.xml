@@ -179,7 +179,8 @@
     <string name="enterAname">Inserisci un nome.</string>
     <string name="enterNameForIntentPair">Definisci un nome per la coppia dell\'Intent</string>
     <string name="enterPackageName">Inserisci un nome di pacchetto che sia valido.</string>
-    <string name="enterPhoneNumber">Inserisci un numero di telefono. Lascia vuoto per accettare qualsiasi numero.</string>
+    <string name="enterPhoneNumberBlankForAny">Inserisci un numero di telefono. Lascia vuoto per accettare qualsiasi numero.</string>
+    <string name="enterPhoneNumber">Inserisci un numero di telefono.</string>
     <string name="enterValidAction">Inserisci una azione valida</string>
     <string name="enterValidReferenceValue">Inserisci un valore di riferimento valido.</string>
     <string name="enterValueForIntentPair">Definisci un valore per la coppia dell\'Intent.</string>

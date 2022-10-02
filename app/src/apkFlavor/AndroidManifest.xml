@@ -68,7 +68,6 @@
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
-
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
@@ -173,7 +172,7 @@
         <activity android:name=".ActivityManageTriggerTethering" />
         <activity android:name=".ActivityManageActionWakeLock" />
         <activity android:name=".ActivityManageTriggerSubSystemState" />
-        <activity android:name=".ActivityManageMakePhoneCall" />
+        <activity android:name=".ActivityManageActionMakePhoneCall" />
         <activity
             android:name=".ActivityMainTabLayout"
             android:launchMode="singleTask">

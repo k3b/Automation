@@ -302,7 +302,8 @@
   <string name="phoneCall">Телефонный звонок</string>
   <string name="with">с</string>
   <string name="phoneNumber">Номер телефона</string>
-  <string name="enterPhoneNumber">Введите номер телефона. Оставьте пустым для любого номера телефона.</string>
+  <string name="enterPhoneNumberBlankForAny">Введите номер телефона. Оставьте пустым для любого номера телефона.</string>
+  <string name="enterPhoneNumber">Введите номер телефона.</string>
   <string name="phoneDirection">Выберите вызов\nнаправление</string>
   <string name="any">Любой</string>
   <string name="incoming">входящий</string>

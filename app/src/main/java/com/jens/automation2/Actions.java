@@ -2190,7 +2190,8 @@ public class Actions
 	{
 		Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
 //			intent.setClassName("com.android.phone","com.android.phone.OutgoingCallBroadcaster");
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		intent.addFlags(Intent.FLAG_FROM_BACKGROUND);
 		context.startActivity(intent);
 	}
 }

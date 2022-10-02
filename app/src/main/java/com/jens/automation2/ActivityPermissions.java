@@ -681,6 +681,7 @@ public class ActivityPermissions extends Activity
                         break;
                     case makePhoneCall:
                         addToArrayListUnique(Manifest.permission.CALL_PHONE, requiredPermissions);
+//                        addToArrayListUnique(Manifest.permission.SYSTEM_ALERT_WINDOW, requiredPermissions);
                         break;
                     default:
                         break;
@@ -871,6 +872,10 @@ public class ActivityPermissions extends Activity
                 break;
             case Manifest.permission.SEND_SMS:
                 for(String ruleName : getRulesUsing(Action.Action_Enum.sendTextMessage))
+                    usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
+                break;
+            case Manifest.permission.CALL_PHONE:
+                for(String ruleName : getRulesUsing(Action.Action_Enum.makePhoneCall))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
             case Manifest.permission.FOREGROUND_SERVICE:

@@ -268,7 +268,8 @@
     <string name="phoneCall">Telefoongesprek</string>
     <string name="with">met</string>
     <string name="phoneNumber">Telefoonnummer</string>
-    <string name="enterPhoneNumber">Voer telefoonnummer in. Laat leeg voor een willekeurig nummer.</string>
+    <string name="enterPhoneNumberBlankForAny">Voer telefoonnummer in. Laat leeg voor een willekeurig nummer.</string>
+    <string name="enterPhoneNumber">Voer telefoonnummer in.</string>
     <string name="phoneDirection">Selecteer gespreksrichting</string>
     <string name="any">een willekeurig</string>
     <string name="incoming">binnenkomend</string>

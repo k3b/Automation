@@ -419,7 +419,7 @@ public class ActivityManageRule extends Activity
 						startActivityForResult(activityEditRunExecutableIntent, requestCodeActionRunExecutableEdit);
 						break;
 					case makePhoneCall:
-						Intent activityEditMakePhoneCallIntent = new Intent(ActivityManageRule.this, ActivityManageMakePhoneCall.class);
+						Intent activityEditMakePhoneCallIntent = new Intent(ActivityManageRule.this, ActivityManageActionMakePhoneCall.class);
 						activityEditMakePhoneCallIntent.putExtra(intentNameActionParameter1, a.getParameter1());
 						activityEditMakePhoneCallIntent.putExtra(intentNameActionParameter2, a.getParameter2());
 						startActivityForResult(activityEditMakePhoneCallIntent, requestCodeActionMakePhoneCallEdit);
@@ -1063,7 +1063,7 @@ public class ActivityManageRule extends Activity
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 
 		alertDialog.setTitle(myContext.getResources().getString(R.string.phoneNumber));
-		alertDialog.setMessage(myContext.getResources().getString(R.string.enterPhoneNumber));
+		alertDialog.setMessage(myContext.getResources().getString(R.string.enterPhoneNumberBlankForAny));
 
 		// Set an EditText view to get user input 
 		final EditText input = new EditText(this);
@@ -2006,7 +2006,10 @@ public class ActivityManageRule extends Activity
 			else if(types[i].toString().equals(Action_Enum.runExecutable.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.script));
 			else if(types[i].toString().equals(Action_Enum.makePhoneCall.toString()))
-				items.add(new Item(typesLong[i].toString(), R.drawable.phone));
+			{
+				if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageRule.this, Manifest.permission.CALL_PHONE))
+					items.add(new Item(typesLong[i].toString(), R.drawable.phone));
+			}
 			else if(types[i].toString().equals(Action_Enum.sendTextMessage.toString()))
 			{
 //			    if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageSpecificRule.this, "android.permission.SEND_SMS") && !Miscellaneous.isGooglePlayInstalled(ActivityManageSpecificRule.this))
@@ -2182,7 +2185,7 @@ public class ActivityManageRule extends Activity
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.makePhoneCall.toString()))
 					{
 						newAction.setAction(Action_Enum.makePhoneCall);
-						Intent intent = new Intent(ActivityManageRule.this, ActivityManageMakePhoneCall.class);
+						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionMakePhoneCall.class);
 						startActivityForResult(intent, requestCodeActionMakePhoneCallAdd);
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.wakelock.toString()))

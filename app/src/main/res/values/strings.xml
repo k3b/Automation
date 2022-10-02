@@ -341,7 +341,8 @@
     <string name="phoneCall">Phone call</string>
     <string name="with">with</string>
     <string name="phoneNumber">Phone number</string>
-    <string name="enterPhoneNumber">Enter phone number. Leave empty for any number.</string>
+    <string name="enterPhoneNumberBlankForAny">Enter phone number. Leave empty for any number.</string>
+    <string name="enterPhoneNumber">Enter phone number.</string>
     <string name="phoneDirection">Select call\ndirection</string>
     <string name="any">any</string>
     <string name="incoming">incoming</string>

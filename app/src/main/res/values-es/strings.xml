@@ -254,7 +254,8 @@
     <string name="headsetDisconnected">Auriculares (tipo: %1$s) desconectados</string>
     <string name="phoneCall">Llamada</string>
     <string name="phoneNumber">Número de teléfono</string>
-    <string name="enterPhoneNumber">Inserte numero de teléfono. Vacio para algún número.</string>
+    <string name="enterPhoneNumberBlankForAny">Inserte numero de teléfono. Vacio para algún número.</string>
+    <string name="enterPhoneNumber">Inserte numero de teléfono.</string>
     <string name="phoneDirection">Elija llamada\nentrante o saliente</string>
     <string name="headphoneSimple">Auriculares</string>
     <string name="headphoneSelectType">Elija tipo de auriculares</string>
