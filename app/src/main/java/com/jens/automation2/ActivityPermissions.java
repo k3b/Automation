@@ -679,6 +679,9 @@ public class ActivityPermissions extends Activity
                         else
                             addToArrayListUnique(Manifest.permission.BIND_DEVICE_ADMIN, requiredPermissions);
                         break;
+                    case makePhoneCall:
+                        addToArrayListUnique(Manifest.permission.CALL_PHONE, requiredPermissions);
+                        break;
                     default:
                         break;
                 }

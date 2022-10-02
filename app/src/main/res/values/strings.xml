@@ -851,4 +851,7 @@
     <string name="type">Type</string>
     <string name="cable">Cable</string>
     <string name="tetheringBluetoothNotPossible">Bluetooth tethering can currently not be detected. Only the other means of connection will activate this trigger.</string>
+    <string name="makePhoneCall">Make phone call</string>
+    <string name="android.permission.CALL_PHONE">Make phone call</string>
+    <string name="makePhoneCallExplanation1">Here you can enter a phone number that will be called without further prompts. You may use this to make settings like making adjustments to call routing, etc.. Please search for the codes required for this on your own.</string>
 </resources>

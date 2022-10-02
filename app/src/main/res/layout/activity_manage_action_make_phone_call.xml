@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/default_margin" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_span="2"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:text="@string/makePhoneCall"/>
+
+        <TextView
+            android:id="@+id/tvMakePhoneCallExplanation1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/makePhoneCallExplanation1" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:stretchColumns="1"
+            android:shrinkColumns="1" >
+
+            <TableRow
+                android:layout_marginTop="@dimen/default_margin">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/default_margin"
+                    android:text="@string/phoneNumber" />
+
+                    <EditText
+                        android:id="@+id/etTargetPhoneNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+            </TableRow>
+
+        </TableLayout>
+
+        <Button
+            android:id="@+id/bActionMakePhoneCallSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="@string/save" />
+
+    </LinearLayout>
+
+</ScrollView>

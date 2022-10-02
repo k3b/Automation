@@ -6,8 +6,6 @@ import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.HttpGet;
 
@@ -54,6 +52,7 @@ public class Action
 		sendBroadcast,
 		runExecutable,
 		wakelock,
+		makePhoneCall,
 		sendTextMessage;
 
 		public String getFullName(Context context)
@@ -130,6 +129,8 @@ public class Action
 					return context.getResources().getString(R.string.runExecutable);
 				case wakelock:
 					return context.getResources().getString(R.string.keepDeviceAwake);
+				case makePhoneCall:
+					return context.getResources().getString(R.string.makePhoneCall);
 				default:
 					return "Unknown";
 			}
@@ -278,6 +279,9 @@ public class Action
 					break;
 				case wakelock:
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.keepDeviceAwake) + " (" + String.valueOf(getParameter1()) + ")");
+					break;
+				case makePhoneCall:
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.makePhoneCall) + " (" + String.valueOf(getParameter2()) + ")");
 					break;
 				default:
 					returnString.append(action.toString());
@@ -589,6 +593,9 @@ public class Action
 						Actions.wakeLockStart(context, Long.parseLong(this.getParameter2()));
 					else
 						Actions.wakeLockStop();
+					break;
+				case makePhoneCall:
+					Actions.makePhoneCall(context, this.getParameter2());
 					break;
 				default:
 					Miscellaneous.logEvent("w", "Action", context.getResources().getString(R.string.unknownActionSpecified), 3);

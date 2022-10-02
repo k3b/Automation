@@ -10,13 +10,10 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothProfile;
 import android.content.ActivityNotFoundException;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.session.MediaController;
-import android.media.session.MediaSessionManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
@@ -26,7 +23,6 @@ import android.os.PowerManager.WakeLock;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.MediaStore;
-import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.telephony.SmsManager;
 import android.telephony.SubscriptionManager;
@@ -36,7 +32,6 @@ import android.view.KeyEvent;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
-import androidx.legacy.content.WakefulBroadcastReceiver;
 
 import com.jens.automation2.actions.wifi_router.MyOnStartTetheringCallback;
 import com.jens.automation2.actions.wifi_router.MyOreoWifiManager;
@@ -44,7 +39,6 @@ import com.jens.automation2.location.WifiBroadcastReceiver;
 import com.jens.automation2.receivers.ConnectivityReceiver;
 import com.jens.automation2.receivers.NotificationListener;
 
-import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ClientConnectionManager;
@@ -71,7 +65,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -2191,5 +2184,13 @@ public class Actions
 	{
 		Miscellaneous.logEvent("i", "WakeLockStart", "Requesting stop.", 4);
 		wakeLockStopRequested = true;
+	}
+
+	public static void makePhoneCall(Context context, String phoneNumber)
+	{
+		Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
+//			intent.setClassName("com.android.phone","com.android.phone.OutgoingCallBroadcaster");
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		context.startActivity(intent);
 	}
 }

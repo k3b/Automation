@@ -133,6 +133,8 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeActionWakeLockEdit = 820;
 	final static int requestCodeTriggerSubSystemStateAdd = 821;
 	final static int requestCodeTriggerSubSystemStateEdit = 822;
+	final static int requestCodeActionMakePhoneCallAdd = 823;
+	final static int requestCodeActionMakePhoneCallEdit = 824;
 
 	public static ActivityManageRule getInstance()
 	{
@@ -415,6 +417,12 @@ public class ActivityManageRule extends Activity
 						activityEditRunExecutableIntent.putExtra(intentNameActionParameter1, a.getParameter1());
 						activityEditRunExecutableIntent.putExtra(intentNameActionParameter2, a.getParameter2());
 						startActivityForResult(activityEditRunExecutableIntent, requestCodeActionRunExecutableEdit);
+						break;
+					case makePhoneCall:
+						Intent activityEditMakePhoneCallIntent = new Intent(ActivityManageRule.this, ActivityManageMakePhoneCall.class);
+						activityEditMakePhoneCallIntent.putExtra(intentNameActionParameter1, a.getParameter1());
+						activityEditMakePhoneCallIntent.putExtra(intentNameActionParameter2, a.getParameter2());
+						startActivityForResult(activityEditMakePhoneCallIntent, requestCodeActionMakePhoneCallEdit);
 						break;
 					case setWifi:
 						Intent activityEditSetWifiIntent = new Intent(ActivityManageRule.this, ActivityManageActionWifi.class);
@@ -1582,6 +1590,17 @@ public class ActivityManageRule extends Activity
 				this.refreshActionList();
 			}
 		}
+		else if(requestCode == requestCodeActionMakePhoneCallAdd)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				newAction.setParentRule(ruleToEdit);
+				newAction.setParameter1(data.getBooleanExtra(intentNameActionParameter1, false));
+				newAction.setParameter2(data.getStringExtra(intentNameActionParameter2));
+				ruleToEdit.getActionSet().add(newAction);
+				this.refreshActionList();
+			}
+		}
 		else if(requestCode == requestCodeActionWakeLockAdd)
 		{
 			if(resultCode == RESULT_OK)
@@ -1678,6 +1697,21 @@ public class ActivityManageRule extends Activity
 			}
 		}
 		else if(requestCode == requestCodeActionRunExecutableEdit)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				ruleToEdit.getActionSet().get(editIndex).setParentRule(ruleToEdit);
+
+				if(data.hasExtra(intentNameActionParameter1) && data.hasExtra(intentNameActionParameter2))
+				{
+					ruleToEdit.getActionSet().get(editIndex).setParameter1(data.getBooleanExtra(intentNameActionParameter1, false));
+					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra(intentNameActionParameter2));
+				}
+
+				this.refreshActionList();
+			}
+		}
+		else if(requestCode == requestCodeActionMakePhoneCallEdit)
 		{
 			if(resultCode == RESULT_OK)
 			{
@@ -1971,6 +2005,8 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.coffee));
 			else if(types[i].toString().equals(Action_Enum.runExecutable.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.script));
+			else if(types[i].toString().equals(Action_Enum.makePhoneCall.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.phone));
 			else if(types[i].toString().equals(Action_Enum.sendTextMessage.toString()))
 			{
 //			    if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageSpecificRule.this, "android.permission.SEND_SMS") && !Miscellaneous.isGooglePlayInstalled(ActivityManageSpecificRule.this))
@@ -2142,6 +2178,12 @@ public class ActivityManageRule extends Activity
 						newAction.setAction(Action_Enum.runExecutable);
 						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionRunExecutable.class);
 						startActivityForResult(intent, requestCodeActionRunExecutableAdd);
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.makePhoneCall.toString()))
+					{
+						newAction.setAction(Action_Enum.makePhoneCall);
+						Intent intent = new Intent(ActivityManageRule.this, ActivityManageMakePhoneCall.class);
+						startActivityForResult(intent, requestCodeActionMakePhoneCallAdd);
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.wakelock.toString()))
 					{
