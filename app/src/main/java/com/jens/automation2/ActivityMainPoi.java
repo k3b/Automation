@@ -190,8 +190,27 @@ public class ActivityMainPoi extends ActivityGeneric
 						startActivityForResult(manageSpecificPoiIntent, 2000);
 						break;
 					case 1:
-						if(pointOfInterest.delete(Miscellaneous.getAnyContext()))
-							updateListView();
+						AlertDialog.Builder deleteDialog = new AlertDialog.Builder(ActivityMainPoi.this);
+						deleteDialog.setMessage(getResources().getString(R.string.areYouSure));
+						deleteDialog.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener()
+						{
+							@Override
+							public void onClick(DialogInterface dialogInterface, int i)
+							{
+								if(pointOfInterest.delete(Miscellaneous.getAnyContext()))
+									updateListView();
+							}
+						});
+						deleteDialog.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener()
+						{
+							@Override
+							public void onClick(DialogInterface dialogInterface, int i)
+							{
+
+							}
+						});
+
+						deleteDialog.show();
 						break;
 				}
 			}

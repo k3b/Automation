@@ -132,6 +132,7 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 
 				switch(status)
 				{
+					case BatteryManager.BATTERY_STATUS_CHARGING:
 					case BatteryManager.BATTERY_STATUS_FULL:
 						Miscellaneous.logEvent("i", "BatteryReceiver", "Device has been fully charged.", 5);
 						this.actionCharging(context);
