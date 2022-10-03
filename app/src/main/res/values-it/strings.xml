@@ -755,4 +755,7 @@
     <string name="cable">Cavo</string>
     <string name="tetheringBluetoothNotPossible">Il tethering Bluetooth al momento non può essere rilevato. Solo gli altri mezzi di connessione attiveranno questo trigger.</string>
     <string name="type">Digitare</string>
+    <string name="startPhoneCall">Chiama il numero di telefono</string>
+    <string name="android.permission.CALL_PHONE">Chiama il numero di telefono</string>
+    <string name="makePhoneCallExplanation1">Qui è possibile inserire un numero di telefono che verrà chiamato senza ulteriori richieste. È possibile utilizzarlo per effettuare impostazioni come apportare modifiche al routing delle chiamate, ecc. Si prega di cercare i codici richiesti per questo da soli.</string>
 </resources>

@@ -1,1 +1,3 @@
 * New: Confirmation dialog before deleting locations, rules and profile
+* New action: Make phone call without further prompt
+* Fixed: Battery receiver could trigger above 100% or below 0%

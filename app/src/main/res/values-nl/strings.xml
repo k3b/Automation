@@ -753,5 +753,8 @@
     <string name="cable">Kabel</string>
     <string name="tetheringBluetoothNotPossible">Bluetooth-tethering kan momenteel niet worden gedetecteerd. Alleen de andere verbindingsmiddelen activeren deze trigger.</string>
     <string name="type">Type</string>
+    <string name="startPhoneCall">Telefoonnummer bellen</string>
+    <string name="android.permission.CALL_PHONE">Telefoonnummer bellen</string>
+    <string name="makePhoneCallExplanation1">Hier kunt u een telefoonnummer invoeren dat zonder verdere prompts wordt gebeld. U kunt dit gebruiken om instellingen aan te brengen, zoals het aanpassen van de gespreksroutering, enz.. Zoek zelf naar de codes die hiervoor nodig zijn.</string>
 
 </resources>

@@ -842,6 +842,12 @@ public class Trigger
 
 		if(this.getTriggerParameter())
 		{
+			if(this.getBatteryLevel() == 100)
+			{
+				Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), "Rule " + this.getParentRule().getName() + " doesn't apply. Can never exceed 100%.", 3);
+				return false;
+			}
+
 			if(BatteryReceiver.getBatteryLevel() < this.getBatteryLevel())
 			{
 				Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyBatteryLowerThan) + " " + String.valueOf(this.getBatteryLevel()), this.getParentRule().getName()), 3);
@@ -850,6 +856,12 @@ public class Trigger
 		}
 		else
 		{
+			if(this.getBatteryLevel() == 0)
+			{
+				Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), "Rule " + this.getParentRule().getName() + " doesn't apply. Can never drop below 0%.", 3);
+				return false;
+			}
+
 			if(BatteryReceiver.getBatteryLevel() < 100 && BatteryReceiver.getBatteryLevel() >= this.getBatteryLevel()
 						||
 				BatteryReceiver.getBatteryLevel() > this.getBatteryLevel()

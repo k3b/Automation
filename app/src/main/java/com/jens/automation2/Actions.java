@@ -24,6 +24,7 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.service.notification.StatusBarNotification;
+import android.telecom.TelecomManager;
 import android.telephony.SmsManager;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
@@ -2186,12 +2187,42 @@ public class Actions
 		wakeLockStopRequested = true;
 	}
 
-	public static void makePhoneCall(Context context, String phoneNumber)
+	public static void startPhoneCall(Context context, String phoneNumber)
 	{
 		Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
 //			intent.setClassName("com.android.phone","com.android.phone.OutgoingCallBroadcaster");
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		intent.addFlags(Intent.FLAG_FROM_BACKGROUND);
 		context.startActivity(intent);
+	}
+
+	public static void endPhoneCall(Context context)
+	{
+		if(Build.VERSION.SDK_INT < 21)
+		{
+			TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+			try
+			{
+				Class c = Class.forName(tm.getClass().getName());
+				Method m = c.getDeclaredMethod("getITelephony");
+				m.setAccessible(true);
+				Object telephonyService = m.invoke(tm);
+
+				c = Class.forName(telephonyService.getClass().getName());
+				m = c.getDeclaredMethod("endCall");
+				m.setAccessible(true);
+				m.invoke(telephonyService);
+
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		else
+		{
+			TelecomManager mgr = (TelecomManager) context.getSystemService(context.TELECOM_SERVICE);
+			mgr.endCall();
+		}
 	}
 }

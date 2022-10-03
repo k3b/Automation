@@ -679,9 +679,12 @@ public class ActivityPermissions extends Activity
                         else
                             addToArrayListUnique(Manifest.permission.BIND_DEVICE_ADMIN, requiredPermissions);
                         break;
-                    case makePhoneCall:
+                    case startPhoneCall:
                         addToArrayListUnique(Manifest.permission.CALL_PHONE, requiredPermissions);
 //                        addToArrayListUnique(Manifest.permission.SYSTEM_ALERT_WINDOW, requiredPermissions);
+                        break;
+                    case stopPhoneCall:
+                        addToArrayListUnique(Manifest.permission.ANSWER_PHONE_CALLS, requiredPermissions);
                         break;
                     default:
                         break;
@@ -875,7 +878,11 @@ public class ActivityPermissions extends Activity
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
             case Manifest.permission.CALL_PHONE:
-                for(String ruleName : getRulesUsing(Action.Action_Enum.makePhoneCall))
+                for(String ruleName : getRulesUsing(Action.Action_Enum.startPhoneCall))
+                    usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
+                break;
+            case Manifest.permission.ANSWER_PHONE_CALLS:
+                for(String ruleName : getRulesUsing(Action.Action_Enum.stopPhoneCall))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
             case Manifest.permission.FOREGROUND_SERVICE:

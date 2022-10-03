@@ -418,7 +418,7 @@ public class ActivityManageRule extends Activity
 						activityEditRunExecutableIntent.putExtra(intentNameActionParameter2, a.getParameter2());
 						startActivityForResult(activityEditRunExecutableIntent, requestCodeActionRunExecutableEdit);
 						break;
-					case makePhoneCall:
+					case startPhoneCall:
 						Intent activityEditMakePhoneCallIntent = new Intent(ActivityManageRule.this, ActivityManageActionMakePhoneCall.class);
 						activityEditMakePhoneCallIntent.putExtra(intentNameActionParameter1, a.getParameter1());
 						activityEditMakePhoneCallIntent.putExtra(intentNameActionParameter2, a.getParameter2());
@@ -2005,14 +2005,18 @@ public class ActivityManageRule extends Activity
 				items.add(new Item(typesLong[i].toString(), R.drawable.coffee));
 			else if(types[i].toString().equals(Action_Enum.runExecutable.toString()))
 				items.add(new Item(typesLong[i].toString(), R.drawable.script));
-			else if(types[i].toString().equals(Action_Enum.makePhoneCall.toString()))
+			else if(types[i].toString().equals(Action_Enum.startPhoneCall.toString()))
 			{
 				if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageRule.this, Manifest.permission.CALL_PHONE))
 					items.add(new Item(typesLong[i].toString(), R.drawable.phone));
 			}
+			else if(types[i].toString().equals(Action_Enum.stopPhoneCall.toString()))
+			{
+				if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageRule.this, Manifest.permission.ANSWER_PHONE_CALLS))
+					items.add(new Item(typesLong[i].toString(), R.drawable.phone));
+			}
 			else if(types[i].toString().equals(Action_Enum.sendTextMessage.toString()))
 			{
-//			    if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageSpecificRule.this, "android.permission.SEND_SMS") && !Miscellaneous.isGooglePlayInstalled(ActivityManageSpecificRule.this))
 				if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageRule.this, Manifest.permission.SEND_SMS))
 					items.add(new Item(typesLong[i].toString(), R.drawable.message));
 			}
@@ -2182,11 +2186,17 @@ public class ActivityManageRule extends Activity
 						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionRunExecutable.class);
 						startActivityForResult(intent, requestCodeActionRunExecutableAdd);
 					}
-					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.makePhoneCall.toString()))
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.startPhoneCall.toString()))
 					{
-						newAction.setAction(Action_Enum.makePhoneCall);
+						newAction.setAction(Action_Enum.startPhoneCall);
 						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionMakePhoneCall.class);
 						startActivityForResult(intent, requestCodeActionMakePhoneCallAdd);
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.stopPhoneCall.toString()))
+					{
+						newAction.setAction(Action_Enum.stopPhoneCall);
+						ruleToEdit.getActionSet().add(newAction);
+						refreshActionList();
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.wakelock.toString()))
 					{

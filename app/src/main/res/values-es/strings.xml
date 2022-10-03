@@ -754,4 +754,7 @@
     <string name="cable">Cable</string>
     <string name="tetheringBluetoothNotPossible">Actualmente no se puede detectar Bluetooth tethering. Solo los otros tipos de connection van a activar este condición.</string>
     <string name="type">Tipo</string>
+    <string name="startPhoneCall">Llamar al número de teléfono</string>
+    <string name="android.permission.CALL_PHONE">Llamar al número de teléfono</string>
+    <string name="makePhoneCallExplanation1">Aquí puede ingresar un número de teléfono al que se llamará sin más indicaciones. Puede usar esto para realizar configuraciones como realizar ajustes en el enrutamiento de llamadas, etc. Por favor, busque los códigos necesarios para esto por su cuenta.</string>
 </resources>

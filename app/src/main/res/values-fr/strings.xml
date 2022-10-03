@@ -754,4 +754,7 @@
     <string name="type">Type</string>
     <string name="cable">Cable</string>
     <string name="tetheringBluetoothNotPossible">Le partage de connexion Bluetooth ne peut actuellement pas être détecté. Seuls les autres moyens de connexion activeront ce déclencheur.</string>
+    <string name="startPhoneCall">Numéro de téléphone d\'appel</string>
+    <string name="android.permission.CALL_PHONE">Numéro de téléphone d\'appel</string>
+    <string name="makePhoneCallExplanation1">Ici, vous pouvez entrer un numéro de téléphone qui sera appelé sans autres invites. Vous pouvez l\'utiliser pour effectuer des paramètres tels que des ajustements au routage des appels, etc. Veuillez rechercher vous-même les codes requis pour cela.</string>
 </resources>

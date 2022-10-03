@@ -755,4 +755,7 @@
     <string name="cable">Kabel</string>
     <string name="tetheringBluetoothNotPossible">Bluetooth tethering kann gegenwärtig nicht detektiert werden. Nur die anderen Verbindungsarten werden diesen Auslöser aktivieren.</string>
     <string name="type">Art</string>
+    <string name="startPhoneCall">Telefonnummer anrufen</string>
+    <string name="android.permission.CALL_PHONE">Telefonnummer anrufen</string>
+    <string name="makePhoneCallExplanation1">Hier können Sie eine Telefonnummer eingeben, die ohne weitere Aufforderung angerufen wird. Sie können dies verwenden, um Einstellungen vorzunehmen, z. B. Anpassungen an der Anrufweiterleitung usw. vorzunehmen. Bitte suchen Sie selbst nach den dafür benötigten Codes.</string>
 </resources>

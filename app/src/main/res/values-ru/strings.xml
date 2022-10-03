@@ -812,4 +812,7 @@
   <string name="cable">Кабель</string>
   <string name="tetheringBluetoothNotPossible">В настоящее время модем Bluetooth не может быть обнаружен. Только другие средства связи активируют этот триггер.</string>
   <string name="type">тип</string>
+    <string name="startPhoneCall">Номер телефона</string>
+  <string name="android.permission.CALL_PHONE">Номер телефона</string>
+  <string name="makePhoneCallExplanation1">Здесь вы можете ввести номер телефона, который будет звонить без дальнейших запросов. Вы можете использовать это для внесения настроек, таких как внесение изменений в маршрутизацию вызовов и т. Д. Пожалуйста, найдите коды, необходимые для этого, самостоятельно.</string>
 </resources>

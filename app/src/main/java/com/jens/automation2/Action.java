@@ -52,7 +52,8 @@ public class Action
 		sendBroadcast,
 		runExecutable,
 		wakelock,
-		makePhoneCall,
+		startPhoneCall,
+		stopPhoneCall,
 		sendTextMessage;
 
 		public String getFullName(Context context)
@@ -129,8 +130,10 @@ public class Action
 					return context.getResources().getString(R.string.runExecutable);
 				case wakelock:
 					return context.getResources().getString(R.string.keepDeviceAwake);
-				case makePhoneCall:
-					return context.getResources().getString(R.string.makePhoneCall);
+				case startPhoneCall:
+					return context.getResources().getString(R.string.startPhoneCall);
+				case stopPhoneCall:
+					return context.getResources().getString(R.string.endPhoneCall);
 				default:
 					return "Unknown";
 			}
@@ -280,8 +283,11 @@ public class Action
 				case wakelock:
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.keepDeviceAwake) + " (" + String.valueOf(getParameter1()) + ")");
 					break;
-				case makePhoneCall:
-					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.makePhoneCall));
+				case startPhoneCall:
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.startPhoneCall));
+					break;
+				case stopPhoneCall:
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.endPhoneCall));
 					break;
 				default:
 					returnString.append(action.toString());
@@ -594,8 +600,11 @@ public class Action
 					else
 						Actions.wakeLockStop();
 					break;
-				case makePhoneCall:
-					Actions.makePhoneCall(context, this.getParameter2());
+				case startPhoneCall:
+					Actions.startPhoneCall(context, this.getParameter2());
+					break;
+				case stopPhoneCall:
+					Actions.endPhoneCall(context);
 					break;
 				default:
 					Miscellaneous.logEvent("w", "Action", context.getResources().getString(R.string.unknownActionSpecified), 3);
