@@ -453,7 +453,7 @@
     <string name="settingsCategoryNoiseLevelMeasurements">Misura del livello di rumore</string>
     <string name="settingsCategoryProcessMonitoring">Monitoraggio del processo</string>
     <string name="settingsErased">Impostazioni cancellate.</string>
-    <string name="settingsReferringToRestrictedFeatures">Le tue impostazioni e/o regole si riferiscono attualmente a funzioni non coperte da una licenza aperta e che pertanto non possono essere fornite nella versione F-Droid. Questo include il rilevamento della tua attuale attività fisica.</string>
+    <string name="settingsReferringToRestrictedFeaturesInFdroid">Le tue impostazioni e/o regole si riferiscono attualmente a funzioni non coperte da una licenza aperta e che pertanto non possono essere fornite nella versione F-Droid. Questo include il rilevamento della tua attuale attività fisica.</string>
     <string name="settingsSetToDefault">Impostazioni predefinite ripristinate.</string>
     <string name="settingsWillTakeTime">Alcune impostazioni non saranno applicate prima che alcune impostazioni contestuali cambino o che il servizio venga riavviato.</string>
     <string name="shareConfigAndLogExplanation">Questo creerà una email con la tua configurazione e i file di log allegati come file zip. Non sarà inviata automaticamente, dovrai premere \"invia\". Puoi anche cambiare il destinatario con te stesso, per esempio.</string>
@@ -758,4 +758,7 @@
     <string name="startPhoneCall">Chiama il numero di telefono</string>
     <string name="android.permission.CALL_PHONE">Chiama il numero di telefono</string>
     <string name="makePhoneCallExplanation1">Qui è possibile inserire un numero di telefono che verrà chiamato senza ulteriori richieste. È possibile utilizzarlo per effettuare impostazioni come apportare modifiche al routing delle chiamate, ecc. Si prega di cercare i codici richiesti per questo da soli.</string>
+    <string name="android.permission.ANSWER_PHONE_CALLS">Termina telefonata</string>
+    <string name="endPhoneCall">Termina telefonata</string>
+    <string name="settingsReferringToRestrictedFeaturesInGoogle">Le tue impostazioni e/o regole fanno attualmente riferimento a funzioni che non possono essere fornite nella versione di Google Play. Tra le altre cose che include tutto ciò che riguarda le telefonate e i messaggi di testo.</string>
 </resources>

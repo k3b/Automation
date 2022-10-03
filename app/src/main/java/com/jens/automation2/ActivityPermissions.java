@@ -248,6 +248,10 @@ public class ActivityPermissions extends Activity
                         if (!havePermission(s, context))
                             return true;
                 }
+                else if((s.equalsIgnoreCase(Manifest.permission.CALL_PHONE) || s.equalsIgnoreCase(Manifest.permission.ANSWER_PHONE_CALLS)) && BuildConfig.FLAVOR.equalsIgnoreCase(AutomationService.flavor_name_googleplay))
+                {
+                    return false;
+                }
                 else if(s.equalsIgnoreCase(Manifest.permission.ACTIVITY_RECOGNITION) || s.equalsIgnoreCase(permissionNameGoogleActivityDetection))
                 {
                     if(!BuildConfig.FLAVOR.equalsIgnoreCase(AutomationService.flavor_name_fdroid))

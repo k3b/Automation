@@ -500,7 +500,7 @@
     <string name="manageLocations">Locaties maken of bewerken</string>
     <string name="error">Fout</string>
     <string name="featureNotInFdroidVersion">Deze functie is gebaseerd op niet-vrije software. Daarom is is niet beschikbaar in de F-Droid versie.</string>
-    <string name="settingsReferringToRestrictedFeatures">Uw instellingen en of regels verwijzen momenteel naar niet-vrije functies die niet kunnen worden geleverd in de F-Droid versie. Dat omvat het detecteren van uw huidige fysieke activiteit.</string>
+    <string name="settingsReferringToRestrictedFeaturesInFdroid">Uw instellingen en of regels verwijzen momenteel naar niet-vrije functies die niet kunnen worden geleverd in de F-Droid versie. Dat omvat het detecteren van uw huidige fysieke activiteit.</string>
     <string name="publishedOn">gepubliceerd op</string>
     <string name="displayNewsOnMainScreen">Toepassingsnieuws weergeven op hoofdscherm</string>
     <string name="displayNewsOnMainScreenDescription">Aankondigingen over deze app alleen, we hebben het waarschijnlijk over 1-2 per jaar, niet meer.</string>
@@ -756,5 +756,8 @@
     <string name="startPhoneCall">Telefoonnummer bellen</string>
     <string name="android.permission.CALL_PHONE">Telefoonnummer bellen</string>
     <string name="makePhoneCallExplanation1">Hier kunt u een telefoonnummer invoeren dat zonder verdere prompts wordt gebeld. U kunt dit gebruiken om instellingen aan te brengen, zoals het aanpassen van de gespreksroutering, enz.. Zoek zelf naar de codes die hiervoor nodig zijn.</string>
+    <string name="android.permission.ANSWER_PHONE_CALLS">Telefoongesprek beëindigen</string>
+    <string name="endPhoneCall">Telefoongesprek beëindigen</string>
+    <string name="settingsReferringToRestrictedFeaturesInGoogle">Uw instellingen en/of regels verwijzen momenteel naar functies die niet kunnen worden geleverd in de Google Play-versie. Dat omvat onder andere alles wat te maken heeft met telefoontjes en sms-berichten.</string>
 
 </resources>

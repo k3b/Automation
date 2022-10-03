@@ -563,7 +563,7 @@
   <string name="manageLocations">Создание или редактирование местоположений</string>
   <string name="error">Ошибка</string>
   <string name="featureNotInFdroidVersion">Эта функция использует несвободное программное обеспечение, поэтому недоступна в версии F-Droid.</string>
-  <string name="settingsReferringToRestrictedFeatures">Ваши настройки и / или правила в настоящее время используют функциии, которые зависят от  несвободного программного обеспечения, они не могут быть использованы в версии F-Droid. Это включает в себя определение вашей текущей физической активности.</string>
+  <string name="settingsReferringToRestrictedFeaturesInFdroid">Ваши настройки и / или правила в настоящее время используют функциии, которые зависят от  несвободного программного обеспечения, они не могут быть использованы в версии F-Droid. Это включает в себя определение вашей текущей физической активности.</string>
   <string name="publishedOn">опубликовано на</string>
   <string name="displayNewsOnMainScreen">Отображение новостей приложения на главном экране</string>
   <string name="displayNewsOnMainScreenDescription">Объявления об этом приложении, 1-2 в год, не больше.</string>
@@ -815,4 +815,7 @@
     <string name="startPhoneCall">Номер телефона</string>
   <string name="android.permission.CALL_PHONE">Номер телефона</string>
   <string name="makePhoneCallExplanation1">Здесь вы можете ввести номер телефона, который будет звонить без дальнейших запросов. Вы можете использовать это для внесения настроек, таких как внесение изменений в маршрутизацию вызовов и т. Д. Пожалуйста, найдите коды, необходимые для этого, самостоятельно.</string>
+    <string name="endPhoneCall">Завершение телефонного звонка</string>
+  <string name="android.permission.ANSWER_PHONE_CALLS">Завершение телефонного звонка</string>
+  <string name="settingsReferringToRestrictedFeaturesInGoogle">Ваши настройки и/или правила в настоящее время ссылаются на функции, которые не могут быть предоставлены в версии Google Play. Среди прочего, это включает в себя все, что связано с телефонными звонками и текстовыми сообщениями.</string>
 </resources>

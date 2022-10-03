@@ -512,7 +512,7 @@
     <string name="googleLocationChicaneryOld">Diese Anwendung sammelt Positionsdaten, um festzustellen, ob Sie sich gerade an einem der Orte aufhalten, die Sie definiert haben. Außerdem wird es benutzt, um Ihre Geschwindigkeit zu ermitteln, falls Sie diese in Regeln verwenden. Das wird auch dann gemacht, wenn das Programm nicht im Vordergrund ist (aber nur, wenn der Dienst aktiv ist).</string>
     <string name="error">Fehler</string>
     <string name="featureNotInFdroidVersion">Diese Funktion basiert auf nicht-freier Software (Google Bibliotheken). Daher ist sie in der F-Droid Version nicht verfügbar.</string>
-    <string name="settingsReferringToRestrictedFeatures">Ihre Einstellungen und Regeln verwenden derzeit nicht-freie Funktionen (Google Bibliotheken). Diese sind in der F-Droid Version nicht funktionsfähig. Das schließt die Erkennung Ihrer gegenwärtigen körperlichen Aktivität ein.</string>
+    <string name="settingsReferringToRestrictedFeaturesInFdroid">Ihre Einstellungen und Regeln verwenden derzeit nicht-freie Funktionen (Google Bibliotheken). Diese sind in der F-Droid Version nicht funktionsfähig. Das schließt die Erkennung Ihrer gegenwärtigen körperlichen Aktivität ein.</string>
     <string name="displayNewsOnMainScreen">Nachrichten auf dem Hauptbildschirm anzeigen</string>
     <string name="displayNewsOnMainScreenDescription">Nachrichten ausschließlich über diese Anwendung, wir sprechen von 1-2 pro Jahr, nicht mehr.</string>
     <string name="newsOptIn">Möchten Sie wichtige Nachrichten über diese Anwendung auf dem Hauptbildschirm angezeigt bekommen? Diese werden von der Webseite des Entwicklers heruntergeladen. Es gibt keine aufdringliche Benachrichtigung, etc., lediglich eine stille Anzeige auf dem Hauptbildschirm.</string>
@@ -758,4 +758,7 @@
     <string name="startPhoneCall">Telefonnummer anrufen</string>
     <string name="android.permission.CALL_PHONE">Telefonnummer anrufen</string>
     <string name="makePhoneCallExplanation1">Hier können Sie eine Telefonnummer eingeben, die ohne weitere Aufforderung angerufen wird. Sie können dies verwenden, um Einstellungen vorzunehmen, z. B. Anpassungen an der Anrufweiterleitung usw. vorzunehmen. Bitte suchen Sie selbst nach den dafür benötigten Codes.</string>
+    <string name="endPhoneCall">Telefonanruf beenden</string>
+    <string name="android.permission.ANSWER_PHONE_CALLS">Telefonanruf beenden</string>
+    <string name="settingsReferringToRestrictedFeaturesInGoogle">Ihre Einstellungen und/oder Regeln verweisen derzeit auf Funktionen, die in der Google Play-Version nicht bereitgestellt werden können. Dazu gehört unter anderem alles, was mit Telefonaten und Textnachrichten zu tun hat.</string>
 </resources>

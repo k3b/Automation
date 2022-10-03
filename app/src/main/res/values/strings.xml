@@ -602,7 +602,8 @@
     <string name="manageLocations">Create or edit locations</string>
     <string name="error">Error</string>
     <string name="featureNotInFdroidVersion">This feature is based on non-free software. Therefore is is not available in the F-Droid version.</string>
-    <string name="settingsReferringToRestrictedFeatures">Your settings and or rules are currently referencing non-free features that cannot be provided in the F-Droid version. That includes detecting your current physical activity.</string>
+    <string name="settingsReferringToRestrictedFeaturesInFdroid">Your settings and or rules are currently referencing non-free features that cannot be provided in the F-Droid version. That includes detecting your current physical activity.</string>
+    <string name="settingsReferringToRestrictedFeaturesInGoogle">Your settings and or rules are currently referencing features that cannot be provided in the Google Play version. Among other things that includes anything related to phone calls and text messages.</string>
     <string name="publishedOn">published on</string>
     <string name="displayNewsOnMainScreen">Display application news on main screen</string>
     <string name="displayNewsOnMainScreenDescription">Announcements about this app only, we\'re probably talking about 1-2 per year, not more.</string>

@@ -576,7 +576,7 @@
     <string name="screenLockSoundNotice">Sonidos de bloqueo de pantalla no seran mas cambiados en dispositivos que usan Android 6 o mas nuevos. Cualquier ajuste aqui no va a funcionar en cualquier dirección.</string>
     <string name="googleLocationChicanery">Este app almacena datos de posición para activar reglas que necesitan la posición o la velocidad - incluso cuando la app esta cerrada o no en uso.</string>
     <string name="googleLocationChicaneryOld">Este app almacena datos de posición para determinar si actualmente esta en uno de los sitios que creó. Además estan usados para determinar su actual velocidad (si usa esta condición en reglas). Incluso cuando la app esta cerrada o no en uso (pero solo cuando el servicio esta iniciado).</string>
-    <string name="settingsReferringToRestrictedFeatures">Su configuración y/o reglas actualmente referencian caracteristicas no-libres no seran proveidas en la versión F-Droid. Esto incluye determinar su actual actividad fisica.</string>
+    <string name="settingsReferringToRestrictedFeaturesInFdroid">Su configuración y/o reglas actualmente referencian caracteristicas no-libres no seran proveidas en la versión F-Droid. Esto incluye determinar su actual actividad fisica.</string>
     <string name="filesHaveBeenMovedTo">Automation ahora usa otra ruta para guardar sus archivos. Todos sus archivos de Automation fueron desplazados aqui: \"%s\". El permiso del almacenamiento externo todavia no es necesario; puede revocarlo. Sera eliminado en una futura versión.</string>
     <string name="newsOptIn">Quiere recibir noticias (solo importantes) en la pantalla principal? Estas serán descargadas de la pagina del desarollador. No habrán notificaciones inoportunas, solo un texto en la pantalla principal cuando abra la app.</string>
     <string name="filesStoredAt">Config y archivos de log seran guardados en el directorio %1$s. Cliquee en este texto para abrir un administrador de archivos. Desafortunadamente solo funciona en un dispositivo rooted.\n\nPARA OTROS DISP.: Simplemente use el boton para crear un backup.</string>
@@ -757,4 +757,7 @@
     <string name="startPhoneCall">Llamar al número de teléfono</string>
     <string name="android.permission.CALL_PHONE">Llamar al número de teléfono</string>
     <string name="makePhoneCallExplanation1">Aquí puede ingresar un número de teléfono al que se llamará sin más indicaciones. Puede usar esto para realizar configuraciones como realizar ajustes en el enrutamiento de llamadas, etc. Por favor, busque los códigos necesarios para esto por su cuenta.</string>
+    <string name="endPhoneCall">Terminar llamda de teléfono</string>
+    <string name="android.permission.ANSWER_PHONE_CALLS">Terminar llamda de teléfono</string>
+    <string name="settingsReferringToRestrictedFeaturesInGoogle">La configuración y/o las reglas hacen referencia a funciones que no se pueden proporcionar en la versión de Google Play. Entre otras cosas que incluye todo lo relacionado con llamadas telefónicas y mensajes de texto.</string>
 </resources>

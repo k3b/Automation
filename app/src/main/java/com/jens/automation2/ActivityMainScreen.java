@@ -270,9 +270,14 @@ public class ActivityMainScreen extends ActivityGeneric
 				activityMainScreenInstance.tvMainScreenNotePermissions.setVisibility(View.GONE);
 			}
 
-			if(Miscellaneous.restrictedFeaturesConfigured())
+			if(BuildConfig.FLAVOR.equals(AutomationService.flavor_name_fdroid) && Miscellaneous.restrictedFeaturesConfiguredFdroid())
 			{
-				activityMainScreenInstance.tvMainScreenNoteFeaturesFromOtherFlavor.setText(R.string.settingsReferringToRestrictedFeatures);
+				activityMainScreenInstance.tvMainScreenNoteFeaturesFromOtherFlavor.setText(R.string.settingsReferringToRestrictedFeaturesInFdroid);
+				activityMainScreenInstance.tvMainScreenNoteFeaturesFromOtherFlavor.setVisibility(View.VISIBLE);
+			}
+			else if(BuildConfig.FLAVOR.equals(AutomationService.flavor_name_googleplay) && Miscellaneous.restrictedFeaturesConfiguredGoogle())
+			{
+				activityMainScreenInstance.tvMainScreenNoteFeaturesFromOtherFlavor.setText(R.string.settingsReferringToRestrictedFeaturesInGoogle);
 				activityMainScreenInstance.tvMainScreenNoteFeaturesFromOtherFlavor.setVisibility(View.VISIBLE);
 			}
 			else
@@ -283,14 +288,6 @@ public class ActivityMainScreen extends ActivityGeneric
 
 			if(Miscellaneous.googleToBlameForLocation(true))
 			{
-//				Intent intent = new Intent(AutomationService.this, ActivityDisplayLongMessage.class);
-//				intent.putExtra("longMessage", getResources().getString(R.string.locationEngineDisabledLong));
-//				PendingIntent pi = PendingIntent.getActivity(AutomationService.this, 0, intent, 0);
-//				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
-//					Miscellaneous.createDismissableNotificationWithDelay(2200, getResources().getString(R.string.featuresDisabled), notificationIdLocationRestriction, pi);
-//				else
-//					Miscellaneous.createDismissableNotification(getResources().getString(R.string.featuresDisabled), notificationIdLocationRestriction, pi);
-
 				activityMainScreenInstance.tvMainScreenNoteLocationImpossibleBlameGoogle.setText(R.string.locationEngineDisabledShort);
 				activityMainScreenInstance.tvMainScreenNoteLocationImpossibleBlameGoogle.setVisibility(View.VISIBLE);
 				activityMainScreenInstance.tvMainScreenNoteLocationImpossibleBlameGoogle.setOnClickListener(new OnClickListener()
@@ -315,8 +312,7 @@ public class ActivityMainScreen extends ActivityGeneric
 				uiUpdateRunning = true;
 				activityMainScreenInstance.toggleService.setChecked(true);
 				uiUpdateRunning = false;
-				//		if(activityMainScreenInstance.hasWindowFocus())
-				//		{
+
 				try
 				{
 					PointOfInterest activePoi = PointOfInterest.getActivePoi();

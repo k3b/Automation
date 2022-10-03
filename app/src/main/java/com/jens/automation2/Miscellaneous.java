@@ -82,7 +82,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -91,7 +90,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -1392,7 +1390,7 @@ public class Miscellaneous extends Service
 		return result;
 	}
 
-	public static boolean restrictedFeaturesConfigured()
+	public static boolean restrictedFeaturesConfiguredFdroid()
 	{
 		if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.activityDetection))
 		{
@@ -1404,6 +1402,17 @@ public class Miscellaneous extends Service
 			{
 				return true;
 			}
+		}
+
+		return false;
+	}
+
+	public static boolean restrictedFeaturesConfiguredGoogle()
+	{
+		if(Rule.isAnyRuleUsing(Action.Action_Enum.startPhoneCall) || Rule.isAnyRuleUsing(Action.Action_Enum.stopPhoneCall))
+		{
+			if(BuildConfig.FLAVOR.equals(AutomationService.flavor_name_googleplay))
+				return true;
 		}
 
 		return false;
