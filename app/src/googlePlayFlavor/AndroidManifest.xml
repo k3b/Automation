@@ -156,6 +156,8 @@
         <activity android:name=".ActivityManageTriggerTethering" />
         <activity android:name=".ActivityManageActionWakeLock" />
         <activity android:name=".ActivityManageTriggerSubSystemState" />
+        <activity android:name=".ActivityManageActionSetVariable" />
+        <activity android:name=".ActivityManageTriggerCheckVariable" />
         <activity
             android:name=".ActivityMainTabLayout"
             android:launchMode="singleTask">

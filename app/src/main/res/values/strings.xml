@@ -858,4 +858,14 @@
     <string name="makePhoneCallExplanation1">Here you can enter a phone number that will be called without further prompts. You may use this to make settings like making adjustments to call routing, etc.. Please search for the codes required for this on your own.</string>
     <string name="endPhoneCall">End phone call</string>
     <string name="android.permission.ANSWER_PHONE_CALLS">End phone call</string>
+    <string name="setVariable">Set a variable</string>
+    <string name="deleteVariable">Delete variable</string>
+    <string name="VariableKey">Variable key</string>
+    <string name="variableValue">Variable value</string>
+    <string name="setVariableExplanation">If you set a variable to an empty value it will be deleted.</string>
+    <string name="enterVariableKey">Enter a key for the variable.</string>
+    <string name="checkVariable">Check variable</string>
+    <string name="checkVariableExplanation">If you leave the value empty the variable must not be set for the condition to return true.</string>
+    <string name="variableCheckString">if variable %1$s is %2$s</string>
+    <string name="variableCheckStringDeleted">if variable %1$s is not set</string>
 </resources>

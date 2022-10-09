@@ -760,4 +760,14 @@
     <string name="endPhoneCall">Mettre fin à l\'appel téléphonique</string>
     <string name="android.permission.ANSWER_PHONE_CALLS">Mettre fin à l\'appel téléphonique</string>
     <string name="settingsReferringToRestrictedFeaturesInGoogle">Vos paramètres et/ou règles font actuellement référence à des fonctionnalités qui ne peuvent pas être fournies dans la version Google Play. Entre autres choses, cela inclut tout ce qui concerne les appels téléphoniques et les messages texte.</string>
+    <string name="variableCheckStringDeleted">si la variable %1$s n\'est pas définie</string>
+    <string name="variableCheckString">si la variable %1$s est %2$s</string>
+    <string name="checkVariableExplanation">Si vous laissez la valeur vide, la variable ne doit pas être définie pour que la condition renvoie true.</string>
+    <string name="checkVariable">Vérifier la variable</string>
+    <string name="enterVariableKey">Entrez une clé pour la variable.</string>
+    <string name="setVariableExplanation">Si vous définissez une variable sur une valeur vide, elle sera supprimée.</string>
+    <string name="variableValue">Valeur variable</string>
+    <string name="VariableKey">Clé variable</string>
+    <string name="deleteVariable">Supprimer la variable</string>
+    <string name="setVariable">Définir une variable</string>
 </resources>

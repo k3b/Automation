@@ -33,6 +33,8 @@ import com.jens.automation2.receivers.PackageReplacedReceiver;
 import com.jens.automation2.receivers.PhoneStatusListener;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 @SuppressLint("NewApi")
@@ -62,6 +64,8 @@ public class AutomationService extends Service implements OnInitListener
 
 	protected Calendar lockSoundChangesEnd = null;
     protected boolean isRunning;
+
+	Map<String,String> variableMap = new HashMap();
 
 	protected static AutomationService centralInstance = null;
 
@@ -457,6 +461,10 @@ public class AutomationService extends Service implements OnInitListener
 	private void stopRoutine()
 	{
 		Miscellaneous.logEvent("i", "Service", "Stopping service...", 3);
+
+		// Clear variables for trigger/action with same name
+		variableMap.clear();
+
 		try
 		{
 			myLocationProvider.stopLocationService();
@@ -691,14 +699,19 @@ public class AutomationService extends Service implements OnInitListener
 			}
 		}
 	}
-	
-	 public static boolean isMainActivityRunning(Context context)
-	 {
+
+	public Map<String, String> getVariableMap()
+	{
+		return variableMap;
+	}
+
+	public static boolean isMainActivityRunning(Context context)
+	{
 		 if(ActivityMainScreen.getActivityMainScreenInstance() == null)
 			 return false;
 		 else
 			 return true;
-	 }
+	}
 	
 	public static boolean isMyServiceRunning(Context context)
 	{

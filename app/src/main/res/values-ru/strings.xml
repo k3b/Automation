@@ -818,4 +818,14 @@
     <string name="endPhoneCall">Завершение телефонного звонка</string>
   <string name="android.permission.ANSWER_PHONE_CALLS">Завершение телефонного звонка</string>
   <string name="settingsReferringToRestrictedFeaturesInGoogle">Ваши настройки и/или правила в настоящее время ссылаются на функции, которые не могут быть предоставлены в версии Google Play. Среди прочего, это включает в себя все, что связано с телефонными звонками и текстовыми сообщениями.</string>
+    <string name="setVariable">Задание переменной</string>
+  <string name="deleteVariable">Удалить переменную</string>
+  <string name="VariableKey">Клавиша переменной</string>
+  <string name="variableValue">Значение переменной</string>
+  <string name="setVariableExplanation">Если для переменной задано пустое значение, она будет удалена.</string>
+  <string name="enterVariableKey">Введите ключ для переменной.</string>
+  <string name="checkVariable">Проверить переменную</string>
+    <string name="checkVariableExplanation">Если оставить значение пустым, переменная не должна быть задана для того, чтобы условие возвращало значение true.</string>
+  <string name="variableCheckString">если переменная %1$s равно %2$s</string>
+  <string name="variableCheckStringDeleted">Если переменная %1$s не задана</string>
 </resources>

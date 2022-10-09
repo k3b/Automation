@@ -568,17 +568,17 @@ public class Profile implements Comparable<Profile>
 			}
 			finally
 			{
-				Miscellaneous.logEvent("i", "POI", "Checking for applicable rule after profile " + this.getName() + " has been activated.", 2);
+				Miscellaneous.logEvent("i", "Profile", "Checking for applicable rules after profile " + this.getName() + " has been activated.", 2);
 				List<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.profileActive);
 				for(int i=0; i<ruleCandidates.size(); i++)
 				{
 					if(ruleCandidates.get(i).haveEnoughPermissions() && ruleCandidates.get(i).getsGreenLight(AutomationService.getInstance()))
 					{
-						Miscellaneous.logEvent("i", "POI", "Rule " + ruleCandidates.get(i).getName() + " applies after " + this.getName() + " has been activated.", 2);
+						Miscellaneous.logEvent("i", "Profile", "Rule " + ruleCandidates.get(i).getName() + " applies after " + this.getName() + " has been activated.", 2);
 						ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
 					}
 				}
-				Miscellaneous.logEvent("i", "POI", "Done checking for applicable rule after profile " + this.getName() + " has been activated.", 2);
+				Miscellaneous.logEvent("i", "Profile", "Done checking for applicable rules after profile " + this.getName() + " has been activated.", 2);
 			}
 		}
 		else

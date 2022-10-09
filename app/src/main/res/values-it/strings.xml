@@ -761,4 +761,14 @@
     <string name="android.permission.ANSWER_PHONE_CALLS">Termina telefonata</string>
     <string name="endPhoneCall">Termina telefonata</string>
     <string name="settingsReferringToRestrictedFeaturesInGoogle">Le tue impostazioni e/o regole fanno attualmente riferimento a funzioni che non possono essere fornite nella versione di Google Play. Tra le altre cose che include tutto ciò che riguarda le telefonate e i messaggi di testo.</string>
+    <string name="setVariable">Impostare una variabile</string>
+    <string name="deleteVariable">Elimina variabile</string>
+    <string name="VariableKey">Chiave variabile</string>
+    <string name="variableValue">Valore variabile</string>
+    <string name="setVariableExplanation">Se si imposta una variabile su un valore vuoto, questa verrà eliminata.</string>
+    <string name="enterVariableKey">Immettere una chiave per la variabile.</string>
+    <string name="checkVariable">Controlla variabile</string>
+    <string name="checkVariableExplanation">Se si lascia vuoto il valore, la variabile non deve essere impostata affinché la condizione restituisca true.</string>
+    <string name="variableCheckString">Se la variabile %1$s è %2$s</string>
+    <string name="variableCheckStringDeleted">Se la variabile %1$s non è impostata</string>
 </resources>

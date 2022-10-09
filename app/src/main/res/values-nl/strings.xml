@@ -759,5 +759,15 @@
     <string name="android.permission.ANSWER_PHONE_CALLS">Telefoongesprek beëindigen</string>
     <string name="endPhoneCall">Telefoongesprek beëindigen</string>
     <string name="settingsReferringToRestrictedFeaturesInGoogle">Uw instellingen en/of regels verwijzen momenteel naar functies die niet kunnen worden geleverd in de Google Play-versie. Dat omvat onder andere alles wat te maken heeft met telefoontjes en sms-berichten.</string>
+    <string name="setVariable">Een variabele instellen</string>
+    <string name="deleteVariable">Variabele verwijderen</string>
+    <string name="VariableKey">Variabele sleutel</string>
+    <string name="variableValue">Variabele waarde</string>
+    <string name="setVariableExplanation">Als u een variabele instelt op een lege waarde, wordt deze verwijderd.</string>
+    <string name="enterVariableKey">Voer een sleutel in voor de variabele.</string>
+    <string name="checkVariable">Variabele controleren</string>
+    <string name="checkVariableExplanation">Als u de waarde leeg laat, mag de variabele niet worden ingesteld om de voorwaarde true te laten retourneren.</string>
+    <string name="variableCheckString">als variabele %1$s %2$s is</string>
+    <string name="variableCheckStringDeleted">als variabele %1$s niet is ingesteld</string>
 
 </resources>

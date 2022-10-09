@@ -760,4 +760,14 @@
     <string name="endPhoneCall">Terminar llamda de teléfono</string>
     <string name="android.permission.ANSWER_PHONE_CALLS">Terminar llamda de teléfono</string>
     <string name="settingsReferringToRestrictedFeaturesInGoogle">La configuración y/o las reglas hacen referencia a funciones que no se pueden proporcionar en la versión de Google Play. Entre otras cosas que incluye todo lo relacionado con llamadas telefónicas y mensajes de texto.</string>
+    <string name="variableCheckStringDeleted">Si la variable %1$s no está establecida</string>
+    <string name="variableCheckString">Si la variable %1$s es %2$s</string>
+    <string name="checkVariableExplanation">Si deja el valor vacío, no se debe establecer la variable para que la condición devuelva true.</string>
+    <string name="checkVariable">Comprobar variable</string>
+    <string name="enterVariableKey">Introduzca una clave para la variable.</string>
+    <string name="setVariableExplanation">Si establece una variable en un valor vacío, se eliminará.</string>
+    <string name="variableValue">Valor variable</string>
+    <string name="VariableKey">Clave variable</string>
+    <string name="deleteVariable">Eliminar variable</string>
+    <string name="setVariable">Establecer una variable</string>
 </resources>

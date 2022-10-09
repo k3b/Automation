@@ -66,6 +66,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -212,7 +213,35 @@ public class Actions
 		context.sendBroadcast(broadcastIntent);
     }
 
-    public static class WifiStuff
+	public static void setVariable(String parameter2)
+	{
+		String[] parts = parameter2.split(Action.actionParameter2Split);
+
+		if(AutomationService.isMyServiceRunning(Miscellaneous.getAnyContext()))
+		{
+			Map<String,String> map = AutomationService.getInstance().getVariableMap();
+
+			if(parts.length > 1)
+				map.put(parts[0], parts[1]);
+			else
+				map.remove(parts[0]);
+		}
+
+		Miscellaneous.logEvent("i", "Variable", "Checking for applicable rules after variable has been set or deleted.", 2);
+		List<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger.Trigger_Enum.checkVariable);
+		for(int i=0; i<ruleCandidates.size(); i++)
+		{
+			if(ruleCandidates.get(i).haveEnoughPermissions() && ruleCandidates.get(i).getsGreenLight(AutomationService.getInstance()))
+			{
+				Miscellaneous.logEvent("i", "Variable", "Rule " + ruleCandidates.get(i).getName() + " applies after variable has been set or deleted.", 2);
+				ruleCandidates.get(i).activate(AutomationService.getInstance(), false);
+			}
+		}
+		Miscellaneous.logEvent("i", "Variable", "Done checking for applicable rules after variable has been set or deleted.", 2);
+
+	}
+
+	public static class WifiStuff
 	{
 		public static Boolean setWifi(Context context, Boolean desiredState, String parameter2, boolean toggleActionIfPossible)
 		{

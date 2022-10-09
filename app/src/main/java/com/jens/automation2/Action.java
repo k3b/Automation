@@ -52,6 +52,7 @@ public class Action
 		sendBroadcast,
 		runExecutable,
 		wakelock,
+		setVariable,
 		startPhoneCall,
 		stopPhoneCall,
 		sendTextMessage;
@@ -130,6 +131,8 @@ public class Action
 					return context.getResources().getString(R.string.runExecutable);
 				case wakelock:
 					return context.getResources().getString(R.string.keepDeviceAwake);
+				case setVariable:
+					return context.getResources().getString(R.string.setVariable);
 				case startPhoneCall:
 					return context.getResources().getString(R.string.startPhoneCall);
 				case stopPhoneCall:
@@ -283,6 +286,16 @@ public class Action
 				case wakelock:
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.keepDeviceAwake) + " (" + String.valueOf(getParameter1()) + ")");
 					break;
+				case setVariable:
+					String[] variableParams = getParameter2().split(actionParameter2Split);
+					String addition;
+					if (variableParams.length >= 2)
+						addition = " (key: " + variableParams[0] + ", value: " + variableParams[1] + ")";
+					else
+						addition = " (delete key: " + variableParams[0] + ")";
+
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.setVariable) + addition);
+					break;
 				case startPhoneCall:
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.startPhoneCall));
 					break;
@@ -347,24 +360,24 @@ public class Action
 				if (parts.length > 4 && !StringUtils.isBlank(parts[4]))
 					returnString.append(", " + Miscellaneous.getAnyContext().getResources().getString(R.string.ifString) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.text) + " " + Trigger.getMatchString(parts[3]) + " " + parts[4]);
 
-				if(parts.length >= 6)
+				if (parts.length >= 6)
 				{
-					if(!parts[5].equals(ActivityManageActionCloseNotification.dismissRegularString))
+					if (!parts[5].equals(ActivityManageActionCloseNotification.dismissRegularString))
 					{
 						returnString.append(" " + String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.withButton), parts[5]));
 					}
 				}
 			}
-			else if(this.getAction().equals(Action_Enum.setWifi))
+			else if (this.getAction().equals(Action_Enum.setWifi))
 			{
-				if(!StringUtils.isEmpty(this.parameter2))
+				if (!StringUtils.isEmpty(this.parameter2))
 				{
 					boolean useRoot = Boolean.parseBoolean(this.parameter2);
-					if(useRoot)
+					if (useRoot)
 						returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.usingRoot));
 				}
 			}
-			else if(this.getAction().equals(Action_Enum.controlMediaPlayback))
+			else if (this.getAction().equals(Action_Enum.controlMediaPlayback))
 			{
 				returnString.append(": ");
 
@@ -392,10 +405,12 @@ public class Action
 						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.unknown));
 				}
 			}
-			else if(this.getAction().equals(Action_Enum.sendBroadcast))
+			else if (this.getAction().equals(Action_Enum.sendBroadcast))
 			{
 				returnString.append(": " + parameter2.replace(Action.actionParameter2Split, "; ").replace(Action.intentPairSeparator, "/"));
 			}
+			else if (this.getAction().equals(Action_Enum.setVariable))
+				;	// it's completed further above already
 			else if (parameter2 != null && parameter2.length() > 0)
 				returnString.append(": " + parameter2.replace(Action.actionParameter2Split, "; "));
 		}
@@ -599,6 +614,9 @@ public class Action
 						Actions.wakeLockStart(context, Long.parseLong(this.getParameter2()));
 					else
 						Actions.wakeLockStop();
+					break;
+				case setVariable:
+					Actions.setVariable(this.getParameter2());
 					break;
 				case startPhoneCall:
 					Actions.startPhoneCall(context, this.getParameter2());

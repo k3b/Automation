@@ -135,6 +135,10 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeTriggerSubSystemStateEdit = 822;
 	final static int requestCodeActionMakePhoneCallAdd = 823;
 	final static int requestCodeActionMakePhoneCallEdit = 824;
+	final static int requestCodeActionSetVariableAdd = 825;
+	final static int requestCodeActionSetVariableEdit = 826;
+	final static int requestCodeTriggerCheckVariableAdd = 827;
+	final static int requestCodeTriggerCheckVariableEdit = 828;
 
 	public static ActivityManageRule getInstance()
 	{
@@ -332,6 +336,12 @@ public class ActivityManageRule extends Activity
 						subSystemStateEditor.putExtra(intentNameTriggerParameter2, selectedTrigger.getTriggerParameter2());
 						startActivityForResult(subSystemStateEditor, requestCodeTriggerSubSystemStateEdit);
 						break;
+					case checkVariable:
+						Intent variableStateEditor = new Intent(ActivityManageRule.this, ActivityManageTriggerCheckVariable.class);
+						variableStateEditor.putExtra(intentNameTriggerParameter1, selectedTrigger.getTriggerParameter());
+						variableStateEditor.putExtra(intentNameTriggerParameter2, selectedTrigger.getTriggerParameter2());
+						startActivityForResult(variableStateEditor, requestCodeTriggerCheckVariableEdit);
+						break;
 					default:
 						break;
 				}
@@ -423,6 +433,11 @@ public class ActivityManageRule extends Activity
 						activityEditMakePhoneCallIntent.putExtra(intentNameActionParameter1, a.getParameter1());
 						activityEditMakePhoneCallIntent.putExtra(intentNameActionParameter2, a.getParameter2());
 						startActivityForResult(activityEditMakePhoneCallIntent, requestCodeActionMakePhoneCallEdit);
+						break;
+					case setVariable:
+						Intent activityEditSetVariableIntent = new Intent(ActivityManageRule.this, ActivityManageActionSetVariable.class);
+						activityEditSetVariableIntent.putExtra(intentNameActionParameter2, a.getParameter2());
+						startActivityForResult(activityEditSetVariableIntent, requestCodeActionSetVariableEdit);
 						break;
 					case setWifi:
 						Intent activityEditSetWifiIntent = new Intent(ActivityManageRule.this, ActivityManageActionWifi.class);
@@ -820,6 +835,13 @@ public class ActivityManageRule extends Activity
 						newTrigger.setTriggerType(Trigger_Enum.subSystemState);
 						Intent subSystemStateTriggerEditor = new Intent(myContext, ActivityManageTriggerSubSystemState.class);
 						startActivityForResult(subSystemStateTriggerEditor, requestCodeTriggerSubSystemStateAdd);
+						return;
+					}
+					else if(triggerType == Trigger_Enum.checkVariable)
+					{
+						newTrigger.setTriggerType(Trigger_Enum.checkVariable);
+						Intent variableTriggerEditor = new Intent(myContext, ActivityManageTriggerCheckVariable.class);
+						startActivityForResult(variableTriggerEditor, requestCodeTriggerCheckVariableAdd);
 						return;
 					}
 					else
@@ -1601,6 +1623,16 @@ public class ActivityManageRule extends Activity
 				this.refreshActionList();
 			}
 		}
+		else if(requestCode == requestCodeActionSetVariableAdd)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				newAction.setParentRule(ruleToEdit);
+				newAction.setParameter2(data.getStringExtra(intentNameActionParameter2));
+				ruleToEdit.getActionSet().add(newAction);
+				this.refreshActionList();
+			}
+		}
 		else if(requestCode == requestCodeActionWakeLockAdd)
 		{
 			if(resultCode == RESULT_OK)
@@ -1720,6 +1752,20 @@ public class ActivityManageRule extends Activity
 				if(data.hasExtra(intentNameActionParameter1) && data.hasExtra(intentNameActionParameter2))
 				{
 					ruleToEdit.getActionSet().get(editIndex).setParameter1(data.getBooleanExtra(intentNameActionParameter1, false));
+					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra(intentNameActionParameter2));
+				}
+
+				this.refreshActionList();
+			}
+		}
+		else if(requestCode == requestCodeActionSetVariableEdit)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				ruleToEdit.getActionSet().get(editIndex).setParentRule(ruleToEdit);
+
+				if(data.hasExtra(intentNameActionParameter1) && data.hasExtra(intentNameActionParameter2))
+				{
 					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra(intentNameActionParameter2));
 				}
 
@@ -1920,6 +1966,17 @@ public class ActivityManageRule extends Activity
 				this.refreshTriggerList();
 			}
 		}
+		else if(requestCode == requestCodeTriggerCheckVariableAdd)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				newTrigger.setTriggerParameter(data.getBooleanExtra(intentNameTriggerParameter1, true));
+				newTrigger.setTriggerParameter2(data.getStringExtra(intentNameTriggerParameter2));
+				newTrigger.setParentRule(ruleToEdit);
+				ruleToEdit.getTriggerSet().add(newTrigger);
+				this.refreshTriggerList();
+			}
+		}
 		else if(requestCode == requestCodeTriggerTetheringEdit)
 		{
 			if(resultCode == RESULT_OK)
@@ -1939,6 +1996,19 @@ public class ActivityManageRule extends Activity
 			{
 				Trigger editedTrigger = new Trigger();
 				editedTrigger.setTriggerType(Trigger_Enum.subSystemState);
+				editedTrigger.setTriggerParameter(data.getBooleanExtra(intentNameTriggerParameter1, true));
+				editedTrigger.setTriggerParameter2(data.getStringExtra(intentNameTriggerParameter2));
+				editedTrigger.setParentRule(ruleToEdit);
+				ruleToEdit.getTriggerSet().set(editIndex, editedTrigger);
+				this.refreshTriggerList();
+			}
+		}
+		else if(requestCode == requestCodeTriggerCheckVariableEdit)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				Trigger editedTrigger = new Trigger();
+				editedTrigger.setTriggerType(Trigger_Enum.checkVariable);
 				editedTrigger.setTriggerParameter(data.getBooleanExtra(intentNameTriggerParameter1, true));
 				editedTrigger.setTriggerParameter2(data.getStringExtra(intentNameTriggerParameter2));
 				editedTrigger.setParentRule(ruleToEdit);
@@ -2191,6 +2261,12 @@ public class ActivityManageRule extends Activity
 						newAction.setAction(Action_Enum.startPhoneCall);
 						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionMakePhoneCall.class);
 						startActivityForResult(intent, requestCodeActionMakePhoneCallAdd);
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.setVariable.toString()))
+					{
+						newAction.setAction(Action_Enum.setVariable);
+						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionSetVariable.class);
+						startActivityForResult(intent, requestCodeActionSetVariableAdd);
 					}
 					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.stopPhoneCall.toString()))
 					{

@@ -31,6 +31,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 
 public class Trigger
 {
@@ -61,6 +62,7 @@ public class Trigger
 		broadcastReceived,
 		tethering,
 		subSystemState,
+		checkVariable,
 		phoneCall; //phoneCall always needs to be at the very end because of Google's shitty so called privacy
 
 		public String getFullName(Context context)
@@ -119,6 +121,8 @@ public class Trigger
 					return context.getResources().getString(R.string.tetheringState);
 				case subSystemState:
 					return context.getResources().getString(R.string.subSystemState);
+				case checkVariable:
+					return context.getResources().getString(R.string.checkVariable);
 				default:
 					return "Unknown";
 			}
@@ -242,6 +246,10 @@ public class Trigger
 					break;
 				case subSystemState:
 					if(!checkSubSystemState())
+						result = false;
+					break;
+				case checkVariable:
+					if(!checkVariable())
 						result = false;
 					break;
 				default:
@@ -569,6 +577,33 @@ public class Trigger
 		catch(Exception e)
 		{
 			Miscellaneous.logEvent("e", "checkSubSystemState()", Log.getStackTraceString(e), 1);
+		}
+
+		return false;
+	}
+
+	boolean checkVariable()
+	{
+		try
+		{
+			Map<String,String> map = AutomationService.getInstance().getVariableMap();
+
+			String[] conditions = this.getTriggerParameter2().split(Trigger.triggerParameter2Split);
+
+			if(conditions.length == 1) // no real condition
+				return true;
+			else
+			{
+				if (map.containsKey(conditions[0]))
+				{
+					if (map.get(conditions[0]).equals(conditions[1]))
+						return true;
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			Miscellaneous.logEvent("e", "checkVariable()", Log.getStackTraceString(e), 1);
 		}
 
 		return false;
@@ -1418,7 +1453,7 @@ public class Trigger
 		switch(this.getTriggerType())
 		{
 			case charging:
-				if(getTriggerParameter())
+				if (getTriggerParameter())
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.starting) + " ");
 				else
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.stopping) + " ");
@@ -1426,14 +1461,14 @@ public class Trigger
 				break;
 			case batteryLevel:
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.batteryLevel));
-				if(getTriggerParameter())
+				if (getTriggerParameter())
 					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.exceeds) + " ");
 				else
 					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.dropsBelow) + " ");
 				returnString.append(String.valueOf(this.getBatteryLevel()) + " %");
 				break;
 			case usb_host_connection:
-				if(getTriggerParameter())
+				if (getTriggerParameter())
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.connecting) + " ");
 				else
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.disconnecting) + " ");
@@ -1441,9 +1476,9 @@ public class Trigger
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.triggerUsb_host_connection));
 				break;
 			case pointOfInterest:
-				if(this.getPointOfInterest() != null)
+				if (this.getPointOfInterest() != null)
 				{
-					if(getTriggerParameter())
+					if (getTriggerParameter())
 						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.entering) + " ");
 					else
 						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.leaving) + " ");
@@ -1452,33 +1487,33 @@ public class Trigger
 				}
 				else
 				{
-					if(getTriggerParameter())
+					if (getTriggerParameter())
 						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.leaving) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.anyLocation));
 					else
 						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.entering) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.anyLocation));
 				}
 				break;
 			case timeFrame:
-				if(getTriggerParameter())
+				if (getTriggerParameter())
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.entering) + " ");
 				else
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.leaving) + " ");
 
 				String repeat = ", " + Miscellaneous.getAnyContext().getResources().getString(R.string.noRepetition);
-				if(this.getTimeFrame().getRepetition() > 0)
+				if (this.getTimeFrame().getRepetition() > 0)
 					repeat = ", " + String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.repeatEveryXsecondsWithVariable), String.valueOf(this.getTimeFrame().getRepetition()));
 
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.triggerTimeFrame) + ": " + this.getTimeFrame().getTriggerTimeStart().toString() + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.until) + " " + this.getTimeFrame().getTriggerTimeStop().toString() + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.onDays) + " " + this.getTimeFrame().getDayList().toString() + repeat);
 				break;
 			case speed:
-				if(getTriggerParameter())
+				if (getTriggerParameter())
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.exceeding) + " ");
 				else
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.droppingBelow) + " ");
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.triggerSpeed) + ": " + String.valueOf(this.getSpeed()) + " km/h");
 				break;
 			case noiseLevel:
-				if(getTriggerParameter())
+				if (getTriggerParameter())
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.exceeding) + " ");
 				else
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.droppingBelow) + " ");
@@ -1486,27 +1521,27 @@ public class Trigger
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.triggerNoiseLevel) + ": " + String.valueOf(this.getNoiseLevelDb()) + " dB");
 				break;
 			case wifiConnection:
-				String wifiDisplayName = "";				
-				if(this.getTriggerParameter2().length() == 0)
+				String wifiDisplayName = "";
+				if (this.getTriggerParameter2().length() == 0)
 					wifiDisplayName += Miscellaneous.getAnyContext().getResources().getString(R.string.anyWifi);
 				else
 					wifiDisplayName += this.getTriggerParameter2();
-				
-				if(getTriggerParameter())
+
+				if (getTriggerParameter())
 					returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.connectedToWifi), wifiDisplayName));
 				else
 					returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.disconnectedFromWifi), wifiDisplayName));
-				
+
 				break;
 			case process_started_stopped:
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.application) + " " + this.getProcessName() + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.is) + " ");
-				if(this.triggerParameter)
+				if (this.triggerParameter)
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.started));
 				else
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.stopped));
 				break;
 			case airplaneMode:
-				if(getTriggerParameter())
+				if (getTriggerParameter())
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.activated) + " ");
 				else
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.deactivated) + " ");
@@ -1514,7 +1549,7 @@ public class Trigger
 				break;
 			case roaming:
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.roaming));
-				if(getTriggerParameter())
+				if (getTriggerParameter())
 					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.activated));
 				else
 					returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.deactivated));
@@ -1526,27 +1561,27 @@ public class Trigger
 
 				returnString.append(" ");
 
-				if(elements[1].equals(triggerPhoneCallDirectionAny))
+				if (elements[1].equals(triggerPhoneCallDirectionAny))
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.with));
-				else if(elements[1].equals(triggerPhoneCallDirectionIncoming))
+				else if (elements[1].equals(triggerPhoneCallDirectionIncoming))
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.from));
-				else if(elements[1].equals(triggerPhoneCallDirectionOutgoing))
+				else if (elements[1].equals(triggerPhoneCallDirectionOutgoing))
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.to));
 
 				returnString.append(" ");
 
-				if(elements[2].equals(Trigger.triggerPhoneCallNumberAny))
+				if (elements[2].equals(Trigger.triggerPhoneCallNumberAny))
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.any) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.number));
 				else
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.number) + " " + Miscellaneous.getAnyContext().getResources().getString(R.string.matching) + " " + elements[2]);
 
 				returnString.append(" ");
 
-				if(elements[0].equals(Trigger.triggerPhoneCallStateRinging))
+				if (elements[0].equals(Trigger.triggerPhoneCallStateRinging))
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.ringing));
-				else if(elements[0].equals(Trigger.triggerPhoneCallStateStarted))
+				else if (elements[0].equals(Trigger.triggerPhoneCallStateStarted))
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.started));
-				else if(elements[0].equals(Trigger.triggerPhoneCallStateStopped))
+				else if (elements[0].equals(Trigger.triggerPhoneCallStateStopped))
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.stopped));
 
 				break;
@@ -1566,18 +1601,18 @@ public class Trigger
 					else
 						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.featureNotInFdroidVersion));
 				}
-				catch(ClassNotFoundException e)
+				catch (ClassNotFoundException e)
 				{
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.featureNotInFdroidVersion));
 				}
 				break;
 			case bluetoothConnection:
 				String device = Miscellaneous.getAnyContext().getResources().getString(R.string.anyDevice);
-				if(bluetoothDeviceAddress.equals("<any>"))
+				if (bluetoothDeviceAddress.equals("<any>"))
 				{
 					device = Miscellaneous.getAnyContext().getResources().getString(R.string.any);
 				}
-				else if(bluetoothDeviceAddress.equals("<none>"))
+				else if (bluetoothDeviceAddress.equals("<none>"))
 				{
 					device = Miscellaneous.getAnyContext().getResources().getString(R.string.noDevice);
 				}
@@ -1587,21 +1622,21 @@ public class Trigger
 					{
 						device = BluetoothReceiver.getDeviceByAddress(bluetoothDeviceAddress).getName() + " (" + this.bluetoothDeviceAddress + ")";
 					}
-					catch(NullPointerException e)
+					catch (NullPointerException e)
 					{
 						device = Miscellaneous.getAnyContext().getResources().getString(R.string.invalidDevice) + ": " + this.bluetoothDeviceAddress;
 						Miscellaneous.logEvent("w", "Trigger", device, 3);
 					}
 				}
 
-				if(bluetoothEvent.equals(BluetoothDevice.ACTION_ACL_CONNECTED) || bluetoothEvent.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED))
+				if (bluetoothEvent.equals(BluetoothDevice.ACTION_ACL_CONNECTED) || bluetoothEvent.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED))
 				{
 					if (this.triggerParameter)
 						returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothConnectionTo), device));
 					else
 						returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothDisconnectFrom), device));
 				}
-				else if(bluetoothEvent.equals(BluetoothDevice.ACTION_FOUND))
+				else if (bluetoothEvent.equals(BluetoothDevice.ACTION_FOUND))
 				{
 					if (this.triggerParameter)
 						returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.bluetoothDeviceInRange), device));
@@ -1611,7 +1646,7 @@ public class Trigger
 				break;
 			case headsetPlugged:
 				String type;
-				switch(headphoneType)
+				switch (headphoneType)
 				{
 					case 0:
 						type = Miscellaneous.getAnyContext().getResources().getString(R.string.headphoneSimple);
@@ -1626,13 +1661,13 @@ public class Trigger
 						type = Miscellaneous.getAnyContext().getResources().getString(R.string.notSet);
 						break;
 				}
-				if(getTriggerParameter())
+				if (getTriggerParameter())
 					returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.headsetConnected), type));
 				else
 					returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.headsetDisconnected), type));
 				break;
 			case notification:
-				if(this.getTriggerParameter2().contains(triggerParameter2Split))
+				if (this.getTriggerParameter2().contains(triggerParameter2Split))
 				{
 					String[] params = getTriggerParameter2().split(triggerParameter2Split);
 
@@ -1653,7 +1688,7 @@ public class Trigger
 					else
 						appString = "app " + app;
 
-					if(triggerParameter)
+					if (triggerParameter)
 						triggerBuilder.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.postsNotification), appString));
 					else
 						triggerBuilder.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.removedNotification), appString));
@@ -1675,26 +1710,26 @@ public class Trigger
 				returnString.append(Miscellaneous.getAnyContext().getString(R.string.deviceIsInCertainOrientation));
 				break;
 			case profileActive:
-				if(triggerParameter)
+				if (triggerParameter)
 					returnString.append(String.format(Miscellaneous.getAnyContext().getString(R.string.profileActive), getTriggerParameter2().split(Trigger.triggerParameter2Split)[0]));
 				else
 					returnString.append(String.format(Miscellaneous.getAnyContext().getString(R.string.profileNotActive), getTriggerParameter2().split(Trigger.triggerParameter2Split)[0]));
 				break;
 			case musicPlaying:
-				if(triggerParameter)
+				if (triggerParameter)
 					returnString.append(Miscellaneous.getAnyContext().getString(R.string.musicIsPlaying));
 				else
 					returnString.append(Miscellaneous.getAnyContext().getString(R.string.musicIsNotPlaying));
 				break;
 			case screenState:
 				String state;
-				switch(triggerParameter2)
+				switch (triggerParameter2)
 				{
 					case "0":
 						state = Miscellaneous.getAnyContext().getString(R.string.off);
 						break;
 					case "1":
-								state = Miscellaneous.getAnyContext().getString(R.string.on);
+						state = Miscellaneous.getAnyContext().getString(R.string.on);
 						break;
 					case "2":
 						state = Miscellaneous.getAnyContext().getString(R.string.unlocked);
@@ -1719,7 +1754,7 @@ public class Trigger
 				returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.serviceIsStarting) + ": " + String.valueOf(triggerParameter));
 				break;
 			case broadcastReceived:
-				if(triggerParameter)
+				if (triggerParameter)
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.broadcastReceived));
 				else
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.broadcastNotReceived));
@@ -1727,7 +1762,7 @@ public class Trigger
 				returnString.append(": " + triggerParameter2);
 				break;
 			case tethering:
-				if(triggerParameter)
+				if (triggerParameter)
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.tetheringActive));
 				else
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.tetheringNotActive));
@@ -1736,7 +1771,7 @@ public class Trigger
 				break;
 			case subSystemState:
 				Trigger.subSystemStates desiredState = subSystemStates.valueOf(triggerParameter2);
-				switch(desiredState)
+				switch (desiredState)
 				{
 					case wifi:
 						returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.wifi));
@@ -1748,10 +1783,19 @@ public class Trigger
 
 				returnString.append(" " + Miscellaneous.getAnyContext().getResources().getString(R.string.is) + " ");
 
-				if(triggerParameter)
+				if (triggerParameter)
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.activated));
 				else
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.deactivated));
+				break;
+			case checkVariable:
+				if (triggerParameter2.contains(triggerParameter2Split))
+				{
+					String[] parts = triggerParameter2.split(triggerParameter2Split);
+					returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.variableCheckString), parts[0], parts[1]));
+				}
+				else
+					returnString.append(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.variableCheckStringDeleted), triggerParameter2));
 				break;
 			default:
 				returnString.append("error");
