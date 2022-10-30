@@ -868,4 +868,9 @@
     <string name="checkVariableExplanation">If you leave the value empty the variable must not be set for the condition to return true.</string>
     <string name="variableCheckString">if variable %1$s is %2$s</string>
     <string name="variableCheckStringDeleted">if variable %1$s is not set</string>
+    <string name="messageType">Message type</string>
+    <string name="sms">SMS</string>
+    <string name="mms">MMS</string>
+    <string name="attachment">Attachment</string>
+    <string name="chooseFile">choose file</string>
 </resources>

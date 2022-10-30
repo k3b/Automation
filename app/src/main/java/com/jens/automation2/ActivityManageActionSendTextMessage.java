@@ -9,10 +9,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,13 +26,12 @@ import com.jens.automation2.Action.Action_Enum;
 
 public class ActivityManageActionSendTextMessage extends Activity
 {
-	Button bSaveSendTextMessage, bImportNumberFromContacts;
+	Button bSaveSendTextMessage, bImportNumberFromContacts, bMmsAttachment;
 	EditText etPhoneNumber, etSendTextMessage;
+	RadioButton rbMessageTypeSms, rbMessageTypeMms;
 
 	protected final static int requestCodeForContactsPermissions = 9876;
 	protected final static int requestCodeGetContact = 3235;
-	
-//	private String existingUrl = "";
 	
 	public static boolean edit = false;
 	public static Action resultingAction = null;
@@ -43,6 +46,9 @@ public class ActivityManageActionSendTextMessage extends Activity
 		etPhoneNumber = (EditText)findViewById(R.id.etPhoneNumber);
 		bSaveSendTextMessage = (Button)findViewById(R.id.bSaveSendTextMessage);
 		bImportNumberFromContacts = (Button)findViewById(R.id.bImportNumberFromContacts);
+		rbMessageTypeSms = (RadioButton)findViewById(R.id.rbMessageTypeSms);
+		rbMessageTypeMms = (RadioButton) findViewById(R.id.rbMessageTypeMms);
+		bMmsAttachment = (Button)findViewById(R.id.bMmsAttachment);
 
 		bSaveSendTextMessage.setOnClickListener(new OnClickListener()
 		{
@@ -77,6 +83,16 @@ public class ActivityManageActionSendTextMessage extends Activity
 					openContactsDialogue();
 			}
 		});
+
+		RadioButton.OnCheckedChangeListener checkedChangedListener = new RadioButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton compoundButton, boolean b)
+			{
+				bMmsAttachment.setEnabled(rbMessageTypeMms.isChecked());
+			}
+		};
+		rbMessageTypeSms.setOnCheckedChangeListener(checkedChangedListener);
+		rbMessageTypeMms.setOnCheckedChangeListener(checkedChangedListener);
 
 		ActivityManageActionSendTextMessage.edit = getIntent().getBooleanExtra("edit", false);
 		if(edit)

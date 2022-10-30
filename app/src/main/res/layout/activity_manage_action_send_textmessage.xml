@@ -44,6 +44,30 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/messageType" />
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <RadioButton
+                android:id="@+id/rbMessageTypeSms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/sms" />
+
+            <RadioButton
+                android:id="@+id/rbMessageTypeMms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mms" />
+
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/textToSend" />
 
         <EditText
@@ -66,6 +90,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/urlLegend" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/attachment" />
+
+        <TextView
+            android:id="@+id/sendMmsFileAttachment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/bMmsAttachment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="@string/chooseFile" />
 
         <Button
             android:id="@+id/bSaveSendTextMessage"
