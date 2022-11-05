@@ -76,7 +76,6 @@ public class HeadphoneJackListener extends BroadcastReceiver implements Automati
 			}
 
 			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.headsetPlugged);
-//			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByHeadphoneJack(isHeadsetConnected());
 			for(int i=0; i<ruleCandidates.size(); i++)
 			{
 				if(ruleCandidates.get(i).getsGreenLight(context))
@@ -104,7 +103,6 @@ public class HeadphoneJackListener extends BroadcastReceiver implements Automati
 			{
 				Miscellaneous.logEvent("i", "HeadsetJackListener", "Starting HeadsetJackListener", 4);
 				headphoneJackListenerActive = true;
-//				getInstance().startHeadphoneJackListener(AutomationService.getInstance(), headphoneJackListenerIntentFilter);
 				automationService.registerReceiver(this, headphoneJackListenerIntentFilter);
 			}
 		}
@@ -122,7 +120,6 @@ public class HeadphoneJackListener extends BroadcastReceiver implements Automati
 			if(headphoneJackListenerActive)
 			{
 				Miscellaneous.logEvent("i", "HeadsetJackListener", "Stopping HeadsetJackListener", 4);
-//				getInstance().stopHeadphoneJackListener(AutomationService.getInstance());
 				automationService.unregisterReceiver(this);
 				headphoneJackListenerActive = false;
 			}
@@ -150,5 +147,4 @@ public class HeadphoneJackListener extends BroadcastReceiver implements Automati
 	{
 		return new Trigger_Enum[] { Trigger_Enum.headsetPlugged };
 	}
-
 }
