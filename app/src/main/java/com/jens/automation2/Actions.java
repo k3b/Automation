@@ -1220,24 +1220,63 @@ public class Actions
 
 	public static void sendTextMessage(Context context, String[] parametersArray)
 	{
-		String phoneNumber, message;
+		String phoneNumber, message, messageType = "sms", filePath = null;
 
 		phoneNumber = parametersArray[0];
 		message = parametersArray[1];
 
+		if(parametersArray.length > 2)
+		{
+			messageType = parametersArray[2];
+
+			if(parametersArray.length > 3)
+				filePath = parametersArray[3];
+		}
+
 		try
 		{
 			String textToSend = Miscellaneous.replaceVariablesInText(message, context);
+			if(messageType.equals("sms"))
+				sendSmsMessage(phoneNumber, textToSend);
+			else
+				sendMmsMessage(phoneNumber, textToSend, filePath);
+		}
+		catch (Exception e)
+		{
+			Miscellaneous.logEvent("e", Miscellaneous.getAnyContext().getString(R.string.sendTextMessage), "Error in sendTextMessage: " + Log.getStackTraceString(e), 3);
+		}
+	}
 
-			/*
-			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + phoneNumber));
-			intent.putExtra("sms_body", message);
-			AutomationService.getInstance().startActivity(intent);
-            */
-
+	private static void sendSmsMessage(String phoneNumber, String textToSend)
+	{
+		try
+		{
 			PendingIntent pi = PendingIntent.getActivity(context, 0, new Intent(context, Actions.class), 0);
 			SmsManager sms = SmsManager.getDefault();
 			sms.sendTextMessage(phoneNumber, null, textToSend, pi, null);
+		}
+		catch (Exception e)
+		{
+			Miscellaneous.logEvent("e", Miscellaneous.getAnyContext().getString(R.string.sendTextMessage), "Error in sendTextMessage: " + Log.getStackTraceString(e), 3);
+		}
+	}
+
+	private static void sendMmsMessage(String phoneNumber, String textToSend, String fileToBeAttached)
+	{
+		try
+		{
+			PendingIntent pi = PendingIntent.getActivity(context, 0, new Intent(context, Actions.class), 0);
+			SmsManager sms = SmsManager.getDefault();
+			sms.sendMultimediaMessage(phoneNumber, null, textToSend, pi, null);
+
+			if(!StringUtils.isEmpty(fileToBeAttached))
+			{
+				Uri uri = Uri.parse("file://" + fileToBeAttached);
+				i.putExtra(Intent.EXTRA_STREAM, "file:/" + uri);
+				i.setType("image/png");
+			}
+
+			startActivity(i);
 		}
 		catch (Exception e)
 		{

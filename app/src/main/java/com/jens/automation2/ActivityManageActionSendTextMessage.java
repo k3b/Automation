@@ -17,6 +17,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,9 +30,11 @@ public class ActivityManageActionSendTextMessage extends Activity
 	Button bSaveSendTextMessage, bImportNumberFromContacts, bMmsAttachment;
 	EditText etPhoneNumber, etSendTextMessage;
 	RadioButton rbMessageTypeSms, rbMessageTypeMms;
+	TextView tvSendMmsFileAttachment;
 
 	protected final static int requestCodeForContactsPermissions = 9876;
 	protected final static int requestCodeGetContact = 3235;
+	protected final static int requestCodeGetMMSattachment = 3236;
 	
 	public static boolean edit = false;
 	public static Action resultingAction = null;
@@ -49,6 +52,7 @@ public class ActivityManageActionSendTextMessage extends Activity
 		rbMessageTypeSms = (RadioButton)findViewById(R.id.rbMessageTypeSms);
 		rbMessageTypeMms = (RadioButton) findViewById(R.id.rbMessageTypeMms);
 		bMmsAttachment = (Button)findViewById(R.id.bMmsAttachment);
+		tvSendMmsFileAttachment = (TextView)findViewById(R.id.tvSendMmsFileAttachment);
 
 		bSaveSendTextMessage.setOnClickListener(new OnClickListener()
 		{
@@ -93,6 +97,18 @@ public class ActivityManageActionSendTextMessage extends Activity
 		};
 		rbMessageTypeSms.setOnCheckedChangeListener(checkedChangedListener);
 		rbMessageTypeMms.setOnCheckedChangeListener(checkedChangedListener);
+
+		bMmsAttachment.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+				Intent chooseFileIntent = new Intent(Intent.ACTION_GET_CONTENT);
+				chooseFileIntent.setType("*/*");
+				chooseFileIntent = Intent.createChooser(chooseFileIntent, getResources().getString(R.string.chooseFile));
+				startActivityForResult(chooseFileIntent, requestCodeGetMMSattachment);
+			}
+		});
 
 		ActivityManageActionSendTextMessage.edit = getIntent().getBooleanExtra("edit", false);
 		if(edit)
@@ -160,10 +176,10 @@ public class ActivityManageActionSendTextMessage extends Activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        if(requestCode == requestCodeGetContact)
-        {
-            if(resultCode == Activity.RESULT_OK)
-            {
+		if(resultCode == Activity.RESULT_OK)
+		{
+			if(requestCode == requestCodeGetContact)
+			{
                 String phoneNo = null;
                 String name = null;
 
@@ -181,6 +197,12 @@ public class ActivityManageActionSendTextMessage extends Activity
                     etPhoneNumber.setText(phoneNo);
                 }
             }
+			else if (requestCode == requestCodeGetMMSattachment)
+			{
+				Uri fileUri = data.getData();
+				String filePath = fileUri.getPath();
+				tvSendMmsFileAttachment.setText(filePath);
+			}
         }
         //super.onActivityResult(requestCode, resultCode, data);
     }

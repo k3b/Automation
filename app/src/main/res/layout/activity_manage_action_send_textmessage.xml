@@ -97,7 +97,7 @@
             android:text="@string/attachment" />
 
         <TextView
-            android:id="@+id/sendMmsFileAttachment"
+            android:id="@+id/tvSendMmsFileAttachment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
