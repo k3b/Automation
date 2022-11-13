@@ -24,6 +24,8 @@ import androidx.annotation.NonNull;
 
 import com.jens.automation2.Action.Action_Enum;
 
+import org.apache.commons.lang3.StringUtils;
+
 
 public class ActivityManageActionSendTextMessage extends Activity
 {
@@ -35,6 +37,9 @@ public class ActivityManageActionSendTextMessage extends Activity
 	protected final static int requestCodeForContactsPermissions = 9876;
 	protected final static int requestCodeGetContact = 3235;
 	protected final static int requestCodeGetMMSattachment = 3236;
+
+	public static final String messageTypeSms = "sms";
+	public static final String messageTypeMms = "mms";
 	
 	public static boolean edit = false;
 	public static Action resultingAction = null;
@@ -61,13 +66,29 @@ public class ActivityManageActionSendTextMessage extends Activity
 			{
 				if(etSendTextMessage.getText().toString().length() > 0 && etPhoneNumber.getText().toString().length() > 0)
 				{
-					if(resultingAction == null)
+					if(rbMessageTypeMms.isChecked() && StringUtils.isEmpty(tvSendMmsFileAttachment.getText().toString()))
+						Toast.makeText(getBaseContext(), getResources().getString(R.string.chooseFile), Toast.LENGTH_LONG).show();
+					else
 					{
-						resultingAction = new Action();
-						resultingAction.setAction(Action_Enum.sendTextMessage);
-						resultingAction.setParameter2(etPhoneNumber.getText().toString() + Actions.smsSeparator + etSendTextMessage.getText().toString());
+						if (resultingAction == null)
+						{
+							resultingAction = new Action();
+							resultingAction.setAction(Action_Enum.sendTextMessage);
+							String messageType = null;
+							String path = "";
+
+							if(rbMessageTypeSms.isChecked())
+								messageType = messageTypeSms;
+							else
+							{
+								messageType = messageTypeMms;
+								path = Actions.smsSeparator + tvSendMmsFileAttachment.getText().toString();
+							}
+
+							resultingAction.setParameter2(etPhoneNumber.getText().toString() + Actions.smsSeparator + etSendTextMessage.getText().toString() + Actions.smsSeparator + messageType + path);
+						}
+						backToRuleManager();
 					}
-					backToRuleManager();
 				}
 				else
 					Toast.makeText(getBaseContext(), getResources().getString(R.string.enterPhoneNumberAndText), Toast.LENGTH_LONG).show();

@@ -10,6 +10,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothProfile;
 import android.content.ActivityNotFoundException;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -28,6 +29,7 @@ import android.telecom.TelecomManager;
 import android.telephony.SmsManager;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
@@ -51,6 +53,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -1220,7 +1223,7 @@ public class Actions
 
 	public static void sendTextMessage(Context context, String[] parametersArray)
 	{
-		String phoneNumber, message, messageType = "sms", filePath = null;
+		String phoneNumber, message, messageType = ActivityManageActionSendTextMessage.messageTypeSms, filePath = null;
 
 		phoneNumber = parametersArray[0];
 		message = parametersArray[1];
@@ -1261,26 +1264,18 @@ public class Actions
 		}
 	}
 
+	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 	private static void sendMmsMessage(String phoneNumber, String textToSend, String fileToBeAttached)
 	{
 		try
 		{
-			PendingIntent pi = PendingIntent.getActivity(context, 0, new Intent(context, Actions.class), 0);
-			SmsManager sms = SmsManager.getDefault();
-			sms.sendMultimediaMessage(phoneNumber, null, textToSend, pi, null);
-
-			if(!StringUtils.isEmpty(fileToBeAttached))
-			{
-				Uri uri = Uri.parse("file://" + fileToBeAttached);
-				i.putExtra(Intent.EXTRA_STREAM, "file:/" + uri);
-				i.setType("image/png");
-			}
-
-			startActivity(i);
+			Miscellaneous.logEvent("i", "sendMmsMessage()", "Sending MMS message...", 2);
+			Uri contentUri = Uri.fromFile(new File(fileToBeAttached));
+			SmsManager.getDefault().sendMultimediaMessage(context, contentUri, phoneNumber, null, null);
 		}
 		catch (Exception e)
 		{
-			Miscellaneous.logEvent("e", Miscellaneous.getAnyContext().getString(R.string.sendTextMessage), "Error in sendTextMessage: " + Log.getStackTraceString(e), 3);
+			Miscellaneous.logEvent("e", "sendMmsMessage()", "Error in sendMmsMessage(): " + Log.getStackTraceString(e), 3);
 		}
 	}
 
