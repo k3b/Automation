@@ -19,6 +19,7 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.os.VibrationEffect;
@@ -70,6 +71,7 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -1270,7 +1272,12 @@ public class Actions
 		try
 		{
 			Miscellaneous.logEvent("i", "sendMmsMessage()", "Sending MMS message...", 2);
-			Uri contentUri = Uri.fromFile(new File(fileToBeAttached));
+//			Uri contentUri = Uri.fromFile(new File(fileToBeAttached));
+			String str2 = "send." + String.valueOf(Math.abs(new Random().nextLong())) + ".dat";
+			Uri contentUri = new Uri.Builder().authority(context.getPackageName() + ".MmsFileProvider").path(str2).scheme("content").build();
+
+			Bundle a3 = C3326a.m16196a(new C8792q("enableGroupMms", true), new C8792q("maxMessageSize", Integer.valueOf(C3664a.m17428d())));
+
 			SmsManager.getDefault().sendMultimediaMessage(context, contentUri, phoneNumber, null, null);
 		}
 		catch (Exception e)
