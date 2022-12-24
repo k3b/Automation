@@ -296,13 +296,13 @@ public class Profile implements Comparable<Profile>
 	{
 		Miscellaneous.logEvent("i", "Profile", "Request to set ringtone to " + ringtoneFile.getAbsolutePath(), 3);
 
-		if(!ringtoneFile.exists() || !ringtoneFile.canRead())
-		{
-			String message = "Ringtone file does not exist or cannot read it: " + ringtoneFile.getAbsolutePath();
-			Miscellaneous.logEvent("i", "Profile", message, 3);
-			Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-			return false;
-		}
+//		if(!ringtoneFile.exists() || !ringtoneFile.canRead())
+//		{
+//			String message = "Ringtone file does not exist or cannot read it: " + ringtoneFile.getAbsolutePath();
+//			Miscellaneous.logEvent("i", "Profile", message, 3);
+//			Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+//			return false;
+//		}
 
 		ContentValues values = new ContentValues();
 		values.put(MediaStore.MediaColumns.DATA, ringtoneFile.getAbsolutePath());
@@ -319,7 +319,7 @@ public class Profile implements Comparable<Profile>
 			Uri newRingTone = null;
 
 			//TODO: This part needs to be made compatible with Android 11 and above.
-			if(Build.VERSION.SDK_INT > 30)
+			if(Build.VERSION.SDK_INT < 30)
 			{
 				Uri existingRingTone = MediaStore.Audio.Media.getContentUriForPath(ringtoneFile.getAbsolutePath());
 
@@ -328,6 +328,20 @@ public class Profile implements Comparable<Profile>
 
 				newRingTone = context.getContentResolver().insert(existingRingTone, values);
 			}
+
+			/*
+			Uri uri = MediaStore.Audio.Media.getContentUriForPath(newSoundFile.getAbsolutePath());
+			Uri newUri = mCr.insert(uri, values);
+			try {
+				Uri rUri = RingtoneManager.getValidRingtoneUri(this);
+				if (rUri != null)
+					ringtoneManager.setStopPreviousRingtone(true);
+				RingtoneManager.setActualDefaultRingtoneUri(getApplicationContext(), RingtoneManager.TYPE_RINGTONE, newUri);
+				Toast.makeText(this, "New Rigntone set", Toast.LENGTH_SHORT).show();
+			} catch (Throwable t) {
+				Log.e("sanjay in catch", "catch exception"+e.getMessage());
+			}
+			*/
 
 			RingtoneManager.setActualDefaultRingtoneUri(context, ringtoneType, newRingTone);
 			Miscellaneous.logEvent("i", "Profile", "Ringtone set to: " + newRingTone.toString(), 1);

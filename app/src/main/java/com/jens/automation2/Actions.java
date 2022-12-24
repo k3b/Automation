@@ -1276,7 +1276,7 @@ public class Actions
 			String str2 = "send." + String.valueOf(Math.abs(new Random().nextLong())) + ".dat";
 			Uri contentUri = new Uri.Builder().authority(context.getPackageName() + ".MmsFileProvider").path(str2).scheme("content").build();
 
-			Bundle a3 = C3326a.m16196a(new C8792q("enableGroupMms", true), new C8792q("maxMessageSize", Integer.valueOf(C3664a.m17428d())));
+//			Bundle a3 = C3326a.m16196a(new C8792q("enableGroupMms", true), new C8792q("maxMessageSize", Integer.valueOf(C3664a.m17428d())));
 
 			SmsManager.getDefault().sendMultimediaMessage(context, contentUri, phoneNumber, null, null);
 		}
