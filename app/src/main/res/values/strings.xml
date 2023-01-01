@@ -873,4 +873,5 @@
     <string name="mms">MMS</string>
     <string name="attachment">Attachment</string>
     <string name="chooseFile">choose file</string>
+    <string name="startAppByStartService">by startService()</string>
 </resources>

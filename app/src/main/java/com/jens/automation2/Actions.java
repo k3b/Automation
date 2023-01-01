@@ -1093,6 +1093,8 @@ public class Actions
 
 			if (params[2].equals(ActivityManageActionStartActivity.startByActivityString))
 				automationServerRef.startActivity(externalActivityIntent);
+			if (params[2].equals(ActivityManageActionStartActivity.startByServiceString))
+				automationServerRef.startService(externalActivityIntent);
 			else
 				automationServerRef.sendBroadcast(externalActivityIntent);
 		}

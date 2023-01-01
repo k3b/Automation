@@ -53,11 +53,12 @@ public class ActivityManageActionStartActivity extends Activity
 	Spinner spinnerParameterType;
 	boolean edit = false;
 	ProgressDialog progressDialog = null;
-	RadioButton rbStartAppSelectByActivity, rbStartAppSelectByAction, rbStartAppByActivity, rbStartAppByBroadcast;
+	RadioButton rbStartAppSelectByActivity, rbStartAppSelectByAction, rbStartAppByActivity, rbStartAppByBroadcast, rbStartAppByService;
 
 	final String urlShowExamples = "https://server47.de/automation/examples_startProgram.html";
 	final static String startByActivityString = "0";
 	final static String startByBroadcastString = "1";
+	final static String startByServiceString = "2";
 
 	final static int requestCodeForRequestQueryAllPackagesPermission = 4711;
 
@@ -81,6 +82,7 @@ public class ActivityManageActionStartActivity extends Activity
 		showStartProgramExamples = (Button)findViewById(R.id.showStartProgramExamples);
 		rbStartAppByActivity = (RadioButton)findViewById(R.id.rbStartAppByActivity);
 		rbStartAppByBroadcast = (RadioButton)findViewById(R.id.rbStartAppByBroadcast);
+		rbStartAppByService = (RadioButton)findViewById(R.id.rbStartAppByService);
 
 		intentTypeSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, ActivityManageActionStartActivity.supportedIntentTypes);
 		spinnerParameterType.setAdapter(intentTypeSpinnerAdapter);
@@ -234,6 +236,8 @@ public class ActivityManageActionStartActivity extends Activity
 
 					if (rbStartAppByActivity.isChecked())
 						parameter2 += ";" + startByActivityString;
+					else if(rbStartAppByService.isChecked())
+						parameter2 += ";" + startByServiceString;
 					else
 						parameter2 += ";" + startByBroadcastString;
 
@@ -595,6 +599,7 @@ public class ActivityManageActionStartActivity extends Activity
 
 		rbStartAppByActivity.setChecked(params[2].equals(startByActivityString));
 		rbStartAppByBroadcast.setChecked(params[2].equals(startByBroadcastString));
+		rbStartAppByService.setChecked(params[2].equals(startByServiceString));
 
 		int startIndex = -1;
 

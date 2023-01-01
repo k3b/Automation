@@ -129,6 +129,12 @@
 						android:layout_height="wrap_content"
 						android:text="@string/startAppBySendBroadcast" />
 
+					<RadioButton
+						android:id="@+id/rbStartAppByService"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:text="@string/startAppByStartService" />
+
 				</RadioGroup>
 
 			</TableRow>
