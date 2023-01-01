@@ -62,7 +62,7 @@ public class Profile implements Comparable<Profile>
 	public void setName(String name)
 	{
 		this.oldName = this.name;
-		this.name = name;
+		this.name = name.trim();
 	}
 	
 	public String getName()

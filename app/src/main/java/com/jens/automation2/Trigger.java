@@ -1430,7 +1430,7 @@ public class Trigger
 
 	public void setTriggerParameter2(String triggerParameter2)
 	{
-		this.triggerParameter2 = triggerParameter2;
+		this.triggerParameter2 = triggerParameter2.trim();
 	}
 
 	public TimeFrame getTimeFrame()

@@ -64,7 +64,7 @@ public class PointOfInterest implements Comparable<PointOfInterest>
 	public void setName(String desiredName)
 	{
 		this.oldName = this.name;
-		this.name = desiredName;
+		this.name = desiredName.trim();
 	}
 
 	public Location getLocation()

@@ -107,7 +107,7 @@ public class Rule implements Comparable<Rule>
 	}
 	public void setName(String name)
 	{
-		this.name = name;
+		this.name = name.trim();
 	}
 
 	public static void readFromFile()
