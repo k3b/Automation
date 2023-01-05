@@ -615,26 +615,81 @@ public class Miscellaneous extends Service
 				source = source.replace("[serialnr]", "serialUnknown");
 
 		if(
-				source.contains("[d]") |
-				source.contains("[m]") |
-				source.contains("[Y]") |
-				source.contains("[h]") |
-				source.contains("[H]") |
-				source.contains("[i]") |
-				source.contains("[s]") |
+				source.contains("[d]") ||
+				source.contains("[m]") ||
+				source.contains("[Y]") ||
+				source.contains("[h]") ||
+				source.contains("[H]") ||
+				source.contains("[i]") ||
+				source.contains("[s]") ||
 				source.contains("[ms]")
 			)
 		{
 			Calendar cal = Calendar.getInstance();
 
-			source = source.replace("[d]", String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
-			source = source.replace("[m]", String.valueOf(cal.get(Calendar.MONTH)));
-			source = source.replace("[Y]", String.valueOf(cal.get(Calendar.YEAR)));
-			source = source.replace("[h]", String.valueOf(cal.get(Calendar.HOUR)));
-			source = source.replace("[H]", String.valueOf(cal.get(Calendar.HOUR_OF_DAY)));
-			source = source.replace("[i]", String.valueOf(cal.get(Calendar.MINUTE)));
-			source = source.replace("[s]", String.valueOf(cal.get(Calendar.SECOND)));
-			source = source.replace("[ms]", String.valueOf(cal.get(Calendar.MILLISECOND)));
+			if(source.contains("[d]"))
+			{
+				String result = String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
+				if(result.length() < 2)
+					result = "0" + result;
+
+				source = source.replace("[d]", result);
+			}
+
+			if(source.contains("[m]"))
+			{
+				String result = String.valueOf(cal.get(Calendar.MONTH) +1);
+				if(result.length() < 2)
+					result = "0" + result;
+
+				source = source.replace("[m]", result);
+			}
+
+			if(source.contains("[Y]"))
+			{
+				source = source.replace("[Y]", String.valueOf(cal.get(Calendar.YEAR)));
+			}
+
+			if(source.contains("[h]"))
+			{
+				String result = String.valueOf(cal.get(Calendar.HOUR));
+				if(result.length() < 2)
+					result = "0" + result;
+
+				source = source.replace("[h]", result);
+			}
+
+			if(source.contains("[H]"))
+			{
+				String result = String.valueOf(cal.get(Calendar.HOUR_OF_DAY));
+				if(result.length() < 2)
+					result = "0" + result;
+
+				source = source.replace("[H]", result);
+			}
+
+			if(source.contains("[i]"))
+			{
+				String result = String.valueOf(cal.get(Calendar.MINUTE));
+				if(result.length() < 2)
+					result = "0" + result;
+
+				source = source.replace("[i]", result);
+			}
+
+			if(source.contains("[s]"))
+			{
+				String result = String.valueOf(cal.get(Calendar.SECOND));
+				if(result.length() < 2)
+					result = "0" + result;
+
+				source = source.replace("[s]", String.valueOf(cal.get(Calendar.SECOND)));
+			}
+
+			if(source.contains("[ms]"))
+			{
+				source = source.replace("[ms]", String.valueOf(cal.get(Calendar.MILLISECOND)));
+			}
 		}
 
 		if(source.contains("[notificationTitle]"))
