@@ -2,3 +2,4 @@
 * New action: Make phone call without further prompt
 * New trigger/action: Set custom variables as actions and check for them in triggers
 * Fixed: Battery receiver could trigger above 100% or below 0%
+* Fixed: Date format when variables are used in texts
