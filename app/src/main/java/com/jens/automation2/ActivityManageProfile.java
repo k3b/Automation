@@ -47,37 +47,37 @@ public class ActivityManageProfile extends Activity
 
 	boolean guiUpdate = false;
 	
-	File incomingCallsRingtone = null, notificationsRingtone = null;
+	String incomingCallsRingtone = null, notificationsRingtone = null;
 	
 	ArrayAdapter<String> soundModeAdapter;
 	ArrayAdapter<String> dndModeAdapter;
 
-	public void setIncomingCallsRingtone(File incomingCallsRingtone)
+	public void setIncomingCallsRingtone(String incomingCallsRingtone)
 	{
 		this.incomingCallsRingtone = incomingCallsRingtone;
 		
 		if(incomingCallsRingtone != null)
-			tvIncomingCallsRingtone.setText(this.incomingCallsRingtone.getAbsolutePath());
+			tvIncomingCallsRingtone.setText(this.incomingCallsRingtone);
 		else
 			tvIncomingCallsRingtone.setText(getResources().getString(R.string.none));
 	}
 
-	public File getIncomingCallsRingtone()
+	public String getIncomingCallsRingtone()
 	{
 		return incomingCallsRingtone;
 	}
 
-	public void setNotificationsRingtone(File notificationsRingtone)
+	public void setNotificationsRingtone(String notificationsRingtone)
 	{		
 		this.notificationsRingtone = notificationsRingtone;
 		
 		if(this.notificationsRingtone != null)
-			tvNotificationsRingtone.setText(this.notificationsRingtone.getAbsolutePath());
+			tvNotificationsRingtone.setText(this.notificationsRingtone);
 		else
 			tvNotificationsRingtone.setText(getResources().getString(R.string.none));
 	}
 
-	public File getNotificationsRingtone()
+	public String getNotificationsRingtone()
 	{
 		return notificationsRingtone;
 	}
@@ -284,26 +284,26 @@ public class ActivityManageProfile extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				try
-				{
-					Intent fileIntent = new Intent(Intent.ACTION_GET_CONTENT);
-					fileIntent.setType("audio/*");
-					startActivityForResult(Intent.createChooser(fileIntent, "Select a ringtone"), intentCodeRingtonePickerCallsFile);
-				}
-				catch(ActivityNotFoundException e)
-				{
+//				try
+//				{
+//					Intent fileIntent = new Intent(Intent.ACTION_GET_CONTENT);
+//					fileIntent.setType("audio/*");
+//					startActivityForResult(Intent.createChooser(fileIntent, "Select a ringtone"), intentCodeRingtonePickerCallsFile);
+//				}
+//				catch(ActivityNotFoundException e)
+//				{
 					// Use media browser instead
 					Intent fileSelectionIntent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
 
 					if(ActivityMainProfiles.profileToEdit != null)
 					{
-						Uri currenturi = Uri.parse(ActivityMainProfiles.profileToEdit.incomingCallsRingtone.getAbsolutePath());
+						Uri currenturi = Uri.parse(ActivityMainProfiles.profileToEdit.incomingCallsRingtone);
 						if(ActivityMainProfiles.profileToEdit.changeIncomingCallsRingtone)
 							fileSelectionIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, currenturi);
 					}
 
 					startActivityForResult(fileSelectionIntent, intentCodeRingtonePickerCallsRingtone);
-				}
+//				}
 			}
 		});
 		bChangeSoundNotifications.setOnClickListener(new OnClickListener()
@@ -324,7 +324,7 @@ public class ActivityManageProfile extends Activity
 
 					if(ActivityMainProfiles.profileToEdit != null)
 					{
-						Uri currenturi = Uri.parse(ActivityMainProfiles.profileToEdit.notificationRingtone.getAbsolutePath());
+						Uri currenturi = Uri.parse(ActivityMainProfiles.profileToEdit.notificationRingtone);
 						if(ActivityMainProfiles.profileToEdit.changeNotificationRingtone)
 							fileSelectionIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, currenturi);
 					}
@@ -495,15 +495,20 @@ public class ActivityManageProfile extends Activity
 					Uri uri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
 					if (uri != null)
 					{
-						String ringTonePath = CompensateCrappyAndroidPaths.getPath(ActivityManageProfile.this, uri);
-						setIncomingCallsRingtone(new File(ringTonePath));
+//						if(Build.VERSION.SDK_INT < 26)
+//						{
+//							String ringTonePath = CompensateCrappyAndroidPaths.getPath(ActivityManageProfile.this, uri);
+//							setIncomingCallsRingtone(ringTonePath);
+//						}
+//						else
+							setIncomingCallsRingtone(uri.toString());
 					}
 					break;
 				}
 				case intentCodeRingtonePickerCallsFile:
 				{
 					String ringTonePath = CompensateCrappyAndroidPaths.getPath(ActivityManageProfile.this, data.getData());
-					setIncomingCallsRingtone(new File(ringTonePath));
+					setIncomingCallsRingtone(ringTonePath);
 					break;
 				}
 				case intentCodeRingtonePickerNotificationsRingtone:    // notifications
@@ -511,15 +516,20 @@ public class ActivityManageProfile extends Activity
 					Uri uri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
 					if (uri != null)
 					{
-						String ringTonePath = CompensateCrappyAndroidPaths.getPath(ActivityManageProfile.this, data.getData());
-						setNotificationsRingtone(new File(ringTonePath));
+//						if(Build.VERSION.SDK_INT < 26)
+//						{
+//							String ringTonePath = CompensateCrappyAndroidPaths.getPath(ActivityManageProfile.this, uri);
+//							setNotificationsRingtone(ringTonePath);
+//						}
+//						else
+							setNotificationsRingtone(uri.toString());
 					}
 					break;
 				}
 				case intentCodeRingtonePickerNotificationsFile:
 				{
 					String ringTonePath = CompensateCrappyAndroidPaths.getPath(ActivityManageProfile.this, data.getData());
-					setNotificationsRingtone(new File(ringTonePath));
+					setNotificationsRingtone(ringTonePath);
 					break;
 				}
 				default:

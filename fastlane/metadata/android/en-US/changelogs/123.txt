@@ -3,3 +3,4 @@
 * New trigger/action: Set custom variables as actions and check for them in triggers
 * Fixed: Battery receiver could trigger above 100% or below 0%
 * Fixed: Date format when variables are used in texts
+* Fixed: Changing ringtone now works after Android 7.1, but you need to edit the profile for it to apply

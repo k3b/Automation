@@ -160,9 +160,9 @@ public class XmlFileInterface
 	    	            		serializer.text(String.valueOf(Profile.getProfileCollection().get(i).getChangeIncomingCallsRingtone()));
 	    	            	serializer.endTag(null, "changeIncomingCallsRingtone");//		    	            
 	    	            	serializer.startTag(null, "incomingCallsRingtone");
-	    	            		File incomingFile = Profile.getProfileCollection().get(i).getIncomingCallsRingtone();
+	    	            		String incomingFile = Profile.getProfileCollection().get(i).getIncomingCallsRingtone();
 	    	            		if(incomingFile != null)
-	    	            			serializer.text(String.valueOf(Profile.getProfileCollection().get(i).getIncomingCallsRingtone().getPath()));
+	    	            			serializer.text(String.valueOf(Profile.getProfileCollection().get(i).getIncomingCallsRingtone()));
 	    	            		else
 	    	            			serializer.text("null");
 	    	            	serializer.endTag(null, "incomingCallsRingtone");
@@ -178,9 +178,9 @@ public class XmlFileInterface
 	    	            		serializer.text(String.valueOf(Profile.getProfileCollection().get(i).getChangeNotificationRingtone()));
 	    	            	serializer.endTag(null, "changeNotificationRingtone");//		    	            
 	    	            	serializer.startTag(null, "notificationRingtone");
-	    	            		File notificationFile = Profile.getProfileCollection().get(i).getNotificationRingtone();
+	    	            		String notificationFile = Profile.getProfileCollection().get(i).getNotificationRingtone();
 	    	            		if(notificationFile != null)
-	    	            			serializer.text(String.valueOf(Profile.getProfileCollection().get(i).getNotificationRingtone().getPath()));
+	    	            			serializer.text(String.valueOf(Profile.getProfileCollection().get(i).getNotificationRingtone()));
 	    	            		else
 	    	            			serializer.text("null");
 	    	            	serializer.endTag(null, "notificationRingtone");
@@ -631,7 +631,7 @@ public class XmlFileInterface
             {
             	String path = readTag(parser, "incomingCallsRingtone");
             	if(!path.equals("null"))
-            		newProfile.setIncomingCallsRingtone(new File(path));
+            		newProfile.setIncomingCallsRingtone(path);
             	else
             		newProfile.setIncomingCallsRingtone(null);
             }
@@ -643,7 +643,7 @@ public class XmlFileInterface
             {
             	String path = readTag(parser, "notificationRingtone");
             	if(!path.equals("null"))
-            		newProfile.setNotificationRingtone(new File(path));
+            		newProfile.setNotificationRingtone(path);
             	else
             		newProfile.setNotificationRingtone(null);
             }

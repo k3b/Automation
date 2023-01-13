@@ -3,6 +3,7 @@ package com.jens.automation2;
 import android.app.NotificationManager;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -41,13 +42,13 @@ public class Profile implements Comparable<Profile>
     protected int volumeAlarms;
 
     protected boolean changeIncomingCallsRingtone;
-    protected File incomingCallsRingtone;
+    protected String incomingCallsRingtone;
     
     protected boolean changeVibrateWhenRinging;
     protected boolean vibrateWhenRinging;
     
     protected boolean changeNotificationRingtone;
-    protected File notificationRingtone;
+    protected String notificationRingtone;
     
     protected boolean changeAudibleSelection;
     protected boolean audibleSelection;
@@ -171,11 +172,11 @@ public class Profile implements Comparable<Profile>
 		return changeIncomingCallsRingtone;
 	}
 
-	public void setIncomingCallsRingtone(File incomingCallsRingtone)
+	public void setIncomingCallsRingtone(String incomingCallsRingtone)
 	{
 		this.incomingCallsRingtone = incomingCallsRingtone;
 	}
-	public File getIncomingCallsRingtone()
+	public String getIncomingCallsRingtone()
 	{
 		return incomingCallsRingtone;
 	}
@@ -207,11 +208,11 @@ public class Profile implements Comparable<Profile>
 		return changeNotificationRingtone;
 	}
 
-	public void setNotificationRingtone(File notificationsRingtone)
+	public void setNotificationRingtone(String notificationsRingtone)
 	{
 		this.notificationRingtone = notificationsRingtone;
 	}
-	public File getNotificationRingtone()
+	public String getNotificationRingtone()
 	{
 		return notificationRingtone;
 	}
@@ -292,9 +293,9 @@ public class Profile implements Comparable<Profile>
 		return null;
 	}
 	
-	private boolean applyRingTone(File ringtoneFile, int ringtoneType, Context context)
+	private boolean applyRingTone(String ringtoneFile, int ringtoneType, Context context)
 	{
-		Miscellaneous.logEvent("i", "Profile", "Request to set ringtone to " + ringtoneFile.getAbsolutePath(), 3);
+		Miscellaneous.logEvent("i", "Profile", "Request to set ringtone to " + ringtoneFile, 3);
 
 //		if(!ringtoneFile.exists() || !ringtoneFile.canRead())
 //		{
@@ -304,55 +305,57 @@ public class Profile implements Comparable<Profile>
 //			return false;
 //		}
 
-		ContentValues values = new ContentValues();
-		values.put(MediaStore.MediaColumns.DATA, ringtoneFile.getAbsolutePath());
-		values.put(MediaStore.MediaColumns.TITLE, ringtoneFile.getName());
-		values.put(MediaStore.MediaColumns.MIME_TYPE, "audio/mp3");
-		values.put(MediaStore.MediaColumns.SIZE, ringtoneFile.length());
-		values.put(MediaStore.Audio.Media.IS_RINGTONE, ringtoneType == RingtoneManager.TYPE_RINGTONE);
-		values.put(MediaStore.Audio.Media.IS_NOTIFICATION, ringtoneType == RingtoneManager.TYPE_NOTIFICATION);
-		values.put(MediaStore.Audio.Media.IS_ALARM, false);
-		values.put(MediaStore.Audio.Media.IS_MUSIC, false);
-
-		try
+			// Set by URI
+		if(ringtoneFile.contains("//"))
 		{
-			Uri newRingTone = null;
+			Uri target = Uri.parse(ringtoneFile);
+			RingtoneManager.setActualDefaultRingtoneUri(context, ringtoneType, target);
+			Miscellaneous.logEvent("i", "Profile", "Ringtone set to: " + ringtoneFile, 1);
+			return true;
+		}	// Set by filepath
+		else
+		{
+			ContentValues values = new ContentValues();
+			values.put(MediaStore.MediaColumns.DATA, ringtoneFile);
+			values.put(MediaStore.MediaColumns.TITLE, ringtoneFile);
+			//values.put(MediaStore.MediaColumns.TITLE, ringtoneFile.getName());
+			values.put(MediaStore.MediaColumns.MIME_TYPE, "audio/mp3");
+			values.put(MediaStore.MediaColumns.SIZE, ringtoneFile.length());
+			values.put(MediaStore.Audio.Media.IS_RINGTONE, ringtoneType == RingtoneManager.TYPE_RINGTONE);
+			values.put(MediaStore.Audio.Media.IS_NOTIFICATION, ringtoneType == RingtoneManager.TYPE_NOTIFICATION);
+			values.put(MediaStore.Audio.Media.IS_ALARM, false);
+			values.put(MediaStore.Audio.Media.IS_MUSIC, false);
 
-			//TODO: This part needs to be made compatible with Android 11 and above.
-			if(Build.VERSION.SDK_INT < 30)
+			try
 			{
-				Uri existingRingTone = MediaStore.Audio.Media.getContentUriForPath(ringtoneFile.getAbsolutePath());
+				Uri newRingTone = null;
 
-				if (existingRingTone != null)
-					context.getContentResolver().delete(existingRingTone, MediaStore.MediaColumns.DATA + "=\"" + ringtoneFile.getAbsolutePath() + "\"", null);
+				Uri existingRingTone = MediaStore.Audio.Media.getContentUriForPath(ringtoneFile);
+
+				try
+				{
+					if (existingRingTone != null)
+						context.getContentResolver().delete(existingRingTone, MediaStore.MediaColumns.DATA + "=\"" + ringtoneFile + "\"", null);
+				}
+				catch(Exception e)
+				{
+					Miscellaneous.logEvent("w","Delete file from ringtones", "Deleting ringtone from library failed: " + Log.getStackTraceString(e), 2);
+				}
 
 				newRingTone = context.getContentResolver().insert(existingRingTone, values);
-			}
 
-			/*
-			Uri uri = MediaStore.Audio.Media.getContentUriForPath(newSoundFile.getAbsolutePath());
-			Uri newUri = mCr.insert(uri, values);
-			try {
-				Uri rUri = RingtoneManager.getValidRingtoneUri(this);
-				if (rUri != null)
-					ringtoneManager.setStopPreviousRingtone(true);
-				RingtoneManager.setActualDefaultRingtoneUri(getApplicationContext(), RingtoneManager.TYPE_RINGTONE, newUri);
-				Toast.makeText(this, "New Rigntone set", Toast.LENGTH_SHORT).show();
-			} catch (Throwable t) {
-				Log.e("sanjay in catch", "catch exception"+e.getMessage());
-			}
-			*/
+				RingtoneManager.setActualDefaultRingtoneUri(context, ringtoneType, newRingTone);
 
-			RingtoneManager.setActualDefaultRingtoneUri(context, ringtoneType, newRingTone);
-			Miscellaneous.logEvent("i", "Profile", "Ringtone set to: " + newRingTone.toString(), 1);
-			return true;
+				Miscellaneous.logEvent("i", "Profile", "Ringtone set to: " + newRingTone.toString(), 1);
+				return true;
+			}
+			catch (Throwable t)
+			{
+				String message = "Error setting ringtone: " + Log.getStackTraceString(t);
+				Miscellaneous.logEvent("e", "Profile", message, 1);
+			}
 		}
-		catch (Throwable t)
-		{
-			String message = "Error setting ringtone: " + Log.getStackTraceString(t);
-			Miscellaneous.logEvent("e", "Profile", message, 1);
-		}
-		
+
 		return false;
 	}
 
