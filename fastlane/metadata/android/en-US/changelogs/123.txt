@@ -4,3 +4,4 @@
 * Fixed: Battery receiver could trigger above 100% or below 0%
 * Fixed: Date format when variables are used in texts
 * Fixed: Changing ringtone now works after Android 7.1, but you need to edit the profile for it to apply
+* French translation updated
