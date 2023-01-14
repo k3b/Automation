@@ -268,7 +268,7 @@ public class ActivityManageActionStartActivity extends Activity
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3)
 			{
 				if(supportedIntentTypes[arg2].equals("int") || supportedIntentTypes[arg2].equals("long") || supportedIntentTypes[arg2].equals("short"))
-					ActivityManageActionStartActivity.this.etParameterValue.setInputType(InputType.TYPE_CLASS_NUMBER);
+					ActivityManageActionStartActivity.this.etParameterValue.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED);
 				else if(supportedIntentTypes[arg2].equals("double") || supportedIntentTypes[arg2].equals("float"))
 					ActivityManageActionStartActivity.this.etParameterValue.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
 				else

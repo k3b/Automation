@@ -225,7 +225,7 @@ public class ActivityManageActionSendBroadcast extends Activity
             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3)
             {
                 if(supportedIntentTypes[arg2].equals("int") || supportedIntentTypes[arg2].equals("long") || supportedIntentTypes[arg2].equals("short"))
-                    ActivityManageActionSendBroadcast.this.etParameterValue.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    ActivityManageActionSendBroadcast.this.etParameterValue.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED);
                 else if(supportedIntentTypes[arg2].equals("double") || supportedIntentTypes[arg2].equals("float"))
                     ActivityManageActionSendBroadcast.this.etParameterValue.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 else
