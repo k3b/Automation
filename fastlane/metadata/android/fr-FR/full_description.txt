@@ -25,6 +25,7 @@ Déclencheurs :
 * Musique en cours de lecture ou non
 * Appareil démarré
 * Service démarré
+* Variables qui ont été définies
 
 Actions :
 * Basculer Wifi (supprimé des appareils plus récents en raison des restrictions Google)
@@ -44,6 +45,8 @@ Actions :
 * Lire le fichier audio
 * Créer une notification
 * Fermer les notifications
+* Définir des variables
+* Initier des appels téléphoniques
 
 Explications sur l'utilisation des autorisations :
 https://server47.de/automation/permissions.php

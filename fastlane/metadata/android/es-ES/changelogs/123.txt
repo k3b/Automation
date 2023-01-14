@@ -1,0 +1,7 @@
+* Nuevo: Cuadro de diálogo de confirmación antes de borrar ubicaciones, reglas y perfiles
+* Nueva acción: Hacer llamada telefónica sin más avisos
+* Nuevo disparador / acción: establezca variables personalizadas como acciones y verifíquelas en disparadores
+* Corregido: el receptor de la batería podría dispararse por encima del 100% o por debajo del 0%
+* Corregido: Formato de fecha cuando se utilizan variables en textos
+* Corregido: cambiar el tono de llamada ahora funciona después de Android 7.1, pero debe editar el perfil para que se aplique
+* Traducción al francés actualizada (gracias Lejun)

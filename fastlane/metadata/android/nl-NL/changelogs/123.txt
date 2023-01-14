@@ -1,0 +1,7 @@
+* Nieuw: Bevestigingsdialoogvenster voordat u locaties, regels en profiel verwijdert
+* Nieuwe actie: Maak telefoongesprek zonder verdere prompt
+* Nieuwe trigger / actie: Stel aangepaste variabelen in als acties en controleer ze in triggers
+* Opgelost: batterij-ontvanger kan boven 100% of minder dan 0% activeren
+* Vast: Datumnotatie wanneer variabelen in teksten worden gebruikt
+* Opgelost: het wijzigen van de beltoon werkt nu na Android 7.1, maar u moet het profiel bewerken om het toe te passen
+* Franse vertaling bijgewerkt (bedankt Lejun)

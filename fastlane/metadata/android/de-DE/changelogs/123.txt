@@ -1,0 +1,7 @@
+* Neu: Bestätigungsdialog vor dem Löschen von Orten, Regeln und Profilen
+* Neue Aktion: Telefongespräch ohne weitere Bestätigung einleiten
+* Neuer Auslöser/Aktion: Eigene Variablen setzen und deren Wert als Auslöser prüfen
+* Behoben: Akku-Auslöser konnte die Werte unter 0% oder über 100% liefern
+* Behoben: Datumsformat in Variablen korrigiert
+* Behoben: Klingeltöne können nun oberhalb von Android 7.1 gesetzt werden, aber Sie müssen Ihre Profile editieren, damit das wirkt
+* Französische Übersetzung aktualisiert (danke an Lejun)

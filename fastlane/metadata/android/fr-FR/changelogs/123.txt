@@ -1,0 +1,7 @@
+* Nouveau: Boîte de dialogue de confirmation avant de supprimer des emplacements, des règles et un profil
+* Nouvelle action: Passer un appel téléphonique sans autre invite
+* Nouveau déclencheur / action: Définissez des variables personnalisées en tant qu'actions et vérifiez-les dans les déclencheurs
+* Corrigé: Le récepteur de batterie pouvait déclencher plus de 100% ou moins de 0%
+* Correction : Format de date lorsque les variables sont utilisées dans les textes
+* Corrigé: Changer la sonnerie fonctionne maintenant après Android 7.1, mais vous devez modifier le profil pour qu'il s'applique
+* Français traduction mise à jour (merci Lejun)

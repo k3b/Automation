@@ -24,6 +24,7 @@ Ondersteunde triggers:
 * Apparaat oriëntatie (gyroscoop)
 * Profiel actief of niet
 * Broadcasts van andere apps
+* Variabelen die zijn ingesteld
 
 Ondersteunde acties:
 * Wijzig wifi status
@@ -45,6 +46,8 @@ Ondersteunde acties:
 * Verstuur tekstbericht
 * Geluidsbestand afspelen
 * Meldingen maken
+* Stel variabelen in
+* Start telefoongesprekken
 
 Het is lastig om deze App werkend te houden over de vele verschillende hardware en de vele veranderingen die Android ondergaat in de loop der versies. 
 Ik test het in een emulator, maar dat kan niet alle bugs laten zien.

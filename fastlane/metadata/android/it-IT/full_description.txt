@@ -22,6 +22,7 @@ Eventi supportati:
 * Orientamento del dispositivo (giroscopio)
 * Profilo attivo o meno
 * Broadcasts di altre app
+* Variabili che sono state impostate
 
 Azioni supportate:
 * Cambia lo stato del wifi
@@ -43,6 +44,8 @@ Azioni supportate:
 * Manda un messaggio di testo
 * Esegui un file musicale
 * Creare notifiche
+* Imposta variabili
+* Avviare telefonate
 
 È piuttosto difficile mantere questa applicazione funzionante su tutti gli hardware esistenti ed includendo tutti i cambi che Android riceve fra una versione e l'altra. Posso effettuare tests nell'emulatore, ma non sarà possibile trovare tutti gli errori.
 Pertanto, se una certa funzione non funziona sul tuo dispositivo -  fammelo sapere. Nel corso degli anni ho potuto risolvere tutti gli errori che sono stati riportati in maniera ragionevole. Infatti, per questo, dipendo dalle informazioni condivise.

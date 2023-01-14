@@ -22,6 +22,7 @@ Disparadores:
 * Orientación del dispositivo (giroscopio)
 * Perfil activado o no
 * Broadcasts de otras apps
+* Variables que se han establecido
 
 Aciónes:
 * Pasar de wifi
@@ -43,6 +44,8 @@ Aciónes:
 * Enviar mensaje
 * Tocar archivo sonido
 * Crear notificaciones
+* Establecer variables
+* Iniciar llamadas telefónicas
 
 Es muy dificil mantener esta applicación functionando en todos los hardwares y versiónes de Android. Puedo probrar mucho en el emulator, pero no puedo enviar todos los errores.
 Si una función no funcióna - digame. En muchos años resolvaba la mayoria de los errores que los halladores me informaron bien. Pero dependo en su ayuda.

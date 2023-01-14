@@ -22,6 +22,7 @@ Mögliche Auslöser:
 * Geräteausrichtung (Gyroskop)
 * Profile aktiv oder nicht
 * Broadcasts anderer Anwendungen
+* Variablen, die gesetzt wurden
 
 Mögliche Aktionen:
 * WLAN ein-/ausschalten
@@ -43,6 +44,8 @@ Mögliche Aktionen:
 * SMS verschicken
 * Sounddatei abspielen.
 * Benachrichtigungen erstellen
+* Variablen setzen
+* Telefonanrufe starten
 
 Es ist ziemlich schwierig diese Anwendung über die vielen verschiedenen Geräte und Android Versionen am Laufen zu halten. Ich kann vieles im Emulator testen, aber eben nicht alles.
 Wenn also eine bestimmte Funktion nicht so tut wie sie sollte - lassen Sie es mich wissen. Über die Jahre habe ich noch alle Fehler behoben, die mir vernünftig gemeldet wurden. Aber dafür bin ich auf Ihre Mithilfe angewiesen.

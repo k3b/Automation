@@ -1,0 +1,7 @@
+* Novità: finestra di dialogo di conferma prima di eliminare posizioni, regole e profilo
+* Nuova azione: effettuare una telefonata senza ulteriori richieste
+* Nuovo trigger / azione: imposta variabili personalizzate come azioni e controllale nei trigger
+* Risolto: il ricevitore della batteria potrebbe attivarsi sopra il 100% o al di sotto dello 0%
+* Risolto: formato della data quando le variabili vengono utilizzate nei testi
+* Risolto: la modifica della suoneria ora funziona dopo Android 7.1, ma è necessario modificare il profilo per applicarlo
+* Traduzione francese aggiornata (grazie Lejun)
