@@ -421,14 +421,18 @@ public class PointOfInterest implements Comparable<PointOfInterest>
 	public boolean create(Context context)
 	{
 		for(PointOfInterest poi : PointOfInterest.pointOfInterestCollection)
-			if(poi.getName().equals(this.getName()))
+		{
+			if (poi.getName().equals(this.getName()))
 			{
 				Toast.makeText(context, context.getResources().getString(R.string.anotherPoiByThatName), Toast.LENGTH_LONG).show();
 				return false;
 			}
+		}
 		
 		if(plausibilityCheck())
 		{
+			Miscellaneous.logEvent("i", "Creating POI", this.toStringLong(), 3);
+
 			PointOfInterest.pointOfInterestCollection.add(this);
 			PointOfInterest.writePoisToFile();
 			
@@ -492,6 +496,8 @@ public class PointOfInterest implements Comparable<PointOfInterest>
 
 			if (plausibilityCheck())
 			{
+				Miscellaneous.logEvent("i", "Changing POI", "Old name: " + this.oldName + ", new data: " + this.toStringLong(), 3);
+
 				if(PointOfInterest.writePoisToFile())
 				{
 					AutomationService service = AutomationService.getInstance();
