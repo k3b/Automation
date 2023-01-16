@@ -347,7 +347,16 @@ public class Rule implements Comparable<Rule>
 			if(oneTrigger.getTriggerType().equals(Trigger.Trigger_Enum.timeFrame))
 			{
 				if(oneTrigger.getTimeFrame().repetition > 0)
-					return true;
+				{
+					if(this.getLastExecution() != null)
+					{
+						Calendar now = Calendar.getInstance();
+						if (this.getLastExecution().getTimeInMillis() + oneTrigger.getTimeFrame().getRepetition() * 1000 <= now.getTimeInMillis())
+							return true;
+					}
+					else
+						return true;
+				}
 			}
 			else if(oneTrigger.getTriggerType().equals(Trigger.Trigger_Enum.broadcastReceived))
 			{
