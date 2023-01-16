@@ -11,11 +11,12 @@ import com.jens.automation2.Settings;
 
 public class StartupIntentReceiver extends BroadcastReceiver
 {
-
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
 		Settings.readFromPersistentStorage(context);
+
+		Miscellaneous.startupContext = context;
 
 //		Miscellaneous.logEvent("i", "Boot event", "Received event: " + intent.getAction(), 5);
 

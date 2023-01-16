@@ -1,2 +1,3 @@
 * Fixed: Now allowing negative integers as intent data
 * Fixed: Multiple time frames with reoccurence configured would trigger to early executions
+* Fixed: Automatic app start at boot might fail in some cases

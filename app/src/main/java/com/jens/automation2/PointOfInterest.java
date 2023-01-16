@@ -494,7 +494,7 @@ public class PointOfInterest implements Comparable<PointOfInterest>
                 Check for change of rule name END
              */
 
-			if (plausibilityCheck())
+			if(plausibilityCheck())
 			{
 				Miscellaneous.logEvent("i", "Changing POI", "Old name: " + this.oldName + ", new data: " + this.toStringLong(), 3);
 

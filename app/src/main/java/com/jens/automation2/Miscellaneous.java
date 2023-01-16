@@ -111,6 +111,8 @@ import androidx.documentfile.provider.DocumentFile;
 public class Miscellaneous extends Service
 {
 	protected static String writeableFolderStringCache = null;
+	public static Context startupContext;
+
 	public static final String lineSeparator = System.getProperty("line.separator");
 	
 	public static String downloadURL(String url, String username, String password)
@@ -273,7 +275,7 @@ public class Miscellaneous extends Service
 		{
 			writeToLogFile(type, header, description);
 
-			if(!logCleanerRunning && Math.random() < 0.1)	// tidy up with 10% probability
+			if (!logCleanerRunning && Math.random() < 0.1)    // tidy up with 10% probability
 			{
 				rotateLogFile(getLogFile());
 			}
@@ -557,7 +559,10 @@ public class Miscellaneous extends Service
 		returnContext = ActivityPermissions.getInstance().getApplicationContext();
 		if(returnContext != null)
 			return returnContext;
-		
+
+		if(startupContext != null)
+			return startupContext;
+
 		return null;
 	}
 
