@@ -771,4 +771,10 @@
     <string name="checkVariableExplanation">Se si lascia vuoto il valore, la variabile non deve essere impostata affinché la condizione restituisca true.</string>
     <string name="variableCheckString">Se la variabile %1$s è %2$s</string>
     <string name="variableCheckStringDeleted">Se la variabile %1$s non è impostata</string>
+    <string name="messageType">Tipo di messaggio</string>
+    <string name="sms">SMS</string>
+    <string name="mms">MMS</string>
+    <string name="attachment">Allegato</string>
+    <string name="chooseFile">Scegli file</string>
+    <string name="startAppByStartService">tramite startService()</string>
 </resources>

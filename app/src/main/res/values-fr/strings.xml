@@ -274,6 +274,7 @@
     <string name="with">avec</string>
     <string name="phoneNumber">Numéro de téléphone</string>
     <string name="enterPhoneNumberBlankForAny">Saisissez un numéro de téléphone. Laissez vide pour n’importe quel numéro.</string>
+    <string name="enterPhoneNumber">Entrez le numéro de téléphone.</string>
     <string name="phoneDirection">Sélectionnez le type \nd’appel</string>
     <string name="any">tout</string>
     <string name="incoming">entrant</string>
@@ -769,4 +770,10 @@
     <string name="VariableKey">Clé variable</string>
     <string name="deleteVariable">Supprimer la variable</string>
     <string name="setVariable">Définir une variable</string>
+    <string name="messageType">Type de message</string>
+    <string name="sms">SMS</string>
+    <string name="mms">MMS</string>
+    <string name="attachment">Attachement</string>
+    <string name="chooseFile">Choisissez un fichier</string>
+    <string name="startAppByStartService">via startService()</string>
 </resources>

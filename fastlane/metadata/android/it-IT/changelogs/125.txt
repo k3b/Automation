@@ -1,0 +1,4 @@
+* Risolto: ora consente numeri interi negativi come dati di intento
+* Risolto: più intervalli di tempo con ripetizione configurata si attiverebbero per le esecuzioni anticipate
+* Risolto: l'avvio automatico dell'app all'avvio potrebbe non riuscire in alcuni casi
+* Traduzioni aggiornate

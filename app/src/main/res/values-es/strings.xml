@@ -770,4 +770,10 @@
     <string name="VariableKey">Clave variable</string>
     <string name="deleteVariable">Eliminar variable</string>
     <string name="setVariable">Establecer una variable</string>
+    <string name="messageType">Tipo de mensaje</string>
+    <string name="sms">SMS</string>
+    <string name="mms">MMS</string>
+    <string name="attachment">Archivo adjunto</string>
+    <string name="chooseFile">elegir archivo</string>
+    <string name="startAppByStartService">via startService()</string>
 </resources>

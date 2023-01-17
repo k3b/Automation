@@ -1,0 +1,4 @@
+* Corregido: Ahora permite enteros negativos como datos de intención
+* Corregido: Múltiples marcos de tiempo con la repetición configurada se desencadenarían en ejecuciones tempranas
+* Corregido: el inicio automático de la aplicación en el arranque puede fallar en algunos casos
+* Traducciones actualizadas

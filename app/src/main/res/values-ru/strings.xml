@@ -828,4 +828,10 @@
     <string name="checkVariableExplanation">Если оставить значение пустым, переменная не должна быть задана для того, чтобы условие возвращало значение true.</string>
   <string name="variableCheckString">если переменная %1$s равно %2$s</string>
   <string name="variableCheckStringDeleted">Если переменная %1$s не задана</string>
+    <string name="messageType">Тип сообщения</string>
+    <string name="sms">SMS</string>
+  <string name="mms">MMS</string>
+  <string name="attachment">Прикрепление</string>
+    <string name="chooseFile">выберите файл</string>
+  <string name="startAppByStartService">дорога startService()</string>
 </resources>

@@ -771,4 +771,10 @@
     <string name="checkVariableExplanation">Wenn Sie den Wert der Variablen leer lassen, darf sie nicht gesetzt sein, damit die Bedingung als erfüllt gilt.</string>
     <string name="variableCheckString">wenn Variable %1$s den Wert %2$s hat</string>
     <string name="variableCheckStringDeleted">wenn Variable %1$s nicht gesetzt ist</string>
+    <string name="messageType">Nachrichtentyp</string>
+    <string name="sms">SMS</string>
+    <string name="mms">MMS</string>
+    <string name="attachment">Dateianhang</string>
+    <string name="chooseFile">Datei wählen</string>
+    <string name="startAppByStartService">via startService()</string>
 </resources>

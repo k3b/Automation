@@ -1,0 +1,4 @@
+* Opgelost: nu negatieve gehele getallen toestaan als intentiegegevens
+* Opgelost: Meerdere tijdframes met reoccurence geconfigureerd zouden leiden tot vroege uitvoeringen
+* Opgelost: Automatische app-start bij het opstarten kan in sommige gevallen mislukken
+* Vertalingen bijgewerkt

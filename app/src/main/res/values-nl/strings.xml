@@ -769,5 +769,11 @@
     <string name="checkVariableExplanation">Als u de waarde leeg laat, mag de variabele niet worden ingesteld om de voorwaarde true te laten retourneren.</string>
     <string name="variableCheckString">als variabele %1$s %2$s is</string>
     <string name="variableCheckStringDeleted">als variabele %1$s niet is ingesteld</string>
+    <string name="messageType">Type bericht</string>
+    <string name="sms">SMS</string>
+    <string name="mms">MMS</string>
+    <string name="attachment">Bijlage</string>
+    <string name="chooseFile">kies bestand</string>
+    <string name="startAppByStartService">via startService()</string>
 
 </resources>

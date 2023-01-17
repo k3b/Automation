@@ -1,0 +1,4 @@
+* Behoben: Negative Ganzzahlen werden als Intent-Parameter akzeptiert
+* Behoben: Mehrere parallele Zeiträume mit Wiederholung konnten dazu führen, daß alle zu häufig ausgeführt wurden
+* Behoben: Automatischer Start der Anwendung beim Gerätestart konnte in manchen Fällen scheitern
+* Übersetzungen aktualisiert

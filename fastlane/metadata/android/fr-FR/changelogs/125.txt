@@ -1,0 +1,4 @@
+* Correction : Autorise désormais les entiers négatifs comme données d'intention
+* Correction : Plusieurs délais avec récurrence configurée déclenchaient des exécutions anticipées
+* Correction : le démarrage automatique de l'application au démarrage peut échouer dans certains cas
+* Traductions mises à jour
