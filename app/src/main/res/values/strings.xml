@@ -874,4 +874,6 @@
     <string name="attachment">Attachment</string>
     <string name="chooseFile">choose file</string>
     <string name="startAppByStartService">by startService()</string>
+    <string name="showToastsForEvents">Show toasts</string>
+    <string name="showToastsForEventsSummary">Show toasts when events like rule executions occur</string>
 </resources>

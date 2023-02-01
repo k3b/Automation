@@ -476,7 +476,9 @@ public class Rule implements Comparable<Rule>
 		{
 			AutomationService service = AutomationService.getInstance();
 			service.speak(messages[0], false);
-			Toast.makeText(service, messages[0], Toast.LENGTH_LONG).show();
+
+			if(Settings.showToasts)
+				Toast.makeText(service, messages[0], Toast.LENGTH_LONG).show();
 			
 			super.onProgressUpdate(messages);
 		}

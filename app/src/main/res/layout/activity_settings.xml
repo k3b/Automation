@@ -74,7 +74,12 @@
 			android:title="@string/displayNewsOnMainScreen"
 			android:summary="@string/displayNewsOnMainScreenDescription" />
 
-    </PreferenceCategory>
+		<CheckBoxPreference
+			android:key="showToasts"
+			android:title="@string/showToastsForEvents"
+			android:summary="@string/showToastsForEventsSummary" />
+
+	</PreferenceCategory>
     
     <PreferenceCategory
         android:summary="@string/soundSettings"

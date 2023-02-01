@@ -226,7 +226,8 @@ public class AutomationService extends Service implements OnInitListener
             this.isRunning = true;
 
 			Miscellaneous.logEvent("i", "Service", this.getResources().getString(R.string.serviceStarted) + " VERSION_CODE: " + BuildConfig.VERSION_CODE + ", VERSION_NAME: " + BuildConfig.VERSION_NAME + ", flavor: " + BuildConfig.FLAVOR, 1);
-			Toast.makeText(this, this.getResources().getString(R.string.serviceStarted), Toast.LENGTH_LONG).show();
+			if(Settings.showToasts)
+				Toast.makeText(this, this.getResources().getString(R.string.serviceStarted), Toast.LENGTH_LONG).show();
 
 			/*
 				On normal phones the app is supposed to automatically restart in case of any problems.
@@ -306,7 +307,8 @@ public class AutomationService extends Service implements OnInitListener
 
 		stopRoutine();
         this.isRunning = false;
-		Toast.makeText(this, getResources().getString(R.string.serviceStopped), Toast.LENGTH_LONG).show();
+		if(Settings.showToasts)
+			Toast.makeText(this, getResources().getString(R.string.serviceStopped), Toast.LENGTH_LONG).show();
 		Miscellaneous.logEvent("i", "Service", getResources().getString(R.string.serviceStopped), 1);
 	}
 

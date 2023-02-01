@@ -65,6 +65,7 @@ public class Settings implements SharedPreferences
 	public static int tabsPlacement;
 	public static boolean executeRulesAndProfilesWithSingleClick;
 	public static boolean displayNewsOnMainScreen;
+	public static boolean showToasts;
 	public static boolean automaticUpdateCheck;
 	public static long musicCheckFrequency;
 
@@ -130,6 +131,8 @@ public class Settings implements SharedPreferences
 	public static final int default_tabsPlacement = 0;
 	public static final boolean default_executeRulesAndProfilesWithSingleClick = false;
 	public static final boolean default_displayNewsOnMainScreen = false;
+
+	public static final boolean default_showToasts = true;
 	public static final boolean default_automaticUpdateCheck = false;
 	public static final boolean default_lockSoundChanges = false;
 	public static final long default_lastNewsPolltime = -1;
@@ -277,6 +280,7 @@ public class Settings implements SharedPreferences
 			executeRulesAndProfilesWithSingleClick = prefs.getBoolean("executeRulesAndProfilesWithSingleClick", default_executeRulesAndProfilesWithSingleClick);
 			automaticUpdateCheck = prefs.getBoolean("automaticUpdateCheck", default_automaticUpdateCheck);
 			displayNewsOnMainScreen = prefs.getBoolean("displayNewsOnMainScreen", default_displayNewsOnMainScreen);
+			showToasts = prefs.getBoolean("showToasts", default_showToasts);
 
 			lockSoundChanges = prefs.getBoolean("lockSoundChanges", default_lockSoundChanges);
 			noticeAndroid9MicrophoneShown = prefs.getBoolean("noticeAndroid9MicrophoneShown", false);
@@ -472,6 +476,9 @@ public class Settings implements SharedPreferences
 			if(!prefs.contains("displayNewsOnMainScreen") || force)
 				editor.putBoolean("displayNewsOnMainScreen", default_displayNewsOnMainScreen);
 
+			if(!prefs.contains("showToasts") || force)
+				editor.putBoolean("showToasts", default_showToasts);
+
 			if(!prefs.contains("musicCheckFrequency") || force)
 				editor.putLong("musicCheckFrequency", default_musicCheckFrequency);
 
@@ -555,6 +562,7 @@ public class Settings implements SharedPreferences
 				editor.putBoolean("executeRulesAndProfilesWithSingleClick", executeRulesAndProfilesWithSingleClick);
 				editor.putBoolean("automaticUpdateCheck", automaticUpdateCheck);
 				editor.putBoolean("displayNewsOnMainScreen", displayNewsOnMainScreen);
+				editor.putBoolean("showToasts", showToasts);
 
 				if(Settings.musicCheckFrequency == 0)
 					Settings.musicCheckFrequency = Settings.default_musicCheckFrequency;
