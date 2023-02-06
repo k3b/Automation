@@ -34,6 +34,7 @@ import com.jens.automation2.receivers.PhoneStatusListener;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -41,6 +42,7 @@ import java.util.Set;
 public class AutomationService extends Service implements OnInitListener
 {
 	protected TextToSpeech ttsEngine = null;
+	protected int ttsStatus = -1;
 	protected final static int notificationId = 1000;
 	protected final static int notificationIdRestrictions = 1005;
 	protected final static int notificationIdLocationRestriction = 1006;
@@ -95,6 +97,11 @@ public class AutomationService extends Service implements OnInitListener
 	public void setLockSoundChangesEnd(Calendar lockSoundChangesEnd)
 	{
 		this.lockSoundChangesEnd = lockSoundChangesEnd;
+	}
+
+	public int getTtsStatus()
+	{
+		return ttsStatus;
 	}
 
 	protected final IBinder myBinder = new LocalBinder();
@@ -317,8 +324,26 @@ public class AutomationService extends Service implements OnInitListener
 		if (Settings.useTextToSpeechOnNormal || Settings.useTextToSpeechOnSilent || Settings.useTextToSpeechOnVibrate || Rule.isAnyRuleUsing(Action.Action_Enum.speakText))
 		{
 			if (ttsEngine == null)
-				ttsEngine = new TextToSpeech(this, this);
-		} else
+			{
+				ttsEngine = new TextToSpeech(this, new TextToSpeech.OnInitListener()
+				{
+					@Override
+					public void onInit(int status)
+					{
+						ttsStatus = status;
+
+						if (status == TextToSpeech.SUCCESS)
+						{
+							ttsEngine.setLanguage(Locale.getDefault());
+							Miscellaneous.logEvent("i", "TTS engine", "TTS engine available.", 3);
+						}
+						else
+							Miscellaneous.logEvent("i", "TTS engine", "TTS engine not available. Status: " + String.valueOf(status), 3);
+					}
+				});
+			}
+		}
+		else
 		{
 			if (ttsEngine != null)
 				ttsEngine.shutdown();
@@ -673,25 +698,26 @@ public class AutomationService extends Service implements OnInitListener
 				{
 					try
 					{
-						for(int i = 0; i < 5; i++)
+						for(int i = 0; i < 60; i++)
 						{								
-							if(ttsEngine != null)
-							{
-								break;
-							}
-							else
+							if(ttsEngine == null || ttsStatus != TextToSpeech.SUCCESS)
 							{
 								try
 								{
 									Miscellaneous.logEvent("i", "TTS", "Waiting for a moment to give the TTS service time to load...", 4);
-									Thread.sleep(1000);	// give the tts engine time to load
+									Thread.sleep(500);	// give the tts engine time to load
 								}
 								catch(Exception e)
 								{}
 							}
+							else
+							{
+								Miscellaneous.logEvent("i", "TextToSpeech", "Speaking \"" + text + "\" in language " + ttsEngine.getLanguage().toLanguageTag(), 3);
+								this.ttsEngine.speak(text, TextToSpeech.QUEUE_ADD, null);
+								break;
+							}
 						}
-						Miscellaneous.logEvent("i", "TextToSpeech", "Speaking " + text + " in language " + ttsEngine.getLanguage().toLanguageTag(), 3);
-						this.ttsEngine.speak(text, TextToSpeech.QUEUE_ADD, null);
+						Miscellaneous.logEvent("i", "TextToSpeech", "TTS engine not available after waiting 30 seconds, yet. Aborting.", 3);
 					}
 					catch(Exception e)
 					{

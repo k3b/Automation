@@ -1,0 +1,2 @@
+* Fixed: TTS engine wouldn't always speak, especially at the startup of the app
+* Added: Possibility to disable toasts for e.g. announcing rule activations
