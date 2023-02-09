@@ -1,0 +1,2 @@
+* Behoben: Sprachausgabe hat nicht immer funktioniert, vor allem beim Programmstart
+* Neu: Möglichkeit Toasts zu deaktivieren, z.B. für Regel-Aktivierungen

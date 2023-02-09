@@ -777,4 +777,6 @@
     <string name="attachment">Dateianhang</string>
     <string name="chooseFile">Datei wählen</string>
     <string name="startAppByStartService">via startService()</string>
+    <string name="showToastsForEvents">Toasts anzeigen</string>
+    <string name="showToastsForEventsSummary">Popups anzeigen, wenn Ereignisse wie Regelausführungen auftreten</string>
 </resources>

@@ -1,0 +1,2 @@
+* Risolto: il motore TTS non parlava sempre, specialmente all'avvio dell'app
+* Aggiunto: Possibilità di disabilitare gli avvisi popup ad esempio per annunciare l'attivazione delle regole

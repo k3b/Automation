@@ -834,4 +834,6 @@
   <string name="attachment">Прикрепление</string>
     <string name="chooseFile">выберите файл</string>
   <string name="startAppByStartService">дорога startService()</string>
+    <string name="showToastsForEvents">Показать тосты</string>
+    <string name="showToastsForEventsSummary">Отображение всплывающих уведомлений при таких событиях, как выполнение правил</string>
 </resources>

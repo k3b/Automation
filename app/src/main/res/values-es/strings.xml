@@ -776,4 +776,6 @@
     <string name="attachment">Archivo adjunto</string>
     <string name="chooseFile">elegir archivo</string>
     <string name="startAppByStartService">via startService()</string>
+    <string name="showToastsForEvents">Mostrar toasts</string>
+    <string name="showToastsForEventsSummary">Mostrar notificaciones del sistema cuando se producen eventos como ejecuciones de reglas</string>
 </resources>

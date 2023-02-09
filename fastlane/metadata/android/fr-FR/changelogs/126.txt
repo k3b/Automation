@@ -1,0 +1,2 @@
+* Correction : le moteur TTS ne parlait pas toujours, surtout au démarrage de l'application
+* Ajouté: Possibilité de désactiver les toasts pour, par exemple, annoncer les activations de règles

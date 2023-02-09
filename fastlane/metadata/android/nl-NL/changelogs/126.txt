@@ -1,0 +1,2 @@
+* Opgelost: TTS-engine zou niet altijd spreken, vooral bij het opstarten van de app
+* Toegevoegd: Mogelijkheid om toasts uit te schakelen voor bijvoorbeeld het aankondigen van regelactiveringen

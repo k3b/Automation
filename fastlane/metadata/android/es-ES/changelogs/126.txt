@@ -1,0 +1,2 @@
+* Corregido: el motor TTS no siempre hablaba, especialmente al inicio de la aplicación
+* Añadido: Posibilidad de desactivar las notificaciones del sistema para, por ejemplo, anunciar activaciones de reglas
