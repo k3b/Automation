@@ -1764,7 +1764,7 @@ public class ActivityManageRule extends Activity
 			{
 				ruleToEdit.getActionSet().get(editIndex).setParentRule(ruleToEdit);
 
-				if(data.hasExtra(intentNameActionParameter1) && data.hasExtra(intentNameActionParameter2))
+				if(data.hasExtra(intentNameActionParameter2))
 				{
 					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra(intentNameActionParameter2));
 				}
