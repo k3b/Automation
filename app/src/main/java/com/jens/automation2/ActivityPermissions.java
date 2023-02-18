@@ -47,6 +47,7 @@ public class ActivityPermissions extends Activity
     private static final int requestCodeForPermissionsNotifications = 12046;
     private static final int requestCodeForPermissionsDeviceAdmin = 12047;
     private static final int requestCodeForPermissionsBatteryOptimization = 12048;
+    private static final int requestCodeForPermissionNotificationAccessAndroid13 = 12049;
     protected String[] specificPermissionsToRequest = null;
 
     public static String intentExtraName = "permissionsToBeRequested";
@@ -1046,14 +1047,33 @@ public class ActivityPermissions extends Activity
                         cachedPermissionsToRequest = requiredPermissions;
                         Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
                         startActivityForResult(intent, requestCodeForPermissionsNotificationPolicy);
+
                         return;
                     }
                     else if (s.equalsIgnoreCase(Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE))
                     {
-                        requiredPermissions.remove(s);
-                        cachedPermissionsToRequest = requiredPermissions;
-                        Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
-                        startActivityForResult(intent, requestCodeForPermissionsNotifications);
+                        if(Build.VERSION.SDK_INT >= 33)
+                        {
+                            AlertDialog dialog = Miscellaneous.messageBox(getResources().getString(R.string.info), getResources().getString(R.string.notificationAccessAndroid13), ActivityPermissions.this);
+                            dialog.setOnDismissListener(new DialogInterface.OnDismissListener()
+                            {
+                                @Override
+                                public void onDismiss(DialogInterface dialogInterface)
+                                {
+                                    requiredPermissions.remove(s);
+                                    cachedPermissionsToRequest = requiredPermissions;
+                                    requestNotificationAccess();
+                                }
+                            });
+                            dialog.show();
+                        }
+                        else
+                        {
+                            requiredPermissions.remove(s);
+                            cachedPermissionsToRequest = requiredPermissions;
+                            requestNotificationAccess();
+                        }
+
                         return;
                     }
                     else if(s.equals(Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS))
@@ -1126,6 +1146,12 @@ public class ActivityPermissions extends Activity
             else
                 setHaveAllPermissions();
         }
+    }
+
+    void requestNotificationAccess()
+    {
+        Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
+        startActivityForResult(intent, requestCodeForPermissionsNotifications);
     }
 
     protected void applyChanges()

@@ -778,4 +778,5 @@
     <string name="startAppByStartService">via startService()</string>
     <string name="showToastsForEvents">Afficher les toasts</string>
     <string name="showToastsForEventsSummary">Afficher les toasts lorsque des événements tels que des exécutions de règles se produisent</string>
+    <string name="notificationAccessAndroid13">Après avoir cliqué sur OK, sélectionnez Automatisation, puis sélectionnez « Autoriser l\'accès aux notifications », puis « Autoriser ».</string>
 </resources>

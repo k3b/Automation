@@ -777,5 +777,6 @@
     <string name="startAppByStartService">via startService()</string>
     <string name="showToastsForEvents">Toon toasts</string>
     <string name="showToastsForEventsSummary">Pop-ups weergeven wanneer gebeurtenissen zoals regeluitvoeringen plaatsvinden</string>
+    <string name="notificationAccessAndroid13">Nadat u op OK hebt geklikt, selecteert u Automatisering, selecteert u vervolgens \"Toegang tot meldingen toestaan\" en vervolgens \"toestaan\".</string>
 
 </resources>

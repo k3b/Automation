@@ -836,4 +836,5 @@
   <string name="startAppByStartService">дорога startService()</string>
     <string name="showToastsForEvents">Показать тосты</string>
     <string name="showToastsForEventsSummary">Отображение всплывающих уведомлений при таких событиях, как выполнение правил</string>
+    <string name="notificationAccessAndroid13">После нажатия кнопки «ОК» выберите «Автоматизация», затем выберите «Разрешить доступ к уведомлениям», затем «Разрешить».</string>
 </resources>
