@@ -47,7 +47,8 @@ public class ActivityMainRules extends ActivityGeneric
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		super.onCreate(savedInstanceState);		
+		super.onCreate(savedInstanceState);
+		Miscellaneous.setDisplayLanguage(ActivityMainRules.this);
 		setContentView(R.layout.main_rule_layout);
 
 		instance = this;

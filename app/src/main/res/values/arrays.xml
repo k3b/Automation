@@ -22,6 +22,28 @@
         <item name="3">3</item>
     </string-array>
 
+    <string-array name="displayLanguageOptions">
+        <item name="0">@string/languageSystemDefault</item>
+        <item name="1">@string/languageEnglish</item>
+        <item name="2">@string/languageGerman</item>
+        <item name="3">@string/languageItalian</item>
+        <item name="4">@string/languageSpanish</item>
+        <item name="5">@string/languageDutch</item>
+        <item name="6">@string/languageRussian</item>
+        <item name="7">@string/languageFrench</item>
+
+    </string-array>
+    <string-array name="displayLanguageValues">
+        <item name="0">systemDefaultLanguage</item>
+        <item name="1">en</item>
+        <item name="2">de</item>
+        <item name="3">it</item>
+        <item name="4">es</item>
+        <item name="5">nl</item>
+        <item name="6">ru</item>
+        <item name="7">fr</item>
+    </string-array>
+
     <string-array name="tabsPlacementOptions">
         <item name="0">@string/top</item>
         <item name="1">@string/bottom</item>
@@ -33,4 +55,12 @@
         <item name="3">3</item>
     </string-array>
 
+    <string name="languageSystemDefault">System default</string>
+    <string name="languageEnglish">English</string>
+    <string name="languageGerman">German</string>
+    <string name="languageItalian">Italian</string>
+    <string name="languageSpanish">Spanish</string>
+    <string name="languageDutch">Dutch</string>
+    <string name="languageRussian">Russian</string>
+    <string name="languageFrench">French</string>
 </resources>

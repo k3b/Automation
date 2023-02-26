@@ -3,11 +3,16 @@ package com.jens.automation2;
 import android.annotation.SuppressLint;
 import android.app.TabActivity;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
 import com.jens.automation2.receivers.NfcReceiver;
+
+import java.util.Locale;
 
 
 @SuppressLint("NewApi")
@@ -17,8 +22,8 @@ public class ActivityMainTabLayout extends TabActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-
 		Settings.readFromPersistentStorage(ActivityMainTabLayout.this);
+		Miscellaneous.setDisplayLanguage(ActivityMainTabLayout.this);
 
 		if(Settings.tabsPlacement == 1)
 			setContentView(R.layout.main_tab_layout_tabs_at_bottom);

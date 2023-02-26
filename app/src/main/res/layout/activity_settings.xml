@@ -59,6 +59,13 @@
 			android:entries="@array/tabsPlacementOptions"
 			android:entryValues="@array/tabsPlacementOptionsValues" />
 
+		<ListPreference
+			android:key="displayLanguage"
+			android:title="@string/displayLanguage"
+			android:summary="@string/displayLanguageSummary"
+			android:entries="@array/displayLanguageOptions"
+			android:entryValues="@array/displayLanguageValues" />
+
 		<CheckBoxPreference
 			android:key="executeRulesAndProfilesWithSingleClick"
 			android:title="@string/executeRulesAndProfilesWithSingleClickTitle" />

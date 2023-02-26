@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.media.AudioAttributes;
 import android.media.RingtoneManager;
@@ -31,6 +32,7 @@ import android.provider.Settings.Secure;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -1984,5 +1986,21 @@ public class Miscellaneous extends Service
 	public static int getTargetSDK(Context context)
 	{
 		return context.getApplicationContext().getApplicationInfo().targetSdkVersion;
+	}
+
+	public static void setDisplayLanguage(Context context)
+	{
+		if(!Settings.displayLanguage.equals(Settings.default_displayLanguage))
+		{
+			Locale myLocale = new Locale(Settings.displayLanguage);
+			Resources res = context.getResources();
+			DisplayMetrics dm = res.getDisplayMetrics();
+			Configuration conf = res.getConfiguration();
+			conf.locale = myLocale;
+			res.updateConfiguration(conf, dm);
+			//Intent refresh = new Intent(this, AndroidLocalize.class);
+			//finish();
+			//startActivity(refresh);
+		}
 	}
 }

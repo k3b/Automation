@@ -877,4 +877,6 @@
     <string name="showToastsForEvents">Show toasts</string>
     <string name="showToastsForEventsSummary">Show toasts when events like rule executions occur</string>
     <string name="notificationAccessAndroid13">After clicking ok, select Automation, then select \"Allow notification access\", then \"allow\".</string>
+    <string name="displayLanguage">Display language</string>
+    <string name="displayLanguageSummary">Set a custom language for the application</string>
 </resources>

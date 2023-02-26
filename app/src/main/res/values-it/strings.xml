@@ -396,6 +396,14 @@
     <string name="roaming">Roaming</string>
     <string name="rootExplanation">È necessario avere i permessi di root per utilizzare questa funzione. Una volta abilitato l\'accesso root, dovrai \"eseguire la regola manualmente\" per attivare la richiesta di autorizzazione come superuser. Nella finestra di popup di superuser, bisognerà consentire sempre l\'esecuzione dell\'applicazione con questi permessi. In caso contrario, la regola non potrà funzionare quando il telefono è inattivo.</string>
     <string name="rule">Regola</string>
+    <string name="languageSystemDefault">Impostazione predefinita del sistema</string>
+    <string name="languageEnglish">Inglese</string>
+    <string name="languageGerman">Tedesco</string>
+    <string name="languageItalian">Italiano</string>
+    <string name="languageSpanish">Spagnolo</string>
+    <string name="languageDutch">Olandese</string>
+    <string name="languageRussian">Russo</string>
+    <string name="languageFrench">Francese</string>
     <string name="ruleActivate">Attivando la regola %1$s</string>
     <string name="ruleActivateToggle">Attivando la regola %1$s in modalità reversibile</string>
     <string name="ruleActive">Regola attiva</string>
@@ -780,4 +788,6 @@
     <string name="showToastsForEvents">Mostra toast</string>
     <string name="showToastsForEventsSummary">Mostrare gli avvisi popup quando si verificano eventi come le esecuzioni di regole</string>
     <string name="notificationAccessAndroid13">Dopo aver fatto clic su OK, selezionare Automazione, quindi selezionare \"Consenti accesso alle notifiche\", quindi \"Consenti\".</string>
+    <string name="displayLanguage">Lingua di visualizzazione</string>
+    <string name="displayLanguageSummary">Set a custom language for the application</string>
 </resources>

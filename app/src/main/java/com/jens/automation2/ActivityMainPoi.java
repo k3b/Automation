@@ -44,6 +44,7 @@ public class ActivityMainPoi extends ActivityGeneric
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		Miscellaneous.setDisplayLanguage(ActivityMainPoi.this);
 		setContentView(R.layout.main_poi_layout);
 
 		instance = this;

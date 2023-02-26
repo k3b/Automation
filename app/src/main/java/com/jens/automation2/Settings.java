@@ -68,6 +68,7 @@ public class Settings implements SharedPreferences
 	public static boolean showToasts;
 	public static boolean automaticUpdateCheck;
 	public static long musicCheckFrequency;
+	public static String displayLanguage;
 
 	public static boolean lockSoundChanges;
 	public static boolean noticeAndroid9MicrophoneShown;
@@ -138,6 +139,7 @@ public class Settings implements SharedPreferences
 	public static final long default_lastNewsPolltime = -1;
 	public static final long default_lastUpdateCheck = -1;
 	public static final long default_musicCheckFrequency = 2500;
+	public static final String default_displayLanguage = "systemDefaultLanguage";
 
     @Override
 	public boolean contains(String arg0)
@@ -273,6 +275,7 @@ public class Settings implements SharedPreferences
 			tabsPlacement = Integer.parseInt(prefs.getString("tabsPlacement", String.valueOf(default_tabsPlacement)));
 
 			musicCheckFrequency = Long.parseLong(prefs.getString("musicCheckFrequency", String.valueOf(default_musicCheckFrequency)));
+			displayLanguage = prefs.getString("displayLanguage", default_displayLanguage);
 
 			if(Settings.musicCheckFrequency == 0)
 				Settings.musicCheckFrequency = Settings.default_musicCheckFrequency;
@@ -482,6 +485,9 @@ public class Settings implements SharedPreferences
 			if(!prefs.contains("musicCheckFrequency") || force)
 				editor.putLong("musicCheckFrequency", default_musicCheckFrequency);
 
+			if(!prefs.contains("displayLanguage") || force)
+				editor.putString("displayLanguage", default_displayLanguage);
+
 			if(!prefs.contains("lockSoundChanges") || force)
 				editor.putBoolean("lockSoundChanges", default_lockSoundChanges);
 
@@ -567,6 +573,8 @@ public class Settings implements SharedPreferences
 				if(Settings.musicCheckFrequency == 0)
 					Settings.musicCheckFrequency = Settings.default_musicCheckFrequency;
 				editor.putString("musicCheckFrequency", String.valueOf(musicCheckFrequency));
+
+				editor.putString("displayLanguage", displayLanguage);
 
 				editor.putBoolean("lockSoundChanges", lockSoundChanges);
 				editor.putBoolean("noticeAndroid9MicrophoneShown", noticeAndroid9MicrophoneShown);

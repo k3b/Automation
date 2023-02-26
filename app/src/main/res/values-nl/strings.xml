@@ -1,4 +1,12 @@
 <resources>
+    <string name="languageSystemDefault">Systeemstandaard</string>
+    <string name="languageEnglish">Engels</string>
+    <string name="languageGerman">Duits</string>
+    <string name="languageItalian">Italiaans</string>
+    <string name="languageSpanish">Spaans</string>
+    <string name="languageDutch">Nederlands</string>
+    <string name="languageRussian">Russisch</string>
+    <string name="languageFrench">Frans</string>
     <string name="ruleActivate">Activering regel %1$s</string>
     <string name="profileActivate">Activeren profiel %1$s</string>
     <string name="ruleActivateToggle">Activeren regel %1$s in Togglemode</string>
@@ -778,5 +786,7 @@
     <string name="showToastsForEvents">Toon toasts</string>
     <string name="showToastsForEventsSummary">Pop-ups weergeven wanneer gebeurtenissen zoals regeluitvoeringen plaatsvinden</string>
     <string name="notificationAccessAndroid13">Nadat u op OK hebt geklikt, selecteert u Automatisering, selecteert u vervolgens \"Toegang tot meldingen toestaan\" en vervolgens \"toestaan\".</string>
+    <string name="displayLanguage">Taal weergeven</string>
+    <string name="displayLanguageSummary">Een aangepaste taal instellen voor de toepassing</string>
 
 </resources>

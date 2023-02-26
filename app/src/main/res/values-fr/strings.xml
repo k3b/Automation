@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="languageSystemDefault">Valeur par défaut du système</string>
+    <string name="languageEnglish">Anglais</string>
+    <string name="languageGerman">Allemand</string>
+    <string name="languageItalian">Italien</string>
+    <string name="languageSpanish">Espagnol</string>
+    <string name="languageDutch">Néerlandais</string>
+    <string name="languageRussian">Russe</string>
+    <string name="languageFrench">Français</string>
     <string name="ruleActivate">Activation de la règle %1$s</string>
     <string name="profileActivate">Activation du profil %1$s</string>
     <string name="ruleActivateToggle">Activation de la règle %1$s en mode alternatif</string>
@@ -779,4 +787,6 @@
     <string name="showToastsForEvents">Afficher les toasts</string>
     <string name="showToastsForEventsSummary">Afficher les toasts lorsque des événements tels que des exécutions de règles se produisent</string>
     <string name="notificationAccessAndroid13">Après avoir cliqué sur OK, sélectionnez Automatisation, puis sélectionnez « Autoriser l\'accès aux notifications », puis « Autoriser ».</string>
+    <string name="displayLanguage">Langue d\'affichage</string>
+    <string name="displayLanguageSummary">Définir une langue personnalisée pour l\'application</string>
 </resources>

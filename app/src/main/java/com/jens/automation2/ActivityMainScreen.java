@@ -6,9 +6,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -31,6 +34,7 @@ import com.jens.automation2.location.LocationProvider;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 @SuppressLint("NewApi")
 public class ActivityMainScreen extends ActivityGeneric
@@ -51,6 +55,7 @@ public class ActivityMainScreen extends ActivityGeneric
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		Miscellaneous.setDisplayLanguage(ActivityMainScreen.this);
 		setContentView(R.layout.main_overview_layout);
 
 		activityMainScreenInstance = this;

@@ -40,6 +40,7 @@ public class ActivityMainProfiles extends ActivityGeneric
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		Miscellaneous.setDisplayLanguage(ActivityMainProfiles.this);
 		setContentView(R.layout.main_profile_layout);
 
 		instance = this;

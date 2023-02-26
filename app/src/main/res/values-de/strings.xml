@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="languageSystemDefault">System Standard</string>
+    <string name="languageEnglish">Englisch</string>
+    <string name="languageGerman">Deutsch</string>
+    <string name="languageItalian">Italienisch</string>
+    <string name="languageSpanish">Spanisch</string>
+    <string name="languageDutch">Niederländisch</string>
+    <string name="languageRussian">Russisch</string>
+    <string name="languageFrench">Französisch</string>
     <string name="ruleActivate">Aktiviere Regel %1$s</string>
     <string name="profileActivate">Aktiviere Profil %1$s</string>
     <string name="ruleActivateToggle">Aktiviere Regel %1$s im Umkehrmodus</string>
@@ -780,4 +788,7 @@
     <string name="showToastsForEvents">Toasts anzeigen</string>
     <string name="showToastsForEventsSummary">Popups anzeigen, wenn Ereignisse wie Regelausführungen auftreten</string>
     <string name="notificationAccessAndroid13">Nachdem Sie auf OK geklickt haben, wählen Sie Automatisierung, dann \"Benachrichtigungszugriff zulassen\" und dann \"Zulassen\".</string>
+    <string name="displayLanguage">Anzeigesprache</string>
+    <string name="displayLanguageSummary">Bestimmte Anzeigesprache wählen</string>
+    <string name="displayLanguageSummary">B</string>
 </resources>

@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="languageSystemDefault">Системное значение по умолчанию</string>
+  <string name="languageEnglish">Английский</string>
+  <string name="languageGerman">Немецкий</string>
+  <string name="languageItalian">Итальянский</string>
+  <string name="languageSpanish">Испанский</string>
+  <string name="languageDutch">Нидерландский</string>
+  <string name="languageRussian">русский</string>
+  <string name="languageFrench">Французский</string>
   <string name="ruleActivate">Активация правила %1$s</string>
   <string name="profileActivate">Активация профиля %1$s</string>
   <string name="ruleActivateToggle">Активация правила %1$s в режиме переключения</string>
@@ -837,4 +845,6 @@
     <string name="showToastsForEvents">Показать тосты</string>
     <string name="showToastsForEventsSummary">Отображение всплывающих уведомлений при таких событиях, как выполнение правил</string>
     <string name="notificationAccessAndroid13">После нажатия кнопки «ОК» выберите «Автоматизация», затем выберите «Разрешить доступ к уведомлениям», затем «Разрешить».</string>
+  <string name="displayLanguage">Язык интерфейса</string>
+  <string name="displayLanguageSummary">Язык интерфейса</string>
 </resources>

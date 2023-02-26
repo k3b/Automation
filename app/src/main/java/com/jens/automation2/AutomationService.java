@@ -12,6 +12,8 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.media.AudioManager;
 import android.os.Binder;
 import android.os.Build;
@@ -20,6 +22,7 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -127,6 +130,8 @@ public class AutomationService extends Service implements OnInitListener
 
 		// Store a reference to myself. Other classes often need a context or something, this can provide that.
 		centralInstance = this;
+
+		Miscellaneous.setDisplayLanguage(AutomationService.this);
 	}
 
 	public boolean checkStartupRequirements(Context context, boolean startAtBoot)

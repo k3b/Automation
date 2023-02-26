@@ -1,1 +1,2 @@
 * Fixed: Editing variable action was not possible
+* Added: Possibility to pick a custom language in settings
