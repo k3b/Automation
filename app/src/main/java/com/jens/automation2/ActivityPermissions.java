@@ -259,8 +259,7 @@ public class ActivityPermissions extends Activity
                         if (!havePermission(s, context))
                             return true;
                 }
-                else
-                if (!havePermission(s, context))
+                else if (!havePermission(s, context))
                     return true;
             }
         }
@@ -515,9 +514,13 @@ public class ActivityPermissions extends Activity
                         addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
                         addToArrayListUnique(Manifest.permission.ACCESS_WIFI_STATE, requiredPermissions);
                         if(
+                                (
                                 Miscellaneous.getTargetSDK(Miscellaneous.getAnyContext()) >= 29
                                         &&
                                 isPermissionDeclaratedInManifest(Miscellaneous.getAnyContext(), Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+                                )
+                                    ||
+                                Build.VERSION.SDK_INT >= 33
                         )
                             addToArrayListUnique(Manifest.permission.ACCESS_BACKGROUND_LOCATION, requiredPermissions);
                         break;
@@ -775,6 +778,7 @@ public class ActivityPermissions extends Activity
                 break;
             case Manifest.permission.ACCESS_BACKGROUND_LOCATION:
                 usingElements.add(getResources().getString(R.string.googleLocationChicanery));
+                usingElements.add(getResources().getString(R.string.wifiMonitoringAlsoRequiresThis));
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.pointOfInterest))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.speed))
@@ -1034,7 +1038,7 @@ public class ActivityPermissions extends Activity
                         startActivityForResult(intent, requestCodeForPermissionsWriteSettings);
                         return;
                     }
-                    if (s.equalsIgnoreCase(Manifest.permission.BIND_DEVICE_ADMIN))
+                    else if (s.equalsIgnoreCase(Manifest.permission.BIND_DEVICE_ADMIN))
                     {
                         requiredPermissions.remove(s);
                         cachedPermissionsToRequest = requiredPermissions;

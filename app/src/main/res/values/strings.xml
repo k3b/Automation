@@ -876,7 +876,8 @@
     <string name="startAppByStartService">by startService()</string>
     <string name="showToastsForEvents">Show toasts</string>
     <string name="showToastsForEventsSummary">Show toasts when events like rule executions occur</string>
-    <string name="notificationAccessAndroid13">After clicking ok, select Automation, then select \"Allow notification access\", then \"allow\".</string>
+    <string name="notificationAccessAndroid13">After clicking ok, select Automation, then select \"Allow notification access\", then \"allow\".\n\nOn some systems this setting is greyed out. In those cases you need to go to \"settings\" -> \"apps\" -> \"Automation\" -> 3-dots-menu -> Lift these restrictions. Afterwards return here.</string>
     <string name="displayLanguage">Display language</string>
     <string name="displayLanguageSummary">Set a custom language for the application</string>
+    <string name="wifiMonitoringAlsoRequiresThis">This permission is also required if the trigger is using the current wifi connection.</string>
 </resources>

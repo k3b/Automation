@@ -790,5 +790,4 @@
     <string name="notificationAccessAndroid13">Nachdem Sie auf OK geklickt haben, wählen Sie Automatisierung, dann \"Benachrichtigungszugriff zulassen\" und dann \"Zulassen\".</string>
     <string name="displayLanguage">Anzeigesprache</string>
     <string name="displayLanguageSummary">Bestimmte Anzeigesprache wählen</string>
-    <string name="displayLanguageSummary">B</string>
 </resources>
