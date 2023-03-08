@@ -786,7 +786,7 @@
     <string name="startAppByStartService">via startService()</string>
     <string name="showToastsForEvents">Mostrar toasts</string>
     <string name="showToastsForEventsSummary">Mostrar notificaciones del sistema cuando se producen eventos como ejecuciones de reglas</string>
-    <string name="notificationAccessAndroid13">Después de hacer clcliquear en OK, seleccione Automation, luego seleccione \"Permitir acceso a notificaciones\", luego \"Permitir\".</string>
+    <string name="notificationAccessAndroid13">Después de cliquear en Aceptar, seleccione Automatización y, a continuación, seleccione \"Permitir acceso a notificaciones\", luego \"permitir\".\n\nEn algunos sistemas, esta configuración está atenuada. En esos casos, debe ir a \"configuración\" -> \"aplicaciones\" -> \"Automatización\" -> menú de 3 puntos -> Levante estas restricciones. Luego regreso aquí.</string>
     <string name="displayLanguage">Idioma de visualización</string>
     <string name="displayLanguageSummary">Establecer un idioma personalizado para la aplicación</string>
 </resources>

@@ -787,7 +787,7 @@
     <string name="startAppByStartService">tramite startService()</string>
     <string name="showToastsForEvents">Mostra toast</string>
     <string name="showToastsForEventsSummary">Mostrare gli avvisi popup quando si verificano eventi come le esecuzioni di regole</string>
-    <string name="notificationAccessAndroid13">Dopo aver fatto clic su OK, selezionare Automazione, quindi selezionare \"Consenti accesso alle notifiche\", quindi \"Consenti\".</string>
+    <string name="notificationAccessAndroid13">Dopo aver fatto clic su OK, selezionare Automazione, quindi selezionare \"Consenti accesso notifiche\", quindi \"consentire\".\n\nSu alcuni sistemi questa impostazione è disattivata. In questi casi è necessario andare su \"impostazioni\" -> \"app\" -> \"Automazione\" -> menu a 3 punti -> Revoca queste restrizioni. Successivamente ritorno qui.</string>
     <string name="displayLanguage">Lingua di visualizzazione</string>
     <string name="displayLanguageSummary">Set a custom language for the application</string>
 </resources>
