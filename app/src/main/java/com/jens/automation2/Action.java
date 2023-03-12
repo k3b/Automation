@@ -55,6 +55,7 @@ public class Action
 		setVariable,
 		startPhoneCall,
 		stopPhoneCall,
+		copyToClipboard,
 		sendTextMessage;
 
 		public String getFullName(Context context)
@@ -137,6 +138,8 @@ public class Action
 					return context.getResources().getString(R.string.startPhoneCall);
 				case stopPhoneCall:
 					return context.getResources().getString(R.string.endPhoneCall);
+				case copyToClipboard:
+					return context.getResources().getString(R.string.copyTextToClipboard);
 				default:
 					return "Unknown";
 			}
@@ -302,6 +305,8 @@ public class Action
 				case stopPhoneCall:
 					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.endPhoneCall));
 					break;
+				case copyToClipboard:
+					returnString.append(Miscellaneous.getAnyContext().getResources().getString(R.string.copyTextToClipboard));
 				default:
 					returnString.append(action.toString());
 			}

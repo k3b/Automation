@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_margin="@dimen/default_margin" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textToCopy" />
+
+        <EditText
+            android:id="@+id/etCopyToClipboard"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textShortMessage|textMultiLine" >
+        </EditText>
+
+        <TextView
+            android:id="@+id/tvTextMessageAnnotations"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:text="@string/textMessageAnnotations" />
+
+        <TextView
+            android:id="@+id/tvLegend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/urlLegend" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/attachment" />
+
+        <Button
+            android:id="@+id/bSaveCopyToClipboard"
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save" />
+
+    </LinearLayout>
+
+</ScrollView>

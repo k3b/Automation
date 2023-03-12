@@ -880,4 +880,6 @@
     <string name="displayLanguage">Display language</string>
     <string name="displayLanguageSummary">Set a custom language for the application</string>
     <string name="wifiMonitoringAlsoRequiresThis">This permission is also required if the trigger is using the current wifi connection.</string>
+    <string name="copyTextToClipboard">Copy text to clipboard</string>
+    <string name="textToCopy">Text to copy</string>
 </resources>

@@ -139,6 +139,8 @@ public class ActivityManageRule extends Activity
 	final static int requestCodeActionSetVariableEdit = 826;
 	final static int requestCodeTriggerCheckVariableAdd = 827;
 	final static int requestCodeTriggerCheckVariableEdit = 828;
+	final static int requestCodeActionCopyTextToClipboardAdd = 829;
+	final static int requestCodeActionCopyTextToClipboardEdit = 830;
 
 	public static ActivityManageRule getInstance()
 	{
@@ -468,6 +470,12 @@ public class ActivityManageRule extends Activity
 						actionPlaySoundIntent.putExtra(intentNameActionParameter1, a.getParameter1());
 						actionPlaySoundIntent.putExtra(intentNameActionParameter2, a.getParameter2());
 						startActivityForResult(actionPlaySoundIntent, requestCodeActionPlaySoundEdit);
+						break;
+					case copyToClipboard:
+						Intent actionCopyToClipboardIntent = new Intent(context, ActivityManageActionCopyToClipboard.class);
+						actionCopyToClipboardIntent.putExtra(intentNameActionParameter1, a.getParameter1());
+						actionCopyToClipboardIntent.putExtra(intentNameActionParameter2, a.getParameter2());
+						startActivityForResult(actionCopyToClipboardIntent, requestCodeActionCopyTextToClipboardEdit);
 						break;
 					default:
 						Miscellaneous.logEvent("w", "Edit action", "Editing of action type " + a.getAction().toString() + " not implemented, yet.", 4);
@@ -2016,6 +2024,17 @@ public class ActivityManageRule extends Activity
 				this.refreshTriggerList();
 			}
 		}
+		else if(requestCode == requestCodeActionCopyTextToClipboardAdd)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				newAction.setParentRule(ruleToEdit);
+				newAction.setParameter1(data.getBooleanExtra(intentNameActionParameter1, false));
+				newAction.setParameter2(data.getStringExtra(intentNameActionParameter2));
+				ruleToEdit.getActionSet().add(newAction);
+				this.refreshActionList();
+			}
+		}
 	}
 
 	protected AlertDialog getActionTypeDialog()
@@ -2309,6 +2328,12 @@ public class ActivityManageRule extends Activity
 						newAction.setAction(Action_Enum.playSound);
 						Intent actionPlaySoundIntent = new Intent(context, ActivityManageActionPlaySound.class);
 						startActivityForResult(actionPlaySoundIntent, requestCodeActionPlaySoundAdd);
+					}
+					else if(Action.getActionTypesAsArray()[which].toString().equals(Action_Enum.copyToClipboard.toString()))
+					{
+						newAction.setAction(Action_Enum.copyToClipboard);
+						Intent intent = new Intent(ActivityManageRule.this, ActivityManageActionCopyToClipboard.class);
+						startActivityForResult(intent, requestCodeActionCopyTextToClipboardAdd);
 					}
 				}
 			});

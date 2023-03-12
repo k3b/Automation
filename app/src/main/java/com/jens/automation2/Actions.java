@@ -10,6 +10,8 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothProfile;
 import android.content.ActivityNotFoundException;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -2296,5 +2298,13 @@ public class Actions
 			TelecomManager mgr = (TelecomManager) context.getSystemService(context.TELECOM_SERVICE);
 			mgr.endCall();
 		}
+	}
+
+	public static void copyToClipboard(Context context, String text)
+	{
+		ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(context.CLIPBOARD_SERVICE);
+		ClipData clip = ClipData.newPlainText(text, url);
+		clipboard.setPrimaryClip(clip);
+
 	}
 }
