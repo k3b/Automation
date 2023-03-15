@@ -616,10 +616,12 @@ public class Miscellaneous extends Service
 		}
 		
 		if(source.contains("[serialnr]"))
-			if(Build.VERSION.SDK_INT > 8)
+		{
+			if (Build.VERSION.SDK_INT > 8)
 				source = source.replace("[serialnr]", Secure.getString(context.getContentResolver(), Build.SERIAL));
 			else
 				source = source.replace("[serialnr]", "serialUnknown");
+		}
 
 		if(
 				source.contains("[d]") ||
@@ -739,6 +741,26 @@ public class Miscellaneous extends Service
 				source = source.replace("[notificationText]", "notificationText unknown");
 				Miscellaneous.logEvent("w", "Variable replacement", "lastNotification was empty.", 3);
 			}
+		}
+
+		while(source.contains("[variable-"))
+		{
+			int pos1 = source.indexOf("[variable-");
+			int pos2 = source.indexOf("]", pos1);
+
+			int posA = pos1 + "[variable-".length();
+			int posB = source.indexOf("]", posA);
+
+			String variableName = source.substring(posA, posB);
+
+			String replacement;
+
+			if(AutomationService.getInstance().variableMap.containsKey(variableName))
+				replacement = AutomationService.getInstance().variableMap.get(variableName);
+			else
+				replacement = "unknownVariable";
+
+			source = source.substring(0, pos1) + replacement + source.substring(pos2);
 		}
 		
 //		Miscellaneous.logEvent("i", "URL after replace", source);

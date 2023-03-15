@@ -2035,6 +2035,20 @@ public class ActivityManageRule extends Activity
 				this.refreshActionList();
 			}
 		}
+		else if(requestCode == requestCodeActionCopyTextToClipboardEdit)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				ruleToEdit.getActionSet().get(editIndex).setParentRule(ruleToEdit);
+
+				if(data.hasExtra(intentNameActionParameter2))
+				{
+					ruleToEdit.getActionSet().get(editIndex).setParameter2(data.getStringExtra(intentNameActionParameter2));
+				}
+
+				this.refreshActionList();
+			}
+		}
 	}
 
 	protected AlertDialog getActionTypeDialog()
@@ -2109,6 +2123,8 @@ public class ActivityManageRule extends Activity
 				if(ActivityPermissions.isPermissionDeclaratedInManifest(ActivityManageRule.this, Manifest.permission.SEND_SMS))
 					items.add(new Item(typesLong[i].toString(), R.drawable.message));
 			}
+			else if(types[i].toString().equals(Action_Enum.copyToClipboard.toString()))
+				items.add(new Item(typesLong[i].toString(), R.drawable.clipboard));
 			else
 				items.add(new Item(typesLong[i].toString(), R.drawable.placeholder));
 		}

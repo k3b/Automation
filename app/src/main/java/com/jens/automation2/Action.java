@@ -414,7 +414,7 @@ public class Action
 			{
 				returnString.append(": " + parameter2.replace(Action.actionParameter2Split, "; ").replace(Action.intentPairSeparator, "/"));
 			}
-			else if (this.getAction().equals(Action_Enum.setVariable))
+			else if(this.getAction().equals(Action_Enum.setVariable) || this.getAction().equals(Action_Enum.copyToClipboard))
 				;	// it's completed further above already
 			else if (parameter2 != null && parameter2.length() > 0)
 				returnString.append(": " + parameter2.replace(Action.actionParameter2Split, "; "));
@@ -628,6 +628,9 @@ public class Action
 					break;
 				case stopPhoneCall:
 					Actions.endPhoneCall(context);
+					break;
+				case copyToClipboard:
+					Actions.copyToClipboard(context, Miscellaneous.replaceVariablesInText(this.getParameter2(), context));
 					break;
 				default:
 					Miscellaneous.logEvent("w", "Action", context.getResources().getString(R.string.unknownActionSpecified), 3);
