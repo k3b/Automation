@@ -789,4 +789,7 @@
     <string name="notificationAccessAndroid13">Après avoir cliqué sur OK, sélectionnez Automatisation, puis sélectionnez \"Autoriser l\'accès aux notifications\ », puis \"Autoriser\ ».\n\nSur certains systèmes, ce paramètre est grisé. Dans ces cas, vous devez aller dans \"settings\ » -> \"apps\ » -> \"Automation\ » -> 3-dots-menu -> Levez ces restrictions. Ensuite, revenez ici.</string>
     <string name="displayLanguage">Langue d\'affichage</string>
     <string name="displayLanguageSummary">Définir une langue personnalisée pour l\'application</string>
+    <string name="wifiMonitoringAlsoRequiresThis">Cette autorisation est également requise si le déclencheur utilise la connexion wifi actuelle.</string>
+    <string name="copyTextToClipboard">Copier du texte dans le presse-papiers</string>
+    <string name="textToCopy">Texte à copier</string>
 </resources>

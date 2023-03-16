@@ -790,4 +790,7 @@
     <string name="notificationAccessAndroid13">Nachdem Sie auf OK geklickt haben, wählen Sie Automatisierung, dann \"Benachrichtigungszugriff zulassen\", dann \"Zulassen\".\n\nAuf einigen Systemen ist diese Einstellung ausgegraut. In diesen Fällen müssen Sie zu \"settings\" -> \"apps\" -> \"Automation\" -> 3-Punkte-Menü -> Gehen Sie diese Einschränkungen auf. Danach kehren Sie hierher zurück.</string>
     <string name="displayLanguage">Anzeigesprache</string>
     <string name="displayLanguageSummary">Bestimmte Anzeigesprache wählen</string>
+    <string name="wifiMonitoringAlsoRequiresThis">Diese Berechtigung wird auch benötigt, wenn man die aktuelle WLAN Verbindung auslesen möchte.</string>
+    <string name="copyTextToClipboard">Text in die Zwischenablage kopieren</string>
+    <string name="textToCopy">Text, der kopiert werden soll</string>
 </resources>

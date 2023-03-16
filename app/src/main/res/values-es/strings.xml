@@ -789,4 +789,7 @@
     <string name="notificationAccessAndroid13">Después de cliquear en Aceptar, seleccione Automatización y, a continuación, seleccione \"Permitir acceso a notificaciones\", luego \"permitir\".\n\nEn algunos sistemas, esta configuración está atenuada. En esos casos, debe ir a \"configuración\" -> \"aplicaciones\" -> \"Automatización\" -> menú de 3 puntos -> Levante estas restricciones. Luego regreso aquí.</string>
     <string name="displayLanguage">Idioma de visualización</string>
     <string name="displayLanguageSummary">Establecer un idioma personalizado para la aplicación</string>
+    <string name="wifiMonitoringAlsoRequiresThis">Este permiso también es necesario si el disparador está utilizando la conexión wifi actual.</string>
+    <string name="copyTextToClipboard">Copiar texto al portapapeles</string>
+    <string name="textToCopy">Texto para copiar</string>
 </resources>

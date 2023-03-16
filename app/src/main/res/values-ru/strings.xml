@@ -847,4 +847,7 @@
     <string name="notificationAccessAndroid13">После нажатия кнопки «ОК» выберите «Автоматизация», затем выберите «Разрешить доступ к уведомлениям», затем «Разрешить».</string>
   <string name="displayLanguage">Язык интерфейса</string>
   <string name="displayLanguageSummary">Язык интерфейса</string>
+    <string name="wifiMonitoringAlsoRequiresThis">Это разрешение также требуется, если триггер использует текущее соединение Wi-Fi.</string>
+  <string name="copyTextToClipboard">Копирование текста в буфер обмена</string>
+  <string name="textToCopy">Текст для копирования</string>
 </resources>

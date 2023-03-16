@@ -788,5 +788,8 @@
     <string name="notificationAccessAndroid13">Nadat u op OK hebt geklikt, selecteert u Automatisering, selecteert u vervolgens \"Toegang tot meldingen toestaan\" en vervolgens \"toestaan\".</string>
     <string name="displayLanguage">Taal weergeven</string>
     <string name="displayLanguageSummary">Een aangepaste taal instellen voor de toepassing</string>
+    <string name="wifiMonitoringAlsoRequiresThis">Deze toestemming is ook vereist als de trigger de huidige wifi-verbinding gebruikt.</string>
+    <string name="copyTextToClipboard">Tekst naar klembord kopiëren</string>
+    <string name="textToCopy">Tekst om te kopiëren</string>
 
 </resources>
