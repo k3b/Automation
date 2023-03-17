@@ -374,7 +374,7 @@
     <string name="com.wireguard.android.permission.CONTROL_TUNNELS">Controlar conexiones de la app Wireguard</string>
     <string name="shareConfigAndLogFilesWithDev">Adjuntar configuración y procotolo.</string>
     <string name="rootExplanation">Necesita permiso root para esta función. Después encienda la función \"ejecutar regla manualmente\" para presentar el permiso superuser dialogo. Es necesario elegir \"siempre permitir root para esta app\". En caso contrario la regla no puede funcionar en segundo plano.</string>
-    <string name="helpTextRules">Todas las condiciones están \"Y\"-conectadas. La regla solo va a aplicarse cuando todas las condiciones se aplican. Si quiere \"O\", cree otra regla.</string>
+    <string name="helpTextRules">Todas las condiciones están \"Y\"-conectadas. La regla solo va a aplicarse cuando todas las condiciones se aplican. Si quiere \"O\", cree otra regla.\nLos términos desencadenante y condición se utilizan como sinónimos. Todas ellas son condiciones, pero la última en cumplir con su valor requerido podría llamarse disparador porque es la pieza final del rompecabezas para hacer que se ejecute una regla.</string>
     <string name="timeBetweenNoiseLevelMeasurementsSummary">Segundos entre dos ensayos de nivel de ruido</string>
     <string name="timeBetweenNoiseLevelMeasurementsTitle">Segundos entre dos ensayos de nivel de ruido</string>
     <string name="lengthOfNoiseLevelMeasurementsSummary">Duración en segundos para una prueba de nivel de ruido</string>

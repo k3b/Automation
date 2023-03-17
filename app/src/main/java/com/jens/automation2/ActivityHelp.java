@@ -13,7 +13,7 @@ public class ActivityHelp extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(layout.help_text);
+		setContentView(layout.activity_help_text);
 
 		TextView tvHelpTextEnergySaving = (TextView) findViewById(R.id.tvHelpTextEnergySaving);
 		tvHelpTextEnergySaving.setMovementMethod(LinkMovementMethod.getInstance());
