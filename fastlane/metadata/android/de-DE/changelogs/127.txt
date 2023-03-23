@@ -1,0 +1,3 @@
+* Behoben: Bearbeiten von Variablenaktionen war nicht möglich
+* Hinzugefügt: Möglichkeit, eine benutzerdefinierte Sprache in den Einstellungen auszuwählen
+* Neue Aktion: Text in die Zwischenablage kopieren

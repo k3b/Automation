@@ -1,0 +1,3 @@
+* Correction : L'édition de l'action de variable n'était pas possible
+* Ajouté: Possibilité de choisir une langue personnalisée dans les paramètres
+* Nouvelle action: Copier le texte dans le presse-papiers

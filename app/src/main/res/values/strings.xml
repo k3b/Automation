@@ -788,7 +788,7 @@
     <string name="android.permission.MEDIA_CONTENT_CONTROL">Control media playback</string>
     <string name="stop">stop</string>
     <string name="pleaseSelectActionValue">Please select an action!</string>
-    <string name="actionMediaControlNotice">Keep in mind that this action may not work with ALL players out there. And even if it does, not every buttons does necessarily work.</string>
+    <string name="actionMediaControlNotice">Keep in mind that this action may not work with ALL players out there. And even if it does, not every button may be functional.</string>
     <string name="musicPlaying">Music playing</string>
     <string name="selectParameters">Select parameters</string>
     <string name="musicIsPlaying">music is playing</string>

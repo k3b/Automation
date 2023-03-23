@@ -1,0 +1,3 @@
+* Corregido: La edición de la acción variable no era posible
+* Añadido: Posibilidad de elegir un idioma personalizado en la configuración
+* Nueva acción: Copiar texto al portapapeles

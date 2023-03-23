@@ -1,0 +1,3 @@
+* Risolto: la modifica dell'azione variabile non era possibile
+* Aggiunto: Possibilità di scegliere una lingua personalizzata nelle impostazioni
+* Nuova azione: copia il testo negli appunti

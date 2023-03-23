@@ -1,0 +1,3 @@
+* Opgelost: Het bewerken van variabele actie was niet mogelijk
+* Toegevoegd: Mogelijkheid om een aangepaste taal te kiezen in de instellingen
+* Nieuwe actie: Kopieer tekst naar klembord
