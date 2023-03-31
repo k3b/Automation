@@ -25,6 +25,8 @@ import android.widget.TextView;
 
 import com.jens.automation2.receivers.NotificationListener;
 
+import org.w3c.dom.DOMImplementationSource;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -48,6 +50,7 @@ public class ActivityPermissions extends Activity
     private static final int requestCodeForPermissionsDeviceAdmin = 12047;
     private static final int requestCodeForPermissionsBatteryOptimization = 12048;
     private static final int requestCodeForPermissionNotificationAccessAndroid13 = 12049;
+    private static final int requestCodeForPermissionsManageOverlay = 12050;
     protected String[] specificPermissionsToRequest = null;
 
     public static String intentExtraName = "permissionsToBeRequested";
@@ -297,6 +300,10 @@ public class ActivityPermissions extends Activity
                 String packageName = context.getApplicationContext().getPackageName();
                 return pm.isIgnoringBatteryOptimizations(packageName);
             }
+            else if (s.equals(Manifest.permission.SYSTEM_ALERT_WINDOW))
+            {
+                return android.provider.Settings.canDrawOverlays(Miscellaneous.getAnyContext());
+            }
             else
             {
                 int res = context.checkCallingOrSelfPermission(s);
@@ -315,6 +322,11 @@ public class ActivityPermissions extends Activity
         return active;
     }
 
+    public static void requestOverlay()
+    {
+        Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+        ActivityPermissions.getInstance().startActivityForResult(intent, requestCodeForPermissionsManageOverlay);
+    }
     public static void requestDeviceAdmin()
     {
         if(!haveDeviceAdmin())
@@ -634,6 +646,8 @@ public class ActivityPermissions extends Activity
 //                                action.getParameter2().contains("eu.faircode.netguard.STOP_PORT_FORWARD")
 //                        )
 //                            addToArrayListUnique("net.kollnig.missioncontrol.permission.ADMIN", requiredPermissions);
+                        if(Build.VERSION.SDK_INT >= 29)
+                            addToArrayListUnique(Manifest.permission.SYSTEM_ALERT_WINDOW, requiredPermissions);
                         break;
                     case triggerUrl:
                         addToArrayListUnique(Manifest.permission.INTERNET, requiredPermissions);
@@ -890,6 +904,10 @@ public class ActivityPermissions extends Activity
                 for(String ruleName : getRulesUsing(Action.Action_Enum.startPhoneCall))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
+            case Manifest.permission.SYSTEM_ALERT_WINDOW:
+                for(String ruleName : getRulesUsing(Action.Action_Enum.startOtherActivity))
+                    usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
+                break;
             case Manifest.permission.ANSWER_PHONE_CALLS:
                 for(String ruleName : getRulesUsing(Action.Action_Enum.stopPhoneCall))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
@@ -988,6 +1006,10 @@ public class ActivityPermissions extends Activity
             if (requestCode == requestCodeForPermissionsBatteryOptimization)
                 if(havePermission(Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, ActivityPermissions.this))
                     requestPermissions(cachedPermissionsToRequest, true);
+
+            if (requestCode == requestCodeForPermissionsManageOverlay)
+                if(havePermission(Manifest.permission.SYSTEM_ALERT_WINDOW, ActivityPermissions.this))
+                    requestPermissions(cachedPermissionsToRequest, true);
         }
     }
 
@@ -1051,7 +1073,22 @@ public class ActivityPermissions extends Activity
                         cachedPermissionsToRequest = requiredPermissions;
                         Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
                         startActivityForResult(intent, requestCodeForPermissionsNotificationPolicy);
-
+                        return;
+                    }
+                    else if (s.equalsIgnoreCase(Manifest.permission.SYSTEM_ALERT_WINDOW))
+                    {
+                        AlertDialog diag = Miscellaneous.messageBox(getResources().getString(R.string.info), getResources().getString(R.string.overlayPermissionHint), ActivityPermissions.this);
+                        diag.setOnDismissListener(new DialogInterface.OnDismissListener()
+                        {
+                            @Override
+                            public void onDismiss(DialogInterface dialogInterface)
+                            {
+                                requiredPermissions.remove(s);
+                                cachedPermissionsToRequest = requiredPermissions;
+                                requestOverlay();
+                            }
+                        });
+                        diag.show();
                         return;
                     }
                     else if (s.equalsIgnoreCase(Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE))

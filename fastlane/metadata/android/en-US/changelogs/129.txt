@@ -1,0 +1,1 @@
+* Introduced overlay permission to enable startActivity() from the background

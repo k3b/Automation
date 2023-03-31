@@ -882,4 +882,6 @@
     <string name="wifiMonitoringAlsoRequiresThis">This permission is also required if the trigger is using the current wifi connection.</string>
     <string name="copyTextToClipboard">Copy text to clipboard</string>
     <string name="textToCopy">Text to copy</string>
+    <string name="android.permission.SYSTEM_ALERT_WINDOW">Draw over other apps</string>
+    <string name="overlayPermissionHint">After clicking OK you\'ll be sent to a system dialog. Please select Automation there and allow "draw over other apps".</string>
 </resources>
