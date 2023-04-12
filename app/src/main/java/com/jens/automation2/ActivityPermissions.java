@@ -485,6 +485,7 @@ public class ActivityPermissions extends Activity
                     case phoneCall:
                         addToArrayListUnique(Manifest.permission.READ_PHONE_STATE, requiredPermissions);
                         addToArrayListUnique(Manifest.permission.PROCESS_OUTGOING_CALLS, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.READ_CALL_LOG, requiredPermissions);
                         break;
                     case pointOfInterest:
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
@@ -877,6 +878,7 @@ public class ActivityPermissions extends Activity
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
             case Manifest.permission.PROCESS_OUTGOING_CALLS:
+            case Manifest.permission.READ_CALL_LOG:
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.phoneCall))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;

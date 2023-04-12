@@ -254,9 +254,9 @@ public class PhoneStatusListener implements AutomationListenerInterface
 		
 		if(incomingCallsReceiverInstance == null)
 		{
-			if(Build.VERSION.SDK_INT >= 31)
-				incomingCallsReceiverInstance = new IncomingCallsReceiverNew();
-			else
+//			if(Build.VERSION.SDK_INT >= 31)
+//				incomingCallsReceiverInstance = new IncomingCallsReceiverNew();
+//			else
 				incomingCallsReceiverInstance = new IncomingCallsReceiverOld();
 		}
 		
@@ -268,17 +268,17 @@ public class PhoneStatusListener implements AutomationListenerInterface
 			if(!incomingCallsReceiverActive)
 			{
 				Miscellaneous.logEvent("i", "PhoneStatusListener", "Starting PhoneStatusListener->incomingCallsReceiver", 4);
-				if(Build.VERSION.SDK_INT >= problematicAndroidLevel)
-				{
-					IntentFilter callsFilter = new IntentFilter();
-					callsFilter.addAction(TelephonyManager.ACTION_PHONE_STATE_CHANGED);
-					automationService.registerReceiver((IncomingCallsReceiverNew)incomingCallsReceiverInstance, callsFilter);
-				}
-				else
-				{
+//				if(Build.VERSION.SDK_INT >= problematicAndroidLevel)
+//				{
+//					IntentFilter callsFilter = new IntentFilter();
+//					callsFilter.addAction(TelephonyManager.ACTION_PHONE_STATE_CHANGED);
+//					automationService.registerReceiver((IncomingCallsReceiverNew)incomingCallsReceiverInstance, callsFilter);
+//				}
+//				else
+//				{
 					TelephonyManager tm = (TelephonyManager) automationService.getSystemService(Context.TELEPHONY_SERVICE);
 					tm.listen((IncomingCallsReceiverOld)incomingCallsReceiverInstance, PhoneStateListener.LISTEN_CALL_STATE);
-				}
+//				}
 				incomingCallsReceiverActive = true;
 			}
 			
@@ -302,15 +302,15 @@ public class PhoneStatusListener implements AutomationListenerInterface
 			if(incomingCallsReceiverActive)
 			{
 				Miscellaneous.logEvent("i", "PhoneStatusListener", "Stopping phoneStatusListener", 4);
-				if(Build.VERSION.SDK_INT >= 31)
-				{
-					automationService.unregisterReceiver((IncomingCallsReceiverNew)incomingCallsReceiverInstance);
-				}
-				else
-				{
+//				if(Build.VERSION.SDK_INT >= 31)
+//				{
+//					automationService.unregisterReceiver((IncomingCallsReceiverNew)incomingCallsReceiverInstance);
+//				}
+//				else
+//				{
 					TelephonyManager tm = (TelephonyManager) automationService.getSystemService(Context.TELEPHONY_SERVICE);
 					tm.listen((IncomingCallsReceiverOld)incomingCallsReceiverInstance, PhoneStateListener.LISTEN_NONE);
-				}
+//				}
 				incomingCallsReceiverActive = false;
 			}
 			
