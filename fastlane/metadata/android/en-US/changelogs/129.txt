@@ -1,1 +1,2 @@
 * Introduced overlay permission to enable startActivity() from the background
+* Fixed: Phone number available as variable again (permission READ_CALL_LOGS required)
