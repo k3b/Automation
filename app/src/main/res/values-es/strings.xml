@@ -792,4 +792,6 @@
     <string name="wifiMonitoringAlsoRequiresThis">Este permiso también es necesario si el disparador está utilizando la conexión wifi actual.</string>
     <string name="copyTextToClipboard">Copiar texto al portapapeles</string>
     <string name="textToCopy">Texto para copiar</string>
+    <string name="android.permission.SYSTEM_ALERT_WINDOW">Dibujar encima otras aplicaciones</string>
+    <string name="overlayPermissionHint">Después de hacer cliquear en Aceptar, se le enviará a un cuadro de diálogo del sistema. Seleccione Automation allí y permita dibujar encima otras aplicaciones.</string>
 </resources>

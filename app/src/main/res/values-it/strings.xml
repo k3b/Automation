@@ -793,4 +793,6 @@
     <string name="wifiMonitoringAlsoRequiresThis">Questa autorizzazione è necessaria anche se il trigger utilizza la connessione wifi corrente.</string>
     <string name="copyTextToClipboard">Copiare testo negli appunti</string>
     <string name="textToCopy">Testo da copiare</string>
+    <string name="android.permission.SYSTEM_ALERT_WINDOW">Disegna su altre app</string>
+    <string name="overlayPermissionHint">Dopo aver fatto clic su OK, verrai indirizzato a una finestra di dialogo di sistema. Seleziona Automazione lì e consenti il disegno su altre app.</string>
 </resources>

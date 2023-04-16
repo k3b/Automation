@@ -792,4 +792,6 @@
     <string name="wifiMonitoringAlsoRequiresThis">Cette autorisation est également requise si le déclencheur utilise la connexion wifi actuelle.</string>
     <string name="copyTextToClipboard">Copier du texte dans le presse-papiers</string>
     <string name="textToCopy">Texte à copier</string>
+    <string name="android.permission.SYSTEM_ALERT_WINDOW">Dessiner sur d\'autres applications</string>
+    <string name="overlayPermissionHint">Après avoir cliqué sur OK, vous serez redirigé vers une boîte de dialogue système. Veuillez sélectionner Automatisation et autoriser le tirage sur d\'autres applications.</string>
 </resources>

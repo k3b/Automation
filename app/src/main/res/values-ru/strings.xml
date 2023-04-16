@@ -850,4 +850,6 @@
     <string name="wifiMonitoringAlsoRequiresThis">Это разрешение также требуется, если триггер использует текущее соединение Wi-Fi.</string>
   <string name="copyTextToClipboard">Копирование текста в буфер обмена</string>
   <string name="textToCopy">Текст для копирования</string>
+    <string name="android.permission.SYSTEM_ALERT_WINDOW">Рисование поверх других приложений</string>
+    <string name="overlayPermissionHint">После нажатия кнопки «ОК» вы попадете в системный диалог. Пожалуйста, выберите там «Автоматизация» и разрешите рисовать поверх других приложений.</string>
 </resources>
