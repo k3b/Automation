@@ -1,0 +1,2 @@
+* Behoben: Einführung der Overlay-Berechtigung, damit startActivity() im Hintergrund arbeiten kann
+* Behoben: Rufnummer wieder als Variable verfügbar (Berechtigung READ_CALL_LOGS erforderlich)

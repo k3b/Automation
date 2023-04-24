@@ -1,0 +1,2 @@
+* Risolto: Introdotto il permesso di sovrapposizione per consentire a startActivity () di funzionare dallo sfondo
+* Risolto: numero di telefono disponibile di nuovo come variabile (READ_CALL_LOGS richiesta l'autorizzazione)

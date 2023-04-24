@@ -1,0 +1,2 @@
+* Corregido: Se introdujo el permiso de superposición para permitir que startActivity() funcione desde el fondo
+* Corregido: Número de teléfono disponible como variable de nuevo (READ_CALL_LOGS requiere permiso)
