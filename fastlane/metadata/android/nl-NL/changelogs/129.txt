@@ -1,0 +1,2 @@
+* Opgelost: Overlay-machtiging geïntroduceerd om startActivity() in staat te stellen vanaf de achtergrond te werken
+* Vast: Telefoonnummer weer beschikbaar als variabele (toestemming READ_CALL_LOGS vereist)
