@@ -1,0 +1,1 @@
+* Risolto: arresto anomalo durante la gestione dell'azione di chiamata telefonica nella versione F-Droid

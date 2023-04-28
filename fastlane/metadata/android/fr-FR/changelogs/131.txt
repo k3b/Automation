@@ -1,0 +1,1 @@
+* Correction : Crash lors de la gestion de l'action d'appel téléphonique dans la version F-Droid

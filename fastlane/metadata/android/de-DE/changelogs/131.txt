@@ -1,0 +1,1 @@
+* Behoben: Absturz bei der Verwaltung von Telefonanrufaktionen in der F-Droid-Version

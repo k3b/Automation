@@ -1,0 +1,1 @@
+* Fixed: Crash when managing phone call action in the F-Droid version

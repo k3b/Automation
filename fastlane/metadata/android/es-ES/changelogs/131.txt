@@ -1,0 +1,1 @@
+* Corregido: Bloqueo al administrar la acción de la llamada telefónica en la versión F-Droid

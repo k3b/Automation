@@ -1,0 +1,1 @@
+* Opgelost: Crash bij het beheren van telefoongesprek actie in de F-Droid versie
