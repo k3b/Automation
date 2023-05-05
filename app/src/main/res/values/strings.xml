@@ -884,4 +884,5 @@
     <string name="textToCopy">Text to copy</string>
     <string name="android.permission.SYSTEM_ALERT_WINDOW">Draw over other apps</string>
     <string name="overlayPermissionHint">After clicking OK you\'ll be sent to a system dialog. Please select Automation there and allow "draw over other apps".</string>
+    <string name="variablesOnlyForTypes">Variables are only available for parameter types String and URI</string>
 </resources>
