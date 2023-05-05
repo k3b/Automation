@@ -65,7 +65,7 @@
   <string name="end">Конец</string>
   <string name="save">Сохранить</string>
   <string name="urlToTrigger">URL для вызова:</string>
-  <string name="urlLegend">Переменные:\nВы можете использовать следующие переменные. При срабатывании они будут заменены соответствующим значением на вашем устройстве. Скобки- часть переменной.\n\n[uniqueid] - уникальный идентификатор\n[serialnr] - серийный номер(&lt; Android 9)\n[latitude] - широта\n[longitude] - долгота\n[phonenr] - Номер последнего входящего или исходящего вызова\n[d] - День месяца, 2 цифры с начальными нулями\n[m] – Месяц, 2 цифры с начальными нулями\n[Y] - Год, 4 цифры\n[h] - 12-часовой формат часа с начальными нулями\n[H] - 24-часовой формат часа с начальными нулями\n[i] - Минуты с начальными нулями\n[s] - Секунды с начальными нулями\n[ms] - миллисекунды\n[notificationTitle] - заголовок последнего уведомления\n[notificationText] - текст последнего уведомления\n[variable-VARIABLENAME] - Значение переменной, определенной пользователем</string>
+  <string name="urlLegend">Переменные:\nВы можете использовать следующие переменные. При срабатывании они будут заменены соответствующим значением на вашем устройстве. Скобки- часть переменной.\n\n[uniqueid] - уникальный идентификатор\n[serialnr] - серийный номер(&lt; Android 9)\n[latitude] - широта\n[longitude] - долгота\n[phonenr] - Номер последнего входящего или исходящего вызова\n[d] - День месяца, 2 цифры с начальными нулями\n[m] – Месяц, 2 цифры с начальными нулями\n[Y] - Год, 4 цифры\n[h] - 12-часовой формат часа с начальными нулями\n[H] - 24-часовой формат часа с начальными нулями\n[i] - Минуты с начальными нулями\n[s] - Секунды с начальными нулями\n[ms] - миллисекунды\n[notificationTitle] - заголовок последнего уведомления\n[notificationText] - текст последнего уведомления\n[variable-VARIABLENAME] - Значение пользовательской определенной переменной</string>
   <string name="wifi">Wi-Fi</string>
   <string name="activating">Активация</string>
   <string name="deactivating">Деактивация</string>
@@ -120,7 +120,7 @@
   <string name="soundSettings">Настройки звука</string>
   <string name="showHelp">Показать справку</string>
   <string name="rules">Правила</string>
-  <string name="helpTextRules">Все триггеры в правиле связаны логикой И. Правило будет применяться только в том случае, если будут выполнены все триггеры. Если вы хотите логику ИЛИ, создайте другое правило.\nТермины триггер и условие используются как синонимы. Все они являются условиями, но последний, отвечающий требуемому значению, может быть назван триггером, потому что это последняя часть паззла, которая вызывает выполнение правила.</string>
+  <string name="helpTextRules">Все триггеры в правиле связаны логикой И. Правило будет применяться только в том случае, если будут выполнены все триггеры. Если вы хотите логику ИЛИ, создайте другое правило.\nТермины триггер и условие используются как синонимы. Все они являются условиями, но последний, отвечающий требуемому значению, может быть назван триггером, потому что это последняя часть головоломки, которая вызывает выполнение правила.</string>
   <string name="timeframes">Временные интервалы</string>
   <string name="helpTextTimeFrame">Если вы указываете правило с временными интервалами, у вас есть два варианта. Вы можете выбрать между началом ИЛИ окончанием временного интервала. Правило срабатывает только один раз. Поэтому, если вы создадите правило с &quot;начало временного интервала&quot; в качестве триггера и позволите ему изменить ваш звуковой профиль на вибрацию, это не означает, что телефон автоматически перейдет в обычный режим, когда временной интервал закончится. Если вам это необходимо,создайте другое правило с другим временным интервалом.</string>
   <string name="helpTextSound">На главном экране есть возможность заблокировать изменение уровня громкости вызова сконфигурированными правилами, например, вы можете быть в ситуации или месте, где необходим обычный режим звука, но в настоящее время его использовать нельзя. Эта функция автоматически отключится по истечении заданного времени. Нажмите кнопку +, чтобы задать необходимый период времени. После включения, вы можете вручную выключить его с помощью кнопки переключения (и таким образом снова включить  изменения громкости звука).</string>
@@ -213,12 +213,12 @@
   <string name="runManually">Запуск вручную</string>
   <string name="serviceHasToRunForThat">Для этого служба должна быть запущена.</string>
   <string name="gpsComparison">Сравнение GPS</string>
-  <string name="gpsComparisonTimeoutStop" translatable="false">Остановка измерений GPS из-за превышения времени ожидания.</string>
+  <string name="gpsComparisonTimeoutStop" translatable="false">Stopping comparison GPS measurement due to timeout.</string>
   <string name="timeoutForGpsComparisonsTitle">Тайм-аут GPS [сек]</string>
   <string name="timeoutForGpsComparisonsSummary">Максимальное время получения GPS-местоположения в секундах. По истечении этого времени будет применено последнее известное местоположение.</string>
   <string name="startingGpsTimeout" translatable="false">Starting GPS timeout.</string>
-  <string name="forcedLocationUpdate" translatable="false">Принудительное обновление местоположения</string>
-  <string name="forcedLocationUpdateLong" translatable="false">Из-за таймаута измерений будет использовано последнее успешное местоположение.</string>
+  <string name="forcedLocationUpdate" translatable="false">Forced location update</string>
+  <string name="forcedLocationUpdateLong" translatable="false">Due to timeout in comparison measurement the last best location will be applied.</string>
   <string name="rememberLastActivePoiSummary">Если вы находитесь в каком-то местоположении, перезагружаете устройство или приложение и покидаете это местоположение, при старте приложение будет запускать правила, связанные с выходом из этого местоположения.</string>
   <string name="rememberLastActivePoiTitle">Запомнить последнее активное местоположение</string>
   <string name="muteTextToSpeechDuringCallsTitle">Отключение звука во время звонков</string>
@@ -232,37 +232,37 @@
   <string name="errorStartingOtherActivity">Ошибка запуска Activity</string>
   <string name="anotherAppIsRunning">Другое приложение запускается/останавливается</string>
   <string name="settingsCategoryProcessMonitoring">Мониторинг процесса</string>
-  <string name="timeBetweenProcessMonitoringsTitle">Период мониторинга процесса в секундах</string>
+  <string name="timeBetweenProcessMonitoringsTitle">Период мониторингама процесса в секундах</string>
   <string name="timeBetweenProcessMonitoringsSummary">Чем меньше, тем выше расход батареи</string>
-  <string name="refreshingProcessList" translatable="false">Обновление списка процессов.</string>
+  <string name="refreshingProcessList" translatable="false">Refreshing process list.</string>
   <string name="processes">Процессы</string>
-  <string name="startingPeriodicProcessMonitoringEngine" translatable="false">Запуск периодического мониторинга процессов.</string>
+  <string name="startingPeriodicProcessMonitoringEngine" translatable="false">Starting periodic process monitoring engine.</string>
   <string name="processMonitoring">Мониторинг процесса</string>
-  <string name="periodicProcessMonitoringIsAlreadyRunning" translatable="false">Периодический мониторинг процессов уже запущен и не может быть запущен еще раз.</string>
-  <string name="stoppingPeriodicProcessMonitoringEngine" translatable="false">Остановка периодического мониторинга процессов.</string>
-  <string name="periodicProcessMonitoringIsNotActive" translatable="false">Периодический мониторинг процессов не запущен, поэтому не может быть остановлен.</string>
-  <string name="periodicProcessMonitoringStarted" translatable="false">Периодический мониторинг процессов запущен.</string>
-  <string name="periodicProcessMonitoringStopped" translatable="false">Периодический мониторинг процессов остановлен.</string>
+  <string name="periodicProcessMonitoringIsAlreadyRunning" translatable="false">Periodic process monitoring is already running. Won\&apos;t start it again.</string>
+  <string name="stoppingPeriodicProcessMonitoringEngine" translatable="false">Stopping periodic process monitoring engine.</string>
+  <string name="periodicProcessMonitoringIsNotActive" translatable="false">Periodic process monitoring is not active. Can\&apos;t stop it.</string>
+  <string name="periodicProcessMonitoringStarted" translatable="false">Periodic process monitoring started.</string>
+  <string name="periodicProcessMonitoringStopped" translatable="false">Periodic process monitoring stopped.</string>
   <string name="rearmingProcessMonitoringMessage" translatable="false">Rearming process monitoring message.</string>
   <string name="notRearmingProcessMonitoringMessageStopRequested" translatable="false">Not rearming process monitoring message, stop requested.</string>
-  <string name="messageReceivedStatingProcessMonitoringIsComplete" translatable="false">Получено сообщение о завершении мониторинга процессов.</string>
-  <string name="appStarted" translatable="false">Приложение запущено.</string>
-  <string name="appStopped" translatable="false">Приложение остановлено.</string>
-  <string name="runningApp" translatable="false">Приложение выполняется</string>
-  <string name="errorWritingSettingsToPersistentMemory" translatable="false">Ошибка записи настроек.</string>
+  <string name="messageReceivedStatingProcessMonitoringIsComplete" translatable="false">Message received stating process monitoring is complete.</string>
+  <string name="appStarted" translatable="false">App started.</string>
+  <string name="appStopped" translatable="false">App stopped.</string>
+  <string name="runningApp" translatable="false">Running app</string>
+  <string name="errorWritingSettingsToPersistentMemory" translatable="false">Error writing settings to persistent memory.</string>
   <string name="settings">Настройки</string>
-  <string name="writingSettingsToPersistentMemory" translatable="false">Запись настроек.</string>
-  <string name="refreshingSettingsFromFileToMemory" translatable="false">Загрузка настроек из файла в память.</string>
-  <string name="errorReadingSettings" translatable="false">Ошибка чтения настроек.</string>
-  <string name="invalidStuffStoredInSettingsErasing" translatable="false">Неверное содержимое в настройках. Удаление...</string>
-  <string name="initializingSettingsToPersistentMemory" translatable="false">Инициализация настроек.</string>
-  <string name="errorInitializingSettingsToPersistentMemory" translatable="false">Ошибка инициализации настроек.</string>
+  <string name="writingSettingsToPersistentMemory" translatable="false">Writing settings to persistent memory.</string>
+  <string name="refreshingSettingsFromFileToMemory" translatable="false">Refreshing settings from file to memory.</string>
+  <string name="errorReadingSettings" translatable="false">Error reading settings.</string>
+  <string name="invalidStuffStoredInSettingsErasing" translatable="false">Invalid stuff stored in settings. Erasing settings...</string>
+  <string name="initializingSettingsToPersistentMemory" translatable="false">Initializing settings to persistent memory.</string>
+  <string name="errorInitializingSettingsToPersistentMemory" translatable="false">Error initializing settings to persistent memory.</string>
   <string name="settingsErased">Настройки стерты.</string>
   <string name="settingsSetToDefault">Настройки установлены по умолчанию.</string>
   <string name="batteryLevel">Уровень заряда батареи</string>
   <string name="selectSpeed">Выберите скорость</string>
   <string name="selectBattery">Выберите уровень заряда батареи</string>
-  <string name="applyingSettingsAndRules" translatable="false">Применение настроек, правил и местоположений.</string>
+  <string name="applyingSettingsAndRules" translatable="false">Applying settings, rules and locations.</string>
   <string name="privacy">Политика конфиденциальности</string>
   <string name="privacyConfirmationText">На вашем устройстве будет запущен браузер и загрузится политика конфиденциальности с веб-сайта разработчика.</string>
   <string name="waitBeforeNextAction">Ожидание перед следующим действием</string>
@@ -274,15 +274,15 @@
   <string name="moveDown">Переместить вниз</string>
   <string name="cantMoveUp">Невозможно переместить элемент вверх. Он уже находится на самом верху.</string>
   <string name="cantMoveDown">Невозможно переместить элемент вниз. Он уже в самом низу.</string>
-  <string name="wifiNameSpecifiedCheckingThat" translatable="false">Указана сеть Wifi, проверка.</string>
-  <string name="wifiNameMatchesRuleWillApply" translatable="false">Сеть Wifi совпадает. Правило применяется.</string>
-  <string name="noWifiNameSpecifiedAnyWillDo" translatable="false">Не указана сеть Wifi, будет использована любая.</string>
-  <string name="ruleCheckOf" translatable="false">Проверка правила %1$s</string>
+  <string name="wifiNameSpecifiedCheckingThat" translatable="false">Wifi name specified, checking that.</string>
+  <string name="wifiNameMatchesRuleWillApply" translatable="false">Wifi name matches. Rule will apply.</string>
+  <string name="noWifiNameSpecifiedAnyWillDo" translatable="false">No wifi name specified, any will do.</string>
+  <string name="ruleCheckOf" translatable="false">RuleCheck of %1$s</string>
   <string name="airplaneMode">Режим полета</string>
   <string name="activate">Активировать</string>
   <string name="deactivate">Деактивировать</string>
   <string name="airplaneModeSdk17Warning">Начиная с версии Android 4.2 эта функция работает только в том случае, если на вашем устройстве есть root-права.</string>
-  <string name="triggerUrlReplacementPositionError" translatable="false">Вы запросили добавить координаты в ваш URL. К сожалению, в настоящий момент у меня нет никаких координат.</string>
+  <string name="triggerUrlReplacementPositionError" translatable="false">You asked for a position to be added to your URL. Unfortunately at this point I do not have any location,  yet.</string>
   <string name="addIntentValue">Добавить Intent пару</string>
   <string name="parameterName">Имя параметра</string>
   <string name="parameterValue">Значение параметра</string>
@@ -336,7 +336,7 @@
   <string name="nfcNoNdefIntentBut">Нет NFC NDEF Intent, но</string>
   <string name="nfcNotSupportedInThisAndroidVersionYet">NFC пока не поддерживается в этой версии Android.</string>
   <string name="cantRunRule">Не удается запустить правила.</string>
-  <string name="cantDownloadTooFewRequestsInSettings" translatable="false">Не получается загрузить. Количество http запросов в настройках меньше  1.</string>
+  <string name="cantDownloadTooFewRequestsInSettings" translatable="false">Can\&apos;t download anything. Amount of http requests in settings is lower than 1.</string>
   <string name="nfcApplyTagToRule">Применить метку к правилу</string>
   <string name="nfcTagReadSuccessfully">Метка прочитана успешно.</string>
   <string name="nfcValueNotSuitable">Сохранённое значение не подходит.</string>
@@ -351,7 +351,7 @@
   <string name="toggling">Переключение</string>
   <string name="toggle">переключить</string>
   <string name="overlapBetweenPois">Обнаружено перекрытие с местоположением %1$s на %2$s метров. Уменьшите радиус хотя бы на это значение.</string>
-  <string name="noOverLap" translatable="false">Не обнаружено перекрытия с другими местоположениями.</string>
+  <string name="noOverLap" translatable="false">No overlap to other locations detected.</string>
   <string name="ruleToggable" translatable="false">Rule %1$s is toggable.</string>
   <string name="ruleNotToggable" translatable="false">Rule %1$s is not suitable for toggling.</string>
   <string name="none">Нет</string>
@@ -395,8 +395,8 @@
   <string name="bluetoothDeviceInRange">Устройство Bluetooth %1$s в диапазоне.</string>
   <string name="bluetoothDeviceOutOfRange">Устройство Bluetooth %1$s вне диапазона.</string>
   <string name="anyDevice">любое устройство</string>
-  <string name="ruleDoesntApplyNotTheCorrectDeviceName" translatable="false">Правило %1$s неприменимо. Неверное имя устройства bluetooth.</string>
-  <string name="ruleDoesntApplyNotTheCorrectDeviceAddress" translatable="false">Правило %1$s неприменимо. Неверный адрес устройства bluetooth.</string>
+  <string name="ruleDoesntApplyNotTheCorrectDeviceName" translatable="false">Rule %1$s doesn\&apos;t apply. Not the correct bluetooth device name.</string>
+  <string name="ruleDoesntApplyNotTheCorrectDeviceAddress" translatable="false">Rule %1$s doesn\&apos;t apply. Not the correct bluetooth device address.</string>
   <string name="noDevice">нет устройства</string>
   <string name="selectDeviceFromList">один из списка</string>
   <string name="connectionToDevice">подключение к устройству</string>
@@ -405,8 +405,8 @@
   <string name="deviceOutOfRange">устройство вне зоны досягаемости</string>
   <string name="selectDeviceOption">Выберите опцию устройства.</string>
   <string name="selectConnectionOption">Выберите вариант подключения.</string>
-  <string name="ruleDoesntApplyDeviceInRangeButShouldNotBe" translatable="false">Правило %1$s неприменимо. Устройство в пределах досягаемости, хотя так быть не должно.</string>
-  <string name="ruleDoesntApplyStateNotCorrect" translatable="false">Правило %1$s неприменимо. Неверное состояние.</string>
+  <string name="ruleDoesntApplyDeviceInRangeButShouldNotBe" translatable="false">Rule %1$s doesn\&apos;t apply. Device is in range, but should not be.</string>
+  <string name="ruleDoesntApplyStateNotCorrect" translatable="false">Rule %1$s doesn\&apos;t apply. Wrong state.</string>
   <string name="triggerHeadsetPlugged">Подключение гарнитуры</string>
   <string name="actionPlayMusic">Открыть музыкальный плеер</string>
   <string name="headsetConnected">Гарнитура (тип: %1$s) подключена</string>
@@ -415,17 +415,17 @@
   <string name="headphoneMicrophone">Микрофон</string>
   <string name="headphoneAny">Любой</string>
   <string name="headphoneSelectType">Выберите тип гарнитуры</string>
-  <string name="ruleDoesntApplyWrongHeadphoneType" translatable="false">Правило %1$s неприменимо. Неверный тип гарнитуры.</string>
-  <string name="ignoringActivityDetectionUpdateTooSoon" translatable="false">Игнорирование запроса обнаружения активности. Получено ранее %1$s секунд.</string>
+  <string name="ruleDoesntApplyWrongHeadphoneType" translatable="false">Rule %1$s doesn\&apos;t apply. Wrong headphone type.</string>
+  <string name="ignoringActivityDetectionUpdateTooSoon" translatable="false">Ignoring activity detection update. Came in sooner that %1$s seconds.</string>
   <string name="whatsThis">Что это такое?</string>
-  <string name="atLeastRuleXisUsingY" translatable="false">По меньшей мере одно правило \&quot;%1$s\&quot; использует триггер типа \&quot;%2$s\&quot;.</string>
+  <string name="atLeastRuleXisUsingY" translatable="false">At least rule \&quot;%1$s\&quot; is using a trigger of type \&quot;%2$s\&quot;.</string>
   <string name="privacyLocationingTitle">Только приватное определение местоположения</string>
   <string name="privacyLocationingSummary">Избегайте методов определения местоположения, которые могут отправить ваши данные внешним компаниями, например Google. При включении будет использоваться только GPS, определение местоположения может занять больше времени или работать менее надежно.</string>
-  <string name="enforcingGps" translatable="false">Private Locationing включен, принудительное использование GPS .</string>
-  <string name="notEnforcingGps" translatable="false">Private Locationing не включен, использование обычных источников.</string>
-  <string name="gpsMeasurement" translatable="false">Измерение GPS</string>
-  <string name="gpsMeasurementTimeout" translatable="false">Измерение GPS остановлено из-за превышение времени ожидания.</string>
-  <string name="cellMastChanged" translatable="false">Сотовая вышка изменилась: %1$s</string>
+  <string name="enforcingGps" translatable="false">Private Locationing enabled, enforcing GPS use.</string>
+  <string name="notEnforcingGps" translatable="false">Private Locationing not enabled, using regular provider search.</string>
+  <string name="gpsMeasurement" translatable="false">GPS measurement</string>
+  <string name="gpsMeasurementTimeout" translatable="false">GPS measurement stopped due to timeout.</string>
+  <string name="cellMastChanged" translatable="false">Cell tower changed: %1$s</string>
   <string name="noiseDetectionHint">Если вы думаете, что обнаружение шума работает некорректно (в зависимости от значения, которое вы указываете), пожалуйста, имейте в виду, что каждое устройство отличается, поэтому вы можете изменить &quot;Эталон для измерения шума&quot; в настройках. См . http://en.wikipedia.org/wiki/Decibel для получения дополнительной информации. Для калибровки устройства можно использовать калибратор громкости на главном экране.</string>
   <string name="hint">Подсказка</string>
   <string name="selectNoiseLevel">Выбор уровня шума</string>
@@ -763,16 +763,16 @@
   <string name="musicPlayingDetection">Обнаружение воспроизведения музыки</string>
   <string name="musicCheckFrequencyTitle">Частота проверки [мс]</string>
   <string name="musicCheckFrequencySummary">Миллисекунды между проверками</string>
-  <string name="locationNotWorkingOn12">Получение местоположения, похоже, не работает на устройствах Android 12 в настоящее время. Если это  коснулось вас, мне очень жаль. Я постараюсь это исправить, как только узнаю причину. Так что если кружочек не перестанет вращаться, вы предупреждены.</string>
+  <string name="locationNotWorkingOn12">Получение местоположения, похоже, не работает на устройствах Android 12 в настоящее время. Если это не коснулось вас, мне очень жаль. Я постараюсь исправить это, как только узнаю причину. Так что если кружочек не перестанет вращаться, вы предупреждены.</string>
   <string name="lastProfile">Последний профиль:</string>
   <string name="queryAllPackages">Получить список установленных приложений</string>
   <string name="helpTextEnergySaving">Многие производители устройств пытаются снизить потребление энергии при помощи ограничения работы фоновых приложений. К сожалению, это приводит к тому, что они перестают работать корректно, Automation относится к их числу. Посетите эту <a href="https://dontkillmyapp.com/">web-страницу</a> для того, чтобы узнать как исключить Automation из этого процесса.</string>
-  <string name="timeFrameDaysHint">Если вы используете временной период, который переходит через полночь, вам нужно выбрать следующий день, если хотите, чтобы триггер сработал после полуночи.</string>
-  <string name="featureNotInGooglePlayVersion">Эта функция больше не доступа для версии Google Play.\n\nGoogle постоянно усложняет жизнь разработчикам и требуют оформления бумажных заявлений для обоснавания необходимости использования определённых функций. К сожалению, эти заявления в 99% случаев отклоняются. Почти как в комиксе Астерикс.\n\nЯ потратил недели на споры с ними, но заявления продолжают отклоняться ботами или людьми со схожим интеллектуальным развитием.\nПожалуйста, используйте версию APK или скачайте его с F-Droid, если вам нужны эти функции.</string>
+  <string name="timeFrameDaysHint">Если вы используете временной период, который переходит через полночь, вам нужно выбрать следующий день, если хотите, чтобы триггер сработал после полночи.</string>
+  <string name="featureNotInGooglePlayVersion">Эта функция больше не доступа для версии Google Play.\n\nGoogle постоянно усложняет жизнь разработчикам и требуют оформления бумажных заявлений для обоснавания необходимости использования определённых функций. К сожалению, эти заявления в 99% случаев откланяются. Почти как в комиксе Астерикс.\n\nЯ потратил недели на споры с ними, но заявления продолжают отклоняться ботами или людьми со схожим интеллектуальным развитием.\nПожалуйста, используйте версию APK или скачайте его с F-Droid, если вам нужны эти функции.</string>
   <string name="startActivityInsertManually">Это ограничение касается только выбора приложения, но не его запуска. Вы можете указать имя приложения вручную, если знаете его.</string>
   <string name="deviceStarts">Включение устройства</string>
   <string name="serviceStarts">Запуск службы</string>
-  <string name="deviceIsStarting">Устройство запускается</string>
+  <string name="deviceIsStarting">устройство запускается</string>
   <string name="serviceIsStarting">Служба запускается</string>
   <string name="broadcastReceived">получено сообщение broadcast</string>
   <string name="broadcastNotReceived">сообщение broadcast не получено</string>
@@ -784,10 +784,10 @@
   <string name="lockedWithoutSecurity">заблокировано (только swipe, без PIN)</string>
   <string name="lockedWithSecurity">заблокировано (с PIN и т.д.)</string>
   <string name="lockedCommentScreenMustBeOff">Любое состояние блокировки будет обнаружено только когда экран выключен.</string>
-  <string name="emailPretext">Если вы обнаружили проблему или хотите задать вопрос или предложить улучшение, пожалуйста, напишите что-нибудь в теле письма. Не нужно просто отправлять мне скриншоты без текста. Подобные письма будут проигнорированы, за исключением тех писем, которые  уже являются частью существующей переписки.</string>
+  <string name="emailPretext">Если вы обнаружили проблему или хотите задать вопрос или предложить улучшение, пожалуйста, напишите что-нибудь в теле письма. Не нужно просто отправлять мне скриншоты без текста. Подобные письма будут проигнорированы, за исключением подобных писем, которые часть уже существующей переписки.</string>
   <string name="sendBroadcast">Отправить broadcast</string>
   <string name="enterBroadcast">Ввести broadcast действие.</string>
-  <string name="broadcastExplanation">Это действиет позволяет отправить Broadcast сообщение через систему сообщений Android. Их не видно пользователю, но приложения, которые "слушают" определённые сообщения могут реагировать на них определённым образом.</string>
+  <string name="broadcastExplanation">Это действиет позволяет отправить Broadcast сообщение через систему сообщений Android. Их невидно пользователю, но приложения, которые "слушают" определённые сообщения могут реагировать на них определённым образом.</string>
   <string name="directionStringDoesNotContain">не содержит</string>
   <string name="runExecutable">Запуск скрипта или файла</string>
   <string name="path">Путь</string>
@@ -799,7 +799,7 @@
   <string name="wifiExplanation1">Приложения, реализуемые совместимость с Android Q и выше больше не могут включать/выключать Wi-Fi. Пожалуйста, вините не меня, а Google за это.\n\nВы можете обойти это ограничение получив root права и активировав чекбокс ниже. Так же вы можете скачать это приложение из F-Droid или с моего сайта, потому что для этих версий приложения нет ограничения на совместимость с последним уровнем API.</string>
   <string name="wifiExplanation2">Когда активирован режим "В самолете" Wi-Fi может быть включен только приложениями с доступом к root правам.</string>
   <string name="usingRoot">используя root-права</string>
-  <string name="runExecutableExplanation">Здесь вы можете выбрать сценарий или исполняемый файл, который будет выполняться как действие.\n\nНо есть некоторые предварительные условия, с которыми вам придется иметь дело самостоятельно. Google очень усложнил запуск чего-либо, кроме обычных приложений Android.\n\n1. Сценарий должен быть помечен как исполняемый. В обычной системе Android (без root) это сделать непросто.\n\n2. Помимо владельца или группы, разрешение на исполнение файла должно также быть и у Automation.\n\n3. Если это сценарий, в заголовке скрипта указывается допустимая оболочка.\n\nЕсли вы не можете выполнить вышеуказанные требования, можно попробовать другое решение -  попытаться указать оболочку в качестве фактического исполняемого файла (например, /system/bin/sh), а скрипт в качестве параметра. Это сработало, по крайней мере, для одного пользователя.</string>
+  <string name="runExecutableExplanation">Здесь вы можете выбрать сценарий или исполняемый файл, который будет выполняться как действие.\n\nНо есть некоторые предварительные условия, с которыми вам придется иметь дело самостоятельно. Google очень усложнил запуск чего-либо, кроме обычных приложений Android.\n\n1. Сценарий должен быть помечен как исполняемый. В обычной системе Android (без root) это на самом деле самая сложная часть.\n\n2. Это также означает, что автоматизация должна иметь возможность выполнять файл, а не только владельца или группу.\n\n3. Если это сценарий, в заголовке скрипта указывается допустимая оболочка.\n\nЕсли вы не можете выполнить вышеуказанные требования, можно в качестве альтернативы попытаться указать оболочку в качестве фактического исполняемого файла (например, /system/bin/sh) и скрипт в качестве параметра. Это сработало, по крайней мере, для одного пользователя.</string>
   <string name="tetheringActive">раздача интернета активна</string>
   <string name="tetheringNotActive">раздача интернета не активна</string>
   <string name="tetheringState">Раздача интернета</string>
@@ -815,7 +815,7 @@
   <string name="bluetooth">Bluetooth</string>
   <string name="subSystemState">Состояние подсистемы</string>
   <string name="clickNotificationButton">Нажмите кнопку</string>
-  <string name="simplyDismissNotification">Игнорировать сообщение</string>
+  <string name="simplyDismissNotification">Просто уволить</string>
   <string name="usb">USB</string>
   <string name="cable">Кабель</string>
   <string name="tetheringBluetoothNotPossible">В настоящее время модем Bluetooth не может быть обнаружен. Только другие средства связи активируют этот триггер.</string>
@@ -850,6 +850,6 @@
     <string name="wifiMonitoringAlsoRequiresThis">Это разрешение также требуется, если триггер использует текущее соединение Wi-Fi.</string>
   <string name="copyTextToClipboard">Копирование текста в буфер обмена</string>
   <string name="textToCopy">Текст для копирования</string>
-    <string name="android.permission.SYSTEM_ALERT_WINDOW">Запуск поверх других приложений</string>
-    <string name="overlayPermissionHint">После нажатия кнопки «ОК» вы попадете в системный диалог. Пожалуйста, выберите там Automation и разрешите запуск поверх других приложений.</string>
+    <string name="android.permission.SYSTEM_ALERT_WINDOW">Рисование поверх других приложений</string>
+    <string name="overlayPermissionHint">После нажатия кнопки «ОК» вы попадете в системный диалог. Пожалуйста, выберите там «Автоматизация» и разрешите рисовать поверх других приложений.</string>
 </resources>
