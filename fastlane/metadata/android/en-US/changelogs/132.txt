@@ -1,0 +1,2 @@
+* Fixed: Run executable action - when editing values were not loaded in editor
+* Added: Variables usable in intent parameters
