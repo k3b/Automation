@@ -1,2 +1,3 @@
 * Fixed: Run executable action - when editing values were not loaded in editor
 * Added: Variables usable in intent parameters
+* Removed: Removed toasts for computer connection/disconnection
