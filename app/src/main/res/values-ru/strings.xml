@@ -216,7 +216,7 @@
   <string name="gpsComparisonTimeoutStop" translatable="false">Остановка измерений GPS из-за превышения времени ожидания.</string>
   <string name="timeoutForGpsComparisonsTitle">Тайм-аут GPS [сек]</string>
   <string name="timeoutForGpsComparisonsSummary">Максимальное время получения GPS-местоположения в секундах. По истечении этого времени будет применено последнее известное местоположение.</string>
-  <string name="startingGpsTimeout" translatable="false">Starting GPS timeout.</string>
+  <string name="startingGpsTimeout" translatable="false">Запуск ожидания GPS.</string>
   <string name="forcedLocationUpdate" translatable="false">Принудительное обновление местоположения</string>
   <string name="forcedLocationUpdateLong" translatable="false">Из-за таймаута измерений будет использовано последнее успешное местоположение.</string>
   <string name="rememberLastActivePoiSummary">Если вы находитесь в каком-то местоположении, перезагружаете устройство или приложение и покидаете это местоположение, при старте приложение будет запускать правила, связанные с выходом из этого местоположения.</string>
@@ -243,8 +243,8 @@
   <string name="periodicProcessMonitoringIsNotActive" translatable="false">Периодический мониторинг процессов не запущен, поэтому не может быть остановлен.</string>
   <string name="periodicProcessMonitoringStarted" translatable="false">Периодический мониторинг процессов запущен.</string>
   <string name="periodicProcessMonitoringStopped" translatable="false">Периодический мониторинг процессов остановлен.</string>
-  <string name="rearmingProcessMonitoringMessage" translatable="false">Rearming process monitoring message.</string>
-  <string name="notRearmingProcessMonitoringMessageStopRequested" translatable="false">Not rearming process monitoring message, stop requested.</string>
+  <string name="rearmingProcessMonitoringMessage" translatable="false">Получено сообщение о перезапуске мониторинга процессов.</string>
+  <string name="notRearmingProcessMonitoringMessageStopRequested" translatable="false">Не удалось перезапустить мониторинг процессов, остановка.</string>
   <string name="messageReceivedStatingProcessMonitoringIsComplete" translatable="false">Получено сообщение о завершении мониторинга процессов.</string>
   <string name="appStarted" translatable="false">Приложение запущено.</string>
   <string name="appStopped" translatable="false">Приложение остановлено.</string>
@@ -349,19 +349,19 @@
   <string name="nfcBringTagIntoRangeToRead">Поднесите метку для чтения.</string>
   <string name="toggleRule">Переключаемое правило</string>
   <string name="toggling">Переключение</string>
-  <string name="toggle">переключить</string>
+  <string name="toggle">Переключить</string>
   <string name="overlapBetweenPois">Обнаружено перекрытие с местоположением %1$s на %2$s метров. Уменьшите радиус хотя бы на это значение.</string>
   <string name="noOverLap" translatable="false">Не обнаружено перекрытия с другими местоположениями.</string>
-  <string name="ruleToggable" translatable="false">Rule %1$s is toggable.</string>
-  <string name="ruleNotToggable" translatable="false">Rule %1$s is not suitable for toggling.</string>
+  <string name="ruleToggable" translatable="false">Правило %1$s переключаемое.</string>
+  <string name="ruleNotToggable" translatable="false">Правило %1$s не переключаемое.</string>
   <string name="none">Нет</string>
-  <string name="anyLocation">любое местоположение</string>
+  <string name="anyLocation">Любое местоположение</string>
   <string name="invalidPoiName">Неверное имя для местоположения.</string>
   <string name="eraseSettings">Стереть настройки</string>
   <string name="defaultSettings">Настройки по умолчанию</string>
   <string name="areYouSure">Вы уверены?</string>
-  <string name="poiCouldBeInRange" translatable="false">At least location %1$s could be in range, if not others in addition.</string>
-  <string name="noPoiInRelevantRange" translatable="false">No location in relevant range.</string>
+  <string name="poiCouldBeInRange" translatable="false">По меньшей мере местоположение %1$s должно быть в диапазоне, помимо остальных.</string>
+  <string name="noPoiInRelevantRange" translatable="false">Отсуствуют местоположения в заданном диапазоне.</string>
   <string name="activityDetection">Обнаружение активности</string>
   <string name="android.permission.ACTIVITY_RECOGNITION">Обнаружение активности</string>
   <string name="detectedActivity">Обнаруженная активность:</string>
@@ -374,8 +374,8 @@
   <string name="detectedActivityWalking">Ходьба</string>
   <string name="detectedActivityRunning">Бег</string>
   <string name="detectedActivityInvalidStatus">Недопустимая активность</string>
-  <string name="ruleDoesntApplyActivityGivenButTooLowProbability" translatable="false">Rule %1$s doesn\&apos;t apply. Detected activity %2$s given, but too low probability (%3$s %%), required %4$s %%.</string>
-  <string name="ruleDoesntApplyActivityNotPresent" translatable="false">Rule %1$s doesn\&apos;t apply. Required activity %2$s not present.</string>
+  <string name="ruleDoesntApplyActivityGivenButTooLowProbability" translatable="false">Правило %1$s не применится. Определенная активность %2$s, но слишком низкая вероятность (%3$s %%), требуется %4$s %%.</string>
+  <string name="ruleDoesntApplyActivityNotPresent" translatable="false">Правило %1$s не применится. Требуемая активность %2$s отсутствует.</string>
   <string name="selectTypeOfActivity">Выберите вид активности</string>
   <string name="triggerOnlyAvailableIfPlayServicesInstalled">Этот триггер доступен только, если установлены службы Google Play.</string>
   <string name="activityDetectionFrequencyTitle">Частота обнаружения активности [сек]</string>
@@ -395,8 +395,8 @@
   <string name="bluetoothDeviceInRange">Устройство Bluetooth %1$s в диапазоне.</string>
   <string name="bluetoothDeviceOutOfRange">Устройство Bluetooth %1$s вне диапазона.</string>
   <string name="anyDevice">любое устройство</string>
-  <string name="ruleDoesntApplyNotTheCorrectDeviceName" translatable="false">Правило %1$s неприменимо. Неверное имя устройства bluetooth.</string>
-  <string name="ruleDoesntApplyNotTheCorrectDeviceAddress" translatable="false">Правило %1$s неприменимо. Неверный адрес устройства bluetooth.</string>
+  <string name="ruleDoesntApplyNotTheCorrectDeviceName" translatable="false">Правило %1$s не применится. Неверное имя устройства bluetooth.</string>
+  <string name="ruleDoesntApplyNotTheCorrectDeviceAddress" translatable="false">Правило %1$s не применится. Неверный адрес устройства bluetooth.</string>
   <string name="noDevice">нет устройства</string>
   <string name="selectDeviceFromList">один из списка</string>
   <string name="connectionToDevice">подключение к устройству</string>
@@ -405,8 +405,8 @@
   <string name="deviceOutOfRange">устройство вне зоны досягаемости</string>
   <string name="selectDeviceOption">Выберите опцию устройства.</string>
   <string name="selectConnectionOption">Выберите вариант подключения.</string>
-  <string name="ruleDoesntApplyDeviceInRangeButShouldNotBe" translatable="false">Правило %1$s неприменимо. Устройство в пределах досягаемости, хотя так быть не должно.</string>
-  <string name="ruleDoesntApplyStateNotCorrect" translatable="false">Правило %1$s неприменимо. Неверное состояние.</string>
+  <string name="ruleDoesntApplyDeviceInRangeButShouldNotBe" translatable="false">Правило %1$s не применится. Устройство в пределах досягаемости, хотя так быть не должно.</string>
+  <string name="ruleDoesntApplyStateNotCorrect" translatable="false">Правило %1$s не применится. Неверное состояние.</string>
   <string name="triggerHeadsetPlugged">Подключение гарнитуры</string>
   <string name="actionPlayMusic">Открыть музыкальный плеер</string>
   <string name="headsetConnected">Гарнитура (тип: %1$s) подключена</string>
@@ -415,7 +415,7 @@
   <string name="headphoneMicrophone">Микрофон</string>
   <string name="headphoneAny">Любой</string>
   <string name="headphoneSelectType">Выберите тип гарнитуры</string>
-  <string name="ruleDoesntApplyWrongHeadphoneType" translatable="false">Правило %1$s неприменимо. Неверный тип гарнитуры.</string>
+  <string name="ruleDoesntApplyWrongHeadphoneType" translatable="false">Правило %1$s не применится. Неверный тип гарнитуры.</string>
   <string name="ignoringActivityDetectionUpdateTooSoon" translatable="false">Игнорирование запроса обнаружения активности. Получено ранее %1$s секунд.</string>
   <string name="whatsThis">Что это такое?</string>
   <string name="atLeastRuleXisUsingY" translatable="false">По меньшей мере одно правило \&quot;%1$s\&quot; использует триггер типа \&quot;%2$s\&quot;.</string>
@@ -429,8 +429,8 @@
   <string name="noiseDetectionHint">Если вы думаете, что обнаружение шума работает некорректно (в зависимости от значения, которое вы указываете), пожалуйста, имейте в виду, что каждое устройство отличается, поэтому вы можете изменить &quot;Эталон для измерения шума&quot; в настройках. См . http://en.wikipedia.org/wiki/Decibel для получения дополнительной информации. Для калибровки устройства можно использовать калибратор громкости на главном экране.</string>
   <string name="hint">Подсказка</string>
   <string name="selectNoiseLevel">Выбор уровня шума</string>
-  <string name="poiHasWifiStoppingCellLocationListener" translatable="false">Location has wifi. Stopping CellLocationChangedReceiver.</string>
-  <string name="poiHasNoWifiNotStoppingCellLocationListener" translatable="false">Location doesn\&apos;t have wifi. Not stopping CellLocationChangedReceiver.</string>
+  <string name="poiHasWifiStoppingCellLocationListener" translatable="false">В этом местоположении есть wifi. Остановка CellLocationChangedReceiver.</string>
+  <string name="poiHasNoWifiNotStoppingCellLocationListener" translatable="false">В этом месотположении нет wifi. CellLocationChangedReceiver не будет остановлен .</string>
   <string name="showOnMap">Показать на карте</string>
   <string name="noMapsApplicationFound">На вашем устройстве нет приложения просмотра карт.</string>
   <string name="locationEngineNotActive">Сервис определения местоположения не активен.</string>
@@ -476,10 +476,10 @@
   <string name="volumeTest">Калибровка громкости</string>
   <string name="volumeCalibrationExplanation">Чтобы рассчитать значение дБ для мониторинга шума, необходимо указать так называемое физическое эталонное значение. Пожалуйста, прочтите Wikipedia для получения дополнительной информации. Это значение, скорее всего, разное для каждого телефона. Перетащите ползунок, чтобы изменить физическое эталонное значение. Чем выше опорное значение, тем ниже будет значение дБ. Постоянные измерения будут выполняться каждые %1$s секунд и результаты будут показаны ниже. Нажмите кнопку назад, когда найдете подходящее значение.</string>
   <string name="settingsWillTakeTime">Некоторые настройки не будут применены до изменения определенных параметров среды или перезапуска службы.</string>
-  <string name="phoneIsRooted" translatable="false">Phone is rooted.</string>
-  <string name="phoneIsNotRooted" translatable="false">Phone is not rooted.</string>
-  <string name="dataConWithRootSuccess" translatable="false">Data connection was successfully changed using superuser permissions.</string>
-  <string name="dataConWithRootFail" translatable="false">Data could not be changed using superuser permissions.</string>
+  <string name="phoneIsRooted" translatable="false">В телефоне есть root-доступ.</string>
+  <string name="phoneIsNotRooted" translatable="false">В телефоне отсутствует root-доступ.</string>
+  <string name="dataConWithRootSuccess" translatable="false">Подключение к данным успешно изменено используя привилегии суперпользователя.</string>
+  <string name="dataConWithRootFail" translatable="false">Подключение к данным не получилось изменить используя привилегии суперпользователя.</string>
   <string name="rootExplanation">Для того, чтобы эта функция работала, вам нужно получить права root на своем телефоне. После этого вам нужно &quot;запустить правило вручную&quot;, чтобы отобразить запрос на разрешение действий суперпользователя. Когда появится запрос на разрешение действий суперпользователя, необходимо  ответить утвердительно (Разрешить всегда), в противном случае правило не сможет работать, когда телефон находится без присмотра.</string>
   <string name="errorWritingConfig">Ошибка записи конфигурации. Есть ли у вас доступная на запись память?</string>
   <string name="phoneNrReplacementError">Я не смог вставить последний номер телефона в переменную. У меня его нет.</string>
@@ -503,7 +503,7 @@
   <string name="appRequiresPermissiontoAccessExternalStorage">Automation требует доступа к внешнему хранилищу для чтения его настроек и правил.</string>
   <string name="mainScreenPermissionNote">Automation требует большего количества разрешений для полноценного функционирования. Нажмите на этот текст, чтобы узнать больше и запросить их.</string>
   <string name="invalidDevice">Недопустимое устройство</string>
-  <string name="google_app_id" translatable="false">your app id</string>
+  <string name="google_app_id" translatable="false">Ваш Google app id</string>
   <string name="logFileMaxSizeSummary">Максимальный размер файла журнала в мегабайтах. Будет перезаписываться при превышении размера.</string>
   <string name="logFileMaxSizeTitle">Максимальный размер файла журнала [Мб]</string>
   <string name="android.permission.READ_CALL_LOG">Чтение журнала вызовов</string>
@@ -549,7 +549,7 @@
   <string name="chooseActivityHint">В этом последнем окне выбора вам нужно указать конкретное действие (Activity). Другими словами, это похоже на окно нужного приложения. Если вы не знаете какой выбрать, то используйте тот, который имеет &quot;main&quot; или &quot;launcher&quot; в своем названии.</string>
   <string name="edit">Редактировать</string>
   <string name="clickAndHoldForOptions">Удерживайте элемент для параметров.</string>
-  <string name="ruleActivationComplete" translatable="false">Rule \&quot;%1$s\&quot; finished.</string>
+  <string name="ruleActivationComplete" translatable="false">Правило \&quot;%1$s\&quot; завершено.</string>
   <string name="positioningEngine">Служба позиционирования</string>
   <string name="googleSarcasm">Благодаря бесконечной мудрости Google и постоянному стремлению защитить частную жизнь каждого человека, из всех правил, которых использовали триггеры и действия отправки sms или чтения состояния телефона, данные триггеры и действия были удалены, потому что  Google считает это рискованным.</string>
   <string name="startAutomationAsService">Запуск Automation как службы</string>
