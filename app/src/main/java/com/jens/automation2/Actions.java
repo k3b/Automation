@@ -111,8 +111,8 @@ public class Actions
 	public static void closeNotification(Action action)
 	{
 		NotificationManager nm = (NotificationManager) Miscellaneous.getAnyContext().getSystemService(Context.NOTIFICATION_SERVICE);
-		for(StatusBarNotification n : nm.getActiveNotifications())
-		{
+//		for(StatusBarNotification n : nm.getActiveNotifications())
+//		{
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
 			{
 				String[] params = action.getParameter2().split(Action.actionParameter2Split);
@@ -192,7 +192,7 @@ public class Actions
 						Miscellaneous.logEvent("i", "NotificationCloseCheck", "NotificationListener instance is null. Can\'t close notification.", 3);
 				}
 			}
-		}
+//		}
 	}
 
     public static void sendBroadcast(Context context, String action)
