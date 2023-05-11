@@ -2,3 +2,4 @@
 * Added: Variables usable in intent parameters
 * Removed: Removed toasts for computer connection/disconnection
 * Fixed: Closing notification didn't work if Automation's own service notification was hidden
+* Added: Polish translation added

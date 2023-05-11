@@ -1,0 +1,887 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Automation</string>
+    <string name="ruleActivate">Aktywowanie reguły %1$s</string>
+    <string name="profileActivate">Aktywowanie profilu %1$s</string>
+    <string name="ruleActivateToggle">Aktywowanie reguły %1$s w trybie naprzemiennym</string>
+    <string name="addPoi">Dodaj lokalizację</string>
+    <string name="addRule">Dodaj regułę</string>
+    <string name="poiList">Lista lokalizacji:</string>
+    <string name="ruleList">Lista reguł:</string>
+    <string name="pleaseEnterValidName">Wpisz poprawną nazwę.</string>
+    <string name="pleaseSpecifiyTrigger">Określ co najmniej jeden wyzwalacz.</string>
+    <string name="pleaseSpecifiyAction">Określ co najmniej jedną akcję.</string>
+    <string name="serviceWontStart">Nie zdefiniowano reguł. Automatyzacja nie wystartuje.</string>
+    <string name="serviceStarted">Serwis automatyzacji uruchomiony.</string>
+    <string name="version">Wersja %1$s.</string>
+    <string name="logServiceStarting" translatable="false">Starting service.</string>
+    <string name="logNotAllMeasurings" translatable="false">Don\'t have all location measurings, yet. Can\'t do comparison.</string>
+    <string name="distanceBetween">Odległość między lokalizacją GPS a lokalizacją w sieci wynosi %1$d metrów. Ten +1m powinien być absolutnym minimalnym promieniem.</string>
+    <string name="comparing" translatable="false">Have both network and gps location. Comparing...</string>
+    <string name="logNoSuitableProvider" translatable="false">No suitable location providers could be used.</string>
+    <string name="positioningWindowNotice">Jeśli znajdujesz się w budynku, zdecydowanie zaleca się umieszczenie urządzenia obok okna, aż do znalezienia odpowiedniej pozycji. W przeciwnym razie znalezienie go może zająć bardzo dużo czasu.</string>
+    <string name="gettingPosition">Ustalanie pozycji. Czekaj...</string>
+    <string name="logGettingPositionWithProvider" translatable="false">Requesting location using provider:</string>
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
+    <string name="logGotGpsUpdate" translatable="false">Got GPS update. Accuracy:</string>
+    <string name="logGotNetworkUpdate" translatable="false">Got network update. Accuracy:</string>
+    <string name="pleaseEnterValidLatitude">Wpisz prawidłową szerokość geograficzą.</string>
+    <string name="pleaseEnterValidLongitude">Wpisz prawidłową długość geograficzną</string>
+    <string name="pleaseEnterValidRadius">Wprowadź poprawny dodatni promień.</string>
+    <string name="selectOneDay">Wybierz co najmniej jeden dzień.</string>
+    <string name="logAttemptingToBindToService" translatable="false">Attempting to bind to service... </string>
+    <string name="logAttemptingToUnbindFromService" translatable="false">Attempting to unbind from service... </string>
+    <string name="logBoundToService" translatable="false">Bound to service.</string>
+    <string name="logUnboundFromService" translatable="false">Unbound from service.</string>
+    <string name="logServiceAlreadyRunning" translatable="false">Request to start service, but it is already running.</string>
+    <string name="whatToDoWithRule">Co zrobić z regułą?</string>
+    <string name="whatToDoWithPoi">Co zrobić z lokalizacją?</string>
+    <string name="whatToDoWithProfile">Co zrobić z profilem?</string>
+    <string name="delete">usuńe</string>
+    <string name="deleteCapital">Usuń</string>
+    <string name="serviceStopped">Automatyzacja zatrzymana..</string>
+    <string name="logServiceStopping">Zatrzymywanie automatyzacji.</string>
+    <string name="stillGettingPosition">Wciąż zajmuje pozycję</string>
+    <string name="lastRule">Ostatnia reguła:</string>
+    <string name="at">Na</string>
+    <string name="service">Serwis:</string>
+    <string name="getCurrentPosition">Uzyskaj obecną lokalizację</string>
+    <string name="savePoi">Zapisz lokalizację</string>
+    <string name="deletePoi">Usuń lokalizację</string>
+    <string name="latitude">Szerokość geograficzna</string>
+    <string name="longitude">Długość geograficzna</string>
+    <string name="ruleName">Nazwa reguły</string>
+    <string name="triggers">Wyzwalacz(e)</string>
+    <string name="triggersComment">i połączone (wszystkie muszą obowiązywać w tym samym czasie)</string>
+    <string name="addTrigger">Dodaj wyzwalacz(e)</string>
+    <string name="actions">Akcja(e)</string>
+    <string name="actionsComment">(zostanie wykonany w tej kolejności)</string>
+    <string name="addAction">Dodaj akcję</string>
+    <string name="saveRule">Zapisz regułę</string>
+    <string name="monday">Poniedziałek</string>
+    <string name="tuesday">Wtorek</string>
+    <string name="wednesday">Środa</string>
+    <string name="thursday">Czwartek</string>
+    <string name="friday">Piątek</string>
+    <string name="saturday">Sobtoa</string>
+    <string name="sunday">Niedziela</string>
+    <string name="start">Start</string>
+    <string name="end">Koniec</string>
+    <string name="save">Zapisz</string>
+    <string name="urlToTrigger">Adres URL do uruchomienia:</string>
+    <string name="urlLegend">Zmienne:\nMożesz użyć następujących zmiennych. Po uruchomieniu zostaną one zastąpione odpowiednią wartością na Twoim urządzeniu. Umieść nawiasy w tekście.\n\n[uniqueid] – unikalny identyfikator Twojego urządzenia\n[serialnr] – numer seryjny Twojego urządzenia (&lt; Android 9)\n[latitude] – Twoje urządzenie\ szerokość geograficzna użytkownika\n[longitude] – długość geograficzna Twojego urządzenia\n[phonenr] – numer ostatniego połączenia przychodzącego lub wychodzącego\n[d] – dzień miesiąca, 2 cyfry z zerami na początku\n[m] – Numeryczna reprezentacja miesiąca z zerami na początku\n[Y] — pełna cyfrowa reprezentacja roku, 4 cyfry\n[h] — godzina w formacie 12-godzinnym z zerami na początku\n[H] — format 24-godzinny format godziny z wiodącymi zerami\n[i] - minuty z wiodącymi zerami\n[s] - sekundy z wiodącymi zerami\n[ms] - milisekundy\n[notificationTitle] - tytuł ostatniego powiadomienia\n[notificationText] - tekst ostatniego powiadomienia\n[variable-VARIABLENAME] - Wartość niestandardowej zmiennej zdefiniowanej przez Ciebie</string>
+    <string name="wifi">wifi</string>
+    <string name="activating">Aktywowanie</string>
+    <string name="deactivating">Dezaktywowanie</string>
+    <string name="bluetoothFailed">Nie udało się uruchomić Bluetooth. Czy to urządzenie ma Bluetooth?</string>
+    <string name="urlTooShort">Adres URL musi mieć co najmniej 10 znaków.</string>
+    <string name="enterPhoneNumberAndText">Podaj numer i tekst.</string>
+    <string name="selectTypeOfTrigger">Wybierz typ wyzwalacza</string>
+    <string name="entering">wchodzenie</string>
+    <string name="leaving">opuszczanie</string>
+    <string name="noPoisSpecified">Nie określiłeś żadnych lokalizacji. Zrób to najpierw.</string>
+    <string name="started">uruchomiony</string>
+    <string name="stopped">zatrzymany</string>
+    <string name="connected">połączony</string>
+    <string name="disconnected">rozłączony</string>
+    <string name="selectPoi">Wybierz lokalizację</string>
+    <string name="selectTypeOfAction">Wybierz typ akcji</string>
+    <string name="selectSoundProfile">Wybierz dźwięk profilu</string>
+    <string name="whatToDoWithTrigger">Co zrobić z wyzwalaczem?</string>
+    <string name="whatToDoWithAction">Co zrobić z akcją??</string>
+    <string name="radiusHasToBePositive">Promień musi być liczbą dodatnią.</string>
+    <string name="poiStillReferenced">Nadal istnieją reguły odnoszące się do tej lokalizacji (%1$s). Nie mogę go jeszcze usunąć.</string>
+    <string name="generalSettings">Główne ustawienia</string>
+    <string name="startAtSystemBoot">Uruchom przy starcie systemu</string>
+    <string name="onOff">On/Off</string>
+    <string name="writeLogFile">Zapisz plik dziennika</string>
+    <string name="useTextToSpeechOnNormalSummary">Użyj TTS w trybie normalnym</string>
+    <string name="useTextToSpeechOnVibrateSummary">Użyj TTS w trybie wibrajcji</string>
+    <string name="useTextToSpeechOnSilentSummary">Użyj TTS w trybie cichym</string>
+    <string name="useTextToSpeechOnNormalTitle">TTS w trybie normalnym</string>
+    <string name="useTextToSpeechOnVibrateTitle">TTS w trybie wibracji</string>
+    <string name="useTextToSpeechOnSilentTitle">TTS w trybie cichym</string>
+    <string name="positioningSettings">Ustawienia pozycjonowania</string>
+    <string name="listenToWifiState">Słuchaj zmian stanu Wi-Fi, jeśli to możliwe</string>
+    <string name="wifiState">Stan WiFi</string>
+    <string name="listenToAccelerometerState">Obserwuj ruch urządzenia tam, gdzie Wi-Fi nie jest dostępne</string>
+    <string name="accelerometer">Akcelerometr</string>
+    <string name="accelerometerTimer">Użyj akcelerometru po x minutach bez zmiany masztu wieży</string>
+    <string name="cellMastIdleTime">Czas bezczynności wieży komórkowej</string>
+    <string name="accelerometerThresholdDescription">Próg ruchów akcelerometru</string>
+    <string name="accelerometerThreshold">Próg akcelerometru</string>
+    <string name="positioningThresholds">Progi pozycjonowania</string>
+    <string name="minimumDistanceChangeForGpsLocationUpdates">Minimalna zmiana odległości dla aktualizacji lokalizacji GPS</string>
+    <string name="distanceForGpsUpdate">Dystans do aktualizacji GPS [m]</string>
+    <string name="minimumDistanceChangeForNetworkLocationUpdates">Zmiana minimalnej odległości dla aktualizacji lokalizacji sieciowej</string>
+    <string name="distanceForNetworkUpdate">Dystans do aktualizacji sieci [m]</string>
+    <string name="satisfactoryAccuracyGps">Zadowalająca dokładność podczas uzyskiwania lokalizacji za pomocą GPS w metrach</string>
+    <string name="gpsAccuracy">Dokładność GPS [m]</string>
+    <string name="satisfactoryAccuracyNetwork">Zadowalająca dokładność uzyskiwania lokalizacji za pośrednictwem masztów komórkowych w metrach</string>
+    <string name="networkAccuracy">Dokładność sieci [m]</string>
+    <string name="minimumTimeForLocationUpdates">Minimalna zmiana czasu w milisekundach dla aktualizacji lokalizacji</string>
+    <string name="timeForUpdate">Czas do aktualizacji [milliseconds]</string>
+    <string name="soundSettings">Ustawienia dźwięku</string>
+    <string name="showHelp">Pokaż pomoc</string>
+    <string name="rules">Reguły</string>
+    <string name="helpTextRules">Wszystkie wyzwalacze w regule są połączone operatorem AND. Reguła zostanie zastosowana tylko wtedy, gdy zostaną spełnione wszystkie warunki wyzwalające. Jeśli chcesz LUB, utwórz inną regułę.\nWyzwalacz i warunek są używane zamiennie. Wszystkie z nich są warunkami, ale ostatni, który spełnia wymaganą wartość, można nazwać wyzwalaczem, ponieważ jest to ostatni element układanki, który powoduje wykonanie reguły.</string>
+    <string name="timeframes">Ramy czasowe</string>
+    <string name="helpTextTimeFrame">Jeśli określisz regułę z przedziałem czasowym, masz dwie możliwości. Możesz wybrać między wprowadzeniem LUB opuszczeniem przedziału czasowego. Tak czy inaczej reguła jest uruchamiana tylko raz. Więc jeśli utworzysz regułę, która jako wyzwalacz ma „wprowadzanie przedziału czasowego xyz” i pozwolisz jej zmienić profil dźwiękowy na wibracje, nie oznacza to, że telefon automatycznie zadzwoni, gdy przedział czasowy się skończy. Jeśli chcesz, musisz określić inną regułę z innym przedziałem czasowym.</string>
+    <string name="helpTextSound">On the main screen you can use lock sound changes to temporarily avoid rule based sound changes. E.g. you may be in a situation or place where usually ringtones are ok, but this one time it would be disturbing. The feature will automatically deactivate once the configured time has elapsed. Click the + button to add the given amount of time. Once it is active you may deactivate it again using the toggle button (and that way enable rule based sound changes again).</string>
+    <string name="toggableRules">Zasady naprzemienności</string>
+    <string name="helpTextToggable">Reguły mają flagę o nazwie \"Toggable\". Oznacza to, że jeśli reguła zostanie wykonana, a następnie ponownie zostaną zastosowane te same wyzwalacze, reguła zostanie wykonana w odwrotnym trybie, jeśli ma to zastosowanie. Obecnie będzie to miało miejsce tylko w połączeniu z tagami NFC. Jeśli stukniesz je dwukrotnie i jest z nimi powiązana reguła, którą można przełączać, zrobi to odwrotnie niż w obecnej sytuacji, np. dezaktywuj Wi-Fi, jeśli jest aktualnie włączone.</string>
+    <string name="helpTextProcessMonitoring">Jeśli określisz regułę za pomocą monitora procesu, aplikacja będzie sprawdzać ten proces co x sekund (możesz to zmienić w ustawieniach). Wiem, że może to być trochę powolne, ale ciągłe monitorowanie spowodowałoby zbyt szybkie wyczerpanie baterii. I nie ma transmisji z systemu operacyjnego dla tego wydarzenia.</string>
+    <string name="helpTitleEnergySaving">Oszczędzanie energii</string>
+    <string name="helpTextEnergySaving">Wielu producentów urządzeń z systemem Android stara się oszczędzać energię, ograniczając działanie uruchomionych aplikacji w tle. Niestety często powoduje to, że te aplikacje nie działają poprawnie, wśród nich jest Automation. Zobacz tę <a href="https://dontkillmyapp.com/">webpage</a>, aby dowiedzieć się, jak wykluczyć automatyzację z tych środków.</string>
+    <string name="speedMaximumTimeBetweenLocations">Maksymalny czas między 2 lokalizacjami dla określenia prędkości.</string>
+    <string name="speedMaximumTime">Czas w minutach</string>
+    <string name="exceeds">przekracza</string>
+    <string name="dropsBelow">spada poniżej</string>
+    <string name="settingsCategoryNoiseLevelMeasurements">Pomiar poziomu hałasu</string>
+    <string name="timeBetweenNoiseLevelMeasurementsSummary">Sekundy między pomiarami poziomu hałasu</string>
+    <string name="timeBetweenNoiseLevelMeasurementsTitle">Sekundy między pomiarami poziomu hałasu</string>
+    <string name="lengthOfNoiseLevelMeasurementsSummary">Długość w sekundach dla każdego pomiaru poziomu hałasu</string>
+    <string name="lengthOfNoiseLevelMeasurementsTitle">Długość każdego pomiaru poziomu hałasu</string>
+    <string name="referenceValueForNoiseLevelMeasurementsSummary">Fizyczna wartość odniesienia dla pomiaru poziomu hałasu</string>
+    <string name="referenceValueForNoiseLevelMeasurementsTitle">Odniesienie do pomiaru hałasu</string>
+    <string name="logLevelSummary">Poziom rejestrowania (1=minimalny, 5=maksymalny)</string>
+    <string name="logLevelTitle">Poziom rejestrowania</string>
+    <string name="ruleActive">Reguła aktywna</string>
+    <string name="triggerPointOfInterest">Lokalizacja</string>
+    <string name="triggerTimeFrame">Ramy czasowe</string>
+    <string name="triggerCharging">Ładowanie baterii</string>
+    <string name="triggerUsb_host_connection">Połączenie USB z komputerem</string>
+    <string name="triggerSpeed">Prędkość</string>
+    <string name="triggerNoiseLevel">Poziom hałasu w tle</string>
+    <string name="actionSetWifi">Wifi</string>
+    <string name="actionSetBluetooth">Bluetooth</string>
+    <string name="actionSetUsbTethering">USB Tethering</string>
+    <string name="actionSetWifiTethering">Wifi Tethering</string>
+    <string name="actionSetBluetoothTethering">Bluetooth Tethering</string>
+    <string name="actionSetDisplayRotation">Obrót wyświetlacza</string>
+    <string name="actionTurnWifiOn">włącz WiFi</string>
+    <string name="actionTurnWifiOff">wyłącz WiFi</string>
+    <string name="actionTurnBluetoothOn">włącz Bluetooth</string>
+    <string name="actionTurnBluetoothOff">wyłącz Bluetooth</string>
+    <string name="actionTriggerUrl">Uruchom URL</string>
+    <string name="actionChangeSoundProfile">Zmień profil dźwięku</string>
+    <string name="actionTurnUsbTetheringOn">włącz USB Tethering</string>
+    <string name="actionTurnUsbTetheringOff">wyłącz USB Tethering</string>
+    <string name="actionTurnWifiTetheringOn">włącz Wifi Tethering</string>
+    <string name="actionTurnWifiTetheringOff">wyłącz Wifi Tethering</string>
+    <string name="actionTurnBluetoothTetheringOn">włącz Bluetooth Tethering</string>
+    <string name="actionTurnBluetoothTetheringOff">wyłącz Bluetooth Tethering</string>
+    <string name="actionTurnAirplaneModeOn">włącz tryb samolotowy</string>
+    <string name="actionTurnAirplaneModeOff">wyłącz tryb samolotowy</string>
+    <string name="actionEnableScreenRotation">włączyć obracanie ekranu</string>
+    <string name="actionDisableScreenRotation">wyłączyć obracanie ekranu</string>
+    <string name="screenRotationEnabled">Obracanie ekranu włączone.</string>
+    <string name="screenRotationDisabled">Obracanieekranu wyłączone.</string>
+    <string name="screenRotationAlreadyEnabled">Obracanie ekranu jest już włączone.</string>
+    <string name="screenRotationAlreadyDisabled">Obracanie ekranu jest już wyłączone.</string>
+    <string name="noPoisDefinedShort">Brak zdefiniowanych lokalizacji.</string>
+    <string name="activePoi">Aktywna lokalizacja:</string>
+    <string name="closestPoi">Najbliższa lokalizacja:</string>
+    <string name="overview">Przegląd</string>
+    <string name="poi">Lokalizacja</string>
+    <string name="pois">Lokalizacje</string>
+    <string name="helpTextPoi">Lokalizacja składa się ze współrzędnych GPS i promienia. Ponieważ pozycjonowanie za pomocą masztów komórkowych jest raczej nieprecyzyjne (ale szybkie i tanie), nie należy określać zbyt małego promienia. Aplikacja zaproponuje Ci minimalny promień podczas tworzenia nowej lokalizacji.</string>
+    <string name="serviceNotRunning">Usługa nie działa.</string>
+    <string name="general">Ogólne</string>
+    <string name="generalText">Aby korzystać z tego programu, musisz skonfigurować reguły. Zawierają wyzwalacze, np. jeśli dotrzesz do określonego obszaru lub wejdziesz w określony czas. Po zakończeniu kliknij przycisk włączania/wyłączania na ekranie głównym.</string>
+    <string name="unknownActionSpecified" translatable="false">Unknown action specified</string>
+    <string name="logErrorTriggeringUrl" translatable="false">Error triggering URL</string>
+    <string name="errorChangingScreenRotation" translatable="false">Error changing screen rotation</string>
+    <string name="errorDeterminingWifiApState" translatable="false">Error determining wifiAp state</string>
+    <string name="errorActivatingWifiAp" translatable="false">Error activating wifiAp</string>
+    <string name="failedToTriggerBluetooth">Nie udało się uruchomić Bluetooth. Czy to urządzenie ma Bluetooth?</string>
+    <string name="logAttemptingDownloadOf" translatable="false">attempting download of</string>
+    <string name="logErrorGettingConnectionManagerService" translatable="false">Error getting connectionManager service. Not doing anything to UsbTethering.</string>
+    <string name="logErrorDeterminingCurrentUsbTetheringState" translatable="false">Error determining current UsbTethering state.</string>
+    <string name="logDetectingTetherableUsbInterface" translatable="false">Detecting tetherable usb interface.</string>
+    <string name="logClearingBothLocationListeners" translatable="false">Clearing both location listeners.</string>
+    <string name="logStartingServiceAfterAppUpdate" translatable="false">Starting service after app update.</string>
+    <string name="logNotStartingServiceAfterAppUpdate" translatable="false">Not starting service after app update.</string>
+    <string name="logStartingServiceAtPhoneBoot" translatable="false">Starting service at phone boot.</string>
+    <string name="logNotStartingServiceAtPhoneBoot" translatable="false">Not starting service at phone boot.</string>
+    <string name="applicationHasBeenUpdated" translatable="false">Application has been updated.</string>
+    <string name="startServiceAfterAppUpdate">Uruchom usługę automatycznie po aktualizacji aplikacji, jeśli była wcześniej uruchomiona.</string>
+    <string name="startServiceAfterAppUpdateShort">Uruchom usługę po aktualizacji.</string>
+    <string name="wifiConnection">Połączenie WiFi</string>
+    <string name="wifiName">Nazwa WiFi</string>
+    <string name="enterWifiName">Wprowadź nazwę Wi-Fi. Pozostaw puste dla dowolnej sieci Wi-Fi.</string>
+    <string name="cancel">Anuluj</string>
+    <string name="ruleDoesntApplyWeAreSlowerThan" translatable="false">Rule %1$s doesn\'t apply. We are slower than</string>
+    <string name="ruleDoesntApplyWeAreFasterThan" translatable="false">Rule %1$s doesn\'t apply. We are faster than</string>
+    <string name="ruleDoesntApplyItsQuieterThan" translatable="false">Rule %1$s doesn\'t apply. It\'s quieter than</string>
+    <string name="ruleDoesntApplyItsLouderThan" translatable="false">Rule %1$s doesn\'t apply. It\'s louder than</string>
+    <string name="ruleDoesntApplyBatteryLowerThan" translatable="false">Rule %1$s doesn\'t apply. Battery level is lower than</string>
+    <string name="ruleDoesntApplyBatteryHigherThan" translatable="false">Rule %1$s doesn\'t apply. Battery level is higher than</string>
+    <string name="ruleDoesntApplyNotTheCorrectSsid" translatable="false">Rule %1$s doesn\'t apply. Not the correct SSID (demanded: \"%2$s\", given: \"%3$s\").</string>
+    <string name="ruleDoesntApplyNoTagLabel" translatable="false">Rule %1$s doesn\'t apply. There is no tag label or not tag at all.</string>
+    <string name="ruleDoesntApplyWrongTagLabel" translatable="false">Rule %1$s doesn\'t apply. Wrong tag label.</string>
+    <string name="ruleIsDeactivatedCantApply" translatable="false">Rule %1$s is deactivated, can\'t apply.</string>
+    <string name="starting">uruchamianie</string>
+    <string name="stopping">wyłączanie</string>
+    <string name="connecting">łączenie</string>
+    <string name="disconnecting">rozłączanie</string>
+    <string name="exceeding">nadzwyczajny</string>
+    <string name="droppingBelow">spadając poniżej</string>
+    <string name="connectedToWifi">Połączony do wifi \"%1$s\"</string>
+    <string name="disconnectedFromWifi">rozłączony z wifi \"%1$s\"</string>
+    <string name="anyWifi">dowlona wifi</string>
+    <string name="cantStopIt">Nie mogę tego zatrzymać.</string>
+    <string name="settingsCategoryHttp">Żądanie HTTPs</string>
+    <string name="httpAcceptAllCertificatesTitle">Akceptuj wszystkie certyfikaty</string>
+    <string name="httpAcceptAllCertificatesSummary">Pomiń sprawdzanie ważności certyfikatów SSL (aktywowanie tego jest odradzane)</string>
+    <string name="httpAttemptsSummary">Liczba prób w przypadku niepowodzenia żądań HTTP z powodu łączności</string>
+    <string name="httpAttemptsTitle">Liczba prób HTTP</string>
+    <string name="httpAttemptsTimeoutSummary">Limit czasu dla żądań HTTP [sekundy]</string>
+    <string name="httpAttemptsTimeoutTitle">Limit czasu [sec]</string>
+    <string name="httpAttemptGapSummary">Pauza przed kolejną próbą [sekundy]</string>
+    <string name="httpAttemptGapTitle">Pauza [sec]</string>
+    <string name="runManually">Uruchom ręcznie</string>
+    <string name="serviceHasToRunForThat">W tym celu usługa musi działać.</string>
+    <string name="gpsComparison">Porównanie GPS</string>
+    <string name="gpsComparisonTimeoutStop" translatable="false">Stopping comparison GPS measurement due to timeout.</string>
+    <string name="timeoutForGpsComparisonsTitle">Przekroczenie czasu GPS [sec]</string>
+    <string name="timeoutForGpsComparisonsSummary">Maksymalny czas w sekundach do próby uzyskania lokalizacji GPS do porównania. Jeśli zostanie zastosowana ostatnia znana lokalizacja.</string>
+    <string name="startingGpsTimeout" translatable="false">Starting GPS timeout.</string>
+    <string name="forcedLocationUpdate" translatable="false">Forced location update</string>
+    <string name="forcedLocationUpdateLong" translatable="false">Due to timeout in comparison measurement the last best location will be applied.</string>
+    <string name="rememberLastActivePoiSummary">Jeśli jesteś w miejscu, uruchom ponownie urządzenie lub aplikację i opuść lokalizację, aplikacja uruchomi reguły związane z opuszczeniem lokalizacji przy następnym uruchomieniu.</string>
+    <string name="rememberLastActivePoiTitle">Zapamiętaj ostatnią aktywną lokalizację</string>
+    <string name="muteTextToSpeechDuringCallsTitle">Wycisz podczas połączeń</string>
+    <string name="muteTextToSpeechDuringCallsSummary">Wycisz funkcję TextToSpeech podczas połączeń</string>
+    <string name="anotherPoiByThatName">Istnieje już inna lokalizacja o tej nazwie.</string>
+    <string name="anotherRuleByThatName">Istnieje już inna reguła o tej nazwie.</string>
+    <string name="startOtherActivity">Uruchom inny program</string>
+    <string name="selectApplication">Wybierz apkę</string>
+    <string name="selectPackageOfApplication">Wybierz pakiet aplikacji</string>
+    <string name="selectActivityToBeStarted">Wybierz aktywność wybranego pakietu</string>
+    <string name="errorStartingOtherActivity">Błąd podczas uruchamiania innej czynności</string>
+    <string name="anotherAppIsRunning">Inna aplikacja jest uruchamiana/zatrzymywana</string>
+    <string name="settingsCategoryProcessMonitoring">Monitorowanie procesu</string>
+    <string name="timeBetweenProcessMonitoringsTitle">Sekundy między monitorowaniem procesu</string>
+    <string name="timeBetweenProcessMonitoringsSummary">Im niższe, tym większe zużycie baterii</string>
+    <string name="refreshingProcessList" translatable="false">Refreshing process list.</string>
+    <string name="processes">Processes</string>
+    <string name="startingPeriodicProcessMonitoringEngine" translatable="false">Starting periodic process monitoring engine.</string>
+    <string name="processMonitoring">Monitorowanie procesu</string>
+    <string name="periodicProcessMonitoringIsAlreadyRunning" translatable="false">Periodic process monitoring is already running. Won\'t start it again.</string>
+    <string name="stoppingPeriodicProcessMonitoringEngine" translatable="false">Stopping periodic process monitoring engine.</string>
+    <string name="periodicProcessMonitoringIsNotActive" translatable="false">Periodic process monitoring is not active. Can\'t stop it.</string>
+    <string name="periodicProcessMonitoringStarted" translatable="false">Periodic process monitoring started.</string>
+    <string name="periodicProcessMonitoringStopped" translatable="false">Periodic process monitoring stopped.</string>
+    <string name="rearmingProcessMonitoringMessage" translatable="false">Rearming process monitoring message.</string>
+    <string name="notRearmingProcessMonitoringMessageStopRequested" translatable="false">Not rearming process monitoring message, stop requested.</string>
+    <string name="messageReceivedStatingProcessMonitoringIsComplete" translatable="false">Message received stating process monitoring is complete.</string>
+    <string name="appStarted" translatable="false">App started.</string>
+    <string name="appStopped" translatable="false">App stopped.</string>
+    <string name="runningApp" translatable="false">Running app</string>
+    <string name="errorWritingSettingsToPersistentMemory" translatable="false">Error writing settings to persistent memory.</string>
+    <string name="settings">Settings</string>
+    <string name="writingSettingsToPersistentMemory" translatable="false">Writing settings to persistent memory.</string>
+    <string name="refreshingSettingsFromFileToMemory" translatable="false">Refreshing settings from file to memory.</string>
+    <string name="errorReadingSettings" translatable="false">Error reading settings.</string>
+    <string name="invalidStuffStoredInSettingsErasing" translatable="false">Invalid stuff stored in settings. Erasing settings...</string>
+    <string name="initializingSettingsToPersistentMemory" translatable="false">Initializing settings to persistent memory.</string>
+    <string name="errorInitializingSettingsToPersistentMemory" translatable="false">Error initializing settings to persistent memory.</string>
+    <string name="settingsErased">Ustawienia usunięte.</string>
+    <string name="settingsSetToDefault">Ustawienia ustawione na domyślne.</string>
+    <string name="batteryLevel">Poziom baterii</string>
+    <string name="selectSpeed">Wybierz prędkość</string>
+    <string name="selectBattery">Wybierz poziom naładowania baterii</string>
+    <string name="applyingSettingsAndRules" translatable="false">Applying settings, rules and locations.</string>
+    <string name="privacy">Polityka prywatności</string>
+    <string name="privacyConfirmationText">Przeglądarka otworzy się teraz na Twoim urządzeniu i załaduje politykę prywatności ze strony dewelopera.</string>
+    <string name="waitBeforeNextAction">Poczekaj przed następną czynnością</string>
+    <string name="wakeupDevice">Wybudź urządzenie</string>
+    <string name="waitBeforeNextActionEnterValue">Wprowadź wartość w milisekundach, jak długo należy czekać przed następną akcją.</string>
+    <string name="wakeupDeviceValue">Wprowadź wartość w milisekundach, jak długo urządzenie powinno pozostawać w stanie czuwania. 0 dla wartości domyślnych.</string>
+    <string name="enterAPositiveValidNonDecimalNumber">wprowadź prawidłową dodatnią liczbę inną niż dziesiętna.</string>
+    <string name="moveUp">Do góry</string>
+    <string name="moveDown">Do dołu</string>
+    <string name="cantMoveUp">Nie można przenieść elementu w górę. Jest już na szczycie.</string>
+    <string name="cantMoveDown">Nie można przenieść elementu w dół. Jest już na dnie.</string>
+    <string name="wifiNameSpecifiedCheckingThat" translatable="false">Wifi name specified, checking that.</string>
+    <string name="wifiNameMatchesRuleWillApply" translatable="false">Wifi name matches. Rule will apply.</string>
+    <string name="noWifiNameSpecifiedAnyWillDo" translatable="false">No wifi name specified, any will do.</string>
+    <string name="ruleCheckOf" translatable="false">RuleCheck of %1$s</string>
+    <string name="airplaneMode">Tryb samolotowy</string>
+    <string name="activate">Aktywowany</string>
+    <string name="deactivate">Dezaktywowany</string>
+    <string name="airplaneModeSdk17Warning">Począwszy od wersji Androida 4.2 ta funkcja działa tylko wtedy, gdy urządzenie jest zrootowane.</string>
+    <string name="triggerUrlReplacementPositionError" translatable="false">You asked for a position to be added to your URL. Unfortunately at this point I do not have any location,  yet.</string>
+    <string name="addIntentValue">Dodaj parę intencji</string>
+    <string name="parameterName">Parameter nazwa</string>
+    <string name="parameterValue">Parameter wartość</string>
+    <string name="parameterType">Parameter typ</string>
+    <string name="selectTypeOfIntentPair">Wybierz typ dla pary intencji.</string>
+    <string name="enterNameForIntentPair">Wprowadź nazwę pary intencji.</string>
+    <string name="enterValueForIntentPair">Wprowadź wartość dla pary intencji.</string>
+    <string name="whatToDoWithIntentPair">Co zrobić z parą?</string>
+    <string name="gettingListOfInstalledApplications">Pobieranie listy zainstalowanych aplikacji...</string>
+    <string name="timeFrameWhichDays">W które dni?</string>
+    <string name="insideOrOutsideTimeFrames">Wewnątrz lub poza tymi ramami czasowymi?</string>
+    <string name="selectToggleDirection">Włączyć czy wyłączyć?</string>
+    <string name="name">Nazwa</string>
+    <string name="radiusWithUnit">Promień [m]</string>
+    <string name="status">Status</string>
+    <string name="actionDataConnection">Dane mobilne</string>
+    <string name="actionSetDataConnectionOn">włącz komórkową transmisję danych</string>
+    <string name="actionSetDataConnectionOff">wyłącz komórkową transmisję danych</string>
+    <string name="roaming">Roaming</string>
+    <string name="activated">aktywowany</string>
+    <string name="deactivated">dezaktywowany</string>
+    <string name="until">dopóki</string>
+    <string name="application">Aplikacja</string>
+    <string name="is">jest</string>
+    <string name="phoneCall">Połączenie telefonicznel</string>
+    <string name="with">z</string>
+    <string name="phoneNumber">Numer</string>
+    <string name="enterPhoneNumberBlankForAny">Wpisz numer telefonu. Pozostaw puste dla dowolnej numeru.</string>
+    <string name="enterPhoneNumber">Podaj numer.</string>
+    <string name="phoneDirection">Wybierz\nkierunek połączenia</string>
+    <string name="any">dowolny</string>
+    <string name="incoming">przychodzące</string>
+    <string name="outgoing">wychodzące</string>
+    <string name="incomingAdjective">przychodzące</string>
+    <string name="outgoingAdjective">wychodzące</string>
+    <string name="anyNumber">dowolny numer</string>
+    <string name="number">number</string>
+    <string name="nfcTag">NFC tag</string>
+    <string name="closeTo">blisko</string>
+    <string name="withLabel">z etykietą</string>
+    <string name="deviceDoesNotHaveNfc">Wygląda na to, że to urządzenie nie ma NFC.</string>
+    <string name="nfcReadTag">Odczytaj identyfikator z tagu</string>
+    <string name="nfcWriteTag">Zapisz tag</string>
+    <string name="nfcEnterValidIdentifier">Wpisz prawidłowy identyfikator tagu (np. \"Drzwi wejściowe do domu\").</string>
+    <string name="nfcTagWrittenSuccessfully">Tag zapisany.</string>
+    <string name="nfcTagWriteError">Błąd podczas zapisania tagu. Czy jest w zasięgu?</string>
+    <string name="nfcTagDiscovered">Odkryto tag.</string>
+    <string name="nfcBringTagIntoRange">Umieść tag NFC w zasięgu.</string>
+    <string name="nfcTagFoundWithText">Znaleziono tag z tekstem:</string>
+    <string name="nfcUnsupportedEncoding">Nieobsługiwane kodowanie:</string>
+    <string name="nfcNoNdefIntentBut"> Brak intencji NFC NDEF, ale</string>
+    <string name="nfcNotSupportedInThisAndroidVersionYet">NFC nie jest jeszcze obsługiwane w tej wersji Androida.</string>
+    <string name="cantRunRule">Nie można uruchomić reguł.</string>
+    <string name="cantDownloadTooFewRequestsInSettings" translatable="false">Can\'t download anything. Amount of http requests in settings is lower than 1.</string>
+    <string name="nfcApplyTagToRule">Zastosuj tag do reguły</string>
+    <string name="nfcTagReadSuccessfully">Tag odczytany pomyślnie.</string>
+    <string name="nfcValueNotSuitable">Zapisana wartość nie jest odpowiednia.</string>
+    <string name="nfcNoTag">Brak tagu.</string>
+    <string name="newNfcId">Wpisz nowy identyfikator NFC</string>
+    <string name="useExistingTag">Użyj istniejącego tagu NFC</string>
+    <string name="newId">Nowy ID:</string>
+    <string name="currentId">Obecny ID:</string>
+    <string name="nfcTagDataNotUsable">Dane tagu nie nadają się do użytku, napisz od nowa.</string>
+    <string name="nfcBringTagIntoRangeToRead">Umieść znacznik w zasięgu do odczytania.</string>
+    <string name="toggleRule">Przełącz regułę</string>
+    <string name="toggling">Przełączanie</string>
+    <string name="toggle">przełącznik</string>
+    <string name="overlapBetweenPois">Wykryto nakładanie się do lokalizacji %1$s z %2$s metrów. Zmniejsz promień przynajmniej o tyle.</string>
+    <string name="noOverLap" translatable="false">No overlap to other locations detected.</string>
+    <string name="ruleToggable" translatable="false">Rule %1$s is toggable.</string>
+    <string name="ruleNotToggable" translatable="false">Rule %1$s is not suitable for toggling.</string>
+    <string name="none">nic</string>
+    <string name="anyLocation">dowolna lokalizacjan</string>
+    <string name="invalidPoiName">Błędna nazwadla lokalizacji.</string>
+    <string name="eraseSettings">Usuń ustawienia</string>
+    <string name="defaultSettings">Domyślne ustawienia</string>
+    <string name="areYouSure">Jesteś pewny?</string>
+    <string name="poiCouldBeInRange" translatable="false">At least location %1$s could be in range, if not others in addition.</string>
+    <string name="noPoiInRelevantRange" translatable="false">No location in relevant range.</string>
+    <string name="activityDetection">Wykrywanie aktywności</string>
+    <string name="android.permission.ACTIVITY_RECOGNITION">Wykrywanie aktywności</string>
+    <string name="detectedActivity">Wykryta aktywność:</string>
+    <string name="detectedActivityInVehicle">W pojeździe (samochód/autobus)</string>
+    <string name="detectedActivityOnBicycle">Na rowerze</string>
+    <string name="detectedActivityOnFoot">Z buta</string>
+    <string name="detectedActivityStill">Ndal</string>
+    <string name="detectedActivityUnknown">niezanane</string>
+    <string name="detectedActivityTilting">Pochylanie</string>
+    <string name="detectedActivityWalking">Spacer</string>
+    <string name="detectedActivityRunning">Bieganie</string>
+    <string name="detectedActivityInvalidStatus">Nieprawidłowa aktywność</string>
+    <string name="ruleDoesntApplyActivityGivenButTooLowProbability" translatable="false">Rule %1$s doesn\'t apply. Detected activity %2$s given, but too low probability (%3$s %%), required %4$s %%.</string>
+    <string name="ruleDoesntApplyActivityNotPresent" translatable="false">Rule %1$s doesn\'t apply. Required activity %2$s not present.</string>
+    <string name="selectTypeOfActivity">Wybierz rodzaj aktywności</string>
+    <string name="triggerOnlyAvailableIfPlayServicesInstalled">Ten wyzwalacz jest dostępny tylko wtedy, gdy są zainstalowane Usługi Google Play.</string>
+    <string name="activityDetectionFrequencyTitle">Częstotliwość wykrywania aktywności [sec]</string>
+    <string name="activityDetectionFrequencySummary">Sekundy między próbami wykrycia aktywności.</string>
+    <string name="activityDetectionRequiredProbabilityTitle">Prawdopodobieństwo wykrycia aktywności</string>
+    <string name="activityDetectionRequiredProbabilitySummary">Pewność, z której czynności są akceptowane jako fakt.</string>
+    <string name="incomingCallFrom">Przychodzące połączenie telefoniczne od %1$s.</string>
+    <string name="outgoingCallTo">Wychodzące połączenie telefoniczne do %1$s.</string>
+    <string name="actionSpeakText">Mówienie tekstu</string>
+    <string name="textToSpeak">Tekst do mówienia</string>
+    <string name="toggleNotAllowed">Przełączanie jest obecnie dozwolone tylko w przypadku reguł, których wyzwalaczem są tagi NFC. Więcej informacji można znaleźć w pomocy.</string>
+    <string name="errorReadingPoisAndRulesFromFile">Błąd odczytu lokalizacji i reguł z pliku.</string>
+    <string name="noDataChangedReadingAnyway">Wygląda na to, że nie zapisano żadnych zmian danych. Mogły jednak wystąpić zmiany w pamięci, które należy cofnąć. Ponowne czytanie pliku.</string>
+    <string name="bluetoothConnection">Połączenie Bluetooth</string>
+    <string name="bluetoothConnectionTo">Połączenie Bluetooth do %1$s</string>
+    <string name="bluetoothDisconnectFrom">Połączenie Bluetooth z %1$s utracone</string>
+    <string name="bluetoothDeviceInRange">Bluetooth device %1$s in range.</string>
+    <string name="bluetoothDeviceOutOfRange">Urządzenie Bluetooth %1$s w zasięgu.</string>
+    <string name="anyDevice">dowolne urządzenie</string>
+    <string name="ruleDoesntApplyNotTheCorrectDeviceName" translatable="false">Rule %1$s doesn\'t apply. Not the correct bluetooth device name.</string>
+    <string name="ruleDoesntApplyNotTheCorrectDeviceAddress" translatable="false">Rule %1$s doesn\'t apply. Not the correct bluetooth device address.</string>
+    <string name="noDevice">bez urządzenia</string>
+    <string name="selectDeviceFromList">jedne z listy</string>
+    <string name="connectionToDevice">połączenie z urządzeniem</string>
+    <string name="disconnectionFromDevice">rozłączenie z urządzeniem</string>
+    <string name="deviceInRange">urządzenie w zasięgu</string>
+    <string name="deviceOutOfRange">urządzenie poza zasięgiem</string>
+    <string name="selectDeviceOption">Wybierz opcję urządzenia.</string>
+    <string name="selectConnectionOption">Wybierz opcję połączenia.</string>
+    <string name="ruleDoesntApplyDeviceInRangeButShouldNotBe" translatable="false">Rule %1$s doesn\'t apply. Device is in range, but should not be.</string>
+    <string name="ruleDoesntApplyStateNotCorrect" translatable="false">Rule %1$s doesn\'t apply. Wrong state.</string>
+    <string name="triggerHeadsetPlugged">Połączenie zestawu słuchawkowego</string>
+    <string name="actionPlayMusic">Otwórz odtwarzacz muzyki</string>
+    <string name="headsetConnected">Zestaw słuchawkowy (typ: %1$s) podłączony</string>
+    <string name="headsetDisconnected">Zestaw słuchawkowy (typ: %1$s) rozłączony</string>
+    <string name="headphoneSimple">Słuchawki</string>
+    <string name="headphoneMicrophone">Mikrofon</string>
+    <string name="headphoneAny">Albo</string>
+    <string name="headphoneSelectType">Wybierz typ słuchawek</string>
+    <string name="ruleDoesntApplyWrongHeadphoneType" translatable="false">Rule %1$s doesn\'t apply. Wrong headphone type.</string>
+    <string name="ignoringActivityDetectionUpdateTooSoon" translatable="false">Ignoring activity detection update. Came in sooner that %1$s seconds.</string>
+    <string name="whatsThis">Co to jest?</string>
+    <string name="atLeastRuleXisUsingY" translatable="false">At least rule \"%1$s\" is using a trigger of type \"%2$s\".</string>
+    <string name="privacyLocationingTitle">Tylko lokalizacja prywatna</string>
+    <string name="privacyLocationingSummary">Unikaj metod lokalizacji, które mogą wysyłać Twoją lokalizację do dostawcy, np. Google. Spowoduje to użycie tylko GPS i dlatego może być powolne lub nie działać niezawodnie.</string>
+    <string name="enforcingGps" translatable="false">Private Locationing enabled, enforcing GPS use.</string>
+    <string name="notEnforcingGps" translatable="false">Private Locationing not enabled, using regular provider search.</string>
+    <string name="gpsMeasurement" translatable="false">GPS measurement</string>
+    <string name="gpsMeasurementTimeout" translatable="false">GPS measurement stopped due to timeout.</string>
+    <string name="cellMastChanged" translatable="false">Cell tower changed: %1$s</string>
+    <string name="noiseDetectionHint">Jeśli uważasz, że wykrywanie hałasu nie działa poprawnie (w zależności od podanej wartości), pamiętaj, że każdy telefon jest inny. Dlatego możesz zmienić \"Odniesienie do pomiaru hałasu\" w ustawieniach. Zobacz http://en.wikipedia.org/wiki/Decibel, aby uzyskać więcej informacji. Do kalibracji urządzenia można użyć kalibratora głośności z ekranu głównego.</string>
+    <string name="hint">Wskazówka</string>
+    <string name="selectNoiseLevel">Wybierz poziom hałasu</string>
+    <string name="poiHasWifiStoppingCellLocationListener" translatable="false">Location has wifi. Stopping CellLocationChangedReceiver.</string>
+    <string name="poiHasNoWifiNotStoppingCellLocationListener" translatable="false">Location doesn\'t have wifi. Not stopping CellLocationChangedReceiver.</string>
+    <string name="showOnMap">Pokaż na mapie</string>
+    <string name="noMapsApplicationFound">Nie znaleziono aplikacji map na Twoim urządzeniu.</string>
+    <string name="locationEngineNotActive">Sensor lokalizacji nie jest aktywny.</string>
+    <string name="addProfile">Dodaj profil</string>
+    <string name="profile">Profil</string>
+    <string name="soundMode">Tryb dźwięku</string>
+    <string name="volumes">Głośność</string>
+    <string name="incomingCallsRingtone">Ton dla połączeń przychodzących</string>
+    <string name="notificationRingtone">Ton dla powiadomień</string>
+    <string name="hapticFeedback">Haptyczne sprzężenie zwrotne (wibracje podczas dotykania ekranu)</string>
+    <string name="volumeMusicVideoGameMedia">Muzyka, wideo, gry i inne media</string>
+    <string name="volumeRingtoneNotifications">Dzwonek i powiadomienia</string>
+    <string name="volumeAlarms">Alarmy</string>
+    <string name="change">Zmiana</string>
+    <string name="audibleSelection">Wybór dźwiękowy (dźwięk podczas wybierania ekranu)</string>
+    <string name="screenLockUnlockSound">Dźwięk blokady ekranu/odblokowania</string>
+    <string name="vibrateWhenRinging">Wibracje podczas dzwonienia</string>
+    <string name="profiles">Profile</string>
+    <string name="soundModeNormal">Normaly</string>
+    <string name="soundModeVibrate">Wibracje</string>
+    <string name="soundModeSilent">Cichy</string>
+    <string name="enterAname">Wpisz nazwę.</string>
+    <string name="noChangeSelectedProfileDoesntMakeSense">Nie wybrano zmiany. Profil nie ma sensu.</string>
+    <string name="noProfilesCreateOneFirst">Brak profili w Twojej konfiguracji. Najpierw utwórz jeden.</string>
+    <string name="errorActivatingProfile">Błąd aktywacji profilu:</string>
+    <string name="anotherProfileByThatName">Istnieje już inny profil o tej nazwie.</string>
+    <string name="invalidProfileName">Nieprawidłowa nazwa profilu.</string>
+    <string name="errorWritingFile">Błąd podczas zapisywania pliku ustawień.</string>
+    <string name="unknownError">Nieznany błąd.</string>
+    <string name="noWritableFolderFound">Nie znaleziono folderu z możliwością zapisu do przechowywania pliku konfiguracyjnego.</string>
+    <string name="usbTetheringFailForAboveGingerbread">To najprawdopodobniej nie zadziała, ponieważ korzystasz z Androida powyżej 2.3. Zamiast tego możesz użyć tetheringu przez Wi-Fi.</string>
+    <string name="usingNewThreadForRuleExecution">Używanie nowego wątku do aktywacji reguły.</string>
+    <string name="startNewThreadForRuleExecution">Rozpocznij nowy wątek w celu aktywacji reguły.</string>
+    <string name="newThreadRules">Nowy wątek</string>
+    <string name="showIcon">Pokaż ikonę</string>
+    <string name="showIconWhenServiceIsRunning">Pokaż ikonę, gdy usługa jest uruchomiona (ukrywanie działa tylko pod Androidem 7). Jeśli korzystasz z wyższej wersji, przejdź do ustawień systemu, następnie Automatyzacja, następnie powiadomienia i wyłącz \"Powiadomienie o usłudze\".</string>
+    <string name="ruleHistory">Historia reguł (od najnowszych):</string>
+    <string name="someOptionsNotAvailableYet">Niektóre opcje są wyłączone, ponieważ nie można ich jeszcze używać. Zostaną one wprowadzone w późniejszej wersji programu.</string>
+    <string name="lockSoundChanges">Zmiana dźwięku blokady</string>
+    <string name="noProfileChangeSoundLocked">Profil nie zostanie aktywowany. Ostatnio aktywowany profil został zablokowany.</string>
+    <string name="currentVolume">Obecna głośność</string>
+    <string name="enterValidReferenceValue">Wprowadź prawidłową wartość referencyjną.</string>
+    <string name="volumeTest">Kalibracja głośności</string>
+    <string name="volumeCalibrationExplanation">TAby obliczyć wartość dB dla monitorowania hałasu, należy określić tak zwaną fizyczną wartość odniesienia. Proszę przeczytać Wikipedię, aby uzyskać więcej informacji. Ta wartość jest najprawdopodobniej inna dla każdego telefonu. Przeciągnij pasek wyszukiwania, aby zmienić zdefiniowaną fizyczną wartość odniesienia. Im wyższa wartość odniesienia, tym niższa będzie wartość dB. Stałe pomiary będą wykonywane co %1$s sekund, a wyniki zostaną wyświetlone poniżej. Naciśnij wstecz, gdy znajdziesz odpowiednią wartość.</string>
+    <string name="settingsWillTakeTime">Niektóre ustawienia nie zostaną zastosowane przed zmianą niektórych ustawień środowiska lub ponownym uruchomieniem usługi.</string>
+    <string name="phoneIsRooted" translatable="false">Phone is rooted.</string>
+    <string name="phoneIsNotRooted" translatable="false">Phone is not rooted.</string>
+    <string name="dataConWithRootSuccess" translatable="false">Data connection was successfully changed using superuser permissions.</string>
+    <string name="dataConWithRootFail" translatable="false">Data could not be changed using superuser permissions.</string>
+    <string name="rootExplanation">Aby ta funkcja działała, musisz zrootować telefon. Następnie musisz \"uruchomić regułę ręcznie\", aby wyświetlić pytanie o uprawnienia administratora. Gdy pojawią się wyskakujące okienka administratora, zawsze musisz zezwolić aplikacji na zrobienie tego. W przeciwnym razie reguła nie może działać, gdy telefon jest bez nadzoru.</string>
+    <string name="errorWritingConfig">Błąd podczas zapisywania konfiguracji. Czy masz zapisywalną pamięć?</string>
+    <string name="phoneNrReplacementError">Nie mogłem wstawić ostatniego numeru telefonu do zmiennej. nie mam go.</string>
+    <string name="username">Nazwa</string>
+    <string name="password">Hasło</string>
+    <string name="useAuthentication">Użyj uwierzytelniania</string>
+    <string name="permissionsTitle">Wymagane uprawnienia</string>
+    <string name="permissionsExplanation">Wyjaśnienie wymaganych uprawnień</string>
+    <string name="ok">Ok</string>
+    <string name="disabledFeatures">Wyłączone funkcje</string>
+    <string name="theFollowingPermissionsHaveBeenDenied">Następujące uprawnienia zostały odrzucone:</string>
+    <string name="permissionsExplanationGeneric">Aplikacja działa obecnie w trybie ograniczonym i dezaktywowała niektóre funkcje. Aby w pełni funkcjonować, wymaga uprawnień. Jeśli chcesz korzystać ze wszystkich funkcji, musisz przyznać uprawnienia w następujących oknach dialogowych uprawnień. Jeśli tego nie zrobisz, niektóre zasady nie mogą zostać wykonane. Poniżej znajduje się wyjaśnienie żądanych uprawnień. Kliknij „kontynuuj”, gdy będziesz gotowy, aby kontynuować.</string>
+    <string name="permissionsExplanationSmall">Aby włączyć funkcję, której właśnie próbowałeś użyć, wymagane są dodatkowe uprawnienia. Kliknij przycisk Kontynuuj, aby o nie poprosić.</string>
+    <string name="continueText">kontynuuj</string>
+    <string name="rule">Reguła</string>
+    <string name="storeSettings">Odczytywanie i zapisywanie ustawień</string>
+    <string name="featuresDisabled">OSTRZEŻENIE: Funkcje są wyłączone, automatyzacja działa w trybie ograniczonym. Kliknij tutaj po więcej informacji.</string>
+    <string name="ruleLegend">Zielony = włączony, czerwony = wyłączony, żółty = za mało uprawnień</string>
+    <string name="systemSettingsNote1">Wymagana jest zgoda na zmianę niektórych ustawień systemu operacyjnego (nawet prostych rzeczy, takich jak włączenie Bluetooth lub Wi-Fi). Po kliknięciu „kontynuuj” pojawi się okno, w którym musisz włączyć tę opcję dla automatyzacji. Następnie naciśnij klawisz „wstecz”.</string>
+    <string name="systemSettingsNote2">Później w drugim oknie dialogowym pojawi się prośba o dalsze uprawnienia.</string>
+    <string name="appRequiresPermissiontoAccessExternalStorage">Automatyzacja wymaga dostępu do pamięci zewnętrznej w celu odczytania jej ustawień i reguł.</string>
+    <string name="mainScreenPermissionNote">Automatyzacja wymaga więcej uprawnień do pełnego działania. Kliknij ten tekst, aby dowiedzieć się więcej i poprosić o nie.</string>
+    <string name="invalidDevice">Nieprawidłowe urządzenie</string>
+    <string name="google_app_id" translatable="false">your app id</string>
+    <string name="logFileMaxSizeSummary">Maksymalny rozmiar pliku dziennika w megabajtach. Zostanie obrócony, jeśli będzie większy.</string>
+    <string name="logFileMaxSizeTitle">Maksymalny rozmiar pliku dziennika [Mb]</string>
+    <string name="android.permission.READ_CALL_LOG">Przeczytaj dziennik telefonu</string>
+    <string name="android.permission.READ_CALENDAR">Przeczytaj wpisy w kalendarzu</string>
+    <string name="android.permission.ACCESS_FINE_LOCATION">Przeczytaj dokładną lokalizację</string>
+    <string name="android.permission.ACCESS_COARSE_LOCATION">Przeczytaj zgrubną lokalizację</string>
+    <string name="readLocation">Przeczytaj lokalizację</string>
+    <string name="android.permission.INTERNET">Wysyłaj dane przez połączenie sieciowe</string>
+    <string name="android.permission.ACCESS_NETWORK_STATE">Odczytaj stan sieci urządzenia</string>
+    <string name="android.permission.ACCESS_WIFI_STATE">Przeczytaj stan Wi-Fi urządzenia</string>
+    <string name="android.permission.BLUETOOTH">Zmień ustawienia Bluetootha</string>
+    <string name="android.permission.BLUETOOTH_ADMIN">Zmień ustawienia Bluetootha</string>
+    <string name="android.permission.NFC">Użyj modułu NFC</string>
+    <string name="android.permission.VIBRATE">Niech telefon wibruje</string>
+    <string name="android.permission.WAKE_LOCK">Nie wyłączaj telefonu</string>
+    <string name="android.permission.MODIFY_AUDIO_SETTINGS">Zmień ustawienia dźwięku</string>
+    <string name="android.permission.RECORD_AUDIO">Nagraj dźwięk</string>
+    <string name="android.permission.PROCESS_OUTGOING_CALLS">Wykrywaj połączenia wychodzące</string>
+    <string name="android.permission.MODIFY_PHONE_STATE">Zmień ustawienia urządzenia</string>
+    <string name="android.permission.READ_PHONE_STATE">Wykryj stan telefonu</string>
+    <string name="android.permission.READ_EXTERNAL_STORAGE">Odczyt pamięci</string>
+    <string name="android.permission.WRITE_EXTERNAL_STORAGE">Pamięć zapisu</string>
+    <string name="android.permission.GET_TASKS">Wykrywaj uruchomione procesy</string>
+    <string name="android.permission.WRITE_SETTINGS">Zmień ustawienia urządzenia</string>
+    <string name="android.permission.RECEIVE_BOOT_COMPLETED">Wykryj ponowne uruchomienie urządzenia</string>
+    <string name="android.permission.WRITE_SECURE_SETTINGS">Zmień ustawienia urządzenia</string>
+    <string name="android.permission.BATTERY_STATS">Odczytaj stan baterii</string>
+    <string name="android.permission.CHANGE_BACKGROUND_DATA_SETTING">Zmień połączenie transmisji danych</string>
+    <string name="android.permission.SEND_SMS">Wyśli wiadomości tekstowe</string>
+    <string name="android.permission.READ_CONTACTS">Odczytaj dane kontaktowe</string>
+    <string name="android.permission.ACCESS_NOTIFICATION_POLICY">Zastąp zasady nie przeszkadzać</string>
+    <string name="theseAreThePermissionsRequired">To są wymagane uprawnienia:</string>
+    <string name="ruleXrequiresThis">Wymaga tego reguła \"%1$s\".</string>
+    <string name="profileXrequiresThis">Profil \"%1$s\" tego wymaga.</string>
+    <string name="helpTextActivityDetection">Ta funkcja może wykrywać, czy aktualnie jesteś w ruchu i czy poruszasz się pieszo lub jakim typem pojazdu (do pewnego stopnia). Ta funkcja nie jest w pełni wbudowana w Automation, ale jest dostarczana przez Usługi Google Play. Technicznie rzecz biorąc, nie daje wyniku tak/nie, ale zwraca procent, do którego poziomu jest pewna, że wykryła twój status. Możesz ustawić wartość procentową, od której Automation zaakceptuje wynik. Dwie uwagi: 1) W tym samym czasie może wystąpić więcej niż 1 stan. Na przykład możesz CHODZIĆ wewnątrz jadącego autobusu. 2) Ten czujnik jest stosunkowo prądożerny. Jeśli to możliwe, możesz rozważyć użycie alternatyw, np. wymagają podłączenia samochodowego zestawu głośnomówiącego, aby wykryć, że prowadzisz.</string>
+    <string name="sendTextMessage">Wyślij wiadomość tekstową</string>
+    <string name="textToSend">Tekst do wysłania</string>
+    <string name="textMessageAnnotations">Możesz bezpośrednio wprowadzić numer telefonu. Alternatywnie użyj opcji kontaktów, aby wybrać jeden. Ale pamiętaj: tutaj zostanie zapisany numer, a nie kontakt. Jeśli zmienisz numer telefonu wybranego kontaktu, musisz zaktualizować tę regułę. Sama tego nie robi.</string>
+    <string name="importNumberFromContacts">Importuj numer z kontaktów</string>
+    <string name="android9RecordAudioNotice">Jeśli używasz wyzwalacza poziomu hałasu: Niestety, począwszy od Androida 9 (Pie), Google postanowił uniemożliwić aplikacjom działającym w tle korzystanie z mikrofonu. Więc ten wyzwalacz nie ma już żadnego efektu i niczego nie uruchomi.</string>
+    <string name="android10WifiToggleNotice">Niestety Google zdecydowało się usunąć tę funkcję w Androidzie 10. Zwykłe aplikacje nie mogą już włączać ani wyłączać Wi-Fi. Tylko jeśli twoje urządzenie jest zrootowane, powinno to nadal działać. Jeśli nie, chyba nic już z tym nie zrobimy</string>
+    <string name="messageNotShownAgain">Ta wiadomość nie zostanie ponownie wyświetlona.</string>
+    <string name="chooseActivityHint">W tym wyskakującym okienku ostatecznego wyboru musisz wybrać określoną czynność. Uproszczone jest to jak okno żądanej aplikacji. Jeśli nie wiesz, który z nich to generalnie dobry pomysł, wybierz taki który ma w nazwie \"main\" lub \"launcher\".</string>
+    <string name="edit">Edit</string>
+    <string name="clickAndHoldForOptions">Kliknij i przytrzymaj element, aby wyświetlić opcje.</string>
+    <string name="ruleActivationComplete" translatable="false">Rule \"%1$s\" finished.</string>
+    <string name="positioningEngine">Silnik pozycjonowania</string>
+    <string name="googleSarcasm">Dzięki nieskończonej mądrości Google i nieustannemu dążeniu do ochrony prywatności wszystkich użytkowników, wszystkie reguły, które mogą służyć do wysyłania smsów lub odczytywania stanu telefonu, zostały pozbawione wszystkich wyzwalaczy i działań, które Google uważa za ryzykowne.</string>
+    <string name="startAutomationAsService">Uruchom automatyzację jako usługę</string>
+    <string name="setScreenBrightness">Ustaw jasność ekranu</string>
+    <string name="setScreenBrightnessEnterValue">Wprowadź żądaną jasność (od 0 do 100).</string>
+    <string name="autoBrightness">Włącz automatyczną jasność</string>
+    <string name="apply">akceptuj</string>
+    <string name="brightnessAuto">automatyczna jasność</string>
+    <string name="brightnessManual">manualna jasność</string>
+    <string name="autoBrightnessNotice">Jeśli użyjesz automatycznej jasności, wartość jasności, której użyjesz poniżej, prawdopodobnie nie będzie długo używana.</string>
+    <string name="screenLockSoundNotice">Dźwięków blokady ekranu nie można już automatycznie zmieniać na urządzeniach z systemem Android w wersji 6.0 lub nowszej. Cokolwiek tu ustawisz, nie zadziała w żadną stronę.</string>
+    <string name="startScreen">Ekran startowy</string>
+    <string name="startScreenSummary">Wybierz ekran, na którym aplikacje otwierają się przy starcie.</string>
+    <string name="executeRulesAndProfilesWithSingleClickTitle">Uruchom reguły/profile jednym kliknięciem.</string>
+    <string name="googleLocationChicanery">Ta aplikacja zbiera dane o lokalizacji, aby włączyć reguły oparte na lokalizacji i wykrywaniu prędkości, nawet gdy aplikacja jest zamknięta lub nie jest używana.</string>
+    <string name="googleLocationChicaneryOld">Ta aplikacja zbiera dane o lokalizacji, aby określić, czy aktualnie znajdujesz się w jednej z utworzonych przez siebie lokalizacji. Ponadto służy do określenia aktualnej prędkości, jeśli używasz tego wyzwalacza w regułach. Dzieje się tak nawet wtedy, gdy aplikacja jest zamknięta lub nie jest używana (ale tylko wtedy, gdy usługa jest aktywna).</string>
+    <string name="android.permission.ACCESS_BACKGROUND_LOCATION">Odczytaj lokalizację w tle.</string>
+    <string name="deviceDoesNotHaveBluetooth">Wygląda na to, że to urządzenie nie ma Bluetootha. Nadal możesz kontynuować konfigurowanie tego, ale najprawdopodobniej nie będzie to działało.</string>
+    <string name="manageLocations">Twórz lub edytuj lokalizacje</string>
+    <string name="error">Błąd</string>
+    <string name="featureNotInFdroidVersion">Ta funkcja jest oparta na niewolnym oprogramowaniu. Dlatego nie jest dostępna w wersji F-Droid.</string>
+    <string name="settingsReferringToRestrictedFeaturesInFdroid">Twoje ustawienia i/lub reguły odnoszą się obecnie do niewolnych funkcji, których nie można zapewnić w wersji F-Droid. Obejmuje to wykrywanie bieżącej aktywności fizycznej.</string>
+    <string name="settingsReferringToRestrictedFeaturesInGoogle">Twoje ustawienia i/lub reguły odnoszą się obecnie do funkcji, których nie można zapewnić w wersji Google Play. Między innymi obejmuje wszystko, co dotyczy połączeń telefonicznych i wiadomości tekstowych.</string>
+    <string name="publishedOn">opublikowane w dniu</string>
+    <string name="displayNewsOnMainScreen">Wyświetlanie wiadomości o aplikacji na ekranie głównym</string>
+    <string name="displayNewsOnMainScreenDescription">Ogłoszenia tylko o tej aplikacji, prawdopodobnie mówimy o 1-2 rocznie, nie więcej.</string>
+    <string name="filesHaveBeenMovedTo">Automation używa teraz innej ścieżki do przechowywania plików. Wszystkie Twoje pliki Automation zostały przeniesione tutaj: \"%s\". Pozwolenie na przechowywanie zewnętrzne nie jest już wymagane; możesz to odwołać. Zostanie usunięte w przyszłej wersji.</string>
+    <string name="locationDisabled">Lokalizacja wyłączona</string>
+    <string name="locationEngineDisabledShort">Nie można już określić lokalizacji w tle. Kliknij tutaj, aby dowiedzieć się dlaczego.</string>
+    <string name="locationEngineDisabledLong">Niestety nie można już określić Twojej lokalizacji. Mamy dług wdzięczności wobec Google za jego nieskończoną mądrość i uprzejmość.\\n\\nPozwól, że wyjaśnię to dokładniej. Począwszy od Androida 10 wprowadzono nowe uprawnienie, które jest potrzebne do określenia Twojej lokalizacji w tle (co oczywiście jest wymagane w przypadku takiej aplikacji). Chociaż ogólnie uważam, że to dobry pomysł, to szykanowanie, jakie wiąże się z tym dla programistów, nie jest.\\n\\nTworząc aplikację, możesz spróbować zakwalifikować się do tego pozwolenia, przestrzegając katalogu wymagań. Niestety nowe wersje mojej aplikacji były odrzucane przez okres trzech miesięcy. Spełniłem wszystkie te wymagania, gówniane wsparcie programistyczne Google twierdziło, że nie. Po przedstawieniu im dowodu, że jednak to zrobiłem - otrzymałem odpowiedź w stylu \"Nie mogę ci już pomóc\". W końcu się poddałem. \\n\\nW rezultacie wersja Google Play NIE może już używać Twojej lokalizacji jako wyzwalacza. Moją jedyną alternatywną opcją byłoby całkowite usunięcie tej aplikacji ze sklepu.\\n\\nBardzo mi przykro z tego powodu, ale starałem się jak mogłem kłócąc się z \"wsparciem\", które wielokrotnie kończyło się niepowodzeniem aby zdać test Turinga.\\n\\nDobra wiadomość: nadal możesz mieć to wszystko!\\n\\nAutomation jest teraz open source i można go znaleźć w F-Droid. To jest sklep z aplikacjami, który naprawdę dba o twoją prywatność - zamiast po prostu tak się zachowywać. Po prostu wykonaj kopię zapasową pliku konfiguracyjnego, odinstaluj tę aplikację, zainstaluj ją ponownie z F-Droid, przywróć plik konfiguracyjny - gotowe.\\n\\nKliknij tutaj, aby dowiedzieć się więcej:</string>
+    <string name="filesStoredAt">Pliki konfiguracji i dziennika są przechowywane w folderze %1$s. Kliknij ten tekst, aby otworzyć eksplorator plików. Niestety będzie to działać tylko na zrootowanym urządzeniu. DLA WSZYSTKICH INNYCH URZĄDZEŃ: Po prostu użyj przycisku eksportu, aby wykonać kopię zapasową.</string>
+    <string name="notification">Powiadomienie</string>
+    <string name="title">Tytuł</string>
+    <string name="text">Tekst</string>
+    <string name="directionStringEquals">równa się</string>
+    <string name="directionStringContains">zawiera</string>
+    <string name="directionStringStartsWith">zacznij z</string>
+    <string name="directionStringEndsWith">skończ z</string>
+    <string name="directionStringNotEquals">nie równa się</string>
+    <string name="anyApp">dowolna app</string>
+    <string name="notificationTriggerExplanation">Ten wyzwalacz będzie reagował na powiadomienia o otwieraniu innych aplikacji w obszarze powiadomień (lub ich zamykaniu). Możesz określić inną aplikację, z której ma pochodzić powiadomienie. Jeśli tego nie zrobisz, powiadomienia z dowolnej innej aplikacji będą się liczyć. Możesz także określić ciągi, które muszą lub nie mogą znajdować się w ich tytule lub treści powiadomienia. Porównanie odbywa się bez uwzględniania wielkości liter.</string>
+    <string name="postsNotification">%1$s powiadomień o postach</string>
+    <string name="removedNotification">powiadomienie od %1$s zostało usunięte</string>
+    <string name="notificationAppears">Pojawi się powiadomienie</string>
+    <string name="notificationDisappears">Powiadomienie znika</string>
+    <string name="direction">Kierunek</string>
+    <string name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">Czytaj powiadomienia systemowe</string>
+    <string name="playSound">Odtwórz dźwięk</string>
+    <string name="alwaysPlay">zawsze odtwórz</string>
+    <string name="alwaysPlayExplanation">Jeśli to ustawienie jest aktywne, dźwięk będzie zawsze odtwarzany. Jeśli jest dezaktywowany, będzie odtwarzany tylko wtedy, gdy telefon nie jest wyciszony ani wibruje. Jednak jeśli jest aktywny, nie będzie miał wpływu na głośność. Więc jeśli twój telefon jest w trybie dzwonka, na przykład nie zwiększy głośności multimediów. Więc jeśli głośność multimediów jest wyciszona, też nic nie usłyszysz.</string>
+    <string name="selectSoundFile">Wybierz plik dźwiękowy</string>
+    <string name="fileDoesNotExist">Plik nie istnieje.</string>
+    <string name="noFileManageInstalled">Brak zainstalowanego menedżera plików.</string>
+    <string name="shareConfigAndLogFilesWithDev">Dołącz pliki konfiguracyjne i dzienniki.</string>
+    <string name="shareConfigAndLogExplanation">Spowoduje to rozpoczęcie nowej wiadomości e-mail z plikami konfiguracji i dziennikem załączonymi jako plik zip. Nie zostanie wysłany automatycznie, nadal musisz nacisnąć \"wyślij\". Możesz też zmienić odbiorcę na np. siebie.</string>
+    <string name="startAppChoiceNote">Tutaj masz 2 ogólne opcje:\n\n1. Program można uruchomić, wybierając czynność. Wyobraź sobie, że jest to preselekcja określonego ekranu/okna aplikacji. Pamiętaj, że to nie zawsze może działać. Dzieje się tak, ponieważ okna aplikacji mogą wchodzić ze sobą w interakcje, np. przekazać parametry. Gdy bez ogródek uruchamia się określony ekran, ta interakcja nie nastąpiła, a okno może się natychmiast zamknąć (dlatego tak naprawdę nigdy nie jest pokazane). Mimo to spróbuj! Ścieżkę aktywności można wprowadzić ręcznie, ale zaleca się użycie przycisku „Wybierz”. Jeśli zdecydujesz się wprowadzić go ręcznie, w górnym polu wpisz nazwę pakietu aplikacji, a w dolnym pełną ścieżkę działania.\n\n2. Wybór za pomocą akcji w przeciwieństwie do wybierania określonego okna, możesz także uruchomić program za pomocą akcji. To tak, jakby wykrzyczeć „Chciałbym xyz” i jeśli jest zainstalowana aplikacja, która może ci w tym pomóc, zostanie uruchomiona. Dobrym przykładem może być uruchomienie przeglądarki - możesz nawet mieć kilka zainstalowanych (zwykle jedena jest domyślna). Musisz wprowadzić to ręcznie, nazwa_pakietu jest tutaj opcjonalna. Pamiętaj, że żadne zmienne nie zostaną rozwiązane. Jeśli chcesz uruchomić kamerę, na przykład za pomocą \"MediaStore.ACTION_IMAGE_CAPTURE\" nie będzie działać. Musisz zajrzeć do dokumentacji Androida i zamiast tego użyć rzeczywistej wartości tej zmiennej, która w tym przykładzie byłaby \"android.media.action.IMAGE_CAPTURE\".</string>
+    <string name="errorRunningRule">Podczas uruchamiania reguły wystąpił błąd.</string>
+    <string name="cantFindSoundFile">Nie można znaleźć pliku dźwiękowego %1$s i dlatego nie można go odtworzyć.</string>
+    <string name="addParameters">Dodaj parametry</string>
+    <string name="com.wireguard.android.permission.CONTROL_TUNNELS">Tunele kontrolne aplikacji Wireguard</string>
+    <string name="startAppSelectionType">Metoda\nwyboru aplikacji</string>
+    <string name="startAppByActivity">według aktywności</string>
+    <string name="startAppByAction">według działania</string>
+    <string name="enterValidAction">Wprowadź prawidłowe działanie</string>
+    <string name="enterPackageName">Wprowadź prawidłową nazwę pakietu.</string>
+    <string name="state">Państwo</string>
+    <string name="phoneNumberExplanation">Możesz wprowadzić konkretny zdalny numer telefonu, ale nie musisz. Jeśli chcesz określić jeden, możesz wybrać go z książki adresowej lub wprowadzić go ręcznie. Dodatkowo możesz używać wyrażeń regularnych. Aby przetestować wyrażenie regularne, podoba mi się ta strona:</string>
+    <string name="importConfiguration">Import konfiguracji</string>
+    <string name="exportConfiguration">Eksport konfiguracji</string>
+    <string name="moreSettings">Więcej ustawień</string>
+    <string name="configurationExportedSuccessfully">Pomyślnie wyeksportowano konfigurację.</string>
+    <string name="ConfigurationExportError">Wystąpił błąd podczas eksportowania konfiguracji.</string>
+    <string name="rulesImportedSuccessfully">Reguły i lokalizacje zostały pomyślnie zaimportowane.</string>
+    <string name="rulesImportError">Podczas importowania reguł i lokalizacji wystąpił błąd.</string>
+    <string name="configurationImportedSuccessfully">Pomyślnie zaimportowano konfigurację.</string>
+    <string name="prefsImportError">Podczas importowania preferencji wystąpił błąd.</string>
+    <string name="noApplicableFilesFoundInDirectory">W tym katalogu nie znaleziono odpowiednich plików.</string>
+    <string name="noFilesImported">Nie można zaimportować żadnego pliku.</string>
+    <string name="notAllFilesImported">Nie wszystkie odpowiednie pliki mogły zostać zaimportowane.</string>
+    <string name="importExportExplanation">Klikając przycisk importuj lub eksportuj, wybierasz katalog, z którego pliki są importowane lub eksportowane. Podczas eksportowania istniejące pliki mogą zostać nadpisane.</string>
+    <string name="intentDataComment">Jeśli twój parametr jest typu Uri ORAZ podasz \"IntentData\" jako nazwę (małe/duże litery nie są ważne), parametr nie zostanie dodany jako normalny parametr z putExtra(), ale zamiast tego zostanie dodany do intencji z setData().</string>
+    <string name="stringNotAllowed">Ciąg %1$s jest niedozwolony.</string>
+    <string name="startAppStartType">Wybierz typ startu</string>
+    <string name="startAppByStartActivity">przez startActivity()</string>
+    <string name="startAppBySendBroadcast">przez sendBroadcast()</string>
+    <string name="openExamplesPage">Otwórz stronę internetową z przykładami</string>
+    <string name="packageName">Nazwa paketu</string>
+    <string name="activityOrActionName">Nazwa czynności/akcji</string>
+    <string name="warning">Ostrzeżenie</string>
+    <string name="ringing">dzwonienie</string>
+    <string name="from">z</string>
+    <string name="to">do</string>
+    <string name="matching">dopasowanie</string>
+    <string name="urlRegex" translatable="false">https://regex101.com/</string>
+    <string name="loadWifiList">Załaduj listę Wi-Fi</string>
+    <string name="needLocationPermForWifiList">Lista sieci Wi-Fi, z którymi łączyło się Twoje urządzenie, może zostać wykorzystana do określenia miejsc, w których byłeś. Dlatego do załadowania listy Wi-Fi wymagane jest zezwolenie na lokalizację. Jeśli chcesz mieć możliwość wybrania jedną z listy, musisz udzielić tego pozwolenia. Jeśli tego nie chcesz, nadal możesz ręcznie wprowadzić nazwę Wi-Fi.</string>
+    <string name="noKnownWifis">Na Twoim urządzeniu nie ma żadnych znanych sieci Wi-Fi.</string>
+    <string name="urlToTriggerExplanation">Ta funkcja NIE otwiera przeglądarki, ale uruchamia adres URL w tle. Możesz to wykorzystać np. do wysyłania poleceń do automatyki domowej.</string>
+    <string name="automaticUpdateCheck">Sprawdzanie aktualizacji</string>
+    <string name="automaticUpdateCheckSummary">Dotyczy tylko wersji APK.</string>
+    <string name="updateAvailable">Dostępna jest nowa aktualizacja. Czy chcesz otworzyć przeglądarkę, aby ją pobrać?</string>
+    <string name="locationFound">Znaleziono lokalizację. Sugerowany minimalny promień lokalizacji to %1$d m.</string>
+    <string name="locationFoundInaccurate">Można było znaleźć tylko lokalizację z ograniczoną dokładnością. Może nie działać niezawodnie. Sugerowany minimalny promień lokalizacji to %1$d."</string>
+    <string name="clone">Klonuj</string>
+    <string name="noLocationCouldBeFound">Nie znaleziono pozycji po przekroczeniu limitu czasu wynoszącego %1$s sekund.</string>
+    <string name="pleaseGiveBgLocation">Na następnym ekranie przejdź do uprawnień, a następnie lokalizacji. Tam wybierz \"Zezwalaj cały czas\", aby Automation mógł określić Twoją lokalizację w tle.</string>
+    <string name="vibrate">Wibracje</string>
+    <string name="test">Wyróbuj</string>
+    <string name="VibrateExplanation">Wprowadź czas trwania wibracji, po którym następuje przecinek, a następnie czas trwania pauzy. Możesz połączyć tyle wibracji, ile chcesz. Oddziel je ponownie przecinkami. Np. wzór 100,500,500,1000,100 wibruje 100, czeka 500, wibruje 500, czeka 1000, wibruje 100 ms. Jeśli uważasz, że wibracje są przerywane, spróbuj wydłużyć pauzę przed nimi.</string>
+    <string name="pleaseEnterValidVibrationPattern">Wprowadź prawidłowy wzorzec wibracji.</string>
+    <string name="newsOptIn">Czy chcesz otrzymywać (tylko ważne) wiadomości o tej aplikacji na głównym ekranie? Są one pobierane ze strony dewelopera. Nie będzie żadnych natrętnych powiadomień, tylko tekst na ekranie głównym po otwarciu aplikacji.</string>
+    <string name="top">Góra</string>
+    <string name="bottom">Dół</string>
+    <string name="tabsPlacement">Położenie paska kart</string>
+    <string name="tabsPlacementSummary">Wybierz miejsce umieszczenia paska kart.</string>
+    <string name="wifiApi30">Ponieważ Google schrzanił kolejną część Androida, począwszy od API 30, można wyświetlać tylko aktualnie widoczne Wi-Fi, a nie wszystkie, z którymi łączyło się już Twoje urządzenie.</string>
+    <string name="silentTriggersDnd">UWAGA: Tryb cichy często uruchamia tryb Nie przeszkadzać na nowszych urządzeniach. Jeśli tak się stanie na twoim urządzeniu, zalecam zamiast tego użycie trybu normalnego i obniżenie wszystkich głośności do zera.</string>
+    <string name="tones">Tony</string>
+    <string name="miscellaneous">Różnorodności</string>
+    <string name="dnd">Nie przeszkadzać</string>
+    <string name="dndOff">DND off</string>
+    <string name="dndPriority">Przepuszczaj powiadomienia priorytetowe</string>
+    <string name="dndAlarms">Przepuść alarmy</string>
+    <string name="dndNothing">Nic nie przepuszczaj</string>
+    <string name="dndRemarks">Precyzyjne dostrajanie (takie jak zezwalanie na połączenia telefoniczne, wybieranie określonych numerów itp.) można wykonać tylko z poziomu ustawień systemu.</string>
+    <string name="automationNotificationsIgnored">Jeśli nie wybierzesz konkretnej aplikacji, ale wybierzesz \"Dowolna aplikacja\", powiadomienia z Automation będą ignorowane, aby uniknąć zapętleń.</string>
+    <string name="repeatEveryXseconds">Powtarzaj co x sekund</string>
+    <string name="repeatEveryXsecondsWithVariable">powtarzaj co %1$s sekund</string>
+    <string name="enterRepetitionTime">Musisz wprowadzić dodatnią wartość inną niż dziesiętna dla czasu powtarzania.</string>
+    <string name="elementSkipped">Nie można odczytać elementu pliku konfiguracyjnego. Plik mógł zostać utworzony przez nowszą wersję programu.</string>
+    <string name="donate">Wspomóż</string>
+    <string name="btTetheringNotice">Potwierdzono, że ta funkcja działa do wersji Android 8.0. Od jakiejś wyższej wersji wzwyż przestaje działać, ale z powodu braku fizycznych urządzeń nie jestem w stanie stwierdzić, które to. Na Androidzie 11 zdecydowanie już nie działa. Jeśli masz wersję pośrednią, daj mi znać, czy działa, czy nie.</string>
+    <string name="notice">Wzmianka</string>
+    <string name="deviceOrientation">Orientacja urządzenia</string>
+    <string name="tolerance">Tolerancja (0-180)</string>
+    <string name="orientationAzimuth">Azymut:</string>
+    <string name="orientationPitch">Poziom:</string>
+    <string name="orientationRoll">Rolka:</string>
+    <string name="enterValidNumbersIntoAllFields">Wprowadź prawidłowe liczby we wszystkich polach.</string>
+    <string name="deviceOrientationExplanation">Gdy przeniesiesz urządzenie, poniższe numery zostaną zaktualizowane. To, co możesz tam zobaczyć, to aktualna orientacja twojego urządzenia mierzona w stopniach. Jeśli jest w żądanej orientacji, kliknij przycisk Zastosuj, aby skopiować bieżące wartości do żądanych pól. Ponieważ ponowne osiągnięcie tej dokładnej orientacji jest bardzo mało prawdopodobne, należy również wprowadzić tolerancję. Jest to liczba stopni, o jaką orientacja może odchylić się w dowolnym kierunku. 15° da całkowity kąt 30°, 15° w każdym kierunku. Jeśli zależy Ci tylko na jednej konkretnej osi, określ tolerancję 180° dla dwóch pozostałych.</string>
+    <string name="wouldCurrentlyApply">Czy obecnie miałby zastosowanie?</string>
+    <string name="deviceIsInCertainOrientation">urządzenie znajduje się w określonej orientacji</string>
+    <string name="toleranceOf180OnlyAllowedIn2Fields">Tolerancja 180 jest dozwolona tylko dla 2 pól tolerancji, a nie dla wszystkich 3. W przeciwnym razie wyzwalacz ZAWSZE miałby zastosowanie.</string>
+    <string name="unknown">nieznany</string>
+    <string name="orientation">Orientacja</string>
+    <string name="triggerWrong">Coś jest nie tak z tym wyzwalaczem. Nie można go poprawnie załadować.</string>
+    <string name="turnScreenOnOrOff">Włącz lub wyłącz ekran</string>
+    <string name="turnScreenOn">włącz ekran</string>
+    <string name="turnScreenOff">wyłącz ekran</string>
+    <string name="mustApply">Należy zastosować</string>
+    <string name="deviceOrientationTimeAcceptIntervalTitle">Częstotliwość sygnału</string>
+    <string name="deviceOrientationTimeAcceptIntervalSummary">Akceptuj nowe sygnały ruchu co x milisekund</string>
+    <string name="deviceOrientationSettings">Ustawienia orientacji urządzenia</string>
+    <string name="android.permission.BIND_DEVICE_ADMIN">Administrator urządzenia</string>
+    <string name="deviceAdminNote">Co najmniej 1 utworzona przez Ciebie reguła wymaga uprawnień administratora urządzenia.</string>
+    <string name="explanationDeviceOrientationDirection">Jeśli pole wyboru jest zaznaczone, oznacza to, że urządzenie musi znajdować się w określonej orientacji. Jeśli nie jest zaznaczone, odpowiednia będzie każda orientacja, która NIE spełnia Twoich kryteriów.</string>
+    <string name="permissionsRequiredNotAvailable">Twoje reguły wymagały uprawnień, których nie można uzyskać w tej zainstalowanej odmianie Automation.</string>
+    <string name="smsDialogNotice">Jeśli wcześniej nie korzystałeś z akcji wyślij sms w tym programie, Android może wyświetlić dodatkowe okno dialogowe z prośbą o zezwolenie na wysyłanie wiadomości. Musisz zaznaczyć pole wyboru \"zawsze zezwalaj\" i potwierdzić, czy chcesz, aby ta akcja działała w tle. Zaleca się jednorazowe uruchomienie tej reguły ręcznie, aby wyświetlić okno dialogowe potwierdzenia.</string>
+    <string name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS">Wyklucz z optymalizacji baterii</string>
+    <string name="recommendedForBetterReliability">Zalecane dla lepszej niezawodności</string>
+    <string name="needsToBeActive">Musi być aktywny</string>
+    <string name="checkSettings">Sprawdź ustwienia</string>
+    <string name="profileActive">profil %1$s jest aktywny</string>
+    <string name="profileNotActive">profil %1$s nie jest aktywny</string>
+    <string name="profileTriggerCheckSettings">Jeśli to pole wyboru nie jest wyłączone, zostanie zaznaczone tylko wtedy, gdy wybrany profil był aktywowany jako ostatni. Nie ma znaczenia, czy jakiekolwiek ustawienia związane z dźwiękiem zostały zmienione z zewnątrz. Jeśli jednak pole wyboru jest zaznaczone, bieżące ustawienia audio naprawdę muszą być takie, jak określono w profilu. UWAGA: Sprawdzanie pliku dzwonka nie jest jeszcze obsługiwane.</string>
+    <string name="ruleXIsUsingProfileY">Nie można usunąć tego profilu. Reguła %1$s odwołuje się do profilu %2$s.</string>
+    <string name="profileCouldNotBeDeleted">Nie można usunąć profilu.</string>
+    <string name="noRepetition">bez powtórzeń</string>
+    <string name="usingAuthentication">za pomocą uwierzytelniania</string>
+    <string name="toNumber">na numer</string>
+    <string name="message">wiadomość</string>
+    <string name="onDays">w dni</string>
+    <string name="notSet">nie ustawiony</string>
+    <string name="takeLauncherActivity">Znajdź automatyczne</string>
+    <string name="pickActivityManually">Wybierz manualnie</string>
+    <string name="launcherOrManualExplanation">Tryb łatwy: automatyzacja może próbować automatycznie zidentyfikować aktywność programu uruchamiającego żądany program. Alternatywnie możesz także ręcznie wybrać jedną z czynności aplikacji. Co byś chciał?</string>
+    <string name="launcherNotFound">Nie można zidentyfikować działania programu uruchamiającego tej aplikacji. Będziesz musiał wybrać jeden ręcznie.</string>
+    <string name="createNotification">Utwórz powiadomienie</string>
+    <string name="enterTitle">Wpisz tytuł.</string>
+    <string name="enterText">Wpisz tekst.</string>
+    <string name="info">Info</string>
+    <string name="profileWasNotFound">Wygląda na to, że profil użyty w tej regule już nie istnieje. Wybrano pierwszy w kolejności alfabetycznej.</string>
+    <string name="notificationCloseActionExplanation">Jeśli nie określisz żadnych kryteriów, ta czynność spowoduje zamknięcie WSZYSTKICH powiadomień. Dlatego zaleca się przynajmniej określenie kryteriów dla co najmniej 1 aplikacji, tytułu lub tekstu.</string>
+    <string name="closeNotifications">Zamknij powiadomienie(a)</string>
+    <string name="comparisonCaseInsensitive">Porównania nie uwzględniają wielkości liter</string>
+    <string name="profileWarning">Ustawienia, które możesz tutaj dostosować, mogą sprawić, że nie będziesz już zauważać pewnych rzeczy w swoim telefonie. Mogą nawet wyciszyć budzik. Więc cokolwiek robisz - zdecydowanie zalecamy przetestowanie tego - także po aktualizacjach Androida.</string>
+    <string name="ifString">jeśli</string>
+    <string name="emailContactNotice">E-mail to moja preferowana metoda kontaktu w celu zgłaszania błędów, zadawania pytań lub składania propozycji. Przejdź do centrum sterowania, aby dowiedzieć się więcej.\nNa wiele pytań nie można odpowiedzieć od razu, ale wymagają one pewnych działań technicznych. Prosimy więc o odrobinę cierpliwości.</string>
+    <string name="controlCenter">Centrum kontroli</string>
+    <string name="sendEmailToDev">Wyślij wiadomość e-mail do programisty</string>
+    <string name="screenIs">ekran to %1$s</string>
+    <string name="on">włączony</string>
+    <string name="off">wyłączony</string>
+    <string name="unlocked">odblokowany</string>
+    <string name="selectDesiredState">Wybierz żądany stan</string>
+    <string name="screenState">Stan ekranu</string>
+    <string name="featureCeasedToWorkLastWorkingAndroidVersion">Dzięki nieskończonej mądrości Google\'a ostatnią wersją Androida, na której działa ta funkcja, jest %1$s. Możesz to skonfigurować, ale prawdopodobnie nie przyniesie to żadnego efektu.</string>
+    <string name="actionMediaControl">Steruj odtwarzaniem multimediów</string>
+    <string name="selectCommand">Wybierz komendę</string>
+    <string name="playPause">przełączanie odtwarzania/pauzy</string>
+    <string name="play">odtwarzaj</string>
+    <string name="pause">pauza</string>
+    <string name="previous">poprzedni</string>
+    <string name="next">następny</string>
+    <string name="android.permission.MEDIA_CONTENT_CONTROL">Steruj odtwarzaniem multimediów</string>
+    <string name="stop">stop</string>
+    <string name="pleaseSelectActionValue">Wybierz działanie!</string>
+    <string name="actionMediaControlNotice">Pamiętaj, że ta czynność może nie działać w przypadku WSZYSTKICH graczy. A nawet jeśli tak, nie każdy przycisk może działać.</string>
+    <string name="musicPlaying">Odtwarzanie muzyki</string>
+    <string name="selectParameters">Wybierz parametry</string>
+    <string name="musicIsPlaying">muzyka jest odtwarzana</string>
+    <string name="musicIsNotPlaying">muzyka nie jest odtwarzana</string>
+    <string name="musicPlayingDetection">Wykrywanie odtwarzania muzyki</string>
+    <string name="musicCheckFrequencyTitle">Sprawdź częstotliwość [ms]</string>
+    <string name="musicCheckFrequencySummary">Milisekundy między kontrolami</string>
+    <string name="locationNotWorkingOn12">Wygląda na to, że obecnie pobieranie lokalizacji nie działa na urządzeniach z Androidem 12. Jeśli to nie działa, przepraszam. Spróbuję to naprawić, gdy tylko poznam przyczynę. Więc jeśli pączek nie przestaje się obracać, wiesz dlaczego.</string>
+    <string name="lastProfile">Ostatni profil:</string>
+    <string name="queryAllPackages">Pobierz listę zainstalowanych aplikacji</string>
+    <string name="timeFrameDaysHint">Jeśli używasz przedziału czasowego, który rozciąga się na północ, musisz wybrać również następny dzień, jeśli chcesz, aby wyzwalacz obowiązywał po północy.</string>
+    <string name="featureNotInGooglePlayVersion">Ta funkcja nie jest już dostępna w wersji Google Play.\n\nCo jakiś czas Google dręczy programistów. Jeśli chcesz nadal korzystać z niektórych funkcji, musisz złożyć dokumenty. Niestety istnieje 99% szans, że dokumenty zostaną odrzucone. To prawie jak w komiksie/filmie Asterix.\n\nSpędziłem tygodnie kłócąc się z nimi o podobne sprawy w przeszłości, ale ciągle dostawałem odmowy – albo przez boty, albo przez ludzi, którzy są mniej więcej tak samo inteligentni jako boty. Mogę zdecydować, czy aplikacja ma zostać całkowicie usunięta ze Sklepu Play, czy usunąć tę funkcję.\nJeśli potrzebujesz tych funkcji, rozważ użycie wersji APK z mojej witryny lub wersji F-Droid.</string>
+    <string name="startActivityInsertManually">To ograniczenie dotyczy tylko wyboru aplikacji, a nie samego uruchomienia. Więc nadal możesz ręcznie wprowadzić nazwę aplikacji, jeśli ją znasz.</string>
+    <string name="deviceStarts">Uruchomienie urządzenias</string>
+    <string name="serviceStarts">Uruchomienie usługi</string>
+    <string name="deviceIsStarting">urządzenie się uruchamia</string>
+    <string name="serviceIsStarting">usługa się uruchamia</string>
+    <string name="broadcastReceived">odebrana transmisja</string>
+    <string name="broadcastNotReceived">transmisja nie została odebrana</string>
+    <string name="explanationBroadcastTrigger">Większość zdarzeń w telefonie zostanie \"opublikowana\" poprzez rozgłaszanie ich w całym systemie operacyjnym.\nNa przykład włączenie/wyłączenie trybu samolotowego uruchomi taką transmisję. Te transmisje nie są automatycznie widoczne/słyszalne, ale jeśli aplikacja (np. Automation) jest zainteresowana, może się z nimi połączyć. Kiedy wystąpią, zostanie o tym powiadomiony i może zareagować.\n\nMożesz tutaj zdefiniować zdarzenie rozgłoszeniowe, na które aplikacja będzie czekać. Możesz wprowadzić je ręcznie, skopiować &amp; wklej je skądś lub wybierz jedną z listy sugestii. Ponieważ ten wyzwalacz ma być i pozostanie bardzo elastyczny, nie mogę podać wyjaśnień dotyczących elementów.\n\nLista sugestii nie jest kompletna. Odwiedź poniższy adres URL, aby zapoznać się z dokumentacją Androida.\nPonadto każda aplikacja może wysyłać niestandardowe zdarzenia, które oczywiście nie pojawią się w dokumentacji Androida.\n\nWiele transmisji wymaga określonych uprawnień do działania. Staram się prosić o uprawnienia tam, gdzie wiem, że będą wymagane. Jeśli uważasz, że wymagana jest zgoda dla wprowadzonej czynności, daj mi znać.\n\nNie otrzymano oznacza, że nie było takiej transmisji od momentu uruchomienia usługi. Reagowanie na określone parametry jest w fazie rozwoju.</string>
+    <string name="broadcastListUrl" translatable="false">https://developer.android.com/reference/android/content/Intent.html</string>
+    <string name="broadcastReceivedTitle">Odebrano transmisję</string>
+    <string name="logsExplanation">Aby uniknąć niepotrzebnego zużywania pamięci, logi nie są domyślnie zapisywane. Więc jeśli masz problem, najpierw aktywuj ustawienia logowania i ustaw poziom logowania na 5. Następnie odtwórz problem. Dopiero wtedy można dołączyć logi.</string>
+    <string name="broadcastsShowSuggestions">Pokaż sugestie</string>
+    <string name="selectBroadcast">Wybierz transmisję</string>
+    <string name="lockedWithoutSecurity">zablokowany (tylko przesunięcie palcem, bez kodu PIN)</string>
+    <string name="lockedWithSecurity">zablokowany (z PINem itp.)</string>
+    <string name="lockedCommentScreenMustBeOff">Każdy stan zablokowania zostanie wykryty tylko wtedy, gdy ekran jest wyłączony.</string>
+    <string name="emailPretext">Jeśli masz problem, sugestie lub pytanie, napisz coś w mailu. Nie wysyłaj mi tylko plików z domyślną treścią wiadomości. Zignoruję je, chyba że prowadzimy już rozmowę.</string>
+    <string name="sendBroadcast">Wyślij transmisję</string>
+    <string name="enterBroadcast">Wprowadź akcję rozgłaszania.</string>
+    <string name="broadcastExplanation">Ta czynność umożliwia wysłanie rozgłoszenia przez system przesyłania wiadomości Android OS. Nie jest to widoczne dla użytkownika, ale aplikacje, które nasłuchują tej konkretnej transmisji, mogą odpowiedzieć na jej wysłanie.</string>
+    <string name="directionStringDoesNotContain">nie zawiera</string>
+    <string name="runExecutable">Uruchom skrypt lub plik wykonywalny</string>
+    <string name="path">Ścieżka</string>
+    <string name="parameters">Parametry</string>
+    <string name="chooseExecutable">Wybierz plik wykonywalny</string>
+    <string name="runAsRoot">Uruchom jako root</string>
+    <string name="selectValidExecutable">Wybierz prawidłowy plik wykonywalny.</string>
+    <string name="fileNotExecutable">Plik nie jest wykonywalny.</string>
+    <string name="wifiExplanation1">Aplikacje kierowane na system Android Q lub nowszy nie mogą już włączać ani wyłączać Wi-Fi. Obwiniaj Google za to ograniczenie, nie mnie. Możesz ominąć to ograniczenie, rootując urządzenie i zaznaczając pole wyboru poniżej. Alternatywnie pobierz tę aplikację z F-Droid lub mojej strony internetowej, ponieważ nie jestem zmuszony celować w najnowszy poziom API w tych wersjach.</string>
+    <string name="wifiExplanation2">Gdy tryb samolotowy jest włączony, Wi-Fi można przełączać z aplikacji tylko wtedy, gdy używasz do tego uprawnień roota.</string>
+    <string name="usingRoot">używając roota</string>
+    <string name="runExecutableExplanation">Możesz tutaj wybrać skrypt lub plik wykonywalny, który zostanie wykonany jako akcja.\n\nAle są pewne warunki wstępne, z którymi musisz sobie poradzić samodzielnie. Google bardzo utrudnił uruchamianie czegokolwiek poza zwykłymi aplikacjami na Androida.\n\n1. Skrypt musi być oznaczony jako wykonywalny. W zwykłym systemie Android (bez roota) jest to właściwie najtrudniejsza część.\n\n2. Oznacza to również, że Automation musi być w stanie wykonać plik, a nie tylko właściciel lub grupa.\n\n3. Jeśli jest to skrypt, w nagłówku skryptu należy określić poprawną powłokę.\n\nJeśli nie możesz spełnić powyższych wymagań, możesz alternatywnie spróbować określić powłokę jako plik wykonywalny (jak /system/bin/sh ) i twój skrypt jako parametr. To zadziałało dla co najmniej jednego użytkownika.</string>
+    <string name="tetheringActive">tethering jest aktywny</string>
+    <string name="tetheringNotActive">tethering nie jest aktywnye</string>
+    <string name="tetheringState">Stan tetheringu</string>
+    <string name="regularExpressionsIfEquals">Jeśli wybrano opcję \"równa się\", można wprowadzić wyrażenie regularne.</string>
+    <string name="enter_a_number">Wpisz numer.</string>
+    <string name="duration">Czas trwania [ms]</string>
+    <string name="keepDeviceAwake">Utrzymuj urządzenie w stanie uśpienia</string>
+    <string name="wakeLockTimeout">Określ limit czasu</string>
+    <string name="wakeLockExplanation">Aktywuj spowoduje, że ekran będzie włączony, a dezaktywacja pozwoli mu się wyłączyć. Aby utrzymać go włączonym, możesz wprowadzić czas, po którym może się ponownie wyłączyć lub możesz ją włączyć na czas nieokreślony. W tym drugim przypadku musiałbyś utworzyć kolejną akcję ostrzegającą (w tej lub innej regule), w której wybierasz dezaktywuj.</string>
+    <string name="mayUseRegularExpressions">Możesz również wprowadzić tutaj wyrażenie regularne.</string>
+    <string name="simplyDismissNotification">Po prostu odrzuć</string>
+    <string name="clickNotificationButton">Kliknij przycisk</string>
+    <string name="withButton">za pomocą przycisku %1$s</string>
+    <string name="subSystemState">Stan podsystemu</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="locationRequiredToDetermineWifiName">Aby uzyskać identyfikator SSID Wi-Fi, aplikacja wymaga uprawnień do lokalizacji. Ponieważ wersja Google nie może tego uzyskać, możesz użyć tego wyzwalacza tylko wtedy, gdy nie określisz identyfikatora SSID. Można go więc używać tylko do wykrywania, czy Wi-Fi jest podłączone, czy nie.</string>
+    <string name="usb">USB</string>
+    <string name="type">Typ</string>
+    <string name="cable">Kabel</string>
+    <string name="tetheringBluetoothNotPossible">Obecnie nie można wykryć tetheringu przez Bluetooth. Tylko inne sposoby połączenia aktywują ten wyzwalacz.</string>
+    <string name="startPhoneCall">Zadzwoń pod numer telefonu</string>
+    <string name="android.permission.CALL_PHONE">Zadzwoń pod numer telefonu</string>
+    <string name="makePhoneCallExplanation1">Tutaj możesz wprowadzić numer telefonu, pod który zadzwonisz bez dalszych monitów. Możesz użyć tego do wprowadzania ustawień, takich jak dostosowywanie tras połączeń itp. Proszę samodzielnie wyszukać wymagane do tego kody.</string>
+    <string name="endPhoneCall">Zakończ połączenie</string>
+    <string name="android.permission.ANSWER_PHONE_CALLS">Zakończ połączenie</string>
+    <string name="setVariable">Ustaw zmienną</string>
+    <string name="deleteVariable">Uuń zmienną</string>
+    <string name="VariableKey">Klucz zmiennej</string>
+    <string name="variableValue">Wartość zmiennej</string>
+    <string name="setVariableExplanation">Jeśli ustawisz zmienną na pustą wartość, zostanie ona usunięta.</string>
+    <string name="enterVariableKey">Wprowadź klucz dla zmiennej.</string>
+    <string name="checkVariable">Sprawdź zmienną</string>
+    <string name="checkVariableExplanation">Jeśli pozostawisz wartość pustą, zmienna nie może być ustawiona, aby warunek zwrócił wartość true.</string>
+    <string name="variableCheckString">jeśli zmienna %1$s to %2$s</string>
+    <string name="variableCheckStringDeleted">jeśli zmienna %1$s nie jest ustawiona</string>
+    <string name="messageType">Typ wiadomości</string>
+    <string name="sms">SMS</string>
+    <string name="mms">MMS</string>
+    <string name="attachment">Załącznik</string>
+    <string name="chooseFile">wybierz plik</string>
+    <string name="startAppByStartService">przez startService()</string>
+    <string name="showToastsForEvents">Pokaż toasty</string>
+    <string name="showToastsForEventsSummary">Pokazuj toasty, gdy wystąpią zdarzenia takie jak wykonanie reguły</string>
+    <string name="notificationAccessAndroid13">Po kliknięciu ok, wybierz Automation, następnie \"Zezwól na dostęp do powiadomień\", a następnie \"zezwól\".\n\nW niektórych systemach to ustawienie jest wyszarzone. W takich przypadkach należy przejść do \"ustawienia\" -> \"aplikacje\" -> \"Automatyzacja\" -> menu z trzema kropkami -> Znieś te ograniczenia. Następnie wróć tutaj.</string>
+    <string name="displayLanguage">Wyświetl język</string>
+    <string name="displayLanguageSummary">Ustaw niestandardowy język dla aplikacji</string>
+    <string name="wifiMonitoringAlsoRequiresThis">To uprawnienie jest również wymagane, jeśli wyzwalacz korzysta z bieżącego połączenia Wi-Fi.</string>
+    <string name="copyTextToClipboard">Kopiuj tekst do schowka</string>
+    <string name="textToCopy">Tekst do skopiowania</string>
+    <string name="android.permission.SYSTEM_ALERT_WINDOW">Wyświetlaj nad innymi aplikacjami</string>
+    <string name="overlayPermissionHint">Po kliknięciu OK zostaniesz przekierowany do systemowego okna dialogowego. Wybierz tam Automation i zezwól na „wyświetlaniee nad innymi aplikacjami”.</string>
+</resources>

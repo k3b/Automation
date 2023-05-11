@@ -774,11 +774,10 @@ public class ActivityPermissions extends Activity
             case Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE:
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.notification))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
-                break;
-            case permissionNameGoogleActivityDetection:
-                for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.activityDetection))
+                for(String ruleName : getRulesUsing(Action.Action_Enum.closeNotification))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
+            case permissionNameGoogleActivityDetection:
             case Manifest.permission.ACTIVITY_RECOGNITION:
                 for(String ruleName : getRulesUsing(Trigger.Trigger_Enum.activityDetection))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
