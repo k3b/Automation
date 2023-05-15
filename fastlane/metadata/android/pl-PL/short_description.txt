@@ -1,0 +1,1 @@
+Darmowa i otwartoźródłowa aplikacja do odycztywania i tworzenia kodów QR.
