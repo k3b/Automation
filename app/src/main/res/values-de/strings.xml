@@ -602,7 +602,7 @@
     <string name="tabsPlacement">Position der Tableiste</string>
     <string name="top">Oben</string>
     <string name="bottom">Unten</string>
-    <string name="tabsPlacementSummary">Wol soll die Taskleiste angezeigt werden?</string>
+    <string name="tabsPlacementSummary">Wo soll die Taskleiste angezeigt werden?</string>
     <string name="tones">Klingeltöne</string>
     <string name="miscellaneous">Verschiedenes</string>
     <string name="dnd">Nicht stören</string>
