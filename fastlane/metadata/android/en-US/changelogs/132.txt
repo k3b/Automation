@@ -2,5 +2,5 @@
 * Fixed: Leading zero in seconds-variable was missing for one-digit numbers
 * Fixed: Closing notification didn't work if Automation's own service notification was hidden
 * Added: Variables usable in intent parameters
-* Added: Polish translation added
+* Added: Polish translation
 * Removed: Removed toasts for computer connection/disconnection
