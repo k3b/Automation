@@ -794,4 +794,7 @@
     <string name="textToCopy">Texte à copier</string>
     <string name="android.permission.SYSTEM_ALERT_WINDOW">Dessiner sur d\'autres applications</string>
     <string name="overlayPermissionHint">Après avoir cliqué sur OK, vous serez redirigé vers une boîte de dialogue système. Veuillez sélectionner Automatisation et autoriser le tirage sur d\'autres applications.</string>
+    <string name="variablesOnlyForTypes">Les variables ne sont disponibles que pour les types de paramètres String et URI</string>
+    <string name="intentParametersHint">Si vous souhaitez spécifier un paramètre, vous devez également cliquer sur « Ajouter une paire d\'intentions ». Sinon, vos modifications ne seront pas enregistrées.</string>
+    <string name="languagePolish">Polonais</string>
 </resources>

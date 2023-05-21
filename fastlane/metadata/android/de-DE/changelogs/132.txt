@@ -1,0 +1,6 @@
+* Behoben: Aktion Programm/Script ausführen - Bearbeitungswerte wurden im Editor nicht geladen
+* Behoben: Führende Null in Sekunden-Variable fehlte bei einstelligen Zahlen
+* Behoben: Die Benachrichtigung zum Schließen funktionierte nicht, wenn die eigene Service-Benachrichtigung der App ausgeblendet war
+* Hinzugefügt: Variablen können in Intent-Parametern verwendet werden
+* Hinzugefügt: Polnische Übersetzung
+* Entfernt: Toasts für Computerverbindungen/-trennungen wurden entfernt

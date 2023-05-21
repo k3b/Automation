@@ -1,0 +1,6 @@
+* Opgelost: Voer uitvoerbare actie uit - wanneer het bewerken van waarden niet in de editor is geladen
+* Opgelost: Voorloopnul in seconden-variabele ontbrak voor eencijferige getallen
+* Opgelost: Sluitingsmelding werkte niet als de eigen servicemelding van Automation verborgen was
+* Toegevoegd: Variabelen bruikbaar in intentieparameters
+* Toegevoegd: Poolse vertaling
+* Verwijderd: Toasts verwijderd voor computerverbinding / ontkoppeling

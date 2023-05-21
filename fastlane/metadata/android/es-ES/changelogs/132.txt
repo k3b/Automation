@@ -1,0 +1,6 @@
+* Corregido: Ejecutar acción ejecutable - cuando los valores de edición no se cargaron en el editor
+* Corregido: faltaba cero inicial en segundos-variable para números de un dígito
+* Corregido: la notificación de cierre no funcionaba si la notificación de servicio de Automation estaba oculta
+* Añadido: Variables utilizables en parámetros de intención
+* Añadido: traducción al polaco
+* Eliminado: Se eliminaron las notificaciones del sistema para la conexión/desconexión del dispositivo

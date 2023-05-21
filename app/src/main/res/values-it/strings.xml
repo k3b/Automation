@@ -795,4 +795,7 @@
     <string name="textToCopy">Testo da copiare</string>
     <string name="android.permission.SYSTEM_ALERT_WINDOW">Disegna su altre app</string>
     <string name="overlayPermissionHint">Dopo aver fatto clic su OK, verrai indirizzato a una finestra di dialogo di sistema. Seleziona Automazione lì e consenti il disegno su altre app.</string>
+    <string name="variablesOnlyForTypes">Le variabili sono disponibili solo per i tipi di parametro String e URI</string>
+    <string name="intentParametersHint">Se si desidera specificare un parametro è necessario fare clic anche su \"Aggiungi coppia intento\". In caso contrario, le modifiche non verranno salvate.</string>
+    <string name="languagePolish">Polacco</string>
 </resources>

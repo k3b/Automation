@@ -794,4 +794,7 @@
     <string name="textToCopy">Texto para copiar</string>
     <string name="android.permission.SYSTEM_ALERT_WINDOW">Dibujar encima otras aplicaciones</string>
     <string name="overlayPermissionHint">Después de hacer cliquear en Aceptar, se le enviará a un cuadro de diálogo del sistema. Seleccione Automation allí y permita dibujar encima otras aplicaciones.</string>
+    <string name="variablesOnlyForTypes">Las variables solo están disponibles para los tipos de parámetro String y URI</string>
+    <string name="intentParametersHint">Si desea especificar un parámetro, también debe hacer clic en \"Agregar par de intención\". De lo contrario, los cambios no se guardarán.</string>
+    <string name="languagePolish">Polaco</string>
 </resources>

@@ -793,5 +793,8 @@
     <string name="textToCopy">Tekst om te kopiëren</string>
     <string name="android.permission.SYSTEM_ALERT_WINDOW">Tekenen over andere apps</string>
     <string name="overlayPermissionHint">Nadat u op OK hebt geklikt, wordt u naar een systeemdialoogvenster gestuurd. Selecteer daar Automatisering en sta tekenen toe over andere apps.</string>
+    <string name="variablesOnlyForTypes">Variabelen zijn alleen beschikbaar voor parametertypen Tekenreeks en URI</string>
+    <string name="intentParametersHint">Als u een parameter wilt opgeven, moet u ook op \"Intentiepaar toevoegen\" klikken. Anders worden uw wijzigingen niet opgeslagen.</string>
+    <string name="languagePolish">Pools</string>
 
 </resources>

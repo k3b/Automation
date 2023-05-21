@@ -884,4 +884,15 @@
     <string name="textToCopy">Tekst do skopiowania</string>
     <string name="android.permission.SYSTEM_ALERT_WINDOW">Wyświetlaj nad innymi aplikacjami</string>
     <string name="overlayPermissionHint">Po kliknięciu OK zostaniesz przekierowany do systemowego okna dialogowego. Wybierz tam Automation i zezwól na „wyświetlaniee nad innymi aplikacjami”.</string>
+    <string name="variablesOnlyForTypes">Zmienne są dostępne tylko dla typów parametrów String i URI</string>
+    <string name="intentParametersHint">Jeśli chcesz określić parametr, musisz również kliknąć \"Dodaj parę intencji\". W przeciwnym razie zmiany nie zostaną zapisane.</string>
+    <string name="languageSystemDefault">Domyślne ustawienia systemowe</string>
+    <string name="languageEnglish">Angielski</string>
+    <string name="languageGerman">Niemiecki</string>
+    <string name="languageItalian">Włoski</string>
+    <string name="languageSpanish">Hiszpański</string>
+    <string name="languageDutch">Holenderski</string>
+    <string name="languageRussian">Rosyjski</string>
+    <string name="languageFrench">Francuski</string>
+    <string name="languagePolish">Polski</string>
 </resources>

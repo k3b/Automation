@@ -795,4 +795,7 @@
     <string name="textToCopy">Text, der kopiert werden soll</string>
     <string name="android.permission.SYSTEM_ALERT_WINDOW">Über anderen Anwendungen anzeigen</string>
     <string name="overlayPermissionHint">Nachdem Sie auf OK geklickt haben, werden Sie zu einem Systemdialog weitergeleitet. Bitte wählen Sie dort Automation aus und erlauben Sie die Anzeige über anderen Apps.</string>
+    <string name="variablesOnlyForTypes">Variablen sind nur für die Parametertypen String und URI verfügbar</string>
+    <string name="intentParametersHint">Wenn Sie einen Parameter angeben möchten, müssen Sie auch auf \"Intent-Paar hinzufügen\" klicken. Andernfalls werden Ihre Änderungen nicht gespeichert.</string>
+    <string name="languagePolish">Polnisch</string>
 </resources>

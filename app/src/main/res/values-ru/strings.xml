@@ -852,4 +852,7 @@
   <string name="textToCopy">Текст для копирования</string>
     <string name="android.permission.SYSTEM_ALERT_WINDOW">Запуск поверх других приложений</string>
     <string name="overlayPermissionHint">После нажатия кнопки «ОК» вы попадете в системный диалог. Пожалуйста, выберите там Automation и разрешите запуск поверх других приложений.</string>
+    <string name="variablesOnlyForTypes">Переменные доступны только для типов параметров: String и URI</string>
+  <string name="intentParametersHint">Если вы хотите указать параметр, вам также нужно нажать «Добавить пару намерений». В противном случае ваши изменения не будут сохранены.</string>
+    <string name="languagePolish">Польский</string>
 </resources>
