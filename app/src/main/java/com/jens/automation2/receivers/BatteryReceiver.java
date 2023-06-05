@@ -225,7 +225,7 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 		{
 			usbHostConnected = true;
 			Miscellaneous.logEvent("i", "BatteryReceiver", "Connected to computer.", 3);
-			Toast.makeText(context, "Connected to computer.", Toast.LENGTH_LONG).show();
+//			Toast.makeText(context, "Connected to computer.", Toast.LENGTH_LONG).show();
 
 			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.usb_host_connection);
 //			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByUsbHost(true);
@@ -247,7 +247,7 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 		{
 			usbHostConnected = false;
 			Miscellaneous.logEvent("i", "BatteryReceiver", "Disconnected from computer.", 3);
-			Toast.makeText(context, "Disconnected from computer.", Toast.LENGTH_LONG).show();
+//			Toast.makeText(context, "Disconnected from computer.", Toast.LENGTH_LONG).show();
 
 			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidates(Trigger_Enum.usb_host_connection);
 //			ArrayList<Rule> ruleCandidates = Rule.findRuleCandidatesByUsbHost(false);

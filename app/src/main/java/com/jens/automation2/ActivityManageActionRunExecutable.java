@@ -57,6 +57,15 @@ public class ActivityManageActionRunExecutable extends Activity
                 saveExecSettings();
             }
         });
+
+        if(getIntent().hasExtra(ActivityManageRule.intentNameActionParameter2))
+        {
+            String[] parts = getIntent().getStringExtra(ActivityManageRule.intentNameActionParameter2).split(Action.actionParameter2Split);
+            etRunExecutablePath.setText(parts[0]);
+
+            if(parts.length > 1)
+                etRunExecutableParameters.setText(parts[1]);
+        }
     }
 
     void saveExecSettings()

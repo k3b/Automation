@@ -1,0 +1,23 @@
+Skaner kodów kreskowych to darmowa i otwarta aplikacja, która umożliwia odczytywanie i generowanie kodów kreskowych. Może gromadzić informacje o produktach spożywczych, kosmetykach i książkach.
+
+Różne formaty kodów kreskowych są zarządzane przez aplikację: 
+• dwuwymiarowe kody kreskowych: QR Code, Data Matrix, PDF 417, AZTEC 
+• jednowymiarowe kody kreskowe: EAN 13, EAN 8, UPC A, UPC E, Code 128, Code 93, Code 39, Codabar, IT
+
+Zbiera informacje o produkcie podczas skanowania: 
+• Produkty spożywcze z Open Food Facts 
+• Kosmetyki z otwartymi faktami na temat urody 
+• Produkty spożywcze dla zwierząt domowych z Open Pet Food Fakty 
+• Książki z Open Library
+
+Funkcje aplikacji : 
+• Wystarczy skierować aparat smartfona na kod kreskowy i natychmiast otrzymać o nim informację. Możesz także skanować kody kreskowe za pomocą obrazu w smartfonie. 
+• Za pomocą prostego skanowania czytaj wizytówki, dodawaj nowe kontakty, dodawaj nowe wydarzenia do swojego planu, otwieraj adresy URL, a nawet łącz się z Wi-Fi.
+• Skanuj kody kreskowe produktów spożywczych, aby otrzymywać informacje o ich składzie dzięki bazom danych Open Food Facts i Open Beauty Facts. 
+• Wyszukaj informacje o skanowanym produkcie, dzięki szybkiemu badaniu na różnych stronach internetowych, takich jak Amazon lub Fnac. 
+• Śledź wszystkie zeskanowane kody kreskowe za pomocą narzędzia historii. 
+• Generuj własne kody kreskowe 
+• Dostosuj interfejs za pomocą różnych kolorów, jasnego motywu lub ciemnego. Aplikacja integruje funkcje Androida 12, umożliwiając dostosowanie kolorów w zależności od tapety.
+• Teksty są w całości tłumaczone na język angielski, hiszpański, francuski, niemiecki, polski, rosyjski i chiński.
+
+Ta aplikacja szanuje Twoją prywatność. Nie zawiera żadnych trackerów i nie zbiera żadnych danych.

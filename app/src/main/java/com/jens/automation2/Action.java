@@ -658,7 +658,7 @@ public class Action
 			password = components[1];
 			url = components[2];
 		}
-		else
+		else	// compatibility for very old versions which haven't upgraded, yet.
 			url = components[0];
 			
 		try

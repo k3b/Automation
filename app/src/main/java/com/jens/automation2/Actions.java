@@ -10,8 +10,6 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothProfile;
 import android.content.ActivityNotFoundException;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -113,8 +111,8 @@ public class Actions
 	public static void closeNotification(Action action)
 	{
 		NotificationManager nm = (NotificationManager) Miscellaneous.getAnyContext().getSystemService(Context.NOTIFICATION_SERVICE);
-		for(StatusBarNotification n : nm.getActiveNotifications())
-		{
+//		for(StatusBarNotification n : nm.getActiveNotifications())
+//		{
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
 			{
 				String[] params = action.getParameter2().split(Action.actionParameter2Split);
@@ -194,7 +192,7 @@ public class Actions
 						Miscellaneous.logEvent("i", "NotificationCloseCheck", "NotificationListener instance is null. Can\'t close notification.", 3);
 				}
 			}
-		}
+//		}
 	}
 
     public static void sendBroadcast(Context context, String action)
@@ -1166,21 +1164,36 @@ public class Actions
 			}
 			else if (singleParam[0].equals("Uri"))
 			{
-				if (singleParam[1].equalsIgnoreCase("IntentData"))
+				try
 				{
-					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with value " + singleParam[2] + " as standard data parameter.", 3);
-					intent.setData(Uri.parse(singleParam[2]));
+					if (singleParam[1].equalsIgnoreCase("IntentData"))
+					{
+						Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with value " + singleParam[2] + " as standard data parameter.", 3);
+						intent.setData(Uri.parse(Miscellaneous.replaceVariablesInText(singleParam[2], context)));
+
+					}
+					else
+					{
+						Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
+						intent.putExtra(singleParam[1], Uri.parse(Miscellaneous.replaceVariablesInText(singleParam[2], context)));
+					}
 				}
-				else
+				catch (Exception e)
 				{
-					Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-					intent.putExtra(singleParam[1], Uri.parse(singleParam[2]));
+					throw new RuntimeException(e);
 				}
 			}
 			else if (singleParam[0].equals("String"))
 			{
 				Miscellaneous.logEvent("i", "StartOtherApp", "Adding parameter of type " + singleParam[0] + " with name " + singleParam[1] + " and value " + singleParam[2], 3);
-				intent.putExtra(singleParam[1], singleParam[2]);
+				try
+				{
+					intent.putExtra(singleParam[1], Miscellaneous.replaceVariablesInText(singleParam[2], context));
+				}
+				catch (Exception e)
+				{
+					intent.putExtra(singleParam[1], singleParam[2]);
+				}
 			}
 			else
 				Miscellaneous.logEvent("w", "StartOtherApp", "Unknown type of parameter " + singleParam[0] + " found.  Name " + singleParam[1] + " and value " + singleParam[2], 3);

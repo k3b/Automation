@@ -1,0 +1,6 @@
+* Naprawiono: Uruchom akcję wykonywalną - gdy edycja wartości nie została załadowana w edytorze
+* Naprawiono: Brakowało wiodącego zera w zmiennej sekundowej dla liczb jednocyfrowych
+* Naprawiono: Powiadomienie o zamknięciu nie działało, jeśli własne powiadomienie o usłudze Automation było ukryte
+* Dodano: Zmienne użyteczne w parametrach intencji
+* Dodano: polskie tłumaczenie
+* Usunięto: Usunięto wyskakujące powiadomienia dotyczące podłączenia / rozłączenia komputera

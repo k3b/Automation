@@ -304,6 +304,24 @@
 			android:layout_height="wrap_content"
 			android:text="@string/addIntentValue" />
 
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginVertical="@dimen/default_margin"
+			android:text="@string/intentParametersHint" />
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:textSize="25dp"
+			android:text="@string/variablesOnlyForTypes" />
+
+		<TextView
+			android:id="@+id/tvLegend"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/urlLegend" />
+
 		<ImageView
 			android:layout_width="match_parent"
 			android:layout_height="1dp"

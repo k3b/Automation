@@ -1,0 +1,6 @@
+* Risolto: Esegui l'azione eseguibile - quando i valori di modifica non sono stati caricati nell'editor
+* Risolto: mancava lo zero iniziale nella variabile dei secondi per i numeri a una cifra
+* Risolto: la notifica di chiusura non funzionava se la notifica di servizio di Automation era nascosta
+* Aggiunto: Variabili utilizzabili nei parametri di intento
+* Aggiunto: traduzione polacca
+* Rimosso: rimossi gli avvisi popup per la connessione/disconnessione del computer

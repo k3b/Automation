@@ -692,7 +692,7 @@ public class Miscellaneous extends Service
 				if(result.length() < 2)
 					result = "0" + result;
 
-				source = source.replace("[s]", String.valueOf(cal.get(Calendar.SECOND)));
+				source = source.replace("[s]", result);
 			}
 
 			if(source.contains("[ms]"))

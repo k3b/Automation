@@ -1,0 +1,6 @@
+* Correction : Exécuter l'action exécutable - lorsque les valeurs d'édition n'étaient pas chargées dans l'éditeur
+* Correction : La variable zéro en secondes était manquante pour les nombres à un chiffre
+* Correction : La notification de fermeture ne fonctionnait pas si la notification de service d'Automation était masquée
+* Ajouté: Variables utilisables dans les paramètres d'intention
+* Ajouté: Traduction polonaise
+* Supprimé: Supprimé toasts pour la connexion / déconnexion de l'ordinateur
