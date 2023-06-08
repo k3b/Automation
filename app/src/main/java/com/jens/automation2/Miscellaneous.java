@@ -2014,7 +2014,16 @@ public class Miscellaneous extends Service
 	{
 		if(!Settings.displayLanguage.equals(Settings.default_displayLanguage))
 		{
-			Locale myLocale = new Locale(Settings.displayLanguage);
+			Locale myLocale;
+
+			if(Settings.displayLanguage.contains("_"))
+			{
+				String[] parts = Settings.displayLanguage.split("_");
+				myLocale = new Locale(parts[0], parts[1]);
+			}
+			else
+				myLocale = new Locale(Settings.displayLanguage);
+
 			Resources res = context.getResources();
 			DisplayMetrics dm = res.getDisplayMetrics();
 			Configuration conf = res.getConfiguration();
