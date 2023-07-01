@@ -760,7 +760,7 @@ public class Miscellaneous extends Service
 			else
 				replacement = "unknownVariable";
 
-			source = source.substring(0, pos1) + replacement + source.substring(pos2);
+			source = source.substring(0, pos1) + replacement + source.substring(pos2 +1);
 		}
 		
 //		Miscellaneous.logEvent("i", "URL after replace", source);
