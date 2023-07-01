@@ -1,1 +1,2 @@
 * Fixed: [variable-name] was incorrectly replaced with an ] at the end
+* Added: Chinese translation (simplified)
