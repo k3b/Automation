@@ -93,6 +93,7 @@ public class Actions
 
 		Miscellaneous.logEvent("w", "createNotification", "Creating notification with title " + elements[0] + " and text " + elements[1], 3);
 
+		// Create a new notification ID each time
     	int notificationId = Math.round(Calendar.getInstance().getTimeInMillis()/1000);
 
     	try
