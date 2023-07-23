@@ -1,2 +1,4 @@
 * Fixed: [variable-name] was incorrectly replaced with an ] at the end
+* Fixed: Set custom language
+* Fixed: Special characters in making phone call action were not encoded
 * Added: Chinese translation (simplified)

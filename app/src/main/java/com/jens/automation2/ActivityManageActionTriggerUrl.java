@@ -39,6 +39,7 @@ public class ActivityManageActionTriggerUrl extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		Miscellaneous.setDisplayLanguage(this);
 		this.setContentView(R.layout.activity_manage_action_trigger_url);
 		
 		etTriggerUrl = (EditText)findViewById(R.id.etTriggerUrl);

@@ -48,6 +48,7 @@ public class ActivityManageActionSendTextMessage extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		Miscellaneous.setDisplayLanguage(this);
 		this.setContentView(R.layout.activity_manage_action_send_textmessage);
 		
 		etSendTextMessage = (EditText)findViewById(R.id.etSendTextMessage);

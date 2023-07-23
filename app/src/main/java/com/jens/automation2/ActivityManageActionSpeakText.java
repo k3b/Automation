@@ -22,6 +22,7 @@ public class ActivityManageActionSpeakText extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		Miscellaneous.setDisplayLanguage(this);
 		this.setContentView(R.layout.activity_manage_action_speak_text);
 		
 		etSpeakText = (EditText)findViewById(R.id.etTextToSpeak);

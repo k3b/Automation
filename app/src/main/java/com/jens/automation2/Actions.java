@@ -2272,7 +2272,7 @@ public class Actions
 
 	public static void startPhoneCall(Context context, String phoneNumber)
 	{
-		Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
+		Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + Uri.encode(phoneNumber)));
 //			intent.setClassName("com.android.phone","com.android.phone.OutgoingCallBroadcaster");
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		intent.addFlags(Intent.FLAG_FROM_BACKGROUND);

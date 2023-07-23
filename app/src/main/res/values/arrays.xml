@@ -45,7 +45,7 @@
         <item name="6">ru</item>
         <item name="7">fr</item>
         <item name="8">pl</item>
-        <item name="9">zh_rCN</item>
+        <item name="9">zh_CN</item>
     </string-array>
 
     <string-array name="tabsPlacementOptions">

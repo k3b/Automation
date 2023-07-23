@@ -59,6 +59,7 @@ public class ActivityManagePoi extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		Miscellaneous.setDisplayLanguage(this);
 		this.setContentView(R.layout.activity_manage_specific_poi);
 		
 		myLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

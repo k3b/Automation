@@ -26,6 +26,7 @@ public class ActivityManageActionPlaySound extends Activity
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Miscellaneous.setDisplayLanguage(this);
         setContentView(R.layout.activity_manage_action_play_sound);
 
         chkPlaySoundAlwaysPlay = (CheckBox)findViewById(R.id.chkPlaySoundAlwaysPlay);

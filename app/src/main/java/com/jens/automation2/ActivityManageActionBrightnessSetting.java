@@ -26,6 +26,7 @@ public class ActivityManageActionBrightnessSetting extends Activity
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         setContentView(R.layout.activity_manage_action_brightness_settings);
+        Miscellaneous.setDisplayLanguage(this);
         super.onCreate(savedInstanceState);
 
         chkAutoBrightness = (CheckBox)findViewById(R.id.chkAutoBrightness);

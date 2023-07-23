@@ -27,6 +27,7 @@ public class ActivityManageActionVibrate extends Activity
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Miscellaneous.setDisplayLanguage(this);
         setContentView(R.layout.activity_manage_action_vibrate);
 
         etVibratePattern = (EditText)findViewById(R.id.etVibratePattern);

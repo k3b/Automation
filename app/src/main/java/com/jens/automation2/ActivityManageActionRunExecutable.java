@@ -28,6 +28,7 @@ public class ActivityManageActionRunExecutable extends Activity
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Miscellaneous.setDisplayLanguage(this);
         setContentView(R.layout.activity_manage_action_run_executable);
 
         chkRunExecAsRoot = (CheckBox)findViewById(R.id.chkRunExecAsRoot);

@@ -39,7 +39,9 @@ public class ActivityControlCenter extends Activity
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Miscellaneous.setDisplayLanguage(this);
         setContentView(R.layout.activity_control_center);
+
 
         bVolumeTest = (Button) findViewById(R.id.bVolumeTest);
         bVolumeTest.setOnClickListener(new View.OnClickListener()
@@ -384,6 +386,7 @@ public class ActivityControlCenter extends Activity
     protected void onResume()
     {
         super.onResume();
+        Miscellaneous.setDisplayLanguage(this);
 
         String folder = Miscellaneous.getWriteableFolder();
         if (folder != null && folder.length() > 0)

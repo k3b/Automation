@@ -30,6 +30,7 @@ public class ActivityVolumeTest extends Activity
 		instance = this;
 		
 		super.onCreate(savedInstanceState);
+		Miscellaneous.setDisplayLanguage(this);
 		setContentView(R.layout.activity_volume_calibration);
 		
 		tvCurrentVolume = (TextView)findViewById(R.id.tvCurrentVolume);

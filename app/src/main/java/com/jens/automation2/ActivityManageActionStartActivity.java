@@ -66,6 +66,7 @@ public class ActivityManageActionStartActivity extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		Miscellaneous.setDisplayLanguage(this);
 		setContentView(R.layout.activity_manage_action_start_activity);
 
 		lvIntentPairs = (ListView)findViewById(R.id.lvIntentPairs);

@@ -20,6 +20,7 @@ public class ActivityManageTriggerCheckVariable extends Activity
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Miscellaneous.setDisplayLanguage(this);
         setContentView(R.layout.activity_manage_trigger_check_variable);
 
         etVariableKeyTrigger = (EditText) findViewById(R.id.etVariableKeyTrigger);

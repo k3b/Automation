@@ -27,6 +27,7 @@ public class ActivityManageActionWakeLock extends Activity
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Miscellaneous.setDisplayLanguage(this);
         setContentView(R.layout.activity_manage_action_wakelock);
 
         rbWakeLockActivate = (RadioButton)findViewById(R.id.rbWakeLockActivate);

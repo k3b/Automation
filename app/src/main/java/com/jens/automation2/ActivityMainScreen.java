@@ -55,7 +55,7 @@ public class ActivityMainScreen extends ActivityGeneric
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		Miscellaneous.setDisplayLanguage(ActivityMainScreen.this);
+		Miscellaneous.setDisplayLanguage(this);
 		setContentView(R.layout.main_overview_layout);
 
 		activityMainScreenInstance = this;
@@ -571,6 +571,7 @@ public class ActivityMainScreen extends ActivityGeneric
 	protected void onResume()
 	{
 		super.onResume();
+		Miscellaneous.setDisplayLanguage(this);
 		toggleService.setChecked(AutomationService.isMyServiceRunning(this));
 		ActivityMainScreen.updateMainScreen();
 
