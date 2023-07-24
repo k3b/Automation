@@ -1,0 +1,4 @@
+* Corregido: [variable-name] fue reemplazado incorrectamente por un ] al final
+* Corregido: Establecer idioma personalizado
+* Corregido: Los caracteres especiales al realizar la acción de llamada telefónica no estaban codificados
+* Añadido: traducción al chino (simplificada)

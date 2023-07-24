@@ -1,0 +1,4 @@
+* Correction : [nom_variable] a été remplacé à tort par un ] à la fin
+* Corrigé: Définir la langue personnalisée
+* Correction : les caractères spéciaux dans l'action d'appel téléphonique n'étaient pas codés
+* Ajouté: Traduction chinoise (simplifiée)

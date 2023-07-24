@@ -1,0 +1,4 @@
+* Opgelost: [variabele-naam] is ten onrechte vervangen door een ] aan het einde
+* Opgelost: Stel aangepaste taal in
+* Opgelost: Speciale tekens bij het maken van telefoongesprek actie waren niet gecodeerd
+* Toegevoegd: Chinese vertaling (vereenvoudigd)
