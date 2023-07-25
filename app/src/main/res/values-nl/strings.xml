@@ -796,5 +796,6 @@
     <string name="variablesOnlyForTypes">Variabelen zijn alleen beschikbaar voor parametertypen Tekenreeks en URI</string>
     <string name="intentParametersHint">Als u een parameter wilt opgeven, moet u ook op \"Intentiepaar toevoegen\" klikken. Anders worden uw wijzigingen niet opgeslagen.</string>
     <string name="languagePolish">Pools</string>
+    <string name="languageChineseChina">Chinees (China)</string>
 
 </resources>

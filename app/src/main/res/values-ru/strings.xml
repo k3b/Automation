@@ -855,4 +855,5 @@
     <string name="variablesOnlyForTypes">Переменные доступны только для типов параметров: String и URI</string>
   <string name="intentParametersHint">Если вы хотите указать параметр, вам также нужно нажать «Добавить пару намерений». В противном случае ваши изменения не будут сохранены.</string>
     <string name="languagePolish">Польский</string>
+    <string name="languageChineseChina">Китайский (Китай)</string>
 </resources>
