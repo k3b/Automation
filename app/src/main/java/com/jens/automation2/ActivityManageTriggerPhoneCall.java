@@ -35,6 +35,7 @@ public class ActivityManageTriggerPhoneCall extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Miscellaneous.setDisplayLanguage(this);
         setContentView(R.layout.activity_manage_trigger_phone_call);
 
         etTriggerPhoneCallPhoneNumber = (EditText)findViewById(R.id.etTriggerPhoneCallPhoneNumber);

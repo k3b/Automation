@@ -31,7 +31,8 @@
         <item name="5">@string/languageDutch</item>
         <item name="6">@string/languageRussian</item>
         <item name="7">@string/languageFrench</item>
-        <item name="7">@string/languagePolish</item>
+        <item name="8">@string/languagePolish</item>
+        <item name="9">@string/languageChineseChina</item>
 
     </string-array>
     <string-array name="displayLanguageValues">
@@ -44,6 +45,7 @@
         <item name="6">ru</item>
         <item name="7">fr</item>
         <item name="8">pl</item>
+        <item name="9">zh_CN</item>
     </string-array>
 
     <string-array name="tabsPlacementOptions">
@@ -66,4 +68,5 @@
     <string name="languageRussian">Russian</string>
     <string name="languageFrench">French</string>
     <string name="languagePolish">Polish</string>
+    <string name="languageChineseChina">Chinese (China)</string>
 </resources>

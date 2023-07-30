@@ -1,0 +1,4 @@
+* Naprawiono: [zmienna-nazwa] została niepoprawnie zastąpiona ] na końcu
+* Naprawiono: Ustaw niestandardowy język
+* Naprawiono: Znaki specjalne w wykonywaniu czynności połączenia telefonicznego nie były kodowane
+* Dodano: Chińskie tłumaczenie (uproszczone)

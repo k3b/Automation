@@ -16,6 +16,7 @@ public class ActivitySettings extends PreferenceActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		Miscellaneous.setDisplayLanguage(this);
 		addPreferencesFromResource(layout.activity_settings);
 
 		if(BuildConfig.FLAVOR.equals(AutomationService.flavor_name_apk))
@@ -23,5 +24,12 @@ public class ActivitySettings extends PreferenceActivity
 			chkPrefUpdateCheck = (CheckBoxPreference) findPreference("automaticUpdateCheck");
 			chkPrefUpdateCheck.setEnabled(true);
 		}
+	}
+
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		Miscellaneous.setDisplayLanguage(this);
 	}
 }

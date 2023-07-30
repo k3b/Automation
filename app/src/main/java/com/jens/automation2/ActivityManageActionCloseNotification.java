@@ -259,6 +259,7 @@ public class ActivityManageActionCloseNotification extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		Miscellaneous.setDisplayLanguage(this);
 		setContentView(R.layout.activity_manage_action_close_notification);
 
 		etNotificationTitle = (EditText)findViewById(R.id.etNotificationTitle);

@@ -79,6 +79,7 @@ public class ActivityPermissions extends Activity
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
             super.onCreate(savedInstanceState);
+            Miscellaneous.setDisplayLanguage(this);
             setContentView(R.layout.permissions_activity);
 
             bCancelPermissions = (Button)findViewById(R.id.bCancelPermissions);

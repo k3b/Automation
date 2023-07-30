@@ -26,6 +26,7 @@ public class ActivityManageTriggerTethering extends Activity
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Miscellaneous.setDisplayLanguage(this);
         setContentView(R.layout.activity_manage_trigger_tethering);
 
         rbTetheringOn = (RadioButton) findViewById(R.id.rbTetheringOn);

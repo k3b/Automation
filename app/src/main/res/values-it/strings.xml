@@ -798,4 +798,5 @@
     <string name="variablesOnlyForTypes">Le variabili sono disponibili solo per i tipi di parametro String e URI</string>
     <string name="intentParametersHint">Se si desidera specificare un parametro è necessario fare clic anche su \"Aggiungi coppia intento\". In caso contrario, le modifiche non verranno salvate.</string>
     <string name="languagePolish">Polacco</string>
+    <string name="languageChineseChina">Cinese (Cina)</string>
 </resources>

@@ -55,7 +55,7 @@ public class ActivityMainScreen extends ActivityGeneric
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		Miscellaneous.setDisplayLanguage(ActivityMainScreen.this);
+		Miscellaneous.setDisplayLanguage(this);
 		setContentView(R.layout.main_overview_layout);
 
 		activityMainScreenInstance = this;
@@ -434,7 +434,7 @@ public class ActivityMainScreen extends ActivityGeneric
 			else
 				activityMainScreenInstance.checkForNews();
 
-			if(BuildConfig.FLAVOR.equals("apkFlavor") && Settings.automaticUpdateCheck)
+			if(BuildConfig.FLAVOR.equals(AutomationService.flavor_name_apk) && Settings.automaticUpdateCheck)
 			{
 				Calendar now = Calendar.getInstance();
 				if (Settings.lastUpdateCheck == Settings.default_lastUpdateCheck || now.getTimeInMillis() >= Settings.lastUpdateCheck + (long)(Settings.updateCheckFrequencyDays * 24 * 60 * 60 * 1000))
@@ -571,6 +571,7 @@ public class ActivityMainScreen extends ActivityGeneric
 	protected void onResume()
 	{
 		super.onResume();
+		Miscellaneous.setDisplayLanguage(this);
 		toggleService.setChecked(AutomationService.isMyServiceRunning(this));
 		ActivityMainScreen.updateMainScreen();
 

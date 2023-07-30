@@ -104,6 +104,7 @@ public class ActivityManageTriggerDeviceOrientation extends Activity
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Miscellaneous.setDisplayLanguage(this);
         setContentView(R.layout.activity_manage_trigger_device_orientation);
 
         currentAzimuth = (TextView) findViewById(R.id.tvCurrentAzimuth);

@@ -24,6 +24,7 @@ public class ActivityManageActionCreateNotification extends Activity
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Miscellaneous.setDisplayLanguage(this);
         setContentView(R.layout.activity_manage_action_create_notification);
 
         etNotificationTitle = (EditText) findViewById(R.id.etNotificationTitle);

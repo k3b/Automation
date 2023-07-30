@@ -21,6 +21,7 @@ public class ActivityDisplayLongMessage extends Activity
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Miscellaneous.setDisplayLanguage(this);
         setContentView(R.layout.activity_display_long_message);
 
         tvMessageTitle = (TextView)findViewById(R.id.tvMessageTitle);

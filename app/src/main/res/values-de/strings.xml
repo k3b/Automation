@@ -798,4 +798,5 @@
     <string name="variablesOnlyForTypes">Variablen sind nur für die Parametertypen String und URI verfügbar</string>
     <string name="intentParametersHint">Wenn Sie einen Parameter angeben möchten, müssen Sie auch auf \"Intent-Paar hinzufügen\" klicken. Andernfalls werden Ihre Änderungen nicht gespeichert.</string>
     <string name="languagePolish">Polnisch</string>
+    <string name="languageChineseChina">Chinesisch (China)</string>
 </resources>

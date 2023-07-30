@@ -1,0 +1,4 @@
+* Behoben: [Variablenname] wurde am Ende fälschlicherweise durch ein ] ersetzt
+* Behoben: Benutzerdefinierte Sprache einstellen
+* Behoben: Sonderzeichen beim Ausführen von Telefonanrufen wurden nicht kodiert
+* Hinzugefügt: Chinesische Übersetzung (vereinfacht)

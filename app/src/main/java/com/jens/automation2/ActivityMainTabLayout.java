@@ -23,7 +23,7 @@ public class ActivityMainTabLayout extends TabActivity
 	{
 		super.onCreate(savedInstanceState);
 		Settings.readFromPersistentStorage(ActivityMainTabLayout.this);
-		Miscellaneous.setDisplayLanguage(ActivityMainTabLayout.this);
+		Miscellaneous.setDisplayLanguage(this);
 
 		if(Settings.tabsPlacement == 1)
 			setContentView(R.layout.main_tab_layout_tabs_at_bottom);
@@ -65,6 +65,7 @@ public class ActivityMainTabLayout extends TabActivity
 	protected void onResume()
 	{
 		super.onResume();
+		Miscellaneous.setDisplayLanguage(this);
 //		Miscellaneous.logEvent("i", "NFC", "ActivityMainTabLayout.onResume().", 5);
 		NfcReceiver.checkIntentForNFC(this, getIntent());
 //		NfcReceiver.checkIntentForNFC(this, new Intent(this.getApplicationContext(), this.getClass()));

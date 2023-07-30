@@ -31,6 +31,7 @@ public class ActivityManageTriggerProfile extends Activity
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Miscellaneous.setDisplayLanguage(this);
         setContentView(R.layout.activity_manage_trigger_profile);
 
         bSaveTriggerProfile = (Button)findViewById(R.id.bSaveTriggerProfile);

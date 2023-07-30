@@ -21,6 +21,7 @@ public class ActivityManageActionMakePhoneCall extends Activity
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Miscellaneous.setDisplayLanguage(this);
         setContentView(R.layout.activity_manage_action_make_phone_call);
 
         etTargetPhoneNumber = (EditText)findViewById(R.id.etTargetPhoneNumber);

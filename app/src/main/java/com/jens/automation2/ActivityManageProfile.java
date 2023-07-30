@@ -86,6 +86,7 @@ public class ActivityManageProfile extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		Miscellaneous.setDisplayLanguage(this);
 		this.setContentView(R.layout.activity_manage_specific_profile);
 		
 		checkBoxChangeSoundMode = (CheckBox)findViewById(R.id.checkBoxChangeSoundMode);

@@ -19,6 +19,7 @@ public class ActivityManageActionControlMedia extends Activity
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Miscellaneous.setDisplayLanguage(this);
         setContentView(R.layout.activity_manage_action_control_media);
 
         rbMediaPlayPause = (RadioButton)findViewById(R.id.rbMediaPlayPause);

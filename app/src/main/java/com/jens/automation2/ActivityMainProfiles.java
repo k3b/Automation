@@ -40,7 +40,7 @@ public class ActivityMainProfiles extends ActivityGeneric
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		Miscellaneous.setDisplayLanguage(ActivityMainProfiles.this);
+		Miscellaneous.setDisplayLanguage(this);
 		setContentView(R.layout.main_profile_layout);
 
 		instance = this;
@@ -153,6 +153,13 @@ public class ActivityMainProfiles extends ActivityGeneric
 			myAutomationService.serviceInterface(serviceCommands.updateNotification); // in case names got changed.
 			unBindFromService();
 		}	
+	}
+
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		Miscellaneous.setDisplayLanguage(this);
 	}
 
 	private AlertDialog getProfileDialog(final Profile profile)

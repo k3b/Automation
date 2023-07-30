@@ -154,6 +154,7 @@ public class ActivityManageRule extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		Miscellaneous.setDisplayLanguage(this);
 		setContentView(R.layout.activity_manage_specific_rule);
 
 		context = this;

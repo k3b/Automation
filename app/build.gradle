@@ -11,8 +11,8 @@ android {
         compileSdkVersion 31
         buildToolsVersion '29.0.2'
         useLibrary  'org.apache.http.legacy'
-        versionCode 132
-        versionName "1.7.16"
+        versionCode 133
+        versionName "1.7.17"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,6 +38,12 @@ android {
             versionNameSuffix "-googlePlay"
             targetSdkVersion 31
         }
+
+        /*
+            targetSdkVersion is kept at 28 for as long as possible.
+            If raised wifi cannot be switched on or off anymore without root permissions.
+            In the Google version I'm forced to raise the value regularly.
+         */
 
         fdroidFlavor
         {

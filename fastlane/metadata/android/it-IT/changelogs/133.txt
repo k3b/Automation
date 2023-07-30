@@ -1,0 +1,4 @@
+* Risolto: [nome-variabile] è stato erroneamente sostituito con un ] alla fine
+* Risolto: imposta la lingua personalizzata
+* Risolto: i caratteri speciali nell'effettuare un'azione di chiamata telefonica non sono stati codificati
+* Aggiunto: traduzione cinese (semplificata)

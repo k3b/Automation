@@ -48,7 +48,7 @@ public class ActivityMainRules extends ActivityGeneric
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		Miscellaneous.setDisplayLanguage(ActivityMainRules.this);
+		Miscellaneous.setDisplayLanguage(this);
 		setContentView(R.layout.main_rule_layout);
 
 		instance = this;
@@ -153,6 +153,13 @@ public class ActivityMainRules extends ActivityGeneric
 
 		    return v;
 		}
+	}
+
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		Miscellaneous.setDisplayLanguage(this);
 	}
 	
 	@Override

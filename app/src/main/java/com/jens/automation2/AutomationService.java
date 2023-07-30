@@ -12,8 +12,6 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.media.AudioManager;
 import android.os.Binder;
 import android.os.Build;
@@ -22,7 +20,6 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -39,7 +36,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 @SuppressLint("NewApi")
 public class AutomationService extends Service implements OnInitListener

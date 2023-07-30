@@ -24,6 +24,7 @@ public class ActivityManageActionSetVariable extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		Miscellaneous.setDisplayLanguage(this);
 		this.setContentView(R.layout.activity_manage_action_set_variable);
 
 		etVariableSetKey = (EditText)findViewById(R.id.etVariableSetKey);
