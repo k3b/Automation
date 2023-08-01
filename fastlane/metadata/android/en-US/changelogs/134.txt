@@ -1,0 +1,1 @@
+* Fixed: Added device admin permission for start-phone-call action

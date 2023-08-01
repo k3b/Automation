@@ -706,6 +706,7 @@ public class ActivityPermissions extends Activity
                     case startPhoneCall:
                         addToArrayListUnique(Manifest.permission.CALL_PHONE, requiredPermissions);
 //                        addToArrayListUnique(Manifest.permission.SYSTEM_ALERT_WINDOW, requiredPermissions);
+                        addToArrayListUnique(Manifest.permission.BIND_DEVICE_ADMIN, requiredPermissions);
                         break;
                     case stopPhoneCall:
                         addToArrayListUnique(Manifest.permission.ANSWER_PHONE_CALLS, requiredPermissions);
@@ -949,6 +950,8 @@ public class ActivityPermissions extends Activity
                 break;
             case Manifest.permission.BIND_DEVICE_ADMIN:
                 for(String ruleName : getRulesUsing(Action.Action_Enum.turnScreenOnOrOff))
+                    usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
+                for(String ruleName : getRulesUsing(Action.Action_Enum.startPhoneCall))
                     usingElements.add(String.format(getResources().getString(R.string.ruleXrequiresThis), ruleName));
                 break;
             case Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS:
