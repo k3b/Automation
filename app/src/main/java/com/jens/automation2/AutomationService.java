@@ -518,7 +518,7 @@ public class AutomationService extends Service implements OnInitListener
 		builder.setContentTitle("Automation");
 
 		if(Settings.showIconWhenServiceIsRunning)
-			builder.setSmallIcon(R.drawable.ic_launcher);
+			builder.setSmallIcon(R.drawable.crane);
 
 		builder.setCategory(Notification.CATEGORY_SERVICE);
 		builder.setWhen(System.currentTimeMillis());
@@ -526,7 +526,7 @@ public class AutomationService extends Service implements OnInitListener
 
 		Notification defaultNotification = builder.build();
 
-		defaultNotification.icon = R.drawable.ic_launcher;
+		defaultNotification.icon = R.drawable.crane;
 		defaultNotification.when = System.currentTimeMillis();
 
 //		defaultNotification.defaults |= Notification.DEFAULT_VIBRATE;
@@ -573,7 +573,7 @@ public class AutomationService extends Service implements OnInitListener
 		builder.setOnlyAlertOnce(true);
 
 		if(Settings.showIconWhenServiceIsRunning)
-			builder.setSmallIcon(R.drawable.ic_launcher);
+			builder.setSmallIcon(R.drawable.crane);
 
 //		builder.setContentText(textToDisplay);
 //		builder.setSmallIcon(icon);

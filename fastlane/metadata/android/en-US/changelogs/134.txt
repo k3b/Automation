@@ -1,1 +1,3 @@
-* Fixed: Added device admin permission for start-phone-call action
+* Fixed: Added overlay permission for start-phone-call action
+* Change: Icon changed in Play store version
+* Change: Target-SDK raised in Play store version

@@ -1164,7 +1164,7 @@ public class Miscellaneous extends Service
 		builder.setOnlyAlertOnce(true);
 
 		if(Settings.showIconWhenServiceIsRunning && notificationChannelId.equals(AutomationService.NOTIFICATION_CHANNEL_ID_SERVICE))
-			builder.setSmallIcon(R.drawable.ic_launcher);
+			builder.setSmallIcon(R.drawable.crane);
 		else if(!notificationChannelId.equals(AutomationService.NOTIFICATION_CHANNEL_ID_SERVICE))
 			builder.setSmallIcon(R.drawable.info);
 
