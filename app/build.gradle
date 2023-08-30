@@ -36,7 +36,7 @@ android {
         {
             dimension "version"
             versionNameSuffix "-googlePlay"
-            targetSdkVersion 31
+            targetSdkVersion 32
         }
 
         /*

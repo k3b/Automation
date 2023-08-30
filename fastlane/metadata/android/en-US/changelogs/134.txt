@@ -1,3 +1,4 @@
 * Fixed: Added overlay permission for start-phone-call action
 * Change: Icon changed in Play store version
-* Change: Target-SDK raised in Play store version
+* Fixed: Trigger "battery is charging" would only fire once and not after disconnecting and connecting charger
+* Change: Was forced to raise targetSdk to 32 for Google Play version. If that should break something, consider switching to the F-Droid or APK version.

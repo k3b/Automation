@@ -32,21 +32,21 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 		if(!batteryReceiverActive)
 		{
 			BatteryReceiver.automationServiceRef = automationServiceRef;
-			
+
 			if(batteryInfoReceiverInstance == null)
 				batteryInfoReceiverInstance = new BatteryReceiver();
-			
+
 			if(batteryIntentFilter == null)
 			{
 				batteryIntentFilter = new IntentFilter();
 				batteryIntentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
 				batteryIntentFilter.addAction(Intent.ACTION_BATTERY_LOW);
-		//		batteryIntentFilter.addAction(Intent.ACTION_POWER_CONNECTED);
-		//		batteryIntentFilter.addAction(Intent.ACTION_POWER_DISCONNECTED);
+				//		batteryIntentFilter.addAction(Intent.ACTION_POWER_CONNECTED);
+				//		batteryIntentFilter.addAction(Intent.ACTION_POWER_DISCONNECTED);
 			}
-			
+
 			batteryStatus = automationServiceRef.registerReceiver(batteryInfoReceiverInstance, batteryIntentFilter);
-			
+
 			batteryReceiverActive = true;
 		}
 	}
@@ -59,16 +59,16 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 				automationServiceRef.unregisterReceiver(batteryInfoReceiverInstance);
 				batteryInfoReceiverInstance = null;
 			}
-			
+
 			batteryReceiverActive = false;
 		}
 	}
-	
+
 	public static boolean isBatteryReceiverActive()
 	{
 		return batteryReceiverActive;
 	}
-	
+
 	public static boolean isUsbHostConnected()
 	{
 		return usbHostConnected;
@@ -80,7 +80,7 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 	}
 
 	private static int currentChargingState = 0; //0=unknown, 1=no, 2=yes
-	
+
 	public static int getCurrentChargingState()
 	{
 		return currentChargingState;
@@ -90,11 +90,11 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 	public void onReceive(Context context, Intent intent)
 	{
 		Miscellaneous.logEvent("i", "BatteryReceiver", "Received event " + intent.getAction(), 5);
-		
+
 		if (intent == null)
 			return;
 		if (context == null)
-			return;		
+			return;
 
 		if(intent.getAction().equals(Intent.ACTION_BATTERY_LOW))
 		{
@@ -105,12 +105,12 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 			try
 			{
 				batteryLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-		//		int scale = -1;
-		//	    int voltage = -1;
-		//	    int temp = -1;
-		//      scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-		//      temp = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1);
-		//      voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
+				//		int scale = -1;
+				//	    int voltage = -1;
+				//	    int temp = -1;
+				//      scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+				//      temp = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1);
+				//      voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
 				Log.i("Battery", "Level: " + String.valueOf(batteryLevel));
 				this.actionBatteryLevel(context);
 
@@ -121,7 +121,7 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 				switch(statusPlugged)
 				{
 					case BatteryManager.BATTERY_PLUGGED_AC:
-	//					Toast.makeText(context, "Regular charging", Toast.LENGTH_LONG).show();
+						//					Toast.makeText(context, "Regular charging", Toast.LENGTH_LONG).show();
 						Miscellaneous.logEvent("i", "BatteryReceiver", "Regular charging.", 5);
 						this.actionCharging(context);
 						break;
@@ -138,6 +138,7 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 						this.actionCharging(context);
 						break;
 					case BatteryManager.BATTERY_STATUS_DISCHARGING:
+					case BatteryManager.BATTERY_STATUS_NOT_CHARGING:
 						this.actionDischarging(context);
 						break;
 				}
@@ -148,7 +149,7 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 			}
 		}
 	}
-	
+
 	public static int isDeviceCharging(Context context)
 	{
 		switch(currentChargingState)
@@ -163,10 +164,10 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 				Miscellaneous.logEvent("i", "ChargingInfo", "Status of device charging was requested. Device is charging.", 3);
 				break;
 		}
-		
+
 		return currentChargingState;
 	}
-	
+
 	private void actionCharging(Context context)
 	{
 		if(currentChargingState != BatteryManager.BATTERY_STATUS_CHARGING) // Avoid flooding the log. This event will occur on a regular basis even though charging state wasn't changed.
@@ -183,7 +184,7 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 			}
 		}
 	}
-	
+
 	private void actionBatteryLevel(Context context)
 	{
 		Miscellaneous.logEvent("i", "BatteryReceiver", "Battery level has changed.", 3);
@@ -195,7 +196,7 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 				ruleCandidates.get(i).activate(automationServiceRef, false);
 		}
 	}
-	
+
 	private void actionDischarging(Context context)
 	{
 		if(currentChargingState != BatteryManager.BATTERY_STATUS_UNKNOWN) // Avoid flooding the log. This event will occur on a regular basis even though charging state wasn't changed.
@@ -210,17 +211,17 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 				if(ruleCandidates.get(i).getsGreenLight(context))
 					ruleCandidates.get(i).activate(automationServiceRef, false);
 			}
-			
+
 			this.actionUsbDisconnected(context);
 		}
 	}
-	
+
 	private void actionUsbConnected(Context context)
 	{
 		// Event usbConnected
-		
+
 //		Miscellaneous.logEvent("i", "BatteryReceiver", "BATTERY_PLUGGED_USB");
-		
+
 		if(!usbHostConnected)
 		{
 			usbHostConnected = true;
@@ -234,15 +235,15 @@ public class BatteryReceiver extends BroadcastReceiver implements AutomationList
 				if(oneRule.getsGreenLight(context))
 					oneRule.activate(automationServiceRef, false);
 			}
-		
+
 			this.actionCharging(context);
 		}
 	}
-	
+
 	private void actionUsbDisconnected(Context context)
 	{
 		// Event usbDisConnected
-		
+
 		if(usbHostConnected)
 		{
 			usbHostConnected = false;
