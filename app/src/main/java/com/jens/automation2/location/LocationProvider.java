@@ -400,12 +400,12 @@ public class LocationProvider
 		Miscellaneous.logEvent("i", "LocationProvider", this.getParentService().getResources().getString(R.string.applyingSettingsAndRules), 3);
 
 		// *********** SETTING CHANGES ***********
-		if(Settings.useWifiForPositioning && !WifiBroadcastReceiver.isWifiListenerActive())
+		if(Settings.useWifiForPositioning && !WifiBroadcastReceiver.isWifiListenerActive() || Rule.isAnyRuleUsing(Trigger_Enum.wifiConnection))
 		{
 			Miscellaneous.logEvent("i", "LocationProvider", "Starting WifiReceiver because settings now allow to.", 4);
 			WifiBroadcastReceiver.startWifiReceiver(this);
 		}
-		else if(!Settings.useWifiForPositioning && WifiBroadcastReceiver.isWifiListenerActive())
+		else if(!Settings.useWifiForPositioning && WifiBroadcastReceiver.isWifiListenerActive() && !Rule.isAnyRuleUsing(Trigger_Enum.wifiConnection))
 		{
 			Miscellaneous.logEvent("i", "LocationProvider", "Shutting down WifiReceiver because settings forbid to.", 4);
 			WifiBroadcastReceiver.stopWifiReceiver();

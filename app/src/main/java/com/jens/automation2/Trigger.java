@@ -803,13 +803,26 @@ public class Trigger
 			{
 				Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format("Wifi name specified, checking that.", this.getParentRule().getName()), 4);
 
-				if(!WifiBroadcastReceiver.getLastWifiSsid().equals(this.getTriggerParameter2()) && !(Miscellaneous.isRegularExpression(this.getTriggerParameter2()) && WifiBroadcastReceiver.getLastWifiSsid().matches(this.getTriggerParameter2())))
+				if(WifiBroadcastReceiver.lastConnectedState) //when connected
 				{
-					Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyNotTheCorrectSsid), getParentRule().getName(), this.getTriggerParameter2(), WifiBroadcastReceiver.getLastWifiSsid()),this.getParentRule().getName()), 3);
-					return false;
+					if (!WifiBroadcastReceiver.getLastWifiSsid().equals(this.getTriggerParameter2()) && !(Miscellaneous.isRegularExpression(this.getTriggerParameter2()) && WifiBroadcastReceiver.getLastWifiSsid().matches(this.getTriggerParameter2())))
+					{
+						Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyNotTheCorrectSsid), getParentRule().getName(), this.getTriggerParameter2(), WifiBroadcastReceiver.getLastWifiSsid()), this.getParentRule().getName()), 3);
+						return false;
+					}
+					else
+						Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format("Wifi name matches. Rule will apply.", this.getParentRule().getName()), 4);
 				}
 				else
-					Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format("Wifi name matches. Rule will apply.", this.getParentRule().getName()), 4);
+				{
+					if (!WifiBroadcastReceiver.getLastWifiSsidReal().equals(this.getTriggerParameter2()) && !(Miscellaneous.isRegularExpression(this.getTriggerParameter2()) && WifiBroadcastReceiver.getLastWifiSsidReal().matches(this.getTriggerParameter2())))
+					{
+						Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyNotTheCorrectSsid), getParentRule().getName(), this.getTriggerParameter2(), WifiBroadcastReceiver.getLastWifiSsidReal()), this.getParentRule().getName()), 3);
+						return false;
+					}
+					else
+						Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format("Wifi name matches. Rule will apply.", this.getParentRule().getName()), 4);
+				}
 			}
 			else
 				Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format("No wifi name specified, any will do.", this.getParentRule().getName()), 4);

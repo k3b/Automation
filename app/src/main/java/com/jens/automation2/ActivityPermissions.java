@@ -705,7 +705,6 @@ public class ActivityPermissions extends Activity
                         break;
                     case startPhoneCall:
                         addToArrayListUnique(Manifest.permission.CALL_PHONE, requiredPermissions);
-//                        addToArrayListUnique(Manifest.permission.SYSTEM_ALERT_WINDOW, requiredPermissions);
                         addToArrayListUnique(Manifest.permission.SYSTEM_ALERT_WINDOW, requiredPermissions);
                         break;
                     case stopPhoneCall:

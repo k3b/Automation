@@ -25,11 +25,19 @@ public class WifiBroadcastReceiver extends BroadcastReceiver
 	public static LocationProvider parentLocationProvider;
 	public static Boolean wasConnected = false;
 	protected static String lastWifiSsid = "";
+	protected static String lastWifiSsidReal = "";
 	public static boolean lastConnectedState = false;
 	protected static boolean mayCellLocationChangedReceiverBeActivatedFromWifiPointOfView = true;
 	protected static WifiBroadcastReceiver wifiBrInstance;
 	protected static IntentFilter wifiListenerIntentFilter;
 	protected static boolean wifiListenerActive=false;
+
+	final static String unknownSsidName = "<unknown ssid>";
+
+	public static String getLastWifiSsidReal()
+	{
+		return lastWifiSsidReal;
+	}
 
 	public static String getLastWifiSsid()
 	{
@@ -42,7 +50,11 @@ public class WifiBroadcastReceiver extends BroadcastReceiver
 			newWifiSsid = newWifiSsid.substring(1, newWifiSsid.length()-1);
 
 		if(newWifiSsid.length() > 0)
+		{
+			if(newWifiSsid.equals(unknownSsidName))
+				WifiBroadcastReceiver.lastWifiSsidReal = lastWifiSsid;
 			WifiBroadcastReceiver.lastWifiSsid = newWifiSsid;
+		}
 	}
 
 	public static boolean isWifiListenerActive()
