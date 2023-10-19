@@ -578,7 +578,12 @@ public class AutomationService extends Service implements OnInitListener
 		builder.setOnlyAlertOnce(true);
 
 		if(Settings.showIconWhenServiceIsRunning)
-			builder.setSmallIcon(R.drawable.crane);
+		{
+			if (BuildConfig.FLAVOR.equals(AutomationService.flavor_name_googleplay))
+				builder.setSmallIcon(R.drawable.crane);
+			else
+				builder.setSmallIcon(R.drawable.ic_launcher);
+		}
 
 //		builder.setContentText(textToDisplay);
 //		builder.setSmallIcon(icon);

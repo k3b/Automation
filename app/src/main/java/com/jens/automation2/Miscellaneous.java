@@ -70,6 +70,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -77,6 +78,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.security.DigestInputStream;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
@@ -708,7 +711,7 @@ public class Miscellaneous extends Service
 				String notificationTitle = NotificationListener.getLastNotification().getTitle();
 
 				if (notificationTitle != null && notificationTitle.length() > 0)
-					source = source.replace("[notificationTitle]", notificationTitle);
+					source = source.replace("[notificationTitle]", escapeStringForUrl(notificationTitle));
 				else
 				{
 					source = source.replace("[notificationTitle]", "notificationTitle unknown");
@@ -729,7 +732,7 @@ public class Miscellaneous extends Service
 				String notificationText = NotificationListener.getLastNotification().getText();
 
 				if (notificationText != null && notificationText.length() > 0)
-					source = source.replace("[notificationText]", notificationText);
+					source = source.replace("[notificationText]", escapeStringForUrl(notificationText));
 				else
 				{
 					source = source.replace("[notificationText]", "notificationText unknown");
@@ -760,7 +763,7 @@ public class Miscellaneous extends Service
 			else
 				replacement = "unknownVariable";
 
-			source = source.substring(0, pos1) + replacement + source.substring(pos2 +1);
+			source = source.substring(0, pos1) + escapeStringForUrl(replacement) + source.substring(pos2 +1);
 		}
 		
 //		Miscellaneous.logEvent("i", "URL after replace", source);
@@ -1164,7 +1167,12 @@ public class Miscellaneous extends Service
 		builder.setOnlyAlertOnce(true);
 
 		if(Settings.showIconWhenServiceIsRunning && notificationChannelId.equals(AutomationService.NOTIFICATION_CHANNEL_ID_SERVICE))
-			builder.setSmallIcon(R.drawable.crane);
+		{
+			if(BuildConfig.FLAVOR.equals(AutomationService.flavor_name_googleplay))
+				builder.setSmallIcon(R.drawable.crane);
+			else
+				builder.setSmallIcon(R.drawable.ic_launcher);
+		}
 		else if(!notificationChannelId.equals(AutomationService.NOTIFICATION_CHANNEL_ID_SERVICE))
 			builder.setSmallIcon(R.drawable.info);
 
@@ -2033,5 +2041,29 @@ public class Miscellaneous extends Service
 			//finish();
 			//startActivity(refresh);
 		}
+	}
+
+	public static String escapeStringForUrl(String input)
+	{
+		String output;
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+		{
+			try
+			{
+				output = URLEncoder.encode(input, String.valueOf(StandardCharsets.UTF_8));
+			}
+			catch (UnsupportedEncodingException e)
+			{
+				Miscellaneous.logEvent("e", "URLEncoder", "Error encoding string for URL. Leaving as it is. Error details: " + Log.getStackTraceString(e), 3);
+				output = input;
+			}
+		}
+		else
+		{
+			output = Uri.encode(input);
+		}
+
+		return output;
 	}
 }
