@@ -103,6 +103,14 @@
 
     </TableLayout>
 
+    <TextView
+        android:id="@+id/tvWifiTriggerDisconnectionHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/default_margin"
+        android:textColor="@color/red"
+        android:text="@string/wifiTriggerDisconnectionHint" />
+
     <Button
         android:id="@+id/bTriggerWifiSave"
         android:layout_marginTop="@dimen/default_margin"

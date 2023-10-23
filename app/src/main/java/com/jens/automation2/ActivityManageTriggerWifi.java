@@ -12,11 +12,15 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -43,7 +47,7 @@ public class ActivityManageTriggerWifi extends Activity
     List<String> wifiList = new ArrayList<>();
     ArrayAdapter<String> wifiSpinnerAdapter;
     private final static int requestCodeLocationPermission = 124;
-    TextView tvWifiTriggerNameLocationNotice;
+    TextView tvWifiTriggerNameLocationNotice, tvWifiTriggerDisconnectionHint;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -59,6 +63,9 @@ public class ActivityManageTriggerWifi extends Activity
         bTriggerWifiSave = (Button) findViewById(R.id.bTriggerWifiSave);
         bLoadWifiList = (Button) findViewById(R.id.bLoadWifiList);
         tvWifiTriggerNameLocationNotice = (TextView)findViewById(R.id.tvWifiTriggerNameLocationNotice);
+        tvWifiTriggerDisconnectionHint = (TextView)findViewById(R.id.tvWifiTriggerDisconnectionHint);
+
+        tvWifiTriggerDisconnectionHint.setVisibility(View.GONE);
 
         wifiSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, wifiList);
         spinnerWifiList.setAdapter(wifiSpinnerAdapter);
@@ -101,6 +108,11 @@ public class ActivityManageTriggerWifi extends Activity
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
                 etTriggerWifiName.setText(wifiList.get(position));
+
+                if(etTriggerWifiName.getText().toString().length() > 0 && rbTriggerWifiDisconnected.isChecked())
+                    tvWifiTriggerDisconnectionHint.setVisibility(View.VISIBLE);
+                else
+                    tvWifiTriggerDisconnectionHint.setVisibility(View.GONE);
             }
 
             @Override
@@ -116,6 +128,41 @@ public class ActivityManageTriggerWifi extends Activity
             public void onClick(View v)
             {
                 loadWifis();
+            }
+        });
+
+        rbTriggerWifiDisconnected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b)
+            {
+                if(etTriggerWifiName.getText().toString().length() > 0 && b)
+                    tvWifiTriggerDisconnectionHint.setVisibility(View.VISIBLE);
+                else
+                    tvWifiTriggerDisconnectionHint.setVisibility(View.GONE);
+            }
+        });
+        etTriggerWifiName.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+                if(etTriggerWifiName.getText().toString().length() > 0 && rbTriggerWifiDisconnected.isChecked())
+                    tvWifiTriggerDisconnectionHint.setVisibility(View.VISIBLE);
+                else
+                    tvWifiTriggerDisconnectionHint.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+
             }
         });
     }

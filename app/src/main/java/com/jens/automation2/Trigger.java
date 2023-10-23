@@ -815,7 +815,10 @@ public class Trigger
 				}
 				else
 				{
-					if (!WifiBroadcastReceiver.getLastWifiSsidReal().equals(this.getTriggerParameter2()) && !(Miscellaneous.isRegularExpression(this.getTriggerParameter2()) && WifiBroadcastReceiver.getLastWifiSsidReal().matches(this.getTriggerParameter2())))
+					if (
+							!Settings.serviceStartDone
+								||
+							(!WifiBroadcastReceiver.getLastWifiSsidReal().equals(this.getTriggerParameter2()) && !(Miscellaneous.isRegularExpression(this.getTriggerParameter2()) && WifiBroadcastReceiver.getLastWifiSsidReal().matches(this.getTriggerParameter2()))))
 					{
 						Miscellaneous.logEvent("i", Miscellaneous.getAnyContext().getResources().getString(R.string.ruleCheckOf), String.format(String.format(Miscellaneous.getAnyContext().getResources().getString(R.string.ruleDoesntApplyNotTheCorrectSsid), getParentRule().getName(), this.getTriggerParameter2(), WifiBroadcastReceiver.getLastWifiSsidReal()), this.getParentRule().getName()), 3);
 						return false;
