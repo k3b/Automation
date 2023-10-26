@@ -20,7 +20,7 @@ public class HeadphoneJackListener extends BroadcastReceiver implements Automati
 	private static boolean headsetConnected = false;
 	private static int headphoneType = -1;
 
-	protected static boolean headphoneJackListenerActive=false;
+	protected static boolean headphoneJackListenerActive = false;
 	protected static IntentFilter headphoneJackListenerIntentFilter = null;
 	protected static HeadphoneJackListener instance;
 
@@ -108,7 +108,7 @@ public class HeadphoneJackListener extends BroadcastReceiver implements Automati
 		}
 		catch(Exception ex)
 		{
-			Miscellaneous.logEvent("e", "ActivityDetectionReceiver", "Error starting HeadsetJackListener: " + Log.getStackTraceString(ex), 3);
+			Miscellaneous.logEvent("e", "HeadsetJackListener", "Error starting HeadsetJackListener: " + Log.getStackTraceString(ex), 3);
 		}
 	}
 

@@ -395,7 +395,7 @@ public class ReceiverCoordinator
         {
             if(!HeadphoneJackListener.isHeadphoneJackListenerActive())
             {
-                Miscellaneous.logEvent("i", "LocationProvider", "Starting HeadphoneJackListener because used in a new/changed rule.", 4);
+                Miscellaneous.logEvent("i", "HeadphoneJackListener", "Starting HeadphoneJackListener because used in a new/changed rule.", 4);
                 if(HeadphoneJackListener.getInstance().haveAllPermission())
                     HeadphoneJackListener.getInstance().startListener(AutomationService.getInstance());
             }
@@ -404,7 +404,7 @@ public class ReceiverCoordinator
         {
             if(HeadphoneJackListener.isHeadphoneJackListenerActive())
             {
-                Miscellaneous.logEvent("i", "LocationProvider", "Shutting down HeadphoneJackListener because not used in any rule.", 4);
+                Miscellaneous.logEvent("i", "HeadphoneJackListener", "Shutting down HeadphoneJackListener because not used in any rule.", 4);
                 HeadphoneJackListener.getInstance().stopListener(AutomationService.getInstance());
             }
         }

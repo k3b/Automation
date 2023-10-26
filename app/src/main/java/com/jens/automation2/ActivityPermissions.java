@@ -456,7 +456,8 @@ public class ActivityPermissions extends Activity
                 {
                     case activityDetection:
                         addToArrayListUnique(permissionNameGoogleActivityDetection, requiredPermissions);
-                        addToArrayListUnique(Manifest.permission.ACTIVITY_RECOGNITION, requiredPermissions);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+                            addToArrayListUnique(Manifest.permission.ACTIVITY_RECOGNITION, requiredPermissions);
                         break;
                     case airplaneMode:
                         addToArrayListUnique(Manifest.permission.ACCESS_NETWORK_STATE, requiredPermissions);
