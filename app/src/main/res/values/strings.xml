@@ -422,7 +422,7 @@
     <string name="noDataChangedReadingAnyway">It appears no data change has been saved. However there may have been changes in memory that need to be rolled back. Rereading file.</string>
     <string name="bluetoothConnection">Bluetooth connection</string>
     <string name="bluetoothConnectionTo">Bluetooth connection to %1$s</string>
-    <string name="bluetoothDisconnectFrom">Bluetooth connection to %1$s torn</string>
+    <string name="bluetoothDisconnectFrom">Bluetooth connection from %1$s torn</string>
     <string name="bluetoothDeviceInRange">Bluetooth device %1$s in range.</string>
     <string name="bluetoothDeviceOutOfRange">Bluetooth device %1$s out of range.</string>
     <string name="anyDevice">any device</string>

@@ -94,20 +94,21 @@ public class BluetoothReceiver extends BroadcastReceiver implements AutomationLi
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
-//		Miscellaneous.logEvent("i", "BluetoothReceiver", "Bluetooth event.", 4);
-		
 		String action = intent.getAction();
+
+		Miscellaneous.logEvent("i", "BluetoothReceiver", "Bluetooth event: " + action, 5);
+
 		BluetoothDevice bluetoothDevice = null;
 		
-		if(action.equals(BluetoothDevice.ACTION_ACL_CONNECTED) | action.equals("android.bluetooth.device.action.ACL_CONNECTED"))
-		{			
+		if(action.equals(BluetoothDevice.ACTION_ACL_CONNECTED) || action.equals("android.bluetooth.device.action.ACL_CONNECTED"))
+		{
 			bluetoothDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 			lastAffectedDevice = bluetoothDevice;
 			lastAction = action;
 			connectedDevices.add(bluetoothDevice);
 			Miscellaneous.logEvent("i", "BluetoothReceiver", String.format(context.getResources().getString(R.string.bluetoothConnectionTo), bluetoothDevice.getName()), 3);
 		}
-		else if(action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED) | action.equals(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED) | action.equals("android.bluetooth.device.ACTION_ACL_DISCONNECTED") | action.equals("android.bluetooth.device.ACTION_ACL_DISCONNECT_REQUESTED"))
+		else if(action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED) || action.equals(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED) || action.equals("android.bluetooth.device.ACTION_ACL_DISCONNECTED") || action.equals("android.bluetooth.device.ACTION_ACL_DISCONNECT_REQUESTED"))
 		{
 			bluetoothDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 			lastAffectedDevice = bluetoothDevice;
@@ -115,7 +116,7 @@ public class BluetoothReceiver extends BroadcastReceiver implements AutomationLi
 			connectedDevices.remove(bluetoothDevice);
 			Miscellaneous.logEvent("i", "BluetoothReceiver", String.format(context.getResources().getString(R.string.bluetoothDisconnectFrom), bluetoothDevice.getName()), 3);
 		}
-		else if(action.equals(BluetoothDevice.ACTION_FOUND) | action.equals("android.bluetooth.device.ACTION_FOUND"))
+		else if(action.equals(BluetoothDevice.ACTION_FOUND) || action.equals("android.bluetooth.device.ACTION_FOUND"))
 		{
 			bluetoothDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 			lastAffectedDevice = bluetoothDevice;
