@@ -896,4 +896,5 @@
     <string name="languageFrench">Francuski</string>
     <string name="languagePolish">Polski</string>
     <string name="languageChineseChina">Chiński (Chiny)</string>
+    <string name="wifiTriggerDisconnectionHint">Ten wyzwalacz będzie prawidłowy, jeśli właśnie rozłączyłeś się z Wi-Fi określonym powyżej LUB gdy usługa jest nadal uruchomiona i jeśli nie masz połączenia z żadną siecią Wi-Fi. Jeśli chcesz, aby wyzwalacz uruchamiał się tylko wtedy, gdy jawnie rozłączasz się z określoną siecią Wi-Fi, dodaj kolejny wyzwalacz \"usługa nie uruchamia się\".</string>
 </resources>

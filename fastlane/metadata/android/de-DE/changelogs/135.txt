@@ -1,0 +1,4 @@
+* Behoben: Overlay-Berechtigung für Start-Telefonanruf-Aktion hinzugefügt
+* Behoben: Der Auslöser "Akku wird geladen" löste nur einmal aus und nicht nach dem Trennen und Anschließen des Ladegeräts
+* Behoben: WLAN-Auslöser wurde beim Trennen der Verbindung nicht zuverlässig ausgelöst
+* Behoben: Auf Api-Ebene

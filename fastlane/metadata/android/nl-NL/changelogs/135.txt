@@ -1,0 +1,4 @@
+* Opgelost: overlay-toestemming toegevoegd voor start-telefoongesprek-actie
+* Opgelost: trigger "batterij wordt opgeladen" ging maar één keer af en niet na het loskoppelen en aansluiten van de oplader
+* Opgelost: wifi-trigger ging niet betrouwbaar af bij het verbreken van de verbinding
+* Opgelost: op API-niveau

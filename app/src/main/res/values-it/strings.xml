@@ -799,4 +799,5 @@
     <string name="intentParametersHint">Se si desidera specificare un parametro è necessario fare clic anche su \"Aggiungi coppia intento\". In caso contrario, le modifiche non verranno salvate.</string>
     <string name="languagePolish">Polacco</string>
     <string name="languageChineseChina">Cinese (Cina)</string>
+    <string name="wifiTriggerDisconnectionHint">Questo trigger sarà valido se ti sei appena disconnesso dal Wi-Fi specificato sopra OPPURE mentre il servizio è ancora in fase di avvio e se non sei connesso a nessuna rete Wi-Fi. Se vuoi che il trigger si attivi solo quando ti stai disconnettendo esplicitamente da una determinata rete Wi-Fi, aggiungi un altro trigger \"il servizio non si avvia\".</string>
 </resources>

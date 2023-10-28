@@ -797,4 +797,5 @@
     <string name="languagePolish">波兰语</string>
     <string name="languageChineseChina">中文（中国）</string>
     <string name="intentParametersHint">若要指定一个参数，还必须点击“添加 Intent 对”，否则更改不会保存。</string>
+    <string name="wifiTriggerDisconnectionHint">如果您刚刚断开了与上面指定的 wifi 的连接，或者在服务仍在启动并且您没有连接到任何 wifi，则此触发器将有效。 如果您希望触发器仅在您明确断开与某个 wifi 的连接时触发，请添加另一个触发器\"服务未启动\"。</string>
 </resources>

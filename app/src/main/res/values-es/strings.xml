@@ -798,4 +798,5 @@
     <string name="intentParametersHint">Si desea especificar un parámetro, también debe hacer clic en \"Agregar par de intención\". De lo contrario, los cambios no se guardarán.</string>
     <string name="languagePolish">Polaco</string>
     <string name="languageChineseChina">Chino (China)</string>
+    <string name="wifiTriggerDisconnectionHint">Este activador será válido si acabas de desconectarte del wifi especificado anteriormente O mientras el servicio aún se está iniciando y si no estás conectado a ningún wifi. Si desea que el activador se active solo cuando se desconecte explícitamente de una determinada red WiFi, agregue otro activador \"el servicio no se está iniciando\".</string>
 </resources>
