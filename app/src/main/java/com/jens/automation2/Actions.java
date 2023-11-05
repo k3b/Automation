@@ -10,6 +10,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothProfile;
 import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -1080,6 +1081,14 @@ public class Actions
 				if (!params[0].equals(dummyPackageString))
 					externalActivityIntent.setPackage(params[0]);
 
+				externalActivityIntent.setPackage("net.christianbeier.droidvnc_ng");
+
+				if (params[2].equals(ActivityManageActionStartActivity.startByServiceString))
+				{
+					//externalActivityIntent.setComponent(new ComponentName(params[0], params[1]));
+					externalActivityIntent.setComponent(new ComponentName("net.christianbeier.droidvnc_ng", ".MainService"));
+				}
+
 				externalActivityIntent.setAction(params[1]);
 			}
 
@@ -1091,7 +1100,8 @@ public class Actions
 			if (params[2].equals(ActivityManageActionStartActivity.startByActivityString))
 				automationServerRef.startActivity(externalActivityIntent);
 			if (params[2].equals(ActivityManageActionStartActivity.startByServiceString))
-				automationServerRef.startService(externalActivityIntent);
+				//automationServerRef.startService(externalActivityIntent);
+			automationServerRef.startForegroundService(externalActivityIntent);
 			else
 				automationServerRef.sendBroadcast(externalActivityIntent);
 		}

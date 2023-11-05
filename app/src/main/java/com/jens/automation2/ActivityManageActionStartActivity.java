@@ -90,7 +90,6 @@ public class ActivityManageActionStartActivity extends Activity
 		intentTypeSpinnerAdapter.notifyDataSetChanged();
 
 		intentPairAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, intentPairList);
-
 		bSelectApp.setOnClickListener(new OnClickListener()
 		{
 			@Override
