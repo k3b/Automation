@@ -1047,7 +1047,7 @@ public class Actions
 
 		try
 		{
-			Intent externalActivityIntent;
+			Intent externalApplicationIntent;
 
 			if (!startByAction)
 			{
@@ -1060,15 +1060,13 @@ public class Actions
 
 				Miscellaneous.logEvent("i", "StartOtherApp", "Starting app by activity: " + packageName + " " + className, 3);
 
-				externalActivityIntent = new Intent(Intent.ACTION_MAIN);
-				externalActivityIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+				externalApplicationIntent = new Intent(Intent.ACTION_MAIN);
+				externalApplicationIntent.addCategory(Intent.CATEGORY_LAUNCHER);
 
-//				if(packageName.equals("dummyPkg"))
-//					externalActivityIntent.setAction(className);
-//				else
-				externalActivityIntent.setClassName(packageName, className);
+				if(packageName.equals("dummyPkg"))
+					externalApplicationIntent.setAction(className);
 
-				if (!Miscellaneous.doesActivityExist(externalActivityIntent, Miscellaneous.getAnyContext()))
+				if (!Miscellaneous.doesActivityExist(externalApplicationIntent, Miscellaneous.getAnyContext()))
 					Miscellaneous.logEvent("w", "StartOtherApp", "Activity not found: " + className, 2);
 			}
 			else
@@ -1076,34 +1074,32 @@ public class Actions
 				// selected by action
 				Miscellaneous.logEvent("i", "StartOtherApp", "Starting app by action: " + param, 3);
 
-				externalActivityIntent = new Intent();
+				externalApplicationIntent = new Intent();
 
 				if (!params[0].equals(dummyPackageString))
-					externalActivityIntent.setPackage(params[0]);
+					externalApplicationIntent.setPackage(params[0]);
 
-				externalActivityIntent.setPackage("net.christianbeier.droidvnc_ng");
+				externalApplicationIntent.setAction(params[1]);
 
-				if (params[2].equals(ActivityManageActionStartActivity.startByServiceString))
+				if (params[2].equals(ActivityManageActionStartActivity.startByServiceString) || params[2].equals(ActivityManageActionStartActivity.startByForegroundServiceString))
 				{
-					//externalActivityIntent.setComponent(new ComponentName(params[0], params[1]));
-					externalActivityIntent.setComponent(new ComponentName("net.christianbeier.droidvnc_ng", ".MainService"));
+					externalApplicationIntent.setComponent(new ComponentName(params[0], params[2]));
 				}
-
-				externalActivityIntent.setAction(params[1]);
 			}
 
-			externalActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			externalApplicationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 			// Pack intents
-			externalActivityIntent = packParametersIntoIntent(externalActivityIntent, params, 3);
+			externalApplicationIntent = packParametersIntoIntent(externalApplicationIntent, params, 3);
 
 			if (params[2].equals(ActivityManageActionStartActivity.startByActivityString))
-				automationServerRef.startActivity(externalActivityIntent);
-			if (params[2].equals(ActivityManageActionStartActivity.startByServiceString))
-				//automationServerRef.startService(externalActivityIntent);
-			automationServerRef.startForegroundService(externalActivityIntent);
+				automationServerRef.startActivity(externalApplicationIntent);
+			else if (params[2].equals(ActivityManageActionStartActivity.startByServiceString))
+				automationServerRef.startService(externalApplicationIntent);
+			else if (params[2].equals(ActivityManageActionStartActivity.startByForegroundServiceString))
+				automationServerRef.startForegroundService(externalApplicationIntent);
 			else
-				automationServerRef.sendBroadcast(externalActivityIntent);
+				automationServerRef.sendBroadcast(externalApplicationIntent);
 		}
 		catch (Exception e)
 		{

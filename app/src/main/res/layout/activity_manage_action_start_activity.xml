@@ -135,6 +135,12 @@
 						android:layout_height="wrap_content"
 						android:text="@string/startAppByStartService" />
 
+					<RadioButton
+						android:id="@+id/rbStartAppByForegroundService"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:text="@string/startAppByStartForegroundService" />
+
 				</RadioGroup>
 
 			</TableRow>
@@ -179,6 +185,25 @@
 
 				<EditText
 					android:id="@+id/etPackageName"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:inputType="textMultiLine"
+					android:text=""
+					android:textAppearance="?android:attr/textAppearanceMedium" />
+
+			</TableRow>
+
+			<TableRow
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:text="@string/className" />
+
+				<EditText
+					android:id="@+id/etClassName"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:inputType="textMultiLine"

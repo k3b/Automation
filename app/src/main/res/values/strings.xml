@@ -887,4 +887,6 @@
     <string name="variablesOnlyForTypes">Variables are only available for parameter types String and URI</string>
     <string name="intentParametersHint">If you want to specify a parameter you also have to click \"Add intent pair\". Otherwise your changes will not be saved.</string>
     <string name="wifiTriggerDisconnectionHint">This trigger will be valid if you just disconnected from the wifi specified above  OR  while the service is still starting and if you\'re not connected to any wifi.  If you want the trigger to fire only when you\'re explicitly disconnecting from a certain wifi, add another trigger \"service is not starting\".</string>
+    <string name="className">Class full name</string>
+    <string name="startAppByStartForegroundService">by startForegroundService()</string>
 </resources>

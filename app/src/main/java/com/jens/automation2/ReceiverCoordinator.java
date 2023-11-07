@@ -391,7 +391,7 @@ public class ReceiverCoordinator
             }
         }
 
-        if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.headsetPlugged))
+            if(Rule.isAnyRuleUsing(Trigger.Trigger_Enum.headsetPlugged))
         {
             if(!HeadphoneJackListener.isHeadphoneJackListenerActive())
             {
