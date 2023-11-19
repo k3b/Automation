@@ -298,7 +298,11 @@ public class ActivityManageActionStartActivity extends Activity
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
 			{
 				if(isChecked)
+				{
 					bSelectApp.setEnabled(isChecked);
+				}
+bug
+				etClassName.setEnabled(!isChecked);
 			}
 		});
 

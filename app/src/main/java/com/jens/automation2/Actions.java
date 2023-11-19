@@ -1066,6 +1066,8 @@ public class Actions
 				if(packageName.equals("dummyPkg"))
 					externalApplicationIntent.setAction(className);
 
+				externalApplicationIntent.setClassName(packageName, className);
+
 				if (!Miscellaneous.doesActivityExist(externalApplicationIntent, Miscellaneous.getAnyContext()))
 					Miscellaneous.logEvent("w", "StartOtherApp", "Activity not found: " + className, 2);
 			}
