@@ -29,6 +29,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -51,6 +52,7 @@ public class ActivityManageActionStartActivity extends Activity
 	EditText etParameterName, etParameterValue, etPackageName, etActivityOrActionPath, etClassName;
 	Button bSelectApp, bAddIntentPair, bSaveActionStartOtherActivity, showStartProgramExamples;
 	Spinner spinnerParameterType;
+	RadioGroup rgAppStartupType;
 	boolean edit = false;
 	ProgressDialog progressDialog = null;
 	RadioButton rbStartAppSelectByActivity, rbStartAppSelectByAction, rbStartAppByActivity, rbStartAppByBroadcast, rbStartAppByService, rbStartAppByForegroundService;
@@ -87,10 +89,13 @@ public class ActivityManageActionStartActivity extends Activity
 		rbStartAppByBroadcast = (RadioButton)findViewById(R.id.rbStartAppByBroadcast);
 		rbStartAppByService = (RadioButton)findViewById(R.id.rbStartAppByService);
 		rbStartAppByForegroundService = (RadioButton)findViewById(R.id.rbStartAppByForegroundService);
+		rgAppStartupType = (RadioGroup)findViewById(R.id.rgAppStartupType);
 
 		intentTypeSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, ActivityManageActionStartActivity.supportedIntentTypes);
 		spinnerParameterType.setAdapter(intentTypeSpinnerAdapter);
 		intentTypeSpinnerAdapter.notifyDataSetChanged();
+
+		etClassName.setEnabled(false);
 
 		intentPairAdapter = new ArrayAdapter<String>(this, R.layout.text_view_for_poi_listview_mediumtextsize, intentPairList);
 		bSelectApp.setOnClickListener(new OnClickListener()
@@ -301,8 +306,6 @@ public class ActivityManageActionStartActivity extends Activity
 				{
 					bSelectApp.setEnabled(isChecked);
 				}
-bug
-				etClassName.setEnabled(!isChecked);
 			}
 		});
 
@@ -315,6 +318,23 @@ bug
 					bSelectApp.setEnabled(!isChecked);
 			}
 		});
+
+		rgAppStartupType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(RadioGroup radioGroup, int i)
+			{
+				if(rbStartAppByActivity.isChecked())
+					etClassName.setEnabled(false);
+				else if (rbStartAppByBroadcast.isChecked())
+					etClassName.setEnabled(false);
+				else if(rbStartAppByService.isChecked())
+					etClassName.setEnabled(true);
+				else if(rbStartAppByForegroundService.isChecked())
+					etClassName.setEnabled(true);
+			}
+		});
+
 
 		Intent i = getIntent();
 		if(i.hasExtra(ActivityManageRule.intentNameActionParameter1))

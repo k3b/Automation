@@ -113,6 +113,7 @@
 					android:text="@string/startAppStartType" />
 
 				<RadioGroup
+					android:id="@+id/rgAppStartupType"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content">
 
