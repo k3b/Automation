@@ -1,0 +1,5 @@
+* Corregido: Se agregó permiso de superposición para la acción de inicio de llamada telefónica
+* Corregido: El disparador "la batería se está cargando" solo se disparaba una vez y no después de desconectar y conectar el cargador
+* Corregido: el disparador de Wifi no se disparaba de forma fiable tras la desconexión
+* Corregido: En el nivel de API <=28 se solicitaba un permiso para ActivityDetection que no se podía conceder
+* Corregido: Iniciar otra acción de aplicación no siempre iniciaba un servicio correctamente

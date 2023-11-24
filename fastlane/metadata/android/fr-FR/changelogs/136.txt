@@ -1,0 +1,5 @@
+* Corrigé : Ajout d'une autorisation de superposition pour l'action de démarrage d'un appel téléphonique
+* Résolu : La gâchette « la batterie est en charge » ne se déclenchait qu'une seule fois et non après avoir débranché et connecté le chargeur
+* Résolu : Le déclencheur Wifi ne se déclenchait pas de manière fiable lors de la déconnexion
+* Résolu : Au niveau d'API <=28, une autorisation était demandée pour ActivityDetection qui ne pouvait pas être accordée
+* Résolu : L'action Démarrer une autre application ne démarrait pas toujours correctement un service

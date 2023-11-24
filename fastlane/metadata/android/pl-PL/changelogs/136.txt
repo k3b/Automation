@@ -1,0 +1,5 @@
+* Naprawiono: Dodano uprawnienie nakładki do akcji start-phone-call
+* Naprawiono: Wyzwalacz "bateria się ładuje" uruchamiał się tylko raz, a nie po odłączeniu i podłączeniu ładowarki
+* Naprawiono: Wyzwalacz Wi-Fi nie uruchamiał się niezawodnie po rozłączeniu
+* Naprawiono: Na poziomie interfejsu API <=28 zażądano uprawnienia do wykrywania aktywności, którego nie można było udzielić
+* Naprawiono: Akcja Uruchom inną aplikację nie zawsze poprawnie uruchamiała usługę

@@ -1,0 +1,2 @@
+* 更改：Play商店版本中的图标已更改
+* 更改：Google Play 版本被迫将 targetSdk 提高到 32。如果这会破坏某些东西，请考虑切换到 F-Droid 或 APK 版本。

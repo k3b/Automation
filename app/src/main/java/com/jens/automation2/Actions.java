@@ -1098,7 +1098,7 @@ public class Actions
 				automationServerRef.startActivity(externalApplicationIntent);
 			else if (params[2].equals(ActivityManageActionStartActivity.startByServiceString))
 				automationServerRef.startService(externalApplicationIntent);
-			else if (params[2].equals(ActivityManageActionStartActivity.startByForegroundServiceString))
+			else if (params[2].equals(ActivityManageActionStartActivity.startByForegroundServiceString) && Build.VERSION.SDK_INT >= 26)
 				automationServerRef.startForegroundService(externalApplicationIntent);
 			else
 				automationServerRef.sendBroadcast(externalApplicationIntent);

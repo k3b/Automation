@@ -1,6 +1,2 @@
-* Fixed: Added overlay permission for start-phone-call action
-* Fixed: Trigger "battery is charging" would only fire once and not after disconnecting and connecting charger
-* Fixed: Wifi trigger would not reliably fire upon disconnection
-* Fixed: On Api level <=28 a permission was requested for ActivityDetection that could not be granted
 * Change: Icon changed in Play store version
 * Change: Was forced to raise targetSdk to 32 for Google Play version. If that should break something, consider switching to the F-Droid or APK version.

@@ -1,0 +1,5 @@
+* Behoben: Overlay-Berechtigung für Start-Telefonanruf-Aktion hinzugefügt
+* Behoben: Der Auslöser "Akku wird geladen" wurde nur einmal ausgelöst und nicht nach dem Trennen und Anschließen des Ladegeräts
+* Behoben: WLAN-Auslöser wurde beim Trennen der Verbindung nicht zuverlässig ausgelöst
+* Behoben: Auf Api-Level <=28 wurde eine Berechtigung für ActivityDetection angefordert, die nicht erteilt werden konnte
+* Behoben: Die Aktion "Andere Anwendung starten" startete einen Dienst nicht immer korrekt

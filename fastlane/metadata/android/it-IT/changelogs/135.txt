@@ -1,4 +1,2 @@
-* Risolto: aggiunta l'autorizzazione di sovrapposizione per l'azione di avvio della chiamata telefonica
-* Risolto: il trigger "la batteria è in carica" si attivava solo una volta e non dopo aver scollegato e collegato il caricabatterie
-* Risolto: il trigger Wi-Fi non si attivava in modo affidabile alla disconnessione
-* Risolto: a livello di API
+* Modifica: l'icona è cambiata nella versione del Play Store
+* Modifica: è stato forzato aumentare targetSdk a 32 per la versione di Google Play. Se questo dovesse rompere qualcosa, prendi in considerazione l'idea di passare alla versione F-Droid o APK.

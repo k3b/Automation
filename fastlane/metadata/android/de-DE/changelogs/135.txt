@@ -1,4 +1,2 @@
-* Behoben: Overlay-Berechtigung für Start-Telefonanruf-Aktion hinzugefügt
-* Behoben: Der Auslöser "Akku wird geladen" löste nur einmal aus und nicht nach dem Trennen und Anschließen des Ladegeräts
-* Behoben: WLAN-Auslöser wurde beim Trennen der Verbindung nicht zuverlässig ausgelöst
-* Behoben: Auf Api-Ebene
+* Geändert: Symbol in Play store Version
+* Geändert: targetSdk mußte in Google Play Version auf 32 erhöht werden. Falls das Fehler verursacht, denken Sie darüber nach zur F-Droid oder APK version zu wechseln.

@@ -1,4 +1,2 @@
-* Corrigé : Ajout d'une autorisation de superposition pour l'action de démarrage d'un appel téléphonique
-* Résolu : La gâchette « la batterie est en charge » ne se déclenchait qu'une seule fois et non après avoir débranché et connecté le chargeur
-* Résolu : Le déclencheur Wifi ne se déclenchait pas de manière fiable lors de la déconnexion
-* Résolu : Au niveau de l'API
+* Changement : Icône modifiée dans la version Play Store
+* Changement : Été forcé d'augmenter targetSdk à 32 pour la version Google Play. Si cela devait casser quelque chose, envisagez de passer à la version F-Droid ou APK.

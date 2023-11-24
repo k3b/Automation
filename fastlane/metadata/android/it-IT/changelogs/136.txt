@@ -1,0 +1,5 @@
+* Risolto: aggiunta l'autorizzazione di sovrapposizione per l'azione di avvio della chiamata telefonica
+* Risolto: il trigger "la batteria è in carica" si attivava solo una volta e non dopo aver scollegato e collegato il caricabatterie
+* Risolto: il trigger Wi-Fi non si attivava in modo affidabile alla disconnessione
+* Risolto: al livello Api <=28 è stata richiesta un'autorizzazione per ActivityDetection che non poteva essere concessa
+* Risolto: l'avvio di un'altra azione dell'applicazione non sempre avviava correttamente un servizio
