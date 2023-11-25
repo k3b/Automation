@@ -3,3 +3,4 @@
 * Behoben: WLAN-Auslöser wurde beim Trennen der Verbindung nicht zuverlässig ausgelöst
 * Behoben: Auf Api-Level <=28 wurde eine Berechtigung für ActivityDetection angefordert, die nicht erteilt werden konnte
 * Behoben: Die Aktion "Andere Anwendung starten" startete einen Dienst nicht immer korrekt
+* Geändert: targetSdk mußte in Google Play Version auf 33 erhöht werden. Falls das Fehler verursacht, denken Sie darüber nach zur F-Droid oder APK version zu wechseln.

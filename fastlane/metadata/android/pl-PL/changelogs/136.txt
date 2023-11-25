@@ -3,3 +3,4 @@
 * Naprawiono: Wyzwalacz Wi-Fi nie uruchamiał się niezawodnie po rozłączeniu
 * Naprawiono: Na poziomie interfejsu API <=28 zażądano uprawnienia do wykrywania aktywności, którego nie można było udzielić
 * Naprawiono: Akcja Uruchom inną aplikację nie zawsze poprawnie uruchamiała usługę
+* Zmiana: Został zmuszony do podniesienia targetSdk do 33 dla wersji Google Play. Jeśli to powinno coś zepsuć, rozważ przejście na wersję F-Droid lub APK.

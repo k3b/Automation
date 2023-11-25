@@ -857,4 +857,6 @@
     <string name="languagePolish">Польский</string>
     <string name="languageChineseChina">Китайский (Китай)</string>
     <string name="wifiTriggerDisconnectionHint">Этот триггер будет действителен, если вы только что отключились от Wi-Fi, указанного выше, ИЛИ во время запуска службы и если вы не подключены ни к одному Wi-Fi. Если вы хотите, чтобы триггер срабатывал только тогда, когда вы явно отключаетесь от определенного Wi-Fi, добавьте еще один триггер «сервис не запускается».</string>
+    <string name="className">Имя класса</string>
+    <string name="startAppByStartForegroundService">no startForegroundService()</string>
 </resources>

@@ -3,3 +3,4 @@
 * Opgelost: wifi-trigger ging niet betrouwbaar af bij het verbreken van de verbinding
 * Opgelost: op API-niveau <=28 werd een toestemming gevraagd voor ActivityDetection die niet kon worden verleend
 * Opgelost: andere applicatieactie starten startte een service niet altijd correct
+* Wijziging: Werd gedwongen om targetSdk te verhogen naar 33 voor de Google Play-versie. Als dat iets kapot zou maken, overweeg dan om over te schakelen naar de F-Droid- of APK-versie.

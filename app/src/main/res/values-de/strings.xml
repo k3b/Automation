@@ -800,4 +800,6 @@
     <string name="languagePolish">Polnisch</string>
     <string name="languageChineseChina">Chinesisch (China)</string>
     <string name="wifiTriggerDisconnectionHint">Dieser Auslöser ist gültig, wenn Sie gerade die Verbindung zu dem oben angegebenen WLAN getrennt haben ODER während der Dienst noch gestartet wird und wenn Sie mit keinem WLAN verbunden sind. Wenn Sie möchten, dass der Auslöser nur ausgelöst wird, wenn Sie die Verbindung zu einem bestimmten WLAN explizit trennen, fügen Sie einen weiteren Auslöser hinzu: \"Der Dienst wird nicht gestartet\".</string>
+    <string name="className">Klassenname</string>
+    <string name="startAppByStartForegroundService">per startForegroundService()</string>
 </resources>

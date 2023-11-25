@@ -3,3 +3,4 @@
 * Corregido: el disparador de Wifi no se disparaba de forma fiable tras la desconexión
 * Corregido: En el nivel de API <=28 se solicitaba un permiso para ActivityDetection que no se podía conceder
 * Corregido: Iniciar otra acción de aplicación no siempre iniciaba un servicio correctamente
+* Cambio: Se ha forzado a subir targetSdk a 33 para la versión de Google Play. Si eso rompe algo, considere cambiar a la versión F-Droid o APK.

@@ -3,3 +3,4 @@
 * Fixed: Wifi trigger would not reliably fire upon disconnection
 * Fixed: On Api level <=28 a permission was requested for ActivityDetection that could not be granted
 * Fixed: Start other application action did not always start a service correctly
+* Change: Was forced to raise targetSdk to 33 for Google Play version. If that should break something, consider switching to the F-Droid or APK version.

@@ -3,3 +3,4 @@
 * Résolu : Le déclencheur Wifi ne se déclenchait pas de manière fiable lors de la déconnexion
 * Résolu : Au niveau d'API <=28, une autorisation était demandée pour ActivityDetection qui ne pouvait pas être accordée
 * Résolu : L'action Démarrer une autre application ne démarrait pas toujours correctement un service
+* Changement : Été forcé d'augmenter targetSdk à 33 pour la version Google Play. Si cela devait casser quelque chose, envisagez de passer à la version F-Droid ou APK.

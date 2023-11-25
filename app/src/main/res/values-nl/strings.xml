@@ -798,5 +798,7 @@
     <string name="languagePolish">Pools</string>
     <string name="languageChineseChina">Chinees (China)</string>
     <string name="wifiTriggerDisconnectionHint">Deze trigger is geldig als je net de verbinding met de hierboven gespecificeerde wifi hebt verbroken OF terwijl de service nog aan het starten is en als je niet verbonden bent met wifi. Als je wilt dat de trigger alleen wordt geactiveerd wanneer je expliciet de verbinding met een bepaalde wifi verbreekt, voeg dan nog een trigger toe \"service start niet\".</string>
+    <string name="className">Naam van de klasse</string>
+    <string name="startAppByStartForegroundService">door startForegroundService()</string>
 
 </resources>

@@ -800,4 +800,6 @@
     <string name="languagePolish">Polacco</string>
     <string name="languageChineseChina">Cinese (Cina)</string>
     <string name="wifiTriggerDisconnectionHint">Questo trigger sarà valido se ti sei appena disconnesso dal Wi-Fi specificato sopra OPPURE mentre il servizio è ancora in fase di avvio e se non sei connesso a nessuna rete Wi-Fi. Se vuoi che il trigger si attivi solo quando ti stai disconnettendo esplicitamente da una determinata rete Wi-Fi, aggiungi un altro trigger \"il servizio non si avvia\".</string>
+    <string name="className">Nome della classe</string>
+    <string name="startAppByStartForegroundService">di startForegroundService()</string>
 </resources>

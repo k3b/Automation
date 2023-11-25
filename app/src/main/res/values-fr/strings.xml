@@ -799,4 +799,6 @@
     <string name="languagePolish">Polonais</string>
     <string name="languageChineseChina">Chinois (Chine)</string>
     <string name="wifiTriggerDisconnectionHint">Ce déclencheur sera valide si vous venez de vous déconnecter du wifi spécifié ci-dessus OU alors que le service est encore en cours de démarrage et si vous n\'êtes connecté à aucun wifi. Si vous souhaitez que le déclencheur ne se déclenche que lorsque vous vous déconnectez explicitement d\'un certain wifi, ajoutez un autre déclencheur « le service ne démarre pas ».</string>
+    <string name="className">Nom de la classe</string>
+    <string name="startAppByStartForegroundService">par startForegroundService()</string>
 </resources>
